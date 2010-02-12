@@ -24,7 +24,7 @@ DATA                              ! Systematic uncertainties
 
 * uncorrelated with Belle, but could be updated from PDG in future
   PimPimPipNu%     -0.05778
-  KmPizKzs%        -0.02744         
+  KmPizKzsNu%      -0.02744         
   PimPipKmNu%      -0.02197  
   PimPimPipPizNu%  -0.01263
   PimKzsKzsNu%     -0.01029
