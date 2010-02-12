@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <stddef.h>
-int tau_K_1(){
+int pdg_average(){
   double x[99],ex1[99],ex2[99],ex[99],wt[99]; TString experiment[99];
   // tau- -> K- nu
   int n=0;
