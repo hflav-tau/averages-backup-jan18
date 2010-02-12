@@ -9,8 +9,8 @@ BEGIN    Belle norm_to_Be published PLB2007:08:045
 
 PARAMETERS !      value       +err         -err
   PimPizKzsNu     0.18e-2     +0.02e-2     -0.02e-2     ! 1/2* (0.36 +- 0.04)%
-  PimKzsKzlnu     0.078e-2    +0.006e-2    -0.006e-2    ! (0.078 +- 0.006)%
-  KmKzsnu         0.079e-2    +0.0085e-2   -0.0085e-2   ! 1/2*(0.158 +- 0.017)%
+  PimKzsKzlNu     0.078e-2    +0.006e-2    -0.006e-2    ! (0.078 +- 0.006)%
+  KmKzsNu         0.079e-2    +0.0085e-2   -0.0085e-2   ! 1/2*(0.158 +- 0.017)%
 
 MEASUREMENT m_PimKzsNu    statistical systematic
 DATA        m_PimKzsNu    statistical systematic
