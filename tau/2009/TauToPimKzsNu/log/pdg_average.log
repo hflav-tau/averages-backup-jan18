@@ -1,0 +1,20 @@
+
+Processing pdg_average.cc...
+0 0.84 +- 0.004(stat) +- 0.023(syst) +- 0.0233452 (tot) from BaBar '08
+1 0.808 +- 0.004(stat) +- 0.026(syst) +- 0.0263059 (tot) from Belle '07
+2 0.933 +- 0.068(stat) +- 0.049(syst) +- 0.0838153 (tot) from OPAL  '00
+3 0.928 +- 0.045(stat) +- 0.034(syst) +- 0.0564004 (tot) from ALEPH '99
+4 0.855 +- 0.117(stat) +- 0.066(syst) +- 0.134332 (tot) from ALEPH '98
+5 0.704 +- 0.041(stat) +- 0.072(syst) +- 0.0828553 (tot) from CLEO  '96
+6 0.95 +- 0.15(stat) +- 0.06(syst) +- 0.161555 (tot) from L3    '95
+Weighted average of n = 7 measurements = 0.834944 +- 0.0158589 delta (=3sqrt(n)err) = 0.125876
+0 0.84 +- 0.004(stat) +- 0.023(syst) +- 0.0233452 (tot) from BaBar '08 chi2tmp = 0.0469139 chi2 = 0.0469139 nchi2 = 1
+1 0.808 +- 0.004(stat) +- 0.026(syst) +- 0.0263059 (tot) from Belle '07 chi2tmp = 1.04906 chi2 = 1.09598 nchi2 = 2
+2 0.933 +- 0.068(stat) +- 0.049(syst) +- 0.0838153 (tot) from OPAL  '00 chi2tmp = 1.36869 chi2 = 2.46467 nchi2 = 3
+3 0.928 +- 0.045(stat) +- 0.034(syst) +- 0.0564004 (tot) from ALEPH '99 chi2tmp = 2.72226 chi2 = 5.18693 nchi2 = 4
+4 0.855 +- 0.117(stat) +- 0.066(syst) +- 0.134332 (tot) from ALEPH '98 chi2tmp = 0 chi2 = 5.18693 nchi2 = 4
+5 0.704 +- 0.041(stat) +- 0.072(syst) +- 0.0828553 (tot) from CLEO  '96 chi2tmp = 2.49763 chi2 = 7.68456 nchi2 = 5
+6 0.95 +- 0.15(stat) +- 0.06(syst) +- 0.161555 (tot) from L3    '95 chi2tmp = 0 chi2 = 7.68456 nchi2 = 5
+Total Chi2 for 5 measurements (out of 7) = 7.68456 Scale factor = 1.38605
+Weighted average (with scale factor) = 0.834944 +- 0.0219813
+(int)0
