@@ -1,0 +1,5 @@
+PARAMETERS !    assumed_value  pos_excurs  neg_excurs
+  PimPizKzsNu     0.18e-2     +0.02e-2     -0.02e-2     ! 1/2*(0.36 +- 0.04)%
+  PimKzsKzlNu     0.093e-2    +0.011e-2    -0.011e-2    ! upd. by Swagato
+  KmKzsNu         0.079e-2    +0.0085e-2    -0.0085e-2  ! 1/2*(0.158 +- 0.017)%
+  PimKmKpNu       0.137e-2    +0.006e-2    -0.006e-2    ! upd. from PDG08

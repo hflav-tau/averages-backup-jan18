@@ -1,0 +1,40 @@
+*
+*  B(tau -> K0 pi nu)
+*
+* all PDG08 results but the Belle one
+*
+
+BEGIN    OPAL count pub ABBIENDI 00C
+MEASUREMENT m_PimKzsNu statistical systematic
+DATA        m_PimKzsNu statistical systematic
+            0.933e-2      0.068e-2    0.049e-2
+DATA OpalOther 0.049e-2
+END
+
+BEGIN    ALEPH count_KL pub BARATE 99K 
+MEASUREMENT m_PimKzsNu statistical systematic
+DATA        m_PimKzsNu statistical systematic
+            0.928e-2   0.045e-2    0.034e-2 
+DATA AlephKLOther 0.034e-2
+END
+
+BEGIN    ALEPH count pub BARATE 98E
+MEASUREMENT m_PimKzsNu statistical systematic
+DATA        m_PimKzsNu statistical systematic
+            0.855e-2   0.117e-2    0.066e-2
+DATA AlephOther 0.066e-2
+END
+
+BEGIN    CLEO count pub COAN 96
+MEASUREMENT m_PimKzsNu statistical systematic
+DATA        m_PimKzsNu statistical systematic
+            0.704e-2   0.041e-2    0.072e-2
+DATA CleoOther 0.072e-2 
+END
+
+BEGIN    L3 count pub ACCIARRI 95F
+MEASUREMENT m_PimKzsNu statistical systematic
+DATA        m_PimKzsNu statistical systematic
+            0.95e-2    0.15e-2     0.06e-2
+DATA L3Other 0.06e-2
+END
