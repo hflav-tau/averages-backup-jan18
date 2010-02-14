@@ -1,0 +1,14 @@
+bbrroot -l -b -q ../../../Common/pdg_average.cc
+
+Processing ../../../Common/pdg_average.cc...
+Read 3 lines from file pdg_average.input
+0 0.0842 +- 0.0001(stat) +- 0.00255(syst) +- 0.00255196 (tot) from Belle 2010
+1 0.0883 +- 0.0001(stat) +- 0.0013(syst) +- 0.00130384 (tot) from BaBar 2008
+2 0.0913 +- 0.0005(stat) +- 0.0046(syst) +- 0.00462709 (tot) from CLEO3 2003
+Weighted average of n = 3 measurements = 0.0876793 +- 0.00112616 delta (=3sqrt(n)err) = 0.00585171
+0 0.0842 +- 0.0001(stat) +- 0.00255(syst) +- 0.00255196 (tot) from Belle 2010 chi2tmp = 1.85879 chi2 = 1.85879 nchi2 = 1
+1 0.0883 +- 0.0001(stat) +- 0.0013(syst) +- 0.00130384 (tot) from BaBar 2008 chi2tmp = 0.226646 chi2 = 2.08543 nchi2 = 2
+2 0.0913 +- 0.0005(stat) +- 0.0046(syst) +- 0.00462709 (tot) from CLEO3 2003 chi2tmp = 0.612314 chi2 = 2.69775 nchi2 = 3
+Total Chi2 for 3 measurements (out of 3) = 2.69775 Scale factor = 1.16141
+Weighted average (with scale factor) = 0.0876793 +- 0.00130794
+(int)0

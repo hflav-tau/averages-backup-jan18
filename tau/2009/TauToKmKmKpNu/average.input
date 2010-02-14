@@ -1,0 +1,15 @@
+INCLUDE babar.input
+INCLUDE belle.input
+
+BEGIN   BaBar+Belle all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_KmKmKpNu
+
+CALL DUMP_MASTER_INC
+CALL CHI2_SYM
+
+END

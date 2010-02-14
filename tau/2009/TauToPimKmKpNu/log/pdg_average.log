@@ -1,0 +1,20 @@
+bbrroot -l -b -q ../../../pdg_average.cc
+
+Processing ../../../pdg_average.cc...
+Read 6 lines from file pdg_average.input
+0 1.55 +- 0.01(stat) +- 0.055(syst) +- 0.0559017 (tot) from Belle 2010
+1 1.346 +- 0.01(stat) +- 0.036(syst) +- 0.0373631 (tot) from BaBar 2008
+2 1.55 +- 0.06(stat) +- 0.09(syst) +- 0.108167 (tot) from CLEO3 2003
+3 0.87 +- 0.56(stat) +- 0.4(syst) +- 0.688186 (tot) from OPAL 2000
+4 1.45 +- 0.13(stat) +- 0.28(syst) +- 0.308707 (tot) from CLEO 1999
+5 1.63 +- 0.21(stat) +- 0.17(syst) +- 0.270185 (tot) from ALEPH 1998
+Weighted average of n = 6 measurements = 1.42151 +- 0.0295127 delta (=3sqrt(n)err) = 0.216873
+0 1.55 +- 0.01(stat) +- 0.055(syst) +- 0.0559017 (tot) from Belle 2010 chi2tmp = 5.28316 chi2 = 5.28316 nchi2 = 1
+1 1.346 +- 0.01(stat) +- 0.036(syst) +- 0.0373631 (tot) from BaBar 2008 chi2tmp = 4.08427 chi2 = 9.36743 nchi2 = 2
+2 1.55 +- 0.06(stat) +- 0.09(syst) +- 0.108167 (tot) from CLEO3 2003 chi2tmp = 1.4111 chi2 = 10.7785 nchi2 = 3
+3 0.87 +- 0.56(stat) +- 0.4(syst) +- 0.688186 (tot) from OPAL 2000 chi2tmp = 0 chi2 = 10.7785 nchi2 = 3
+4 1.45 +- 0.13(stat) +- 0.28(syst) +- 0.308707 (tot) from CLEO 1999 chi2tmp = 0 chi2 = 10.7785 nchi2 = 3
+5 1.63 +- 0.21(stat) +- 0.17(syst) +- 0.270185 (tot) from ALEPH 1998 chi2tmp = 0 chi2 = 10.7785 nchi2 = 3
+Total Chi2 for 3 measurements (out of 6) = 10.7785 Scale factor = 2.32148
+Weighted average (with scale factor) = 1.42151 +- 0.0685131
+(int)0

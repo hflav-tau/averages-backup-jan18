@@ -1,0 +1,18 @@
+bbrroot -l -b -q ../../../pdg_average.cc
+
+Processing ../../../pdg_average.cc...
+Read 5 lines from file pdg_average.input
+0 0.00342 +- 6e-05(stat) +- 0.00015(syst) +- 0.000161555 (tot) from BABAR 2009
+1 0.00347 +- 0.00053(stat) +- 0.00037(syst) +- 0.000646375 (tot) from ALEPHKL 1999
+2 0.00294 +- 0.00073(stat) +- 0.00037(syst) +- 0.000818413 (tot) from ALEPHKS 1998
+3 0.00417 +- 0.00058(stat) +- 0.00044(syst) +- 0.000728011 (tot) from CLEO 1996
+4 0.0041 +- 0.0012(stat) +- 0.0003(syst) +- 0.00123693 (tot) from L3 1991
+Weighted average of n = 5 measurements = 0.00344822 +- 0.000149502 delta (=3sqrt(n)err) = 0.00100289
+0 0.00342 +- 6e-05(stat) +- 0.00015(syst) +- 0.000161555 (tot) from BABAR 2009 chi2tmp = 0.0305117 chi2 = 0.0305117 nchi2 = 1
+1 0.00347 +- 0.00053(stat) +- 0.00037(syst) +- 0.000646375 (tot) from ALEPHKL 1999 chi2tmp = 0.00113542 chi2 = 0.0316471 nchi2 = 2
+2 0.00294 +- 0.00073(stat) +- 0.00037(syst) +- 0.000818413 (tot) from ALEPHKS 1998 chi2tmp = 0.385619 chi2 = 0.417266 nchi2 = 3
+3 0.00417 +- 0.00058(stat) +- 0.00044(syst) +- 0.000728011 (tot) from CLEO 1996 chi2tmp = 0.982956 chi2 = 1.40022 nchi2 = 4
+4 0.0041 +- 0.0012(stat) +- 0.0003(syst) +- 0.00123693 (tot) from L3 1991 chi2tmp = 0 chi2 = 1.40022 nchi2 = 4
+Total Chi2 for 4 measurements (out of 5) = 1.40022 Scale factor = 0.683184
+Weighted average (with scale set to 1) = 0.00344822 +- 0.000149502
+(int)0

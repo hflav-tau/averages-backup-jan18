@@ -1,0 +1,111 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 13/02/10 at 18.47.50
+
+
+ ==============================================================================
+
+ M_KMKSTARZNU combination: combined analysis BELLE+PDG ALL_METHODS
+ -------------------------
+
+ List of  3 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  BELLE           COUNT           PRELIMINARY     M_KMKSTARZNU           1
+       2>  ALEPH           COUNT           PUB             M_KMKSTARZNU           1
+       3>  ARGUS           COUNT           PUB             M_KMKSTARZNU           1
+ Combined  BELLE+PDG       ALL_METHODS                     M_KMKSTARZNU           1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2   3
+ BELLEOTHER          UNC
+ ALEPHOTHER              UNC
+ ARGUSOTHER                  UNC
+
+ "Extra" parameters:
+ PIMPIZKZSNU         0.0018   +0.0002   -0.0002    0.0002
+ PIMKZSKZLNU         0.0009   +0.0001   -0.0001    0.0001
+ KMKZSNU             0.0008   +0.0001   -0.0001    0.0001
+ PIMKMKPNU           0.0014   +0.0001   -0.0001    0.0001
+
+ Results of combination:
+
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   2.17740944 3  1.08870472
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = BELLE+PDG ALL_METHODS
+ CHMEAS = M_KMKSTARZNU    
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP =     0.0000
+  LUNIT =        6
+  NMEAS =        3
+  NQUAN =        1
+  NMEFF =        3
+  NCSYS =        0
+  NPARA =        4
+ CHANAL = BELLE COUNT PRELIMINARY
+          ALEPH COUNT PUB
+          ARGUS COUNT PUB
+
+   MEAS =     0.0015600     0.0021300     0.0020000
+
+   QUAN =       1       1       1
+
+  STATP =     0.0000200     0.0004800     0.0005000
+
+  STATN =     0.0000200     0.0004800     0.0005000
+
+  STAT  =     0.0000200     0.0004800     0.0005000
+
+  USYSP =     0.0000900     0.0000000     0.0004000
+
+  USYSN =     0.0000900     0.0000000     0.0004000
+
+  USYS  =     0.0000900     0.0000000     0.0004000
+
+STACOR
+      1 |     1.0000000     0.0000000     0.0000000
+      2 |     0.0000000     1.0000000     0.0000000
+      3 |     0.0000000     0.0000000     1.0000000
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ PIMPIZKZSNU           0.0018    0.0002    0.0002    0.0002
+ PIMKZSKZLNU           0.0009    0.0001    0.0001    0.0001
+ KMKZSNU               0.0008    0.0001    0.0001    0.0001
+ PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
+  
+ Corrected measurements:
+ BELLE COUNT PRELIM     0.0015600+/-     0.0000200+/-     0.0000900 Tot Err:     0.0000922
+ ALEPH COUNT PUB        0.0021300+/-     0.0004800+/-     0.0000000 Tot Err:     0.0004800
+ ARGUS COUNT PUB        0.0020000+/-     0.0005000+/-     0.0004000 Tot Err:     0.0006403
+  
+
+SYSCOR
+      1 |     0.0000000     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000     0.0000000
+      3 |     0.0000000     0.0000000     0.0000000
+
+TOTCOR
+      1 |     0.0000000     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000     0.0000000
+      3 |     0.0000000     0.0000000     0.0000000
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   1.78123015 3  0.890615077
+ CHI2_SYM        :    M_KMKSTARZNU=    0.00159  +-     0.00009         CL =  0.4104
+                   stat. only -->      0.00156  +-     0.00002         CL =  0.3367
+                   syst. only -->               +-     0.00009                     
+
+

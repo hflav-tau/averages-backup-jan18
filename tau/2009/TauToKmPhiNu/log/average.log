@@ -1,0 +1,121 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 13/02/10 at 21.04.16
+
+
+ ==============================================================================
+
+ M_KMPHINU combination: combined analysis BABAR+BELLE ALL_METHODS
+ ----------------------
+
+ List of  2 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  BABAR           COUNT           PUBLISHED       M_KMPHINU              1
+       2>  BELLE           COUNT           PUBLISHED       M_KMPHINU              1
+ Combined  BABAR+BELLE     ALL_METHODS                     M_KMPHINU              1
+
+ Adjustments performed to express the individual measurements
+ at the desired values of the parameters:
+
+ Analysis  Parameter           Value used   Desired value      Adjustment
+       2>  SIGMATAUPMY4S           0.8900          0.9190         +0.1450
+               neg. excurs.       +0.2000         +0.0030          0.0150
+               pos. excurs.       -0.2000         -0.0030          0.0150
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2
+ SIGMATAUPMY4S       COR COR
+ BABAROTHER          UNC
+ BELLEOTHER              UNC
+
+ "Correlated" parameters:
+ SIGMATAUPMY4S       0.9190   +0.0030   -0.0030    0.0030
+
+ "Extra" parameters:
+ PIMPIZKZSNU         0.0018   +0.0002   -0.0002    0.0002
+ PIMKZSKZLNU         0.0009   +0.0001   -0.0001    0.0001
+ KMKZSNU             0.0008   +0.0001   -0.0001    0.0001
+ PIMKMKPNU           0.0014   +0.0001   -0.0001    0.0001
+
+ Results of combination:
+
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   4.15201135 2  4.15201135
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = BABAR+BELLE ALL_METHODS
+ CHMEAS = M_KMPHINU       
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP =     0.0000
+  LUNIT =        6
+  NMEAS =        2
+  NQUAN =        1
+  NMEFF =        2
+  NCSYS =        1
+  NPARA =        5
+ CHANAL = BABAR COUNT PUBLISHED
+          BELLE COUNT PUBLISHED
+
+   MEAS =     3.3900001     4.0423659
+
+   QUAN =       1       1
+
+  STATP =     0.2000000     0.2500000
+
+  STATN =     0.2000000     0.2500000
+
+  STAT  =     0.2000000     0.2500000
+
+  USYSP =     0.2798150     0.2546130
+
+  USYSN =     0.2798150     0.2546130
+
+  USYS  =     0.2798150     0.2546130
+
+STACOR
+      1 |     1.0000000     0.0000000
+      2 |     0.0000000     1.0000000
+
+CSYSP
+ SIGMAT |    -0.0101700    -0.0007898
+
+CSYSN
+ SIGMAT |     0.0101700     0.0007898
+
+CSYS
+ SIGMAT |    -0.0101700    -0.0007898
+
+CSYS percentage error
+ SIGMAT |    -0.3000000    -0.0195368
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ SIGMATAUPMY4S         0.9190    0.0030    0.0030    0.0030
+ PIMPIZKZSNU           0.0018    0.0002    0.0002    0.0002
+ PIMKZSKZLNU           0.0009    0.0001    0.0001    0.0001
+ KMKZSNU               0.0008    0.0001    0.0001    0.0001
+ PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
+  
+ Corrected measurements:
+ BABAR COUNT PUBLIS     3.3900001+/-     0.2000000+/-     0.2799997 Tot Err:     0.3440928
+ BELLE COUNT PUBLIS     4.0423659+/-     0.2500000+/-     0.2546142 Tot Err:     0.3568311
+  
+
+SYSCOR
+      1 |     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000
+
+TOTCOR
+      1 |     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   1.73203106 2  1.73203106
+ CHI2_SYM        :       M_KMPHINU=    3.70433  +-     0.24770         CL =  0.1882
+                   stat. only -->      3.64458  +-     0.15617         CL =  0.0416
+                   syst. only -->               +-     0.19226                     
+
+

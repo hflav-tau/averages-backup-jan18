@@ -1,0 +1,125 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 13/02/10 at 14.56.57
+
+
+ ==============================================================================
+
+ M_KMNU combination: combined analysis BABAR+PDG ALL_METHODS
+ -------------------
+
+ List of  5 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  BABAR           COUNT           SUBMITTED       M_KMNU                 1
+       2>  OPAL            COUNT           PUB             M_KMNU                 1
+       3>  ALEPH           COUNT           PUB             M_KMNU                 1
+       4>  DELPHI          COUNT           PUB             M_KMNU                 1
+       5>  CLEO            COUNT           PUB             M_KMNU                 1
+ Combined  BABAR+PDG       ALL_METHODS                     M_KMNU                 1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2   3   4   5
+ BABAROTHER          UNC
+ OPALOTHER               UNC
+ ALEPHOTHER                  UNC
+ DELPHIOTHER                     UNC
+ CLEOOTHER                           UNC
+
+ "Extra" parameters:
+ PIMPIZKZSNU         0.0018   +0.0002   -0.0002    0.0002
+ PIMKZSKZLNU         0.0009   +0.0001   -0.0001    0.0001
+ KMKZSNU             0.0008   +0.0001   -0.0001    0.0001
+ PIMKMKPNU           0.0014   +0.0001   -0.0001    0.0001
+
+ Results of combination:
+
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   2.53416717 5  0.633541793
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = BABAR+PDG ALL_METHODS
+ CHMEAS = M_KMNU          
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP =     0.0000
+  LUNIT =        6
+  NMEAS =        5
+  NQUAN =        1
+  NMEFF =        5
+  NCSYS =        0
+  NPARA =        4
+ CHANAL = BABAR COUNT SUBMITTED
+          OPAL COUNT PUB
+          ALEPH COUNT PUB
+          DELPHI COUNT PUB
+          CLEO COUNT PUB
+
+   MEAS =     0.0069200     0.0065800     0.0069600     0.0085000     0.0066000
+
+   QUAN =       1       1       1       1       1
+
+  STATP =     0.0000600     0.0002700     0.0002500     0.0018000     0.0007000
+
+  STATN =     0.0000600     0.0002700     0.0002500     0.0018000     0.0007000
+
+  STAT  =     0.0000600     0.0002700     0.0002500     0.0018000     0.0007000
+
+  USYSP =     0.0001000     0.0002900     0.0001400     0.0000000     0.0009000
+
+  USYSN =     0.0001000     0.0002900     0.0001400     0.0000000     0.0009000
+
+  USYS  =     0.0001000     0.0002900     0.0001400     0.0000000     0.0009000
+
+STACOR
+      1 |     1.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      2 |     0.0000000     1.0000000     0.0000000     0.0000000     0.0000000
+      3 |     0.0000000     0.0000000     1.0000000     0.0000000     0.0000000
+      4 |     0.0000000     0.0000000     0.0000000     1.0000000     0.0000000
+      5 |     0.0000000     0.0000000     0.0000000     0.0000000     1.0000000
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ PIMPIZKZSNU           0.0018    0.0002    0.0002    0.0002
+ PIMKZSKZLNU           0.0009    0.0001    0.0001    0.0001
+ KMKZSNU               0.0008    0.0001    0.0001    0.0001
+ PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
+  
+ Corrected measurements:
+ BABAR COUNT SUBMIT     0.0069200+/-     0.0000600+/-     0.0001000 Tot Err:     0.0001166
+ OPAL COUNT PUB         0.0065800+/-     0.0002700+/-     0.0002900 Tot Err:     0.0003962
+ ALEPH COUNT PUB        0.0069600+/-     0.0002500+/-     0.0001400 Tot Err:     0.0002865
+ DELPHI COUNT PUB       0.0085000+/-     0.0018000+/-     0.0000000 Tot Err:     0.0018000
+ CLEO COUNT PUB         0.0066000+/-     0.0007000+/-     0.0009000 Tot Err:     0.0011402
+  
+
+SYSCOR
+      1 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      3 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      4 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      5 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+
+TOTCOR
+      1 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      3 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      4 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+      5 |     0.0000000     0.0000000     0.0000000     0.0000000     0.0000000
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   1.5828953 5  0.395723824
+ CHI2_SYM        :          M_KMNU=    0.00690  +-     0.00010         CL =  0.8119
+                   stat. only -->      0.00691  +-     0.00006         CL =  0.6385
+                   syst. only -->               +-     0.00009                     
+
+

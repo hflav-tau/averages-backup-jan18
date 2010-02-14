@@ -1,0 +1,7 @@
+BEGIN    BaBar count submitted ICHEP08
+MEASUREMENT m_KmNu    statistical systematic
+DATA        m_KmNu    statistical systematic
+            0.692e-2  0.006e-2    0.010e-2 
+DATA BaBarOther 0.010e-2
+END
+

@@ -1,0 +1,106 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 14/02/10 at 11.53.12
+
+
+ ==============================================================================
+
+ M_KMKMKPNU combination: combined analysis BABAR+BELLE ALL_METHODS
+ -----------------------
+
+ List of  2 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  BABAR           COUNT           PUBLISHED       M_KMKMKPNU             1
+       2>  BELLE           COUNT           PUBLISHED       M_KMKMKPNU             1
+ Combined  BABAR+BELLE     ALL_METHODS                     M_KMKMKPNU             1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2
+ BABAROTHER          UNC
+ BELLEOTHER              UNC
+
+ "Extra" parameters:
+ SIGMATAUPMY4S       0.9190   +0.0030   -0.0030    0.0030
+ PIMPIZKZSNU         0.0018   +0.0002   -0.0002    0.0002
+ PIMKZSKZLNU         0.0009   +0.0001   -0.0001    0.0001
+ KMKZSNU             0.0008   +0.0001   -0.0001    0.0001
+ PIMKMKPNU           0.0014   +0.0001   -0.0001    0.0001
+
+ Results of combination:
+
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   63.844973 2  63.844973
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = BABAR+BELLE ALL_METHODS
+ CHMEAS = M_KMKMKPNU      
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP =     0.0000
+  LUNIT =        6
+  NMEAS =        2
+  NQUAN =        1
+  NMEFF =        2
+  NCSYS =        0
+  NPARA =        5
+ CHANAL = BABAR COUNT PUBLISHED
+          BELLE COUNT PUBLISHED
+
+   MEAS =     1.5800000     3.2900000
+
+   QUAN =       1       1
+
+  STATP =     0.1300000     0.1700000
+
+  STATN =     0.1300000     0.1700000
+
+  STAT  =     0.1300000     0.1700000
+
+  USYSP =     0.1200000     0.1950000
+
+  USYSN =     0.1200000     0.1950000
+
+  USYS  =     0.1200000     0.1950000
+
+STACOR
+      1 |     1.0000000     0.0000000
+      2 |     0.0000000     1.0000000
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ SIGMATAUPMY4S         0.9190    0.0030    0.0030    0.0030
+ PIMPIZKZSNU           0.0018    0.0002    0.0002    0.0002
+ PIMKZSKZLNU           0.0009    0.0001    0.0001    0.0001
+ KMKZSNU               0.0008    0.0001    0.0001    0.0001
+ PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
+  
+ Corrected measurements:
+ BABAR COUNT PUBLIS     1.5800000+/-     0.1300000+/-     0.1200000 Tot Err:     0.1769181
+ BELLE COUNT PUBLIS     3.2900000+/-     0.1700000+/-     0.1950000 Tot Err:     0.2586987
+  
+
+SYSCOR
+      1 |     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000
+
+TOTCOR
+      1 |     0.0000000     0.0000000
+      2 |     0.0000000     0.0000000
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   29.7694054 2  29.7694054
+ CHI2_SYM        :      M_KMKMKPNU=    2.12490  +-     0.14603         CL =  0.0000
+                   stat. only -->      2.21098  +-     0.10327         CL =  0.0000
+                   syst. only -->               +-     0.10326                     
+
+

@@ -1,0 +1,21 @@
+BEGIN    OPAL count published  	ABBIENDI   04J
+MEASUREMENT m_KmPizNu    statistical systematic
+DATA        m_KmPizNu    statistical systematic
+            0.471e-2     0.059e-2    0.023e-2
+DATA OpalOther 0.023e-2
+END
+
+BEGIN    ALEPH count published  BARATE	   99K
+MEASUREMENT m_KmPizNu    statistical systematic
+DATA        m_KmPizNu    statistical systematic
+            0.444e-2     0.026e-2    0.024e-2
+DATA AlephOther 0.024e-2
+END
+
+BEGIN    CLEO count published 	BATTLE	 94
+MEASUREMENT m_KmPizNu    statistical systematic
+DATA        m_KmPizNu    statistical systematic
+            0.51e-2      0.10e-2     0.07e-2
+DATA CleoOther 0.07e-2
+END
+
