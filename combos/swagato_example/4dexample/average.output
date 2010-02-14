@@ -1,0 +1,122 @@
+* File written by COMBOS version  3.33 () on 14/02/10 at 14.51.03
+**********************************************************************
+
+BEGIN            A1               W                PUBLISHED         
+STAT_CORR_WITH   A1               X                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               Y                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               Z                PUBLISHED                0.500000
+
+MEASUREMENT      W                STAT             SYST            
+
+
+DATA
+                 W             STAT             SYST         A1_SYST0         A1_SYST1
+          0.800000         0.200000         0.200000        +0.141421        +0.141422
+END
+
+************************************************************************************************************************
+
+BEGIN            A1               X                PUBLISHED         
+STAT_CORR_WITH   A1               Y                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               Z                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               W                PUBLISHED                0.500000
+
+MEASUREMENT      X                STAT             SYST            
+
+
+DATA
+                 X             STAT             SYST         A1_SYST0         A1_SYST2
+          1.200000         0.100000         0.200000        +0.111803        +0.165832
+END
+
+************************************************************************************************************************
+
+BEGIN            A1               Y                PUBLISHED         
+STAT_CORR_WITH   A1               Z                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               W                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               X                PUBLISHED                0.500000
+
+MEASUREMENT      Y                STAT             SYST            
+
+
+DATA
+                 Y             STAT             SYST         A1_SYST0         A1_SYST3
+          0.800000         0.100000         0.500000        +0.254951        +0.430116
+END
+
+************************************************************************************************************************
+
+BEGIN            A1               Z                PUBLISHED         
+STAT_CORR_WITH   A1               W                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               X                PUBLISHED                0.500000
+STAT_CORR_WITH   A1               Y                PUBLISHED                0.500000
+
+MEASUREMENT      Z                STAT             SYST            
+
+
+DATA
+                 Z             STAT             SYST         A1_SYST0         A1_SYST4
+          1.200000         0.200000         0.500000        +0.269258        +0.421308
+END
+
+************************************************************************************************************************
+
+BEGIN            A2               W                PUBLISHED         
+STAT_CORR_WITH   A2               X                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               Y                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               Z                PUBLISHED                0.500000
+
+MEASUREMENT      W                STAT             SYST            
+
+
+DATA
+                 W             STAT             SYST         A2_SYST0         A2_SYST1
+          1.200000         0.200000         0.500000        +0.269258        +0.421308
+END
+
+************************************************************************************************************************
+
+BEGIN            A2               X                PUBLISHED         
+STAT_CORR_WITH   A2               Y                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               Z                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               W                PUBLISHED                0.500000
+
+MEASUREMENT      X                STAT             SYST            
+
+
+DATA
+                 X             STAT             SYST         A2_SYST0         A2_SYST2
+          0.800000         0.100000         0.500000        +0.254951        +0.430116
+END
+
+************************************************************************************************************************
+
+BEGIN            A2               Y                PUBLISHED         
+STAT_CORR_WITH   A2               Z                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               W                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               X                PUBLISHED                0.500000
+
+MEASUREMENT      Y                STAT             SYST            
+
+
+DATA
+                 Y             STAT             SYST         A2_SYST0         A2_SYST3
+          1.200000         0.100000         0.200000        +0.111803        +0.165832
+END
+
+************************************************************************************************************************
+
+BEGIN            A2               Z                PUBLISHED         
+STAT_CORR_WITH   A2               W                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               X                PUBLISHED                0.500000
+STAT_CORR_WITH   A2               Y                PUBLISHED                0.500000
+
+MEASUREMENT      Z                STAT             SYST            
+
+
+DATA
+                 Z             STAT             SYST         A2_SYST0         A2_SYST4
+          0.800000         0.200000         0.200000        +0.141421        +0.141422
+END
+
+************************************************************************************************************************

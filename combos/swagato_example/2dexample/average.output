@@ -1,0 +1,58 @@
+* File written by COMBOS version  3.33 () on 14/02/10 at 14.50.42
+**********************************************************************
+
+BEGIN            A1               X                PUBLISHED         
+STAT_CORR_WITH   A1               Y                PUBLISHED                0.500000
+
+MEASUREMENT      X                STAT             SYST            
+
+PARAMETERS       A1_SYST1                 1.000000        +1.000000        -1.000000
+
+DATA
+                 X             STAT             SYST         A1_SYST1         A1_SYST2
+          1.200000         0.100000         0.200000        +0.111803        +0.165832
+END
+
+************************************************************************************************************************
+
+BEGIN            A1               Y                PUBLISHED         
+STAT_CORR_WITH   A1               X                PUBLISHED                0.500000
+
+MEASUREMENT      Y                STAT             SYST            
+
+PARAMETERS       A1_SYST1                 1.000000        +1.000000        -1.000000
+
+DATA
+                 Y             STAT             SYST         A1_SYST1         A1_SYST3
+          0.800000         0.100000         0.500000        +0.254951        +0.430116
+END
+
+************************************************************************************************************************
+
+BEGIN            A2               X                PUBLISHED         
+STAT_CORR_WITH   A2               Y                PUBLISHED                0.500000
+
+MEASUREMENT      X                STAT             SYST            
+
+PARAMETERS       A2_SYST1                 1.000000        +1.000000        -1.000000
+
+DATA
+                 X             STAT             SYST         A2_SYST1         A2_SYST2
+          0.800000         0.100000         0.500000        +0.254951        +0.430116
+END
+
+************************************************************************************************************************
+
+BEGIN            A2               Y                PUBLISHED         
+STAT_CORR_WITH   A2               X                PUBLISHED                0.500000
+
+MEASUREMENT      Y                STAT             SYST            
+
+PARAMETERS       A2_SYST1                 1.000000        +1.000000        -1.000000
+
+DATA
+                 Y             STAT             SYST         A2_SYST1         A2_SYST3
+          1.200000         0.100000         0.200000        +0.111803        +0.165832
+END
+
+************************************************************************************************************************
