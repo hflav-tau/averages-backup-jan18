@@ -1,0 +1,36 @@
+OUTPUT 6 ! logical unit for log file
+       6 ! logical unit for warning and error messages 
+      10 ! logical unit for output cards file
+
+INCLUDE analysis1.input
+INCLUDE analysis2.input
+
+BEGIN   A2 4D_WXYZ PUBLISHED
+COMBINE A2 *     PUBLISHED
+MEASUREMENT W stat syst
+MEASUREMENT X stat syst
+MEASUREMENT Y stat syst
+MEASUREMENT Z stat syst
+CALL DUMP_MASTER_INC
+CALL CHI2_N_SYM
+END
+
+BEGIN   A1 4D_WXYZ PUBLISHED
+COMBINE A1 *     PUBLISHED
+MEASUREMENT W stat syst
+MEASUREMENT X stat syst
+MEASUREMENT Y stat syst
+MEASUREMENT Z stat syst
+CALL DUMP_MASTER_INC
+CALL CHI2_N_SYM
+END
+
+BEGIN   ALL 4D_WXYZ PUBLISHED
+COMBINE *   *     *
+MEASUREMENT W stat syst
+MEASUREMENT X stat syst
+MEASUREMENT Y stat syst
+MEASUREMENT Z stat syst
+CALL DUMP_MASTER_INC
+CALL CHI2_N_SYM
+END

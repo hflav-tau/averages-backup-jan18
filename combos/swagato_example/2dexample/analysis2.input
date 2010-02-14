@@ -1,0 +1,29 @@
+BEGIN A2 X PUBLISHED
+PARAMETER A2_SYST1 1. 1. -1.
+MEASUREMENT X      STAT   SYST
+DATA        X      STAT   SYST
+            0.8    0.1    0.5
+*
+STAT_CORR_WITH A2 Y PUBLISHED +0.5
+
+DATA                
+* Systematic uncertainties: quadratic sum of these errors should give the total systematic error quoted above. 
+  A2_SYST1 0.254951 ! syst. uncertainty specific to analysis A2, producing a positive correlation between X and Y = sqrt(.1**2 + .5**2) *.5
+  A2_SYST2 0.430116 ! syst. uncertainty specific to analysis A2, producing no correlation between X and Y = sqrt( .5**2 - 0.254951**2)
+END
+
+*===================
+BEGIN A2 Y PUBLISHED
+PARAMETER A2_SYST1 1. 1. -1.
+MEASUREMENT Y      STAT   SYST
+DATA        Y      STAT   SYST
+            1.2    0.1    0.2
+
+STAT_CORR_WITH A2 X PUBLISHED +0.5
+
+DATA
+* Systematic uncertainties: quadratic sum of these errors should give the total systematic error quoted above. 
+  A2_SYST1 0.111803 ! syst. uncertainty specific to analysis A2, producing a positive correlation between X and Y = sqrt ( .1**2 + .2**2 ) *.5
+  A2_SYST3 0.165832 ! syst. uncertainty specific to analysis A2, producing no correlation between X and Y = sqrt(.2**2 -  0.111803**2 )
+END
+

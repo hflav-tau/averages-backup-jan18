@@ -1,0 +1,67 @@
+BEGIN A1 W PUBLISHED 
+
+MEASUREMENT W       STAT      SYST
+DATA        W       STAT      SYST
+            0.8     0.2       0.2
+
+STAT_CORR_WITH A1 X PUBLISHED +0.5
+STAT_CORR_WITH A1 Y PUBLISHED +0.5
+STAT_CORR_WITH A1 Z PUBLISHED +0.5
+
+DATA 
+* Systematic uncertainties: quadratic sum of these errors should give the total systematic error quoted above. 
+  A1_SYST0 0.141421 ! syst. uncertainty specific to analysis A1, producing a positive correlation between {W, X, Y, Z} = sqrt ( .2**2 + .2**2 ) *.5
+  A1_SYST1 0.141422 ! syst. uncertainty specific to analysis A1, producing no correlation between W and {X, Y, Z} = sqrt(.2**2 - 0.141421**2 )
+END
+
+*===================
+BEGIN A1 X PUBLISHED 
+
+MEASUREMENT X         STAT      SYST
+DATA        X         STAT      SYST
+            1.2       0.1       0.2
+
+STAT_CORR_WITH A1 Y PUBLISHED +0.5
+STAT_CORR_WITH A1 Z PUBLISHED +0.5
+STAT_CORR_WITH A1 W PUBLISHED +0.5
+
+DATA 
+* Systematic uncertainties: quadratic sum of these errors should give the total systematic error quoted above. 
+  A1_SYST0 0.111803 ! syst. uncertainty specific to analysis A1, producing a positive correlation between {W, X, Y, Z} = sqrt ( .1**2 + .2**2 ) *.5
+  A1_SYST2 0.165832 ! syst. uncertainty specific to analysis A1, producing no correlation between X and {Y, Z, W} = sqrt(.2**2 -  0.111803**2 )
+END
+
+*===================
+BEGIN A1 Y PUBLISHED
+
+MEASUREMENT Y         STAT      SYST
+DATA        Y         STAT      SYST
+            0.8       0.1       0.5
+
+STAT_CORR_WITH A1 Z PUBLISHED +0.5
+STAT_CORR_WITH A1 W PUBLISHED +0.5
+STAT_CORR_WITH A1 X PUBLISHED +0.5
+
+
+DATA
+* Systematic uncertainties: quadratic sum of these errors should give the total systematic error quoted above. 
+  A1_SYST0 0.254951 ! syst. uncertainty specific to analysis A1, producing a positive correlation between {W, X, Y, Z} = sqrt(.1**2 + .5**2) *.5
+  A1_SYST3 0.430116 ! syst. uncertainty specific to analysis A1, producing no correlation between Y and {Z, X, W} = sqrt( .5**2 - 0.254951**2)
+END 
+
+*===================
+BEGIN A1 Z PUBLISHED
+
+MEASUREMENT Z         STAT      SYST
+DATA        Z         STAT      SYST
+            1.2       0.2       0.5
+
+STAT_CORR_WITH A1 W PUBLISHED +0.5
+STAT_CORR_WITH A1 X PUBLISHED +0.5
+STAT_CORR_WITH A1 Y PUBLISHED +0.5
+
+DATA
+* Systematic uncertainties: quadratic sum of these errors should give the total systematic error quoted above. 
+  A1_SYST0 0.269258 ! syst. uncertainty specific to analysis A1, producing a positive correlation between {W, X, Y, Z} = sqrt(.2**2 + .5**2) *.5
+  A1_SYST4 0.421308 ! syst. uncertainty specific to analysis A1, producing no correlation between Z and {W, X, Y} = sqrt( .5**2 - 0.269258**2)
+END 
