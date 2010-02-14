@@ -1,7 +1,7 @@
 * B(tau- -> K- K- K+ nu) in 1e-5
-BEGIN    Belle count submitted arXiv:1001.0083
-MEASUREMENT m_KmKmKpNu    statistical systematic
-DATA        m_KmKmKpNu    statistical systematic
-            3.29         0.17        0.195
+BEGIN   Belle KmKmKpNu submitted arXiv:1001.0083
+MEASUREMENT m_KmKmKpNu  statistical systematic
+DATA        m_KmKmKpNu  statistical systematic
+            3.29        0.17        0.195
 DATA BelleOther 0.195
 END

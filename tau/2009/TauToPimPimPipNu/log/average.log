@@ -1,5 +1,5 @@
 ../../../combos/combos average.input  
- COMBOS version  3.33 (Jan 21, 2010) run on  on 14/02/10 at 12.01.37
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 14/02/10 at 14.25.16
 
 
  ==============================================================================
@@ -10,9 +10,9 @@
  List of  3 analyses to combine:
 
  Analysis  Experiment      Method          Quality         Measurement     Steps
-       1>  BABAR           COUNT           PUBLISHED       M_PIMPIMPIPNU          1
-       2>  BELLE           COUNT           PUBLISHED       M_PIMPIMPIPNU          1
-       3>  CLEO3           COUNT           PUBLISHED       M_PIMPIMPIPNU          1
+       1>  BABAR           PIMPIMPIPNU     PUBLISHED       M_PIMPIMPIPNU          1
+       2>  BELLE           PIMPIMPIPNU     PUBLISHED       M_PIMPIMPIPNU          1
+       3>  CLEO3           PIMPIMPIPNU     PUBLISHED       M_PIMPIMPIPNU          1
  Combined  BABAR+BELLE+PDG ALL_METHODS                     M_PIMPIMPIPNU          1
 
  CORrelated and UNCorrelated systematic uncertainties:
@@ -49,9 +49,9 @@
   NMEFF =        3
   NCSYS =        0
   NPARA =        5
- CHANAL = BABAR COUNT PUBLISHED
-          BELLE COUNT PUBLISHED
-          CLEO3 COUNT PUBLISHED
+ CHANAL = BABAR PIMPIMPIPNU PUBLISHED
+          BELLE PIMPIMPIPNU PUBLISHED
+          CLEO3 PIMPIMPIPNU PUBLISHED
 
    MEAS =     0.0883000     0.0842000     0.0913000
 
@@ -91,9 +91,9 @@ CSYS percentage error
  PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
   
  Corrected measurements:
- BABAR COUNT PUBLIS     0.0883000+/-     0.0001000+/-     0.0013000 Tot Err:     0.0013038
- BELLE COUNT PUBLIS     0.0842000+/-     0.0001000+/-     0.0025500 Tot Err:     0.0025520
- CLEO3 COUNT PUBLIS     0.0913000+/-     0.0005000+/-     0.0046000 Tot Err:     0.0046271
+ BABAR PIMPIMPIPNU      0.0883000+/-     0.0001000+/-     0.0013000 Tot Err:     0.0013038
+ BELLE PIMPIMPIPNU      0.0842000+/-     0.0001000+/-     0.0025500 Tot Err:     0.0025520
+ CLEO3 PIMPIMPIPNU      0.0913000+/-     0.0005000+/-     0.0046000 Tot Err:     0.0046271
   
 
 SYSCOR

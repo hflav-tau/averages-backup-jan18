@@ -1,5 +1,5 @@
 ../../../combos/combos average.input  
- COMBOS version  3.33 (Jan 21, 2010) run on  on 14/02/10 at 14.01.50
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 14/02/10 at 14.33.02
 
 
  ==============================================================================
@@ -10,12 +10,12 @@
  List of  6 analyses to combine:
 
  Analysis  Experiment      Method          Quality         Measurement     Steps
-       1>  BABAR           COUNT           PUBLISHED       M_PIMKMKPNU            1
-       2>  BELLE           COUNT           SUBMITTED       M_PIMKMKPNU            1
-       3>  CLEO3           COUNT           PUBLISHED       M_PIMKMKPNU            1
-       4>  OPAL            COUNT           PUBLISHED       M_PIMKMKPNU            1
-       5>  CLEO            COUNT           PUBLISHED       M_PIMKMKPNU            1
-       6>  ALEPH           COUNT           PUBLISHED       M_PIMKMKPNU            1
+       1>  BABAR           PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+       2>  BELLE           PIMKMKPNU       SUBMITTED       M_PIMKMKPNU            1
+       3>  CLEO3           PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+       4>  OPAL            PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+       5>  CLEO            PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+       6>  ALEPH           PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
  Combined  BABAR+BELLE+PDG ALL_METHODS                     M_PIMKMKPNU            1
 
  CORrelated and UNCorrelated systematic uncertainties:
@@ -55,12 +55,12 @@
   NMEFF =        6
   NCSYS =        0
   NPARA =        5
- CHANAL = BABAR COUNT PUBLISHED
-          BELLE COUNT SUBMITTED
-          CLEO3 COUNT PUBLISHED
-          OPAL COUNT PUBLISHED
-          CLEO COUNT PUBLISHED
-          ALEPH COUNT PUBLISHED
+ CHANAL = BABAR PIMKMKPNU PUBLISHED
+          BELLE PIMKMKPNU SUBMITTED
+          CLEO3 PIMKMKPNU PUBLISHED
+          OPAL PIMKMKPNU PUBLISHED
+          CLEO PIMKMKPNU PUBLISHED
+          ALEPH PIMKMKPNU PUBLISHED
 
    MEAS =     1.3460000     1.5500000     1.5500000     0.8700000     1.4500000     1.6300000
 
@@ -103,12 +103,12 @@ CSYS percentage error
  PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
   
  Corrected measurements:
- BABAR COUNT PUBLIS     1.3460000+/-     0.0100000+/-     0.0360000 Tot Err:     0.0373631
- BELLE COUNT SUBMIT     1.5500000+/-     0.0100000+/-     0.0550000 Tot Err:     0.0559017
- CLEO3 COUNT PUBLIS     1.5500000+/-     0.0600000+/-     0.0900000 Tot Err:     0.1081665
- OPAL COUNT PUBLISH     0.8700000+/-     0.5600000+/-     0.4000000 Tot Err:     0.6881860
- CLEO COUNT PUBLISH     1.4500000+/-     0.1300000+/-     0.2800000 Tot Err:     0.3087070
- ALEPH COUNT PUBLIS     1.6300000+/-     0.2100000+/-     0.1700000 Tot Err:     0.2701851
+ BABAR PIMKMKPNU PU     1.3460000+/-     0.0100000+/-     0.0360000 Tot Err:     0.0373631
+ BELLE PIMKMKPNU SU     1.5500000+/-     0.0100000+/-     0.0550000 Tot Err:     0.0559017
+ CLEO3 PIMKMKPNU PU     1.5500000+/-     0.0600000+/-     0.0900000 Tot Err:     0.1081665
+ OPAL PIMKMKPNU PUB     0.8700000+/-     0.5600000+/-     0.4000000 Tot Err:     0.6881860
+ CLEO PIMKMKPNU PUB     1.4500000+/-     0.1300000+/-     0.2800000 Tot Err:     0.3087070
+ ALEPH PIMKMKPNU PU     1.6300000+/-     0.2100000+/-     0.1700000 Tot Err:     0.2701851
   
 
 SYSCOR
