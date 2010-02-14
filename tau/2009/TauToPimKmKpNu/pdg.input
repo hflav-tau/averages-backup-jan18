@@ -1,0 +1,29 @@
+* B(tau- -> pi- K- K+ nu) in 1e-3
+
+BEGIN    CLEO3 count published 	BRIERE	 03
+MEASUREMENT m_PimKmKpNu statistical systematic
+DATA        m_PimKmKpNu statistical systematic
+            1.550       0.060       0.090
+DATA Cleo3Other 0.090
+END
+
+BEGIN    OPAL count published 	ABBIENDI 00D
+MEASUREMENT m_PimKmKpNu statistical systematic
+DATA        m_PimKmKpNu statistical systematic
+            0.870       0.560       0.400
+DATA OpalOther 0.400
+END
+
+BEGIN    CLEO count published 	RICHICHI 99
+MEASUREMENT m_PimKmKpNu statistical systematic
+DATA        m_PimKmKpNu statistical systematic
+            1.450       0.130       0.280
+DATA CleoOther 0.280
+END
+
+BEGIN    AlEPH count published 	BARATE  98
+MEASUREMENT m_PimKmKpNu statistical systematic
+DATA        m_PimKmKpNu statistical systematic
+            1.630       0.210       0.170
+DATA AlephOther 0.170
+END

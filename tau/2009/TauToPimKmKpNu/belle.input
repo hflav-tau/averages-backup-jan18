@@ -1,0 +1,7 @@
+* B(tau- -> pi- K- K+ nu) in 1e-3
+BEGIN    Belle count submitted arXiv:1001.0083
+MEASUREMENT m_PimKmKpNu statistical systematic
+DATA        m_PimKmKpNu statistical systematic
+            1.550       0.010       0.055
+DATA BelleOther 0.055
+END
