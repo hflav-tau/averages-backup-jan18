@@ -1,5 +1,5 @@
 * B(tau- -> pi- K- K+ nu) in 1e-3
-BEGIN    BaBar count published PRL100:011801,08
+BEGIN   BaBar PimKmKpNu published PRL100:011801,08
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
             1.346       0.010       0.036
