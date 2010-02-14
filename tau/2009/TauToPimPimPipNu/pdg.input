@@ -1,0 +1,7 @@
+* B(tau- -> pi- pi- pi+ nu) [ex K0]
+BEGIN    CLEO3 count published BRIERE	 03
+MEASUREMENT m_PimPimPipNu statistical systematic
+DATA        m_PimPimPipNu statistical systematic
+            9.13e-2       0.05e-2     0.46e-2
+DATA Cleo3Other 0.46e-2
+END

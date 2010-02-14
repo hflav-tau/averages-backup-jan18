@@ -1,0 +1,34 @@
+*
+* B(tau- -> K- nu)
+*
+* all PDG results but the Babar one
+*
+
+BEGIN       OPAL count pub  ABBIENDI	 01J
+MEASUREMENT m_KmNu    statistical systematic
+DATA        m_KmNu    statistical systematic
+            0.658e-2  0.027e-2    0.029e-2 
+DATA OpalOther 0.029e-2
+END
+
+BEGIN       ALEPH count pub   BARATE	 99K
+MEASUREMENT m_KmNu    statistical systematic
+DATA        m_KmNu    statistical systematic
+            0.696e-2  0.025e-2    0.014e-2 
+DATA AlephOther 0.014e-2
+END
+
+BEGIN       DELPHI count pub  ABREU	 94K
+MEASUREMENT m_KmNu    statistical systematic
+DATA        m_KmNu    statistical systematic
+            0.850e-2  0.180e-2    0.000e-2  
+DATA DelphiOther 0.000e-2
+END
+
+BEGIN       CLEO  count pub   BATTLE	  94
+MEASUREMENT m_KmNu    statistical systematic
+DATA        m_KmNu    statistical systematic
+            0.660e-2  0.070e-2    0.090e-2  
+DATA CleoOther 0.090e-2
+END
+
