@@ -1,8 +1,8 @@
 *
-* B(tau -> KS pi nu) = (0.404 +- 0.002(stat.) +- 0.013(syst.))%
+* B(tau- -> pi- K0S nu) = (0.404 +- 0.002(stat.) +- 0.013(syst.))%
 * Belle 2007, 0706.2231 [hep-ex] PLB.2007.08.045
 *
-* note: multiplied by 2 to get B(tau -> K0 pi nu)
+* note: multiplied by 2 to get B(tau- -> pi- K0bar nu)
 *
 
 BEGIN    Belle norm_to_Be published PLB2007:08:045
@@ -12,8 +12,8 @@ PARAMETERS !      value       +err         -err
   PimKzsKzlNu     0.078e-2    +0.006e-2    -0.006e-2    ! (0.078 +- 0.006)%
   KmKzsNu         0.079e-2    +0.0085e-2   -0.0085e-2   ! 1/2*(0.158 +- 0.017)%
 
-MEASUREMENT m_PimKzsNu    statistical systematic
-DATA        m_PimKzsNu    statistical systematic
+MEASUREMENT m_PimKzbNu    statistical systematic
+DATA        m_PimKzbNu    statistical systematic
             0.808e-2      0.004e-2    0.026e-2
 
 DATA                              ! Systematic uncertainties

@@ -1,5 +1,5 @@
 *
-* B(tau -> K0 pi nu) = (0.840 +/- 0.004 (stat) +/- 0.023 (syst)) %
+* B(tau- -> pi- K0bar nu) = (0.840 +/- 0.004 (stat) +/- 0.023 (syst)) %
 * BaBar 2008 prelim, arXiv:0808.1121 [hep-ex] (ICHEP08) 
 *
 
@@ -11,8 +11,8 @@ PARAMETERS !      value       +err         -err
   KmKzsNu         0.0765e-2   +0.008e-2    -0.008e-2    ! 1/2*(0.153 +- 0.016)%
   PimKmKpNu       0.1346e-2   +0.003736e-2 -0.003736e-2 ! (0.1346 +- 0.0010 +- 0.0036)% from PRL 100 (2008) 011801, update eventually with PDG
 
-MEASUREMENT m_PimKzsNu  statistical systematic
-DATA        m_PimKzsNu  statistical systematic
+MEASUREMENT m_PimKzbNu  statistical systematic
+DATA        m_PimKzbNu  statistical systematic
             0.840e-2      0.004e-2    0.023e-2
 
 DATA                              ! Systematic uncertainties
