@@ -19,6 +19,11 @@
 ## FEXTRA or CEXTRA to add options to the defaults.
 ##
 #############################################################################
+##
+## Scientific Linux 5 requisites
+## - cernlib as proviced by RPM packages: cernlib, cernlin-devel, cernlib-utils
+##
+#############################################################################
 
 default : combos
 

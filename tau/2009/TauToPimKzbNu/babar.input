@@ -10,6 +10,7 @@ PARAMETERS !      value       +err         -err
   PimKzsKzlNu     0.0673e-2   +0.0070e-2   -0.0070e-2   ! (0.0673 +- 0.0070)% used in 0808.1121
   KmKzsNu         0.0765e-2   +0.008e-2    -0.008e-2    ! 1/2*(0.153 +- 0.016)%
   PimKmKpNu       0.1346e-2   +0.003736e-2 -0.003736e-2 ! (0.1346 +- 0.0010 +- 0.0036)% from PRL 100 (2008) 011801, update eventually with PDG
+  PimPimPipNu     8.99e-2     +0.08e-2     -0.08e-2     ! pdg06 G62 p.7
 
 MEASUREMENT m_PimKzbNu  statistical systematic
 DATA        m_PimKzbNu  statistical systematic
