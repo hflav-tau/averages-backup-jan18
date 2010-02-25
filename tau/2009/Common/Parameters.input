@@ -1,6 +1,16 @@
+*
+* from PDG09
+* - http://pdg.lbl.gov/2009/listings/contents_listings.html
+* - http://pdg.lbl.gov/2009/listings/rpp2009-list-tau.pdf
+*   - KmKzsNu = 1/2*Gamma37, p.6
+*   - PimPizKzsNu = 1/2*Gamma40, p.6
+*   - PimKmKpNu = Gamma93, p.8
+*   - PimPimPip = Gamma62, p.7 (the one most probably used in MC)
+*
 PARAMETERS !    assumed_value  pos_excurs   neg_excurs
   sigmataupmy4s   0.919       +0.003       -0.003
-  PimPizKzsNu     0.18e-2     +0.02e-2     -0.02e-2     ! 1/2*(0.36 +- 0.04)%
+  PimPizKzsNu     0.20e-2     +0.02e-2     -0.02e-2     ! 1/2*(0.4 +- 0.04)%
   PimKzsKzlNu     0.093e-2    +0.011e-2    -0.011e-2    ! upd. by Swagato
-  KmKzsNu         0.079e-2    +0.0085e-2   -0.0085e-2   ! 1/2*(0.158 +- 0.017)%
-  PimKmKpNu       0.137e-2    +0.006e-2    -0.006e-2    ! upd. from PDG08
+  KmKzsNu         0.0795e-2   +0.008e-2    -0.008e-2    ! 1/2*(0.159 +- 0.016)%
+  PimKmKpNu       0.140e-2    +0.005e-2    -0.005e-2    ! pgd09 G93 p.8
+  PimPimPipNu     9.00e-2     +0.06e-2     -0.06e-2     ! pdg09 G62 p.7
