@@ -1,0 +1,10 @@
+BEGIN    CLEO count Published BISHAI 99
+
+MEASUREMENT m_PimKzbEtaNu statistical systematic
+DATA        m_PimKzbEtaNu statistical systematic
+            2.20e-4       0.70e-4     0.22e-4
+
+DATA 
+            CleoOther 0.22e-4
+
+END
