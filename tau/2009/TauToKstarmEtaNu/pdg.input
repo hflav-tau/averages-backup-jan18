@@ -1,0 +1,10 @@
+BEGIN    CLEO count Published BISHAI 99
+
+MEASUREMENT m_KstarmEtaNu statistical systematic
+DATA        m_KstarmEtaNu statistical systematic
+            2.90e-4       0.80e-4     0.42e-4
+
+DATA 
+            CleoOther 0.42e-4
+
+END

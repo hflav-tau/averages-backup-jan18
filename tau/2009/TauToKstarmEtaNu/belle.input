@@ -1,0 +1,10 @@
+BEGIN    Belle count Published  INAMI 09
+
+MEASUREMENT m_KstarmEtaNu statistical systematic
+DATA        m_KstarmEtaNu statistical systematic
+            1.34e-4       0.12e-4     0.09e-4
+
+DATA 
+            BelleOther 0.09e-4
+
+END
