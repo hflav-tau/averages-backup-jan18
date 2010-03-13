@@ -1,0 +1,77 @@
+less log/average.log | grep "CHI2/NDOF"
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   2129.45736 17 4  163.804412
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   65.0100997 17 4  5.0007769
+
+First one does not include systematic errors, so ignore that line.
+
+The NDOF is calculated at NMEFF - NQUAN, 
+where NMEFF is the effective number of measurements 
+and   NQUAN is the number of variables.
+
+So, NDOF = 13.
+
+cout << TMath::Prob (  65.0100997, 13) *100 << "%" << endl;  
+6.56513e-07%
+
+##################################################################################################
+
+ less log/average.log | grep -i PimPimPipNu | grep Tot | tail +2 | tac | awk '{if (NR==1) {s = $2;print "Average: ",$0}else{t=(($3-s)/$NF)**2;w+=t;print $0," chi2 = ",t," chi2tot = ",w}}END{print "Total chi2 = ", w, " NMeas = ",NR-1}'
+
+Average:          M_PIMPIMPIPNU      0.0889257 +-      0.0003618 +-      0.0009942 Tot Err:     0.0010580 Check Sys:     0.0012799
+ CLEO3 PIMPIMPIPNU  0.9130000E-01 +/-  0.5000000E-03 +/-  0.4600000E-02 Tot:  0.4627094E-02  chi2 =  0.263302  chi2tot =  0.263302
+ BELLE PIMPIMPIPNU  0.8420000E-01 +/-  0.1000000E-03 +/-  0.2550027E-02 Tot:  0.2551987E-02  chi2 =  3.42906  chi2tot =  3.69236
+ BABAR PIMPIMPIPNU  0.8833700E-01 +/-  0.7400000E-04 +/-  0.1267240E-02 Tot:  0.1269399E-02  chi2 =  0.215076  chi2tot =  3.90744
+Total chi2 =  3.90744  NMeas =  3
+
+cout << TMath::Prob (3.90744, 3-1) *100 << "%" << endl;
+14.1746%
+
+##################################################################################################
+
+less log/average.log | grep -i PimKmPipNu | grep Tot | tail +2 | tac | awk '{if (NR==1) {s = $2;print "Average: ",$0}else{t=(($4-s)/$NF)**2;w+=t;print $0," chi2 = ",t," chi2tot = ",w}}END{print "Total chi2 = ", w, " NMeas = ",NR-1}'
+
+Average:           M_PIMKMPIPNU      0.0029032 +-      0.0000455 +-      0.0000621 Tot Err:     0.0000769 Check Sys:     0.0000689
+ ALEPH PIMKMPIPNU P 0.2140000E-02 +/-  0.3700000E-03 +/-  0.2900000E-03 Tot:  0.4701064E-03  chi2 =  2.63563  chi2tot =  2.63563
+ CLEO PIMKMPIPNU PU 0.3460000E-02 +/-  0.2300000E-03 +/-  0.5600000E-03 Tot:  0.6053925E-03  chi2 =  0.84591  chi2tot =  3.48154
+ CLEO3 PIMKMPIPNU P 0.3840000E-02 +/-  0.1400000E-03 +/-  0.3800002E-03 Tot:  0.4049693E-03  chi2 =  5.35118  chi2tot =  8.83272
+ OPAL PIMKMPIPNU PU 0.4150000E-02 +/-  0.5300000E-03 +/-  0.4000000E-03 Tot:  0.6640030E-03  chi2 =  3.52577  chi2tot =  12.3585
+ BELLE PIMKMPIPNU P 0.3300000E-02 +/-  0.1000000E-04 +/-  0.1649987E-03 Tot:  0.1653014E-03  chi2 =  5.76223  chi2tot =  18.1207
+ BABAR PIMKMPIPNU P 0.2725700E-02 +/-  0.1800000E-04 +/-  0.9244039E-04 Tot:  0.9417657E-04  chi2 =  3.55231  chi2tot =  21.673
+Total chi2 =  21.673  NMeas =  6
+
+cout << TMath::Prob (21.673, 6-1) *100 << "%" << endl; 
+0.0604086%
+
+##################################################################################################
+
+less log/average.log | grep -i PimKmKpNu | grep Tot | tail +2 | tac | awk '{if (NR==1) {s = $2;print "Average: ",$0}else{t=(($4-s)/$NF)**2;w+=t;print $0," chi2 = ",t," chi2tot = ",w}}END{print "Total chi2 = ", w, " NMeas = ",NR-1}'
+
+Average:            M_PIMKMKPNU      0.0014242 +-      0.0000223 +-      0.0000186 Tot Err:     0.0000291 Check Sys:     0.0000202
+ ALEPH PIMKMKPNU PU 0.1630000E-02 +/-  0.2100000E-03 +/-  0.1700000E-03 Tot:  0.2701851E-03  chi2 =  0.580187  chi2tot =  0.580187
+ CLEO PIMKMKPNU PUB 0.1450000E-02 +/-  0.1300000E-03 +/-  0.2800000E-03 Tot:  0.3087070E-03  chi2 =  0.00698468  chi2tot =  0.587172
+ OPAL PIMKMKPNU PUB 0.8700000E-03 +/-  0.5600000E-03 +/-  0.4000000E-03 Tot:  0.6881860E-03  chi2 =  0.648517  chi2tot =  1.23569
+ CLEO3 PIMKMKPNU PU 0.1550000E-02 +/-  0.6000000E-04 +/-  0.8999999E-04 Tot:  0.1081665E-03  chi2 =  1.35262  chi2tot =  2.58831
+ BELLE PIMKMKPNU SU 0.1550000E-02 +/-  0.1000000E-04 +/-  0.5500046E-04 Tot:  0.5590215E-04  chi2 =  5.06412  chi2tot =  7.65243
+ BABAR PIMKMKPNU PU 0.1346100E-02 +/-  0.1000000E-04 +/-  0.3641332E-04 Tot:  0.3776149E-04  chi2 =  4.27764  chi2tot =  11.9301
+Total chi2 =  11.9301  NMeas =  6
+
+cout << TMath::Prob (11.9301, 6-1) *100 << "%" << endl;            
+3.57582%
+
+##################################################################################################
+
+less log/average.log | grep -i KmKmKpNu | grep Tot | tail +2 | tac | awk '{if (NR==1) {s = $2;print "Average: ",$0}else{t=(($4-s)/$NF)**2;w+=t;print $0," chi2 = ",t," chi2tot = ",w}}END{print "Total chi2 = ", w, " NMeas = ",NR-1}'
+
+Average:             M_KMKMKPNU      0.0000215 +-      0.0000014 +-      0.0000005 Tot Err:     0.0000015 Check Sys:     0.0000005
+ BELLE KMKMKPNU SUB 0.3290000E-04 +/-  0.1700000E-05 +/-  0.1950037E-05 Tot:  0.2587015E-05  chi2 =  19.4183  chi2tot =  19.4183
+ BABAR KMKMKPNU PUB 0.1577700E-04 +/-  0.1300000E-05 +/-  0.1230834E-05 Tot:  0.1790238E-05  chi2 =  10.2194  chi2tot =  29.6377
+Total chi2 =  29.6377  NMeas =  2
+
+cout << TMath::Prob ( 29.6377, 2-1) *100 << "%" << endl;
+5.20821e-06%
+
+##################################################################################################
+
+The sum of "Total chi2" = 3.90744 + 21.673 + 11.9301 + 29.6377 = 67.1482, is close to the " 65.0100997 " number.
+ 
+

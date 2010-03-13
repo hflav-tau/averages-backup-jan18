@@ -1,0 +1,79 @@
+* B(tau- -> pi- pi- pi+ nu) [ex K0]
+BEGIN    BaBar PimPimPipNu published PRL100:011801,08
+
+MEASUREMENT m_PimPimPipNu statistical systematic
+DATA        m_PimPimPipNu statistical systematic
+            8.8337e-02    7.4000e-05  1.2672e-03
+
+STAT_CORR_WITH BaBar PimKmPipNu published -1.2998e-01
+STAT_CORR_WITH BaBar PimKmKpNu  published  1.3652e-03
+STAT_CORR_WITH BaBar KmKmKpNu   published -1.8666e-03
+
+DATA
+    	    BaBarSyst_00  8.4268e-04
+            BaBarSyst_12  6.7965e-04
+            BaBarSyst_13  4.7020e-04
+            BaBarSyst_14  2.0472e-04
+            BaBarSyst_1u  4.1336e-04
+
+END
+
+* B(tau- -> pi- K- pi+ nu) [ex. K0] 
+BEGIN    BaBar PimKmPipNu published PRL100:011801,08
+
+MEASUREMENT m_PimKmPipNu statistical systematic
+DATA        m_PimKmPipNu statistical systematic
+            2.7257e-03   1.8000e-05  9.2441e-05
+
+STAT_CORR_WITH BaBar PimPimPipNu published -1.2998e-01
+STAT_CORR_WITH BaBar PimKmKpNu   published -1.5056e-01
+STAT_CORR_WITH BaBar KmKmKpNu    published  6.1940e-03
+
+DATA
+            BaBarSyst_00  2.6002e-05
+            BaBarSyst_12  6.3701e-05
+            BaBarSyst_23  2.9282e-05
+            BaBarSyst_24  2.9380e-05
+            BaBarSyst_2u  4.5724e-05
+
+END
+
+* B(tau- -> pi- K- K+ nu) 
+BEGIN   BaBar PimKmKpNu published PRL100:011801,08
+
+MEASUREMENT m_PimKmKpNu statistical systematic
+DATA        m_PimKmKpNu statistical systematic
+            1.3461e-03  1.0000e-05  3.6413e-05
+
+STAT_CORR_WITH BaBar PimPimPipNu published  1.3652e-03
+STAT_CORR_WITH BaBar PimKmPipNu  published -1.5056e-01
+STAT_CORR_WITH BaBar KmKmKpNu    published -9.4891e-02
+
+DATA
+            BaBarSyst_00  1.2841e-05
+            BaBarSyst_13  1.6928e-05
+            BaBarSyst_23  1.1248e-05
+            BaBarSyst_34  1.2266e-05
+            BaBarSyst_3u  2.4444e-05
+
+END
+
+* B(tau- -> K- K- K+ nu)
+BEGIN   BaBar KmKmKpNu published PRL100:011801,08
+
+MEASUREMENT m_KmKmKpNu   statistical systematic
+DATA        m_KmKmKpNu   statistical systematic
+            1.5777e-05   1.3000e-06  1.2308e-06
+
+STAT_CORR_WITH BaBar PimPimPipNu published -1.8666e-03
+STAT_CORR_WITH BaBar PimKmPipNu  published  6.1940e-03 
+STAT_CORR_WITH BaBar PimKmKpNu   published -9.4891e-02
+
+DATA
+            BaBarSyst_00  1.5050e-07
+            BaBarSyst_14 -2.6423e-07
+            BaBarSyst_24  4.0458e-07
+            BaBarSyst_34  4.3973e-07
+            BaBarSyst_4u  1.0322e-06
+
+END
