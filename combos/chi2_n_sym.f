@@ -367,7 +367,7 @@ c      IF (NCSYS.NE.0) THEN ! why not print results anyway?
           WRITE(LUNLOG,1100)CHAUX(IVAR)(:LENOCC(CHAUX(IVAR))),
      &       -V(IVAR),STATTOT(IQUAN),SYSTOT(IQUAN),
      &       ERRTOT(IQUAN),SYSSUMTOT(IQUAN)
- 1100     FORMAT(1X,A,T10,F14.7,' +- ',F14.7,' +- ',F14.7, 
+ 1100     FORMAT(1X,A20,1X,F14.7,' +- ',F14.7,' +- ',F14.7, 
      &  ' Tot Err:',F14.7,' Check Sys:',F14.7)
         ENDDO
 c      ENDIF

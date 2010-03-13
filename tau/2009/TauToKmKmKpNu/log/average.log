@@ -1,5 +1,5 @@
 ../../../combos/combos average.input  
- COMBOS version  3.33 (Jan 21, 2010) run on  on 14/02/10 at 14.34.44
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 10/03/10 at 09.52.47
 
 
  ==============================================================================
@@ -22,15 +22,21 @@
  BELLEOTHER              UNC
 
  "Extra" parameters:
- SIGMATAUPMY4S       0.9190   +0.0030   -0.0030    0.0030
- PIMPIZKZSNU         0.0018   +0.0002   -0.0002    0.0002
- PIMKZSKZLNU         0.0009   +0.0001   -0.0001    0.0001
- KMKZSNU             0.0008   +0.0001   -0.0001    0.0001
- PIMKMKPNU           0.0014   +0.0001   -0.0001    0.0001
+ SIGMATAUPMY4S   0.9190E+00 +.3000E-02 -.3000E-02 0.3000E-02
+ PIMPIZNU        0.2546E+00 +.1200E-02 -.1200E-02 0.1200E-02
+ KMKZSNU         0.7900E-03 +.8500E-04 -.8500E-04 0.8500E-04
+ PIMPIZKZSNU     0.1800E-02 +.2000E-03 -.2000E-03 0.2000E-03
+ KMPIZKZSNU      0.7200E-03 +.1150E-03 -.1150E-03 0.1150E-03
+ PIMKZSKZSNU     0.2400E-03 +.5000E-04 -.5000E-04 0.5000E-04
+ PIMPIMPIPNU     0.8850E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU  0.4550E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMKMPIPNU      0.2800E-02 +.1900E-03 -.1900E-03 0.1900E-03
+ PIMKMKPNU       0.1370E-02 +.6000E-04 -.6000E-04 0.6000E-04
+ PIMKZSKZLNU     0.9300E-03 +.1100E-03 -.1100E-03 0.1100E-03
 
  Results of combination:
 
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   63.844973 2  63.844973
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   63.8449729 2  63.8449729
 
  ===============================================================================
  Dump of master.inc:
@@ -40,35 +46,35 @@
  CHMEAS = M_KMKMKPNU      
  CHSTEP =                 
   ISTEP =        1
-  VSTEP =     0.0000
+  VSTEP = 0.0000E+00
   LUNIT =        6
   NMEAS =        2
   NQUAN =        1
   NMEFF =        2
   NCSYS =        0
-  NPARA =        5
+  NPARA =       11
  CHANAL = BABAR KMKMKPNU PUBLISHED
           BELLE KMKMKPNU SUBMITTED
 
-   MEAS =     1.5800000     3.2900000
+   MEAS = 0.1580000E-04  0.3290000E-04
 
-   QUAN =       1       1
+   QUAN               1              1
 
-  STATP =     0.1300000     0.1700000
+  STATP = 0.1300000E-05  0.1700000E-05
 
-  STATN =     0.1300000     0.1700000
+  STATN = 0.1300000E-05  0.1700000E-05
 
-  STAT  =     0.1300000     0.1700000
+  STAT  = 0.1300000E-05  0.1700000E-05
 
-  USYSP =     0.1200000     0.1950000
+  USYSP = 0.1200000E-05  0.1950000E-05
 
-  USYSN =     0.1200000     0.1950000
+  USYSN = 0.1200000E-05  0.1950000E-05
 
-  USYS  =     0.1200000     0.1950000
+  USYS  = 0.1200000E-05  0.1950000E-05
 
 STACOR
-      1 |     1.0000000     0.0000000
-      2 |     0.0000000     1.0000000
+      1 | 0.1000000E+01  0.0000000E+00
+      2 | 0.0000000E+00  0.1000000E+01
 
 CSYSP
 
@@ -80,27 +86,33 @@ CSYS percentage error
 
  CHPARA                  PARA     EXCUP     EXCUN      EXCU
 
- SIGMATAUPMY4S         0.9190    0.0030    0.0030    0.0030
- PIMPIZKZSNU           0.0018    0.0002    0.0002    0.0002
- PIMKZSKZLNU           0.0009    0.0001    0.0001    0.0001
- KMKZSNU               0.0008    0.0001    0.0001    0.0001
- PIMKMKPNU             0.0014    0.0001    0.0001    0.0001
+ SIGMATAUPMY4S     0.9190E+00 0.3000E-02 0.3000E-02 0.3000E-02
+ PIMPIZNU          0.2546E+00 0.1200E-02 0.1200E-02 0.1200E-02
+ KMKZSNU           0.7900E-03 0.8500E-04 0.8500E-04 0.8500E-04
+ PIMPIZKZSNU       0.1800E-02 0.2000E-03 0.2000E-03 0.2000E-03
+ KMPIZKZSNU        0.7200E-03 0.1150E-03 0.1150E-03 0.1150E-03
+ PIMKZSKZSNU       0.2400E-03 0.5000E-04 0.5000E-04 0.5000E-04
+ PIMPIMPIPNU       0.8850E-01 0.1300E-02 0.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU    0.4550E-01 0.1300E-02 0.1300E-02 0.1300E-02
+ PIMKMPIPNU        0.2800E-02 0.1900E-03 0.1900E-03 0.1900E-03
+ PIMKMKPNU         0.1370E-02 0.6000E-04 0.6000E-04 0.6000E-04
+ PIMKZSKZLNU       0.9300E-03 0.1100E-03 0.1100E-03 0.1100E-03
   
  Corrected measurements:
- BABAR KMKMKPNU PUB     1.5800000+/-     0.1300000+/-     0.1200000 Tot Err:     0.1769181
- BELLE KMKMKPNU SUB     3.2900000+/-     0.1700000+/-     0.1950000 Tot Err:     0.2586987
+ BABAR KMKMKPNU PUB 0.1580000E-04 +/-  0.1300000E-05 +/-  0.1200000E-05 Tot:  0.1769181E-05
+ BELLE KMKMKPNU SUB 0.3290000E-04 +/-  0.1700000E-05 +/-  0.1950000E-05 Tot:  0.2586987E-05
   
 
 SYSCOR
-      1 |     0.0000000     0.0000000
-      2 |     0.0000000     0.0000000
+      1 | 0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00
 
 TOTCOR
-      1 |     0.0000000     0.0000000
-      2 |     0.0000000     0.0000000
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   29.7694054 2  29.7694054
- CHI2_SYM        :      M_KMKMKPNU=    2.12490  +-     0.14603         CL =  0.0000
-                   stat. only -->      2.21098  +-     0.10327         CL =  0.0000
-                   syst. only -->               +-     0.10326                     
+      1 | 0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   29.7694033 2  29.7694033
+ CHI2_SYM        :      M_KMKMKPNU=0.21249E-04  +- 0.14603E-05         CL =  0.0000
+                   stat. only -->  0.22110E-04  +- 0.10327E-05         CL =  0.0000
+                   syst. only -->               +- 0.10326E-05                     
 
 

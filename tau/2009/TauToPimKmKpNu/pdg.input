@@ -1,29 +1,29 @@
-* B(tau- -> pi- K- K+ nu) in 1e-3
+* B(tau- -> pi- K- K+ nu)
 
 BEGIN   CLEO3 PimKmKpNu published   BRIERE  03
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.550       0.060       0.090
-DATA Cleo3Other 0.090
+            1.550e-3    0.060e-3    0.090e-3
+DATA Cleo3Other 0.090e-3
 END
 
 BEGIN    OPAL PimKmKpNu published   ABBIENDI 00D
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            0.870       0.560       0.400
-DATA OpalOther 0.400
+            0.870e-3    0.560e-3    0.400e-3
+DATA OpalOther 0.400e-3
 END
 
 BEGIN    CLEO PimKmKpNu published   RICHICHI 99
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.450       0.130       0.280
-DATA CleoOther 0.280
+            1.450e-3     0.130e-3   0.280e-3
+DATA CleoOther 0.280e-3
 END
 
 BEGIN   AlEPH PimKmKpNu published   BARATE  98
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.630       0.210       0.170
-DATA AlephOther 0.170
+            1.630e-3    0.210e-3    0.170e-3
+DATA AlephOther 0.170e-3
 END
