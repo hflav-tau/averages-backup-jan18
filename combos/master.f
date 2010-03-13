@@ -813,11 +813,11 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
      & WRITE(LUNLOG,1210) (ICOMB(CORLIST(I)),I=1,NCORLIST)
  1210 FORMAT(/,1X,
      & 'Statistical correlations:',
-     & /,/,T02,'Analysis number',T21,20I6)
+     & /,/,T02,'Analysis number',T20,20I11)
       DO I=1,NCORLIST
         WRITE(LUNLOG,1211) ICOMB(CORLIST(I)),
      &   (STACOR(CORLIST(I),CORLIST(J)),J=1,NCORLIST)
- 1211   FORMAT(T02,I15,T21,20F6.3)
+ 1211   FORMAT(T02,I15,T21,20(E10.4,1X))
       ENDDO
 *
 *     Printout: correlated and uncorrelated systematics
@@ -897,7 +897,7 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
         ENDDO
       ENDDO
  1300 FORMAT(/, 1X,'"',A,'" parameters:')
- 1301 FORMAT(1X,A,F10.4,SP,2F10.4,SS,F10.4)
+ 1301 FORMAT(1X,A,E10.4,1X,SP,2(E10.4,1X),SS,E10.4)
 *
 *     Loop on steps
 *
@@ -966,7 +966,7 @@ crvk - this is where the cont array gets used...
 *         Printout of measurement before adjustments (format from DR)
 *
           IF(DRPRINT) WRITE
-     &   (LUNLOG,'(1X,''Analysis '',I3,'', Initial value '',F11.5)')
+     &   (LUNLOG,'(1X,''Analysis '',I3,'', Initial value '',E11.5)')
      &   I,MEAS(I)
 crvk - fill xsstat array here
           XSSTAT(I) = CONSTEP(MCONT+1)
@@ -1003,7 +1003,7 @@ crvk - fill xsstat array here
             IF(AMEAS(I,ICONT).NE.0..AND.DRPRINT) THEN
               CH80=CHNAM(KPAR(CPAR(1,ICONT,IANAL),ICOMB(I)))
               WRITE
-     &  (LUNLOG,'(''...corr for par '',A,T25,F11.5,'' syst'',2F11.5)')
+     &(LUNLOG,'(''...corr for par '',A,T25,E11.5,'' syst'',2(E11.5,1x))')
      & CH80(:LENOCC(CH80)),AMEAS(I,ICONT),TEMP(-1),TEMP(+1)   
             ENDIF  
 *
@@ -1038,7 +1038,7 @@ crvk - once you start scaling you shouldn't really lump errors.
 *         Printout of measurement after adjustment (format from DR)
 *
           IF(DRPRINT) WRITE
-     & (LUNLOG,'(''...-->Final Value:'',F11.5)') MEAS(I)
+     & (LUNLOG,'(''...-->Final Value:'',E11.5)') MEAS(I)
 *
           USYSP(I)=DSQRT(USYSP(I))
           USYSN(I)=DSQRT(USYSN(I))
@@ -1465,10 +1465,10 @@ c     &    ,err2n(is,2,k),is,2,k
  2000         FORMAT(4X,'***** error',I6,' *****')
             ELSE
               IF(ERR2P(IQUAN,IQUAN,ICASE).EQ.ERR2N(IQUAN,IQUAN,ICASE)) THEN
-                WRITE(CH33(IQUAN),'(F11.5,''  +- '',F11.5)') CVAL(IQUAN,ICASE),
+                WRITE(CH33(IQUAN),'(E11.5,''  +- '',E11.5)') CVAL(IQUAN,ICASE),
      &                                           DSQRT(ERR2(IQUAN,IQUAN,ICASE))
               ELSE
-                WRITE(CH33(IQUAN),'(F11.5,SP,2F11.5)') CVAL(IQUAN,ICASE),
+                WRITE(CH33(IQUAN),'(E11.5,SP,2(E11.5,1X))') CVAL(IQUAN,ICASE),
      &            +DSQRT(ERR2P(IQUAN,IQUAN,ICASE)),
      &            -DSQRT(ERR2N(IQUAN,IQUAN,ICASE))
               ENDIF
@@ -1509,9 +1509,9 @@ c     &    ,err2n(is,2,k),is,2,k
               STA2N=ERR2N(IQUAN,IQUAN,ICASE-1)
               STA2 =ERR2 (IQUAN,IQUAN,ICASE-1)
               IF(TOT2P.EQ.TOT2N.AND.STA2P.EQ.STA2N) THEN 
-                WRITE(CH33(IQUAN),'(11X,''  +- '',F11.5)') DSQRT(TOT2-STA2)
+                WRITE(CH33(IQUAN),'(11X,''  +- '',E11.5)') DSQRT(TOT2-STA2)
               ELSE
-                WRITE(CH33(IQUAN),'(11X,SP,2F11.5)') 
+                WRITE(CH33(IQUAN),'(11X,SP,2(E11.5,1X))') 
      &            +DSQRT(TOT2P-STA2P),-DSQRT(TOT2N-STA2N)
               ENDIF
               IF(IQUAN.EQ.1) THEN
@@ -1701,15 +1701,15 @@ c      PRINT * ,'SLAVE: err2p,err2n',err2p(1,1),err2n(1,1)
      &                  (CHANAL(I)(:LENOCC(CHANAL(I))),I=1,NMEAS)
  1000 FORMAT(4(/,1X,A6,' = ',A),
      &       1(/,1X,A6,' = ',I8),
-     &       1(/,1X,A6,' = ',F10.4),
+     &       1(/,1X,A6,' = ',E10.4),
      &       6(/,1X,A6,' = ',I8))
  1100 FORMAT(1X,A6,' = ',(T11,A))
- 1001 FORMAT(  /,1X,A6,' = ',(T10,20F14.7))
+ 1001 FORMAT(  /,1X,A6,' = ',(T10,20(E14.7,1X)))
 *DR
- 1003 FORMAT(  /,1X,A6,' = ',(T10,20I8))
+ 1003 FORMAT(  /,1X,A6,' = ',(T9,20I15))
 *DR 1002 FORMAT(                (T10,20F8.4))
- 1002 FORMAT(1X,A6,' | ',(T10,20F14.7))
- 1004 FORMAT(1X,I6,' | ',(T10,20F14.7))
+ 1002 FORMAT(1X,A6,' | ',(T10,20(E14.7,1X)))
+ 1004 FORMAT(1X,I6,' | ',(T10,20(E14.7,1X)))
       WRITE(LUNIT,1001) 'MEAS',(MEAS(I),I=1,NMEAS)
 *DR
       WRITE(LUNIT,1003) 'QUAN',(KQUAN(I),I=1,NMEAS)
@@ -1750,7 +1750,7 @@ c      PRINT * ,'SLAVE: err2p,err2n',err2p(1,1),err2n(1,1)
 
       WRITE(LUNIT,2000) 'CHPARA','PARA','EXCUP','EXCUN','EXCU'
  2000 FORMAT(/,1X,A,T20,4A10,/)
- 2001 FORMAT(  1X,A,T20,4F10.4)
+ 2001 FORMAT(  1X,A,T20,4(E10.4,1X))
       DO I=1,NPARA
         WRITE(LUNIT,2001) CHPARA(I),PARA(I),EXCUP(I),EXCUN(I),EXCU(I)
       ENDDO
@@ -1777,7 +1777,7 @@ CRVK-20050422 - square USYS here
 
         WRITE(LUNIT,2010)  CHANAL(IMEAS)(:LENOCC(CHANAL(IMEAS))), 
      &    MEAS(IMEAS),STAT(IMEAS),SYST(IMEAS),STASYS(IMEAS)     
- 2010 FORMAT(1X,A,T20,F14.7,'+/-',F14.7,'+/-',F14.7,' Tot Err:',F14.7)
+ 2010 FORMAT(1X,A,T20,E14.7,' +/- ',E14.7,' +/- ',E14.7,' Tot: ',E14.7)
       ENDDO
 
 

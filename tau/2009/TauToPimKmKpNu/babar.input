@@ -1,8 +1,8 @@
-* B(tau- -> pi- K- K+ nu) in 1e-3
+* B(tau- -> pi- K- K+ nu) 
 BEGIN   BaBar PimKmKpNu published PRL100:011801,08
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.346       0.010       0.036
-DATA BaBarOther 0.036
+            1.346e-3    0.010e-3    0.036e-3
+DATA BaBarOther 0.036e-3
 END
 
