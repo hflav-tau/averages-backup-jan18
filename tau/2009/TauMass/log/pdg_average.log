@@ -1,0 +1,16 @@
+bbrroot -l -b -q ../../../Common/pdg_average.cc
+
+Processing ../../../Common/pdg_average.cc...
+Read 4 lines from file pdg_average.input
+0 1776.68 +- 0.12(stat) +- 0.41(syst) +- 0.4272 (tot) from BaBar 2009
+1 1776.69 +- 0.18(stat) +- 0.15(syst) +- 0.234307 (tot) from KEDR 2008
+2 1776.61 +- 0.13(stat) +- 0.35(syst) +- 0.373363 (tot) from Belle 2007
+3 1776.96 +- 0.195(stat) +- 0.21(syst) +- 0.286575 (tot) from BES 1996
+Weighted average of n = 4 measurements = 1776.75 +- 0.15242 delta (=3sqrt(n)err) = 0.914518
+0 1776.68 +- 0.12(stat) +- 0.41(syst) +- 0.4272 (tot) from BaBar 2009 chi2tmp = 0.0282266 chi2 = 0.0282266 nchi2 = 1
+1 1776.69 +- 0.18(stat) +- 0.15(syst) +- 0.234307 (tot) from KEDR 2008 chi2tmp = 0.0695063 chi2 = 0.0977329 nchi2 = 2
+2 1776.61 +- 0.13(stat) +- 0.35(syst) +- 0.373363 (tot) from Belle 2007 chi2tmp = 0.144186 chi2 = 0.241919 nchi2 = 3
+3 1776.96 +- 0.195(stat) +- 0.21(syst) +- 0.286575 (tot) from BES 1996 chi2tmp = 0.527957 chi2 = 0.769877 nchi2 = 4
+Total Chi2 for 4 measurements (out of 4) = 0.769877 Scale factor = 0.506582
+Weighted average (with scale set to 1) = 1776.75 +- 0.15242
+(int)0
