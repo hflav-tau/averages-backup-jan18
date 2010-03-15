@@ -12,6 +12,7 @@
 BEGIN    BaBar count preliminary ICHEP08
 
 PARAMETERS !      value       +err         -err
+  sigmataupmy4s   0.919       +0.003       -0.003
   PimPizNu        25.3754e-2  +0.10e-2     -0.10e-2     ! BaBar MC value, PDG06 fit error
   KmKzsNu         0.08255e-2  +0.008e-2    -0.008e-2    ! BaBar MC value, PDG06 fit error, 1/2*G37, p.37
   PimPizKzsNu     0.18835e-2  +0.02e-2     -0.02e-2     ! BaBar MC value, PDG06 fit error, 1/2*G40, p.38
