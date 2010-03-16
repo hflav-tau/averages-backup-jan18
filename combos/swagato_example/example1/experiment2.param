@@ -1,0 +1,4 @@
+PARAMETERS !    assumed_value  pos_excurs  neg_excurs
+*     parameter1   1.0           0.0         0.0 
+      parameter1   1.0          +1.0        -1.0
+*eof

@@ -1,0 +1,10 @@
+INCLUDE experiment1.input
+INCLUDE experiment2.input
+
+BEGIN ALL COMBINED
+COMBINE * * *
+
+MEASUREMENT observable1 stat syst
+
+CALL CHI2_SYM    
+END

@@ -1,0 +1,15 @@
+INCLUDE experiment1.input
+INCLUDE experiment2.input
+
+BEGIN ALL COMBINED
+COMBINE * * *
+
+MEASUREMENT observable1 stat syst
+
+PARAMETERS  !           assumed_value  pos_excurs  neg_excurs
+            parameter1  1.0           +0.5        -0.5
+
+*List of combination routines to call
+CALL DUMP_MASTER_INC
+CALL CHI2_SYM    
+END

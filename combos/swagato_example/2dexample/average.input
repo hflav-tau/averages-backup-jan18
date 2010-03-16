@@ -1,7 +1,3 @@
-OUTPUT 6 ! logical unit for log file
-       6 ! logical unit for warning and error messages 
-      10 ! logical unit for output cards file
-
 INCLUDE analysis1.input
 INCLUDE analysis2.input
 
@@ -35,8 +31,8 @@ MEASUREMENT X stat syst
 MEASUREMENT Y stat syst
 CALL DUMP_MASTER_INC
 PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
-PARAMETER A1_SYST1 1. .8 -.8
-PARAMETER A2_SYST1 1. .8 -.8
+PARAMETER A1_SYST1 1. 1. -1.
+PARAMETER A2_SYST1 1. 1. -1.
 * SWITCH ADJUSTMENTS OFF
 * SWITCH STAT_CORR OFF
 * SWITCH SYST_CORR OFF

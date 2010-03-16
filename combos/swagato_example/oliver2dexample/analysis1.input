@@ -1,0 +1,87 @@
+* Written by Olivier Schneide, EPFL, Jan 2010
+* (all lines starting with "*" are comments; everything after "!" is also treating as comment)
+*
+* This files describes a hypothetical simultaneous measurement 
+* of two observables X and Y by a certain analysis called A1.
+* 
+* Measurement of X: X = 0.51100 +-0.00495 (stat) +-0.00637 (tot syst)
+* Measurement of Y: Y = 1.53400 +-0.00785 (stat) +-0.01065 (tot syst)
+*
+* The measurements of X and Y are sttistically correlated:
+* - correlation coefficient between X and Y: rho(X,Y) = -0.26910
+*
+* The measurements of X and Y depend on a common parameter P1:
+* - assumed central value and error for P1: P1 = 1.63500 +-0.01100
+* - the central value of X decreases by 0.00068 when P1 is moved up   by 1 sigma
+* - the central value of X increases by 0.00068 when P1 is moved down by 1 sigma
+* - the central value of Y increases by 0.00156 when P1 is moved up   by 1 sigma
+* - the central value of Y decreases by 0.00156 when P1 is moved down by 1 sigma
+* - these variations are treated as a (anti-correlated) systematic uncertainty 
+*   on the measurements of X and Y
+*
+* The measurements of X and Y have correlated systematic uncertainties, 
+* specific to analysis A1:
+* - a systematic uncertainty called A1_SYST1 producing a positive correlation between X and Y
+* - a systematic uncertainty called A1_SYST2 producing a negative correlation between X and Y
+
+* Now let's translate all the above in COMBOS language:
+
+*===================
+BEGIN A1 X PUBLISHED 
+* The above line defines the start of the description of the X measurement in analysis A1
+
+PARAMETERS ! assumed_value pos_excurs neg_excurs
+    P1       1.63500       +0.01100   -0.01100
+* The above lines give the list of parameters on which the measurement depends, 
+* as well as the assumed central value and error for these parameters.
+
+MEASUREMENT X         STAT      SYST
+DATA        X         STAT      SYST
+            0.51100   0.00495   0.00637
+* The above lines give the central value, statistical error and total systematic error on X: 
+* X = 0.51100 +-0.00495 (stat) +-0.00637 (tot syst)
+
+STAT_CORR_WITH A1 Y PUBLISHED -0.26910
+* The above line says that this measurement has a statistical correlation 
+* of -0.26910 with the measurements called "A1 Y PUBLISHED", i.e. with 
+* the measurement of X performed with analysis A1.
+
+* The following lines indicate systematic errors. The quadratic sum of these 
+* errors should give the total systematic error on Y quoted above. 
+*
+DATA 
+  P1       -0.00068 ! syst. uncertainty due to P1
+  A1_SYST1 +0.00265 ! syst. uncertainty specific to analysis A1, producing a positive correlation between X and Y
+  A1_SYST2 -0.00361 ! syst. uncertainty specific to analysis A1, producing a negative correlation between X and Y
+  A1_SYST3 +0.00448 ! syst. uncertainty specific to analysis A1, producing no correlation between X and Y
+
+END
+* Above line indicates that the description of the measurement of X in analysis A1 is finished
+
+*===================
+BEGIN A1 Y PUBLISHED
+* The above line defines the start of the description of the X measurement in analysis A1
+
+PARAMETERS ! assumed_value pos_excurs neg_excurs
+    P1    1.63500       +0.01100   -0.01100
+* Again assumed value of parameter P1 (same as for X measurement)
+
+MEASUREMENT Y         STAT      SYST
+DATA        Y         STAT      SYST
+            1.53400   0.00785   0.01065
+* The above lines give the central value, statistical error and total systematic error on X: 
+* Y = 1.53400 +-0.00785 (stat) +-0.010.2 (tot syst)
+
+STAT_CORR_WITH A1 X PUBLISHED -0.26910
+* Statistical correlation with measurement of X in analysis A1 
+* (should be the same value as the correlation given in the previous "BEGIN-END block)
+
+* The following lines indicate systematic errors.
+*
+DATA
+  P1       +0.00156 ! syst. uncertainties due to P1
+  A1_SYST1 +0.00624 ! syst. uncertainty specific to analysis A1, producing a positive correlation between X and Y
+  A1_SYST2 +0.00686 ! syst. uncertainty specific to analysis A1, producing a negative correlation between X and Y
+  A1_SYST4 +0.00500 ! syst. uncertainty specific to analysis A1, producing no correlation between X and Y
+
+END ! of the description of the measurement of Y in analysis A1 

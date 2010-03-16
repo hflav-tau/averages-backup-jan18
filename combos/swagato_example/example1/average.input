@@ -1,0 +1,16 @@
+INCLUDE experiment1.input
+INCLUDE experiment2.input
+
+BEGIN ALL COMBINED
+COMBINE * * *
+
+MEASUREMENT observable1 stat syst
+
+INCLUDE     common.param
+
+*SWITCH ADJUSTMENTS OFF
+
+*List of combination routines to call
+CALL DUMP_MASTER_INC
+CALL CHI2_SYM    
+END

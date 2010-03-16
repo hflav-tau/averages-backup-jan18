@@ -1,7 +1,3 @@
-OUTPUT 6 ! logical unit for log file
-       6 ! logical unit for warning and error messages 
-      10 ! logical unit for output cards file
-
 INCLUDE analysis1.input
 INCLUDE analysis2.input
 

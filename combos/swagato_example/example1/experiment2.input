@@ -1,0 +1,14 @@
+BEGIN       EXPERIMENT2  ! experiment name
+            METHOD       ! method name 
+            PRELIMINARY  ! status and reference
+
+INCLUDE     experiment2.param
+
+MEASUREMENT observable1 stat syst 
+
+DATA        observable1 stat syst
+            0.8         0.1  0.5
+
+DATA        parameter1 -0.5
+
+END
