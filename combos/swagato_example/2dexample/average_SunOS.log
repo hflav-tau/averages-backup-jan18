@@ -1,0 +1,543 @@
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 16.25.50
+
+ WARNING at (or before) word   1 of line  14 in file average.input 
+         concerning combined analysis A2 2D_XY PUBLISHED:
+         "Two quantities to be fitted"
+         ---> it should work but are you sure it is what you want to do?
+
+ ==============================================================================
+
+ X Y combination: combined analysis A2 2D_XY PUBLISHED
+ ----------------
+
+ List of  2 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       3>  A2              X               PUBLISHED       X                      1
+       4>  A2              Y               PUBLISHED       Y                      1
+ Combined  A2              2D_XY           PUBLISHED       X Y                    1
+
+ Statistical correlations:
+
+ Analysis number             3          4
+               3    0.1000E+01 0.5000E+00
+               4    0.5000E+00 0.1000E+01
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           3   4
+ A2_SYST1            COR COR
+ A2_SYST2            UNC
+ A2_SYST3                UNC
+
+ "Correlated" parameters:
+ A2_SYST1        0.1000E+01 +.1000E+01 -.1000E+01 0.1000E+01
+
+ "Extra" parameters:
+ CHI2_N_SYM_PRT  -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+
+ Results of combination:
+
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   0.  2  2 NaN                   
+       ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                     X             Y
+ X            0.8000000      0.1000000     0.5000000
+ Y            1.2000000      0.5000000     0.1000000
+                                     X             Y
+  
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                     X             Y
+ X            0.8000000      0.1000000     0.5000000
+ Y            1.2000000      0.5000000     0.1000000
+                                     X             Y
+  
+                    X      0.8000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+                    Y      1.2000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+ Correlation between X and Y =      0.5000000
+  
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = A2 2D_XY PUBLISHED
+ CHMEAS = X Y             
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        2
+  NQUAN =        2
+  NMEFF =        2
+  NCSYS =        1
+  NPARA =        2
+ CHANAL = A2 X PUBLISHED
+          A2 Y PUBLISHED
+
+   MEAS = 0.8000000E+00  0.1200000E+01
+
+   QUAN               1              2
+
+  STATP = 0.1000000E+00  0.1000000E+00
+
+  STATN = 0.1000000E+00  0.1000000E+00
+
+  STAT  = 0.1000000E+00  0.1000000E+00
+
+  USYSP = 0.4301160E+00  0.1658320E+00
+
+  USYSN = 0.4301160E+00  0.1658320E+00
+
+  USYS  = 0.4301160E+00  0.1658320E+00
+
+STACOR
+      1 | 0.1000000E+01  0.5000000E+00
+      2 | 0.5000000E+00  0.1000000E+01
+
+CSYSP
+ A2_SYS | 0.2549510E+00  0.1118030E+00
+
+CSYSN
+ A2_SYS |-0.2549510E+00 -0.1118030E+00
+
+CSYS
+ A2_SYS | 0.2549510E+00  0.1118030E+00
+
+CSYS percentage error
+ A2_SYS | 0.3186887E+02  0.9316917E+01
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ A2_SYST1          0.1000E+01 0.1000E+01 0.1000E+01 0.1000E+01
+ CHI2_N_SYM_PRT    -.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+  
+ Corrected measurements:
+ A2 X PUBLISHED     0.8000000E+00 +/-  0.1000000E+00 +/-  0.4999998E+00 Tot:  0.5099017E+00
+ A2 Y PUBLISHED     0.1200000E+01 +/-  0.1000000E+00 +/-  0.2000004E+00 Tot:  0.2236072E+00
+  
+ DUMP_MASTER: CSYS=   0.25495100021362   0.11180300265551
+ DUMP_MASTER: Prod=    2.8504287353908D-02 SSUM=    2.8504287353908D-02
+ DUMP_MASTER: SYST=   0.49999978406588   0.20000040740045
+ DUMP_MASTER: SYSCOR=   0.28504241600806
+ DUMP_MASTER: SSUM+   0.50000000000000*    1.0000000149012D-01*    1.0000000149012D-01
+ =    3.3504287502919D-02
+ DUMP_MASTER: TOTCOR=    3.3504287502919D-02/(   0.50990173991069*
+    0.22360716280649)=   0.29385168247499
+ DUMP_MASTER: UNCOR(I)=SQRT(STAT(I)**2+USYS(I)**2) =    0.44158778499186
+ DUMP_MASTER: UNCOR(J)=SQRT(STAT(J)**2+USYS(J)**2) =    0.19364981759759
+ DUMP_MASTER: STACOR*STAT(I)*STAT(J)/(UNCOR(I)*UNCOR(J)) =     5.8470374220180D-02
+
+SYSCOR
+      1 | 0.0000000E+00  0.2850424E+00
+      2 | 0.2850424E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.2938517E+00
+      2 | 0.2938517E+00  0.0000000E+00
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     2.5090466694007D-31  2  2
+  Infinity              
+       ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                              A2_SYST1             X             Y
+ A2_SYST1     0.0000000      1.0000000     0.5000003     0.4999974
+ X            0.8000000      0.5000003     0.5099017     0.2938517
+ Y            1.2000000      0.4999974     0.2938517     0.2236072
+                              A2_SYST1             X             Y
+  
+ --Averaged parameters, using stat+syst---
+ --breakdown of errors: syst then stat-----
+                              A2_SYST1             X             Y
+ X            0.8000000      0.2549510     0.4415878     0.0584704
+ Y            1.2000000      0.1118030     0.0584704     0.1936498
+                              A2_SYST1             X             Y
+  
+                    X      0.8000000 +-      0.4415878 +-      0.2549510 Tot Err:     0.5099017 Check Sys:     0.2549510
+                    Y      1.2000000 +-      0.1936498 +-      0.1118030 Tot Err:     0.2236072 Check Sys:     0.1118030
+ Correlation between X and Y =      0.2938517
+  
+ CHI2_N_SYM      :               X=0.80000E+00  +- 0.50990E+00         CL =  0.0000
+                                 Y=0.12000E+01  +- 0.22361E+00         RHO= +0.2939
+                   stat. only -->  0.80000E+00  +- 0.10000E+00         CL =  0.0000
+                                   0.12000E+01  +- 0.10000E+00         RHO= +0.5000
+                   syst. only -->               +- 0.50000E+00                     
+                                                +- 0.20000E+00         RHO= +0.2850
+
+ WARNING at (or before) word   1 of line  26 in file average.input 
+         concerning combined analysis A1 2D_XY PUBLISHED:
+         "Two quantities to be fitted"
+         ---> it should work but are you sure it is what you want to do?
+
+ ==============================================================================
+
+ X Y combination: combined analysis A1 2D_XY PUBLISHED
+ ----------------
+
+ List of  2 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  A1              X               PUBLISHED       X                      1
+       2>  A1              Y               PUBLISHED       Y                      1
+ Combined  A1              2D_XY           PUBLISHED       X Y                    1
+
+ Statistical correlations:
+
+ Analysis number             1          2
+               1    0.1000E+01 0.5000E+00
+               2    0.5000E+00 0.1000E+01
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2
+ A1_SYST1            COR COR
+ A1_SYST2            UNC
+ A1_SYST3                UNC
+
+ "Correlated" parameters:
+ A1_SYST1        0.1000E+01 +.1000E+01 -.1000E+01 0.1000E+01
+
+ "Extra" parameters:
+ CHI2_N_SYM_PRT  -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+
+ Results of combination:
+
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   0.  2  2 NaN                   
+       ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                     X             Y
+ X            1.2000000      0.1000000     0.5000000
+ Y            0.8000000      0.5000000     0.1000000
+                                     X             Y
+  
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                     X             Y
+ X            1.2000000      0.1000000     0.5000000
+ Y            0.8000000      0.5000000     0.1000000
+                                     X             Y
+  
+                    X      1.2000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+                    Y      0.8000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+ Correlation between X and Y =      0.5000000
+  
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = A1 2D_XY PUBLISHED
+ CHMEAS = X Y             
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        2
+  NQUAN =        2
+  NMEFF =        2
+  NCSYS =        1
+  NPARA =        2
+ CHANAL = A1 X PUBLISHED
+          A1 Y PUBLISHED
+
+   MEAS = 0.1200000E+01  0.8000000E+00
+
+   QUAN               1              2
+
+  STATP = 0.1000000E+00  0.1000000E+00
+
+  STATN = 0.1000000E+00  0.1000000E+00
+
+  STAT  = 0.1000000E+00  0.1000000E+00
+
+  USYSP = 0.1658320E+00  0.4301160E+00
+
+  USYSN = 0.1658320E+00  0.4301160E+00
+
+  USYS  = 0.1658320E+00  0.4301160E+00
+
+STACOR
+      1 | 0.1000000E+01  0.5000000E+00
+      2 | 0.5000000E+00  0.1000000E+01
+
+CSYSP
+ A1_SYS | 0.1118030E+00  0.2549510E+00
+
+CSYSN
+ A1_SYS |-0.1118030E+00 -0.2549510E+00
+
+CSYS
+ A1_SYS | 0.1118030E+00  0.2549510E+00
+
+CSYS percentage error
+ A1_SYS | 0.9316917E+01  0.3186887E+02
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ A1_SYST1          0.1000E+01 0.1000E+01 0.1000E+01 0.1000E+01
+ CHI2_N_SYM_PRT    -.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+  
+ Corrected measurements:
+ A1 X PUBLISHED     0.1200000E+01 +/-  0.1000000E+00 +/-  0.2000004E+00 Tot:  0.2236072E+00
+ A1 Y PUBLISHED     0.8000000E+00 +/-  0.1000000E+00 +/-  0.4999998E+00 Tot:  0.5099017E+00
+  
+ DUMP_MASTER: CSYS=   0.11180300265551   0.25495100021362
+ DUMP_MASTER: Prod=    2.8504287353908D-02 SSUM=    2.8504287353908D-02
+ DUMP_MASTER: SYST=   0.20000040740045   0.49999978406588
+ DUMP_MASTER: SYSCOR=   0.28504241600806
+ DUMP_MASTER: SSUM+   0.50000000000000*    1.0000000149012D-01*    1.0000000149012D-01
+ =    3.3504287502919D-02
+ DUMP_MASTER: TOTCOR=    3.3504287502919D-02/(   0.22360716280649*
+    0.50990173991069)=   0.29385168247499
+ DUMP_MASTER: UNCOR(I)=SQRT(STAT(I)**2+USYS(I)**2) =    0.19364981759759
+ DUMP_MASTER: UNCOR(J)=SQRT(STAT(J)**2+USYS(J)**2) =    0.44158778499186
+ DUMP_MASTER: STACOR*STAT(I)*STAT(J)/(UNCOR(I)*UNCOR(J)) =     5.8470374220180D-02
+
+SYSCOR
+      1 | 0.0000000E+00  0.2850424E+00
+      2 | 0.2850424E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.2938517E+00
+      2 | 0.2938517E+00  0.0000000E+00
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     2.7786657005495D-31  2  2
+  Infinity              
+       ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                              A1_SYST1             X             Y
+ A1_SYST1     0.0000000      1.0000000     0.4999974     0.5000003
+ X            1.2000000      0.4999974     0.2236072     0.2938517
+ Y            0.8000000      0.5000003     0.2938517     0.5099017
+                              A1_SYST1             X             Y
+  
+ --Averaged parameters, using stat+syst---
+ --breakdown of errors: syst then stat-----
+                              A1_SYST1             X             Y
+ X            1.2000000      0.1118030     0.1936498     0.0584704
+ Y            0.8000000      0.2549510     0.0584704     0.4415878
+                              A1_SYST1             X             Y
+  
+                    X      1.2000000 +-      0.1936498 +-      0.1118030 Tot Err:     0.2236072 Check Sys:     0.1118030
+                    Y      0.8000000 +-      0.4415878 +-      0.2549510 Tot Err:     0.5099017 Check Sys:     0.2549510
+ Correlation between X and Y =      0.2938517
+  
+ CHI2_N_SYM      :               X=0.12000E+01  +- 0.22361E+00         CL =  0.0000
+                                 Y=0.80000E+00  +- 0.50990E+00         RHO= +0.2939
+                   stat. only -->  0.12000E+01  +- 0.10000E+00         CL =  0.0000
+                                   0.80000E+00  +- 0.10000E+00         RHO= +0.5000
+                   syst. only -->               +- 0.20000E+00                     
+                                                +- 0.50000E+00         RHO= +0.2850
+
+ WARNING at (or before) word   1 of line  40 in file average.input 
+         concerning combined analysis ALL 2D_XY PUBLISHED:
+         "Two quantities to be fitted"
+         ---> it should work but are you sure it is what you want to do?
+
+ ==============================================================================
+
+ X Y combination: combined analysis ALL 2D_XY PUBLISHED
+ ----------------
+
+ List of  4 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  A1              X               PUBLISHED       X                      1
+       2>  A1              Y               PUBLISHED       Y                      1
+       3>  A2              X               PUBLISHED       X                      1
+       4>  A2              Y               PUBLISHED       Y                      1
+ Combined  ALL             2D_XY           PUBLISHED       X Y                    1
+
+ Statistical correlations:
+
+ Analysis number             1          2          3          4
+               1    0.1000E+01 0.5000E+00 0.0000E+00 0.0000E+00
+               2    0.5000E+00 0.1000E+01 0.0000E+00 0.0000E+00
+               3    0.0000E+00 0.0000E+00 0.1000E+01 0.5000E+00
+               4    0.0000E+00 0.0000E+00 0.5000E+00 0.1000E+01
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2   3   4
+ A1_SYST1            COR COR
+ A2_SYST1                    COR COR
+ A1_SYST2            UNC
+ A1_SYST3                UNC
+ A2_SYST2                    UNC
+ A2_SYST3                        UNC
+
+ "Correlated" parameters:
+ A1_SYST1        0.1000E+01 +.1000E+01 -.1000E+01 0.1000E+01
+ A2_SYST1        0.1000E+01 +.1000E+01 -.1000E+01 0.1000E+01
+
+ "Extra" parameters:
+ CHI2_N_SYM_PRT  -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+
+ Results of combination:
+
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     32.000004768372  4  2
+     16.000002384186
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                     X             Y
+ X            1.0000000      0.0707107     0.5000000
+ Y            1.0000000      0.5000000     0.0707107
+                                     X             Y
+  
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                     X             Y
+ X            1.0000000      0.0707107     0.5000000
+ Y            1.0000000      0.5000000     0.0707107
+                                     X             Y
+  
+                    X      1.0000000 +-      0.0707107 +-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
+                    Y      1.0000000 +-      0.0707107 +-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
+ Correlation between X and Y =      0.5000000
+  
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = ALL 2D_XY PUBLISHED
+ CHMEAS = X Y             
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        4
+  NQUAN =        2
+  NMEFF =        4
+  NCSYS =        2
+  NPARA =        3
+ CHANAL = A1 X PUBLISHED
+          A1 Y PUBLISHED
+          A2 X PUBLISHED
+          A2 Y PUBLISHED
+
+   MEAS = 0.1200000E+01  0.8000000E+00  0.8000000E+00  0.1200000E+01
+
+   QUAN               1              2              1              2
+
+  STATP = 0.1000000E+00  0.1000000E+00  0.1000000E+00  0.1000000E+00
+
+  STATN = 0.1000000E+00  0.1000000E+00  0.1000000E+00  0.1000000E+00
+
+  STAT  = 0.1000000E+00  0.1000000E+00  0.1000000E+00  0.1000000E+00
+
+  USYSP = 0.1658320E+00  0.4301160E+00  0.4301160E+00  0.1658320E+00
+
+  USYSN = 0.1658320E+00  0.4301160E+00  0.4301160E+00  0.1658320E+00
+
+  USYS  = 0.1658320E+00  0.4301160E+00  0.4301160E+00  0.1658320E+00
+
+STACOR
+      1 | 0.1000000E+01  0.5000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.5000000E+00  0.1000000E+01  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.1000000E+01  0.5000000E+00
+      4 | 0.0000000E+00  0.0000000E+00  0.5000000E+00  0.1000000E+01
+
+CSYSP
+ A1_SYS | 0.1118030E+00  0.2549510E+00  0.0000000E+00  0.0000000E+00
+ A2_SYS | 0.0000000E+00  0.0000000E+00  0.2549510E+00  0.1118030E+00
+
+CSYSN
+ A1_SYS |-0.1118030E+00 -0.2549510E+00  0.0000000E+00  0.0000000E+00
+ A2_SYS | 0.0000000E+00  0.0000000E+00 -0.2549510E+00 -0.1118030E+00
+
+CSYS
+ A1_SYS | 0.1118030E+00  0.2549510E+00  0.0000000E+00  0.0000000E+00
+ A2_SYS | 0.0000000E+00  0.0000000E+00  0.2549510E+00  0.1118030E+00
+
+CSYS percentage error
+ A1_SYS | 0.9316917E+01  0.3186887E+02  0.0000000E+00  0.0000000E+00
+ A2_SYS | 0.0000000E+00  0.0000000E+00  0.3186887E+02  0.9316917E+01
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ A1_SYST1          0.1000E+01 0.1000E+01 0.1000E+01 0.1000E+01
+ A2_SYST1          0.1000E+01 0.1000E+01 0.1000E+01 0.1000E+01
+ CHI2_N_SYM_PRT    -.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+  
+ Corrected measurements:
+ A1 X PUBLISHED     0.1200000E+01 +/-  0.1000000E+00 +/-  0.2000004E+00 Tot:  0.2236072E+00
+ A1 Y PUBLISHED     0.8000000E+00 +/-  0.1000000E+00 +/-  0.4999998E+00 Tot:  0.5099017E+00
+ A2 X PUBLISHED     0.8000000E+00 +/-  0.1000000E+00 +/-  0.4999998E+00 Tot:  0.5099017E+00
+ A2 Y PUBLISHED     0.1200000E+01 +/-  0.1000000E+00 +/-  0.2000004E+00 Tot:  0.2236072E+00
+  
+ DUMP_MASTER: CSYS=   0.11180300265551   0.25495100021362
+ DUMP_MASTER: Prod=    2.8504287353908D-02 SSUM=    2.8504287353908D-02
+ DUMP_MASTER: CSYS=  0.  0.
+ DUMP_MASTER: Prod=  0. SSUM=    2.8504287353908D-02
+ DUMP_MASTER: SYST=   0.20000040740045   0.49999978406588
+ DUMP_MASTER: SYSCOR=   0.28504241600806
+ DUMP_MASTER: SSUM+   0.50000000000000*    1.0000000149012D-01*    1.0000000149012D-01
+ =    3.3504287502919D-02
+ DUMP_MASTER: TOTCOR=    3.3504287502919D-02/(   0.22360716280649*
+    0.50990173991069)=   0.29385168247499
+ DUMP_MASTER: UNCOR(I)=SQRT(STAT(I)**2+USYS(I)**2) =    0.19364981759759
+ DUMP_MASTER: UNCOR(J)=SQRT(STAT(J)**2+USYS(J)**2) =    0.44158778499186
+ DUMP_MASTER: STACOR*STAT(I)*STAT(J)/(UNCOR(I)*UNCOR(J)) =     5.8470374220180D-02
+ DUMP_MASTER: CSYS=  0.  0.
+ DUMP_MASTER: Prod=  0. SSUM=  0.
+ DUMP_MASTER: CSYS=   0.25495100021362   0.11180300265551
+ DUMP_MASTER: Prod=    2.8504287353908D-02 SSUM=    2.8504287353908D-02
+ DUMP_MASTER: SYST=   0.49999978406588   0.20000040740045
+ DUMP_MASTER: SYSCOR=   0.28504241600806
+ DUMP_MASTER: SSUM+   0.50000000000000*    1.0000000149012D-01*    1.0000000149012D-01
+ =    3.3504287502919D-02
+ DUMP_MASTER: TOTCOR=    3.3504287502919D-02/(   0.50990173991069*
+    0.22360716280649)=   0.29385168247499
+ DUMP_MASTER: UNCOR(I)=SQRT(STAT(I)**2+USYS(I)**2) =    0.44158778499186
+ DUMP_MASTER: UNCOR(J)=SQRT(STAT(J)**2+USYS(J)**2) =    0.19364981759759
+ DUMP_MASTER: STACOR*STAT(I)*STAT(J)/(UNCOR(I)*UNCOR(J)) =     5.8470374220180D-02
+
+SYSCOR
+      1 | 0.0000000E+00  0.2850424E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.2850424E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.2850424E+00
+      4 | 0.0000000E+00  0.0000000E+00  0.2850424E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.2938517E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.2938517E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.2938517E+00
+      4 | 0.0000000E+00  0.0000000E+00  0.2938517E+00  0.0000000E+00
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     1.3169194188862  4  2
+    0.65845970944312
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                              A1_SYST1      A2_SYST1             X             Y
+ A1_SYST1     0.2356430      0.8828624     0.1747708     0.4296427     0.2569285
+ A2_SYST1     0.2356430      0.1747708     0.8828624     0.2569285     0.4296427
+ X            1.1728454      0.4296427     0.2569285     0.2004805     0.2161567
+ Y            1.1728454      0.2569285     0.4296427     0.2161567     0.2004805
+                              A1_SYST1      A2_SYST1             X             Y
+  
+ --Averaged parameters, using stat+syst---
+ --breakdown of errors: syst then stat-----
+                              A1_SYST1      A2_SYST1             X             Y
+ X            1.1728454      0.0861350     0.0515092     0.1772071     0.0430107
+ Y            1.1728454      0.0515092     0.0861350     0.0430107     0.1772071
+                              A1_SYST1      A2_SYST1             X             Y
+  
+                    X      1.1728454 +-      0.1772071 +-      0.0937555 Tot Err:     0.2004805 Check Sys:     0.1003615
+                    Y      1.1728454 +-      0.1772071 +-      0.0937555 Tot Err:     0.2004805 Check Sys:     0.1003615
+ Correlation between X and Y =      0.2161567
+  
+ CHI2_N_SYM      :               X=0.11728E+01  +- 0.20048E+00         CL =  0.5176
+                                 Y=0.11728E+01  +- 0.20048E+00         RHO= +0.2162
+                   stat. only -->  0.10000E+01  +- 0.70711E-01         CL =  0.0000
+                                   0.10000E+01  +- 0.70711E-01         RHO= +0.5000
+                   syst. only -->               +- 0.18760E+00                     
+                                                +- 0.18760E+00         RHO= +0.1758
+
+
+ Total number of WARNING messages generated by COMBOS:      3

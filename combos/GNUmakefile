@@ -59,12 +59,18 @@ ifeq ($(OSNAME),SunOS)
     CCOMP = gcc
   endif
   ifndef FCOMP
-    FCOMP = g77
+    FCOMP = f77
   endif
   # set default flags
   ifeq ($(FCOMP),g77)
     FFLAGS = -g -w -fno-automatic -fno-globals -Wno-globals -ffixed-line-length-none -funderscoring -fcase-lower -ffloat-store
   endif
+  # the following has been tested to work on flora.slac.stanford.edu
+  ifeq ($(FCOMP),f77)
+    FFLAGS = -g -w -e -f77 -fnonstd
+  endif
+  # the following has been tested to work on flora.slac.stanford.edu
+  LDFLAGS = -L/opt/SUNWspro/lib/ -lf77compat -lfsu -lsunmath
 endif
 
 # copy CCOMP,FCOMP to CC,FC (if set)
@@ -84,7 +90,7 @@ ifdef FEXTRA
 endif
 
 combos : $(OBJS)
-	$(FC) -o combos $(OBJS) $(CERNLIBS)
+	$(FC) -o combos $(OBJS) $(CERNLIBS) $(LDFLAGS)
 
 # --- regression testing ----------------------------------------------
 
