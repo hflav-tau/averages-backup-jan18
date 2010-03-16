@@ -1,5 +1,5 @@
 # To compile
-cd combos ; make ; cd -
+cd combos ; gmake clean ; gmake ; cd -
 
 # To run combos
 cd tau/2009/TauToPimKzsNu ; make ; cd -
