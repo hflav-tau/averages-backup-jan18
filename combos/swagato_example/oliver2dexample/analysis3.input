@@ -1,0 +1,52 @@
+* Written by Olivier Schneide, EPFL, Jan 2010
+*
+* This files describes a hypothetical simultaneous measurement 
+* of two observables X and Y by a certain analysis called A3.
+*
+* Here, in addition to correlations between the measurements of X and Y 
+* within analysis A3, the measurements of X and Y have correlations 
+* with other measurements of the same observables made in analysis A2. 
+* 
+*===================
+BEGIN A3 X PUBLISHED
+
+MEASUREMENT X      STAT   SYST
+DATA        X      STAT   SYST
+            0.4920 0.0180 0.0133
+
+STAT_CORR_WITH A3 Y PUBLISHED -0.22000
+STAT_CORR_WITH A2 X PUBLISHED 0.01
+
+PARAMETERS ! assumed_value pos_excurs neg_excurs
+  P2         1.083         +0.017     -0.017 
+
+* Systematic uncertainties:
+DATA
+  P2              -0.0003 ! syst. uncertainty due to P2
+  A23_SYST        +0.0038 ! syst. uncertainty common to analyses A3 and A2, producing correlations
+  A3_SYST1        +0.0127 ! syst. uncertainty specific to analysis A3, producing a positive correlation between X and Y
+  A3_SYST2        -0.0010 ! syst. uncertainty specific to analysis A3, producing no correlation between X and Y
+
+END
+
+*===================
+BEGIN A3 Y PUBLISHED
+
+MEASUREMENT Y      STAT   SYST
+DATA        Y      STAT   SYST
+            1.5230 0.0240 0.0225
+
+STAT_CORR_WITH A3 X PUBLISHED -0.22000
+STAT_CORR_WITH A2 Y PUBLISHED 0.01
+
+PARAMETERS ! assumed_value pos_excurs neg_excurs
+  P2         1.083         +0.017     -0.017
+
+* Systematic uncertainties:
+DATA
+  P2              -0.0019 ! syst. uncertainty due to P2
+  A23_SYST        -0.0099 ! syst. uncertainty common to analyses A3 and A2, producing correlations
+  A3_SYST1        +0.0195 ! syst. uncertainty specific to analysis A3, producing a positive correlation between X and Y
+  A3_SYST3        +0.0050 ! syst. uncertainty specific to analysis A3, producing no correlation between X and Y
+
+END

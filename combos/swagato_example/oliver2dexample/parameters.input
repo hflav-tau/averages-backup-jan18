@@ -1,0 +1,9 @@
+*
+* Values of external parameters to be assumed in the combination
+*
+* ============  =====================    =========================
+* Name          Value, err+, err-      ! Description              
+* ============  =====================    =========================
+*
+  P1            1.6391 +0.0090 -0.0090 ! parameter 1
+  P2            1.0734 +0.0078 -0.0078 ! parameter 2

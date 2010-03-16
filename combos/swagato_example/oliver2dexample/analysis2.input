@@ -1,0 +1,52 @@
+* Written by Olivier Schneide, EPFL, Jan 2010
+*
+* This files describes a hypothetical simultaneous measurement 
+* of two observables X and Y by a certain analysis called A2.
+*
+* Here, in addition to correlations between the measurements of X and Y 
+* within analysis A2, the measurements of X and Y have correlations 
+* with other measurements of the same observables made in analysis A3. 
+* 
+*===================
+BEGIN A2 X PUBLISHED
+
+MEASUREMENT X      STAT   SYST
+DATA        X      STAT   SYST
+            0.5110 0.0070 0.0068
+*
+STAT_CORR_WITH A2 Y PUBLISHED +0.00700
+STAT_CORR_WITH A3 X PUBLISHED 0.01
+*
+PARAMETERS ! assumed_value pos_excurs neg_excurs
+    P1       1.671         +0.018     -0.018
+
+* Systematic uncertainties:
+DATA                                   ! systematic uncertainties due to ...
+  P1                 -0.0008  ! ... B+ lifetime of 1.671+-0.018 ps
+  A23_SYST           -0.0045  ! syst. uncertainty common to analyses A2 and A3, producing correlations
+  A2_SYST1           -0.0049   ! syst. uncertainty specific to analysis A2, producing a negative correlation between X and Y
+  A2_SYST2           +0.0013   ! syst. uncertainty specific to analysis A2, producing a negative correlation between X and Y
+
+END
+
+*===================
+BEGIN A2 Y PUBLISHED
+
+MEASUREMENT Y      STAT   SYST
+DATA        Y      STAT   SYST
+            1.5040 0.0130 0.0181
+
+STAT_CORR_WITH A2 X PUBLISHED +0.00700
+STAT_CORR_WITH A3 Y PUBLISHED 0.01
+
+PARAMETERS ! assumed_value pos_excurs neg_excurs
+    P1       1.671         +0.018     -0.018
+
+* Systematic uncertainties:
+DATA
+  P1              -0.0014      ! syst. uncertainty due to P1
+  A23_SYST        +0.0153      ! syst. uncertainty common to analyses A2 and A3, producing correlations
+  A2_SYST1        +0.0093      ! syst. uncertainty specific to analysis A2, producing a negative correlation between X and Y
+  A2_SYST2        -0.0026      ! syst. uncertainty specific to analysis A2, producing a negative correlation between X and Y
+
+END

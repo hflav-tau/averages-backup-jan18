@@ -1,0 +1,15 @@
+BEGIN       EXPERIMENT1  ! experiment name
+            METHOD       ! method name 
+            PRELIMINARY  ! status and reference
+
+PARAMETERS  !           assumed_value  pos_excurs  neg_excurs
+            parameter1  1.0           +1.0        -1.0
+
+MEASUREMENT observable1 stat syst 
+
+DATA        observable1 stat syst
+            1.2         0.1  0.2
+
+DATA        parameter1 0.05
+            uncor1     0.173205 !  sqrt(.2**2 - .1**2)
+END

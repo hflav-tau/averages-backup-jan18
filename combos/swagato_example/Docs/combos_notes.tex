@@ -1,0 +1,411 @@
+\documentclass[12pt,a4paper,dvips]{article}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{fancybox}
+\setlength{\textwidth}{175mm}
+\setlength{\textheight}{225mm}
+\setlength{\hoffset}{-20mm}
+\setlength{\voffset}{-30mm}
+\parskip 12pt
+\newcommand{\vaa}        {\ensuremath{\sigma_{1}^2}}
+\newcommand{\vab}        {\ensuremath{\rho\sigma_{1}\sigma_{2}}}
+\newcommand{\vbb}        {\ensuremath{\sigma_{2}^2}}
+
+\newcommand{\saa}        {\ensuremath{\frac{1}{\sigma_{1}^2}}}
+\newcommand{\sab}        {\ensuremath{\frac{-\rho}{\sigma_{1}\sigma_{2}}}}
+\newcommand{\sbb}        {\ensuremath{\frac{1}{\sigma_{2}^2}}}
+
+\newcommand{\sai}        {\ensuremath{\sigma_{1u}}}
+\newcommand{\sbi}        {\ensuremath{\sigma_{2u}}}
+\newcommand{\saj}        {\ensuremath{\sigma_{1c}}}
+\newcommand{\sbj}        {\ensuremath{\sigma_{2c}}}
+
+\newcommand{\sax}        {\ensuremath{\sigma_{1x}}}
+\newcommand{\sbx}        {\ensuremath{\sigma_{2x}}}
+\newcommand{\say}        {\ensuremath{\sigma_{1y}}}
+\newcommand{\sby}        {\ensuremath{\sigma_{2y}}}
+
+\newcommand{\saxay}        {\ensuremath{\sigma_{1x1y}}}
+\newcommand{\saxbx}        {\ensuremath{\sigma_{1x2x}}}
+\newcommand{\saxby}        {\ensuremath{\sigma_{1x2y}}}
+\newcommand{\sbxby}        {\ensuremath{\sigma_{2x2y}}}
+\newcommand{\saybx}        {\ensuremath{\sigma_{1y2x}}}
+\newcommand{\sayby}        {\ensuremath{\sigma_{1y2y}}}
+
+\begin{document} 
+
+\centerline{Notes on COMBOS}
+
+Let $M(x_1)$ and $M(x_2)$ be measurements of 2 correlated quantities $x_1 \pm \sigma_1$ and $x_2 \pm \sigma_2$, respectively,
+with correlation coefficient $\rho \equiv Cov(x_1,x_2)/(\sigma_1\sigma_2)$. The Error Matrix is:
+
+\vspace*{-.5cm}
+
+\begin{equation}
+E =
+\left( {\begin{array}{cc}
+ \vaa & \vab  \\
+ \vab & \vbb  \\
+ \end{array} } \right)
+\end{equation}
+
+\begin{equation}
+\Rightarrow
+E^{-1} =
+\frac{1}{1 - \rho^2}
+\left( {\begin{array}{cc}
+ \saa & \sab  \\
+ \sab & \sbb  \\
+ \end{array} } \right)
+\end{equation}
+
+\vspace*{-.5cm}
+
+\begin{equation}
+\mathrm{With~} w_i = \frac{\sum_j (E^{-1})_{ij}}{\sum_{j} \sum_{k} (E^{-1})_{jk}}, \sum_i w_i = 1 \Rightarrow \langle x \rangle = \sum_i w_i x_i,
+\end{equation}
+
+\begin{equation}
+\sigma = \sqrt{\sum_i \sum_j w_i E_{ij} w_j}
+         = \sqrt{\frac{1}{\sum_{i} \sum_{j} (E^{-1})_{ij}}}
+         = \sqrt{\frac{(1-\rho^2)\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2-2\rho\sigma_1\sigma_2}}
+\end{equation}
+
+\vspace*{-.5cm}
+
+\begin{eqnarray}
+w_1 &=& \frac{(E^{-1})_{11}  + (E^{-1})_{12}}{(E^{-1})_{11}  + (E^{-1})_{12} + (E^{-1})_{21} + (E^{-1})_{22}} 
+     = \frac{\sigma_2^2 - \rho\sigma_1\sigma_2}{\sigma_1^2 + \sigma_2^2 - 2\rho\sigma_1\sigma_2}\\
+w_2 &=& \frac{(E^{-1})_{21}  + (E^{-1})_{22}}{(E^{-1})_{11}  + (E^{-1})_{12} + (E^{-1})_{21} + (E^{-1})_{22}} 
+     = \frac{\sigma_1^2 - \rho\sigma_1\sigma_2}{\sigma_1^2 + \sigma_2^2 - 2\rho\sigma_1\sigma_2}
+\end{eqnarray}
+
+A numerical example with un-correlated statistical errors and correlated systematic errors:
+
+\vspace*{-1cm}
+
+\begin{eqnarray*}
+M(x_1) &=& x_1 \pm \sai (un-correlated) \pm \saj (correlated) = 1.2 \pm 0.1 (stat) \pm 0.2 (syst)\\
+M(x_2) &=& x_2 \pm \sbi (un-correlated) \pm \sbj (correlated) = 0.8 \pm 0.1 (stat) \pm 0.5 (syst)\\
+\end{eqnarray*}
+
+\vspace*{-1.5cm}
+
+\begin{equation}
+E 
+ =
+\left( {\begin{array}{cc}
+ \sai^2 & 0       \\
+ 0      & \sbi^2  \\
+ \end{array} } \right)
++
+\left( {\begin{array}{cc}
+ \saj^2   & \saj\sbj  \\
+ \saj\sbj & \sbj^2  \\
+ \end{array} } \right)
+\end{equation}
+
+\vspace*{-.5cm}
+
+\begin{equation}
+\mathrm{Following~Eqn (1),~we~have~}
+\sigma_1^2 = \sai^2 + \saj^2,
+\sigma_2^2 = \sbi^2 + \sbj^2,
+\rho\sigma_1\sigma_2 = \saj\sbj
+\end{equation}
+
+\vspace*{-.5cm}
+
+$$\mathrm{Here~} 
+\sigma_1 = \sqrt{(0.1)^2 + (0.2)^2}, 
+\sigma_2 = \sqrt{(0.1)^2 + (0.5)^2}, 
+\rho = \frac{(0.2)(0.5)}{\sqrt{(0.1)^2+(0.2)^2}\sqrt{(0.1)^2+(0.5)^2}} = 0.877058.$$
+
+% ?? ( ( 0.2 ) * ( 0.5 ) ) / ( sqrt ( .1**2 + .2**2 ) * sqrt ( .1**2 + .5**2 ) )
+% 0.877058
+
+\vspace*{-.5cm}
+
+$$\mathrm{Thus,~} w_1 = 1.45455, w_2 = 1 - w_1 = -0.45455 
+\Rightarrow 
+\langle x \rangle = 1.38182, 
+\sigma = 0.165145.$$
+
+% ?? ( (0.1)**2 + (0.5)**2 - (0.2)*(0.5) )/( 2* (0.1)**2 + (.2)**2 + (0.5)**2 - 2*(0.2)*(0.5) )
+% 1.45455
+% ?? 1.45455 * 1.2 - .45455 * .8
+% 1.38182
+% ?? sqrt ( ( (1-(0.877058)**2)*(.1**2 + .2**2)*(.1**2 + .5**2) ) / ( 2*.1**2 + .2**2 + .5**2 - 2*.2*.5 ) )
+% 0.165145
+
+This is the derivation of average of Eqn (21) and (22) on page 33 of \url{http://www.slac.stanford.edu/xorg/hfag/docs/combos.pdf}: 
+``one gets 1.38 $\pm$ 0.17''.
+
+If, instead we use $\rho = - 0.877058$, we get $w_1 = 0.705882, w_2 = 0.294118 \Rightarrow \langle x \rangle = 1.08235 \pm 0.0766965$.
+
+% ?? ( (0.1)**2 + (0.5)**2 + (0.2)*(0.5) )/( 2* (0.1)**2 + (.2)**2 + (0.5)**2 + 2*(0.2)*(0.5) )
+% 0.705882
+% ?? 1-0.705882
+% 0.294118
+% ?? 0.705882*1.2 + 0.294118*0.8
+% 1.08235
+% ?? sqrt ( ( ( 1- (  0.877058 ) **2 ) * ( .1**2 + .2**2 ) * ( .1**2 + .5**2 ) ) / ( 2*.1**2 + .2**2 + .5**2 + 2*.2*.5 ) )
+% 0.0766965
+
+Example data-cards are in \url{swagato_example/example0} directory.
+To run, execute ``../../combos average.input $|$ tee average.output''.
+The correlation between ``experiment1'' and ``experiment2'' is introduced 
+via a change of ``observable1'' due to change in ``parameter1'', as explained below.
+
+Eqn (17) on page 32 of \url{http://www.slac.stanford.edu/xorg/hfag/docs/combos.pdf} describes this problem as minimization of 
+$$\chi^2 = \sum_{i=1}^{n} \left( \frac{X_i + \sum_{\alpha=1}^{m} \Delta_{\alpha i}Y_\alpha -X}{\sigma_i} \right)^2 
+        + \sum_{\alpha=1}^{m} Y_\alpha^2, \mathrm{~where~} Y_\alpha = \frac{P_\alpha - \bar{P}_\alpha}{\delta_\alpha}.$$
+
+Here, $X_i$ are $n$ measurements of $X$, $\sigma_i$ are the un-correlated systematic and statistical errors on $X_i$.
+For $m$ sources of correlation, $\Delta_{\alpha i}$ are the correlated systematics from parameter $P_\alpha$ and 
+measurement $i$, determined as the change in the measured quantity when the parameter value is changed from 
+$\bar{P}_\alpha$ to $\bar{P}_\alpha + \delta_\alpha$. 
+
+Note the sign of the $\Delta$-term in Eqn (17).
+Due to this convention, ``experiment1.input'' and ``experiment2.input'' require the lines: ``DATA        parameter1 -0.2'' and 
+``DATA        parameter1 -0.5''. If we change it to ``DATA        parameter1 +0.2'' only in ``experiment1.input'',
+we simulate the case of negative correlation, 
+eg. $\rho = - 0.877058 \Rightarrow \langle x \rangle = 1.08235 \pm 0.07670$ with COMBOS.
+
+Note that in the above example, the ``parameter1'' has not been explicitly defined.
+The $\Delta_\alpha$ specifying dependence of ``observable1'' and ``observable2'' on ``parameter1'' is the change when ``parameter1''
+increases by a common value $\delta_\alpha$, which has also not been explicitly defined.
+
+Next, let us explore the case when the parameters have been assumed to have different values in the two experiments.
+Example data-cards are in \url{swagato_example/example1} directory.
+
+First, consider the case when the parameter is known without any uncertainty.
+In the files: ``experiment1.param'', ``experiment2.param'' and ``common.param'',
+this case is simulated using the line ``parameter1   1.0            0.0         0.0''.
+This gives $\langle x \rangle = 1.38182 \pm 0.16514$.
+
+Same result is also obtained by using the line ``parameter1   1.0          +1.0        -1.0'' 
+in ``experiment1.param'', ``experiment2.param'' and ``common.param'', which is probably the default usage.
+\vspace*{-.5cm}
+\begin{verbatim}
+$> grep param *.input *.param 
+average.input:INCLUDE     common.param
+experiment1.input:INCLUDE     experiment1.param
+experiment1.input:DATA        parameter1 -0.2
+experiment2.input:INCLUDE     experiment2.param
+experiment2.input:DATA        parameter1 -0.5
+common.param:      parameter1   1.0          +1.0        -1.0 
+experiment1.param:      parameter1   1.0          +1.0        -1.0 
+experiment2.param:      parameter1   1.0          +1.0        -1.0 
+\end{verbatim}
+\vspace*{-.5cm}
+
+Same result is also obtained by using this combination:
+\vspace*{-.5cm}
+\begin{verbatim}
+$> grep param *.input *.param
+average.input:INCLUDE     common.param
+experiment1.input:INCLUDE     experiment1.param
+experiment1.input:DATA        parameter1 -0.4
+experiment2.input:INCLUDE     experiment2.param
+experiment2.input:DATA        parameter1 -1.0
+common.param:      parameter1   1.0          +1.0        -1.0 
+experiment1.param:      parameter1   1.0          +2.0        -2.0
+experiment2.param:      parameter1   1.0          +2.0        -2.0
+\end{verbatim}
+\vspace*{-.5cm}
+
+In the above example, both experiments use a value of the common systematic source "parameter1"
+with a factor of two worse error than what has been used in the averaging procedure.
+Note the corresponding changes of $\Delta_\alpha$ to compensate for the change
+of "parameter1" in "experiment1.param" and "experiment2.param" in this illustrative example.
+
+Now, if the common "parameter1" is known with factor of two better precision than 
+what has been used by the two experiments through for example an ``a-posterio'' 
+measurement of ``parameter1'', this can be used to reduce the error on the averaged value of ``observable1''.
+As an illustration, consider the following data-cards:
+\vspace*{-.5cm}
+\begin{verbatim}
+$> grep param *.input *.param 
+average.input:INCLUDE     common.param
+experiment1.input:INCLUDE     experiment1.param
+experiment1.input:DATA        parameter1 -0.2
+experiment2.input:INCLUDE     experiment2.param
+experiment2.input:DATA        parameter1 -0.5
+common.param:      parameter1   1.0          +0.5        -0.5
+experiment1.param:      parameter1   1.0          +1.0        -1.0
+experiment2.param:      parameter1   1.0          +1.0        -1.0
+\end{verbatim}
+\vspace*{-.5cm}
+This gives $\langle x \rangle = 1.24706 \pm 0.13933$, 
+corresponding to $\rho = \frac{(0.1)(0.25)}{\sqrt{(0.1)^2+(0.1)^2}\sqrt{(0.1)^2+(0.25)^2}} = 0.656532$.
+
+% ??  ( ( 0.1 ) * ( 0.25 ) ) / ( sqrt ( .1**2 + .1**2 ) * sqrt ( .1**2 + .25**2 ) )
+% 0.656532
+% ?? sqrt ( ( ( 1- ( 0.656532 ) **2 ) * ( .1**2 + .1**2 ) * ( .1**2 + .25**2 ) ) / ( 2*.1**2 + .1**2 + .25**2 - 2*.1*.25 ) )
+% 0.139326
+
+The same conclusion of reduction of averaged error in the case of negative correlation, 
+eg. $\rho = -0.656532$ corresponding to $\langle x \rangle = 1.07368 \pm 0.07609$, 
+is illustrated below:
+\vspace*{-.5cm}
+\begin{verbatim}
+$> grep param *.input *.param 
+average.input:INCLUDE     common.param
+experiment1.input:INCLUDE     experiment1.param
+experiment1.input:DATA        parameter1 +0.2
+experiment2.input:INCLUDE     experiment2.param
+experiment2.input:DATA        parameter1 -0.5
+common.param:      parameter1   1.0          +0.5        -0.5
+experiment1.param:      parameter1   1.0          +1.0        -1.0
+experiment2.param:      parameter1   1.0          +1.0        -1.0
+\end{verbatim}
+\vspace*{-.5cm}
+% ?? sqrt ( ( ( 1- ( 0.656532 ) **2 ) * ( .1**2 + .1**2 ) * ( .1**2 + .25**2 ) ) / ( 2*.1**2 + .1**2 + .25**2 + 2*.1*.25 ) )
+% 0.0760886
+
+Let us re-visit the case with $\rho = \frac{(0.1)(0.25)}{\sqrt{(0.1)^2+(0.1)^2}\sqrt{(0.1)^2+(0.25)^2}} = 0.656532$
+from above example in \url{swagato_example/example1a} directory,
+but this time changing the $\Delta_\alpha$ instead of scaling the error of parameter1, as illustrated below:
+
+\vspace*{-.5cm}
+\begin{verbatim}
+$> grep param *.input 
+average.input:            parameter1  1.0           +1.0        -1.0
+experiment1.input:            parameter1  1.0           +1.0        -1.0
+experiment1.input:DATA        parameter1 0.1
+experiment2.input:            parameter1  1.0           +1.0        -1.0
+experiment2.input:DATA        parameter1 0.25
+\end{verbatim}
+
+\vspace*{-.5cm}
+The log file (produced with \url{CALL} \url{DUMP_MASTER_INC}) shows that $\sigma_1 = \sqrt{(0.1)^2+(0.1)^2}$
+and $\sigma_2 = \sqrt{(0.1)^2+(0.25)^2}$ have also changed along with the new value of $\rho = 0.656532$,
+which gives $\langle x \rangle = 1.24706 \pm 0.13933$. [This was also true in the previous case,
+when parameter1 was re-scaled via the "common.param" file.]
+
+% average.perl 1.2 .02 .8 .0725 .025
+% 1.2 +- 0.14142135623731 .8 +- 0.269258240356725 0.656532164298613
+% 1.11764705882353 -0.11764705882353 1
+% 1.24705882352941 +- 0.139326109203847
+
+The desired behaviour of *only* changing the $\rho$ without changing $\sigma_1$ and $\sigma_2$ is illustrated
+in \url{swagato_example/example1b} directory. 
+This is acheived by introducing 2 un-correlated parameters in ``experiment1.input'' and ``experiment2.input''.
+
+In this example, the systematic error is broken into correlated and un-correlated components.
+The correlated components each have half the original value as in \url{swagato_example/example1a}, 
+but the un-correlated component is correctly evaluated
+such that $\rho = \frac{(0.1)(0.25)}{\sqrt{(0.1)^2+(0.2)^2}\sqrt{(0.1)^2+(0.5)^2}} = 0.219264504826757 \Rightarrow
+\langle x \rangle = 1.16154 \pm 0.21817$. This result from COMBOS can be cross-checked using a simple script:
+
+\vspace*{-.5cm}
+\begin{verbatim}
+$> average.perl  1.2 .05 .8 .26 .025
+x1 = 1.2 +- 0.223606797749979 x2 = .8 +- 0.509901951359279 rho = 0.219264504826757
+w1 = 0.903846153846154 w2 = 0.0961538461538461 w1+w2 = 1
+<x> = 1.16153846153846 +- 0.218165427706027
+\end{verbatim}
+
+\vspace*{-.5cm}
+In \url{swagato_example/example1c} directory,
+we investigate the effect of scaling of error on "parameter1" in "average.input" w.r.t \url{swagato_example/example1b}.
+
+\vspace*{-.5cm}
+\begin{verbatim}
+$> grep param *.input 
+average.input:            parameter1  1.0           +0.5        -0.5
+experiment1.input:            parameter1  1.0           +1.0        -1.0
+experiment1.input:DATA        parameter1 0.1
+experiment2.input:            parameter1  1.0           +1.0        -1.0
+experiment2.input:DATA        parameter1 0.25
+\end{verbatim}
+\vspace*{-.5cm}
+This is probably the default usage, where scaling the error on "parameter1" to a common value reduces the error on "observable1", eg.
+$\sigma_1 =  \sqrt{ .1^2 + .2^2 - .1^2 + 0.05^2 }$ and $\sigma_2 = \sqrt{.1^2 + .5^2 -.25^2 + .125^2}$ have changed
+$\Rightarrow \rho = 0.0656559912465273, \langle x \rangle = 1.14033414026455 \pm 0.192635502522062$.
+
+\url{swagato_example/example1c} is reproduced in \url{swagato_example/example1d}, 
+by changing the $\Delta_\alpha$ but without scaling the error on "parameter1" in "average.input".
+Note: "Tot Err" in output file is different from input file.
+
+\newpage
+\section*{Appendix:  Recipe for calculating Correlation between BR}
+
+$$Var(aX+bY+c) = a^2 Var(X) + b^2 Var(Y) + 2ab Cov(X,Y) \mathrm{~with~} a = b = 1, c = 0 \Rightarrow$$
+
+\vspace*{-1cm}
+
+\begin{equation}
+\rho (BR_1, BR_2)  =  \frac{Cov(BR_1, BR_2)}{\sqrt{Var(BR_1)Var(BR_2)}}
+                   = \frac{Var(BR_1 + BR_2) - Var(BR_1) - Var(BR_2)}{2\sqrt{Var(BR_1)Var(BR_2)}}
+\end{equation}
+
+\vspace*{-.5cm}
+Simplest recipe is to adopt a Toy Monte Carlo approach:
+firstly, parameterize  all statistical and systematic errors on  the branching ratio as variations 
+of each component used to evaluate the branching ratio (for example, using Eqn (13, 14) as given below);
+for each of $N$ trials, vary each of these components within their error and evaluate 
+$BR_1$, $BR_2$, $BR_1+BR_2$ and their squares.
+Then for this ensemble of $N$ trials, calculate $Var(BR_1)$, $Var(BR_2)$ and $Var(BR_1 + BR_2)$ 
+using $Var(X) = \langle X^2 \rangle - \langle X \rangle^2$.
+Finally, estimate $\rho(BR_1,BR_2)$ using Eqn (11).
+
+To validate the Toy Monte Carlo, cross-check the result with a simple derivation of the result
+for statistical correlation between the channels, assuming Poisson errors on the measurements.
+
+Inverting the efficiency matrix that gives
+
+\vspace*{-.5cm}
+
+\begin{equation}
+\left ( {\begin{array}{c}
+Data_1 - Bkg_1 \\
+Data_2 - Bkg_2 \\
+ \end{array} } \right)
+=
+\left( {\begin{array}{cc}
+ \epsilon_{11} & \epsilon_{12}  \\
+ \epsilon_{21} & \epsilon_{22}  \\
+ \end{array} } \right)
+\left( {\begin{array}{c}
+Sig_1\\
+Sig_2\\
+ \end{array} } \right)
+\end{equation}
+
+\vspace*{-1cm}
+
+\begin{eqnarray}
+BR_1 &=& \frac{1}{2\cal{L}\sigma}Sig_1 = \frac{1}{2\cal{L}\sigma}(\epsilon^{-1}_{11} (Data_1 - Bkg_1) + \epsilon^{-1}_{12} (Data_2 - Bkg_2))\\
+BR_2 &=& \frac{1}{2\cal{L}\sigma}Sig_2 = \frac{1}{2\cal{L}\sigma}(\epsilon^{-1}_{21} (Data_1 - Bkg_1) + \epsilon^{-1}_{22} (Data_2 - Bkg_2)) \\
+BR_1+BR_2 &=& \frac{1}{2\cal{L}\sigma}((\epsilon^{-1}_{11} + \epsilon^{-1}_{21}) (Data_1 - Bkg_1) + (\epsilon^{-1}_{12} + \epsilon^{-1}_{22}) (Data_2 - Bkg_2))
+\end{eqnarray}
+
+Noting $Var(Data_i) = \sigma^2(Data_i) = Data_i$, and $Cov(Data_1, Data_2) = 0$, we get:
+
+\vspace*{-1cm}
+
+\begin{eqnarray}
+Var(BR_1) &=& (\frac{\epsilon^{-1}_{11}}{2\cal{L}\sigma})^2 Data_1 + (\frac{\epsilon^{-1}_{12}}{2\cal{L}\sigma})^2 Data_2\\
+Var(BR_2) &=& (\frac{\epsilon^{-1}_{21}}{2\cal{L}\sigma})^2 Data_1 + (\frac{\epsilon^{-1}_{22}}{2\cal{L}\sigma})^2 Data_2\\
+Var(BR_1+BR_2) &=& (\frac{\epsilon^{-1}_{11}+\epsilon^{-1}_{21}}{2\cal{L}\sigma})^2 Data_1 
+                +  (\frac{\epsilon^{-1}_{12}+\epsilon^{-1}_{22}}{2\cal{L}\sigma})^2 Data_2\\
+\rho(BR_1,BR_2) &=&  
+\frac{\epsilon^{-1}_{11}\epsilon^{-1}_{21} Data_1 + \epsilon^{-1}_{12}\epsilon^{-1}_{22}Data_2}
+{\sqrt{(\epsilon^{-1}_{11})^2 Data_1 + (\epsilon^{-1}_{12})^2 Data_2}
+ \sqrt{(\epsilon^{-1}_{21})^2 Data_1 + (\epsilon^{-1}_{22})^2 Data_2}}
+\end{eqnarray}
+
+This is the statistical correlation between two measurements of branching ratios.
+Clearly, if more there are more than two measurements or if we are to evaluate
+the correlation including systematic errors on the branching ratios,
+the formula becomes complicated.
+
+
+\end{document}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
