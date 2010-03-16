@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 14.51.03
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 16.15.22
 
 
  ==============================================================================
@@ -13,6 +13,17 @@
        2>  EXPERIMENT2     METHOD          PRELIMINARY     OBSERVABLE1            1
  Combined  ALL             COMBINED                        OBSERVABLE1            1
 
+ Adjustments performed to express the individual measurements
+ at the desired values of the parameters:
+
+ Analysis  Parameter           Value used   Desired value      Adjustment
+       1>  PARAMETER1              1.0000          1.0000         +0.0000
+               neg. excurs.       +1.0000         +0.5000          0.5000
+               pos. excurs.       -1.0000         -0.5000          0.5000
+       2>  PARAMETER1              1.0000          1.0000         +0.0000
+               neg. excurs.       +1.0000         +0.5000          0.5000
+               pos. excurs.       -1.0000         -0.5000          0.5000
+
  CORrelated and UNCorrelated systematic uncertainties:
 
                     Analysis number
@@ -22,11 +33,11 @@
  UNCOR2                  UNC
 
  "Correlated" parameters:
- PARAMETER1      0.1000E+01 +.1000E+01 -.1000E+01 0.1000E+01
+ PARAMETER1      0.1000E+01 +.5000E+00 -.5000E+00 0.5000E+00
 
  Results of combination:
 
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   8.00000119 2  8.00000119
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =     8.0000011920929  2    8.0000011920929
 
  ===============================================================================
  Dump of master.inc:
@@ -67,24 +78,24 @@ STACOR
       2 | 0.0000000E+00  0.1000000E+01
 
 CSYSP
- PARAME | 0.1000000E+00  0.2500000E+00
+ PARAME | 0.5000000E-01  0.1250000E+00
 
 CSYSN
- PARAME |-0.1000000E+00 -0.2500000E+00
+ PARAME |-0.5000000E-01 -0.1250000E+00
 
 CSYS
- PARAME | 0.1000000E+00  0.2500000E+00
+ PARAME | 0.5000000E-01  0.1250000E+00
 
 CSYS percentage error
- PARAME | 0.8333333E+01  0.3125000E+02
+ PARAME | 0.4166667E+01  0.1562500E+02
 
  CHPARA                  PARA     EXCUP     EXCUN      EXCU
 
- PARAMETER1        0.1000E+01 0.1000E+01 0.1000E+01 0.1000E+01
+ PARAMETER1        0.1000E+01 0.5000E+00 0.5000E+00 0.5000E+00
   
  Corrected measurements:
- EXPERIMENT1 METHOD 0.1200000E+01 +/-  0.1000000E+00 +/-  0.1999999E+00 Tot:  0.2236067E+00
- EXPERIMENT2 METHOD 0.8000000E+00 +/-  0.1000000E+00 +/-  0.5000003E+00 Tot:  0.5099022E+00
+ EXPERIMENT1 METHOD 0.1200000E+01 +/-  0.1000000E+00 +/-  0.1802775E+00 Tot:  0.2061552E+00
+ EXPERIMENT2 METHOD 0.8000000E+00 +/-  0.1000000E+00 +/-  0.4506942E+00 Tot:  0.4616549E+00
   
 
 SYSCOR
@@ -94,9 +105,9 @@ SYSCOR
 TOTCOR
       1 | 0.0000000E+00  0.0000000E+00
       2 | 0.0000000E+00  0.0000000E+00
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   0.615384194 2  0.615384194
- CHI2_SYM        :     OBSERVABLE1=0.11615E+01  +- 0.21817E+00         CL =  0.4328
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =    0.65809719511652  2   0.65809719511652
+ CHI2_SYM        :     OBSERVABLE1=0.11404E+01  +- 0.19260E+00         CL =  0.4172
                    stat. only -->  0.10000E+01  +- 0.70711E-01         CL =  0.0047
-                   syst. only -->               +- 0.20639E+00                     
+                   syst. only -->               +- 0.17915E+00                     
 
 

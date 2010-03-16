@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 14.58.56
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 16.25.55
 
  WARNING at (or before) word   1 of line  12 in file average.input 
          concerning combined analysis A2 4D_WXYZ PUBLISHED:
@@ -42,7 +42,8 @@
 
  Results of combination:
 
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   1.18329132E-29 4 4  INF
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     3.4512663574862D-29  4  4
+  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
@@ -62,8 +63,8 @@
  Z            0.8000000      0.5000000     0.5000000     0.5000000     0.2000000
                                      W             X             Y             Z
   
-                    W      1.2000000 +-      0.2000000 +-            nan Tot Err:     0.2000000 Check Sys:     0.0000000
-                    X      0.8000000 +-      0.1000000 +-            nan Tot Err:     0.1000000 Check Sys:     0.0000000
+                    W      1.2000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
+                    X      0.8000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
                     Y      1.2000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
                     Z      0.8000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
  Correlation between W and X =      0.5000000
@@ -150,7 +151,8 @@ TOTCOR
       2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   2.54278953E-30 4 4  INF
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     3.5039184499344D-30  4  4
+  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
@@ -229,7 +231,8 @@ TOTCOR
 
  Results of combination:
 
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   1.52841796E-29 4 4  INF
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     4.6345576800529D-29  4  4
+  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
@@ -249,8 +252,8 @@ TOTCOR
  Z            1.2000000      0.5000000     0.5000000     0.5000000     0.2000000
                                      W             X             Y             Z
   
-                    W      0.8000000 +-      0.2000000 +-            nan Tot Err:     0.2000000 Check Sys:     0.0000000
-                    X      1.2000000 +-      0.1000000 +-            nan Tot Err:     0.1000000 Check Sys:     0.0000000
+                    W      0.8000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
+                    X      1.2000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
                     Y      0.8000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
                     Z      1.2000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
  Correlation between W and X =      0.5000000
@@ -337,7 +340,8 @@ TOTCOR
       2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   4.61738487E-30 4 4  INF
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     2.2943634889531D-30  4  4
+  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
@@ -430,7 +434,8 @@ TOTCOR
 
  Results of combination:
 
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   40.000006 8 4  10.0000015
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     40.000005960465  8  4
+    10.0000014901162
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      W             X             Y             Z
@@ -449,8 +454,8 @@ TOTCOR
  Z            1.0000000      0.5000000     0.5000000     0.5000000     0.1414214
                                      W             X             Y             Z
   
-                    W      1.0000000 +-      0.1414214 +-            nan Tot Err:     0.1414214 Check Sys:     0.0000000
-                    X      1.0000000 +-      0.0707107 +-            nan Tot Err:     0.0707107 Check Sys:     0.0000000
+                    W      1.0000000 +-      0.1414214 +-      0.0000000 Tot Err:     0.1414214 Check Sys:     0.0000000
+                    X      1.0000000 +-      0.0707107 +-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
                     Y      1.0000000 +-      0.0707107 +-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
                     Z      1.0000000 +-      0.1414214 +-      0.0000000 Tot Err:     0.1414214 Check Sys:     0.0000000
  Correlation between W and X =      0.5000000
@@ -562,7 +567,8 @@ TOTCOR
       6 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       7 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       8 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   2.78252255 8 4  0.695630638
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     2.7825225507907  8  4
+    0.69563063769768
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                               A1_SYST0      A2_SYST0             W             X             Y             Z

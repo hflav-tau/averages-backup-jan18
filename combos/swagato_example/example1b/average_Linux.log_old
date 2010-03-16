@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 14.43.16
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 15.54.58
 
 
  ==============================================================================
@@ -18,6 +18,8 @@
                     Analysis number
  Uncertainty           1   2
  PARAMETER1          COR COR
+ UNCOR1              UNC
+ UNCOR2                  UNC
 
  "Correlated" parameters:
  PARAMETER1      0.1000E+01 +.1000E+01 -.1000E+01 0.1000E+01
@@ -54,35 +56,35 @@
 
   STAT  = 0.1000000E+00  0.1000000E+00
 
-  USYSP = 0.0000000E+00  0.0000000E+00
+  USYSP = 0.1732050E+00  0.4330130E+00
 
-  USYSN = 0.0000000E+00  0.0000000E+00
+  USYSN = 0.1732050E+00  0.4330130E+00
 
-  USYS  = 0.0000000E+00  0.0000000E+00
+  USYS  = 0.1732050E+00  0.4330130E+00
 
 STACOR
       1 | 0.1000000E+01  0.0000000E+00
       2 | 0.0000000E+00  0.1000000E+01
 
 CSYSP
- PARAME |-0.2000000E+00 -0.5000000E+00
+ PARAME | 0.1000000E+00  0.2500000E+00
 
 CSYSN
- PARAME | 0.2000000E+00  0.5000000E+00
+ PARAME |-0.1000000E+00 -0.2500000E+00
 
 CSYS
- PARAME |-0.2000000E+00 -0.5000000E+00
+ PARAME | 0.1000000E+00  0.2500000E+00
 
 CSYS percentage error
- PARAME |-0.1666667E+02 -0.6250000E+02
+ PARAME | 0.8333333E+01  0.3125000E+02
 
  CHPARA                  PARA     EXCUP     EXCUN      EXCU
 
  PARAMETER1        0.1000E+01 0.1000E+01 0.1000E+01 0.1000E+01
   
  Corrected measurements:
- EXPERIMENT1 METHOD 0.1200000E+01 +/-  0.1000000E+00 +/-  0.2000000E+00 Tot:  0.2236068E+00
- EXPERIMENT2 METHOD 0.8000000E+00 +/-  0.1000000E+00 +/-  0.5000000E+00 Tot:  0.5099020E+00
+ EXPERIMENT1 METHOD 0.1200000E+01 +/-  0.1000000E+00 +/-  0.1999999E+00 Tot:  0.2236067E+00
+ EXPERIMENT2 METHOD 0.8000000E+00 +/-  0.1000000E+00 +/-  0.5000003E+00 Tot:  0.5099022E+00
   
 
 SYSCOR
@@ -92,9 +94,9 @@ SYSCOR
 TOTCOR
       1 | 0.0000000E+00  0.0000000E+00
       2 | 0.0000000E+00  0.0000000E+00
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   1.45454573 2  1.45454573
- CHI2_SYM        :     OBSERVABLE1=0.13818E+01  +- 0.16514E+00         CL =  0.2278
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   0.615384194 2  0.615384194
+ CHI2_SYM        :     OBSERVABLE1=0.11615E+01  +- 0.21817E+00         CL =  0.4328
                    stat. only -->  0.10000E+01  +- 0.70711E-01         CL =  0.0047
-                   syst. only -->               +- 0.14924E+00                     
+                   syst. only -->               +- 0.20639E+00                     
 
 

@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 14.41.43
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 16.25.25
 
 
  ==============================================================================
@@ -24,8 +24,8 @@
 
  Results of combination:
 
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   8.00000119 2  8.00000119
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   1.45454573 2  1.45454573
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =     8.0000011920929  2    8.0000011920929
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =     1.4545457304017  2    1.4545457304017
  CHI2_SYM        :     OBSERVABLE1=0.13818E+01  +- 0.16514E+00         CL =  0.2278
                    stat. only -->  0.10000E+01  +- 0.70711E-01         CL =  0.0047
                    syst. only -->               +- 0.14924E+00                     
