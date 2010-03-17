@@ -1,0 +1,23 @@
+INCLUDE babar.input
+INCLUDE belle.input
+INCLUDE pdg.input
+
+BEGIN   BaBar+Belle+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_PimPimPipNu statistical systematic
+MEASUREMENT m_PimKmPipNu  statistical systematic
+MEASUREMENT m_PimKmKpNu   statistical systematic
+MEASUREMENT m_KmKmKpNu    statistical systematic
+
+CALL DUMP_MASTER_INC
+
+* dummmy parameter to increase printouts if value > 0
+PARAMETER CHI2_N_SYM_PRT 1.0 0. 0.
+
+CALL CHI2_N_SYM
+
+END
