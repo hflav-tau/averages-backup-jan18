@@ -20,9 +20,9 @@
 ##
 #############################################################################
 ##
-## Scientific Linux 5 requisites
+## Scientific Linux 5 (A.Lusiani)
 ## - cernlib as proviced by RPM packages: cernlib, cernlin-devel, cernlib-utils
-##
+## - for g77 use RPM package compat-gcc-34-g77
 #############################################################################
 
 default : combos
@@ -50,6 +50,10 @@ ifeq ($(OSNAME),Linux)
   # set default flags
   ifeq ($(FCOMP),g77 -m32)
     FFLAGS = -g -w -fno-automatic -fno-globals -Wno-globals -ffixed-line-length-none -funderscoring -fcase-lower -ffloat-store
+  endif
+# add default options for gfortran (A.Lusiani, March 2010)
+  ifeq ($(shell expr '$(FCOMP)' : '\(gfortran\)'),gfortran)
+    FFLAGS = -g -w -m32 -fno-automatic -ffixed-line-length-none -funderscoring -ffloat-store
   endif
 endif
 
