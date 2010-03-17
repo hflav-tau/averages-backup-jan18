@@ -262,6 +262,8 @@
 *     Local variables
 *
       INTEGER I,J
+      INTEGER NSUM, ISUM, IMEAS, INUMBER, IQUAN
+      CHARACTER*13 CHSUM
 *
 *     Check that the number of correlated systematic uncertainties is 
 *     less than the maximum
@@ -304,6 +306,32 @@
         ENDDO
       ENDDO
 *DR end 
+
+* SwB begin
+      NSUM = 0
+      DO I=NCSYS+1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_NSUM') NSUM=INT(PARA(I))
+      ENDDO
+      IF (NSUM.GT.0) THEN
+        DO ISUM=1,NSUM ! next line assumes number of measurement <= 99
+          WRITE(CHSUM,'("CHI2_N_SYM_",I2.2)') ISUM
+          DO I=NCSYS+1,NPARA
+            IF (CHPARA(I).EQ.CHSUM) THEN
+              IMEAS=INT(PARA(I))
+              INUMBER=INT(EXCUP(I))
+            ENDIF
+          ENDDO
+          DO I=1,9 !assumes number of quantities <=9 [otherwise, use binary system]
+            IQUAN = MOD ( INUMBER /((10)**(I-1)), 10) ! I-th digit of INUMBER (in decimal)
+            IF (IQUAN.NE.0) CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
+          ENDDO
+        ENDDO
+        DO IMEAS=1,NMEAS
+          PRINT*,'IMEAS,CSYS = ',(CSYS(IMEAS,NCSYS+IQUAN),IQUAN=1,NQUAN)
+        ENDDO
+      ENDIF
+* SwB end
+
 *
 *     Build total error matrix
 *
