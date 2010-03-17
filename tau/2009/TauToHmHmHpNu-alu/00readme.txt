@@ -1,0 +1,6 @@
+babar.r and belle.r are two R language scripts that when executed
+generate on their standard output the combos cards babar.input and
+belle.input.  In order to run them the R language package must be
+installed. The Makefile has been configured to only usr R it it
+exists.
+
