@@ -6,7 +6,7 @@ pdg:
 	bbrroot -l -b -q ../../../Common/pdg_average.cc
 
 babar.input: babar.r
-	./babar.r > babar.input
+	@if which Rscript > /dev/null 2>&1; then ./babar.r > babar.input; echo converted babar.r to babar.input; fi
 
 belle.input: belle.r
-	./belle.r > belle.input
+	@if which Rscript > /dev/null 2>&1; then ./belle.r > belle.input; echo converted belle.r to belle.input; fi
