@@ -1,0 +1,28 @@
+#!/bin/sh
+# -*- ksh -*-
+
+#
+# execute Rscript on 1st arg and direct output to 2nd arg
+# if Rscript is available
+#
+
+Rscript=
+if which Rscript > /dev/null 2>&1; then
+  Rscript=Rscript
+else
+  if [ -x /opt/TWWfsw/bin/Rscript ] ; then
+    Rscript=/opt/TWWfsw/bin/Rscript
+  fi
+fi
+
+if [ "$Rscript" = "" ] ; then
+  echo 1>&2 "Cannot exec Rscript "${1+"$@"}
+  if [ -r "$2" ] ; then
+    echo 1>&2 "  pre-existing file '$2' not modified"
+  else
+    echo 1>&2 "  file '$2' not created"
+  fi
+  exit 1
+fi
+
+$Rscript "$1" > "$2"
