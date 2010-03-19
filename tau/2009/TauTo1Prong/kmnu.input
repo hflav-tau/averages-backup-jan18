@@ -1,0 +1,31 @@
+BEGIN    BaBar KmNu  submitted ICHEP08
+MEASUREMENT m_KmNu   statistical  systematic
+DATA        m_KmNu   statistical  systematic
+            0.692e-2 0.0116619e-2 0.0e+0
+STAT_CORR_WITH BaBar MmNumbarNu submitted 0.20
+STAT_CORR_WITH BaBar PimNu      submitted 0.36
+END
+
+BEGIN    OPAL KmNu published ABBIENDI 01J
+MEASUREMENT m_KmNu   statistical  systematic
+DATA        m_KmNu   statistical  systematic
+            0.658e-2 0.0396232e-2 0.0e+0
+END
+
+BEGIN    ALEPH KmNu published BARATE 99K
+MEASUREMENT m_KmNu   statistical  systematic
+DATA        m_KmNu   statistical  systematic
+            0.696e-2 0.0286531e-2 0.0e+0
+END
+
+BEGIN    DELPHI KmNu published ABREU 94K
+MEASUREMENT m_KmNu   statistical systematic
+DATA        m_KmNu   statistical systematic
+            0.850e-2 0.18e-2     0.0e+0
+END
+
+BEGIN    CLEO KmNu published BATTLE 94
+MEASUREMENT m_KmNu   statistical systematic
+DATA        m_KmNu   statistical systematic
+            0.660e-2 0.114018e-2 0.0e+0
+END

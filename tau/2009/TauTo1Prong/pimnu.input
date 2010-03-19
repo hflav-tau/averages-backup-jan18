@@ -1,0 +1,15 @@
+BEGIN    BaBar PimNu submitted ICHEP08
+MEASUREMENT m_PimNu  statistical systematic
+DATA        m_PimNu  statistical systematic
+            10.59e-2 0.114018e-2 0.0e+0
+STAT_CORR_WITH BaBar MmNumbarNu submitted 0.34
+STAT_CORR_WITH BaBar KmNu       submitted 0.36
+END
+
+BEGIN    ALEPH PimNu published SCHAEL 05C
+MEASUREMENT m_PimNu   statistical systematic
+DATA        m_PimNu   statistical systematic
+            10.828e-2 0.104805e-2 0.0e+0
+STAT_CORR_WITH ALEPH MmNumbarNu published -0.06
+STAT_CORR_WITH ALEPH PimPizNu   published  0.02
+END

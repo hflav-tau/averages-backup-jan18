@@ -350,7 +350,7 @@ C      Print *, 'my chi2', chi2, NMEFF,NQUAn
 
 *compute sytematics from total-statistical (should be more or less 
 * equal to SYSUMTOT but not exactly, since systematics are now correlated
-        SYSTOT(IQUAN)=SQRT(ERRTOT(IQUAN)**2-STATTOT(IQUAN)**2) 
+        SYSTOT(IQUAN)=SQRT(MAX(0.,ERRTOT(IQUAN)**2-STATTOT(IQUAN)**2))
 
         WRITE(LUNLOG,1000)CHAUX(IVAR)(:LENOCC(CHAUX(IVAR))),
      &     -V(IVAR),(SSYS(I),I=1,LCSYS)

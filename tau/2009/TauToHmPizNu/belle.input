@@ -1,0 +1,7 @@
+BEGIN    Belle HmPizNu published FUJIKAWA 08
+MEASUREMENT m_HmPizNu statistical systematic
+DATA        m_HmPizNu statistical systematic
+            25.67e-2  0.01e-2     0.39e-2
+DATA        BelleOther 0.39e-2
+END
+

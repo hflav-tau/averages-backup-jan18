@@ -1,0 +1,40 @@
+BEGIN    BaBar MmNumbarNu submitted ICHEP08
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.46e-2     0.08544e-2  0.0e+0
+STAT_CORR_WITH BaBar PimNu submitted 0.34
+STAT_CORR_WITH BaBar KmNu  submitted 0.20
+END
+
+BEGIN    ALEPH MmNumbarNu published SCHAEL 05C
+MEASUREMENT m_MmNumbarNu statistical  systematic
+DATA        m_MmNumbarNu statistical  systematic
+            17.319e-2    0.0769675e-2 0.0e+0
+STAT_CORR_WITH ALEPH PimNu    published -0.06
+STAT_CORR_WITH ALEPH PimPizNu published -0.12
+END
+
+BEGIN    OPAL MmNumbarNu published ABBIENDI 03
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.34e-2     0.108167e-2 0.0e+0
+END
+
+BEGIN    L3 MmNumbarNu published ACCIARRI 01F
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.342e-2    0.128798e-2 0.0e+0
+END
+
+BEGIN    DELPHI MmNumbarNu published ABREU 99X
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.325e-2    0.122287e-2 0.0e+0
+END
+
+BEGIN    CLEO MmNumbarNu published ANASTASSOV	 97
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.37e-2     0.196977e-2 0.0e+0
+STAT_CORR_WITH CLEO HmNu published 0.50
+END

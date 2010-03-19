@@ -1,0 +1,49 @@
+* Simultaneous averaging of measurements of:
+*
+* Variable. Decay-Mode
+* 1.        tau- -> mu- nubar nu
+* 2.        tau- -> pi- nu
+* 3.        tau- -> K-  nu
+* 23.       tau- -> h-  nu
+* 4.        tau- -> pi- pi0 nu
+* 5.        tau- -> K-  pi0 nu
+* 45.       tau- -> h-  pi0 nu
+
+INCLUDE mmnumbarnu.input
+INCLUDE pimnu.input
+INCLUDE kmnu.input
+INCLUDE hmnu.input
+INCLUDE pimpiznu.input
+INCLUDE kmpiznu.input
+INCLUDE hmpiznu.input
+
+BEGIN   BaBar+Belle+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_MmNumbarNu statistical systematic
+MEASUREMENT m_PimNu      statistical systematic
+MEASUREMENT m_KmNu       statistical systematic
+MEASUREMENT m_PimPizNu   statistical systematic
+MEASUREMENT m_KmPizNu    statistical systematic
+
+* dummmy parameter to increase printouts if value > 0
+PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
+
+* parameters to specify sum of measurements in pdg_hhh.input
+PARAMETER CHI2_N_SYM_NSUM  8 0 0
+PARAMETER CHI2_N_SYM_01    14 23 -23
+PARAMETER CHI2_N_SYM_02    15 23 -23
+PARAMETER CHI2_N_SYM_03    16 23 -23
+PARAMETER CHI2_N_SYM_04    23 45 -45
+PARAMETER CHI2_N_SYM_05    24 45 -45
+PARAMETER CHI2_N_SYM_06    25 45 -45
+PARAMETER CHI2_N_SYM_07    26 45 -45
+PARAMETER CHI2_N_SYM_08    27 45 -45
+
+* CALL DUMP_MASTER_INC
+CALL CHI2_N_SYM
+
+END

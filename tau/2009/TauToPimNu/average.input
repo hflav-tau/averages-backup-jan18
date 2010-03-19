@@ -1,0 +1,15 @@
+INCLUDE babar.input
+INCLUDE pdg.input
+
+BEGIN   BaBar+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_PimNu
+
+CALL DUMP_MASTER_INC
+CALL CHI2_SYM
+
+END

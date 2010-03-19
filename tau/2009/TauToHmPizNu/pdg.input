@@ -1,0 +1,27 @@
+BEGIN    DELPHI HmPizNu published ABDALLAH 06A
+MEASUREMENT m_HmPizNu statistical systematic
+DATA        m_HmPizNu statistical systematic
+            25.740e-2 0.201e-2    0.138e-2
+DATA        DelphiOther 0.138e-2
+END
+
+BEGIN    OPAL HmPizNu published ACKERSTAFF 98M
+MEASUREMENT m_HmPizNu statistical systematic
+DATA        m_HmPizNu statistical systematic
+            25.89e-2  0.17e-2     0.29e-2
+DATA        OpalOther 0.29e-2
+END
+
+BEGIN    L3 HmPizNu published ACCIARRI  95
+MEASUREMENT m_HmPizNu statistical systematic
+DATA        m_HmPizNu statistical systematic
+            25.05e-2  0.35e-2     0.50e-2
+DATA        L3Other 0.50e-2
+END
+
+BEGIN    CLEO HmPizNu published ARTUSO   94
+MEASUREMENT m_HmPizNu statistical systematic
+DATA        m_HmPizNu statistical systematic
+            25.87e-2  0.12e-2     0.42e-2
+DATA        CleoOther 0.42e-2
+END
