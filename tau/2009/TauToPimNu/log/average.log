@@ -1,0 +1,118 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 19/03/10 at 15.50.40
+
+
+ ==============================================================================
+
+ M_PIMNU combination: combined analysis BABAR+PDG ALL_METHODS
+ --------------------
+
+ List of  2 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  BABAR           PIMNU           SUBMITTED       M_PIMNU                1
+       2>  ALEPH           PIMNU           PUBLISHED       M_PIMNU                1
+ Combined  BABAR+PDG       ALL_METHODS                     M_PIMNU                1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2
+ BABAROTHER          UNC
+ ALEPHOTHER              UNC
+
+ "Extra" parameters:
+ SIGMATAUPMY4S   0.9190E+00 +.3000E-02 -.3000E-02 0.3000E-02
+ PIMPIZNU        0.2546E+00 +.1200E-02 -.1200E-02 0.1200E-02
+ KMKZSNU         0.7900E-03 +.8500E-04 -.8500E-04 0.8500E-04
+ PIMPIZKZSNU     0.1800E-02 +.2000E-03 -.2000E-03 0.2000E-03
+ KMPIZKZSNU      0.7200E-03 +.1150E-03 -.1150E-03 0.1150E-03
+ PIMKZSKZSNU     0.2400E-03 +.5000E-04 -.5000E-04 0.5000E-04
+ PIMPIMPIPNU     0.8850E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU  0.4550E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMKMPIPNU      0.2800E-02 +.1900E-03 -.1900E-03 0.1900E-03
+ PIMKMKPNU       0.1370E-02 +.6000E-04 -.6000E-04 0.6000E-04
+ PIMKZSKZLNU     0.9300E-03 +.1100E-03 -.1100E-03 0.1100E-03
+
+ Results of combination:
+
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   9.76625671 2  9.76625671
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = BABAR+PDG ALL_METHODS
+ CHMEAS = M_PIMNU         
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        2
+  NQUAN =        1
+  NMEFF =        2
+  NCSYS =        0
+  NPARA =       11
+ CHANAL = BABAR PIMNU SUBMITTED
+          ALEPH PIMNU PUBLISHED
+
+   MEAS = 0.1059000E+00  0.1082800E+00
+
+   QUAN               1              1
+
+  STATP = 0.3000000E-03  0.7000000E-03
+
+  STATN = 0.3000000E-03  0.7000000E-03
+
+  STAT  = 0.3000000E-03  0.7000000E-03
+
+  USYSP = 0.1100000E-02  0.7800000E-03
+
+  USYSN = 0.1100000E-02  0.7800000E-03
+
+  USYS  = 0.1100000E-02  0.7800000E-03
+
+STACOR
+      1 | 0.1000000E+01  0.0000000E+00
+      2 | 0.0000000E+00  0.1000000E+01
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ SIGMATAUPMY4S     0.9190E+00 0.3000E-02 0.3000E-02 0.3000E-02
+ PIMPIZNU          0.2546E+00 0.1200E-02 0.1200E-02 0.1200E-02
+ KMKZSNU           0.7900E-03 0.8500E-04 0.8500E-04 0.8500E-04
+ PIMPIZKZSNU       0.1800E-02 0.2000E-03 0.2000E-03 0.2000E-03
+ KMPIZKZSNU        0.7200E-03 0.1150E-03 0.1150E-03 0.1150E-03
+ PIMKZSKZSNU       0.2400E-03 0.5000E-04 0.5000E-04 0.5000E-04
+ PIMPIMPIPNU       0.8850E-01 0.1300E-02 0.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU    0.4550E-01 0.1300E-02 0.1300E-02 0.1300E-02
+ PIMKMPIPNU        0.2800E-02 0.1900E-03 0.1900E-03 0.1900E-03
+ PIMKMKPNU         0.1370E-02 0.6000E-04 0.6000E-04 0.6000E-04
+ PIMKZSKZLNU       0.9300E-03 0.1100E-03 0.1100E-03 0.1100E-03
+  
+ Corrected measurements:
+ BABAR PIMNU SUBMIT 0.1059000E+00 +/-  0.3000000E-03 +/-  0.1100000E-02 Tot:  0.1140175E-02
+ ALEPH PIMNU PUBLIS 0.1082800E+00 +/-  0.7000000E-03 +/-  0.7800000E-03 Tot:  0.1048046E-02
+  
+
+SYSCOR
+      1 | 0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   2.36175313 2  2.36175313
+ CHI2_SYM        :         M_PIMNU=0.10719E+00  +- 0.77160E-03         CL =  0.1243
+                   stat. only -->  0.10627E+00  +- 0.27574E-03         CL =  0.0018
+                   syst. only -->               +- 0.72064E-03                     
+
+

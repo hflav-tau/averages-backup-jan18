@@ -1,0 +1,14 @@
+bbrroot -l -b -q ../../../Common/pdg_average.cc
+
+Processing ../../../Common/pdg_average.cc...
+Read 3 lines from file pdg_average.input
+0 0.11571 +- 0.0012(stat) +- 0.00114(syst) +- 0.00165517 (tot) from DELPHI 2006
+1 0.1198 +- 0.0013(stat) +- 0.0016(syst) +- 0.00206155 (tot) from OPAL 1998
+2 0.1152 +- 0.0005(stat) +- 0.0012(syst) +- 0.0013 (tot) from CLEO 1997
+Weighted average of n = 3 measurements = 0.116264 +- 0.000915919 delta (=3sqrt(n)err) = 0.00475925
+0 0.11571 +- 0.0012(stat) +- 0.00114(syst) +- 0.00165517 (tot) from DELPHI 2006 chi2tmp = 0.112096 chi2 = 0.112096 nchi2 = 1
+1 0.1198 +- 0.0013(stat) +- 0.0016(syst) +- 0.00206155 (tot) from OPAL 1998 chi2tmp = 2.94168 chi2 = 3.05378 nchi2 = 2
+2 0.1152 +- 0.0005(stat) +- 0.0012(syst) +- 0.0013 (tot) from CLEO 1997 chi2tmp = 0.670085 chi2 = 3.72386 nchi2 = 3
+Total Chi2 for 3 measurements (out of 3) = 3.72386 Scale factor = 1.36453
+Weighted average (with scale factor) = 0.116264 +- 0.00124979
+(int)0

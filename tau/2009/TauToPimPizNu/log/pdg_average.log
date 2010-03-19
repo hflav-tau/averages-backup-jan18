@@ -1,0 +1,12 @@
+bbrroot -l -b -q ../../../Common/pdg_average.cc
+
+Processing ../../../Common/pdg_average.cc...
+Read 2 lines from file pdg_average.input
+0 0.25471 +- 0.00097(stat) +- 0.00085(syst) +- 0.00128973 (tot) from ALEPH 2005
+1 0.2536 +- 0.0044(stat) +- 0(syst) +- 0.0044 (tot) from CLEO 1994
+Weighted average of n = 2 measurements = 0.254622 +- 0.00123765 delta (=3sqrt(n)err) = 0.00525092
+0 0.25471 +- 0.00097(stat) +- 0.00085(syst) +- 0.00128973 (tot) from ALEPH 2005 chi2tmp = 0.004637 chi2 = 0.004637 nchi2 = 1
+1 0.2536 +- 0.0044(stat) +- 0(syst) +- 0.0044 (tot) from CLEO 1994 chi2tmp = 0.0539691 chi2 = 0.0586061 nchi2 = 2
+Total Chi2 for 2 measurements (out of 2) = 0.0586061 Scale factor = 0.242087
+Weighted average (with scale set to 1) = 0.254622 +- 0.00123765
+(int)0

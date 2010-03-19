@@ -1,0 +1,6 @@
+BEGIN    ALEPH PimNu published SCHAEL 05C
+MEASUREMENT m_PimNu   statistical systematic
+DATA        m_PimNu   statistical systematic
+            10.828e-2 0.070e-2    0.078e-2
+DATA        AlephOther 0.078e-2
+END

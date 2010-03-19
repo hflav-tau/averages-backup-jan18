@@ -1,0 +1,125 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 19/03/10 at 16.06.24
+
+
+ ==============================================================================
+
+ M_HMNU combination: combined analysis PDG ALL_METHODS
+ -------------------
+
+ List of  3 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  DELPHI          HMNU            PUBLISHED       M_HMNU                 1
+       2>  OPAL            HMNU            PUBLISHED       M_HMNU                 1
+       3>  CLEO            HMNU            PUBLISHED       M_HMNU                 1
+ Combined  PDG             ALL_METHODS                     M_HMNU                 1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2   3
+ DELPHIOTHER         UNC
+ OPALOTHER               UNC
+ CLEOOTHER                   UNC
+
+ "Extra" parameters:
+ SIGMATAUPMY4S   0.9190E+00 +.3000E-02 -.3000E-02 0.3000E-02
+ PIMPIZNU        0.2546E+00 +.1200E-02 -.1200E-02 0.1200E-02
+ KMKZSNU         0.7900E-03 +.8500E-04 -.8500E-04 0.8500E-04
+ PIMPIZKZSNU     0.1800E-02 +.2000E-03 -.2000E-03 0.2000E-03
+ KMPIZKZSNU      0.7200E-03 +.1150E-03 -.1150E-03 0.1150E-03
+ PIMKZSKZSNU     0.2400E-03 +.5000E-04 -.5000E-04 0.5000E-04
+ PIMPIMPIPNU     0.8850E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU  0.4550E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMKMPIPNU      0.2800E-02 +.1900E-03 -.1900E-03 0.1900E-03
+ PIMKMKPNU       0.1370E-02 +.6000E-04 -.6000E-04 0.6000E-04
+ PIMKZSKZLNU     0.9300E-03 +.1100E-03 -.1100E-03 0.1100E-03
+
+ Results of combination:
+
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   10.9113662 3  5.45568311
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = PDG ALL_METHODS
+ CHMEAS = M_HMNU          
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        3
+  NQUAN =        1
+  NMEFF =        3
+  NCSYS =        0
+  NPARA =       11
+ CHANAL = DELPHI HMNU PUBLISHED
+          OPAL HMNU PUBLISHED
+          CLEO HMNU PUBLISHED
+
+   MEAS = 0.1157100E+00  0.1198000E+00  0.1152000E+00
+
+   QUAN               1              1              1
+
+  STATP = 0.1200000E-02  0.1300000E-02  0.5000000E-03
+
+  STATN = 0.1200000E-02  0.1300000E-02  0.5000000E-03
+
+  STAT  = 0.1200000E-02  0.1300000E-02  0.5000000E-03
+
+  USYSP = 0.1140000E-02  0.1600000E-02  0.1200000E-02
+
+  USYSN = 0.1140000E-02  0.1600000E-02  0.1200000E-02
+
+  USYS  = 0.1140000E-02  0.1600000E-02  0.1200000E-02
+
+STACOR
+      1 | 0.1000000E+01  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.1000000E+01  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.1000000E+01
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ SIGMATAUPMY4S     0.9190E+00 0.3000E-02 0.3000E-02 0.3000E-02
+ PIMPIZNU          0.2546E+00 0.1200E-02 0.1200E-02 0.1200E-02
+ KMKZSNU           0.7900E-03 0.8500E-04 0.8500E-04 0.8500E-04
+ PIMPIZKZSNU       0.1800E-02 0.2000E-03 0.2000E-03 0.2000E-03
+ KMPIZKZSNU        0.7200E-03 0.1150E-03 0.1150E-03 0.1150E-03
+ PIMKZSKZSNU       0.2400E-03 0.5000E-04 0.5000E-04 0.5000E-04
+ PIMPIMPIPNU       0.8850E-01 0.1300E-02 0.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU    0.4550E-01 0.1300E-02 0.1300E-02 0.1300E-02
+ PIMKMPIPNU        0.2800E-02 0.1900E-03 0.1900E-03 0.1900E-03
+ PIMKMKPNU         0.1370E-02 0.6000E-04 0.6000E-04 0.6000E-04
+ PIMKZSKZLNU       0.9300E-03 0.1100E-03 0.1100E-03 0.1100E-03
+  
+ Corrected measurements:
+ DELPHI HMNU PUBLIS 0.1157100E+00 +/-  0.1200000E-02 +/-  0.1140000E-02 Tot:  0.1655174E-02
+ OPAL HMNU PUBLISHE 0.1198000E+00 +/-  0.1300000E-02 +/-  0.1600000E-02 Tot:  0.2061553E-02
+ CLEO HMNU PUBLISHE 0.1152000E+00 +/-  0.5000000E-03 +/-  0.1200000E-02 Tot:  0.1300000E-02
+  
+
+SYSCOR
+      1 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+ CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   3.72386649 3  1.86193324
+ CHI2_SYM        :          M_HMNU=0.11626E+00  +- 0.91592E-03         CL =  0.1554
+                   stat. only -->  0.11578E+00  +- 0.43494E-03         CL =  0.0043
+                   syst. only -->               +- 0.80606E-03                     
+
+

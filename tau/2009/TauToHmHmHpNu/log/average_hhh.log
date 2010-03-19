@@ -1,0 +1,305 @@
+../../../combos/combos average.input  
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 18/03/10 at 15.47.06
+
+ WARNING at (or before) word   5 of line   8 in file babar.input 
+         concerning analysis BABAR PIMPIMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR PIMKMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  10 in file babar.input 
+         concerning analysis BABAR PIMPIMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR KMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  28 in file babar.input 
+         concerning analysis BABAR PIMKMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR PIMPIMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  29 in file babar.input 
+         concerning analysis BABAR PIMKMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR PIMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  49 in file babar.input 
+         concerning analysis BABAR PIMKMKPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR PIMKMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  50 in file babar.input 
+         concerning analysis BABAR PIMKMKPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR KMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  68 in file babar.input 
+         concerning analysis BABAR KMKMKPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR PIMPIMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  70 in file babar.input 
+         concerning analysis BABAR KMKMKPNU PUBLISHED:
+         "Negative correlation coefficient specified for BABAR PIMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line   8 in file belle.input 
+         concerning analysis BELLE PIMPIMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BELLE PIMKMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  28 in file belle.input 
+         concerning analysis BELLE PIMKMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BELLE PIMPIMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  29 in file belle.input 
+         concerning analysis BELLE PIMKMPIPNU PUBLISHED:
+         "Negative correlation coefficient specified for BELLE PIMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  49 in file belle.input 
+         concerning analysis BELLE PIMKMKPNU SUBMITTED:
+         "Negative correlation coefficient specified for BELLE PIMKMPIPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  50 in file belle.input 
+         concerning analysis BELLE PIMKMKPNU SUBMITTED:
+         "Negative correlation coefficient specified for BELLE KMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   5 of line  70 in file belle.input 
+         concerning analysis BELLE KMKMKPNU SUBMITTED:
+         "Negative correlation coefficient specified for BELLE PIMKMKPNU PUBLISHED"
+         ---> probably OK if 2D fit is done
+ WARNING at (or before) word   1 of line  30 in file average.input 
+         concerning combined analysis BABAR+BELLE+PDG ALL_METHODS:
+         "More than two quantities to be fitted"
+         ---> it should work but are you sure it is what you want to do?
+
+ ==============================================================================
+
+ M_PIMPIMPIPNU M_ combination: combined analysis BABAR+BELLE+PDG ALL_METHODS
+ -----------------------------
+
+ List of 20 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  BABAR           PIMPIMPIPNU     PUBLISHED       M_PIMPIMPIPNU          1
+       2>  BABAR           PIMKMPIPNU      PUBLISHED       M_PIMKMPIPNU           1
+       3>  BABAR           PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+       4>  BABAR           KMKMKPNU        PUBLISHED       M_KMKMKPNU             1
+       5>  BELLE           PIMPIMPIPNU     PUBLISHED       M_PIMPIMPIPNU          1
+       6>  BELLE           PIMKMPIPNU      PUBLISHED       M_PIMKMPIPNU           1
+       7>  BELLE           PIMKMKPNU       SUBMITTED       M_PIMKMKPNU            1
+       8>  BELLE           KMKMKPNU        SUBMITTED       M_KMKMKPNU             1
+       9>  CLEO3           PIMPIMPIPNU     PUBLISHED       M_PIMPIMPIPNU          1
+      10>  OPAL            PIMKMPIPNU      PUBLISHED       M_PIMKMPIPNU           1
+      11>  CLEO3           PIMKMPIPNU      PUBLISHED       M_PIMKMPIPNU           1
+      12>  CLEO            PIMKMPIPNU      PUBLISHED       M_PIMKMPIPNU           1
+      13>  ALEPH           PIMKMPIPNU      PUBLISHED       M_PIMKMPIPNU           1
+      14>  CLEO3           PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+      15>  OPAL            PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+      16>  CLEO            PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+      17>  ALEPH           PIMKMKPNU       PUBLISHED       M_PIMKMKPNU            1
+      18>  DELPHI          HMHMHPNU        PUBLISHED       M_PIMPIMPIPNU          1
+      19>  OPAL            HMHMHPNU        PUBLISHED       M_PIMPIMPIPNU          1
+      20>  CLEO            HMHMHPNU        PUBLISHED       M_PIMPIMPIPNU          1
+ Combined  BABAR+BELLE+PDG ALL_METHODS                     M_PIMPIMPIPNU M_       1
+
+ Statistical correlations:
+
+ Analysis number             1          2          3          4          5          6          7          8
+               1    0.1000E+01 -.1300E+00 0.1365E-02 -.1867E-02 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
+               2    -.1300E+00 0.1000E+01 -.1506E+00 0.6194E-02 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
+               3    0.1365E-02 -.1506E+00 0.1000E+01 -.9489E-01 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
+               4    -.1867E-02 0.6194E-02 -.9489E-01 0.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
+               5    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.1000E+01 -.3009E+00 0.5005E-02 0.2547E-02
+               6    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 -.3009E+00 0.1000E+01 -.2008E+00 0.1067E-01
+               7    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.5005E-02 -.2008E+00 0.1000E+01 0.0000E+00
+               8    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.2547E-02 0.1067E-01 0.0000E+00 0.1000E+01
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20
+ BABARSYST_00        COR COR COR COR
+ BABARSYST_12        COR COR
+ BABARSYST_13        COR     COR
+ BABARSYST_14        COR         COR
+ BABARSYST_23            COR COR
+ BABARSYST_24            COR     COR
+ BABARSYST_34                COR COR
+ BELLESYST_00                        COR COR COR COR
+ BELLESYST_12                        COR COR
+ BELLESYST_13                        COR     COR
+ BELLESYST_14                        COR         COR
+ BELLESYST_23                            COR COR
+ BELLESYST_24                            COR     COR
+ BELLESYST_34                                COR COR
+ CLEO3OTHER_00                                       COR     COR         COR
+ BABARSYST_1U        UNC
+ BABARSYST_2U            UNC
+ BABARSYST_3U                UNC
+ BABARSYST_4U                    UNC
+ BELLESYST_1U                        UNC
+ BELLESYST_2U                            UNC
+ BELLESYST_3U                                UNC
+ BELLESYST_4U                                    UNC
+ CLEO3OTHER_1U                                       UNC
+ OPALOTHER_2U                                            UNC
+ CLEO3OTHER_2U                                               UNC
+ CLEOOTHER_2U                                                    UNC
+ ALEPHOTHER_2U                                                       UNC
+ CLEO3OTHER_3U                                                           UNC
+ OPALOTHER_3U                                                                UNC
+ CLEOOTHER_3U                                                                    UNC
+ ALEPHOTHER_3U                                                                       UNC
+ DELPHIOTHER_0U                                                                          UNC
+ OPALOTHER_0U                                                                                UNC
+ CLEOOTHER_0U                                                                                    UNC
+
+ "Correlated" parameters:
+ BABARSYST_00    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BABARSYST_12    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BABARSYST_13    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BABARSYST_14    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BABARSYST_23    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BABARSYST_24    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BABARSYST_34    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_00    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_12    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_13    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_14    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_23    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_24    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ BELLESYST_34    0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+ CLEO3OTHER_00   0.0000E+00 +.1000E+01 -.1000E+01 0.1000E+01
+
+ "Extra" parameters:
+ SIGMATAUPMY4S   0.9190E+00 +.3000E-02 -.3000E-02 0.3000E-02
+ PIMPIZNU        0.2546E+00 +.1200E-02 -.1200E-02 0.1200E-02
+ KMKZSNU         0.7900E-03 +.8500E-04 -.8500E-04 0.8500E-04
+ PIMPIZKZSNU     0.1800E-02 +.2000E-03 -.2000E-03 0.2000E-03
+ KMPIZKZSNU      0.7200E-03 +.1150E-03 -.1150E-03 0.1150E-03
+ PIMKZSKZSNU     0.2400E-03 +.5000E-04 -.5000E-04 0.5000E-04
+ PIMPIMPIPNU     0.8850E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMPIMPIPPIZNU  0.4550E-01 +.1300E-02 -.1300E-02 0.1300E-02
+ PIMKMPIPNU      0.2800E-02 +.1900E-03 -.1900E-03 0.1900E-03
+ PIMKMKPNU       0.1370E-02 +.6000E-04 -.6000E-04 0.6000E-04
+ PIMKZSKZLNU     0.9300E-03 +.1100E-03 -.1100E-03 0.1100E-03
+ CHI2_N_SYM_PRT  -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_NSUM 0.3000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_01   0.1800E+02 +.1234E+04 -.1234E+04 0.1234E+04
+ CHI2_N_SYM_02   0.1900E+02 +.1234E+04 -.1234E+04 0.1234E+04
+ CHI2_N_SYM_03   0.2000E+02 +.1234E+04 -.1234E+04 0.1234E+04
+
+ Results of combination:
+
+ IMEAS,CSYS =  -1.  0.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0.  0. -1.
+ IMEAS,CSYS =  -1.  0.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0.  0. -1.
+ IMEAS,CSYS =  -1.  0.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =  -1. -1. -1. -1.
+ IMEAS,CSYS =  -1. -1. -1. -1.
+ IMEAS,CSYS =  -1. -1. -1. -1.
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   2209.64814 20 4  138.103009
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                         M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+ M_PIMPIM     0.0869768      0.0000586    -0.2091724     0.0010747    -0.0005492
+ M_PIMKMP     0.0031326     -0.2091724     0.0000085    -0.1758716     0.0126865
+ M_PIMKMK     0.0014435      0.0010747    -0.1758716     0.0000070    -0.0532718
+ M_KMKMKP     0.0000211     -0.0005492     0.0126865    -0.0532718     0.0000010
+                         M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+  
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                         M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+ M_PIMPIM     0.0869768      0.0000586    -0.2091724     0.0010747    -0.0005492
+ M_PIMKMP     0.0031326     -0.2091724     0.0000085    -0.1758716     0.0126865
+ M_PIMKMK     0.0014435      0.0010747    -0.1758716     0.0000070    -0.0532718
+ M_KMKMKP     0.0000211     -0.0005492     0.0126865    -0.0532718     0.0000010
+                         M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+  
+        M_PIMPIMPIPNU      0.0869768 +-      0.0000586 +-      0.0000000 Tot Err:     0.0000586 Check Sys:     0.0000000
+         M_PIMKMPIPNU      0.0031326 +-      0.0000085 +-      0.0000000 Tot Err:     0.0000085 Check Sys:     0.0000000
+          M_PIMKMKPNU      0.0014435 +-      0.0000070 +-      0.0000000 Tot Err:     0.0000070 Check Sys:     0.0000000
+           M_KMKMKPNU      0.0000211 +-      0.0000010 +-      0.0000000 Tot Err:     0.0000010 Check Sys:     0.0000000
+ Correlation between M_PIMPIMPIPNU and M_PIMKMPIPNU =     -0.2091724
+ Correlation between M_PIMPIMPIPNU and M_PIMKMKPNU =      0.0010747
+ Correlation between M_PIMPIMPIPNU and M_KMKMKPNU =     -0.0005492
+ Correlation between M_PIMKMPIPNU and M_PIMKMKPNU =     -0.1758716
+ Correlation between M_PIMKMPIPNU and M_KMKMKPNU =      0.0126865
+ Correlation between M_PIMKMKPNU and M_KMKMKPNU =     -0.0532718
+  
+ IMEAS,CSYS =  -1.  0.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0.  0. -1.
+ IMEAS,CSYS =  -1.  0.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0.  0. -1.
+ IMEAS,CSYS =  -1.  0.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0. -1.  0.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =   0.  0. -1.  0.
+ IMEAS,CSYS =  -1. -1. -1. -1.
+ IMEAS,CSYS =  -1. -1. -1. -1.
+ IMEAS,CSYS =  -1. -1. -1. -1.
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   69.4175992 20 4  4.33859995
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                          BABARSYST_00  BABARSYST_12  BABARSYST_13  BABARSYST_14  BABARSYST_23  BABARSYST_24  BABARSYST_34  BELLESYST_00  BELLESYST_12  BELLESYST_13  BELLESYST_14  BELLESYST_23  BELLESYST_24  BELLESYST_34 CLEO3OTHER_00 M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+ BABARSYS     0.7792736      0.8312586    -0.3394574    -0.2412367    -0.0795861    -0.0274081    -0.0115951    -0.0314600     0.0131951     0.0515908     0.0459645     0.0266571     0.0195308     0.0028046     0.0106369     0.3051972     0.4480121     0.0290072     0.1766397     0.0590140
+ BABARSYS     0.8207813     -0.3394574     0.8402487    -0.1092575    -0.0648543    -0.0380901    -0.0649798     0.0346818     0.0074062     0.1333829    -0.0071760     0.0171007     0.0440430     0.0467649    -0.0087813     0.2079785     0.3121237     0.5341066    -0.1254612    -0.0171973
+ BABARSYS     0.5031735     -0.2412367    -0.1092575     0.9216734    -0.0396598    -0.0338446     0.0180208    -0.0550314     0.0101428    -0.0075251     0.0512643     0.0206957     0.0227916    -0.0191555     0.0148889     0.1639791     0.2284886    -0.1405270     0.3197076    -0.0177140
+ BABARSYS    -0.6015095     -0.0795861    -0.0648543    -0.0396598     0.9867061     0.0114779     0.0162509     0.0186793    -0.0014727     0.0023601     0.0040107     0.0234097    -0.0117585    -0.0167928    -0.0061329     0.0687095     0.1066630    -0.0560378    -0.0284260    -0.1253238
+ BABARSYS     1.2497774     -0.0274081    -0.0380901    -0.0338446     0.0114779     0.9633824    -0.0329108    -0.0428721     0.0084011     0.0412626     0.0155853    -0.0098681     0.0748580     0.0260258     0.0099383    -0.0244686    -0.0598345     0.3089434     0.2519370    -0.0119844
+ BABARSYS     1.2995746     -0.0115951    -0.0649798     0.0180208     0.0162509    -0.0329108     0.9754420    -0.0151527     0.0052234     0.0493367    -0.0090631    -0.0294643     0.0357106     0.0445891     0.0060102    -0.0237940    -0.0412030     0.2989931    -0.0058164     0.1872751
+ BABARSYS     1.3656379     -0.0314600     0.0346818    -0.0550314     0.0186793    -0.0428721    -0.0151527     0.9668554     0.0095071    -0.0092064     0.0285982    -0.0254635     0.0357140     0.0152893     0.0207003    -0.0034313    -0.0233334    -0.0018911     0.2691136     0.2006095
+ BELLESYS    -0.1569851      0.0131951     0.0074062     0.0101428    -0.0014727     0.0084011     0.0052234     0.0095071     0.9965808    -0.0358358    -0.0201763    -0.0118425    -0.0166255    -0.0070373    -0.0046218     0.0184023     0.0253785     0.0176497     0.0303572     0.0177083
+ BELLESYS    -0.0009699      0.0515908     0.1333829    -0.0075251     0.0023601     0.0412626     0.0493367    -0.0092064    -0.0358358     0.8629412    -0.0745862    -0.1082901    -0.0849757    -0.0711619     0.0045192     0.1079316     0.1583469     0.2088912     0.0078489     0.0154496
+ BELLESYS     0.0787714      0.0459645    -0.0071760     0.0512643     0.0040107     0.0155853    -0.0090631     0.0285982    -0.0201763    -0.0745862     0.9627946    -0.0561644    -0.0314715     0.0093856    -0.0147221     0.0572345     0.0783113    -0.0008903     0.1193128     0.0107300
+ BELLESYS     1.4874690      0.0266571     0.0171007     0.0206957     0.0234097    -0.0098681    -0.0294643    -0.0254635    -0.0118425    -0.1082901    -0.0561644     0.9520609     0.0151925     0.0301723     0.0106699     0.0476690     0.0716085    -0.0040193     0.0058400    -0.1140704
+ BELLESYS    -1.2421996      0.0195308     0.0440430     0.0227916    -0.0117585     0.0748580     0.0357106     0.0357140    -0.0166255    -0.0849757    -0.0314715     0.0151925     0.9379030    -0.0496855    -0.0184831     0.0404206     0.0491067     0.1261706     0.1402428     0.0078963
+ BELLESYS    -1.1604468      0.0028046     0.0467649    -0.0191555    -0.0167928     0.0260258     0.0445891     0.0152893    -0.0070373    -0.0711619     0.0093856     0.0301723    -0.0496855     0.9736241    -0.0061100     0.0120436     0.0163934     0.0967257    -0.0009340     0.0939116
+ BELLESYS    -0.4860312      0.0106369    -0.0087813     0.0148889    -0.0061329     0.0099383     0.0060102     0.0207003    -0.0046218     0.0045192    -0.0147221     0.0106699    -0.0184831    -0.0061100     0.9951162     0.0083969     0.0093507     0.0009672     0.0488278     0.0427703
+ CLEO3OTH    -0.4461457      0.3051972     0.2079785     0.1639791     0.0687095    -0.0244686    -0.0237940    -0.0034313     0.0184023     0.1079316     0.0572345     0.0476690     0.0404206     0.0120436     0.0083969     0.2182311     0.6764349     0.2046583     0.1944445     0.0003765
+ M_PIMPIM     0.0895090      0.4480121     0.3121237     0.2284886     0.1066630    -0.0598345    -0.0412030    -0.0233334     0.0253785     0.1583469     0.0783113     0.0716085     0.0491067     0.0163934     0.0093507     0.6764349     0.0007026     0.2865004     0.2248752    -0.0045742
+ M_PIMKMP     0.0029253      0.0290072     0.5341066    -0.1405270    -0.0560378     0.3089434     0.2989931    -0.0018911     0.0176497     0.2088912    -0.0008903    -0.0040193     0.1261706     0.0967257     0.0009672     0.2046583     0.2865004     0.0000709     0.0482249     0.0729374
+ M_PIMKMK     0.0014303      0.1766397    -0.1254612     0.3197076    -0.0284260     0.2519370    -0.0058164     0.2691136     0.0303572     0.0078489     0.1193128     0.0058400     0.1402428    -0.0009340     0.0488278     0.1944445     0.2248752     0.0482249     0.0000279     0.0555220
+ M_KMKMKP     0.0000216      0.0590140    -0.0171973    -0.0177140    -0.1253238    -0.0119844     0.1872751     0.2006095     0.0177083     0.0154496     0.0107300    -0.1140704     0.0078963     0.0939116     0.0427703     0.0003765    -0.0045742     0.0729374     0.0555220     0.0000015
+                          BABARSYST_00  BABARSYST_12  BABARSYST_13  BABARSYST_14  BABARSYST_23  BABARSYST_24  BABARSYST_34  BELLESYST_00  BELLESYST_12  BELLESYST_13  BELLESYST_14  BELLESYST_23  BELLESYST_24  BELLESYST_34 CLEO3OTHER_00 M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+  
+ --Averaged parameters, using stat+syst---
+ --breakdown of errors: syst then stat-----
+                          BABARSYST_00  BABARSYST_12  BABARSYST_13  BABARSYST_14  BABARSYST_23  BABARSYST_24  BABARSYST_34  BELLESYST_00  BELLESYST_12  BELLESYST_13  BELLESYST_14  BELLESYST_23  BELLESYST_24  BELLESYST_34 CLEO3OTHER_00 M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+ M_PIMPIM     0.0895090      0.0003148     0.0002193     0.0001605     0.0000749    -0.0000420    -0.0000290    -0.0000164     0.0000178     0.0001113     0.0000550     0.0000503     0.0000345     0.0000115     0.0000066     0.0004753     0.0003394    -0.0222859    -0.0075670    -0.0005186
+ M_PIMKMP     0.0029253      0.0000021     0.0000378    -0.0000100    -0.0000040     0.0000219     0.0000212    -0.0000001     0.0000013     0.0000148    -0.0000001    -0.0000003     0.0000089     0.0000069     0.0000001     0.0000145    -0.0222859     0.0000454    -0.0175870     0.0013071
+ M_PIMKMK     0.0014303      0.0000049    -0.0000035     0.0000089    -0.0000008     0.0000070    -0.0000002     0.0000075     0.0000008     0.0000002     0.0000033     0.0000002     0.0000039     0.0000000     0.0000014     0.0000054    -0.0075670    -0.0175870     0.0000223    -0.0198266
+ M_KMKMKP     0.0000216      0.0000001     0.0000000     0.0000000    -0.0000002     0.0000000     0.0000003     0.0000003     0.0000000     0.0000000     0.0000000    -0.0000002     0.0000000     0.0000001     0.0000001     0.0000000    -0.0005186     0.0013071    -0.0198266     0.0000014
+                          BABARSYST_00  BABARSYST_12  BABARSYST_13  BABARSYST_14  BABARSYST_23  BABARSYST_24  BABARSYST_34  BELLESYST_00  BELLESYST_12  BELLESYST_13  BELLESYST_14  BELLESYST_23  BELLESYST_24  BELLESYST_34 CLEO3OTHER_00 M_PIMPIMPIPNU  M_PIMKMPIPNU   M_PIMKMKPNU    M_KMKMKPNU
+  
+        M_PIMPIMPIPNU      0.0895090 +-      0.0003394 +-      0.0006152 Tot Err:     0.0007026 Check Sys:     0.0006534
+         M_PIMKMPIPNU      0.0029253 +-      0.0000454 +-      0.0000544 Tot Err:     0.0000709 Check Sys:     0.0000551
+          M_PIMKMKPNU      0.0014303 +-      0.0000223 +-      0.0000168 Tot Err:     0.0000279 Check Sys:     0.0000168
+           M_KMKMKPNU      0.0000216 +-      0.0000014 +-      0.0000005 Tot Err:     0.0000015 Check Sys:     0.0000005
+ Correlation between M_PIMPIMPIPNU and M_PIMKMPIPNU =      0.2865004
+ Correlation between M_PIMPIMPIPNU and M_PIMKMKPNU =      0.2248752
+ Correlation between M_PIMPIMPIPNU and M_KMKMKPNU =     -0.0045742
+ Correlation between M_PIMKMPIPNU and M_PIMKMKPNU =      0.0482249
+ Correlation between M_PIMKMPIPNU and M_KMKMKPNU =      0.0729374
+ Correlation between M_PIMKMKPNU and M_KMKMKPNU =      0.0555220
+  
+ WARNING at (or before) word   1 of line  30 in file average.input 
+         concerning combined analysis BABAR+BELLE+PDG ALL_METHODS:
+         "PRINT_QUAN cannot handle more than 2 quantities"
+         ---> PRINT_QUAN will do nothing
+
+
+ Total number of WARNING messages generated by COMBOS:     16

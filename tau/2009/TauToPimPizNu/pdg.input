@@ -1,0 +1,13 @@
+BEGIN    ALEPH PimPizNu published SCHAEL 05C
+MEASUREMENT m_PimPizNu statistical systematic
+DATA        m_PimPizNu statistical systematic
+            25.471e-2  0.097e-2    0.085e-2
+DATA        AlephOther 0.085e-2
+END
+
+BEGIN    CLEO PimPizNu published ARTUSO	94
+MEASUREMENT m_PimPizNu statistical systematic
+DATA        m_PimPizNu statistical systematic
+	    25.36e-2  0.44e-2  0.00e+0
+DATA        CleoOther 0.00e+0
+END

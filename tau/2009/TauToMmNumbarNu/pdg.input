@@ -1,0 +1,34 @@
+BEGIN    ALEPH MmNumbarNu published SCHAEL 05C
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.319e-2    0.070e-2     0.032e-2
+DATA        AlephOther 0.032e-2
+END
+
+BEGIN    OPAL MmNumbarNu published ABBIENDI 03
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.34e-2     0.09e-2     0.06e-2
+DATA        OpalOther 0.06e-2
+END
+
+BEGIN    L3 MmNumbarNu published ACCIARRI 01F
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.342e-2     0.110e-2   0.067e-2 
+DATA        L3Other 0.067e-2
+END
+
+BEGIN    DELPHI MmNumbarNu published ABREU 99X
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.325e-2    0.095e-2    0.077e-2 
+DATA        DelphiOther 0.077e-2
+END
+
+BEGIN    CLEO MmNumbarNu published ANASTASSOV 97
+MEASUREMENT m_MmNumbarNu statistical systematic
+DATA        m_MmNumbarNu statistical systematic
+            17.37e-2      0.08e-2    0.18e-2
+DATA        CleoOther 0.18e-2
+END
