@@ -327,7 +327,8 @@
           ENDDO
         ENDDO
         DO IMEAS=1,NMEAS
-          PRINT*,'IMEAS,CSYS = ',(CSYS(IMEAS,NCSYS+IQUAN),IQUAN=1,NQUAN)
+          PRINT*,'IMEAS,CSYS = ',
+     *            IMEAS,(CSYS(IMEAS,NCSYS+IQUAN),IQUAN=1,NQUAN)
         ENDDO
       ENDIF
 * SwB end

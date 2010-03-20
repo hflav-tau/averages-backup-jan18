@@ -1,0 +1,7 @@
+BEGIN       Belle PimPizEtaNu published INAMI 09
+MEASUREMENT m_PimPizEtaNu statistical systematic
+DATA        m_PimPizEtaNu statistical systematic
+            1.35e-3       0.03e-3     0.07e-3
+DATA        BelleOther 0.07e-3
+END
+

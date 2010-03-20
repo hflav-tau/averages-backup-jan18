@@ -1,5 +1,5 @@
 ../../../combos/combos average.input  
- COMBOS version  3.33 (Jan 21, 2010) run on  on 19/03/10 at 16.24.20
+ COMBOS version  3.33 (Jan 21, 2010) run on  on 19/03/10 at 17.02.24
 
  WARNING at (or before) word   5 of line  13 in file mmnumbarnu.input 
          concerning analysis ALEPH MMNUMBARNU PUBLISHED:
@@ -111,33 +111,33 @@
 
  Results of combination:
 
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =   0. -1.  0.  0.  0.
- IMEAS,CSYS =   0. -1.  0.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0. -1. -1.  0.  0.
- IMEAS,CSYS =   0. -1. -1.  0.  0.
- IMEAS,CSYS =   0. -1. -1.  0.  0.
- IMEAS,CSYS =   0.  0.  0. -1.  0.
- IMEAS,CSYS =   0.  0.  0. -1.  0.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
+ IMEAS,CSYS =  1 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  2 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  3 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  4 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  5 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  6 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  7  0. -1.  0.  0.  0.
+ IMEAS,CSYS =  8  0. -1.  0.  0.  0.
+ IMEAS,CSYS =  9  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  10  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  11  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  12  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  13  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  14  0. -1. -1.  0.  0.
+ IMEAS,CSYS =  15  0. -1. -1.  0.  0.
+ IMEAS,CSYS =  16  0. -1. -1.  0.  0.
+ IMEAS,CSYS =  17  0.  0.  0. -1.  0.
+ IMEAS,CSYS =  18  0.  0.  0. -1.  0.
+ IMEAS,CSYS =  19  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  20  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  21  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  22  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  23  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  24  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  25  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  26  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  27  0.  0.  0. -1. -1.
  CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   18.3823904 27 5  0.835563202
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
@@ -175,33 +175,33 @@
  Correlation between M_KMNU and M_KMPIZNU =     -0.0011359
  Correlation between M_PIMPIZNU and M_KMPIZNU =     -0.0627588
   
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =  -1.  0.  0.  0.  0.
- IMEAS,CSYS =   0. -1.  0.  0.  0.
- IMEAS,CSYS =   0. -1.  0.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0.  0. -1.  0.  0.
- IMEAS,CSYS =   0. -1. -1.  0.  0.
- IMEAS,CSYS =   0. -1. -1.  0.  0.
- IMEAS,CSYS =   0. -1. -1.  0.  0.
- IMEAS,CSYS =   0.  0.  0. -1.  0.
- IMEAS,CSYS =   0.  0.  0. -1.  0.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0.  0. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
- IMEAS,CSYS =   0.  0.  0. -1. -1.
+ IMEAS,CSYS =  1 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  2 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  3 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  4 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  5 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  6 -1.  0.  0.  0.  0.
+ IMEAS,CSYS =  7  0. -1.  0.  0.  0.
+ IMEAS,CSYS =  8  0. -1.  0.  0.  0.
+ IMEAS,CSYS =  9  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  10  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  11  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  12  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  13  0.  0. -1.  0.  0.
+ IMEAS,CSYS =  14  0. -1. -1.  0.  0.
+ IMEAS,CSYS =  15  0. -1. -1.  0.  0.
+ IMEAS,CSYS =  16  0. -1. -1.  0.  0.
+ IMEAS,CSYS =  17  0.  0.  0. -1.  0.
+ IMEAS,CSYS =  18  0.  0.  0. -1.  0.
+ IMEAS,CSYS =  19  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  20  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  21  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  22  0.  0.  0.  0. -1.
+ IMEAS,CSYS =  23  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  24  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  25  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  26  0.  0.  0. -1. -1.
+ IMEAS,CSYS =  27  0.  0.  0. -1. -1.
  CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   18.3823904 27 5  0.835563202
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
