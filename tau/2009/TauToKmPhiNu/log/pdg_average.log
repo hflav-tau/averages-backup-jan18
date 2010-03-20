@@ -1,6 +1,6 @@
-bbrroot -l -b -q ../../../pdg_average.cc
+bbrroot -l -b -q ../../../Common/pdg_average.cc
 
-Processing ../../../pdg_average.cc...
+Processing ../../../Common/pdg_average.cc...
 Read 2 lines from file pdg_average.input
 0 3.39 +- 0.2(stat) +- 0.28(syst) +- 0.344093 (tot) from BaBar 2008
 1 4.05 +- 0.25(stat) +- 0.26(syst) +- 0.360694 (tot) from Belle 2006

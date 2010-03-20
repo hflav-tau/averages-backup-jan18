@@ -1,6 +1,6 @@
-bbrroot -l -b -q ../../../pdg_average.cc
+bbrroot -l -b -q ../../../Common/pdg_average.cc
 
-Processing ../../../pdg_average.cc...
+Processing ../../../Common/pdg_average.cc...
 Read 1 lines from file pdg_average.input
 0 2.39e-05 +- 4.6e-06(stat) +- 2.6e-06(syst) +- 5.28394e-06 (tot) from Belle 2009
 Weighted average of n = 1 measurements = 2.39e-05 +- 5.28394e-06 delta (=3sqrt(n)err) = 1.58518e-05
