@@ -1,6 +1,7 @@
 INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE pdg.input
+INCLUDE pdg_hhh.input
 
 BEGIN   BaBar+Belle+PDG all_methods
 
@@ -13,10 +14,16 @@ MEASUREMENT m_PimKmPipNu  statistical systematic
 MEASUREMENT m_PimKmKpNu   statistical systematic
 MEASUREMENT m_KmKmKpNu    statistical systematic
 
-CALL DUMP_MASTER_INC
+* CALL DUMP_MASTER_INC
 
 * dummmy parameter to increase printouts if value > 0
-PARAMETER CHI2_N_SYM_PRT 1.0 0. 0.
+PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
+
+* parameters to specify sum of measurements in pdg_hhh.input
+PARAMETER CHI2_N_SYM_NSUM  3 0 0
+PARAMETER CHI2_N_SYM_01    18 1234 -1234
+PARAMETER CHI2_N_SYM_02    19 1234 -1234
+PARAMETER CHI2_N_SYM_03    20 1234 -1234
 
 CALL CHI2_N_SYM
 
