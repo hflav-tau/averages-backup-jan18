@@ -39,7 +39,7 @@ DATA
 END
 
 * B(tau- -> pi- K- K+ nu)
-BEGIN   Belle PimKmKpNu submitted arXiv:1001.0083
+BEGIN   Belle PimKmKpNu published arXiv:1001.0083
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
@@ -59,7 +59,7 @@ DATA
 END
 
 * B(tau- -> K- K- K+ nu)
-BEGIN   Belle KmKmKpNu submitted arXiv:1001.0083
+BEGIN   Belle KmKmKpNu published arXiv:1001.0083
 
 MEASUREMENT m_KmKmKpNu  statistical systematic
 DATA        m_KmKmKpNu  statistical systematic
