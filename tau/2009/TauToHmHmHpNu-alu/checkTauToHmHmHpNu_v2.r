@@ -9,6 +9,7 @@
 ##
 
 library(methods)
+library(maxLik)
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
@@ -293,6 +294,37 @@ names(quant) = quant.names
 
 corr.quant = covariance.quant / (quant.err %o% quant.err)
 
+cat("##\n")
+cat("## exact solution\n")
+cat("##\n")
+cat("averages\n")
+show(quant)
+cat("errors\n")
+show(quant.err)
+## cat("covariance\n")
+## show(covariance.quant)
+cat("correlation\n")
+show(corr.quant)
+
+##
+## now solve for quantities with iterative chi-square minimization
+##
+
+logLik.average = function(par) {
+  chisq = t((meas + t(delta)) %*% par) %*% invcov %*% ((meas + t(delta)) %*% par)
+  return(-1/2*chisq)
+}
+
+fit = maxLik(logLik.average, start=quant*1.5)
+
+show(fit)
+covariance.quant = vcov(fit)
+quant.err = sqrt(diag(covariance.quant))
+corr.quant = covariance.quant / (quant.err %o% quant.err)
+
+cat("##\n")
+cat("## minimum chi square fit solution\n")
+cat("##\n")
 cat("averages\n")
 show(quant)
 cat("errors\n")
