@@ -181,9 +181,9 @@ int plot(){
     ytext=y[i]*1.0;
     tl.DrawLatex(xtext,ytext,expname[i]);
     if (syst[i]<1e-8) {
-      tl.DrawLatex(xtext,ytext-fTxtY,Form("(%6.3f #pm %6.3f)",meas[i],tot[i]));
+      tl.DrawLatex(xtext,ytext-fTxtY,Form("(%6.3f #pm %6.3f)",(double)meas[i],(double)tot[i]));
     } else {
-      tl.DrawLatex(xtext,ytext-fTxtY,Form("(%6.3f #pm %6.3f #pm %6.3f)",meas[i],stat[i],syst[i]));
+      tl.DrawLatex(xtext,ytext-fTxtY,Form("(%6.3f #pm %6.3f #pm %6.3f)",(double)meas[i],(double)stat[i],(double)syst[i]));
     }
   }
 
