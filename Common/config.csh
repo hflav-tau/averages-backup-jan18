@@ -15,3 +15,7 @@ aluPathAppIfD PATH /opt/TWWfsw/bin
 if (`uname -s` == "SunOS") then
     aluPathPrepIfD PATH /afs/slac.stanford.edu/g/babar/package/root/5.26-00/SunOS5v10_sparc_Studio10/bin
 endif
+expr `uname -r` : '2\.4\.21\.*' >/dev/null
+if ($status == 0) then
+    aluPathPrepIfD PATH /afs/slac.stanford.edu/g/babar/package/root/5.26-00/Linux24SL3_i386_gcc323/bin
+endif
