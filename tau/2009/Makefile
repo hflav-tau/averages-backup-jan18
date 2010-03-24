@@ -8,3 +8,6 @@ subdirs: $(SUBDIRS)
 
 $(SUBDIRS):
 	$(MAKE) -C $@
+
+combos pdg update_log plot: subdirs
+
