@@ -50,7 +50,6 @@ for (line in lines[-1]) {
   if (warning) {
     cat("Cannot interpret the following line as a measurement\n")
     cat("  '",line,"'\n")
-    print(num.fields)
   } else {
     measurements =
       rbind(measurements,data.frame(val=meas[1],
