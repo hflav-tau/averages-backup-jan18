@@ -13,5 +13,5 @@ alias aluPathPrepIfD 'if ( $?\!:1 ) eval aluPathPrepIfDU \!:1 \!:2 ; if ( -d \!:
 
 aluPathAppIfD PATH /opt/TWWfsw/bin
 if (`uname -s` == "SunOS") then
-    aluPathPrepIfD PATH /afs/slac.stanford.edu/g/babar/package/root/5.26-00/SunOS5v10_sparc_Studio10/root/bin
+    aluPathPrepIfD PATH /afs/slac.stanford.edu/g/babar/package/root/5.26-00/SunOS5v10_sparc_Studio10/bin
 endif
