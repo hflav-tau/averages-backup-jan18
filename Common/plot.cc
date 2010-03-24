@@ -206,7 +206,7 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
   tbox1->SetFillColor(1);
   tbox1->SetFillStyle(1001);
   tbox1->SetBorderSize(1);
-  tbox1->SetShadowColor(0);
+  //  tbox1->SetShadowColor(0);
   tbox1->SetTextColor(0);
   tbox1->SetTextFont(76);
   tbox1->SetTextSize(24*scale);
@@ -222,7 +222,7 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
   tbox2->SetFillColor(0);
   tbox2->SetFillStyle(1001);
   tbox2->SetBorderSize(1);
-  tbox2->SetShadowColor(0);
+  //  tbox2->SetShadowColor(0);
   tbox2->SetTextColor(1);
   tbox2->SetTextFont(76);
   tbox2->SetTextSize(20*scale);
