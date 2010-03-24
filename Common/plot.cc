@@ -191,7 +191,7 @@ int plot(){
 
   canvas->SaveAs("plot.eps");
   //  canvas->SaveAs("plot.gif"); // ROOT's native gif saving looks garbled
-  gSystem->Exec("rm -f plot.gif; convert plot.eps plot.gif");
+  //  gSystem->Exec("rm -f plot.gif; convert plot.eps plot.gif");
   //canvas->Clear();
 
   //
