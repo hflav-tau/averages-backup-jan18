@@ -1,3 +1,9 @@
+#
+# source config.csh to get access to:
+# - R on iris and flora at SLAC
+# - root V5.26 on flora at SLAC
+#
+
 alias aluPathAppIfDU 'if ( -d \!:2 && $\!:1 !~ \!:2\:* && $\!:1 !~ *\:\!:2\:* && $\!:1 !~ *\:\!:2 ) setenv \!:1 ${\!:1}\:\!:2'
 # --- append element to path if it does not exist, and if it is a directory
 alias aluPathAppIfD 'if ( $?\!:1 ) eval aluPathAppIfDU \!:1 \!:2 ; if ( -d \!:2 && ! $?\!:1 ) setenv \!:1 \!:2'
