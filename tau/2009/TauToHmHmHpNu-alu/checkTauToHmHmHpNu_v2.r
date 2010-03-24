@@ -279,7 +279,7 @@ delta["KmKmKpNu","CLEO.HmHmHpNu.published"] = -1
 meas = unlist(lapply(measurements, function(x) {x@value}))
 
 ##
-## now solve for quantities
+## solve for quantities
 ##
 
 invcov = solve(covariance)
@@ -294,8 +294,10 @@ names(quant) = quant.names
 
 corr.quant = covariance.quant / (quant.err %o% quant.err)
 
+chisq = t(meas + t(delta) %*% quant) %*% invcov %*% (meas + t(delta) %*% quant)
+
 cat("##\n")
-cat("## exact solution\n")
+cat("## exact solution, chi-square = ",chisq,"\n")
 cat("##\n")
 cat("averages\n")
 show(quant)
@@ -307,8 +309,12 @@ cat("correlation\n")
 show(corr.quant)
 
 ##
-## now solve for quantities with iterative chi-square minimization
+## solve for quantities with iterative chi-square minimization
 ##
+
+cat("##\n")
+cat("## minimum shi-square fit\n")
+cat("##\n")
 
 logLik.average = function(par) {
   chisq = t((meas + t(delta)) %*% par) %*% invcov %*% ((meas + t(delta)) %*% par)
@@ -322,8 +328,10 @@ covariance.quant = vcov(fit)
 quant.err = sqrt(diag(covariance.quant))
 corr.quant = covariance.quant / (quant.err %o% quant.err)
 
+chisq = t(meas + t(delta) %*% quant) %*% invcov %*% (meas + t(delta) %*% quant)
+
 cat("##\n")
-cat("## minimum chi square fit solution\n")
+cat("## minimum chi square fit solution = ",chisq,"\n")
 cat("##\n")
 cat("averages\n")
 show(quant)
@@ -333,3 +341,30 @@ show(quant.err)
 ## show(covariance.quant)
 cat("correlation\n")
 show(corr.quant)
+
+if (FALSE) {
+##
+## output Mathematica code to solve the same problem
+##
+
+matrix.to.math = function( matr ) {
+  cov.out = character(0)
+  for(row in 1:dim(matr)[1]) {
+    cov.out = c(cov.out, paste("{",paste(matr[row,],collapse=","),"}",sep=""))
+  }
+  return(paste("{",paste(cov.out,collapse=","),"}", sep=""))
+}
+
+vector.to.math = function( vect ) {
+  return(paste("{",paste(vect,collapse=","),"}",sep=""))
+}
+
+cat("cov = ", matrix.to.math(covariance), ";\n", sep="")
+cat("delta = ", matrix.to.math(delta), ";\n", sep="")
+cat("meas = ", vector.to.math(meas), ";\n", sep="")
+
+cat("invcov = Inverse[cov];\n")
+cat("covQuant = Inverse[delta invcov Transpose[delta]];\n")
+cat("errQuant = Sqrt[Diag[covQuant]];\n")
+cat("quant = -covQuant delta (invcov meas);\n")
+}
