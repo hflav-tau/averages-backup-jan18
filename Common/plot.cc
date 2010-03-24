@@ -121,7 +121,7 @@ int plot(){
   TH1F *h = canvas->DrawFrame(fXmin, fYmin, fXmax, fYmax, "");  h->SetXTitle(title);  h->Draw();
   cout << "h drawn with x-axis title = " << title << endl;
   
-  int ci = 999; // new color index
+  int ci = 1756; // new color index
   TColor *color = new TColor(ci, 0.50, 1.00, 0.50); // lightgreen for average
 
   TBox b1;
