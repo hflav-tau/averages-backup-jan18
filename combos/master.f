@@ -159,6 +159,10 @@
 *     Version 3.32, January 20, 2010 (OS)
 *     -- new printout format for the results of the combination routines
 *        allowing for NQUAN=2 (in new subroutine PRINT_QUAN)
+*     Version 3.33, March 20, 2010  
+*     -- upgraded PRINT_QUAN to print more than 2 quantities
+*     -- improved printout in DUMP_MASTER_INC and in CHI2_N_SYM
+*        (provided by Swagato)
 *
 ************************************************************************
 *
@@ -272,6 +276,14 @@
 *OSOS INTEGER         CERR (MCASE,0:MSTEP,MCALLC)
 *OSOS SAVE CVAL,ERR2P,ERR2N,ERR2,CL,CERR ! seems to be needed on HP-UX
 *
+      CHARACTER*6 CH6FORM
+*
+*     Define print format
+*
+      CH6FORM='F10.4' ! default print format 
+      CH6FORM='E10.4' ! SwB [default changed]
+      CALL GET_PRINT_FORMAT(CH6FORM) ! modify with parameter PRINT_FORMAT
+*
       IERR=0
 
 *RVK clear scaling variables
@@ -288,14 +300,14 @@
       IF (NQUANT.EQ.0) THEN
         CALL COMBOS_ERROR(-1,
      & 'No quantities to be fitted','cannot do anything')
-      ELSEIF (NQUANT.EQ.2) THEN
-        CALL COMBOS_ERROR(0,
-     & 'Two quantities to be fitted',
-     & 'it should work but are you sure it is what you want to do?')
-      ELSEIF (NQUANT.GT.2) THEN
-        CALL COMBOS_ERROR(0,
-     & 'More than two quantities to be fitted',
-     & 'it should work but are you sure it is what you want to do?')
+C      ELSEIF (NQUANT.EQ.2) THEN
+C        CALL COMBOS_ERROR(0,
+C     & 'Two quantities to be fitted',
+C     & 'it should work but are you sure it is what you want to do?')
+C      ELSEIF (NQUANT.GT.2) THEN
+C        CALL COMBOS_ERROR(0,
+C     & 'More than two quantities to be fitted',
+C     & 'it should work but are you sure it is what you want to do?')
 C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
       ENDIF
       NQUAN=NQUANT
@@ -813,11 +825,11 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
      & WRITE(LUNLOG,1210) (ICOMB(CORLIST(I)),I=1,NCORLIST)
  1210 FORMAT(/,1X,
      & 'Statistical correlations:',
-     & /,/,T02,'Analysis number',T20,20I11)
+     & /,/,T02,'Analysis number',T21,20I7)
       DO I=1,NCORLIST
         WRITE(LUNLOG,1211) ICOMB(CORLIST(I)),
      &   (STACOR(CORLIST(I),CORLIST(J)),J=1,NCORLIST)
- 1211   FORMAT(T02,I15,T21,20(E10.4,1X))
+ 1211   FORMAT(T02,I15,T21,20F7.4)
       ENDDO
 *
 *     Printout: correlated and uncorrelated systematics
@@ -890,14 +902,15 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
       DO I=1,NPARA
         IF(I.EQ.1.AND.I.LE.NCSYS) WRITE(LUNLOG,1300) 'Correlated'
         IF(I.EQ.NCSYS+1)          WRITE(LUNLOG,1300) 'Extra'
-        WRITE(LUNLOG,1301) CHPARA(I),PARA(I),+EXCUP(I),-EXCUN(I),EXCU(I)
+        WRITE(LUNLOG,
+     &'(1X,A,'//CH6FORM//',1X,SP,2('//CH6FORM//',1X),SS,'//CH6FORM//')') 
+     &   CHPARA(I),PARA(I),+EXCUP(I),-EXCUN(I),EXCU(I)
         DO J=1,NNAM
           IF(CHNAM(J).NE.CHPARA(I).AND.CHNAM(KSYN(J)).EQ.CHPARA(I))
      &     WRITE(LUNLOG,1202) CHNAM(J)
         ENDDO
       ENDDO
  1300 FORMAT(/, 1X,'"',A,'" parameters:')
- 1301 FORMAT(1X,A,E10.4,1X,SP,2(E10.4,1X),SS,E10.4)
 *
 *     Loop on steps
 *
@@ -1003,7 +1016,8 @@ crvk - fill xsstat array here
             IF(AMEAS(I,ICONT).NE.0..AND.DRPRINT) THEN
               CH80=CHNAM(KPAR(CPAR(1,ICONT,IANAL),ICOMB(I)))
               WRITE
-     &(LUNLOG,'(''...corr for par '',A,T25,E11.5,'' syst'',2(E11.5,1x))')
+     &  (LUNLOG,'(''...corr for par '',A,T25,E11.5,'' syst'',
+     &  2(E11.5,1X))')
      & CH80(:LENOCC(CH80)),AMEAS(I,ICONT),TEMP(-1),TEMP(+1)   
             ENDIF  
 *
@@ -1350,7 +1364,7 @@ c     &    ,err2n(is,2,k),is,2,k
         ELSE
           ICAS2=ICASE ! i.e. printout of this case only
         ENDIF
-        IF (CHROUT(1:15).NE.'DUMP_MASTER_INC')
+        IF(CHROUT.NE.'DUMP_MASTER_INC')
      &  CALL PRINT_QUAN(ICAS2,CVAL (IS,ICASE,K),ERR2P(IS,ICASE,K),
      &                        ERR2N(IS,ICASE,K),ERR2 (IS,ICASE,K),
      &                        CL   (IS,ICASE,K),CERR (IS,ICASE,K))
@@ -1426,25 +1440,30 @@ c     &    ,err2n(is,2,k),is,2,k
 *     Local variables
 *
       LOGICAL STATONLY,SYSTONLY
-      INTEGER IQUAN,ICASE,NCASE1
+      INTEGER IQUAN,ICASE,NCASE1,JQUAN
       CHARACTER*35 CH35
-      CHARACTER*33 CH33(MQUAN)
-      CHARACTER*12 CH12
-      CHARACTER*9 CH9
+      CHARACTER*100 CH100(MQUAN)
+      CHARACTER*200 CH12
+      CHARACTER*200 CH9
       DOUBLE PRECISION TOT2P,TOT2N,TOT2,
      &                 STA2P,STA2N,STA2
       LOGICAL OLD_FORMAT
       DATA OLD_FORMAT/.FALSE./
+      CHARACTER*6 F100,G100
+      INTEGER N100
+      REAL R100
 *
       IF(NCASE.LE.0) RETURN
 *
-      IF(NQUAN.GT.2) THEN 
-        CALL COMBOS_ERROR(0,
-     &    'PRINT_QUAN cannot handle more than 2 quantities',
-     &    'PRINT_QUAN will do nothing')
-* NB: this routine should be easy to upgrade to print more than 2 quantities
-        RETURN
-      ENDIF
+*     Define print format
+*
+      F100='F11.5' ! default print format 
+      F100='E11.5' ! SwB [default changed]
+      CALL GET_PRINT_FORMAT(F100) ! modify with parameter PRINT_FORMAT
+      READ(F100(2:),*) R100
+      N100=3*INT(R100)
+      WRITE(G100,'(I3,''X'')') INT(R100)
+*debug     PRINT * ,'F100,N100,G100 = ',F100,N100,G100
 *
       IF(NCASE.GE.2) THEN 
         NCASE1=3
@@ -1457,18 +1476,19 @@ c     &    ,err2n(is,2,k),is,2,k
         DO IQUAN=1,NQUAN
           CH12=' '
           CH9=' '
-          CH33(IQUAN)=' ' 
+          CH100(IQUAN)=' ' 
           CH35=' '
           IF(.NOT.SYSTONLY) THEN
             IF(CERR(0,ICASE).NE.0) THEN
-              WRITE(CH33(IQUAN),2000) CERR(0,ICASE)
+              WRITE(CH100(IQUAN),2000) CERR(0,ICASE)
  2000         FORMAT(4X,'***** error',I6,' *****')
             ELSE
               IF(ERR2P(IQUAN,IQUAN,ICASE).EQ.ERR2N(IQUAN,IQUAN,ICASE)) THEN
-                WRITE(CH33(IQUAN),'(E11.5,''  +- '',E11.5)') CVAL(IQUAN,ICASE),
-     &                                           DSQRT(ERR2(IQUAN,IQUAN,ICASE))
+                WRITE(CH100(IQUAN),'('//F100//',''  +- '','//F100//')') 
+     &           CVAL(IQUAN,ICASE),DSQRT(ERR2(IQUAN,IQUAN,ICASE))
               ELSE
-                WRITE(CH33(IQUAN),'(E11.5,SP,2(E11.5,1X))') CVAL(IQUAN,ICASE),
+                WRITE(CH100(IQUAN),'('//F100//',SP,2'//F100//')')
+     &            CVAL(IQUAN,ICASE),
      &            +DSQRT(ERR2P(IQUAN,IQUAN,ICASE)),
      &            -DSQRT(ERR2N(IQUAN,IQUAN,ICASE))
               ENDIF
@@ -1488,19 +1508,21 @@ c     &    ,err2n(is,2,k),is,2,k
                 WRITE(CH35,2004) 'stat. only -->'
  2004           FORMAT(T20,A)
               ENDIF
-            ELSE IF(IQUAN.EQ.2) THEN 
-              IF(CERR(0,ICASE).EQ.0) THEN
-                WRITE(CH12,'(A4,1X,SP,F7.4)') 'RHO=',
-     &            ERR2(1,2,ICASE)/DSQRT(ERR2(1,1,ICASE)*ERR2(2,2,ICASE))
-                WRITE(CH9,'(A2,SP,F7.4)') 'R=',
-     &            ERR2(1,2,ICASE)/DSQRT(ERR2(1,1,ICASE)*ERR2(2,2,ICASE))
-              ENDIF
             ELSE
-              STOP 7676 ! this should never happen !
+              IF(CERR(0,ICASE).EQ.0) THEN
+                WRITE(CH12,'(A4,SP,20(1X,F7.4))') 'RHO=',(
+     &            ERR2(JQUAN,IQUAN,ICASE)/
+     &      DSQRT(ERR2(JQUAN,JQUAN,ICASE)*ERR2(IQUAN,IQUAN,ICASE)),
+     &            JQUAN=1,IQUAN-1)
+                WRITE(CH9,'(A2,SP,20(1X,F6.3))') 'R=',(
+     &            ERR2(JQUAN,IQUAN,ICASE)/
+     &      DSQRT(ERR2(JQUAN,JQUAN,ICASE)*ERR2(IQUAN,IQUAN,ICASE)),
+     &            JQUAN=1,IQUAN-1)
+              ENDIF
             ENDIF
           ELSE ! SYSTONLY
             IF(CERR(0,ICASE-2).NE.0.OR.CERR(0,ICASE-1).NE.0) THEN
-              WRITE(CH33(IQUAN),2000) CERR(0,ICASE-2)+CERR(0,ICASE-1)
+              WRITE(CH100(IQUAN),2000) CERR(0,ICASE-2)+CERR(0,ICASE-1)
             ELSE
               TOT2P=ERR2P(IQUAN,IQUAN,ICASE-2)
               TOT2N=ERR2N(IQUAN,IQUAN,ICASE-2)
@@ -1509,24 +1531,25 @@ c     &    ,err2n(is,2,k),is,2,k
               STA2N=ERR2N(IQUAN,IQUAN,ICASE-1)
               STA2 =ERR2 (IQUAN,IQUAN,ICASE-1)
               IF(TOT2P.EQ.TOT2N.AND.STA2P.EQ.STA2N) THEN 
-                WRITE(CH33(IQUAN),'(11X,''  +- '',E11.5)') DSQRT(TOT2-STA2)
+                WRITE(CH100(IQUAN),'('//G100//',''  +- '','//F100//')')
+     &           DSQRT(TOT2-STA2)
               ELSE
-                WRITE(CH33(IQUAN),'(11X,SP,2(E11.5,1X))') 
+                WRITE(CH100(IQUAN),'('//G100//',SP,2'//F100//')') 
      &            +DSQRT(TOT2P-STA2P),-DSQRT(TOT2N-STA2N)
               ENDIF
               IF(IQUAN.EQ.1) THEN
                 WRITE(CH35,2004) 'syst. only -->'
-              ELSE IF(IQUAN.EQ.2) THEN 
-                WRITE(CH12,'(A4,1X,SP,F7.4)') 'RHO=',
-     &                      (ERR2(1,2,ICASE-2)-ERR2(1,2,ICASE-1))/
-     &                 SQRT((ERR2(1,1,ICASE-2)-ERR2(1,1,ICASE-1))*
-     &                      (ERR2(2,2,ICASE-2)-ERR2(2,2,ICASE-1)))
-                WRITE(CH9,'(A2,SP,F7.4)') 'R=',
-     &                      (ERR2(1,2,ICASE-2)-ERR2(1,2,ICASE-1))/
-     &                 SQRT((ERR2(1,1,ICASE-2)-ERR2(1,1,ICASE-1))*
-     &                      (ERR2(2,2,ICASE-2)-ERR2(2,2,ICASE-1)))
-              ELSE
-                STOP 7677 ! this should never happen !
+              ELSE 
+                WRITE(CH12,'(A4,SP,20(1X,F7.4))') 'RHO=',(
+     &       (ERR2(JQUAN,IQUAN,ICASE-2)-ERR2(JQUAN,IQUAN,ICASE-1))/
+     &  SQRT((ERR2(JQUAN,JQUAN,ICASE-2)-ERR2(JQUAN,JQUAN,ICASE-1))*
+     &       (ERR2(IQUAN,IQUAN,ICASE-2)-ERR2(IQUAN,IQUAN,ICASE-1))),
+     &  JQUAN=1,IQUAN-1)
+                WRITE(CH9,'(A2,SP,20(1X,F6.3))') 'R=',(
+     &       (ERR2(JQUAN,IQUAN,ICASE-2)-ERR2(JQUAN,IQUAN,ICASE-1))/
+     &  SQRT((ERR2(JQUAN,JQUAN,ICASE-2)-ERR2(JQUAN,JQUAN,ICASE-1))*
+     &       (ERR2(IQUAN,IQUAN,ICASE-2)-ERR2(IQUAN,IQUAN,ICASE-1))),
+     &  JQUAN=1,IQUAN-1)
               ENDIF
             ENDIF
           ENDIF
@@ -1534,21 +1557,70 @@ c     &    ,err2n(is,2,k),is,2,k
             IF(CHSTEP.NE.' '.AND..NOT.STATONLY.AND..NOT.SYSTONLY) THEN
               CH9(:3)='   '
               IF(OLD_FORMAT) THEN
-                WRITE(LUNLOG,3006) ISTEP,VSTEP,CHROUT,CH33(IQUAN),CH9
+                WRITE(LUNLOG,3006) ISTEP,VSTEP,CHROUT,
+     &           CH100(IQUAN)(:N100),CH9(:MAX0(9,LENOCC(CH9)))
               ELSE
-                WRITE(LUNLOG,3006) ISTEP,VSTEP,CHROUT,CH33(IQUAN),CH12
+                WRITE(LUNLOG,3006) ISTEP,VSTEP,CHROUT,
+     &           CH100(IQUAN)(:N100),CH12(:MAX0(12,LENOCC(CH12)))
               ENDIF
- 3006         FORMAT(T2,I4,T8,F10.4,T20,A,T36,A,T72,A)
+ 3006         FORMAT(T2,I4,T8,F10.4,T20,A,T36,A,3X,A)
             ELSE 
               IF(OLD_FORMAT) THEN
-                WRITE(LUNLOG,2006) CH35,CH33(IQUAN),CH9
+                WRITE(LUNLOG,2006) CH35,
+     &           CH100(IQUAN)(:N100),CH9(:MAX0(9,LENOCC(CH9)))
               ELSE
-                WRITE(LUNLOG,2006) CH35,CH33(IQUAN),CH12
+                WRITE(LUNLOG,2006) CH35,
+     &           CH100(IQUAN)(:N100),CH12(:MAX0(12,LENOCC(CH12)))
               ENDIF
- 2006         FORMAT(A,T36,A,T72,A)
+ 2006         FORMAT(A,T36,A,3X,A)
             ENDIF
           ENDIF
         ENDDO
+      ENDDO
+      END
+*
+************************************************************************
+*
+      SUBROUTINE GET_PRINT_FORMAT(CHFORM)
+*     ===================================
+*
+*     Get print format from parameter PRINT_FORMAT
+*
+*     Input:   CHFORM = default print format (length must be at least 6)
+*     Output:  CHFORM = modified print format
+*
+      IMPLICIT NONE
+      INCLUDE 'master.inc'
+*
+*     Arguments
+*
+      CHARACTER(*) CHFORM ! WARNING: length of CHFORM must be at least 6
+*
+*     Local variables
+*
+      CHARACTER*1 LETTER 
+      DOUBLE PRECISION D
+      INTEGER I
+*
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'PRINT_FORMAT') THEN
+          D=DABS(PARA(I))
+          IF(PARA(I).LT.0.D0) THEN 
+            LETTER='E' ! exponential format
+          ELSE
+            LETTER='F' ! float format
+          ENDIF
+          IF(D.LT.3.D0.OR.D.GT.33.D0) THEN 
+            CALL COMBOS_ERROR(0,
+     &       'PRINT_FORMAT parameter has illegal value','ignored')
+          ELSE
+            IF(D-DBLE(NINT(D*10.D0))*0.1D0.LT.1.D-6) THEN
+              WRITE(CHFORM,'(A1,F5.1)') LETTER,D
+            ELSE
+              WRITE(CHFORM,'(A1,F5.2)') LETTER,D
+            ENDIF
+          ENDIF
+        ENDIF
       ENDDO
       END
 *

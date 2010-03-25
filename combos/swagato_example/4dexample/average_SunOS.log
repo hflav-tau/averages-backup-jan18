@@ -1,9 +1,5 @@
- COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 16.25.55
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 24/03/10 at 17.12.02
 
- WARNING at (or before) word   1 of line  12 in file average.input 
-         concerning combined analysis A2 4D_WXYZ PUBLISHED:
-         "More than two quantities to be fitted"
-         ---> it should work but are you sure it is what you want to do?
 
  ==============================================================================
 
@@ -21,11 +17,11 @@
 
  Statistical correlations:
 
- Analysis number             5          6          7          8
-               5    0.1000E+01 0.5000E+00 0.5000E+00 0.5000E+00
-               6    0.5000E+00 0.1000E+01 0.5000E+00 0.5000E+00
-               7    0.5000E+00 0.5000E+00 0.1000E+01 0.5000E+00
-               8    0.5000E+00 0.5000E+00 0.5000E+00 0.1000E+01
+ Analysis number          5      6      7      8
+               5     1.0000 0.5000 0.5000 0.5000
+               6     0.5000 1.0000 0.5000 0.5000
+               7     0.5000 0.5000 1.0000 0.5000
+               8     0.5000 0.5000 0.5000 1.0000
 
  CORrelated and UNCorrelated systematic uncertainties:
 
@@ -42,9 +38,9 @@
 
  Results of combination:
 
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     3.4512663574862D-29  4  4
-  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =     3.4512663574862D-29  4  4  0
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      W             X             Y             Z
@@ -63,10 +59,10 @@
  Z            0.8000000      0.5000000     0.5000000     0.5000000     0.2000000
                                      W             X             Y             Z
   
-                    W      1.2000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
-                    X      0.8000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
-                    Y      1.2000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
-                    Z      0.8000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
+                    W      1.2000000 +/-      0.2000000 +/-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
+                    X      0.8000000 +/-      0.1000000 +/-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+                    Y      1.2000000 +/-      0.1000000 +/-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+                    Z      0.8000000 +/-      0.2000000 +/-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
  Correlation between W and X =      0.5000000
  Correlation between W and Y =      0.5000000
  Correlation between W and Z =      0.5000000
@@ -151,9 +147,9 @@ TOTCOR
       2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     3.5039184499344D-30  4  4
-  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =     3.5039184499344D-30  4  4  0
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                               A2_SYST0             W             X             Y             Z
@@ -173,10 +169,10 @@ TOTCOR
  Z            0.8000000      0.1414210     0.1750748     0.0924499     0.2108175     0.2449494
                               A2_SYST0             W             X             Y             Z
   
-                    W      1.2000000 +-      0.4663694 +-      0.2692580 Tot Err:     0.5385168 Check Sys:     0.2692580
-                    X      0.8000000 +-      0.4415878 +-      0.2549510 Tot Err:     0.5099017 Check Sys:     0.2549510
-                    Y      1.2000000 +-      0.1936498 +-      0.1118030 Tot Err:     0.2236072 Check Sys:     0.1118030
-                    Z      0.8000000 +-      0.2449494 +-      0.1414210 Tot Err:     0.2828429 Check Sys:     0.1414210
+                    W      1.2000000 +/-      0.4663694 +/-      0.2692580 Tot Err:     0.5385168 Check Sys:     0.2692580
+                    X      0.8000000 +/-      0.4415878 +/-      0.2549510 Tot Err:     0.5099017 Check Sys:     0.2549510
+                    Y      1.2000000 +/-      0.1936498 +/-      0.1118030 Tot Err:     0.2236072 Check Sys:     0.1118030
+                    Z      0.8000000 +/-      0.2449494 +/-      0.1414210 Tot Err:     0.2828429 Check Sys:     0.1414210
  Correlation between W and X =      0.2864176
  Correlation between W and Y =      0.3330436
  Correlation between W and Z =      0.3813052
@@ -184,15 +180,19 @@ TOTCOR
  Correlation between X and Z =      0.3193369
  Correlation between Y and Z =      0.4081115
   
- WARNING at (or before) word   1 of line  12 in file average.input 
-         concerning combined analysis A2 4D_WXYZ PUBLISHED:
-         "PRINT_QUAN cannot handle more than 2 quantities"
-         ---> PRINT_QUAN will do nothing
+ CHI2_N_SYM      :               W=0.12000E+01  +- 0.53852E+00         CL =  0.0000
+                                 X=0.80000E+00  +- 0.50990E+00         RHO= +0.2864
+                                 Y=0.12000E+01  +- 0.22361E+00         RHO= +0.3330 +0.2939
+                                 Z=0.80000E+00  +- 0.28284E+00         RHO= +0.3813 +0.3193 +0.4081
+                   stat. only -->  0.12000E+01  +- 0.20000E+00         CL =  0.0000
+                                   0.80000E+00  +- 0.10000E+00         RHO= +0.5000
+                                   0.12000E+01  +- 0.10000E+00         RHO= +0.5000 +0.5000
+                                   0.80000E+00  +- 0.20000E+00         RHO= +0.5000 +0.5000 +0.5000
+                   syst. only -->               +- 0.50000E+00                     
+                                                +- 0.50000E+00         RHO= +0.2746
+                                                +- 0.20000E+00         RHO= +0.3010 +0.2850
+                                                +- 0.20000E+00         RHO= +0.3808 +0.3606 +0.3953
 
- WARNING at (or before) word   1 of line  22 in file average.input 
-         concerning combined analysis A1 4D_WXYZ PUBLISHED:
-         "More than two quantities to be fitted"
-         ---> it should work but are you sure it is what you want to do?
 
  ==============================================================================
 
@@ -210,11 +210,11 @@ TOTCOR
 
  Statistical correlations:
 
- Analysis number             1          2          3          4
-               1    0.1000E+01 0.5000E+00 0.5000E+00 0.5000E+00
-               2    0.5000E+00 0.1000E+01 0.5000E+00 0.5000E+00
-               3    0.5000E+00 0.5000E+00 0.1000E+01 0.5000E+00
-               4    0.5000E+00 0.5000E+00 0.5000E+00 0.1000E+01
+ Analysis number          1      2      3      4
+               1     1.0000 0.5000 0.5000 0.5000
+               2     0.5000 1.0000 0.5000 0.5000
+               3     0.5000 0.5000 1.0000 0.5000
+               4     0.5000 0.5000 0.5000 1.0000
 
  CORrelated and UNCorrelated systematic uncertainties:
 
@@ -231,9 +231,9 @@ TOTCOR
 
  Results of combination:
 
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     4.6345576800529D-29  4  4
-  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =     4.6345576800529D-29  4  4  0
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      W             X             Y             Z
@@ -252,10 +252,10 @@ TOTCOR
  Z            1.2000000      0.5000000     0.5000000     0.5000000     0.2000000
                                      W             X             Y             Z
   
-                    W      0.8000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
-                    X      1.2000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
-                    Y      0.8000000 +-      0.1000000 +-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
-                    Z      1.2000000 +-      0.2000000 +-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
+                    W      0.8000000 +/-      0.2000000 +/-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
+                    X      1.2000000 +/-      0.1000000 +/-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+                    Y      0.8000000 +/-      0.1000000 +/-      0.0000000 Tot Err:     0.1000000 Check Sys:     0.0000000
+                    Z      1.2000000 +/-      0.2000000 +/-      0.0000000 Tot Err:     0.2000000 Check Sys:     0.0000000
  Correlation between W and X =      0.5000000
  Correlation between W and Y =      0.5000000
  Correlation between W and Z =      0.5000000
@@ -340,9 +340,9 @@ TOTCOR
       2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     2.2943634889531D-30  4  4
-  Infinity              
        ***** CERN G100 PROB ERROR G100.1: N =      0 < 1
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =     2.2943634889531D-30  4  4  0
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                               A1_SYST0             W             X             Y             Z
@@ -362,10 +362,10 @@ TOTCOR
  Z            1.2000000      0.2692580     0.1750748     0.1107268     0.0485571     0.4663694
                               A1_SYST0             W             X             Y             Z
   
-                    W      0.8000000 +-      0.2449494 +-      0.1414210 Tot Err:     0.2828429 Check Sys:     0.1414210
-                    X      1.2000000 +-      0.1936498 +-      0.1118030 Tot Err:     0.2236072 Check Sys:     0.1118030
-                    Y      0.8000000 +-      0.4415878 +-      0.2549510 Tot Err:     0.5099017 Check Sys:     0.2549510
-                    Z      1.2000000 +-      0.4663694 +-      0.2692580 Tot Err:     0.5385168 Check Sys:     0.2692580
+                    W      0.8000000 +/-      0.2449494 +/-      0.1414210 Tot Err:     0.2828429 Check Sys:     0.1414210
+                    X      1.2000000 +/-      0.1936498 +/-      0.1118030 Tot Err:     0.2236072 Check Sys:     0.1118030
+                    Y      0.8000000 +/-      0.4415878 +/-      0.2549510 Tot Err:     0.5099017 Check Sys:     0.2549510
+                    Z      1.2000000 +/-      0.4663694 +/-      0.2692580 Tot Err:     0.5385168 Check Sys:     0.2692580
  Correlation between W and X =      0.4081115
  Correlation between W and Y =      0.3193369
  Correlation between W and Z =      0.3813052
@@ -373,15 +373,19 @@ TOTCOR
  Correlation between X and Z =      0.3330436
  Correlation between Y and Z =      0.2864176
   
- WARNING at (or before) word   1 of line  22 in file average.input 
-         concerning combined analysis A1 4D_WXYZ PUBLISHED:
-         "PRINT_QUAN cannot handle more than 2 quantities"
-         ---> PRINT_QUAN will do nothing
+ CHI2_N_SYM      :               W=0.80000E+00  +- 0.28284E+00         CL =  0.0000
+                                 X=0.12000E+01  +- 0.22361E+00         RHO= +0.4081
+                                 Y=0.80000E+00  +- 0.50990E+00         RHO= +0.3193 +0.2939
+                                 Z=0.12000E+01  +- 0.53852E+00         RHO= +0.3813 +0.3330 +0.2864
+                   stat. only -->  0.80000E+00  +- 0.20000E+00         CL =  0.0000
+                                   0.12000E+01  +- 0.10000E+00         RHO= +0.5000
+                                   0.80000E+00  +- 0.10000E+00         RHO= +0.5000 +0.5000
+                                   0.12000E+01  +- 0.20000E+00         RHO= +0.5000 +0.5000 +0.5000
+                   syst. only -->               +- 0.20000E+00                     
+                                                +- 0.20000E+00         RHO= +0.3953
+                                                +- 0.50000E+00         RHO= +0.3606 +0.2850
+                                                +- 0.50000E+00         RHO= +0.3808 +0.3010 +0.2746
 
- WARNING at (or before) word   1 of line  32 in file average.input 
-         concerning combined analysis ALL 4D_WXYZ PUBLISHED:
-         "More than two quantities to be fitted"
-         ---> it should work but are you sure it is what you want to do?
 
  ==============================================================================
 
@@ -403,15 +407,15 @@ TOTCOR
 
  Statistical correlations:
 
- Analysis number             1          2          3          4          5          6          7          8
-               1    0.1000E+01 0.5000E+00 0.5000E+00 0.5000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
-               2    0.5000E+00 0.1000E+01 0.5000E+00 0.5000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
-               3    0.5000E+00 0.5000E+00 0.1000E+01 0.5000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
-               4    0.5000E+00 0.5000E+00 0.5000E+00 0.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00
-               5    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.1000E+01 0.5000E+00 0.5000E+00 0.5000E+00
-               6    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.5000E+00 0.1000E+01 0.5000E+00 0.5000E+00
-               7    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.5000E+00 0.5000E+00 0.1000E+01 0.5000E+00
-               8    0.0000E+00 0.0000E+00 0.0000E+00 0.0000E+00 0.5000E+00 0.5000E+00 0.5000E+00 0.1000E+01
+ Analysis number          1      2      3      4      5      6      7      8
+               1     1.0000 0.5000 0.5000 0.5000 0.0000 0.0000 0.0000 0.0000
+               2     0.5000 1.0000 0.5000 0.5000 0.0000 0.0000 0.0000 0.0000
+               3     0.5000 0.5000 1.0000 0.5000 0.0000 0.0000 0.0000 0.0000
+               4     0.5000 0.5000 0.5000 1.0000 0.0000 0.0000 0.0000 0.0000
+               5     0.0000 0.0000 0.0000 0.0000 1.0000 0.5000 0.5000 0.5000
+               6     0.0000 0.0000 0.0000 0.0000 0.5000 1.0000 0.5000 0.5000
+               7     0.0000 0.0000 0.0000 0.0000 0.5000 0.5000 1.0000 0.5000
+               8     0.0000 0.0000 0.0000 0.0000 0.5000 0.5000 0.5000 1.0000
 
  CORrelated and UNCorrelated systematic uncertainties:
 
@@ -434,8 +438,9 @@ TOTCOR
 
  Results of combination:
 
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     40.000005960465  8  4
-    10.0000014901162
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =     40.000005960465  8  4  4
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =    10.0000014901162    3.1622778957764
+     4.3284067885452D-08
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      W             X             Y             Z
@@ -454,10 +459,10 @@ TOTCOR
  Z            1.0000000      0.5000000     0.5000000     0.5000000     0.1414214
                                      W             X             Y             Z
   
-                    W      1.0000000 +-      0.1414214 +-      0.0000000 Tot Err:     0.1414214 Check Sys:     0.0000000
-                    X      1.0000000 +-      0.0707107 +-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
-                    Y      1.0000000 +-      0.0707107 +-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
-                    Z      1.0000000 +-      0.1414214 +-      0.0000000 Tot Err:     0.1414214 Check Sys:     0.0000000
+                    W      1.0000000 +/-      0.1414214 +/-      0.0000000 Tot Err:     0.1414214 Check Sys:     0.0000000
+                    X      1.0000000 +/-      0.0707107 +/-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
+                    Y      1.0000000 +/-      0.0707107 +/-      0.0000000 Tot Err:     0.0707107 Check Sys:     0.0000000
+                    Z      1.0000000 +/-      0.1414214 +/-      0.0000000 Tot Err:     0.1414214 Check Sys:     0.0000000
  Correlation between W and X =      0.5000000
  Correlation between W and Y =      0.5000000
  Correlation between W and Z =      0.5000000
@@ -567,8 +572,9 @@ TOTCOR
       6 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       7 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       8 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =     2.7825225507907  8  4
-    0.69563063769768
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =     2.7825225507907  8  4  4
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =    0.69563063769768   0.83404474562081
+    0.59485340118408
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                               A1_SYST0      A2_SYST0             W             X             Y             Z
@@ -589,10 +595,10 @@ TOTCOR
  Z            0.8732697      0.0769921     0.0923291     0.1492604     0.0883237     0.1749447     0.2152806
                               A1_SYST0      A2_SYST0             W             X             Y             Z
   
-                    W      0.8732697 +-      0.2152806 +-      0.1076752 Tot Err:     0.2407066 Check Sys:     0.1202184
-                    X      1.1463787 +-      0.1764398 +-      0.0886753 Tot Err:     0.1974697 Check Sys:     0.0985670
-                    Y      1.1463787 +-      0.1764398 +-      0.0886753 Tot Err:     0.1974697 Check Sys:     0.0985670
-                    Z      0.8732697 +-      0.2152806 +-      0.1076752 Tot Err:     0.2407066 Check Sys:     0.1202184
+                    W      0.8732697 +/-      0.2152806 +/-      0.1076752 Tot Err:     0.2407066 Check Sys:     0.1202184
+                    X      1.1463787 +/-      0.1764398 +/-      0.0886753 Tot Err:     0.1974697 Check Sys:     0.0985670
+                    Y      1.1463787 +/-      0.1764398 +/-      0.0886753 Tot Err:     0.1974697 Check Sys:     0.0985670
+                    Z      0.8732697 +/-      0.2152806 +/-      0.1076752 Tot Err:     0.2407066 Check Sys:     0.1202184
  Correlation between W and X =      0.3401557
  Correlation between W and Y =      0.2621360
  Correlation between W and Z =      0.3140587
@@ -600,10 +606,17 @@ TOTCOR
  Correlation between X and Z =      0.2621360
  Correlation between Y and Z =      0.3401557
   
- WARNING at (or before) word   1 of line  32 in file average.input 
-         concerning combined analysis ALL 4D_WXYZ PUBLISHED:
-         "PRINT_QUAN cannot handle more than 2 quantities"
-         ---> PRINT_QUAN will do nothing
+ CHI2_N_SYM      :               W=0.87327E+00  +- 0.24071E+00         CL =  0.5949
+                                 X=0.11464E+01  +- 0.19747E+00         RHO= +0.3402
+                                 Y=0.11464E+01  +- 0.19747E+00         RHO= +0.2621 +0.2290
+                                 Z=0.87327E+00  +- 0.24071E+00         RHO= +0.3141 +0.2621 +0.3402
+                   stat. only -->  0.10000E+01  +- 0.14142E+00         CL =  0.0000
+                                   0.10000E+01  +- 0.70711E-01         RHO= +0.5000
+                                   0.10000E+01  +- 0.70711E-01         RHO= +0.5000 +0.5000
+                                   0.10000E+01  +- 0.14142E+00         RHO= +0.5000 +0.5000 +0.5000
+                   syst. only -->               +- 0.19478E+00                     
+                                                +- 0.18438E+00         RHO= +0.3110
+                                                +- 0.18438E+00         RHO= +0.2077 +0.1892
+                                                +- 0.19478E+00         RHO= +0.2160 +0.2077 +0.3110
 
 
- Total number of WARNING messages generated by COMBOS:      6

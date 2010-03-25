@@ -1,11 +1,17 @@
-************************************************************************
+*
+***********************************************************************
 *
 *     "CHI2_N_SYM" combination routine for COMBOS program
 *       copied by David ROUSSEAU from 
 *     CHI2_SYM Olivier Schneider, CERN/PPE-ALE
 *       to be able to average measurement of different quantities
-
+*
 *     Version 2.40, June 1, 1999
+*
+*     Version 3.33, March 20, 2010  
+*     -- improved printout in DUMP_MASTER_INC and in CHI2_N_SYM
+*        (provided by Swagato)
+*
 ************************************************************************
 *
       SUBROUTINE CHI2_N_SYM(CVAL,ERR2P,ERR2N,CL,IERR)
@@ -57,7 +63,14 @@
       DOUBLE PRECISION V(MCSYS),W(MMEAS,MMEAS),
      &                 CHI2,DUMMY(MCSYS),Z(MMEAS),
      &                 TEMP(MMEAS,MCSYS),S(MCSYS,MCSYS)
-
+      DOUBLE PRECISION PRTLEV
+*
+*     Determine debug printout level
+*
+      PRTLEV=-1.D0 ! default printout level: none
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=PARA(I)
+      ENDDO
 *
 *     Default output arguments
 *
@@ -165,15 +178,22 @@
           ERR2N(I,J)=ERR2P(I,J) ! return symmetric error
         ENDDO
       ENDDO
-C      Print *, 'my chi2', chi2, NMEFF,NQUAn 
-      IF (NMEFF.GT.1) THEN
-         PRINT *, 'CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  = ',
-     &                         CHI2, NMEFF, NQUAN, CHI2/(NMEFF-NQUAN)
-      ELSE
-         PRINT *, 'CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  = ',
-     &             CHI2, NMEFF, NQUAN, ' set to 0.0 '
-      ENDIF
       IF(NMEFF.GT.1) CL=DBLE(PROB(SNGL(CHI2),NMEFF-NQUAN)) ! is this correct ?
+C     IF(PRTLEV.GT.0) THEN 
+      IF (PRTLEV.GT.-999) THEN  ! SwB [default changed]
+C       Print *, 'my chi2', chi2, NMEFF,NQUAn 
+        IF (NMEFF.GT.NQUAN) THEN
+          PRINT *,'CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF = ',
+     &                         CHI2, NMEFF, NQUAN, NMEFF-NQUAN
+          PRINT *,'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = ',
+     &             CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
+     &             CL
+        ELSE
+          PRINT *,'CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF = ',
+     &                         CHI2, NMEFF, NQUAN, NMEFF-NQUAN
+          PRINT *,'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0'
+        ENDIF
+      ENDIF
       CALL DUMP_FIT(V,S)
 *DR end
       END
@@ -189,7 +209,7 @@ C      Print *, 'my chi2', chi2, NMEFF,NQUAn
       INCLUDE 'combos.inc' 
  
       INTEGER IERR
-      DOUBLE PRECISION V(MCSYS),S(MCSYS,MCSYS),a
+      DOUBLE PRECISION V(MCSYS),S(MCSYS,MCSYS)
       DOUBLE PRECISION SINV(MCSYS,MCSYS)
       DOUBLE PRECISION SAUX(MCSYS,MCSYS),SSYS(MCSYS)
       DOUBLE PRECISION SQINV(MQUAN,MQUAN),SQ(MQUAN,MQUAN) 
@@ -207,8 +227,8 @@ C      Print *, 'my chi2', chi2, NMEFF,NQUAn
 *     Determine debug printout level
 *
       PRTLEV=-1.D0 ! default printout level: none
-      DO I=NCSYS+1,NPARA
-         IF(CHPARA(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=PARA(I)
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=PARA(I)
       ENDDO
       IF (PRTLEV.GT.0) THEN 
          PRINT*,'SwB: NCSYS,NQUAN,LCSYS,LUNIT= ',NCSYS,NQUAN,LCSYS,LUNIT
@@ -273,7 +293,6 @@ C      Print *, 'my chi2', chi2, NMEFF,NQUAn
 
 *compute intrinsic quantity error
 *extract quantitiy matrix from inverse error matrix
-      a=0.
       DO I=1,NQUAN
         DO J=1,NQUAN
           SQINV(I,J)=SINV(NCSYS+I,NCSYS+J)
@@ -367,7 +386,7 @@ c      IF (NCSYS.NE.0) THEN ! why not print results anyway?
           WRITE(LUNLOG,1100)CHAUX(IVAR)(:LENOCC(CHAUX(IVAR))),
      &       -V(IVAR),STATTOT(IQUAN),SYSTOT(IQUAN),
      &       ERRTOT(IQUAN),SYSSUMTOT(IQUAN)
- 1100     FORMAT(1X,A20,1X,F14.7,' +- ',F14.7,' +- ',F14.7, 
+ 1100     FORMAT(1X,A20,1X,F14.7,' +/- ',F14.7,' +/- ',F14.7, 
      &  ' Tot Err:',F14.7,' Check Sys:',F14.7)
         ENDDO
 c      ENDIF

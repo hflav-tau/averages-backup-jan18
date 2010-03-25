@@ -20,6 +20,9 @@
 *         (CHROUT and LUNIT now in master.inc)
 *     Version 2.30, May 12, 1997:
 *     -- use NMEFF instead of NMEAS in computation of chi2 probability
+*     Version 3.33, March 21, 2010:
+*     -- hack (provided by Swagato) to handle the sum of 
+*        two quantities in an average (see parameter CHI2_N_SYM_NSUM)
 *
 ************************************************************************
 *

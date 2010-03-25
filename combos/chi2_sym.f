@@ -58,6 +58,14 @@
       DOUBLE PRECISION V(MCSYS),W(MMEAS,MMEAS),
      &                 CHI2,DUMMY(MCSYS),Z(MMEAS),
      &                 TEMP(MMEAS,MCSYS),S(MCSYS,MCSYS)
+      DOUBLE PRECISION PRTLEV
+*
+*     Determine debug printout level
+*
+      PRTLEV=-1.D0 ! default printout level: none
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_SYM_PRT') PRTLEV=PARA(I)
+      ENDDO
 *
 *     Default output arguments
 *
@@ -142,11 +150,18 @@
       ERR2P=S(LCSYS,LCSYS)
       ERR2N=ERR2P ! return symmetric error
       IF(NMEFF.GT.1) CL=DBLE(PROB(SNGL(CHI2),NMEFF-1)) ! is this correct ?
-      IF (NMEFF.GT.1) THEN
-         PRINT *, 'CHI2_SYM: CHI2, NMEFF, CHI2/NDOF = ',
-     &                       CHI2, NMEFF, CHI2/(NMEFF-1)
-      ELSE
-         PRINT *, 'CHI2_SYM: CHI2, NMEFF, CHI2/NDOF = ',
-     &                       CHI2, NMEFF, ' set to 0.0 '
+C     IF(PRTLEV.GT.0) THEN 
+      IF (PRTLEV.GT.-999) THEN  ! SwB [default changed]
+        IF (NMEFF.GT.NQUAN) THEN
+          PRINT *,'CHI2_SYM: CHI2, NMEFF, NQUAN, NDOF = ',
+     &                       CHI2, NMEFF, NQUAN, NMEFF-NQUAN
+          PRINT *,'CHI2_SYM: CHI2/NDOF, SCALE FAC, CL = ',
+     &             CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
+     &             CL
+        ELSE
+          PRINT *,'CHI2_SYM: CHI2, NMEFF, NQUAN, NDOF = ',
+     &                       CHI2, NMEFF, NQUAN, NMEFF-NQUAN
+          PRINT *,'CHI2_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0'
+        ENDIF
       ENDIF
       END

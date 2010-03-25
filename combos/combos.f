@@ -126,6 +126,11 @@
 *     Version 3.32, January 17, 2010
 *     -- patches (from Alberto Luisiani) to compile with gfortran
 *        on Scientific Linux 5 
+*     -- new printout format for the results of the combination routines
+*        allowing for NQUAN=2 (in new subroutine PRINT_QUAN)
+*     Version 3.33, March 20, 2010  
+*     -- improved printout in DUMP_MASTER_INC and in CHI2_N_SYM
+*        (provided by Swagato)
 *
 ************************************************************************
 *
@@ -365,7 +370,7 @@
       REAL VERSION_NUMBER
       PARAMETER(VERSION_NUMBER=3.33)  ! program version number
       CHARACTER*(*) VERSION_DATE
-      PARAMETER(VERSION_DATE='Jan 21, 2010') ! date of version
+      PARAMETER(VERSION_DATE='Mar 20, 2010') ! date of version
 *
 *     Local variable
 *
