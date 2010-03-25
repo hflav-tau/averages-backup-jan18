@@ -228,10 +228,10 @@ if (FALSE) {
 for (meas in meas.names) {
   for (quant in quant.names) {
     if (regexpr(quant, meas, fixed=TRUE) != -1) {
-      cat("delta[\"",meas,"\",\"",quant,"\"] = ","1\n",sep="")
+      cat("delta[\"",meas,"\",\"",quant,"\"] = 1\n",sep="")
     }
     if (regexpr("HmHmHpNu", meas, fixed=TRUE) != -1) {
-      cat("delta[\"",meas,"\",\"",quant,"\"] = ","1\n",sep="")
+      cat("delta[\"",meas,"\",\"",quant,"\"] = 1\n",sep="")
     }
   }
 }
@@ -240,7 +240,7 @@ for (meas in meas.names) {
 ##
 ## build delta matrix
 ## measurements are linear combinations of quantities we want to average
-## for measurements of a quantity, a -1 must be set in the slot that
+## for measurements of a quantity, a 1 must be set in the slot that
 ## relates the quantity with the measurement
 ## for measurements that are the sum of some (or all) the quantities,
 ## a -1 must be set in all the slots that relates the quantity with the measurements
@@ -289,12 +289,12 @@ rownames(quant.cov) = quant.names
 colnames(quant.cov) = quant.names
 quant.err = sqrt(diag(quant.cov))
 
-quant = drop(-quant.cov %*% t(delta) %*% (invcov %*% meas))
+quant = drop(quant.cov %*% t(delta) %*% (invcov %*% meas))
 names(quant) = quant.names
 
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = t(meas + delta %*% quant) %*% invcov %*% (meas + delta %*% quant)
+chisq = t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant)
 
 cat("##\n")
 cat("## exact solution, chi-square = ",chisq,"\n")
@@ -313,7 +313,7 @@ show(quant.corr)
 ##
 
 logLik.average = function(par) {
-  chisq = t(meas + delta %*% par) %*% invcov %*% (meas + delta %*% par)
+  chisq = t(meas - delta %*% par) %*% invcov %*% (meas - delta %*% par)
   return(-1/2*chisq)
 }
 
@@ -324,7 +324,7 @@ quant.cov = vcov(fit)
 quant.err = sqrt(diag(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = t(meas + delta %*% quant) %*% invcov %*% (meas + delta %*% quant)
+chisq = t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant)
 chisq.fit = -2*logLik(fit)
 
 cat("##\n")
