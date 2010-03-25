@@ -224,9 +224,9 @@ rownames(delta) = meas.names
 ##
 ## temporary code to print the non-zero delta matrix coefficients
 ##
-if (FALSE) {
-for (quant in quant.names) {
-  for (meas in meas.names) {
+if (TRUE) {
+for (meas in meas.names) {
+  for (quant in quant.names) {
     if (regexpr(quant, meas, fixed=TRUE) != -1) {
       cat("delta[\"",meas,"\",\"",quant,"\"] = ","1\n",sep="")
     }
@@ -245,35 +245,35 @@ for (quant in quant.names) {
 ## for measurements that are the sum of some (or all) the quantities,
 ## a -1 must be set in all the slots that relates the quantity with the measurements
 ##
-delta["Belle.PimPimPipNu.published","PimPimPipNu"] = -1
-delta["BaBar.PimPimPipNu.published","PimPimPipNu"] = -1
-delta["CLEO3.PimPimPipNu.published","PimPimPipNu"] = -1
-delta["DELPHI.HmHmHpNu.published","PimPimPipNu"] = -1
-delta["OPAL.HmHmHpNu.published","PimPimPipNu"] = -1
-delta["CLEO.HmHmHpNu.published","PimPimPipNu"] = -1
-delta["Belle.PimKmPipNu.published","PimKmPipNu"] = -1
-delta["BaBar.PimKmPipNu.published","PimKmPipNu"] = -1
-delta["OPAL.PimKmPipNu.published","PimKmPipNu"] = -1
-delta["CLEO3.PimKmPipNu.published","PimKmPipNu"] = -1
-delta["CLEO.PimKmPipNu.published","PimKmPipNu"] = -1
-delta["ALEPH.PimKmPipNu.published","PimKmPipNu"] = -1
-delta["DELPHI.HmHmHpNu.published","PimKmPipNu"] = -1
-delta["OPAL.HmHmHpNu.published","PimKmPipNu"] = -1
-delta["CLEO.HmHmHpNu.published","PimKmPipNu"] = -1
-delta["Belle.PimKmKpNu.published","PimKmKpNu"] = -1
-delta["BaBar.PimKmKpNu.published","PimKmKpNu"] = -1
-delta["CLEO3.PimKmKpNu.published","PimKmKpNu"] = -1
-delta["OPAL.PimKmKpNu.published","PimKmKpNu"] = -1
-delta["CLEO.PimKmKpNu.published","PimKmKpNu"] = -1
-delta["AlEPH.PimKmKpNu.published","PimKmKpNu"] = -1
-delta["DELPHI.HmHmHpNu.published","PimKmKpNu"] = -1
-delta["OPAL.HmHmHpNu.published","PimKmKpNu"] = -1
-delta["CLEO.HmHmHpNu.published","PimKmKpNu"] = -1
-delta["Belle.KmKmKpNu.published","KmKmKpNu"] = -1
-delta["BaBar.KmKmKpNu.published","KmKmKpNu"] = -1
-delta["DELPHI.HmHmHpNu.published","KmKmKpNu"] = -1
-delta["OPAL.HmHmHpNu.published","KmKmKpNu"] = -1
-delta["CLEO.HmHmHpNu.published","KmKmKpNu"] = -1
+delta["Belle.PimPimPipNu.published","PimPimPipNu"] = 1
+delta["Belle.PimKmPipNu.published","PimKmPipNu"] = 1
+delta["Belle.PimKmKpNu.published","PimKmKpNu"] = 1
+delta["Belle.KmKmKpNu.published","KmKmKpNu"] = 1
+delta["BaBar.PimPimPipNu.published","PimPimPipNu"] = 1
+delta["BaBar.PimKmPipNu.published","PimKmPipNu"] = 1
+delta["BaBar.PimKmKpNu.published","PimKmKpNu"] = 1
+delta["BaBar.KmKmKpNu.published","KmKmKpNu"] = 1
+delta["CLEO3.PimPimPipNu.published","PimPimPipNu"] = 1
+delta["OPAL.PimKmPipNu.published","PimKmPipNu"] = 1
+delta["CLEO3.PimKmPipNu.published","PimKmPipNu"] = 1
+delta["CLEO.PimKmPipNu.published","PimKmPipNu"] = 1
+delta["ALEPH.PimKmPipNu.published","PimKmPipNu"] = 1
+delta["CLEO3.PimKmKpNu.published","PimKmKpNu"] = 1
+delta["OPAL.PimKmKpNu.published","PimKmKpNu"] = 1
+delta["CLEO.PimKmKpNu.published","PimKmKpNu"] = 1
+delta["AlEPH.PimKmKpNu.published","PimKmKpNu"] = 1
+delta["DELPHI.HmHmHpNu.published","PimPimPipNu"] = 1
+delta["DELPHI.HmHmHpNu.published","PimKmPipNu"] = 1
+delta["DELPHI.HmHmHpNu.published","PimKmKpNu"] = 1
+delta["DELPHI.HmHmHpNu.published","KmKmKpNu"] = 1
+delta["OPAL.HmHmHpNu.published","PimPimPipNu"] = 1
+delta["OPAL.HmHmHpNu.published","PimKmPipNu"] = 1
+delta["OPAL.HmHmHpNu.published","PimKmKpNu"] = 1
+delta["OPAL.HmHmHpNu.published","KmKmKpNu"] = 1
+delta["CLEO.HmHmHpNu.published","PimPimPipNu"] = 1
+delta["CLEO.HmHmHpNu.published","PimKmPipNu"] = 1
+delta["CLEO.HmHmHpNu.published","PimKmKpNu"] = 1
+delta["CLEO.HmHmHpNu.published","KmKmKpNu"] = 1
 
 ##--- measurement values
 meas = unlist(lapply(measurements, function(x) {x@value}))
