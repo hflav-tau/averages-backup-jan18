@@ -148,15 +148,15 @@ meas.names = names(measurements)
 ## cat(names(measurements),"\n")
 
 ##-- init correlation matrix
-## corr = matrix(0, meas.num, meas.num)
-corr = diag(rep(1,meas.num))
-rownames(corr) = names(measurements)
-colnames(corr) = names(measurements)
+## meas.corr = matrix(0, meas.num, meas.num)
+meas.corr = diag(rep(1,meas.num))
+rownames(meas.corr) = names(measurements)
+colnames(meas.corr) = names(measurements)
 
 ##--- build off-diagonal correlation matrix
 for (meas in measurements) {
   mapply(function(other.tag, other.corr) {
-    corr[meas@tag,other.tag] <<- other.corr
+    meas.corr[meas@tag,other.tag] <<- other.corr
     ## cat("other = ", other.corr, "\n")
   }, names(meas@correlations), meas@correlations)
 }
@@ -172,8 +172,8 @@ for (meas.i in meas.names) {
   ## cat(meas.i,"\n")
   ## cat(meas.names[(index+1):length(meas.names)],"\n")
   for (meas.j in meas.names[(index+1):length(meas.names)]) {
-    if (corr[meas.i,meas.j] != 0) {
-      cat("corr[\"",meas.i,"\",\"",meas.j,"\"] = ",corr[meas.i,meas.j],"\n",sep="")
+    if (meas.corr[meas.i,meas.j] != 0) {
+      cat("meas.corr[\"",meas.i,"\",\"",meas.j,"\"] = ",meas.corr[meas.i,meas.j],"\n",sep="")
     }
   }
 }
@@ -184,23 +184,23 @@ if (!kLocalCards) {
 ## replace correlation coefficients computed by Swagato with the original ones
 ## which are total correlation coefficients
 ##
-corr = 0*corr
-corr["Belle.PimPimPipNu.published","Belle.PimKmPipNu.published"] = 0.1749885
-corr["Belle.PimPimPipNu.published","Belle.PimKmKpNu.published"] = 0.04948276
-corr["Belle.PimPimPipNu.published","Belle.KmKmKpNu.published"] = -0.05346557
-corr["Belle.PimKmPipNu.published","Belle.PimKmKpNu.published"] = 0.08026913
-corr["Belle.PimKmPipNu.published","Belle.KmKmKpNu.published"] = 0.03505142
-corr["Belle.PimKmKpNu.published","Belle.KmKmKpNu.published"] = -0.008312885
-corr["BaBar.PimPimPipNu.published","BaBar.PimKmPipNu.published"] = 0.543535
-corr["BaBar.PimPimPipNu.published","BaBar.PimKmKpNu.published"] = 0.390346
-corr["BaBar.PimPimPipNu.published","BaBar.KmKmKpNu.published"] = 0.031469
-corr["BaBar.PimKmPipNu.published","BaBar.PimKmKpNu.published"] = 0.177495
-corr["BaBar.PimKmPipNu.published","BaBar.KmKmKpNu.published"] = 0.0931907
-corr["BaBar.PimKmKpNu.published","BaBar.KmKmKpNu.published"] = 0.0870484
+meas.corr = 0*meas.corr
+meas.corr["Belle.PimPimPipNu.published","Belle.PimKmPipNu.published"] = 0.1749885
+meas.corr["Belle.PimPimPipNu.published","Belle.PimKmKpNu.published"] = 0.04948276
+meas.corr["Belle.PimPimPipNu.published","Belle.KmKmKpNu.published"] = -0.05346557
+meas.corr["Belle.PimKmPipNu.published","Belle.PimKmKpNu.published"] = 0.08026913
+meas.corr["Belle.PimKmPipNu.published","Belle.KmKmKpNu.published"] = 0.03505142
+meas.corr["Belle.PimKmKpNu.published","Belle.KmKmKpNu.published"] = -0.008312885
+meas.corr["BaBar.PimPimPipNu.published","BaBar.PimKmPipNu.published"] = 0.543535
+meas.corr["BaBar.PimPimPipNu.published","BaBar.PimKmKpNu.published"] = 0.390346
+meas.corr["BaBar.PimPimPipNu.published","BaBar.KmKmKpNu.published"] = 0.031469
+meas.corr["BaBar.PimKmPipNu.published","BaBar.PimKmKpNu.published"] = 0.177495
+meas.corr["BaBar.PimKmPipNu.published","BaBar.KmKmKpNu.published"] = 0.0931907
+meas.corr["BaBar.PimKmKpNu.published","BaBar.KmKmKpNu.published"] = 0.0870484
 ##--- symmetrize (we only entered the upper part)
-corr = corr + t(corr)
+meas.corr = meas.corr + t(meas.corr)
 ##--- add diagonal unity matrix
-corr = corr + diag(rep(1,meas.num))
+meas.corr = meas.corr + diag(rep(1,meas.num))
 }
 
 ##
@@ -211,7 +211,7 @@ meas.syst = unlist(lapply(measurements, function(x) x@syst))
 meas.error = sqrt(meas.stat^2 + meas.syst^2)
 
 ##--- build covariance matrix using errors and correlation coefficients
-covariance = corr * (meas.error %o% meas.error)
+meas.cov = meas.corr * (meas.error %o% meas.error)
 
 ##--- quantities we want to determinee from measurements
 quant.names = c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu")
@@ -282,17 +282,17 @@ meas = unlist(lapply(measurements, function(x) {x@value}))
 ## solve for quantities
 ##
 
-invcov = solve(covariance)
+invcov = solve(meas.cov)
 
-covariance.quant = solve(delta %*% invcov %*% t(delta))
-rownames(covariance.quant) = quant.names
-colnames(covariance.quant) = quant.names
-quant.err = sqrt(diag(covariance.quant))
+quant.cov = solve(delta %*% invcov %*% t(delta))
+rownames(quant.cov) = quant.names
+colnames(quant.cov) = quant.names
+quant.err = sqrt(diag(quant.cov))
 
-quant = drop(-covariance.quant %*% delta %*% (invcov %*% meas))
+quant = drop(-quant.cov %*% delta %*% (invcov %*% meas))
 names(quant) = quant.names
 
-corr.quant = covariance.quant / (quant.err %o% quant.err)
+quant.corr = quant.cov / (quant.err %o% quant.err)
 
 chisq = t(meas + t(delta) %*% quant) %*% invcov %*% (meas + t(delta) %*% quant)
 
@@ -304,43 +304,44 @@ show(quant)
 cat("errors\n")
 show(quant.err)
 ## cat("covariance\n")
-## show(covariance.quant)
+## show(quant.cov)
 cat("correlation\n")
-show(corr.quant)
+show(quant.corr)
 
 ##
 ## solve for quantities with iterative chi-square minimization
 ##
 
-cat("##\n")
-cat("## minimum shi-square fit\n")
-cat("##\n")
-
 logLik.average = function(par) {
-  chisq = t((meas + t(delta)) %*% par) %*% invcov %*% ((meas + t(delta)) %*% par)
+  chisq = t(meas + (t(delta) %*% par)) %*% invcov %*% (meas + (t(delta) %*% par))
   return(-1/2*chisq)
 }
 
 fit = maxLik(logLik.average, start=quant*1.5)
 
-show(fit)
-covariance.quant = vcov(fit)
-quant.err = sqrt(diag(covariance.quant))
-corr.quant = covariance.quant / (quant.err %o% quant.err)
+quant = coef(fit)
+quant.cov = vcov(fit)
+quant.err = sqrt(diag(quant.cov))
+quant.corr = quant.cov / (quant.err %o% quant.err)
 
 chisq = t(meas + t(delta) %*% quant) %*% invcov %*% (meas + t(delta) %*% quant)
+chisq.fit = -2*logLik(fit)
 
 cat("##\n")
-cat("## minimum chi square fit solution = ",chisq,"\n")
+cat("## minimum chi square fit, chi-square= ", chisq, ", from fit= ", chisq.fit, "\n",sep="")
 cat("##\n")
 cat("averages\n")
 show(quant)
 cat("errors\n")
 show(quant.err)
 ## cat("covariance\n")
-## show(covariance.quant)
+## show(quant.cov)
 cat("correlation\n")
-show(corr.quant)
+show(quant.corr)
+cat("\n")
+cat("## begin fit summary\n")
+show(fit)
+cat("## end fit summary\n")
 
 if (FALSE) {
 ##
