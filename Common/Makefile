@@ -1,13 +1,18 @@
+.PHONY:	combos pdg update_log update_pdglog update_plotlog update_all
+
 combos:
-	/bin/rm -f average.log ; ../../../combos/combos average.input > average.log
+	@/bin/rm -f average.log
+	../../../combos/combos average.input > average.log
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log created:'
 
 pdg:
-	/bin/rm -f pdg_average.log ; root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log
+	@/bin/rm -f pdg_average.log
+	root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log created:'
 
 plot:
-	/bin/rm -f plot.log ; root -l -b -q ../../../Common/plot.cc > plot.log
+	@/bin/rm -f plot.log
+	root -l -b -q ../../../Common/plot.cc > plot.log
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log created:'
 	@/usr/bin/convert plot.eps plot.gif 
 	@/bin/cp -f plot.gif /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`.gif
