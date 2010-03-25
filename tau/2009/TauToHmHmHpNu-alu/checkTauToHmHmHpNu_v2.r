@@ -217,9 +217,9 @@ meas.cov = meas.corr * (meas.error %o% meas.error)
 quant.names = c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu")
 quant.num = length(quant.names)
 
-delta = matrix(0, quant.num, meas.num)
-rownames(delta) = quant.names
-colnames(delta) = meas.names
+delta = matrix(0, meas.num, quant.num)
+colnames(delta) = quant.names
+rownames(delta) = meas.names
 
 ##
 ## temporary code to print the non-zero delta matrix coefficients
@@ -228,10 +228,10 @@ if (FALSE) {
 for (quant in quant.names) {
   for (meas in meas.names) {
     if (regexpr(quant, meas, fixed=TRUE) != -1) {
-      cat("delta[\"",quant,"\",\"",meas,"\"] = ","1\n",sep="")
+      cat("delta[\"",meas,"\",\"",quant,"\"] = ","1\n",sep="")
     }
     if (regexpr("HmHmHpNu", meas, fixed=TRUE) != -1) {
-      cat("delta[\"",quant,"\",\"",meas,"\"] = ","1\n",sep="")
+      cat("delta[\"",meas,"\",\"",quant,"\"] = ","1\n",sep="")
     }
   }
 }
@@ -245,35 +245,35 @@ for (quant in quant.names) {
 ## for measurements that are the sum of some (or all) the quantities,
 ## a -1 must be set in all the slots that relates the quantity with the measurements
 ##
-delta["PimPimPipNu","Belle.PimPimPipNu.published"] = -1
-delta["PimPimPipNu","BaBar.PimPimPipNu.published"] = -1
-delta["PimPimPipNu","CLEO3.PimPimPipNu.published"] = -1
-delta["PimPimPipNu","DELPHI.HmHmHpNu.published"] = -1
-delta["PimPimPipNu","OPAL.HmHmHpNu.published"] = -1
-delta["PimPimPipNu","CLEO.HmHmHpNu.published"] = -1
-delta["PimKmPipNu","Belle.PimKmPipNu.published"] = -1
-delta["PimKmPipNu","BaBar.PimKmPipNu.published"] = -1
-delta["PimKmPipNu","OPAL.PimKmPipNu.published"] = -1
-delta["PimKmPipNu","CLEO3.PimKmPipNu.published"] = -1
-delta["PimKmPipNu","CLEO.PimKmPipNu.published"] = -1
-delta["PimKmPipNu","ALEPH.PimKmPipNu.published"] = -1
-delta["PimKmPipNu","DELPHI.HmHmHpNu.published"] = -1
-delta["PimKmPipNu","OPAL.HmHmHpNu.published"] = -1
-delta["PimKmPipNu","CLEO.HmHmHpNu.published"] = -1
-delta["PimKmKpNu","Belle.PimKmKpNu.published"] = -1
-delta["PimKmKpNu","BaBar.PimKmKpNu.published"] = -1
-delta["PimKmKpNu","CLEO3.PimKmKpNu.published"] = -1
-delta["PimKmKpNu","OPAL.PimKmKpNu.published"] = -1
-delta["PimKmKpNu","CLEO.PimKmKpNu.published"] = -1
-delta["PimKmKpNu","AlEPH.PimKmKpNu.published"] = -1
-delta["PimKmKpNu","DELPHI.HmHmHpNu.published"] = -1
-delta["PimKmKpNu","OPAL.HmHmHpNu.published"] = -1
-delta["PimKmKpNu","CLEO.HmHmHpNu.published"] = -1
-delta["KmKmKpNu","Belle.KmKmKpNu.published"] = -1
-delta["KmKmKpNu","BaBar.KmKmKpNu.published"] = -1
-delta["KmKmKpNu","DELPHI.HmHmHpNu.published"] = -1
-delta["KmKmKpNu","OPAL.HmHmHpNu.published"] = -1
-delta["KmKmKpNu","CLEO.HmHmHpNu.published"] = -1
+delta["Belle.PimPimPipNu.published","PimPimPipNu"] = -1
+delta["BaBar.PimPimPipNu.published","PimPimPipNu"] = -1
+delta["CLEO3.PimPimPipNu.published","PimPimPipNu"] = -1
+delta["DELPHI.HmHmHpNu.published","PimPimPipNu"] = -1
+delta["OPAL.HmHmHpNu.published","PimPimPipNu"] = -1
+delta["CLEO.HmHmHpNu.published","PimPimPipNu"] = -1
+delta["Belle.PimKmPipNu.published","PimKmPipNu"] = -1
+delta["BaBar.PimKmPipNu.published","PimKmPipNu"] = -1
+delta["OPAL.PimKmPipNu.published","PimKmPipNu"] = -1
+delta["CLEO3.PimKmPipNu.published","PimKmPipNu"] = -1
+delta["CLEO.PimKmPipNu.published","PimKmPipNu"] = -1
+delta["ALEPH.PimKmPipNu.published","PimKmPipNu"] = -1
+delta["DELPHI.HmHmHpNu.published","PimKmPipNu"] = -1
+delta["OPAL.HmHmHpNu.published","PimKmPipNu"] = -1
+delta["CLEO.HmHmHpNu.published","PimKmPipNu"] = -1
+delta["Belle.PimKmKpNu.published","PimKmKpNu"] = -1
+delta["BaBar.PimKmKpNu.published","PimKmKpNu"] = -1
+delta["CLEO3.PimKmKpNu.published","PimKmKpNu"] = -1
+delta["OPAL.PimKmKpNu.published","PimKmKpNu"] = -1
+delta["CLEO.PimKmKpNu.published","PimKmKpNu"] = -1
+delta["AlEPH.PimKmKpNu.published","PimKmKpNu"] = -1
+delta["DELPHI.HmHmHpNu.published","PimKmKpNu"] = -1
+delta["OPAL.HmHmHpNu.published","PimKmKpNu"] = -1
+delta["CLEO.HmHmHpNu.published","PimKmKpNu"] = -1
+delta["Belle.KmKmKpNu.published","KmKmKpNu"] = -1
+delta["BaBar.KmKmKpNu.published","KmKmKpNu"] = -1
+delta["DELPHI.HmHmHpNu.published","KmKmKpNu"] = -1
+delta["OPAL.HmHmHpNu.published","KmKmKpNu"] = -1
+delta["CLEO.HmHmHpNu.published","KmKmKpNu"] = -1
 
 ##--- measurement values
 meas = unlist(lapply(measurements, function(x) {x@value}))
@@ -284,17 +284,17 @@ meas = unlist(lapply(measurements, function(x) {x@value}))
 
 invcov = solve(meas.cov)
 
-quant.cov = solve(delta %*% invcov %*% t(delta))
+quant.cov = solve(t(delta) %*% invcov %*% delta)
 rownames(quant.cov) = quant.names
 colnames(quant.cov) = quant.names
 quant.err = sqrt(diag(quant.cov))
 
-quant = drop(-quant.cov %*% delta %*% (invcov %*% meas))
+quant = drop(-quant.cov %*% t(delta) %*% (invcov %*% meas))
 names(quant) = quant.names
 
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = t(meas + t(delta) %*% quant) %*% invcov %*% (meas + t(delta) %*% quant)
+chisq = t(meas + delta %*% quant) %*% invcov %*% (meas + delta %*% quant)
 
 cat("##\n")
 cat("## exact solution, chi-square = ",chisq,"\n")
@@ -313,7 +313,7 @@ show(quant.corr)
 ##
 
 logLik.average = function(par) {
-  chisq = t(meas + (t(delta) %*% par)) %*% invcov %*% (meas + (t(delta) %*% par))
+  chisq = t(meas + delta %*% par) %*% invcov %*% (meas + delta %*% par)
   return(-1/2*chisq)
 }
 
@@ -324,7 +324,7 @@ quant.cov = vcov(fit)
 quant.err = sqrt(diag(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = t(meas + t(delta) %*% quant) %*% invcov %*% (meas + t(delta) %*% quant)
+chisq = t(meas + delta %*% quant) %*% invcov %*% (meas + delta %*% quant)
 chisq.fit = -2*logLik(fit)
 
 cat("##\n")
@@ -365,7 +365,7 @@ cat("delta = ", matrix.to.math(delta), ";\n", sep="")
 cat("meas = ", vector.to.math(meas), ";\n", sep="")
 
 cat("invcov = Inverse[cov];\n")
-cat("covQuant = Inverse[delta invcov Transpose[delta]];\n")
+cat("covQuant = Inverse[Transpose[delta] invcov delta];\n")
 cat("errQuant = Sqrt[Diag[covQuant]];\n")
-cat("quant = -covQuant delta (invcov meas);\n")
+cat("quant = -covQuant Transpose[delta] (invcov meas);\n")
 }
