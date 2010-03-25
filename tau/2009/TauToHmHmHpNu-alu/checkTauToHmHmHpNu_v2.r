@@ -239,11 +239,15 @@ for (meas in meas.names) {
 
 ##
 ## build delta matrix
-## measurements are linear combinations of quantities we want to average
-## for measurements of a quantity, a 1 must be set in the slot that
-## relates the quantity with the measurement
-## for measurements that are the sum of some (or all) the quantities,
-## a -1 must be set in all the slots that relates the quantity with the measurements
+## - measurements are experimental results or external PDG averages
+## - quantities are the results of the HFAG averaging procedure
+## measurements are linear combinations of quantities, meas_i = delta_ij * quant_j
+## if a measurement i corresponds to a quantity j then delta_ij = 1
+## some measurements are actually a sum of quantities: meas_i = quant_j1 + quant_j2 + ...
+## in this case delta_i,j1 = 1, delta_i,j2 = 1, ...
+## all remaining delta matrix terms are zero
+## one can generalize the above concepts to measurements that are linear combinations
+## of quantities by using proper coefficients different from 1
 ##
 delta["Belle.PimPimPipNu.published","PimPimPipNu"] = 1
 delta["Belle.PimKmPipNu.published","PimKmPipNu"] = 1
