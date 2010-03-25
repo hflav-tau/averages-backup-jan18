@@ -9,6 +9,8 @@ pdg:
 plot:
 	/bin/rm -f plot.log ; root -l -b -q ../../../Common/plot.cc > plot.log
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log created:'
+	@/usr/bin/convert plot.eps plot.gif 
+	@/bin/cp -f plot.gif /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`.gif
 
 update_log:
 	@/bin/cp -f average.log log/

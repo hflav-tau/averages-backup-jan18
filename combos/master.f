@@ -1458,7 +1458,7 @@ c     &    ,err2n(is,2,k),is,2,k
 *     Define print format
 *
       F100='F11.5' ! default print format 
-      F100='E11.5' ! SwB [default changed]
+      F100='E14.7' ! SwB [default changed]
       CALL GET_PRINT_FORMAT(F100) ! modify with parameter PRINT_FORMAT
       READ(F100(2:),*) R100
       N100=3*INT(R100)

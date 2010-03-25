@@ -39,6 +39,7 @@ int SetUp(){
   gStyle->SetPadColor(0);
   gStyle->SetCanvasColor(0);
   gStyle->SetCanvasBorderMode(0);
+  gStyle->SetCanvasBorderSize(0);
   gStyle->SetMarkerStyle(8);
   gStyle->SetMarkerSize(0.35);
   gStyle->SetErrorX(0.001);
@@ -65,14 +66,13 @@ int SetUp(){
   gStyle->SetTickLength(1.e-5,"Y");
   gStyle->SetNdivisions(504, "X");
   gStyle->SetNdivisions(505, "Y");
-  gStyle->SetCanvasBorderSize(0);
 }
 //int main(){
 int plot(){
   SetUp();
   //
   int nPoints=0;
-  float xmin,xmax,units,meas[99],stat[99],syst[99],tot[99],wt[99]; 
+  float xmin,xmax,units,meas[99],stat[99],syst[99];
   TString title,expname[99];
   const char* filename="plot.input";  
   ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; assert(0) ;}
@@ -91,7 +91,6 @@ int plot(){
       ifs.putback(firstch) ;
       // Parse content
       ifs >> meas[nPoints] >> stat[nPoints] >> syst[nPoints];
-      tot[nPoints]=sqrt(stat[nPoints]*stat[nPoints] + syst[nPoints]*syst[nPoints]);
       ifs.getline(buffer,200,'\n') ;
       expname[nPoints]=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
       if (expname[nPoints].Length()) nPoints++;
@@ -99,10 +98,17 @@ int plot(){
   }
   cout << "Read " << nPoints << " lines from filename " << filename << endl ;
   for (int i=0;i<nPoints;i++) {
-    cout << i << " " << meas[i] << " +- " << stat[i] << "(stat) +- " << syst[i] << "(syst) +- " << tot[i] << " (tot) from " << expname[i] << endl;
+    if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
+      cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with Scale Factor = " << syst[i] << " from " << expname[i] << endl;
+    } else if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
+      cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with CL = " << syst[i] << " from " << expname[i] << endl;
+    } else {
+      cout << i << " " << meas[i] << " +- " << stat[i] << " (stat) +- " << syst[i] << " (syst) from " << expname[i] << endl;
+    }
   }
   //
-  TCanvas *canvas=new TCanvas("canvas","canvas",356,0,656,700);
+  TCanvas *canvas=new TCanvas("canvas","canvas",200,0,600,600);
+
   canvas->Clear();
   //  canvas->SetFillColor(10);
   canvas->SetLeftMargin(0.04);
@@ -124,10 +130,11 @@ int plot(){
   int ci = 1756; // new color index
   TColor *color = new TColor(ci, 0.50, 1.00, 0.50); // lightgreen for average
 
+  // draw boxes using the default final average value listed at position 0
   TBox b1;
   b1.SetFillStyle(1000);
   b1.SetFillColor(ci);
-  b1.DrawBox(meas[0]-tot[0], fYmin,meas[0]+tot[0], fYmax);
+  b1.DrawBox(meas[0]-stat[0], fYmin,meas[0]+stat[0], fYmax);
 
   Float_t y[99], ey[99], eyl[99], eyh[99];
   int fColor[99], fSymbol[99];
@@ -147,7 +154,13 @@ int plot(){
   TLatex  tl;
   tl.SetTextSize(0.028);
   for (int i=0;i<nPoints;++i) {
-    TGraphErrors *GraphA = new TGraphErrors(1,&meas[i],&y[i],&tot[i],&ey[i]);
+    float tot[1];
+    if (expname[i].Contains("Average")) {
+      tot[0] = stat[i];
+    }else{
+      tot[0] = sqrt(stat[i]*stat[i] + syst[i]*syst[i]);
+    }
+    TGraphErrors *GraphA = new TGraphErrors(1,&meas[i],&y[i],&tot[0],&ey[i]);
     GraphA->SetMarkerColor(fColor[i]);
     GraphA->SetMarkerStyle(fSymbol[i]);
     GraphA->SetMarkerSize(fMarkerSize);
@@ -160,7 +173,7 @@ int plot(){
     }
     GraphA->Draw("P");
     //
-    TGraph* GraphB = new TGraphAsymmErrors(1,&meas[i],&y[i],&tot[i],&tot[i],&eyl[i],&eyh[i]);
+    TGraph* GraphB = new TGraphAsymmErrors(1,&meas[i],&y[i],&tot[0],&tot[0],&eyl[i],&eyh[i]);
     GraphB->SetMarkerColor(fColor[i]);
     GraphB->SetMarkerStyle(fSymbol[i]);
     GraphB->SetMarkerSize(fMarkerSize);
@@ -180,14 +193,30 @@ int plot(){
     }
     ytext=y[i]*1.0;
     tl.DrawLatex(xtext,ytext,expname[i]);
-    if (syst[i]<1e-8) {
-      tl.DrawLatex(xtext,ytext-fTxtY,Form("(%6.3f #pm %6.3f)",(double)meas[i],(double)tot[i]));
+    if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
+      if (syst[i]<1e-9) { // zero means no Scale Factor quoted
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+      } else {
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Scale Factor = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
+      }
+    } else if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
+      if (fabs(syst[i])<1e-9) { // zero means no CL quoted
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+      } else if (syst[i]<0) { // negative means Scale Factor is quoted
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Scale Factor = %4.2f)",(double)meas[i],(double)stat[i],(double)fabs(syst[i])));
+      } else { // positive means CL is quoted
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Confidence Level = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
+      }
     } else {
-      tl.DrawLatex(xtext,ytext-fTxtY,Form("(%6.3f #pm %6.3f #pm %6.3f)",(double)meas[i],(double)stat[i],(double)syst[i]));
+      if (syst[i]<1e-9) { // zero means no syst-error quoted
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+      } else {
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f #pm %6.3f",(double)meas[i],(double)stat[i],(double)syst[i]));
+      }
     }
   }
 
-  HFAGTauLabel(2010001,.33,.225,.25,.05,.8);
+  HFAGTauLabel(2010001,.3,.225,.2,.05,.8);
 
   canvas->SaveAs("plot.eps");
   //  canvas->SaveAs("plot.gif"); // ROOT's native gif saving looks garbled
