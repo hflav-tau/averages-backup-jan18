@@ -224,7 +224,7 @@ rownames(delta) = meas.names
 ##
 ## temporary code to print the non-zero delta matrix coefficients
 ##
-if (TRUE) {
+if (FALSE) {
 for (meas in meas.names) {
   for (quant in quant.names) {
     if (regexpr(quant, meas, fixed=TRUE) != -1) {
