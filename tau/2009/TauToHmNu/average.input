@@ -1,3 +1,4 @@
+INCLUDE babar.input
 INCLUDE pdg.input
 
 BEGIN   PDG all_methods

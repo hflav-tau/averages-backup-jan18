@@ -1,0 +1,12 @@
+# first line is xmin, xmax, units, title
+* 7.5 12.5 1e-2 B(#tau #rightarrow h #nu) [%]
+# next lines are average, error, CL for HFAG Averages
+ 11.485 0.057 0.683 HFAG   Average [B(#tau #rightarrow 1 prong) inputs combined]
+ 11.498 0.073 0.030 HFAG   Average [B(#tau #rightarrow h #nu) inputs only]
+# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
+ 11.63  0.12  1.4   PDG'08 Average
+# next lines are measurement, stat-error, syst-error, experiment-name
+ 11.28  0.119 0.000 BaBar  2009
+ 11.571 0.120 0.114 DELPHI 2006
+ 11.98  0.13  0.16  OPAL   1998
+ 11.52  0.05  0.12  CLEO   1997

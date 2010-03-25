@@ -1,4 +1,3 @@
-bbrroot -l -b -q ../../../Common/pdg_average.cc
 
 Processing ../../../Common/pdg_average.cc...
 Read 6 lines from file pdg_average.input
