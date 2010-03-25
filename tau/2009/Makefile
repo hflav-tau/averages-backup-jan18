@@ -1,4 +1,4 @@
-SUBDIRS_DASH = $(filter-out *-*,$(subst /Makefile,,$(wildcard *-*/Makefile)))
+SUBDIRS_DASH = $(subst /Makefile,,$(wildcard *-*/Makefile))
 SUBDIRS = $(filter-out $(SUBDIRS_DASH),$(subst /Makefile,,$(wildcard */Makefile)))
 TARGETS = combos pdg plot update_log update_pdglog update_plotlog update_all
 
