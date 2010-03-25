@@ -75,7 +75,7 @@ int plot(){
   float xmin,xmax,units,meas[99],stat[99],syst[99];
   TString title,expname[99];
   const char* filename="plot.input";  
-  ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; assert(0) ;}
+  ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ; 
   while(ifs.good()) {
     if (ifs.eof()) break;
