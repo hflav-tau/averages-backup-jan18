@@ -2,9 +2,9 @@ SUBDIRS_DASH = $(filter-out *-*,$(subst /Makefile,,$(wildcard *-*/Makefile)))
 SUBDIRS = $(filter-out $(SUBDIRS_DASH),$(subst /Makefile,,$(wildcard */Makefile)))
 TARGETS = combos pdg plot update_log update_pdglog update_plotlog update_all
 
-.PHONY: subdirs $(SUBDIRS) combos pdg update_log plot
+.PHONY: info subdirs $(SUBDIRS) $(TARGETS)
 
-all:
+info:
 	@echo "please use targets: $(TARGETS)"
 	@echo "sub-directories: $(SUBDIRS)"
 
