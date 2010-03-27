@@ -3,11 +3,14 @@ BEGIN    BaBar PimPimPipNu published PRL100:011801,08
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            8.83370e-02   1.26940e-03 0.00000e+00
+            8.83370e-02   7.4000e-05  1.2672e-03
 
-STAT_CORR_WITH BaBar PimKmPipNu published 0.543535 
-STAT_CORR_WITH BaBar PimKmKpNu published 0.390346 
-STAT_CORR_WITH BaBar KmKmKpNu published 0.031469 
+ERROR_CORR_WITH BaBar PimKmPipNu published 0.543535 
+ERROR_CORR_WITH BaBar PimKmKpNu published 0.390346 
+ERROR_CORR_WITH BaBar KmKmKpNu published 0.031469 
+
+*DATA
+*            BaBarSyst_12  6.7965e-04
 
 END
 
@@ -16,11 +19,14 @@ BEGIN    BaBar PimKmPipNu published PRL100:011801,08
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            2.72570e-03   9.41768e-05 0.00000e+00
+            2.72570e-03   1.8000e-05  9.2441e-05
 
-STAT_CORR_WITH BaBar PimPimPipNu published 0.543535 
-STAT_CORR_WITH BaBar PimKmKpNu published 0.177495 
-STAT_CORR_WITH BaBar KmKmKpNu published 0.0931907 
+ERROR_CORR_WITH BaBar PimPimPipNu published 0.543535 
+ERROR_CORR_WITH BaBar PimKmKpNu published 0.177495 
+ERROR_CORR_WITH BaBar KmKmKpNu published 0.0931907 
+
+*DATA
+*            BaBarSyst_12  6.3701e-05
 
 END
 
@@ -29,11 +35,11 @@ BEGIN    BaBar PimKmKpNu published PRL100:011801,08
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.34610e-03   3.77613e-05 0.00000e+00
+            1.34610e-03   1.0000e-05  3.6413e-05
 
-STAT_CORR_WITH BaBar PimPimPipNu published 0.390346 
-STAT_CORR_WITH BaBar PimKmPipNu published 0.177495 
-STAT_CORR_WITH BaBar KmKmKpNu published 0.0870484 
+ERROR_CORR_WITH BaBar PimPimPipNu published 0.390346 
+ERROR_CORR_WITH BaBar PimKmPipNu published 0.177495 
+ERROR_CORR_WITH BaBar KmKmKpNu published 0.0870484 
 
 END
 
@@ -42,10 +48,10 @@ BEGIN    BaBar KmKmKpNu published PRL100:011801,08
 
 MEASUREMENT m_KmKmKpNu statistical systematic
 DATA        m_KmKmKpNu statistical systematic
-            1.57770e-05   1.79021e-06 0.00000e+00
+            1.57770e-05   1.3000e-06  1.2308e-06
 
-STAT_CORR_WITH BaBar PimPimPipNu published 0.031469 
-STAT_CORR_WITH BaBar PimKmPipNu published 0.0931907 
-STAT_CORR_WITH BaBar PimKmKpNu published 0.0870484 
+ERROR_CORR_WITH BaBar PimPimPipNu published 0.031469 
+ERROR_CORR_WITH BaBar PimKmPipNu published 0.0931907 
+ERROR_CORR_WITH BaBar PimKmKpNu published 0.0870484 
 
 END

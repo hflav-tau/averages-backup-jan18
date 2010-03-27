@@ -135,6 +135,10 @@ for (line in lines) {
     corr = as.numeric(fields[5])
     names(corr) =  paste(as.character(fields[2:4]), collapse=".")
     meas@correlations = c(meas@correlations,corr)
+  } else if (regexpr("^ERROR_CORR_WITH$", fields[1], ignore.case=TRUE) != -1) {
+    corr = as.numeric(fields[5])
+    names(corr) =  paste(as.character(fields[2:4]), collapse=".")
+    meas@correlations = c(meas@correlations,corr)
   } else if (regexpr("^END$", fields[1], ignore.case=TRUE) != -1) {
     status = kIdle
     measurements = c(measurements, meas)
