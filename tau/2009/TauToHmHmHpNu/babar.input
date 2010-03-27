@@ -10,7 +10,7 @@ STAT_CORR_WITH BaBar PimKmKpNu  published  1.3652e-03
 STAT_CORR_WITH BaBar KmKmKpNu   published -1.8666e-03
 
 DATA
-    	    BaBarSyst_00  8.4268e-04
+            BaBarSyst_00  8.4268e-04
             BaBarSyst_12  6.7965e-04
             BaBarSyst_13  4.7020e-04
             BaBarSyst_14  2.0472e-04
