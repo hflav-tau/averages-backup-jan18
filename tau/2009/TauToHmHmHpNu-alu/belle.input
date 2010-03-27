@@ -3,11 +3,11 @@ BEGIN    Belle PimPimPipNu published PRL100:011801,08
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            8.42000e-02   2.55196e-03 0.00000e+00
+            8.42e-02      0.01e-2     0.255e-2
 
-STAT_CORR_WITH Belle PimKmPipNu published 0.1749885 
-STAT_CORR_WITH Belle PimKmKpNu published 0.04948276 
-STAT_CORR_WITH Belle KmKmKpNu published -0.05346557 
+ERROR_CORR_WITH Belle PimKmPipNu published 0.1749885 
+ERROR_CORR_WITH Belle PimKmKpNu published 0.04948276 
+ERROR_CORR_WITH Belle KmKmKpNu published -0.05346557 
 
 END
 
@@ -16,11 +16,11 @@ BEGIN    Belle PimKmPipNu published arXiv:1001.0083
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            3.30000e-03   1.65303e-04 0.00000e+00
+            0.330e-2     0.001e-2    0.0165e-2
 
-STAT_CORR_WITH Belle PimPimPipNu published 0.1749885 
-STAT_CORR_WITH Belle PimKmKpNu published 0.08026913 
-STAT_CORR_WITH Belle KmKmKpNu published 0.03505142 
+ERROR_CORR_WITH Belle PimPimPipNu published 0.1749885 
+ERROR_CORR_WITH Belle PimKmKpNu published 0.08026913 
+ERROR_CORR_WITH Belle KmKmKpNu published 0.03505142 
 
 END
 
@@ -29,11 +29,11 @@ BEGIN    Belle PimKmKpNu published arXiv:1001.0083
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.55000e-03   5.59017e-05 0.00000e+00
+            1.550e-03 0.010e-3    0.055e-3
 
-STAT_CORR_WITH Belle PimPimPipNu published 0.04948276 
-STAT_CORR_WITH Belle PimKmPipNu published 0.08026913 
-STAT_CORR_WITH Belle KmKmKpNu published -0.008312885 
+ERROR_CORR_WITH Belle PimPimPipNu published 0.04948276 
+ERROR_CORR_WITH Belle PimKmPipNu published 0.08026913 
+ERROR_CORR_WITH Belle KmKmKpNu published -0.008312885 
 
 END
 
@@ -42,10 +42,10 @@ BEGIN    Belle KmKmKpNu published arXiv:1001.0083
 
 MEASUREMENT m_KmKmKpNu statistical systematic
 DATA        m_KmKmKpNu statistical systematic
-            3.29000e-05   2.58699e-06 0.00000e+00
+            3.29e-05   0.17e-5     0.195e-5
 
-STAT_CORR_WITH Belle PimPimPipNu published -0.05346557 
-STAT_CORR_WITH Belle PimKmPipNu published 0.03505142 
-STAT_CORR_WITH Belle PimKmKpNu published -0.008312885 
+ERROR_CORR_WITH Belle PimPimPipNu published -0.05346557 
+ERROR_CORR_WITH Belle PimKmPipNu published 0.03505142 
+ERROR_CORR_WITH Belle PimKmKpNu published -0.008312885 
 
 END
