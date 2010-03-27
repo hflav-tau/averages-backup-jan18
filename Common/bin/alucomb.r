@@ -141,8 +141,6 @@ for (line in lines) {
   }
   line = gsub("\\s*!.*", "", line, perl=TRUE)
   fields = unlist(strsplit(line, "\\s+", perl=TRUE))
-  ## show(fields[1])
-  ## cat(paste(fields,collapse=" / "),"\n")
   if (match.nocase("^BEGIN$", fields[1])) {
     if (flag.in.meas) {
       cat("error, BEGIN keyword inside definition of", meas@tag, "\n")
@@ -156,7 +154,6 @@ for (line in lines) {
       sumofmeas.values = numeric(0)
       measlincombs.list = list()
       flag.in.meas = TRUE
-      ## cat(line,"\n")
     }
     next
   }
@@ -228,8 +225,6 @@ for (line in lines) {
     }
     flag.in.meas = FALSE
     flag.in.combine = FALSE
-
-    ## stop("stop")
     next
   }
   if (match.nocase("^MEASUREMENT$", fields[1])) {
@@ -244,7 +239,6 @@ for (line in lines) {
   }
   if (match.nocase("^COMBINE$", fields[1])) {
     flag.in.combine = TRUE
-    ## cat("combine","\n")
     next
   }
   if (match.nocase("^DATA$", fields[1]) ||
@@ -254,7 +248,6 @@ for (line in lines) {
       unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
     data.values = c(data.values,
       unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
-    ## cat("begin data\n")
     next
   }
   if (match.nocase("^STAT_CORR_WITH$", fields[1])) {
@@ -306,16 +299,17 @@ for (quant in combination@quantities) {
 }
 
 ##-- include measurements that correspond to combination of quantities
+##++ should probably check also that _all_ quantities are in the combination
 for (meas in names(combination@meas.lin.combs)) {
   if (sum(combination@quantities %in% names(combination@meas.lin.combs[[meas]])) != 0) {
-    ## cat("meas", meas, "enrolled for", combination@quantities, "\n")
+    cat("meas", meas, "included, as linear combination\n")
     meas.list[meas] = TRUE
   }
 }
 
 ##-- retain only measurements that are related to the spec. quantities
 if (sum(!meas.list) > 0) {
-  cat("warning: measurements discarded\n")
+  cat("warning: the following measurements are discarded\n")
   cat(paste("  ",names(measurements)[!meas.list], collapse="\n",sep=""), "\n")
   cat("end warning\n")
 }
@@ -339,7 +333,7 @@ for (meas in names(measurements)) {
 
 ##
 ## shift measurements according to updated external parameter dependencies
-## update systematic terms according to updated external parameter errore
+## update systematic terms according to updated external parameter errors
 ##
 for (param.upd in names(combination@params)) {
   for (meas in names(measurements)) {
@@ -404,7 +398,7 @@ names(meas.stat.fake) = meas.names.fake
 meas.syst.fake = rep(0, meas.num.fake)
 names(meas.syst.fake) = meas.names.fake
 
-##-- combile true ancd fake info, compute total error
+##-- combine true and fake info, compute total error
 meas.stat = c(meas.stat.true, meas.stat.fake)
 meas.syst = c(meas.syst.true, meas.syst.fake)
 meas.error = sqrt(meas.stat^2 + meas.syst^2)
@@ -467,6 +461,7 @@ meas.cov = meas.cov + diag(meas.error^2)
 ##
 ## from variance and covariance terms between true measurements
 ## we subtract the correlated systematic terms contributions
+##
 ## for off-diagonal terms the subtraction is only done if
 ## total correlation terms were specified
 ##
@@ -496,7 +491,7 @@ if (quant.num.fake > 0) {
   quant.names.fake = paste(syst.terms.corr, "q", sep=".")
 }
 quant.names = c(quant.names.true, quant.names.fake)
-##--- set quantity - measurement correspondence for fake ones
+##-- set quantity - measurement correspondence for fake ones
 meas.quantities.true = meas.quantities
 meas.quantities = c(meas.quantities, quant.names.fake)
 
