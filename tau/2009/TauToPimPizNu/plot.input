@@ -1,12 +1,10 @@
 # first line is xmin, xmax, units, title
-* 23.5 26 1e-2 B(#tau #rightarrow #pi #pi^{0} #nu) [%]
-# next lines are average, error, CL for HFAG Averages
- 25.402 0.096  0.683 HFAG   Average [B(#tau #rightarrow 1 prong) inputs combined]
- 25.462 0.124  0.809 HFAG   Average [B(#tau #rightarrow #pi #pi^{0} #nu) inputs only]
+* 23 26 1e-2 B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #nu) [%]
+# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
+& 25.402 0.096  0.683 HFAG   Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
+& 25.462 0.124  0.809 HFAG   Average [B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #nu) inputs only]
 # next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
- 25.46  0.12   0.00  PDG'08 Average
+% 25.46  0.12   0.00  PDG'08 Average
 # next lines are measurement, stat-error, syst-error, experiment-name
- 25.471 0.097  0.085 ALEPH 2005
- 25.36  0.44   0.00  CLEO  1994
-
-
+ 25.471 0.097 -0.097 0.085 -0.085 ALEPH 2005
+ 25.36  0.44  -0.44  0.00  -0.00  CLEO  1994
