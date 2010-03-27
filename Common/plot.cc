@@ -30,6 +30,8 @@
 #include "TGraphErrors.h"
 #include "TGraphAsymmErrors.h"
 #include "TLatex.h"
+#include "TColor.h"
+#include "TPaveText.h"
 int SetUp(){
  // gROOT->SetBatch(kTRUE);
   //gROOT->SetStyle("Plain");
@@ -64,16 +66,56 @@ int SetUp(){
   gStyle->SetTitleFont(132,"X");
   gStyle->SetTitleFont(132,"Y");
   gStyle->SetTickLength(1.e-5,"Y");
+  gStyle->SetEndErrorSize(3);
   gStyle->SetNdivisions(504, "X");
   gStyle->SetNdivisions(505, "Y");
 }
+// ----------------------------------------------------------------------
+void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 0.825, Double_t xsiz=0.1, Double_t ysiz=0.12, Double_t scale= 1.0) {
+  TPaveText *tbox1 = new TPaveText(xpos-xsiz,ypos-ysiz,xpos,ypos,"BRNDC");
+  tbox1->SetLineColor(1);
+  tbox1->SetLineStyle(1);
+  tbox1->SetLineWidth(1);
+  tbox1->SetFillColor(1);
+  tbox1->SetFillStyle(1001);
+  tbox1->SetBorderSize(1);
+  //  tbox1->SetShadowColor(0);
+  tbox1->SetTextColor(0);
+  tbox1->SetTextFont(76);
+  tbox1->SetTextSize(24*scale);
+  tbox1->SetTextAlign(22); //center-adjusted and vertically centered
+  TString ts1("HFAG-Tau");
+  tbox1->AddText(ts1);
+  tbox1->Draw();
+  //
+  TPaveText *tbox2 = new TPaveText(xpos-xsiz,ypos-1.8*ysiz,xpos,ypos-ysiz,"BRNDC");
+  tbox2->SetLineColor(1);
+  tbox2->SetLineStyle(1);
+  tbox2->SetLineWidth(1);
+  tbox2->SetFillColor(0);
+  tbox2->SetFillStyle(1001);
+  tbox2->SetBorderSize(1);
+  //  tbox2->SetShadowColor(0);
+  tbox2->SetTextColor(1);
+  tbox2->SetTextFont(76);
+  tbox2->SetTextSize(20*scale);
+  tbox2->SetTextAlign(22); //center-adjusted and vertically centered
+  TString ts2;
+  if (yearversion==2009001) ts2="Spring 2009";
+  if (yearversion==2009002) ts2="Summer 2009";
+  if (yearversion==2010001) ts2="Winter 2010";
+  tbox2->AddText(ts2);
+  tbox2->Draw();
+}
+// ----------------------------------------------------------------------
 //int main(){
 int plot(){
   SetUp();
   //
   int nPoints=0;
-  float xmin,xmax,units,meas[99],stat[99],syst[99];
   TString title,expname[99];
+  float xmin,xmax,units,meas[99],stath[99],statl[99],stat[99],systh[99],systl[99],syst[99];
+  int statasy[99],systasy[99];
   const char* filename="plot.input";  
   ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ; 
@@ -82,15 +124,36 @@ int plot(){
     char firstch ; ifs.get(firstch) ;
     if (firstch=='#'||firstch=='\n') { // Skip this line
       ifs.ignore(200,'\n') ;
-    } else if (firstch=='*') { 
+    } else if (firstch=='*') {  // First line with xmin, xmax, units and title should have '*' as the first character
+      // Parse content : xmin xmax units
       ifs >> xmin >> xmax >> units;
       ifs.getline(buffer,200,'\n');
       title=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
-    } else {
+    } else if (firstch=='&') {  // Next lines with meas, error, CL (or -ScaleFactor) HFAG Average Description should have '&' as the first character
+      // Parse content : meas, error, CL (or -ScaleFactor)
+      ifs >>  meas[nPoints] >> stat[nPoints] >> syst[nPoints];
+      statasy[nPoints] = 0; // always false
+      systasy[nPoints] = 0; // always false
+      ifs.getline(buffer,200,'\n');
+      expname[nPoints++]=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
+    } else if (firstch=='%') {  // Next lines with meas, error, ScaleFactor (or 0) PDG Average Description should have '%' as the first character
+      // Parse content : meas, error, ScaleFactor (or 0)
+      ifs >>  meas[nPoints] >> stat[nPoints] >> syst[nPoints];
+      statasy[nPoints] = 0; // always false
+      systasy[nPoints] = 0; // always false
+      ifs.getline(buffer,200,'\n');
+      expname[nPoints++]=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
+    } else { // Actual Inputs of the measurments 
       // Put back first char
       ifs.putback(firstch) ;
-      // Parse content
-      ifs >> meas[nPoints] >> stat[nPoints] >> syst[nPoints];
+      // Parse content : meas stath statl[with negative sign] systh systl[with negative sign]
+      ifs >> meas[nPoints] >> stath[nPoints] >> statl[nPoints] >> systh[nPoints] >> systl[nPoints];
+      statl[nPoints]*=-1;
+      systl[nPoints]*=-1;
+      stat[nPoints] = 0.5 * (stath[nPoints] + statl[nPoints]);
+      syst[nPoints] = 0.5 * (systh[nPoints] + systl[nPoints]);
+      statasy[nPoints] = (stath[nPoints]==statl[nPoints]) ? 0: 1 ; // true if asymmetric
+      systasy[nPoints] = (systh[nPoints]==systl[nPoints]) ? 0: 1 ; // true if assymetric
       ifs.getline(buffer,200,'\n') ;
       expname[nPoints]=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
       if (expname[nPoints].Length()) nPoints++;
@@ -98,17 +161,16 @@ int plot(){
   }
   cout << "Read " << nPoints << " lines from filename " << filename << endl ;
   for (int i=0;i<nPoints;i++) {
-    if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
+    if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
+      cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with CL (or -Scale Factor) = " << syst[i] << " from " << expname[i] << endl;
+    } else if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with Scale Factor = " << syst[i] << " from " << expname[i] << endl;
-    } else if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
-      cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with CL = " << syst[i] << " from " << expname[i] << endl;
     } else {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (stat) +- " << syst[i] << " (syst) from " << expname[i] << endl;
     }
   }
   //
   TCanvas *canvas=new TCanvas("canvas","canvas",200,0,600,600);
-
   canvas->Clear();
   //  canvas->SetFillColor(10);
   canvas->SetLeftMargin(0.04);
@@ -134,7 +196,7 @@ int plot(){
   TBox b1;
   b1.SetFillStyle(1000);
   b1.SetFillColor(ci);
-  b1.DrawBox(meas[0]-stat[0], fYmin,meas[0]+stat[0], fYmax);
+  b1.DrawBox(meas[0]-stat[0], fYmin, meas[0]+stat[0], fYmax);
 
   Float_t y[99], ey[99], eyl[99], eyh[99];
   int fColor[99], fSymbol[99];
@@ -154,13 +216,15 @@ int plot(){
   TLatex  tl;
   tl.SetTextSize(0.028);
   for (int i=0;i<nPoints;++i) {
-    float tot[1];
+    float totl[1],toth[1];
     if (expname[i].Contains("Average")) {
-      tot[0] = stat[i];
+      totl[0] = stat[i];
+      toth[0] = stat[i];
     }else{
-      tot[0] = sqrt(stat[i]*stat[i] + syst[i]*syst[i]);
+      totl[0] = sqrt(statl[i]*statl[i] + systl[i]*systl[i]);
+      toth[0] = sqrt(stath[i]*stath[i] + systh[i]*systh[i]);
     }
-    TGraphErrors *GraphA = new TGraphErrors(1,&meas[i],&y[i],&tot[0],&ey[i]);
+    TGraph* GraphA = new TGraphAsymmErrors(1,&meas[i],&y[i],&totl[0],&toth[0],&eyl[i],&eyh[i]);
     GraphA->SetMarkerColor(fColor[i]);
     GraphA->SetMarkerStyle(fSymbol[i]);
     GraphA->SetMarkerSize(fMarkerSize);
@@ -173,18 +237,13 @@ int plot(){
     }
     GraphA->Draw("P");
     //
-    TGraph* GraphB = new TGraphAsymmErrors(1,&meas[i],&y[i],&tot[0],&tot[0],&eyl[i],&eyh[i]);
+    TGraph* GraphB = new TGraphAsymmErrors(1,&meas[i],&y[i],&statl[i],&stath[i],&eyl[i],&eyh[i]);
     GraphB->SetMarkerColor(fColor[i]);
     GraphB->SetMarkerStyle(fSymbol[i]);
     GraphB->SetMarkerSize(fMarkerSize);
     GraphB->SetLineColor(fColor[i]);
     GraphB->SetLineWidth(fLineW);
-    // -- Change if it's the average
-    if (expname[i].Contains("Average")) {
-      GraphB->SetMarkerColor(2);
-      GraphB->SetLineColor(2);
-    }
-    GraphB->Draw("P");
+    if (!expname[i].Contains("Average")&&fabs(stat[i])>1e-9) GraphB->Draw("P");
     //
     tl.SetTextColor(fColor[i]);
     // -- Change if it's the average
@@ -208,8 +267,19 @@ int plot(){
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Confidence Level = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
       }
     } else {
-      if (syst[i]<1e-9) { // zero means no syst-error quoted
+      if (!statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+      } else if (statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #splitline{+%6.3f}{ -%6.3f}",(double)meas[i],(double)stath[i],(double)statl[i]));
+      } else if ( statasy[i]&&!systasy[i]) {
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #splitline{+%6.3f}{ -%6.3f} #pm %6.3f",
+					    (double)meas[i],(double)stath[i],(double)statl[i],(double)syst[i]));
+      } else if (!statasy[i]&& systasy[i]) {
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f #splitline{+%6.3f}{ -%6.3f}",
+					    (double)meas[i],(double)stat[i],(double)systh[i],(double)systl[i]));
+      } else if ( systasy[i]&& systasy[i]) {
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #splitline{+%6.3f}{ -%6.3f} #splitline{+%6.3f}{ -%6.3f}",
+					    (double)meas[i],(double)stath[i],(double)statl[i],(double)systh[i],(double)systl[i]));
       } else {
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f #pm %6.3f",(double)meas[i],(double)stat[i],(double)syst[i]));
       }
@@ -225,42 +295,4 @@ int plot(){
 
   //
   return 0;
-}
-// ----------------------------------------------------------------------
-void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 0.825, Double_t xsiz=0.1, Double_t ysiz=0.12, Double_t scale= 1.0) {
-  TPaveText *tbox1 = new TPaveText(xpos-xsiz,ypos-ysiz,xpos,ypos,"BRNDC");
-  tbox1->SetLineColor(1);
-  tbox1->SetLineStyle(1);
-  tbox1->SetLineWidth(1);
-  tbox1->SetFillColor(1);
-  tbox1->SetFillStyle(1001);
-  tbox1->SetBorderSize(1);
-  //  tbox1->SetShadowColor(0);
-  tbox1->SetTextColor(0);
-  tbox1->SetTextFont(76);
-  tbox1->SetTextSize(24*scale);
-  tbox1->SetTextAlign(22); //center-adjusted and vertically centered
-  TString ts1("HFAG-Tau");
-  tbox1->AddText(ts1);
-  tbox1->Draw();
-
-  TPaveText *tbox2 = new TPaveText(xpos-xsiz,ypos-1.8*ysiz,xpos,ypos-ysiz,"BRNDC");
-  tbox2->SetLineColor(1);
-  tbox2->SetLineStyle(1);
-  tbox2->SetLineWidth(1);
-  tbox2->SetFillColor(0);
-  tbox2->SetFillStyle(1001);
-  tbox2->SetBorderSize(1);
-  //  tbox2->SetShadowColor(0);
-  tbox2->SetTextColor(1);
-  tbox2->SetTextFont(76);
-  tbox2->SetTextSize(20*scale);
-  tbox2->SetTextAlign(22); //center-adjusted and vertically centered
-  TString ts2;
-  if (yearversion==2009001) ts2="Spring 2009";
-  if (yearversion==2009002) ts2="Summer 2009";
-  if (yearversion==2010001) ts2="Winter 2010";
-  tbox2->AddText(ts2);
-  tbox2->Draw();
-
 }

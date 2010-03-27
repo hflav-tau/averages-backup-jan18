@@ -1,0 +1,13 @@
+BEGIN       KEDR Mass preliminary 2008
+MEASUREMENT m_Mass  statistical systematic
+DATA        m_Mass  statistical systematic
+            1776.69 0.18        0.15
+DATA        KEDROther 0.15
+END
+
+BEGIN       BES Mass published 1996
+MEASUREMENT m_Mass  statistical systematic
+DATA        m_Mass  statistical systematic
+            1776.96 0.195        0.21
+DATA        BESOther 0.21
+END

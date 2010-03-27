@@ -1,8 +1,8 @@
 
 Processing ../../../Common/plot.cc...
 Read 9 lines from filename plot.input
-0 17.38 +- 0.042 (error) with CL = 0.683 from HFAG   Average [B(#tau #rightarrow 1 prong) inputs combined]
-1 17.363 +- 0.043 (error) with CL = 0.878 from HFAG   Average [B(#tau #rightarrow #mu #bar{#nu} #nu) inputs only]
+0 17.38 +- 0.042 (error) with CL (or -Scale Factor) = 0.683 from HFAG   Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
+1 17.363 +- 0.043 (error) with CL (or -Scale Factor) = 0.878 from HFAG   Average [B(#tau^{-} #rightarrow #mu^{-} #bar{#nu} #nu) inputs only]
 2 17.33 +- 0.05 (error) with Scale Factor = 0 from PDG'08 Average
 3 17.46 +- 0.03 (stat) +- 0.08 (syst) from BaBar  2009
 4 17.319 +- 0.07 (stat) +- 0.032 (syst) from ALEPH  2005
@@ -11,5 +11,5 @@ Read 9 lines from filename plot.input
 7 17.325 +- 0.095 (stat) +- 0.077 (syst) from DELPHI 1999
 8 17.37 +- 0.08 (stat) +- 0.18 (syst) from CLEO   1997
 Drawing frame 15  0  18  10.5
-h drawn with x-axis title = B(#tau #rightarrow #mu #bar{#nu} #nu) [%]
+h drawn with x-axis title = B(#tau^{-} #rightarrow #mu^{-} #bar{#nu} #nu) [%]
 (int)0

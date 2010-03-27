@@ -1,0 +1,12 @@
+
+Processing ../../../Common/plot.cc...
+Read 6 lines from filename plot.input
+0 1776.75 +- 0.152 (error) with CL (or -Scale Factor) = 0.8567 from HFAG Average
+1 1776.84 +- 0.17 (error) with Scale Factor = 0 from PDG'08 Average
+2 1776.68 +- 0.12 (stat) +- 0.41 (syst) from BaBar 2009
+3 1776.69 +- 0.18 (stat) +- 0.15 (syst) from KEDR  2008
+4 1776.61 +- 0.13 (stat) +- 0.35 (syst) from Belle 2007
+5 1776.96 +- 0.195 (stat) +- 0.21 (syst) from BES   1996
+Drawing frame 1774.5  0  1777.5  7.5
+h drawn with x-axis title = m_{#tau} [MeV]
+(int)0
