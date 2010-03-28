@@ -326,8 +326,8 @@ for (meas in names(measurements)) {
     stop("error: sum of syst. contributions larger than syst. error ",
          syst.contribs, ", ", measurements[[meas]]@syst)
   } else if (syst.contribs > (1+1e-5)*measurements[[meas]]@syst) {
-    cat("warning: sum of syst. contributions slightly larger than syst. error ",
-        syst.contribs, ", ", measurements[[meas]]@syst, sep="")
+    cat("warning: sum of syst. terms slightly larger than syst. error\n  ",
+        syst.contribs, " vs. ", measurements[[meas]]@syst, "\n", sep="")
   }
 }
 

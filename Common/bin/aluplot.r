@@ -316,8 +316,8 @@ for (meas in names(measurements)) {
     stop("error: sum of syst. contributions larger than syst. error ",
          syst.contribs, ", ", measurements[[meas]]@syst)
   } else if (syst.contribs > (1+1e-5)*measurements[[meas]]@syst) {
-    cat("warning: sum of syst. contributions slightly larger than syst. error ",
-        syst.contribs, ", ", measurements[[meas]]@syst, sep="")
+    cat("warning: sum of syst. terms slightly larger than syst. error\n  ",
+        syst.contribs, " vs. ", measurements[[meas]]@syst, "\n", sep="")
   }
 }
 
@@ -502,12 +502,16 @@ for (quant in quant.names) {
   }
   x.min = min(x.mins)
   x.max = max(x.maxs)
-  x.padding.ratio = 0.2
-  x.min = x.min - x.padding.ratio*(x.max-x.min)
-  x.max = x.max + x.padding.ratio*(x.max-x.min)
+  x.mean = (x.min+x.max)/2
+  x.units = exp(log(10)*round(log(x.mean)/log(10)))
+  x.padding.left = 0.05+2
+  x.padding.right = 0.05
+  x.min = x.min - x.padding.left*(x.max-x.min)
+  x.max = x.max + x.padding.right*(x.max-x.min)
   plot.data[[quant]]$xmin = x.min
   plot.data[[quant]]$xmax = x.max
   plot.data[[quant]]$expts = all.exp.meas
+  plot.data[[quant]]$units = x.units
 }
 
 for (quant in quant.names) {
@@ -517,8 +521,10 @@ for (quant in quant.names) {
   }
   fh = file(fname, "w")
   quant.data = plot.data[[quant]]
+  x.units = quant.data$units
   cat("# first line is xmin, xmax, units, title\n", file=fh)
-  cat("* ", sprintf("%10.4g ", c(quant.data$xmin, quant.data$xmax, 1)), label.root(quant), "\n", file=fh, sep="")
+  cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
+      sprintf("%10.0e ", x.units), label.root(quant), "\n", file=fh, sep="")
 
   ##-- print HFAG averages
   comb = plot.data$hfag$combs[[toupper(quant)]]
@@ -530,16 +536,16 @@ for (quant in quant.names) {
     if (conf.lev < 1e-3) {
       conf.lev = -scale.factor
     }
-    cat("& ", sprintf("%10.4g ", c(comb, conf.lev)), "HFAG average\n", file=fh, sep="")
+    cat("& ", sprintf("%10.4g ", c(comb/x.units, conf.lev)), "HFAG average\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
   ##-- PDG average
   pdgav = pdg.averages[[quant]]
   if (!is.null(pdgav)) {
-    cat("% ", sprintf("%10.4g ", pdgav), "PDG'08 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%10.4g ", pdgav/x.units), "PDG'08 Average\n", file=fh, sep="")
   } else {
-    cat("% ", sprintf("%10.4g ", c(0,0,0)), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%10.4g ", c(0,0,0)/x.units), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
   }
   
   ##-- measurements
@@ -549,7 +555,7 @@ for (quant in quant.names) {
     bibitem = sub("(\\S+)\\s+.*(\\d\\d\\d\\d).*", "\\U\\1 \\2", bibitem, perl=TRUE)
     bibitem = sub("(\\S+)\\s+.*([0-2]\\d)([A-Z]|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
     bibitem = sub("(\\S+)\\s+.*([3-9]\\d)([A-Z]|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
-    cat("  ", sprintf("%10.4g ", exp$value), bibitem, "\n", file=fh, sep="")
+    cat("  ", sprintf("%10.4g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
   }
   close(fh)
   cat("file", fname, "created\n")
