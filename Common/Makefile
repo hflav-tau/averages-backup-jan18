@@ -1,4 +1,6 @@
-.PHONY:	combos pdg update_log update_pdglog update_plotlog update_all
+.PHONY:	combos pdg plot update_log update_pdglog update_plotlog update_all
+
+PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
 combos:
 	@/bin/rm -f average.log
@@ -10,12 +12,18 @@ pdg:
 	root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log created:'
 
-plot:
-	@/bin/rm -f plot.log
-	root -l -b -q ../../../Common/plot.cc > plot.log
-	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log created:'
-	@/usr/bin/convert plot.eps plot.gif 
-	@/bin/cp -f plot.gif /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`.gif
+plot:	$(PLOTS)
+
+$(PLOTS) : %.eps: %.input
+	@/bin/rm -f $(patsubst %.input,%.log, $<)
+	root -l -b -q ../../../Common/plot.cc'("$<")' > $(patsubst %.input,%.log, $<)
+	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/$(patsubst %.input,%.log, $<) created:'
+	@/usr/bin/convert $@ $(patsubst %.input,%.gif, $<)
+	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009 ] ; then \
+	  @/bin/cp -f $(patsubst %.input,%.gif, $<) \
+	    /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}` $(patsubst %.input,%.gif, $<); \
+	  @echo "copied `basename ${PWD}`$(patsubst %.input,%.gif, $<) to SLAC HFAG tau/plots/2009/" ; \
+	fi
 
 update_log:
 	@/bin/cp -f average.log log/
