@@ -109,14 +109,14 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
 }
 // ----------------------------------------------------------------------
 //int main(){
-int plot(){
+int plot(std::string filename_string = "plot.input"){
   SetUp();
   //
   int nPoints=0;
   TString title,expname[99];
   float xmin,xmax,units,meas[99],stath[99],statl[99],stat[99],systh[99],systl[99],syst[99];
   int statasy[99],systasy[99];
-  const char* filename="plot.input";  
+  char* filename = filename_string.c_str();
   ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ; 
   while(ifs.good()) {
@@ -288,7 +288,16 @@ int plot(){
 
   HFAGTauLabel(2010001,.3,.225,.2,.05,.8);
 
-  canvas->SaveAs("plot.eps");
+  size_t extPos = filename_string.rfind('.');
+  string outFilename;
+  if (extPos != string::npos) {
+    // Erase the current extension.
+    outFilename.assign(filename_string, 0, extPos);
+    // Add the new extension.
+    outFilename.append(".eps");
+  }
+
+  canvas->SaveAs(outFilename.c_str());
   //  canvas->SaveAs("plot.gif"); // ROOT's native gif saving looks garbled
   //  gSystem->Exec("rm -f plot.gif; convert plot.eps plot.gif");
   //canvas->Clear();
