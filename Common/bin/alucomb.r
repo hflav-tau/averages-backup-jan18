@@ -135,8 +135,8 @@ flag.in.sumofmeas = FALSE
 
 for (line in lines) {
   ## cat(line,"\n")
-  if (regexpr("^\\s*$", line) != -1 ||
-      regexpr("^[*#;]", line) != -1) {
+  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
+      regexpr("^[*#;]", line, perl=TRUE) != -1) {
     next
   }
   line = gsub("\\s*!.*", "", line, perl=TRUE)
