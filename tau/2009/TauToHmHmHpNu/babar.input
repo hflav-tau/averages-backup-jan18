@@ -1,5 +1,5 @@
 * B(tau- -> pi- pi- pi+ nu) [ex K0]
-BEGIN    BaBar PimPimPipNu published PRL100:011801,08
+BEGIN    BaBar PimPimPipNu published PRL100:011801,2008
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
@@ -19,7 +19,7 @@ DATA
 END
 
 * B(tau- -> pi- K- pi+ nu) [ex. K0] 
-BEGIN    BaBar PimKmPipNu published PRL100:011801,08
+BEGIN    BaBar PimKmPipNu published PRL100:011801,2008
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
@@ -39,7 +39,7 @@ DATA
 END
 
 * B(tau- -> pi- K- K+ nu) 
-BEGIN   BaBar PimKmKpNu published PRL100:011801,08
+BEGIN   BaBar PimKmKpNu published PRL100:011801,2008
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
@@ -59,7 +59,7 @@ DATA
 END
 
 * B(tau- -> K- K- K+ nu)
-BEGIN   BaBar KmKmKpNu published PRL100:011801,08
+BEGIN   BaBar KmKmKpNu published PRL100:011801,2008
 
 MEASUREMENT m_KmKmKpNu   statistical systematic
 DATA        m_KmKmKpNu   statistical systematic
