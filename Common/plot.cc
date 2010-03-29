@@ -264,7 +264,7 @@ int plot(std::string filename_string = "plot.input"){
       } else if (syst[i]<0) { // negative means Scale Factor is quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Scale Factor = %4.2f)",(double)meas[i],(double)stat[i],(double)fabs(syst[i])));
       } else { // positive means CL is quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Confidence Level = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (CL = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
       }
     } else {
       if (!statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
