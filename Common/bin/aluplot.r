@@ -530,7 +530,7 @@ for (quant in quant.names) {
   if (round(1/x.units) == 100) {
     units.label = "%"
   } else {
-    units.label = sprintf("x%.0e", x.units)
+    units.label = sprintf("#times%.0e", x.units)
   }
   cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
       sprintf("%10.0e ", x.units), label.root(quant), " [", units.label, "]\n", file=fh, sep="")
