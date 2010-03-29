@@ -9,8 +9,11 @@ combos:
 
 pdg:
 	@/bin/rm -f pdg_average.log
-	root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log
-	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log created:'
+	@if [ -f pdg_average.input ] ; then \
+	  /bin/rm -f pdg_average.log; \
+	  root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log created:'; \
+	fi
 
 plot:	$(PLOTS)
 
