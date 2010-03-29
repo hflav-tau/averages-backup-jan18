@@ -1,7 +1,7 @@
 #
 # source config.csh to get access to:
 # - R on iris and flora at SLAC
-# - root V5.26 on flora at SLAC
+# - root V5.26 on flora and yakut at SLAC
 #
 
 alias aluPathAppIfDU 'if ( -d \!:2 && $\!:1 !~ \!:2\:* && $\!:1 !~ *\:\!:2\:* && $\!:1 !~ *\:\!:2 ) setenv \!:1 ${\!:1}\:\!:2'
@@ -21,3 +21,5 @@ set sl3=$status
 if ($sl3 == 0 && `uname -s` == "Linux") then
     aluPathPrepIfD PATH /afs/slac.stanford.edu/g/babar/package/root/5.26-00/Linux24SL3_i386_gcc323/bin
 endif
+
+alias make gmake
