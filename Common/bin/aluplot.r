@@ -315,7 +315,7 @@ for (meas in names(measurements)) {
   if (syst.contribs > (1+1e-3)*measurements[[meas]]@syst) {
     stop("error: sum of syst. contributions larger than syst. error ",
          syst.contribs, ", ", measurements[[meas]]@syst)
-  } else if (syst.contribs > (1+1e-5)*measurements[[meas]]@syst) {
+  } else if (syst.contribs > (1+1e-4)*measurements[[meas]]@syst) {
     cat("warning: sum of syst. terms slightly larger than syst. error\n  ",
         syst.contribs, " vs. ", measurements[[meas]]@syst, "\n", sep="")
   }
@@ -535,9 +535,13 @@ for (quant in quant.names) {
     conf.lev = plot.data$hfag$CL
     scale.factor = plot.data$hfag$scale
     if (conf.lev < 1e-3) {
-      conf.lev = -scale.factor
+      ##++ remove "if" when scale.factor for chi_sym fixed
+      if (conf.lev != -scale.factor) {
+        comb[2] = comb[2]*scale.factor
+        conf.lev = -scale.factor
+      }
     }
-    cat("& ", sprintf("%10.4g ", c(comb/x.units, conf.lev)), "HFAG average\n", file=fh, sep="")
+    cat("& ", sprintf("%10.4g ", c(comb/x.units, conf.lev)), "HFAG Average\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
@@ -557,9 +561,18 @@ for (quant in quant.names) {
   cat("# next lines are measurement, stat-error, syst-error, experiment-name\n", file=fh)
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
-    bibitem = sub("(\\S+)\\s+.*(\\d\\d\\d\\d).*", "\\U\\1 \\2", bibitem, perl=TRUE)
-    bibitem = sub("(\\S+)\\s+.*([0-2]\\d)([A-Z]|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
-    bibitem = sub("(\\S+)\\s+.*([3-9]\\d)([A-Z]|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
+    ##
+    ## get the year from the "where" field in the Combos cards
+    ## please end the "where" field either with (YYYY) or with YYYY
+    ##
+    bibitem = sub("^(\\S+)\\s+.*(\\(|)(\\d\\d\\d\\d)(\\)|)$", "\\U\\1 \\3", bibitem, perl=TRUE)
+    ##--- change PDG-like years with possible letter in 4-digit years
+    bibitem = sub("^(\\S+)\\s+.*[^\\d]([0-2]\\d)([A-Z]|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*[^\\d]([3-9]\\d)([A-Z]|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
+    if (!regexpr("\\d\\d\\d\\d$", bibitem)) {
+      cat("warning: could not find year in the \"where\" Combos field for", quant, "\n",)
+      cat("  (", exp$bibitem, ")\n", sep="")
+    }
     cat("  ", sprintf("%10.4g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
   }
   close(fh)
