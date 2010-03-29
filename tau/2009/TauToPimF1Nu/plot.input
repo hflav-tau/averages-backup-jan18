@@ -1,0 +1,9 @@
+# first line is xmin, xmax, precision, title
+* -1.5 5 3.1 B(#tau^{-} #rightarrow f_{1}(1285) #pi^{-} #nu) [#times 10^{-4}]
+# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
+& 3.604 0.657 0.594 HFAG Average
+# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
+% 3.6   0.7   0.00  PDG'08 Average
+# next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
+  3.19  0.18 -0.18 1.00 -1.00 BaBar 2008 [f_{1}(1285) #rightarrow #pi^{-} #pi^{+} #eta mode]
+  3.9   0.70 -0.70 0.50 -0.50 BaBar 2005 [f_{1}(1285) #rightarrow 2#pi^{-} 2#pi^{+} mode]
