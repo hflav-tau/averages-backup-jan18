@@ -170,7 +170,8 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
   //
-  TString sprecision = Form("%%3.1f",precision);
+  TString sprecision = Form("%s%3.1f%s","%",precision,"f");
+  cout << "sprecision = " << sprecision << endl;
   //
   TCanvas *canvas=new TCanvas("canvas","canvas",200,0,600,600);
   canvas->Clear();
