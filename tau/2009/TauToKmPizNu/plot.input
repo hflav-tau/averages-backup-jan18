@@ -1,11 +1,11 @@
-# first line is xmin, xmax, units, title
-* -0.35 0.65 1e-2 B(#tau^{-} #rightarrow K^{-} #pi^{0} #nu) [%]
+# first line is xmin, xmax, precision, title
+* -0.35 0.65 6.3 B(#tau^{-} #rightarrow K^{-} #pi^{0} #nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 0.426  0.016  0.683 HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
 & 0.426  0.016  0.674 HFAG Average [B(#tau^{-} #rightarrow K^{-} #pi^{0} #nu) inputs only]
 # next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
 % 0.426  0.016   0.00  PDG'08 Average
-# next lines are measurement, stat-error, syst-error, experiment-name
+# next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
  0.416 0.003 -0.003 0.018 -0.018 BaBar 2007
  0.471 0.059 -0.059 0.023 -0.023 OPAL  2004
  0.444 0.026 -0.026 0.024 -0.024 ALEPH 1999 

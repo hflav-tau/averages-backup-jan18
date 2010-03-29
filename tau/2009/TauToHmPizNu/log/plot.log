@@ -1,5 +1,5 @@
 
-Processing ../../../Common/plot.cc...
+Processing ../../../Common/plot.cc("plot.input")...
 Read 8 lines from filename plot.input
 0 25.828 +- 0.097 (error) with CL (or -Scale Factor) = 0.683 from HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
 1 25.732 +- 0.158 (error) with CL (or -Scale Factor) = 0.81 from HFAG Average [B(#tau^{-} #rightarrow h^{-} #pi^{0} #nu) inputs only]
@@ -9,6 +9,7 @@ Read 8 lines from filename plot.input
 5 25.89 +- 0.17 (stat) +- 0.29 (syst) from OPAL 1998
 6 25.05 +- 0.35 (stat) +- 0.5 (syst) from L3   1995
 7 25.87 +- 0.12 (stat) +- 0.42 (syst) from CLEO 1994
+sprecision = %5.2f
 Drawing frame 22.5  0  26.5  9.5
 h drawn with x-axis title = B(#tau^{-} #rightarrow h^{-} #pi^{0} #nu) [%]
 (int)0
