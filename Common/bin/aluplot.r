@@ -483,6 +483,7 @@ if (length(rc) > 0) {
 for (quant in quant.names) {
   x.mins = numeric(0)
   x.maxs = numeric(0)
+  x.values = numeric(0)
   all.exp.meas = list()
   for (meas in meas.names[quant == meas.quantities]) {
     exp.meas = list()
@@ -494,6 +495,7 @@ for (quant in quant.names) {
     error = sqrt(sum(c(stat), syst)^2)
     x.mins = c(x.mins, value - error)
     x.maxs = c(x.maxs, value + error)
+    x.values = c(x.values, value)
 
     exp.meas$value = c(value, +stat, -stat, +syst, -syst)
     exp.meas$bibitem = paste(c(bibitem[1], bibitem[-(1:3)]), collapse=" ")
@@ -503,7 +505,7 @@ for (quant in quant.names) {
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
   ##closest.order = round(log(x.mean)/log(10))
-  not.higher.order = floor(log(x.mean)/log(10))
+  not.higher.order = floor(log(max(x.values))/log(10))
   if (not.higher.order == -1) {
     order = -2
     precision = 6.2
@@ -536,6 +538,7 @@ for (quant in quant.names) {
   plot.data[[quant]]$order = order
   plot.data[[quant]]$units = exp(order*log(10))
   plot.data[[quant]]$precision = precision
+  cat(x.mean, order, precision, "\n")
 }
 
 for (quant in quant.names) {
