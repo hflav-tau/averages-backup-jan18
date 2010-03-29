@@ -17,15 +17,17 @@ pdg:
 
 plot:	$(PLOTS)
 
-$(PLOTS) : %.eps: %.input
+$(PLOTS): %.eps: %.input
 	@/bin/rm -f $(patsubst %.input,%.log, $<)
 	root -l -b -q ../../../Common/plot.cc'("$<")' > $(patsubst %.input,%.log, $<)
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/$(patsubst %.input,%.log, $<) created:'
 	@/usr/bin/convert $@ $(patsubst %.input,%.gif, $<)
 	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009 ] ; then \
-	  @/bin/cp -f $(patsubst %.input,%.gif, $<) \
+	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
 	    /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}` $(patsubst %.input,%.gif, $<); \
-	  @echo "copied `basename ${PWD}`$(patsubst %.input,%.gif, $<) to SLAC HFAG tau/plots/2009/" ; \
+	  echo "copied `basename ${PWD}`$(patsubst %.input,%.gif, $<) to SLAC HFAG tau/plots/2009/" ; \
+	else \
+	  echo "#### scp $(patsubst %.input,%.gif, $<) flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<))"; \
 	fi
 
 update_log:
