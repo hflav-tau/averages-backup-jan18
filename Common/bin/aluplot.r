@@ -505,6 +505,9 @@ for (quant in quant.names) {
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
   x.units = exp(log(10)*round(log(x.mean)/log(10)))
+  if (round(1/x.units) == 1000) {
+    x.units = 1/100
+  }
   x.padding.left = 0.05+2
   x.padding.right = 0.05
   x.min = x.min - x.padding.left*(x.max-x.min)
@@ -524,8 +527,13 @@ for (quant in quant.names) {
   quant.data = plot.data[[quant]]
   x.units = quant.data$units
   cat("# first line is xmin, xmax, units, title\n", file=fh)
+  if (round(1/x.units) == 100) {
+    units.label = "%"
+  } else {
+    units.label = sprintf("x%.0e", x.units)
+  }
   cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
-      sprintf("%10.0e ", x.units), label.root(quant), "\n", file=fh, sep="")
+      sprintf("%10.0e ", x.units), label.root(quant), " [", units.label, "]\n", file=fh, sep="")
 
   ##-- print HFAG averages
   comb = plot.data$hfag$combs[[toupper(quant)]]
@@ -561,16 +569,18 @@ for (quant in quant.names) {
   cat("# next lines are measurement, stat-error, syst-error, experiment-name\n", file=fh)
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
+    ##-- capitalize 1st word
+    bibitem = sub("^(\\S+)", "\\U\\1", bibitem, perl=TRUE)
     ##
     ## get the year from the "where" field in the Combos cards
     ## please end the "where" field either with (YYYY) or with YYYY
     ##
     bibitem = sub("^(\\S+)\\s+.*(\\(|)(\\d\\d\\d\\d)(\\)|)$", "\\U\\1 \\3", bibitem, perl=TRUE)
     ##--- change PDG-like years with possible letter in 4-digit years
-    bibitem = sub("^(\\S+)\\s+.*[^\\d]([0-2]\\d)([A-Z]|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
-    bibitem = sub("^(\\S+)\\s+.*[^\\d]([3-9]\\d)([A-Z]|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
-    if (!regexpr("\\d\\d\\d\\d$", bibitem)) {
-      cat("warning: could not find year in the \"where\" Combos field for", quant, "\n",)
+    bibitem = sub("^(\\S+)\\s+.*\\s+([0-2]\\d)([A-Z]|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*\\s+([3-9]\\d)([A-Z]|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
+    if (regexpr("\\d\\d\\d\\d$", bibitem, perl=TRUE) == -1) {
+      cat("warning: could not find year in \"where\" Combos field for", quant, "\n")
       cat("  (", exp$bibitem, ")\n", sep="")
     }
     cat("  ", sprintf("%10.4g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
