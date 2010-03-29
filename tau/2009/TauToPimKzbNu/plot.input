@@ -2,7 +2,7 @@
 *    -0.5754      1.247      1e-02 B(#tau^{-} #rightarrow #pi^{-}#bar{K^{0}}#nu)
 &     0.8205    0.01834     0.1718 HFAG average
 # next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
-%      0.852      0.032        100 PDG'08 Average
+%      0.852      0.032          0 PDG'08 Average
 # next lines are measurement, stat-error, syst-error, experiment-name
        0.808     -0.004      0.004     -0.026      0.026 BELLE 2007
         0.84     -0.004      0.004     -0.023      0.023 BABAR 2008
