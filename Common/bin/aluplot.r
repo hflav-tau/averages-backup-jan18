@@ -505,7 +505,7 @@ for (quant in quant.names) {
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
   x.units = exp(log(10)*round(log(x.mean)/log(10)))
-  if (round(1/x.units) == 1000) {
+  if (round(1/x.units) == 1000 || round(1/x.units) == 10) {
     x.units = 1/100
   }
   x.padding.left = 0.05+2
