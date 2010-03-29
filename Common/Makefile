@@ -1,11 +1,16 @@
-.PHONY:	combos pdg plot update_log update_pdglog update_plotlog update_all
+.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
+all: combos pdg plot update_all
+
 combos:
 	@/bin/rm -f average.log
-	../../../combos/combos average.input > average.log
-	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log created:'
+	@if [ -f average.input ] ; then \
+	  /bin/rm -f average.log ; \
+	  ../../../combos/combos average.input > average.log ; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log created:' ; \
+	fi
 
 pdg:
 	@/bin/rm -f pdg_average.log
@@ -24,22 +29,28 @@ $(PLOTS): %.eps: %.input
 	@convert $@ $(patsubst %.input,%.gif, $<)
 	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009 ] ; then \
 	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
-	    /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(patsubst %.input,%.gif, $<); \
+	  /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(patsubst %.input,%.gif, $<); \
 	  echo "copied `basename ${PWD}`$(patsubst %.input,%.gif, $<) to SLAC HFAG tau/plots/2009/" ; \
 	else \
 	  echo "#### scp $(patsubst %.input,%.gif, $<) flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<))"; \
 	fi
 
 update_log:
-	@/bin/cp -f average.log log/
-	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log copied to log/:'
+	@if [ -f average.log ] ; then \
+	  /bin/cp -f average.log log/ ; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log copied to log/:' ; \
+	fi
 
 update_pdglog:
-	@/bin/cp -f pdg_average.log log/
-	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log copied to log/:'
+	@if [ -f pdg_average.log ] ; then \
+	  /bin/cp -f pdg_average.log log/ ; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log copied to log/:' ; \
+	fi
 
 update_plotlog:
-	@/bin/cp -f plot.log log/
-	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log copied to log/:'
+	@if [ -f plot.log ] ; then \
+	  /bin/cp -f plot.log log/ ; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log copied to log/:' ; \
+	fi
 
 update_all: update_log update_pdglog update_plotlog
