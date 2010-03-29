@@ -365,7 +365,8 @@ pdg.averages.text =
 "PimPimPipNu  8.85e-2    0.13e-2       1
 PimKmPipNu   0.280e-2    0.019e-2      2.1
 PimKmKpNu    1.37e-3     0.06e-3       1.8
-KmKmKpNu     1.58e-5     0.1769181e-5  1"
+KmKmKpNu     1.58e-5     0.1769181e-5  1
+PimKzbNu     0.852e-2    0.032e-2      1"
 
 pdg.averages = list()
 for (fields in strsplit(unlist(strsplit(pdg.averages.text, "\n")), "\\s+", perl=TRUE)) {
@@ -542,8 +543,12 @@ for (quant in quant.names) {
 
   ##-- PDG average
   pdgav = pdg.averages[[quant]]
+  scale.factor = pdgav[3]
+  if (scale.factor == 1) {
+    scale.factor = 0
+  }
   if (!is.null(pdgav)) {
-    cat("% ", sprintf("%10.4g ", pdgav/x.units), "PDG'08 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'08 Average\n", file=fh, sep="")
   } else {
     cat("% ", sprintf("%10.4g ", c(0,0,0)/x.units), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
   }
