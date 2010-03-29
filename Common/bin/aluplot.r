@@ -347,6 +347,7 @@ label.root = function(str) {
   # str = sub("PimKzbNu", "B(#tau^{-} #rightarrow h^{-} #nu)", str)
   if (str == str.orig) {
     str = gsub("(^|[^A-Z])([A-Z][a-z])*b","\\1#bar{\\2}", str, perl=TRUE)
+    str = gsub("F1","f_{1}",str)
     str = gsub("Pi","#pi",str)
     str = gsub("Nu","#nu",str)
     str = gsub("m($|[#}A-Z])","^{-}\\1", str, perl=TRUE)
@@ -505,7 +506,7 @@ for (quant in quant.names) {
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
   x.units = exp(log(10)*round(log(x.mean)/log(10)))
-  if (round(1/x.units) == 1000 || round(1/x.units) == 10) {
+  if (x.mean < 1 && x.mean >= 1e-3) {
     x.units = 1/100
   }
   x.padding.left = 0.05+2
@@ -555,11 +556,11 @@ for (quant in quant.names) {
 
   ##-- PDG average
   pdgav = pdg.averages[[quant]]
-  scale.factor = pdgav[3]
-  if (scale.factor == 1) {
-    scale.factor = 0
-  }
   if (!is.null(pdgav)) {
+    scale.factor = pdgav[3]
+    if (scale.factor == 1) {
+      scale.factor = 0
+    }
     cat("% ", sprintf("%10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'08 Average\n", file=fh, sep="")
   } else {
     cat("% ", sprintf("%10.4g ", c(0,0,0)/x.units), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
@@ -577,8 +578,8 @@ for (quant in quant.names) {
     ##
     bibitem = sub("^(\\S+)\\s+.*(\\(|)(\\d\\d\\d\\d)(\\)|)$", "\\U\\1 \\3", bibitem, perl=TRUE)
     ##--- change PDG-like years with possible letter in 4-digit years
-    bibitem = sub("^(\\S+)\\s+.*\\s+([0-2]\\d)([A-Z]|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
-    bibitem = sub("^(\\S+)\\s+.*\\s+([3-9]\\d)([A-Z]|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*\\s+([0-2]\\d)([A-Z]+|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*\\s+([3-9]\\d)([A-Z]+|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
     if (regexpr("\\d\\d\\d\\d$", bibitem, perl=TRUE) == -1) {
       cat("warning: could not find year in \"where\" Combos field for", quant, "\n")
       cat("  (", exp$bibitem, ")\n", sep="")
@@ -588,4 +589,3 @@ for (quant in quant.names) {
   close(fh)
   cat("file", fname, "created\n")
 }
-
