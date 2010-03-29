@@ -1,5 +1,5 @@
-# first line is xmin, xmax, units, title
-* 22.5 26.5 1e-2 B(#tau^{-} #rightarrow h^{-} #pi^{0} #nu) [%]
+# first line is xmin, xmax, precision, title
+* 22.5 26.5 5.2 B(#tau^{-} #rightarrow h^{-} #pi^{0} #nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 25.828 0.097  0.683 HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
 & 25.732 0.158  0.810 HFAG Average [B(#tau^{-} #rightarrow h^{-} #pi^{0} #nu) inputs only]
