@@ -108,15 +108,15 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
   tbox2->Draw();
 }
 // ----------------------------------------------------------------------
-//int main(){
+//int main(std::string filename_string = "plot.input"){
 int plot(std::string filename_string = "plot.input"){
   SetUp();
   //
   int nPoints=0;
-  TString title,expname[99];
-  float xmin,xmax,units,meas[99],stath[99],statl[99],stat[99],systh[99],systl[99],syst[99];
+  TString title,expname[99],tempstring;
+  Double_t xmin,xmax,precision,meas[99],stath[99],statl[99],stat[99],systh[99],systl[99],syst[99];
   int statasy[99],systasy[99];
-  char* filename = filename_string.c_str();
+  const char* filename = filename_string.c_str();
   ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ; 
   while(ifs.good()) {
@@ -124,9 +124,9 @@ int plot(std::string filename_string = "plot.input"){
     char firstch ; ifs.get(firstch) ;
     if (firstch=='#'||firstch=='\n') { // Skip this line
       ifs.ignore(200,'\n') ;
-    } else if (firstch=='*') {  // First line with xmin, xmax, units and title should have '*' as the first character
-      // Parse content : xmin xmax units
-      ifs >> xmin >> xmax >> units;
+    } else if (firstch=='*') {  // First line with xmin, xmax, precision and title should have '*' as the first character
+      // Parse content : xmin xmax precision
+      ifs >> xmin >> xmax >> precision;
       ifs.getline(buffer,200,'\n');
       title=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
     } else if (firstch=='&') {  // Next lines with meas, error, CL (or -ScaleFactor) HFAG Average Description should have '&' as the first character
@@ -170,6 +170,8 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
   //
+  TString sprecision = Form("%%3.1f",precision);
+  //
   TCanvas *canvas=new TCanvas("canvas","canvas",200,0,600,600);
   canvas->Clear();
   //  canvas->SetFillColor(10);
@@ -179,10 +181,10 @@ int plot(std::string filename_string = "plot.input"){
   canvas->SetBottomMargin(0.12);  
 
   // -- set up frame for plot
-  float fXmin = xmin; 
-  float fXmax = xmax; 
-  float fYmin = 0.0;
-  float fYmax = nPoints*1.0 + 1.5;
+  Double_t fXmin = xmin; 
+  Double_t fXmax = xmax; 
+  Double_t fYmin = 0.0;
+  Double_t fYmax = nPoints*1.0 + 1.5;
 
   cout << "Drawing frame " << fXmin << "  " << fYmin << "  " << fXmax << "  " << fYmax << endl;
 
@@ -196,9 +198,11 @@ int plot(std::string filename_string = "plot.input"){
   TBox b1;
   b1.SetFillStyle(1000);
   b1.SetFillColor(ci);
-  b1.DrawBox(meas[0]-stat[0], fYmin, meas[0]+stat[0], fYmax);
+  tempstring=Form(sprecision.Data(),meas[0]-stat[0]); Double_t boxl=tempstring.Atof();
+  tempstring=Form(sprecision.Data(),meas[0]+stat[0]); Double_t boxh=tempstring.Atof();
+  b1.DrawBox(boxl, fYmin, boxh, fYmax);
 
-  Float_t y[99], ey[99], eyl[99], eyh[99];
+  Double_t y[99], ey[99], eyl[99], eyh[99];
   int fColor[99], fSymbol[99];
   double fMarkerSize = 1.2;
   int fMarkerStyle = 24;
@@ -209,14 +213,14 @@ int plot(std::string filename_string = "plot.input"){
     fSymbol[i] = 20;
   }
 
-  float fTxtX= 0.05;
-  float xtext=fXmin+fTxtX*(fXmax-fXmin);
-  float fTxtY= 0.4;
-  float ytext;
+  Double_t fTxtX= 0.05;
+  Double_t xtext=fXmin+fTxtX*(fXmax-fXmin);
+  Double_t fTxtY= 0.4;
+  Double_t ytext;
   TLatex  tl;
   tl.SetTextSize(0.028);
   for (int i=0;i<nPoints;++i) {
-    float totl[1],toth[1];
+    Double_t totl[1],toth[1];
     if (expname[i].Contains("Average")) {
       totl[0] = stat[i];
       toth[0] = stat[i];
@@ -224,6 +228,10 @@ int plot(std::string filename_string = "plot.input"){
       totl[0] = sqrt(statl[i]*statl[i] + systl[i]*systl[i]);
       toth[0] = sqrt(stath[i]*stath[i] + systh[i]*systh[i]);
     }
+    //
+    tempstring=Form(sprecision.Data(),meas[i]); meas[i]=tempstring.Atof();
+    tempstring=Form(sprecision.Data(),totl[0]); totl[0]=tempstring.Atof();
+    tempstring=Form(sprecision.Data(),toth[0]); toth[0]=tempstring.Atof();
     TGraph* GraphA = new TGraphAsymmErrors(1,&meas[i],&y[i],&totl[0],&toth[0],&eyl[i],&eyh[i]);
     GraphA->SetMarkerColor(fColor[i]);
     GraphA->SetMarkerStyle(fSymbol[i]);
@@ -237,6 +245,8 @@ int plot(std::string filename_string = "plot.input"){
     }
     GraphA->Draw("P");
     //
+    tempstring=Form(sprecision.Data(),statl[0]); statl[0]=tempstring.Atof();
+    tempstring=Form(sprecision.Data(),stath[0]); stath[0]=tempstring.Atof();
     TGraph* GraphB = new TGraphAsymmErrors(1,&meas[i],&y[i],&statl[i],&stath[i],&eyl[i],&eyh[i]);
     GraphB->SetMarkerColor(fColor[i]);
     GraphB->SetMarkerStyle(fSymbol[i]);
@@ -254,34 +264,65 @@ int plot(std::string filename_string = "plot.input"){
     tl.DrawLatex(xtext,ytext,expname[i]);
     if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       if (syst[i]<1e-9) { // zero means no Scale Factor quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i])));
       } else {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Scale Factor = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (Scale Factor = %s)",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i]),
+					    Form("%4.2f",syst[i])));
       }
     } else if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
       if (fabs(syst[i])<1e-9) { // zero means no CL quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i])));
       } else if (syst[i]<0) { // negative means Scale Factor is quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (Scale Factor = %4.2f)",(double)meas[i],(double)stat[i],(double)fabs(syst[i])));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (Scale Factor = %s)",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i]),
+					    Form("%4.2f",fabs(syst[i]))));
       } else { // positive means CL is quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f (CL = %4.2f)",(double)meas[i],(double)stat[i],(double)syst[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (CL = %s)",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i]),
+					    Form("%4.2f",syst[i])));
       }
     } else {
       if (!statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f",(double)meas[i],(double)stat[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i])));
       } else if (statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #splitline{+%6.3f}{ -%6.3f}",(double)meas[i],(double)stath[i],(double)statl[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #splitline{+%s}{ -%s}",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stath[i]),
+					    Form(sprecision.Data(),statl[i])));
       } else if ( statasy[i]&&!systasy[i]) {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #splitline{+%6.3f}{ -%6.3f} #pm %6.3f",
-					    (double)meas[i],(double)stath[i],(double)statl[i],(double)syst[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #splitline{+%s}{ -%s} #pm %s",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stath[i]),
+					    Form(sprecision.Data(),statl[i]),
+					    Form(sprecision.Data(),syst[i])));
       } else if (!statasy[i]&& systasy[i]) {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f #splitline{+%6.3f}{ -%6.3f}",
-					    (double)meas[i],(double)stat[i],(double)systh[i],(double)systl[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s #splitline{+%s}{ -%s}",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i]),
+					    Form(sprecision.Data(),systh[i]),
+					    Form(sprecision.Data(),systl[i])));
       } else if ( systasy[i]&& systasy[i]) {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #splitline{+%6.3f}{ -%6.3f} #splitline{+%6.3f}{ -%6.3f}",
-					    (double)meas[i],(double)stath[i],(double)statl[i],(double)systh[i],(double)systl[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #splitline{+%s}{ -%s} #splitline{+%s}{ -%s}",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stath[i]),
+					    Form(sprecision.Data(),statl[i]),
+					    Form(sprecision.Data(),systh[i]),
+					    Form(sprecision.Data(),systl[i])));
       } else {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%6.3f #pm %6.3f #pm %6.3f",(double)meas[i],(double)stat[i],(double)syst[i]));
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s #pm %s",
+					    Form(sprecision.Data(),meas[i]),
+					    Form(sprecision.Data(),stat[i]),
+					    Form(sprecision.Data(),syst[i])));
       }
     }
   }
@@ -289,8 +330,8 @@ int plot(std::string filename_string = "plot.input"){
   HFAGTauLabel(2010001,.3,.225,.2,.05,.8);
 
   size_t extPos = filename_string.rfind('.');
-  string outFilename;
-  if (extPos != string::npos) {
+  std::string outFilename;
+  if (extPos != std::string::npos) {
     // Erase the current extension.
     outFilename.assign(filename_string, 0, extPos);
     // Add the new extension.
