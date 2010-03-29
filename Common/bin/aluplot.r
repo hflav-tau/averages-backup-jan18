@@ -123,8 +123,8 @@ flag.in.sumofmeas = FALSE
 
 for (line in lines) {
   ## cat(line,"\n")
-  if (regexpr("^\\s*$", line) != -1 ||
-      regexpr("^[*#;]", line) != -1) {
+  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
+      regexpr("^[*#;]", line, perl=TRUE) != -1) {
     next
   }
   line = gsub("\\s*!.*", "", line, perl=TRUE)
@@ -358,19 +358,16 @@ label.root = function(str) {
   return(str)
 }
 
-##
-## enter here the PDG 2008 averages
-## - value, error, scale factor
-##
-pdg.averages.text =
-"PimPimPipNu  8.85e-2    0.13e-2       1
-PimKmPipNu   0.280e-2    0.019e-2      2.1
-PimKmKpNu    1.37e-3     0.06e-3       1.8
-KmKmKpNu     1.58e-5     0.1769181e-5  1
-PimKzbNu     0.852e-2    0.032e-2      1"
-
+##-- read file with PDG 2008 averages
+lines = get.file.lines("../Common/pdg_averages.input")
 pdg.averages = list()
-for (fields in strsplit(unlist(strsplit(pdg.averages.text, "\n")), "\\s+", perl=TRUE)) {
+for (line in lines) {
+  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
+      regexpr("^[*#;]", line, perl=TRUE) != -1) {
+    next
+  }
+  line = gsub("\\s*!.*", "", line, perl=TRUE)
+  fields = unlist(strsplit(line, "\\s+", perl=TRUE))
   pdg.averages[[fields[1]]] = as.numeric(fields[-1])
 }
 
@@ -498,16 +495,36 @@ for (quant in quant.names) {
     x.mins = c(x.mins, value - error)
     x.maxs = c(x.maxs, value + error)
 
-    exp.meas$value = c(value, -stat, +stat, -syst, +syst)
+    exp.meas$value = c(value, +stat, -stat, +syst, -syst)
     exp.meas$bibitem = paste(c(bibitem[1], bibitem[-(1:3)]), collapse=" ")
     all.exp.meas[[meas]] = exp.meas
   }
   x.min = min(x.mins)
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
-  x.units = exp(log(10)*round(log(x.mean)/log(10)))
-  if (x.mean < 1 && x.mean >= 1e-3) {
-    x.units = 1/100
+  ##closest.order = round(log(x.mean)/log(10))
+  not.higher.order = floor(log(x.mean)/log(10))
+  if (not.higher.order == -1) {
+    order = -2
+    precision = 6.2
+  } else if (not.higher.order == -2) {
+    order = -2
+    precision = 6.3
+  } else if (not.higher.order == 0) {
+    order = 0
+    precision = 6.3
+  } else if (not.higher.order == 1) {
+    order = 0
+    precision = 6.2
+  } else if (not.higher.order == 2) {
+    order = 0
+    precision = 6.1
+  } else if (not.higher.order == 3) {
+    order = 0
+    precision = 6.0
+  } else {
+    order = not.higher.order
+    precision = 6.3
   }
   x.padding.left = 0.05+2
   x.padding.right = 0.05
@@ -516,7 +533,9 @@ for (quant in quant.names) {
   plot.data[[quant]]$xmin = x.min
   plot.data[[quant]]$xmax = x.max
   plot.data[[quant]]$expts = all.exp.meas
-  plot.data[[quant]]$units = x.units
+  plot.data[[quant]]$order = order
+  plot.data[[quant]]$units = exp(order*log(10))
+  plot.data[[quant]]$precision = precision
 }
 
 for (quant in quant.names) {
@@ -527,14 +546,15 @@ for (quant in quant.names) {
   fh = file(fname, "w")
   quant.data = plot.data[[quant]]
   x.units = quant.data$units
-  cat("# first line is xmin, xmax, units, title\n", file=fh)
-  if (round(1/x.units) == 100) {
-    units.label = "%"
-  } else {
-    units.label = sprintf("#times%.0e", x.units)
+  cat("# first line is xmin, xmax, precision, title\n", file=fh)
+  units.label = sprintf(" [#times10^{%d}]", quant.data$order)
+  if (quant.data$order == -2) {
+    units.label = " [%]"
+  } else if (quant.data$order == 0) {
+    units.label = ""
   }
   cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
-      sprintf("%10.0e ", x.units), label.root(quant), " [", units.label, "]\n", file=fh, sep="")
+      as.character(quant.data$precision), " ", label.root(quant), units.label, "\n", file=fh, sep="")
 
   ##-- print HFAG averages
   comb = plot.data$hfag$combs[[toupper(quant)]]
@@ -567,7 +587,7 @@ for (quant in quant.names) {
   }
   
   ##-- measurements
-  cat("# next lines are measurement, stat-error, syst-error, experiment-name\n", file=fh)
+  cat("# next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name\n", file=fh)
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
     ##-- capitalize 1st word
