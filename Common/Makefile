@@ -24,7 +24,7 @@ $(PLOTS): %.eps: %.input
 	@/usr/bin/convert $@ $(patsubst %.input,%.gif, $<)
 	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009 ] ; then \
 	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
-	    /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}` $(patsubst %.input,%.gif, $<); \
+	    /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(patsubst %.input,%.gif, $<); \
 	  echo "copied `basename ${PWD}`$(patsubst %.input,%.gif, $<) to SLAC HFAG tau/plots/2009/" ; \
 	else \
 	  echo "#### scp $(patsubst %.input,%.gif, $<) flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<))"; \
