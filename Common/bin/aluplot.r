@@ -563,7 +563,7 @@ for (quant in quant.names) {
     }
     cat("% ", sprintf("%10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'08 Average\n", file=fh, sep="")
   } else {
-    cat("% ", sprintf("%10.4g ", c(0,0,0)/x.units), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
   }
   
   ##-- measurements
