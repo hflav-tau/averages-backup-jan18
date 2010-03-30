@@ -1,8 +1,10 @@
 #!/usr/bin/env Rscript
 
+## ////////////////////////////////////////////////////////////////////////////
 ##
-## aluplot
+## aluplot, create plot.input files
 ##
+## ////////////////////////////////////////////////////////////////////////////
 
 library(methods)
 
@@ -337,14 +339,14 @@ quant.names = combination@quantities
 ## args <- commandArgs(TRUE)
 ## if (length(args) > 0) alucomb(file = args[1]) 
 
-for (quant in quant.names) {
-  ## show(quant)
-  ## show(meas.names[quant == meas.quantities])
-}
+## ////////////////////////////////////////////////////////////////////////////
+## definitions
 
+##
+## transform the name of a measurement in the HFAG-tau format into a format usable by Root
+##
 label.root = function(str) {
   str.orig = str
-  # str = sub("PimKzbNu", "B(#tau^{-} #rightarrow h^{-} #nu)", str)
   if (str == str.orig) {
     str = gsub("(^|[^A-Z])([A-Z][a-z])*b","\\1#bar{\\2}", str, perl=TRUE)
     str = gsub("F1","f_{1}",str)
@@ -358,19 +360,10 @@ label.root = function(str) {
   return(str)
 }
 
-##-- read file with PDG 2009 averages
-lines = get.file.lines("../Common/pdg_averages.input")
-pdg.averages = list()
-for (line in lines) {
-  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
-      regexpr("^[*#;]", line, perl=TRUE) != -1) {
-    next
-  }
-  line = gsub("\\s*!.*", "", line, perl=TRUE)
-  fields = unlist(strsplit(line, "\\s+", perl=TRUE))
-  pdg.averages[[fields[1]]] = as.numeric(fields[-1])
-}
-
+##
+## read log file of Root pdg_average.cc code
+## which recomputes the PDG-like average
+##
 get.pdg.average = function(file) {
   rc = list()
   fh = pipe(paste(
@@ -389,6 +382,9 @@ get.pdg.average = function(file) {
   return(rc)
 }
 
+##
+## read log file of Combos using chi2_sym procedure
+##
 get.results.chi2.sym = function(file) {
   rc = list()
   fh = pipe(paste(
@@ -411,6 +407,9 @@ get.results.chi2.sym = function(file) {
   return(rc)
 }
 
+##
+## read log file of Combos using chi2_nsym procedure
+##
 get.results.chi2.nsym = function(file) {
   rc = list()
   fh = pipe(paste(
@@ -452,6 +451,37 @@ get.results.chi2.nsym = function(file) {
   }
   rc$combs = combs
   return(rc)
+}
+
+## ////////////////////////////////////////////////////////////////////////////
+## code
+
+##-- read file with PDG 2009 averages
+lines = get.file.lines("../Common/pdg_averages.input")
+pdg.averages = list()
+for (line in lines) {
+  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
+      regexpr("^[*#;]", line, perl=TRUE) != -1) {
+    next
+  }
+  line = gsub("\\s*!.*", "", line, perl=TRUE)
+  fields = unlist(strsplit(line, "\\s+", perl=TRUE))
+  pdg.averages[[fields[1]]] = as.numeric(fields[-1])
+}
+
+##-- file with info on results with asymmetric errors
+lines = get.file.lines("../Common/results_asymm_errors.input")
+meas.asymm = list()
+for (line in lines) {
+  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
+      regexpr("^[*#;]", line, perl=TRUE) != -1) {
+    next
+  }
+  line = gsub("\\s*!.*", "", line, perl=TRUE)
+  fields = unlist(strsplit(line, "\\s+", perl=TRUE))
+  tag = paste(fields[1:3], collapse=".")
+  meas.asymm[[tag]] = as.numeric(fields[-(1:3)])
+  names(meas.asymm[[tag]]) = c("meas", "stat_pos", "stat_neg", "syst_pos", "syst_neg")
 }
 
 plot.data = list()
@@ -499,6 +529,15 @@ for (quant in quant.names) {
 
     exp.meas$value = c(value, +stat, -stat, +syst, -syst)
     exp.meas$bibitem = paste(c(bibitem[1], bibitem[-(1:3)]), collapse=" ")
+
+    if (!is.null(meas.asymm[[meas]])) {
+      ##-- override measurement with info on asymmetric errors
+      cat("ovverride", meas, "\n")
+      cat("  from", sprintf("%10.4g ", exp.meas$value), "\n")
+      cat("    to", sprintf("%10.4g ", meas.asymm[[meas]]), "\n")
+      exp.meas$value = meas.asymm[[meas]]
+    }
+
     all.exp.meas[[meas]] = exp.meas
   }
   x.min = min(x.mins)
@@ -573,7 +612,7 @@ for (quant in quant.names) {
         conf.lev = -scale.factor
       }
     }
-    cat("& ", sprintf("%10.4g ", c(comb/x.units, conf.lev)), "HFAG Average\n", file=fh, sep="")
+    cat("& ", sprintf("%-10.4g ", c(comb/x.units, conf.lev)), "HFAG Average\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
@@ -584,9 +623,9 @@ for (quant in quant.names) {
     if (scale.factor == 1) {
       scale.factor = 0
     }
-    cat("% ", sprintf("%10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'09 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%-10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'09 Average\n", file=fh, sep="")
   } else {
-    cat("% ", sprintf("%10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%-10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
   
   ##-- measurements
@@ -607,7 +646,7 @@ for (quant in quant.names) {
       cat("warning: could not find year in \"where\" Combos field for", quant, "\n")
       cat("  (", exp$bibitem, ")\n", sep="")
     }
-    cat("  ", sprintf("%10.4g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
+    cat("  ", sprintf("%-10.4g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
   }
   close(fh)
   cat("file", fname, "created\n")
