@@ -348,13 +348,13 @@ quant.names = combination@quantities
 label.root = function(str) {
   str.orig = str
   if (str == str.orig) {
-    str = gsub("(^|[^A-Z])([A-Z][a-z])*b","\\1#bar{\\2}", str, perl=TRUE)
-    str = gsub("F1","f_{1}",str)
-    str = gsub("Pi","#pi",str)
-    str = gsub("Nu","#nu",str)
-    str = gsub("m($|[#}A-Z])","^{-}\\1", str, perl=TRUE)
-    str = gsub("p($|[#}A-Z])","^{+}\\1", str, perl=TRUE)
-    str = gsub("z($|[#}A-Z])","^{0}\\1", str, perl=TRUE)
+    str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
+    str = gsub("F1", "f_{1}",str)
+    str = gsub("Pi", "#pi",str)
+    str = gsub("Nu", "#nu",str)
+    str = gsub("m($|[#}A-Z])", "^{-}\\1", str, perl=TRUE)
+    str = gsub("p($|[#}A-Z])", "^{+}\\1", str, perl=TRUE)
+    str = gsub("z($|[#}A-Z])", "^{0}\\1", str, perl=TRUE)
     str = paste("B(#tau^{-} #rightarrow ", str, ")", sep="")
   }
   return(str)
