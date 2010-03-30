@@ -1,0 +1,14 @@
+
+Processing ../../../Common/plot.cc("plot.input")...
+Read 7 lines from filename plot.input
+0 0.344822 +- 0.0149502 (error) with CL (or -Scale Factor) = 0.7947 from HFAG Average
+1 0.36 +- 0.04 (error) with Scale Factor = 0 from PDG'09 Average
+2 0.342 +- 0.006 (stat) +- 0.015 (syst) from BaBar DPF09
+3 0.347 +- 0.053 (stat) +- 0.037 (syst) from ALEPH 1999 [K#splitline{0}{L} mode]
+4 0.294 +- 0.073 (stat) +- 0.037 (syst) from ALEPH 1998 [K#splitline{0}{S} mode]
+5 0.417 +- 0.058 (stat) +- 0.044 (syst) from CLEO 1996
+6 0.41 +- 0.12 (stat) +- 0.03 (syst) from L3 1991
+sprecision = %5.3f
+Drawing frame -0.3  0  0.6  8.5
+h drawn with x-axis title = B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #bar{K}^{0} #nu) [%]
+(int)0

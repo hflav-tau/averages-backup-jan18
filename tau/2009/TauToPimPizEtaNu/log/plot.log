@@ -1,0 +1,12 @@
+
+Processing ../../../Common/plot.cc("plot.input")...
+Read 5 lines from filename plot.input
+0 1.38488 +- 0.0725641 (error) with CL (or -Scale Factor) = 0.3146 from HFAG Average
+1 1.38 +- 0.09 (error) with Scale Factor = 1.2 from PDG'09 Average
+2 1.35 +- 0.03 (stat) +- 0.07 (syst) from Belle 2009
+3 1.8 +- 0.4 (stat) +- 0.2 (syst) from ALEPH 1997
+4 1.7 +- 0.2 (stat) +- 0.2 (syst) from CLEO  1992
+sprecision = %4.2f
+Drawing frame -1.9  0  2.8  6.5
+h drawn with x-axis title = B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #eta #nu) [#times 10^{-3}]
+(int)0

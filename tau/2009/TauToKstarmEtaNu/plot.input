@@ -1,0 +1,9 @@
+# first line is xmin, xmax, precision, title
+* -4.9 5.2 4.2 B(#tau^{-} #rightarrow K^{*}(892)- #eta #nu) [#times 10^{-4}]
+# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages	
+& 1.381841 0.1479748  0.0885 HFAG Average
+# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
+% 1.38 0.15 0.00 PDG'09 Average
+# next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
+  1.34 0.12 -0.12 0.09 -0.09 Belle 2009
+  2.90 0.80 -0.80 0.42 -0.42 CLEO  1999

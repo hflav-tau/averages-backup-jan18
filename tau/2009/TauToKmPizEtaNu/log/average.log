@@ -1,5 +1,4 @@
-../../../combos/combos average.input  
- COMBOS version  3.33 (Jan 21, 2010) run on  on 19/03/10 at 18.42.26
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 29/03/10 at 19.43.08
 
 
  ==============================================================================
@@ -36,7 +35,8 @@
 
  Results of combination:
 
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   5.26895849 2  5.26895849
+ CHI2_SYM: CHI2, NMEFF, NQUAN, NDOF =   5.26895849 2 1 1
+ CHI2_SYM: CHI2/NDOF, SCALE FAC, CL =   5.26895849  2.2954212  0.021708997
 
  ===============================================================================
  Dump of master.inc:
@@ -110,9 +110,10 @@ SYSCOR
 TOTCOR
       1 | 0.0000000E+00  0.0000000E+00
       2 | 0.0000000E+00  0.0000000E+00
- CHI2_SYM: CHI2, NMEFF, CHI2/NDOF =   2.06410843 2  2.06410843
- CHI2_SYM        :    M_KMPIZETANU=0.48159E-04  +- 0.11608E-04         CL =  0.1508
-                   stat. only -->  0.50867E-04  +- 0.10794E-04         CL =  0.0217
-                   syst. only -->               +- 0.42706E-05                     
+ CHI2_SYM: CHI2, NMEFF, NQUAN, NDOF =   2.06410843 2 1 1
+ CHI2_SYM: CHI2/NDOF, SCALE FAC, CL =   2.06410843  1.43670053  0.150803104
+ CHI2_SYM        :    M_KMPIZETANU= 0.4815865E-04  +-  0.1160786E-04            CL =  0.1508
+                   stat. only -->   0.5086675E-04  +-  0.1079374E-04            CL =  0.0217
+                   syst. only -->                  +-  0.4270565E-05                        
 
 

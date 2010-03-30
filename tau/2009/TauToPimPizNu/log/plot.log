@@ -1,9 +1,9 @@
 
 Processing ../../../Common/plot.cc("plot.input")...
 Read 5 lines from filename plot.input
-0 25.402 +- 0.096 (error) with CL (or -Scale Factor) = 0.683 from HFAG   Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
-1 25.462 +- 0.124 (error) with CL (or -Scale Factor) = 0.809 from HFAG   Average [B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #nu) inputs only]
-2 25.46 +- 0.12 (error) with Scale Factor = 0 from PDG'08 Average
+0 25.402 +- 0.096 (error) with CL (or -Scale Factor) = 0.683 from HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
+1 25.462 +- 0.124 (error) with CL (or -Scale Factor) = 0.809 from HFAG Average [B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #nu) inputs only]
+2 25.46 +- 0.12 (error) with Scale Factor = 0 from PDG'09 Average
 3 25.471 +- 0.097 (stat) +- 0.085 (syst) from ALEPH 2005
 4 25.36 +- 0.44 (stat) +- 0 (syst) from CLEO  1994
 sprecision = %5.2f

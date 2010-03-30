@@ -3,7 +3,7 @@ Processing ../../../Common/plot.cc("plot.input")...
 Read 8 lines from filename plot.input
 0 0.697 +- 0.01 (error) with CL (or -Scale Factor) = 0.683 from HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
 1 0.69 +- 0.01 (error) with CL (or -Scale Factor) = 0.812 from HFAG Average [B(#tau^{-} #rightarrow K^{-} #nu) inputs only]
-2 0.685 +- 0.023 (error) with Scale Factor = 0 from PDG'08 Average
+2 0.685 +- 0.023 (error) with Scale Factor = 0 from PDG'09 Average
 3 0.692 +- 0.006 (stat) +- 0.01 (syst) from BaBar  2009 
 4 0.658 +- 0.027 (stat) +- 0.029 (syst) from OPAL   2001 
 5 0.696 +- 0.025 (stat) +- 0.014 (syst) from ALEPH  1999 
