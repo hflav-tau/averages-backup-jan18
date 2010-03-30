@@ -635,15 +635,15 @@ for (quant in quant.names) {
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
     ##-- capitalize 1st word
-    bibitem = sub("^(\\S+)", "\\U\\1", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)", "\\1", bibitem, perl=TRUE)
     ##
     ## get the year from the "where" field in the Combos cards
     ## please end the "where" field either with (YYYY) or with YYYY
     ##
-    bibitem = sub("^(\\S+)\\s+.*(\\(|)(\\d\\d\\d\\d)(\\)|)$", "\\U\\1 \\3", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*(\\(|)(\\d\\d\\d\\d)(\\)|)$", "\\1 \\3", bibitem, perl=TRUE)
     ##--- change PDG-like years with possible letter in 4-digit years
-    bibitem = sub("^(\\S+)\\s+.*\\s+([0-2]\\d)([A-Z]+|)\\s*$", "\\U\\1 20\\2", bibitem, perl=TRUE)
-    bibitem = sub("^(\\S+)\\s+.*\\s+([3-9]\\d)([A-Z]+|)\\s*$", "\\U\\1 19\\2", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*\\s+([0-2]\\d)([A-Z]+|)\\s*$", "\\1 20\\2", bibitem, perl=TRUE)
+    bibitem = sub("^(\\S+)\\s+.*\\s+([3-9]\\d)([A-Z]+|)\\s*$", "\\1 19\\2", bibitem, perl=TRUE)
     if (regexpr("\\d\\d\\d\\d$", bibitem, perl=TRUE) == -1) {
       cat("warning: could not find year in \"where\" Combos field for", quant, "\n")
       cat("  (", exp$bibitem, ")\n", sep="")

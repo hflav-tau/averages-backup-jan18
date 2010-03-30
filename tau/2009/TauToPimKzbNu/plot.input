@@ -5,8 +5,8 @@
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 0.831      0.03       0          PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
-  0.808      0.004      -0.004     0.026      -0.026     BELLE 2007
-  0.84       0.004      -0.004     0.023      -0.023     BABAR ICHEP08
+  0.808      0.004      -0.004     0.026      -0.026     Belle 2007
+  0.84       0.004      -0.004     0.023      -0.023     BaBar ICHEP08
   0.933      0.068      -0.068     0.049      -0.049     OPAL 2000
   0.928      0.045      -0.045     0.034      -0.034     ALEPH 1999
   0.855      0.117      -0.117     0.066      -0.066     ALEPH 1998
