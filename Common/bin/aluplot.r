@@ -358,7 +358,7 @@ label.root = function(str) {
   return(str)
 }
 
-##-- read file with PDG 2008 averages
+##-- read file with PDG 2009 averages
 lines = get.file.lines("../Common/pdg_averages.input")
 pdg.averages = list()
 for (line in lines) {
@@ -558,7 +558,7 @@ for (quant in quant.names) {
   }
   cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
       as.character(quant.data$precision), " ", label.root(quant), units.label, "\n", file=fh, sep="")
-
+  cat("# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages\n", file=fh)
   ##-- print HFAG averages
   comb = plot.data$hfag$combs[[toupper(quant)]]
   if (is.null(comb)) {
@@ -574,7 +574,7 @@ for (quant in quant.names) {
       }
     }
     cat("& ", sprintf("%10.4g ", c(comb/x.units, conf.lev)), "HFAG Average\n", file=fh, sep="")
-    cat("# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted\n", file=fh)
+    cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
   ##-- PDG average
@@ -584,9 +584,9 @@ for (quant in quant.names) {
     if (scale.factor == 1) {
       scale.factor = 0
     }
-    cat("% ", sprintf("%10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'08 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'09 Average\n", file=fh, sep="")
   } else {
-    cat("% ", sprintf("%10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'08 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
   
   ##-- measurements

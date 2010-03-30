@@ -1,14 +1,14 @@
 # first line is xmin, xmax, precision, title
 * 15 18 6.3 B(#tau^{-} #rightarrow #mu^{-} #bar{#nu} #nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages	
-& 17.380 0.042  0.683 HFAG   Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
-& 17.363 0.043  0.878 HFAG   Average [B(#tau^{-} #rightarrow #mu^{-} #bar{#nu} #nu) inputs only]
-# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
-% 17.33  0.05   0.00  PDG'08 Average
+& 17.380 0.042  0.683 HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
+& 17.363 0.043  0.878 HFAG Average [B(#tau^{-} #rightarrow #mu^{-} #bar{#nu} #nu) inputs only]
+# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
+% 17.33  0.05   0.00  PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
- 17.46  0.03  -0.03  0.08  -0.08  BaBar  2009
- 17.319 0.070 -0.070 0.032 -0.032 ALEPH  2005
- 17.34  0.09  -0.09  0.06  -0.06  OPAL   2003
- 17.342 0.110 -0.110 0.067 -0.067 L3     2001
+ 17.46  0.03  -0.03  0.08  -0.08  BaBar 2009
+ 17.319 0.070 -0.070 0.032 -0.032 ALEPH 2005
+ 17.34  0.09  -0.09  0.06  -0.06  OPAL 2003
+ 17.342 0.110 -0.110 0.067 -0.067 L3 2001
  17.325 0.095 -0.095 0.077 -0.077 DELPHI 1999
- 17.37  0.08  -0.08  0.18  -0.18  CLEO   1997
+ 17.37  0.08  -0.08  0.18  -0.18  CLEO 1997

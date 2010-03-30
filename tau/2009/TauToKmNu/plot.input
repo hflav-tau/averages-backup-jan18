@@ -3,8 +3,8 @@
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 0.697  0.010  0.683 HFAG Average [B(#tau^{-} #rightarrow 1 prong) inputs combined]
 & 0.690  0.010  0.812 HFAG Average [B(#tau^{-} #rightarrow K^{-} #nu) inputs only]
-# next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
-% 0.685  0.023  0.00  PDG'08 Average
+# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
+% 0.685  0.023  0.00  PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
  0.692  0.006 -0.006 0.010 -0.010 BaBar  2009 
  0.658  0.027 -0.027 0.029 -0.029 OPAL   2001 

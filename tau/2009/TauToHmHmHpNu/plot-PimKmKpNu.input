@@ -2,7 +2,7 @@
 *     -4.395       2.33 6.3 B(#tau^{-} #rightarrow #pi^{-}K^{-}K^{+}#nu) [#times10^{-3}]
 &      1.432    0.05829     -2.089 HFAG Average
 # next lines are average, error, Scale Factor for HFAG Averages; Scale==0 means none quoted
-%       1.37       0.06        1.8 PDG'08 Average
+%       1.37       0.06        1.8 PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
        1.346       0.01      -0.01    0.03641   -0.03641 BABAR 2008
         1.55       0.01      -0.01      0.055     -0.055 BELLE 2009
