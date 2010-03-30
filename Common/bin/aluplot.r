@@ -544,28 +544,28 @@ for (quant in quant.names) {
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
   ##closest.order = round(log(x.mean)/log(10))
-  not.higher.order = floor(log(max(x.values))/log(10))
+  not.higher.order = floor(log(max(x.values)*1.01)/log(10))
   if (not.higher.order == -1) {
     order = -2
-    precision = 6.2
+    precision = 5.2
   } else if (not.higher.order == -2) {
     order = -2
-    precision = 6.3
+    precision = 5.3
   } else if (not.higher.order == 0) {
     order = 0
-    precision = 6.3
+    precision = 5.3
   } else if (not.higher.order == 1) {
     order = 0
-    precision = 6.2
+    precision = 5.2
   } else if (not.higher.order == 2) {
     order = 0
-    precision = 6.1
+    precision = 5.1
   } else if (not.higher.order == 3) {
     order = 0
-    precision = 6.0
+    precision = 5.0
   } else {
     order = not.higher.order
-    precision = 6.3
+    precision = 5.3
   }
   x.padding.left = 0.05+2
   x.padding.right = 0.05
@@ -577,7 +577,6 @@ for (quant in quant.names) {
   plot.data[[quant]]$order = order
   plot.data[[quant]]$units = exp(order*log(10))
   plot.data[[quant]]$precision = precision
-  cat(x.mean, order, precision, "\n")
 }
 
 for (quant in quant.names) {
