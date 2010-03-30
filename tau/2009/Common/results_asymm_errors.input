@@ -1,0 +1,8 @@
+#
+# insert here the results that have asymmetric errors but were
+# inserted with simmetrized errors in the Combos cards
+#
+Belle PimPimPipNu published 8.42e-2 +0.01e-2 -0.01e-2 +0.26e-2 -0.25e-2
+Belle PimKmPipNu published 0.330e-2 +0.001e-2 -0.001e-2 +0.016e-2 -0.017e-2
+Belle PimKmKpNu published 1.55e-3 +0.01e-3 -0.01e-3 +0.06e-3 -0.05e-3
+Belle KmKmKpNu published 3.29e-5 +0.17e-5 -0.17e-5 +0.19e-5 -0.20e-5
