@@ -27,13 +27,26 @@ $(PLOTS): %.eps: %.input
 	root -l -b -q ../../../Common/plot.cc'("$<")' > $(patsubst %.input,%.log, $<)
 	@/bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/$(patsubst %.input,%.log, $<) created:'
 	@convert $@ $(patsubst %.input,%.gif, $<)
-	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009 ] ; then \
+	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/. ] ; then \
 	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
 	  /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
 	  echo "created" /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`\
 $(subst plot,,$(patsubst %.input,%.gif, $<)); \
+	elif [ -w $(HOME)/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/. ] ; then \
+	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
+	  $(HOME)/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
+	  echo "created" /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)) ; \
 	else \
 	  echo "#### scp $(patsubst %.input,%.gif, $<) flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<))"; \
+	fi
+#
+# exploit remote access to SLAC
+# sshfs -oworkaround=rename iris.slac.stanford.edu:/ ~/local/mounts/slac
+#
+plot2web: $(PLOTS)
+	@if [ -w $(HOME)/local/mounts/slac//afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/. ] ; then \
+	  echo $(patsubst %.eps,%.gif, $^) | tr ' ' "\n" | xargs -i \
+	    echo "{}" | sed -e 's@plot\(.*\)@/bin/cp plot\1 $(HOME)/local/mounts/slac//afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/'`basename ${PWD}`'\1@' | sh -v ; \
 	fi
 
 update_log:

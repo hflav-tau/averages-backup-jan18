@@ -551,6 +551,9 @@ for (quant in quant.names) {
   } else if (not.higher.order == -2) {
     order = -2
     precision = 5.3
+  } else if (not.higher.order == -3) {
+    order = -2
+    precision = 5.3
   } else if (not.higher.order == 0) {
     order = 0
     precision = 5.3
