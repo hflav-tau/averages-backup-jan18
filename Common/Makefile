@@ -30,7 +30,8 @@ $(PLOTS): %.eps: %.input
 	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009 ] ; then \
 	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
 	  /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
-	  echo "copied `basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)) to SLAC HFAG tau/plots/2009/" ; \
+	  echo "created" /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`\
+$(subst plot,,$(patsubst %.input,%.gif, $<)); \
 	else \
 	  echo "#### scp $(patsubst %.input,%.gif, $<) flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<))"; \
 	fi
