@@ -1,5 +1,5 @@
-INCLUDE babar.input
 INCLUDE belle.input
+INCLUDE babar.input
 INCLUDE pdg.input
 INCLUDE pdg_hhh.input
 
