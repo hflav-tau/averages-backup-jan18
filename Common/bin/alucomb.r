@@ -82,7 +82,9 @@ rc = setClass("combination",
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
 
-alucomb = function(file = "") {
+file = "average.input"
+
+##++alucomb = function(file = "") {
 
 if (match.nocase("^\\s*$", file)) {
   stop("alucomb: please provide as argument the card input file\n")
@@ -543,6 +545,7 @@ for (syst.term.name in names(syst.terms.list[syst.terms.corr])) {
 ##-- get measurement values
 meas.true = unlist(lapply(measurements, function(x) {x@value}))
 meas.fake = rep(0, meas.num.fake)
+names(meas.fake) = meas.names.fake
 meas = c(meas.true, meas.fake)
 
 ##-- print corrected measurements
@@ -624,7 +627,7 @@ show(fit)
 cat("## end fit summary\n")
 }
 
-} ##-- end function alucomb
+##++} ##-- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) alucomb(file = args[1]) 
