@@ -30,8 +30,7 @@ $(PLOTS): %.eps: %.input
 	@if [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/. ] ; then \
 	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
 	  /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
-	  echo "created" /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`\
-$(subst plot,,$(patsubst %.input,%.gif, $<)); \
+	  echo "created" /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
 	elif [ -w $(HOME)/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/. ] ; then \
 	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
 	  $(HOME)/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
