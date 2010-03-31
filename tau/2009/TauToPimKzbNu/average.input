@@ -1,5 +1,5 @@
-INCLUDE belle.input
 INCLUDE babar.input
+INCLUDE belle.input
 INCLUDE pdg.input
 
 BEGIN   BaBar+Belle all_methods
