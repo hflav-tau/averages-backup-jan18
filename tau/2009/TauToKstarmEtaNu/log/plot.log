@@ -7,5 +7,5 @@ Read 4 lines from filename plot.input
 3 2.9 +- 0.8 (stat) +- 0.42 (syst) from CLEO  1999
 sprecision = %4.2f
 Drawing frame -4.9  0  5.2  5.5
-h drawn with x-axis title = B(#tau^{-} #rightarrow K^{*}(892)- #eta #nu) [#times 10^{-4}]
+h drawn with x-axis title = B(#tau^{-} #rightarrow K^{*}(892)^{-} #eta #nu) [#times 10^{-4}]
 (int)0
