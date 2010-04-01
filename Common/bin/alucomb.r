@@ -544,7 +544,9 @@ for (syst.term.name in names(syst.terms.list[syst.terms.corr])) {
 
 ##-- get measurement values
 meas.true = unlist(lapply(measurements, function(x) {x@value}))
+names(meas.true) = meas.names.true
 meas.fake = rep(0, meas.num.fake)
+names(meas.fake) = meas.names.fake
 names(meas.fake) = meas.names.fake
 meas = c(meas.true, meas.fake)
 
@@ -554,6 +556,59 @@ if (FALSE) {
   show(meas.stat.true)
   show(meas.syst.true)
   show(meas.error.true)
+}
+
+if (!flag.no.maxLik) {
+##
+## solve for quantities with iterative chi-square minimization
+##
+
+logLik.average = function(par) {
+  chisq = t(meas - delta %*% par) %*% invcov %*% (meas - delta %*% par)
+  return(-1/2*chisq)
+}
+
+invcov = solve(meas.cov)
+
+quant.cov = solve(t(delta) %*% invcov %*% delta)
+rownames(quant.cov) = quant.names
+colnames(quant.cov) = quant.names
+quant.err = sqrt(diag(quant.cov))
+
+quant = drop(quant.cov %*% t(delta) %*% (invcov %*% meas))
+names(quant) = quant.names
+
+fit = maxLik(logLik.average, start=rep(0,quant.num), method="BFGS")
+
+quant = coef(fit)
+names(quant) = quant.names
+quant.cov = vcov(fit)
+rownames(quant.cov) = quant.names
+colnames(quant.cov) = quant.names
+quant.err = sqrt(diag(quant.cov))
+quant.corr = quant.cov / (quant.err %o% quant.err)
+
+chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+chisq.fit = -2*logLik(fit)
+
+cat("\n")
+cat("## begin fit summary\n")
+show(fit)
+cat("## end fit summary\n")
+
+cat("\n")
+cat("##\n")
+cat("## numerical fit, chisq/d.o.f = ", chisq.fit, "/", meas.num - quant.num,
+    ", CL= ", 100*(1-pchisq(chisq.fit, df=meas.num-quant.num)), "%\n",sep="")
+cat("##\n")
+width.max = max(nchar(quant.names.true))
+for (iquant in 1:quant.num.true) {
+  cat(format(quant.names[iquant], width=width.max+2, justify = "right"), "=", quant[iquant], "+-", quant.err[iquant], "\n")
+}
+if (quant.num.true > 1) {
+  cat("correlation\n")
+  show(quant.corr[1:quant.num.true,1:quant.num.true])
+}
 }
 
 ##
@@ -572,8 +627,9 @@ names(quant) = quant.names
 
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant)
+chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
 
+cat("\n")
 cat("##\n")
 cat("## exact solution, chisq/d.o.f. = ",chisq, "/", meas.num - quant.num,
     ", CL= ", 100*(1-pchisq(chisq, df=meas.num-quant.num)), "%\n",sep="")
@@ -586,46 +642,108 @@ if (quant.num.true > 1) {
   cat("correlation\n")
   show(quant.corr[1:quant.num.true,1:quant.num.true])
 }
-cat("\n")
 
-if (!flag.no.maxLik) {
 ##
-## solve for quantities with iterative chi-square minimization
+## each measurement is a linear combination of the quantities we fit
+## here we collect all the unique linear combinations, named "types"
 ##
+meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true])
+rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
 
-logLik.average = function(par) {
-  chisq = t(meas - delta %*% par) %*% invcov %*% (meas - delta %*% par)
-  return(-1/2*chisq)
+##-- for each "type", will set TRUE at the position of corresponding measurements
+meas.types = matrix(FALSE, dim(meas.types.id)[1], meas.num.true)
+rownames(meas.types) = rownames(meas.types.id)
+colnames(meas.types) = meas.names.true
+         
+##-- chisq contribution for each measurement type
+chisq.contr = rep(0, dim(meas.types.id)[1])
+names(chisq.contr) = rownames(meas.types.id)
+
+##-- S-factor for each measurement type
+sfact.types = rep(1, dim(meas.types.id)[1])
+names(sfact.types) = rownames(meas.types.id)
+
+##-- S-factor for each true measurement
+sfact.true = rep(1, meas.num.true)
+names(sfact.true) = meas.names.true
+
+##
+## collect chisq contributions for each measurement type
+##
+for (i in 1:(dim(meas.types.id)[1])) {
+  chisq.contr.meas = numeric(0)
+  for (i.meas in meas.names.true) {
+    quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas,]
+    if (all(quant.comb == meas.types.id[i,])) {
+      ##-- take note which measurements belong to each type
+      meas.types[i,i.meas] = TRUE
+      ##-- chisq contribution of the single measurement
+      tmp = (meas[i.meas] - drop(quant.comb %*% quant[1:quant.num.true])) / meas.error[i.meas]
+      chisq.contr.meas = c(chisq.contr.meas, tmp^2)
+    }
+  }
+  dof = length(chisq.contr.meas)-1
+  ##-- special treatment for when there is just 1 measurement of a specific type
+  if (dof == 0) dof = 1
+  ##-- chisq/dof for each type of measurement
+  chisq.contr[i] = sum(chisq.contr.meas)/(length(chisq.contr.meas)-1)
+  ##-- S-factor for each type of measurement
+  sfact.types[i] = sqrt(chisq.contr[i])
+  sfact.true[meas.types[i,]] = sqrt(chisq.contr[i])
 }
 
-fit = maxLik(logLik.average, start=quant*1.1, method="BFGS")
+##-- S-factor per measurement
+sfact = rep(1, meas.num)
+names(sfact) = meas.names
 
-quant = coef(fit)
-quant.cov = vcov(fit)
-quant.err = sqrt(diag(quant.cov))
-quant.corr = quant.cov / (quant.err %o% quant.err)
+##-- only true measurements get S-factors
+## sfact.meas[meas.names %in% meas.true.quant]  = drop(delta[meas.true.quant,] %*% sfact.all)
+sfact[1:meas.num.true] = sfact.true
 
-chisq = t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant)
-chisq.fit = -2*logLik(fit)
+##
+## inflate the true measurement section of the covariance matrix
+## with the proper S-factors
+##
+meas2.cov = diag(sfact) %*% meas.cov %*% diag(sfact)
+invcov2 = solve(meas2.cov)
 
-cat("##\n")
-cat("## numerical fit, chisq/d.o.f = ", chisq.fit, "/", meas.num - quant.num,
-    ", CL= ", 100*(1-pchisq(chisq.fit, df=meas.num-quant.num)), "%\n",sep="")
-cat("##\n")
-width.max = max(nchar(quant.names.true))
-for (iquant in 1:quant.num.true) {
-  cat(format(quant.names[iquant], width=width.max+2, justify = "right"), "=", quant[iquant], "+-", quant.err[iquant], "\n")
+##
+## inflate the delta matrix coefficients corresponding to the correlated
+## systematic errors with the proper per measurement S-factor
+##
+delta2 = delta
+for (i.meas in meas.names.true) {
+  delta2[i.meas,quant.names %in% quant.names.fake] = delta[i.meas,quant.names %in% quant.names.fake]*sfact[i.meas]
 }
-if (quant.num.true > 1) {
-  cat("correlation\n")
-  show(quant.corr[1:quant.num.true,1:quant.num.true])
-}
+
+##-- compute new chi-square
+chisq2 = drop(t(meas - delta2 %*% quant) %*% invcov2 %*% (meas - delta2 %*% quant))
+
+##-- compute new inflated fitted quantities covariance matrix 
+quant2.cov = solve(t(delta2) %*% invcov2 %*% delta2)
+rownames(quant2.cov) = quant.names
+colnames(quant2.cov) = quant.names
+
+##-- updated errors and correlations
+quant2.err = sqrt(diag(quant2.cov))
+quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
+
 cat("\n")
+cat("#\n")
+cat("# S-factors accounting for larger than expected chi-quare\n")
+cat("#\n")
 
-cat("## begin fit summary\n")
-show(fit)
-cat("## end fit summary\n")
-}
+cat("Original / updated chi-square/dof:", chisq/(meas.num-quant.num), "/", chisq2/(meas.num-quant.num), "\n")
+
+cat("S-factors per type of measurement\n") 
+show(sfact.types)
+
+cat("S-factors per averaged quantity\n") 
+show(quant2.err[1:quant.num.true] / quant.err[1:quant.num.true])
+
+cat("Updated errors and correlation\n") 
+show(quant2.err[1:quant.num.true])
+show(quant2.corr[1:quant.num.true,1:quant.num.true])
 
 ##++} ##-- end function alucomb
 
