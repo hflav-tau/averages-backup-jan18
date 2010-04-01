@@ -692,12 +692,17 @@ for (i in 1:(dim(meas.types.id)[1])) {
   sfact.true[meas.types[i,]] = sqrt(chisq.contr[i])
 }
 
-##-- S-factor per measurement
-sfact = rep(1, meas.num)
-names(sfact) = meas.names
+##-- recompute chisq and chisq/dof
+chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+chisq.dof = chisq/(meas.num-quant.num)
 
-##-- only true measurements get S-factors
-## sfact.meas[meas.names %in% meas.true.quant]  = drop(delta[meas.true.quant,] %*% sfact.all)
+##
+## S-factor per measurement
+## - true measurements get the computed S-factors
+## - fake measurements get the average S-factor computed with the complete chisq
+##
+sfact = rep(sqrt(chisq.dof), meas.num)
+names(sfact) = meas.names
 sfact[1:meas.num.true] = sfact.true
 
 ##
@@ -718,6 +723,7 @@ for (i.meas in meas.names.true) {
 
 ##-- compute new chi-square
 chisq2 = drop(t(meas - delta2 %*% quant) %*% invcov2 %*% (meas - delta2 %*% quant))
+chisq2.dof = chisq2/(meas.num-quant.num)
 
 ##-- compute new inflated fitted quantities covariance matrix 
 quant2.cov = solve(t(delta2) %*% invcov2 %*% delta2)
