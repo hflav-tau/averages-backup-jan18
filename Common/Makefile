@@ -5,6 +5,7 @@ PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 combos:
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f average.log ; \
+	  echo "../../../combos/combos average.input > average.log" ; \
 	  ../../../combos/combos average.input > average.log ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log created:' ; \
 	fi
@@ -12,6 +13,7 @@ combos:
 alucomb:
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f average_alucomb.log ; \
+	  echo "../../../Common/bin/alucomb.r average.input > average_alucomb.log" ; \
 	  ../../../Common/bin/alucomb.r average.input > average_alucomb.log ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average_alucomb.log created:' ; \
 	fi
@@ -20,6 +22,7 @@ pdg:
 	@/bin/rm -f pdg_average.log
 	@if [ -f pdg_average.input ] ; then \
 	  /bin/rm -f pdg_average.log; \
+	  echo "root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log" ; \
 	  root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log created:'; \
 	fi
@@ -54,24 +57,28 @@ plot2web: $(PLOTS)
 
 update_log:
 	@if [ -f average.log ] ; then \
+	  echo "/bin/cp -f average.log log/" ; \
 	  /bin/cp -f average.log log/ ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log copied to log/:' ; \
 	fi
 
 update_pdglog:
 	@if [ -f pdg_average.log ] ; then \
+	  echo "/bin/cp -f pdg_average.log log/" ; \
 	  /bin/cp -f pdg_average.log log/ ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log copied to log/:' ; \
 	fi
 
 update_plotlog:
 	@if [ -f plot.log ] ; then \
+	  echo "/bin/cp -f plot.log log/" ; \
 	  /bin/cp -f plot.log log/ ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log copied to log/:' ; \
 	fi
 
 update_alucomblog:
 	@if [ -f average_alucomb.log ] ; then \
+	  echo "/bin/cp -f average_alucomb.log log/" ; \
 	  /bin/cp -f average_alucomb.log log/ ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average_alucomb.log copied to log/:' ; \
 	fi
