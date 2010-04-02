@@ -1,3 +1,4 @@
+#//////////////////////////////////////////////////////////////////////////////
 #
 # HFAG - Tau repository
 #
@@ -22,6 +23,7 @@ cd tau/2009/TauToPimKzsNu ; make ; cd -
 # --- To obtain PDG style averages
 cd tau/2009/TauToPimKzsNu ; make pdg ; cd -
 
+#//////////////////////////////////////////////////////////////////////////////
 #
 # Naming Convention adopted so that we can easily assimiliate files into latex: 
 #
@@ -38,3 +40,41 @@ Avoid latex conflicts by replacing numbers [0-9] in names with something appropr
 
 We follow a style similar to hepnames/pennames. 
 http://mirror.ctan.org/macros/latex/contrib/hepnames/hepnames.pdf
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# alucomb.r (by A.Lusiani)
+#
+
+The script alucomb.r is an almost complete replacement for Combos,
+with some additional features.  From the tau/2009/* directories it can
+be executed with:
+
+shell> ../../../Common/bin/alucomb.r <combos .input file>
+
+- can read Combos .input files
+
+Additional features:
+- uses the card SUMOFMEAS to indicate measurements that correspond to
+  sum of quantities we want to average
+- uses the card ERROR_CORR_WITH to indicate total (stat. + syst.)
+  correlations between measurements
+- computes S-factors to inflate the errors to account for a large chi-square
+
+If available, it uses the "maxLik" R package, that can be installed by
+the user as follows:
+shell> R
+> install.packages("maxLik")
+> q()
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# aluplot.r (by A.Lusiani)
+#
+
+Produces a plot using information from the current directory and from
+global files. It relies on the following files:
+- ./average.input
+- ./log/average.log
+- ../../../tau/2009/Common/pdg_averages.input
+- ../../../tau/2009/Common/results_asymm_errors.input
