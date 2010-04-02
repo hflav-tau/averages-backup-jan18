@@ -1,5 +1,5 @@
-SUBDIRS_DASH = $(subst /Makefile,,$(wildcard *-*/Makefile))
-SUBDIRS = $(filter-out $(SUBDIRS_DASH),$(subst /Makefile,,$(wildcard */Makefile)))
+SUBDIRS_EXCLUDE = $(subst /00-exclude-flag.txt,,$(wildcard */00-exclude-flag.txt))
+SUBDIRS = $(filter-out $(SUBDIRS_EXCLUDE),$(subst /Makefile,,$(wildcard */Makefile)))
 TARGETS = all combos alucomb pdg plot update_log update_alucomblog update_pdglog update_plotlog update_all
 
 .PHONY: info subdirs $(SUBDIRS) $(TARGETS)
@@ -14,7 +14,9 @@ $(SUBDIRS):
 	$(MAKE) -C $@
 
 $(TARGETS):
-	for dir in $(SUBDIRS); do \
+	@echo "will make in subdirs: $(SUBDIRS)"
+	@for dir in $(SUBDIRS); do \
 	  echo  $(MAKE) -C $$dir $@; \
 	  $(MAKE) -C $$dir $@; \
 	done
+	@echo "make done in subdirs: $(SUBDIRS)"
