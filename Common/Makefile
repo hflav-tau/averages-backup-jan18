@@ -2,14 +2,18 @@
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
-all: combos pdg plot update_all
-
 combos:
-	@/bin/rm -f average.log
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f average.log ; \
 	  ../../../combos/combos average.input > average.log ; \
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log created:' ; \
+	fi
+
+alucomb:
+	@if [ -f average.input ] ; then \
+	  /bin/rm -f average_alucomb.log ; \
+	  ../../../Common/bin/alucomb.r average.input > average_alucomb.log ; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average_alucomb.log created:' ; \
 	fi
 
 pdg:
@@ -66,4 +70,12 @@ update_plotlog:
 	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log copied to log/:' ; \
 	fi
 
-update_all: update_log update_pdglog update_plotlog
+update_alucomblog:
+	@if [ -f average_alucomb.log ] ; then \
+	  /bin/cp -f average_alucomb.log log/ ; \
+	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average_alucomb.log copied to log/:' ; \
+	fi
+
+update_all: update_log update_pdglog update_plotlog update_alucomblog
+
+all: combos pdg plot update_all
