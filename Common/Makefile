@@ -1,4 +1,4 @@
-.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all
+.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all makelink
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
@@ -115,3 +115,6 @@ update_alucomblog:
 update_all: update_log update_pdglog update_plotlog update_alucomblog
 
 all: combos pdg plot update_all
+
+makelink:
+	ln -s /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/$(CURDIR) log
