@@ -84,7 +84,7 @@ rc = setClass("combination",
 
 file = "average.input"
 
-##++ alucomb = function(file = "") {
+alucomb = function(file = "") {
 
 if (match.nocase("^\\s*$", file)) {
   stop("alucomb: please provide as argument the card input file\n")
@@ -709,8 +709,9 @@ chisq.dof = chisq/(meas.num-quant.num)
 ## S-factor per measurement
 ## - true measurements get the computed S-factors
 ## - fake measurements get the average S-factor computed with the complete chisq
+## if any S-factor is less than 1, it is set to 1
 ##
-sfact = rep(sqrt(chisq.dof), meas.num)
+sfact = rep(min(1,sqrt(chisq.dof)), meas.num)
 names(sfact) = meas.names
 sfact[1:meas.num.true] = sfact.true.floored
 
@@ -760,7 +761,7 @@ cat("Updated errors and correlation\n")
 show(quant2.err[1:quant.num.true])
 show(quant2.corr[1:quant.num.true,1:quant.num.true])
 
-##+} ##-- end function alucomb
+} ##-- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) alucomb(file = args[1]) 
