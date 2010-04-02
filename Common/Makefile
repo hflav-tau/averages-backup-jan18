@@ -2,6 +2,35 @@
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
+CURDIR = $(shell expr $$PWD : '.*/\([^/]*/[^/]*/[^/]*\)')
+#
+# we store data files such as plots and log files in a separate directory tree
+# which is either the:
+# - ../../../Data directory if it exists and is writable
+# - SLAC HFAG-tau area /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/
+# - if none of the above is writable, a new ../../../Data is created and used
+#
+DATADIR =     $(shell \
+	if [ -w ../../../Data/. ] ; then \
+	  echo ../../../Data ; \
+	elif [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/. ] ; then \
+	  echo /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ; \
+	else \
+	  mkdir ../../../Data ; \
+	  echo ../../../Data ; \
+	fi ; \
+	)
+HFAGPLOTDIR = /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009
+
+test:
+	@echo $(CURDIR)
+	@echo $(DATADIR)
+	@if [ -w ../../../Data/. ] ; then \
+	  _datadir=../../../Data/. ; \
+	elif [ -w $(DATADIR)/. ] ; then \
+	  _datadir=$(DATADIR) ; \
+	fi
+
 combos:
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f average.log ; \
@@ -57,30 +86,30 @@ plot2web: $(PLOTS)
 
 update_log:
 	@if [ -f average.log ] ; then \
-	  echo "/bin/cp -f average.log log/" ; \
-	  /bin/cp -f average.log log/ ; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log copied to log/:' ; \
+	  /bin/mkdir -p $(DATADIR)/$(CURDIR) ; \
+	  echo "/bin/cp -f average.log $(DATADIR)/$(CURDIR)" ; \
+	  /bin/cp -f average.log $(DATADIR)/$(CURDIR)/. ; \
 	fi
 
 update_pdglog:
 	@if [ -f pdg_average.log ] ; then \
-	  echo "/bin/cp -f pdg_average.log log/" ; \
-	  /bin/cp -f pdg_average.log log/ ; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log copied to log/:' ; \
+	  /bin/mkdir -p $(DATADIR)/$(CURDIR) ; \
+	  echo "/bin/cp -f pdg_average.log $(DATADIR)/$(CURDIR)" ; \
+	  /bin/cp -f pdg_average.log $(DATADIR)/$(CURDIR)/. ; \
 	fi
 
 update_plotlog:
 	@if [ -f plot.log ] ; then \
-	  echo "/bin/cp -f plot.log log/" ; \
-	  /bin/cp -f plot.log log/ ; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/plot.log copied to log/:' ; \
+	  /bin/mkdir -p $(DATADIR)/$(CURDIR) ; \
+	  echo "/bin/cp -f plot.log $(DATADIR)/$(CURDIR)" ; \
+	  /bin/cp -f plot.log $(DATADIR)/$(CURDIR)/. ; \
 	fi
 
 update_alucomblog:
 	@if [ -f average_alucomb.log ] ; then \
-	  echo "/bin/cp -f average_alucomb.log log/" ; \
-	  /bin/cp -f average_alucomb.log log/ ; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average_alucomb.log copied to log/:' ; \
+	  /bin/mkdir -p $(DATADIR)/$(CURDIR) ; \
+	  echo "/bin/cp -f average_alucomb.log $(DATADIR)/$(CURDIR)" ; \
+	  /bin/cp -f average_alucomb.log $(DATADIR)/$(CURDIR)/. ; \
 	fi
 
 update_all: update_log update_pdglog update_plotlog update_alucomblog
