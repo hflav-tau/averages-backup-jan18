@@ -84,7 +84,7 @@ rc = setClass("combination",
 
 file = "average.input"
 
-##++alucomb = function(file = "") {
+##++ alucomb = function(file = "") {
 
 if (match.nocase("^\\s*$", file)) {
   stop("alucomb: please provide as argument the card input file\n")
@@ -648,6 +648,7 @@ if (quant.num.true > 1) {
 ## here we collect all the unique linear combinations, named "types"
 ##
 meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true])
+if (class(meas.types.id) == "numeric") meas.types.id = matrix(meas.types.id, 1, 1)
 rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
 
 ##-- for each "type", will set TRUE at the position of corresponding measurements
@@ -673,7 +674,11 @@ names(sfact.true) = meas.names.true
 for (i in 1:(dim(meas.types.id)[1])) {
   chisq.contr.meas = numeric(0)
   for (i.meas in meas.names.true) {
-    quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas,]
+    if (quant.num.true == 1) {
+      quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas]
+    } else {
+      quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas,]
+    }
     if (all(quant.comb == meas.types.id[i,])) {
       ##-- take note which measurements belong to each type
       meas.types[i,i.meas] = TRUE
@@ -687,10 +692,14 @@ for (i in 1:(dim(meas.types.id)[1])) {
   if (dof == 0) dof = 1
   ##-- chisq/dof for each type of measurement
   chisq.contr[i] = sum(chisq.contr.meas)/(length(chisq.contr.meas)-1)
-  ##-- S-factor for each type of measurement
-  sfact.types[i] = sqrt(chisq.contr[i])
-  sfact.true[meas.types[i,]] = sqrt(chisq.contr[i])
+  ##-- S-factor for each type of measurement and for each measurement
+  tmp = sqrt(chisq.contr[i])
+  sfact.types[i] = tmp
+  sfact.true[meas.types[i,]] = tmp
 }
+
+sfact.types.floored = pmax(sfact.types, 1)
+sfact.true.floored = pmax(sfact.true, 1)
 
 ##-- recompute chisq and chisq/dof
 chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
@@ -703,7 +712,7 @@ chisq.dof = chisq/(meas.num-quant.num)
 ##
 sfact = rep(sqrt(chisq.dof), meas.num)
 names(sfact) = meas.names
-sfact[1:meas.num.true] = sfact.true
+sfact[1:meas.num.true] = sfact.true.floored
 
 ##
 ## inflate the true measurement section of the covariance matrix
@@ -741,7 +750,7 @@ cat("#\n")
 
 cat("Original / updated chi-square/dof:", chisq/(meas.num-quant.num), "/", chisq2/(meas.num-quant.num), "\n")
 
-cat("S-factors per type of measurement\n") 
+cat("S-factors per type of measurement (before setting =1 if smaller)\n") 
 show(sfact.types)
 
 cat("S-factors per averaged quantity\n") 
@@ -751,7 +760,7 @@ cat("Updated errors and correlation\n")
 show(quant2.err[1:quant.num.true])
 show(quant2.corr[1:quant.num.true,1:quant.num.true])
 
-##++} ##-- end function alucomb
+##+} ##-- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) alucomb(file = args[1]) 
