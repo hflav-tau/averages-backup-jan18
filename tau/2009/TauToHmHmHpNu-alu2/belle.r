@@ -79,7 +79,7 @@ pr.result = function(br, stat, syst) {
 ## begin BR 1
 ##
 cat("* B(tau- -> pi- pi- pi+ nu) [ex K0]\n")
-cat("BEGIN    Belle PimPimPipNu published arXiv:1001.0083 (2009)\n")
+cat("BEGIN    Belle PimPimPipNu published arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -102,7 +102,7 @@ cat("\n")
 ## begin BR 2
 ##
 cat("* B(tau- -> pi- K- pi+ nu) [ex. K0]\n")
-cat("BEGIN    Belle PimKmPipNu published arXiv:1001.0083 (2009)\n")
+cat("BEGIN    Belle PimKmPipNu published arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -125,7 +125,7 @@ cat("\n")
 ## begin BR 3
 ##
 cat("* B(tau- -> pi- K- K+ nu)\n")
-cat("BEGIN    Belle PimKmKpNu published arXiv:1001.0083 (2009)\n")
+cat("BEGIN    Belle PimKmKpNu published arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -148,7 +148,7 @@ cat("\n")
 ## begin BR 4
 ##
 cat("* B(tau- -> K- K- K+ nu)\n")
-cat("BEGIN    Belle KmKmKpNu published arXiv:1001.0083 (2009)\n")
+cat("BEGIN    Belle KmKmKpNu published arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
