@@ -8,336 +8,7 @@
 
 library(methods)
 
-## ////////////////////////////////////////////////////////////////////////////
-## definitions
-
-##
-## return list of lines from file
-##
-get.file.lines <- function(fname) {
-  fh <- file(fname)
-  lines  <- readLines(fh)
-  close(fh)
-  return(lines)
-}
-
-##
-## test if pattern matches string irrespective of letters case
-##
-match.nocase = function(pattern, str) {
-  return(regexpr(pattern, str, ignore.case=TRUE) != -1)
-}
-  
-##
-## class for a measurement
-##
-rc = setClass("measurement",
-  representation(value = "numeric",
-                 stat = "numeric",
-                 syst = "numeric",
-                 bibitem = "character",
-                 tag = "character",
-                 params = "list",
-                 syst.terms = "numeric",
-                 corr.terms = "list",
-                 corr.terms.tot = "list"
-                 ),
-  prototype(value = numeric(0),
-            stat = numeric(0),
-            syst = numeric(0),
-            params = list(),
-            syst.terms = numeric(0)
-            )
-  )
-
-##
-## class for a combination
-##
-rc = setClass("combination",
-  representation(value = "numeric",
-                 error = "numeric",
-                 bibitem = "character",
-                 tag = "character",
-                 quantities = "character",
-                 params = "list",
-                 meas.lin.combs = "list"
-                 ),
-  prototype(value = numeric(0),
-            error = numeric(0),
-            quantities = character(0),
-            params = list(),
-            meas.lin.combs = list()
-            )
-  )
-
-## ////////////////////////////////////////////////////////////////////////////
-## code
-
-##++alucomb = function(file = "") {
-
-file = "average.input"
-
-if (match.nocase("^\\s*$", file)) {
-  stop("alucomb: please provide as argument the card input file\n")
-}
-
-if (!file.exists(file)) {
-  stop("cannot find file ", file, "\n")
-}
-dir.base = dirname(file)
-lines = get.file.lines(file)
-cat("read file", file, "\n")
-
-iline = 1
-repeat {
-  lines.len = length(lines)
-  if (iline > lines.len) break
-  fields = unlist(strsplit(lines[iline], "\\s+", perl=TRUE))
-  if (length(fields) > 0 &&
-      match.nocase("^INCLUDE$", fields[1])) {
-    file.inc = paste(dir.base, fields[2], sep="/")
-    if (!file.exists(file.inc)) {
-      stop("cannot find included file ", file.inc, "\n")
-    }
-    lines.inc = get.file.lines(file.inc)
-    cat("read file", file.inc, "\n")
-    lines = c(
-      if (iline-1>=1) {lines[1:(iline-1)]} else {NULL},
-      lines.inc,
-      if (iline+1<=lines.len) {lines[(iline+1):(lines.len)]} else {NULL}
-      )
-    next
-  }
-  iline = iline + 1
-}
-
-##
-## define storage for measurements and one combination
-##
-measurements = list()
-combination = new("combination")
-
-flag.in.meas = FALSE
-flag.in.data = FALSE
-flag.in.params = FALSE
-flag.in.combine = FALSE
-flag.in.sumofmeas = FALSE
-
-for (line in lines) {
-  ## cat(line,"\n")
-  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
-      regexpr("^[*#;]", line, perl=TRUE) != -1) {
-    next
-  }
-  line = gsub("\\s*!.*", "", line, perl=TRUE)
-  fields = unlist(strsplit(line, "\\s+", perl=TRUE))
-  if (match.nocase("^BEGIN$", fields[1])) {
-    if (flag.in.meas) {
-      cat("error, BEGIN keyword inside definition of", meas@tag, "\n")
-    } else {
-      meas = new("measurement")
-      meas@bibitem = as.character(fields[-1])
-      meas@tag = paste(as.character(fields[2:4]), collapse=".")
-      meas.labels = character(0)
-      data.labels = character(0)
-      data.values = numeric(0)
-      sumofmeas.values = numeric(0)
-      measlincombs.list = list()
-      flag.in.meas = TRUE
-    }
-    next
-  }
-  if (!flag.in.meas) {
-    cat("error, ", fields[1], "outside a measurement definition (BEGIN..END)\n")
-    next
-  }
-  if (!match.nocase("^\\s*$", fields[1])) {
-    if (flag.in.sumofmeas) {
-      ##-- vector with one for each quantity whose sum corresponds to the measurement
-      val = rep(1,length(sumofmeas.values[-(1:3)]))
-      names(val) = sumofmeas.values[-(1:3)]
-      ##-- list of measurements with the coefficients corresponding to the related quantities
-      measlincombs.list = c(measlincombs.list, list(val))
-      ##-- the first field corresponds to the measurement tag
-      names(measlincombs.list)[length(measlincombs.list)] = paste(sumofmeas.values[1:3],collapse=".")
-      ##-- reset vector of SUMOFMEAS parameter
-      sumofmeas.values = numeric(0)
-    }
-    flag.in.data = FALSE
-    flag.in.params = FALSE
-    flag.in.sumofmeas = FALSE
-  }
-  if (match.nocase("^END$", fields[1])) {
-    if (!flag.in.combine) {
-      ##
-      ## measurement cards
-      ##
-      names(data.values) = data.labels
-      if (length(meas.labels) != 3) {
-        stop("wrong number of MEASUREMENT labels: ",length(meas.labels),"instead of 3\n")
-      }
-      for (i in 1:3) {
-        if (is.na(data.values[meas.labels[1]])) {
-          stop("missing MEASUREMENT data for ", meas.labels[1], "\n")
-        }
-      }
-      meas.labels[1] = sub("^m_", "", meas.labels[1], ignore.case=TRUE)
-      data.labels[1] = sub("^m_", "", data.labels[1], ignore.case=TRUE)
-      if (meas@bibitem[2] != data.labels[1]) {
-        ##-- when combining multiple quantities, methos should be set as the quantity
-        cat("warning: measurement method '", meas@bibitem[2], "' does not match value '", data.labels[1], "'\n", sep="")
-      }
-      names(data.values)[1] = data.labels[1]
-      meas@value = data.values[meas.labels[1]]
-      patt.perc = "([[:alnum:]]+[^[:alnum:]]*)(%)([^[:alnum:]]*)$"
-      for (i in 2:length(data.values)) {
-        if (regexpr(patt.perc, data.labels[i]) != -1) {
-          data.labels[i] = gsub(patt.perc, "\\1\\3", data.labels[i])
-          data.values[i] = meas@value * data.values[i] /100
-        }
-      }
-      names(data.values)[-1] = data.labels[-1]
-      meas@stat = data.values[meas.labels[2]]
-      names(meas@stat) = sub("statistical", "stat", names(meas@stat), ignore.case=TRUE)
-      meas@syst = data.values[meas.labels[3]]
-      names(meas@syst) = sub("systematic", "syst", names(meas@syst), ignore.case=TRUE)
-      meas@syst.terms = data.values[!data.labels %in% meas.labels]
-      measurements = c(measurements, meas)
-    } else {
-      ##
-      ## combination cards
-      ##
-      combination@tag = meas@tag
-      combination@bibitem = meas@bibitem
-      combination@quantities = meas.labels
-      combination@params = meas@params
-      combination@meas.lin.combs = measlincombs.list
-    }
-    flag.in.meas = FALSE
-    flag.in.combine = FALSE
-    next
-  }
-  if (match.nocase("^MEASUREMENT$", fields[1])) {
-    if (!flag.in.combine) {
-      ##-- get labels for value, stat.error, syst.error
-      meas.labels = fields[2:4]
-    } else {
-      ##-- get list of measurements to combine
-      meas.labels = c(meas.labels, sub("^m_","",fields[2]))
-    }
-    next
-  }
-  if (match.nocase("^COMBINE$", fields[1])) {
-    flag.in.combine = TRUE
-    next
-  }
-  if (match.nocase("^DATA$", fields[1]) ||
-      (flag.in.data && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.data = TRUE
-    data.labels = c(data.labels,
-      unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
-    data.values = c(data.values,
-      unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
-    next
-  }
-  if (match.nocase("^STAT_CORR_WITH$", fields[1])) {
-    corr = as.numeric(fields[5])
-    names(corr) =  paste(as.character(fields[2:4]), collapse=".")
-    meas@corr.terms = c(meas@corr.terms,corr)
-    next
-  }
-  if (match.nocase("^ERROR_CORR_WITH$", fields[1])) {
-    corr = as.numeric(fields[5])
-    names(corr) =  paste(as.character(fields[2:4]), collapse=".")
-    meas@corr.terms.tot = c(meas@corr.terms.tot, corr)
-    next
-  }
-  if (match.nocase("^PARAMETERS$", fields[1]) ||
-      (flag.in.params && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.params = TRUE
-    params.data = lapply(fields[-1], function(x) type.convert(x, as.is=TRUE))
-    if (length(params.data) == 0) next
-    if (!is.character(params.data[[1]]) ||
-        !is.numeric(params.data[[2]]) ||
-        !is.numeric(params.data[[3]]) ||
-        !is.numeric(params.data[[4]])) {
-      stop("wrong parameter data ", paste(params.data,sep=","), "\n")
-    }
-    names(params.data)[2:4] = c("value", "delta_pos", "delta_neg")
-    meas@params = c(meas@params, list(unlist(params.data[2:4])))
-    names(meas@params)[length(meas@params)] = params.data[[1]]
-    next
-  }
-  if (match.nocase("^SUMOFMEAS$", fields[1]) ||
-      (flag.in.sumofmeas && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.sumofmeas = TRUE
-    sumofmeas.values = c(sumofmeas.values, as.character(fields[-1]))
-  }
-}
-
-##-- assign names to measurements list elements equal to their tags
-names(measurements) = unlist(lapply(measurements, function(x) x@tag))
-
-##-- get quantities measured by each experiment
-meas.quantities = unlist(lapply(measurements, function(x) names(x@value)))
-
-##-- build list of all measurements mentioned in the COMBINE section
-meas.list = rep(FALSE, length(measurements))
-names(meas.list) = names(measurements)
-for (quant in combination@quantities) {
-  meas.list = meas.list | (quant == meas.quantities)
-}
-
-if (FALSE) {
-##-- include measurements that correspond to combination of quantities
-##++ should probably check also that _all_ quantities are in the combination
-for (meas in names(combination@meas.lin.combs)) {
-  if (sum(combination@quantities %in% names(combination@meas.lin.combs[[meas]])) != 0) {
-    cat("meas", meas, "included, as linear combination\n")
-    meas.list[meas] = TRUE
-  }
-}
-}
-
-##-- retain only measurements that are related to the spec. quantities
-if (sum(!meas.list) > 0) {
-  cat("warning: the following measurements are discarded\n")
-  cat(paste("  ",names(measurements)[!meas.list], collapse="\n",sep=""), "\n")
-  cat("end warning\n")
-}
-##-- update
-measurements = measurements[meas.list]
-meas.quantities = meas.quantities[meas.list]
-meas.num = length(measurements[meas.list])
-meas.names = names(measurements)
-
-##-- check that the sum of syst. terms does not exceed the syst. error
-for (meas in names(measurements)) {
-  syst.contribs = sqrt(sum(measurements[[meas]]@syst.terms^2))
-  if (syst.contribs > (1+1e-3)*measurements[[meas]]@syst) {
-    stop("error: sum of syst. contributions larger than syst. error ",
-         syst.contribs, ", ", measurements[[meas]]@syst)
-  } else if (syst.contribs > (1+1e-4)*measurements[[meas]]@syst) {
-    cat("warning: sum of syst. terms slightly larger than syst. error\n  ",
-        syst.contribs, " vs. ", measurements[[meas]]@syst, "\n", sep="")
-  }
-}
-
-##-- get list of stat and syst errors
-meas.stat.true = unlist(lapply(measurements, function(x) x@stat))
-names(meas.stat.true) = meas.names
-meas.syst.true = unlist(lapply(measurements, function(x) x@syst))
-names(meas.syst.true) = meas.names
-
-##
-## quantities we want to determine from measurements
-##
-quant.names = combination@quantities
-
-##++} ##-- end function alucomb
-
-## args <- commandArgs(TRUE)
-## if (length(args) > 0) alucomb(file = args[1]) 
+source("../../../Common/bin/alucomb-read.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
@@ -352,17 +23,17 @@ label.root = function(str) {
     str = gsub("F1", "f_{1}",str)
     str = gsub("Pi", "#pi",str)
     str = gsub("Nu", "#nu",str)
-    str = gsub("m($|[#}A-Z])", "^{-}\\1", str, perl=TRUE)
-    str = gsub("p($|[#}A-Z])", "^{+}\\1", str, perl=TRUE)
-    str = gsub("z($|[#}A-Z])", "^{0}\\1", str, perl=TRUE)
+    str = gsub("H", "h",str)
+    str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
+    str = gsub("p($|[#}A-Zh])", "^{+}\\1", str, perl=TRUE)
+    str = gsub("z($|[#}A-Zh])", "^{0}\\1", str, perl=TRUE)
     str = paste("B(#tau^{-} #rightarrow ", str, ")", sep="")
   }
   return(str)
 }
 
 ##
-## read log file of Root pdg_average.cc code
-## which recomputes the PDG-like average
+## read log file pdg_average.log containing the PDG-like average
 ##
 get.pdg.average = function(file) {
   rc = list()
@@ -375,7 +46,10 @@ get.pdg.average = function(file) {
   patt = paste(".*Scale factor = ([.0-9eE+-]+)",
     ".*.*Weighted average .with scale factor. = ([.0-9eE+-]+)[\\s+-]+([.0-9eE+-]+)",
     sep="")
-  if (regexpr(patt,average,perl=TRUE) == -1) return(list())
+  if (regexpr(patt, average, perl=TRUE) == -1) {
+    warning("Cannot read PDG average from ", file)
+    return(list())
+  }
   fields = unlist(strsplit(sub(patt, "\\1;\\2;\\3", average, perl=TRUE), ";"))
   rc$scale = fields[1]
   rc$value = as.numeric(fields[2:3])
@@ -385,7 +59,7 @@ get.pdg.average = function(file) {
 ##
 ## read log file of Combos using chi2_sym procedure
 ##
-get.results.chi2.sym = function(file) {
+get.combos.chi2sym = function(file) {
   rc = list()
   fh = pipe(paste(
     "awk 2>/dev/null '/CHI2_SYM: CHI2, NMEFF, CHI2\\/NDOF/ {flag++}; flag>1'",
@@ -395,22 +69,27 @@ get.results.chi2.sym = function(file) {
   average = paste(average, collapse=";")
   patt = paste(".*CHI2_SYM\\s+:\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*CL\\s*=\\s*([.0-9eE+-]+).*", sep="")
-  if (regexpr(patt,average,perl=TRUE) == -1) return(list())
+  if (regexpr(patt,average,perl=TRUE) == -1) {
+    return(list())
+  }
   fields = unlist(strsplit(sub(patt, "\\1;\\2;\\3;\\4", average, perl=TRUE), ";"))
   rc$CL = as.numeric(fields[4])
   ##++ need to recover also sqrt(chisq/dof)
   rc$scale = -rc$CL
-  combs = list()
   label = sub("^M_", "", fields[1])
-  combs[[label]] = as.numeric(fields[2:3])
-  rc$combs = combs
+  val = as.numeric(fields[2])
+  err = as.numeric(fields[3])
+  names(val) = label
+  names(err) = label
+  rc$val = val
+  rc$err = err
   return(rc)
 }
 
 ##
 ## read log file of Combos using chi2_nsym procedure
 ##
-get.results.chi2.nsym = function(file) {
+get.combos.chi2nsym = function(file) {
   rc = list()
   fh = pipe(paste(
     "awk 2>/dev/null '/CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF/ {flag++}; flag>1'",
@@ -426,12 +105,18 @@ get.results.chi2.nsym = function(file) {
   rc$dof = as.numeric(fields[4])
   rc$CL = 1 - pchisq(rc[["chisq"]], rc[["dof"]])
   rc$scale = sqrt(rc$chisq/rc$dof)
+
+  ##-- first line containig combos averages
   patt = paste(".*CHI2_N_SYM\\s+:\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*CL\\s*=\\s*([.0-9eE+-]+).*", sep="")
+  ##-- following lines
   patt2 = paste(".*\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*.*", sep="")
+
   flag = FALSE  
-  combs = list()
+  comb.names = character()
+  val = numeric()
+  err = numeric()
   for (line in average) {
     if (regexpr(patt, line) != -1) {
       fields = unlist(strsplit(sub(patt, "\\1;\\2;\\3;\\4", line, perl=TRUE), ";"))
@@ -439,6 +124,8 @@ get.results.chi2.nsym = function(file) {
     } else if (flag) {
       if (regexpr(patt2, line) != -1) {
         fields = unlist(strsplit(sub(patt2, "\\1;\\2;\\3", line, perl=TRUE), ";"))
+      } else {
+        flag = FALSE
       }
     } else {
       flag = FALSE
@@ -446,30 +133,198 @@ get.results.chi2.nsym = function(file) {
     if (flag) {
       quant = fields[1]
       quant = sub("^M_", "", quant)
-      combs[[quant]] = as.numeric(fields[2:3])
+      comb.names = c(comb.names, quant)
+      val = c(val, as.numeric(fields[2]))
+      err = c(err, as.numeric(fields[3]))
     }
   }
-  rc$combs = combs
+  names(val) = comb.names
+  names(err) = comb.names
+  rc$val = val
+  rc$err = err
   return(rc)
+}
+
+##
+## get Combos results in specified file
+##
+get.combos.results = function(file) {
+  rc.chi2sym = get.combos.chi2sym(file)
+  rc.chi2nsym = get.combos.chi2nsym(file)
+  if (length(rc.chi2nsym)) {
+    if (length(rc.chi2sym)) {
+      warning("both chi2_sym and chi2_nsym results in ", file)
+    }
+    return(rc.chi2nsym)
+  }
+  return(rc.chi2sym)
+}
+
+##
+## get numeric data from aluxomb log
+##
+get.alucomb.data = function(lines) {
+  data = numeric()
+  li = 1
+  if (is.na(lines[li])) {
+    return(list(lines=li-1, data=data))
+  }
+  fields = unlist(strsplit(lines[li], "\\s+", perl=TRUE))
+  if (fields[1] != "") {
+    warning("Cannot find data header line in ", lines[li])
+  }
+  cols = fields[-1]
+  rows = character()
+  repeat {
+    li = li+1
+    if (is.na(lines[li])) {
+      break
+    }
+    prev.options = options()
+    fields = unlist(strsplit(lines[li], "\\s+", perl=TRUE))
+    options(warn=-1)
+    values = as.numeric(fields[-1])
+    options(prev.options)
+    if (length(values) == 0 || any(is.na(values))) {
+      break
+    }
+    data = rbind(data, values)
+    rows = c(rows, fields[1])
+  }
+  if (length(data) > 0) {
+    if (is.null(dim(data))) {
+      names(data) = cols
+    } else {
+      colnames(data) = cols
+      rownames(data) = rows
+    }
+  }
+  return(list(lines=li-1, data=data))
+}
+
+##
+## get a section of numeric data from aluxomb log
+##
+get.alucomb.section = function(lines, pattern, file, offset=0) {
+  liv = grep(pattern, lines)
+  if (length(liv) == 0) {
+    warning("cannot find '", pattern, "' in ", file)
+    return(NULL)
+  }
+  li = liv[1]
+  li = li+1+offset
+  
+  rc = get.alucomb.data(lines[-(1:(li-1))])
+  if (length(data) == 0) {
+    warning("could not read chisq data in ", file)
+    return(NULL)
+  }
+  return(rc)
+}
+
+##
+## get alucomb log data
+##
+get.alucomb = function(file) {
+  ol = list()
+
+  lines = suppressWarnings(try(get.file.lines(log.file("average_alucomb.log")), silent=TRUE))
+  if (inherits(lines, "try-error")) {
+    warning("Cannot open / read file ", file)
+    return(ol)
+  }
+  
+  rc = get.alucomb.section(lines, "^#+\\s+S-factors accounting", file, 1)
+  if (is.null(rc)) {
+    return(ol)
+  }
+  li = 1 + rc$lines
+  ol$chisq = rc$data["updated", "chisq"]
+  ol$dof = rc$data["updated", "dof"]
+  
+  rc.av = get.alucomb.section(lines[-(1:(li-1))], "^Averaged quantities", file)
+  if (is.null(rc)) {
+    return(ol)
+  }
+  li = li + rc$lines
+  
+  rc.corr = get.alucomb.section(lines[-(1:(li-1))], "^correlation", file)
+  if (is.null(rc)) {
+    return(ol)
+  }
+  li = li + rc$lines
+  
+  rc.extra = get.alucomb.section(lines[-(1:(li-1))], "^Non-averaged measurement types", file)
+  if (is.null(rc)) {
+    return(ol)
+  }
+  li = li + rc$lines
+
+  data = cbind(rc.av$data, rc.extra$data)
+
+  ol$val = data["value",]
+  ol$err = data["upd.error",]
+  ol$sfact = data["S-factor",]
+  ol$chisq.all = data["chisq",]
+  ol$dof.all = data["dof",]
+
+  return(ol)
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
 
-##-- read file with PDG 2009 averages
+file = "average.input"
+
+##++ aluplot = function(file = "") {
+
+rc = alucomb.read(file)
+measurements = rc$measurements
+combination = rc$combination
+
+log.dir = file.path("../../../Data", sub("^.*/([^/]*/[^/]*/[^/]*)$", "\\1", getwd()))
+log.file = function(fname) {file.path(log.dir, fname)}
+
+##-- get quantities measured by each experiment
+meas.names = names(measurements)
+
+##++ gets names in Combos MEASUREMENT card, sometimes incorrect
+meas.quantities.raw = unlist(lapply(measurements, function(x) names(x$value)))
+##++ get accurate names for quantities measured by experiments
+meas.quantities = sub("[.][^.]+$", "", sub("^[^.]+[.]", "", names(measurements)))
+
+##-- quantities we want to determine from measurements
+## quant.names = combination$quantities
+quant.names = unique(meas.quantities)
+
+##
+## get PDG average produced from the current directory
+## (not used any more, a dedicated file is used for this information)
+##
+rc = get.pdg.average(log.file("pdg_average.log"))
+if (length(rc) > 0) {
+   plot.data$pdg = rc
+}
+
+##-- read dedicated file with PDG 2009 averages
 lines = get.file.lines("../Common/pdg_averages.input")
 pdg.averages = list()
 for (line in lines) {
-  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
-      regexpr("^[*#;]", line, perl=TRUE) != -1) {
+  ##-- remove comments up to end of line, and preceding space
+  line = gsub("\\s*[*#;].*$", "", line, perl=TRUE)
+  if (line == "") {
     next
   }
-  line = gsub("\\s*!.*", "", line, perl=TRUE)
+  ##-- remove leading space
+  line = gsub("^\\s+", "", line, perl=TRUE)
   fields = unlist(strsplit(line, "\\s+", perl=TRUE))
   pdg.averages[[fields[1]]] = as.numeric(fields[-1])
 }
 
-##-- file with info on results with asymmetric errors
+##
+## in the Combos cards the measurement results have symmetrized errors
+## override symmetrized errors with the original ones usind a dedicated file
+##
 lines = get.file.lines("../Common/results_asymm_errors.input")
 meas.asymm = list()
 for (line in lines) {
@@ -489,38 +344,35 @@ for (quant in quant.names) {
   plot.data[[quant]] = list()
 }
 
-rc = get.pdg.average("log/pdg_average.log")
+##-- get alucomb results
+rc = get.alucomb(log.file("average_alucomb.log"))
 if (length(rc) > 0) {
-   plot.data$pdg = rc
-}
-
-rc = get.results.chi2.sym("log/average.log")
-if (length(rc) > 0) {
-  if (!is.null(plot.data[[quant.names[1]]]$hfag)) {
-    cat("warning, double hfag def of", quant.names[1], "\n")
-  }
   plot.data$hfag = rc
-}
-
-rc = get.results.chi2.nsym("log/average.log")
-if (length(rc) > 0) {
-  if (!is.null(plot.data[[quant.names[1]]]$hfag)) {
-    cat("warning, double hfag def of", quant.names[1], "\n")
+} else {
+  ##-- get Combos results
+  rc = get.combos.results(log.file("average.log"))
+  if (length(rc) > 0) {
+    plot.data$hfag = rc
   }
-  plot.data$hfag = rc
 }
 
+##
+## for each quantity to be plotted, collect in plot.data[[quant]]
+## - minimum and maximum x coordinate for plotting
+## - the best units/ precision for plotting/ printing
+## - the list of the experiments that measured it
+##
 for (quant in quant.names) {
-  x.mins = numeric(0)
-  x.maxs = numeric(0)
-  x.values = numeric(0)
+  x.mins = numeric()
+  x.maxs = numeric()
+  x.values = numeric()
   all.exp.meas = list()
   for (meas in meas.names[quant == meas.quantities]) {
     exp.meas = list()
-    value = measurements[[meas]]@value
-    stat = measurements[[meas]]@stat
-    syst = measurements[[meas]]@syst
-    bibitem = measurements[[meas]]@bibitem
+    value = measurements[[meas]]$value
+    stat = measurements[[meas]]$stat
+    syst = measurements[[meas]]$syst
+    bibitem = measurements[[meas]]$bibitem
 
     error = sqrt(sum(c(stat), syst)^2)
     x.mins = c(x.mins, value - error)
@@ -540,10 +392,66 @@ for (quant in quant.names) {
 
     all.exp.meas[[meas]] = exp.meas
   }
+
+  ##
+  ## get average info either from alucomb or Combos
+  ##
+  value = plot.data$hfag$val[quant]
+  error = plot.data$hfag$err[quant]
+  if (is.null(value)) {
+    warning("could not find HFAG average for ", quant)
+  } else {
+    chisq = plot.data$hfag$chisq.all[quant]
+    dof = plot.data$hfag$dof.all[quant]
+    scale.factor = plot.data$hfag$sfact[quant]
+    if (!is.null(chisq)) {
+      conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
+      conf.lev.plot = conf.lev
+      ##-- if using alucomb, set S-factor if larger than one
+      if (scale.factor > 1) {
+        conf.lev.plot = -scale.factor
+      }
+    } else {
+      ##-- alucomb data not present, use combos common data
+      conf.lev = plot.data$hfag$CL
+      conf.lev.plot = conf.lev
+      scale.factor = plot.data$hfag$scale
+      ##++ combos data rule for setting scale, ask Swagato
+      if (conf.lev < 1e-3) {
+        ##++ remove following "if" when scale.factor for chi_sym fixed
+        if (conf.lev != -scale.factor) {
+          error = error*scale.factor
+          conf.lev.plot = -scale.factor
+        }
+      }
+    }
+    plot.data[[quant]]$hfag$avg = c(value, error)
+    plot.data[[quant]]$hfag$CL = conf.lev
+    plot.data[[quant]]$hfag$CL.plot = conf.lev.plot
+    plot.data[[quant]]$hfag$scale = scale.factor
+    x.mins = c(x.mins, value - error)
+    x.maxs = c(x.maxs, value + error)
+  }
+  
+  ##-- get xmin/xmax of PGD average if existing
+  tmp = pdg.averages[[quant]]
+  if (is.null(tmp)) {
+    warning("could not find PDG average for ", quant)
+  } else {
+    x.mins = c(x.mins, tmp[1] - tmp[2])
+    x.maxs = c(x.maxs, tmp[1] + tmp[2])
+    plot.data[[quant]]$pdg$avg = tmp[1:2]
+    plot.data[[quant]]$pdg$scale = tmp[3]
+    ##-- in plot.input set scale = 0 if PDG used no scale factor
+    if (tmp[3] == 1) {
+      plot.data[[quant]]$pdg$scale = 0
+    }
+  }
+
+  ##-- compute plot size, units, precision
   x.min = min(x.mins)
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
-  ##closest.order = round(log(x.mean)/log(10))
   not.higher.order = floor(log(max(x.values)*1.01)/log(10))
   if (not.higher.order == -1) {
     order = -2
@@ -582,6 +490,9 @@ for (quant in quant.names) {
   plot.data[[quant]]$precision = precision
 }
 
+##
+## create plot.input
+##
 for (quant in quant.names) {
   fname = "plot.input"
   if (length(quant.names) > 1) {
@@ -600,32 +511,18 @@ for (quant in quant.names) {
   cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
       as.character(quant.data$precision), " ", label.root(quant), units.label, "\n", file=fh, sep="")
   cat("# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages\n", file=fh)
+
   ##-- print HFAG averages
-  comb = plot.data$hfag$combs[[toupper(quant)]]
-  if (is.null(comb)) {
-    cat("warning: could not find HFAG average(s) for", quant, "\n")
-  } else {
-    conf.lev = plot.data$hfag$CL
-    scale.factor = plot.data$hfag$scale
-    if (conf.lev < 1e-3) {
-      ##++ remove "if" when scale.factor for chi_sym fixed
-      if (conf.lev != -scale.factor) {
-        comb[2] = comb[2]*scale.factor
-        conf.lev = -scale.factor
-      }
-    }
-    cat("& ", sprintf("%-10.4g ", c(comb/x.units, conf.lev)), "HFAG Average\n", file=fh, sep="")
+  comb = plot.data[[quant]]$hfag$avg
+  if (!is.null(comb)) {
+    cat("& ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)), "HFAG Average\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
   ##-- PDG average
-  pdgav = pdg.averages[[quant]]
-  if (!is.null(pdgav)) {
-    scale.factor = pdgav[3]
-    if (scale.factor == 1) {
-      scale.factor = 0
-    }
-    cat("% ", sprintf("%-10.4g ", c(pdgav[1:2]/x.units, scale.factor)), "PDG'09 Average\n", file=fh, sep="")
+  comb = plot.data[[quant]]$pdg$avg
+  if (!is.null(comb)) {
+    cat("% ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$pdg$scale)), "PDG'09 Average\n", file=fh, sep="")
   } else {
     cat("% ", sprintf("%-10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
@@ -653,3 +550,5 @@ for (quant in quant.names) {
   close(fh)
   cat("file", fname, "created\n")
 }
+
+##++} ## aluplot()
