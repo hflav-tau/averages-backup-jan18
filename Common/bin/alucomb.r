@@ -14,296 +14,44 @@
 library(methods)
 
 flag.no.maxLik = FALSE
-rc = try(library(maxLik))
+rc = try(library(maxLik), silent=TRUE)
 if (inherits(rc, "try-error")) flag.no.maxLik = TRUE
+
+source("../../../Common/bin/alucomb-read.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
 
-##
-## return list of lines from file
-##
-get.file.lines <- function(fname) {
-  fh <- file(fname)
-  lines  <- readLines(fh)
-  close(fh)
-  return(lines)
-}
-
-##
-## test if pattern matches string irrespective of letters case
-##
-match.nocase = function(pattern, str) {
-  return(regexpr(pattern, str, ignore.case=TRUE) != -1)
-}
-  
-##
-## class for a measurement
-##
-rc = setClass("measurement",
-  representation(value = "numeric",
-                 stat = "numeric",
-                 syst = "numeric",
-                 bibitem = "character",
-                 tag = "character",
-                 params = "list",
-                 syst.terms = "numeric",
-                 corr.terms = "list",
-                 corr.terms.tot = "list"
-                 ),
-  prototype(value = numeric(0),
-            stat = numeric(0),
-            syst = numeric(0),
-            params = list(),
-            syst.terms = numeric(0)
-            )
-  )
-
-##
-## class for a combination
-##
-rc = setClass("combination",
-  representation(value = "numeric",
-                 error = "numeric",
-                 bibitem = "character",
-                 tag = "character",
-                 quantities = "character",
-                 params = "list",
-                 meas.lin.combs = "list"
-                 ),
-  prototype(value = numeric(0),
-            error = numeric(0),
-            quantities = character(0),
-            params = list(),
-            meas.lin.combs = list()
-            )
-  )
-
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
+
+##
+## alucomb
+##
 
 file = "average.input"
 
 alucomb = function(file = "") {
 
-if (match.nocase("^\\s*$", file)) {
-  stop("alucomb: please provide as argument the card input file\n")
-}
-
-flag.replace.corr = FALSE
-flag.build.delta = FALSE
-
-if (!file.exists(file)) {
-  stop("cannot find file ", file, "\n")
-}
-dir.base = dirname(file)
-lines = get.file.lines(file)
-cat("read file", file, "\n")
-
-iline = 1
-repeat {
-  lines.len = length(lines)
-  if (iline > lines.len) break
-  fields = unlist(strsplit(lines[iline], "\\s+", perl=TRUE))
-  if (length(fields) > 0 &&
-      match.nocase("^INCLUDE$", fields[1])) {
-    file.inc = paste(dir.base, fields[2], sep="/")
-    if (!file.exists(file.inc)) {
-      stop("cannot find included file ", file.inc, "\n")
-    }
-    lines.inc = get.file.lines(file.inc)
-    cat("read file", file.inc, "\n")
-    lines = c(
-      if (iline-1>=1) {lines[1:(iline-1)]} else {NULL},
-      lines.inc,
-      if (iline+1<=lines.len) {lines[(iline+1):(lines.len)]} else {NULL}
-      )
-    next
-  }
-  iline = iline + 1
-}
-
-##
-## define storage for measurements and one combination
-##
-measurements = list()
-combination = new("combination")
-
-flag.in.meas = FALSE
-flag.in.data = FALSE
-flag.in.params = FALSE
-flag.in.combine = FALSE
-flag.in.sumofmeas = FALSE
-
-for (line in lines) {
-  ## cat(line,"\n")
-  if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
-      regexpr("^[*#;]", line, perl=TRUE) != -1) {
-    next
-  }
-  line = gsub("\\s*!.*", "", line, perl=TRUE)
-  fields = unlist(strsplit(line, "\\s+", perl=TRUE))
-  if (match.nocase("^BEGIN$", fields[1])) {
-    if (flag.in.meas) {
-      cat("error, BEGIN keyword inside definition of", meas@tag, "\n")
-    } else {
-      meas = new("measurement")
-      meas@bibitem = as.character(fields[-1])
-      meas@tag = paste(as.character(fields[2:4]), collapse=".")
-      meas.labels = character(0)
-      data.labels = character(0)
-      data.values = numeric(0)
-      sumofmeas.values = numeric(0)
-      measlincombs.list = list()
-      flag.in.meas = TRUE
-    }
-    next
-  }
-  if (!flag.in.meas) {
-    cat("error, ", fields[1], "outside a measurement definition (BEGIN..END)\n")
-    next
-  }
-  if (!match.nocase("^\\s*$", fields[1])) {
-    if (flag.in.sumofmeas) {
-      ##-- vector with one for each quantity whose sum corresponds to the measurement
-      val = rep(1,length(sumofmeas.values[-(1:3)]))
-      names(val) = sumofmeas.values[-(1:3)]
-      ##-- list of measurements with the coefficients corresponding to the related quantities
-      measlincombs.list = c(measlincombs.list, list(val))
-      ##-- the first field corresponds to the measurement tag
-      names(measlincombs.list)[length(measlincombs.list)] = paste(sumofmeas.values[1:3],collapse=".")
-      ##-- reset vector of SUMOFMEAS parameter
-      sumofmeas.values = numeric(0)
-    }
-    flag.in.data = FALSE
-    flag.in.params = FALSE
-    flag.in.sumofmeas = FALSE
-  }
-  if (match.nocase("^END$", fields[1])) {
-    if (!flag.in.combine) {
-      ##
-      ## measurement cards
-      ##
-      names(data.values) = data.labels
-      if (length(meas.labels) != 3) {
-        stop("wrong number of MEASUREMENT labels: ",length(meas.labels),"instead of 3\n")
-      }
-      for (i in 1:3) {
-        if (is.na(data.values[meas.labels[1]])) {
-          stop("missing MEASUREMENT data for ", meas.labels[1], "\n")
-        }
-      }
-      meas.labels[1] = sub("^m_", "", meas.labels[1], ignore.case=TRUE)
-      data.labels[1] = sub("^m_", "", data.labels[1], ignore.case=TRUE)
-      if (meas@bibitem[2] != data.labels[1]) {
-        ##-- when combining multiple quantities, methos should be set as the quantity
-        cat("warning: measurement method '", meas@bibitem[2], "' does not match value '", data.labels[1], "'\n", sep="")
-      }
-      names(data.values)[1] = data.labels[1]
-      meas@value = data.values[meas.labels[1]]
-      patt.perc = "([[:alnum:]]+[^[:alnum:]]*)(%)([^[:alnum:]]*)$"
-      for (i in 2:length(data.values)) {
-        if (regexpr(patt.perc, data.labels[i]) != -1) {
-          data.labels[i] = gsub(patt.perc, "\\1\\3", data.labels[i])
-          data.values[i] = meas@value * data.values[i] /100
-        }
-      }
-      names(data.values)[-1] = data.labels[-1]
-      meas@stat = data.values[meas.labels[2]]
-      names(meas@stat) = sub("statistical", "stat", names(meas@stat), ignore.case=TRUE)
-      meas@syst = data.values[meas.labels[3]]
-      names(meas@syst) = sub("systematic", "syst", names(meas@syst), ignore.case=TRUE)
-      meas@syst.terms = data.values[!data.labels %in% meas.labels]
-      measurements = c(measurements, meas)
-    } else {
-      ##
-      ## combination cards
-      ##
-      combination@tag = meas@tag
-      combination@bibitem = meas@bibitem
-      combination@quantities = meas.labels
-      combination@params = meas@params
-      combination@meas.lin.combs = measlincombs.list
-    }
-    flag.in.meas = FALSE
-    flag.in.combine = FALSE
-    next
-  }
-  if (match.nocase("^MEASUREMENT$", fields[1])) {
-    if (!flag.in.combine) {
-      ##-- get labels for value, stat.error, syst.error
-      meas.labels = fields[2:4]
-    } else {
-      ##-- get list of measurements to combine
-      meas.labels = c(meas.labels, sub("^m_","",fields[2]))
-    }
-    next
-  }
-  if (match.nocase("^COMBINE$", fields[1])) {
-    flag.in.combine = TRUE
-    next
-  }
-  if (match.nocase("^DATA$", fields[1]) ||
-      (flag.in.data && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.data = TRUE
-    data.labels = c(data.labels,
-      unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
-    data.values = c(data.values,
-      unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
-    next
-  }
-  if (match.nocase("^STAT_CORR_WITH$", fields[1])) {
-    corr = as.numeric(fields[5])
-    names(corr) =  paste(as.character(fields[2:4]), collapse=".")
-    meas@corr.terms = c(meas@corr.terms,corr)
-    next
-  }
-  if (match.nocase("^ERROR_CORR_WITH$", fields[1])) {
-    corr = as.numeric(fields[5])
-    names(corr) =  paste(as.character(fields[2:4]), collapse=".")
-    meas@corr.terms.tot = c(meas@corr.terms.tot, corr)
-    next
-  }
-  if (match.nocase("^PARAMETERS$", fields[1]) ||
-      (flag.in.params && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.params = TRUE
-    params.data = lapply(fields[-1], function(x) type.convert(x, as.is=TRUE))
-    if (length(params.data) == 0) next
-    if (!is.character(params.data[[1]]) ||
-        !is.numeric(params.data[[2]]) ||
-        !is.numeric(params.data[[3]]) ||
-        !is.numeric(params.data[[4]])) {
-      stop("wrong parameter data ", paste(params.data,sep=","), "\n")
-    }
-    names(params.data)[2:4] = c("value", "delta_pos", "delta_neg")
-    meas@params = c(meas@params, list(unlist(params.data[2:4])))
-    names(meas@params)[length(meas@params)] = params.data[[1]]
-    next
-  }
-  if (match.nocase("^SUMOFMEAS$", fields[1]) ||
-      (flag.in.sumofmeas && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.sumofmeas = TRUE
-    sumofmeas.values = c(sumofmeas.values, as.character(fields[-1]))
-  }
-}
-
-##-- assign names to measurements list elements equal to their tags
-names(measurements) = unlist(lapply(measurements, function(x) x@tag))
+rc = alucomb.read(file)
+measurements = rc$measurements
+combination = rc$combination
+rc = NULL
 
 ##-- get quantities measured by each experiment
-meas.quantities = unlist(lapply(measurements, function(x) names(x@value)))
+meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
 
 ##-- build list of all measurements mentioned in the COMBINE section
 meas.list = rep(FALSE, length(measurements))
 names(meas.list) = names(measurements)
-for (quant in combination@quantities) {
+for (quant in combination$quantities) {
   meas.list = meas.list | (quant == meas.quantities)
 }
 
 ##-- include measurements that correspond to combination of quantities
 ##++ should probably check also that _all_ quantities are in the combination
-for (meas in names(combination@meas.lin.combs)) {
-  if (sum(combination@quantities %in% names(combination@meas.lin.combs[[meas]])) != 0) {
+for (meas in names(combination$meas.lin.combs)) {
+  if (sum(combination$quantities %in% names(combination$meas.lin.combs[[meas]])) != 0) {
     cat("meas", meas, "included, as linear combination\n")
     meas.list[meas] = TRUE
   }
@@ -323,13 +71,13 @@ meas.names = names(measurements)
 
 ##-- check that the sum of syst. terms does not exceed the syst. error
 for (meas in names(measurements)) {
-  syst.contribs = sqrt(sum(measurements[[meas]]@syst.terms^2))
-  if (syst.contribs > (1+1e-3)*measurements[[meas]]@syst) {
+  syst.contribs = sqrt(sum(measurements[[meas]]$syst.terms^2))
+  if (syst.contribs > (1+1e-3)*measurements[[meas]]$syst) {
     stop("error: sum of syst. contributions larger than syst. error ",
-         syst.contribs, ", ", measurements[[meas]]@syst)
-  } else if (syst.contribs > (1+1e-5)*measurements[[meas]]@syst) {
+         syst.contribs, ", ", measurements[[meas]]$syst)
+  } else if (syst.contribs > (1+1e-5)*measurements[[meas]]$syst) {
     cat("warning: sum of syst. terms slightly larger than syst. error\n  ",
-        syst.contribs, " vs. ", measurements[[meas]]@syst, "\n", sep="")
+        syst.contribs, " vs. ", measurements[[meas]]$syst, "\n", sep="")
   }
 }
 
@@ -337,17 +85,17 @@ for (meas in names(measurements)) {
 ## shift measurements according to updated external parameter dependencies
 ## update systematic terms according to updated external parameter errors
 ##
-for (param.upd in names(combination@params)) {
+for (param.upd in names(combination$params)) {
   for (meas in names(measurements)) {
-    for (param.orig in names(measurements[[meas]]@params)) {
+    for (param.orig in names(measurements[[meas]]$params)) {
       if (param.orig == param.upd) {
-        measurements[[meas]]@value =
-          (measurements[[meas]]@value
-           + (combination@params[[param.upd]]["value"] - measurements[[meas]]@params[[param.orig]]["value"])
-           * measurements[[meas]]@syst.terms[param.orig] / measurements[[meas]]@params[[param.orig]]["delta_pos"])
-        measurements[[meas]]@syst.terms[param.orig] =
-          (measurements[[meas]]@syst.terms[param.orig]
-           * combination@params[[param.upd]]["delta_pos"] / measurements[[meas]]@params[[param.orig]]["delta_pos"])
+        measurements[[meas]]$value =
+          (measurements[[meas]]$value
+           + (combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
+           * measurements[[meas]]$syst.terms[param.orig] / measurements[[meas]]$params[[param.orig]]["delta_pos"])
+        measurements[[meas]]$syst.terms[param.orig] =
+          (measurements[[meas]]$syst.terms[param.orig]
+           * combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"])
       }
     }
   }
@@ -356,7 +104,7 @@ for (param.upd in names(combination@params)) {
 ##-- collect what measurements are affected by each syst. term
 syst.terms.list = list()
 for (meas in names(measurements)) {
-  for (syst.term in names(measurements[[meas]]@syst.terms)) {
+  for (syst.term in names(measurements[[meas]]$syst.terms)) {
     ##-- add measurement to the list of the currect syst. term
     syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], meas)
   }
@@ -366,7 +114,7 @@ syst.terms.corr = lapply(syst.terms.list, length) >= 2
 if (length(syst.terms.corr) > 0) {
   syst.terms.corr = names(syst.terms.corr)[syst.terms.corr]
 } else {
-  syst.terms.corr = character(0)
+  syst.terms.corr = character()
 }
 
 ##
@@ -378,7 +126,7 @@ meas.num.true = meas.num
 meas.names.true = meas.names
 meas.num.fake = length(syst.terms.corr)
 meas.num = meas.num.true + meas.num.fake
-meas.names.fake = character(0)
+meas.names.fake = character()
 if (meas.num.fake > 0) {
   meas.names.fake = paste(syst.terms.corr, "m", sep=".")
 }
@@ -389,9 +137,9 @@ meas.names = c(meas.names.true, meas.names.fake)
 ##
 
 ##-- get list of stat and syst errors
-meas.stat.true = unlist(lapply(measurements, function(x) x@stat))
+meas.stat.true = unlist(lapply(measurements, function(x) x$stat))
 names(meas.stat.true) = meas.names.true
-meas.syst.true = unlist(lapply(measurements, function(x) x@syst))
+meas.syst.true = unlist(lapply(measurements, function(x) x$syst))
 names(meas.syst.true) = meas.names.true
 
 ##-- fake measurements have stat. error = 1, syst. error = 0
@@ -416,8 +164,8 @@ meas.corr.stat = meas.corr
 ##-- set off-diagonal statistical correlation matrix coefficients from cards
 for (meas in measurements) {
   mapply(function(other.tag, other.corr) {
-    meas.corr.stat[meas@tag,other.tag] <<- other.corr
-  }, names(meas@corr.terms), meas@corr.terms)
+    meas.corr.stat[meas$tag,other.tag] <<- other.corr
+  }, names(meas$corr.terms), meas$corr.terms)
 }
 
 ##
@@ -426,8 +174,8 @@ for (meas in measurements) {
 ##
 for (meas in measurements) {
   mapply(function(other.tag, other.corr) {
-    meas.corr[meas@tag,other.tag] <<- other.corr
-  }, names(meas@corr.terms.tot), meas@corr.terms.tot)
+    meas.corr[meas$tag,other.tag] <<- other.corr
+  }, names(meas$corr.terms.tot), meas$corr.terms.tot)
 }
 
 ##-- not handled and forbidden to enter both total and stat. only correlations
@@ -469,10 +217,10 @@ meas.cov = meas.cov + diag(meas.error^2)
 ##
 meas.cov.orig = meas.cov
 for (meas.i in meas.names.true) {
-  syst.i = measurements[[meas.i]]@syst.terms
+  syst.i = measurements[[meas.i]]$syst.terms
   for (meas.j in meas.names.true) {
     if (meas.i != meas.j && meas.cov.tot[meas.i,meas.j] == 0) next
-    syst.j = measurements[[meas.j]]@syst.terms
+    syst.j = measurements[[meas.j]]$syst.terms
     correl.i.j = intersect(names(syst.i), names(syst.j))
     correl.i.j = intersect(correl.i.j, syst.terms.corr)
     if (length(correl.i.j) == 0) next
@@ -484,11 +232,11 @@ for (meas.i in meas.names.true) {
 ##
 ## quantities we want to determine from measurements
 ##
-quant.names.true = combination@quantities
+quant.names.true = combination$quantities
 quant.num.true = length(quant.names.true)
 quant.num.fake = length(syst.terms.corr)
 quant.num = quant.num.true + quant.num.fake
-quant.names.fake = character(0)
+quant.names.fake = character()
 if (quant.num.fake > 0) {
   quant.names.fake = paste(syst.terms.corr, "q", sep=".")
 }
@@ -526,9 +274,9 @@ for (quant in quant.names) {
 ## for measurements that are linear combination of quantities
 ## set the delta matrix coefficients as specified
 ##
-for (meas in names(combination@meas.lin.combs)) {
-  quants = names(combination@meas.lin.combs[[meas]])
-  delta[meas,quants] = combination@meas.lin.combs[[meas]]
+for (meas in names(combination$meas.lin.combs)) {
+  quants = names(combination$meas.lin.combs[[meas]])
+  delta[meas,quants] = combination$meas.lin.combs[[meas]]
 }
 
 ##
@@ -538,12 +286,12 @@ for (meas in names(combination@meas.lin.combs)) {
 for (syst.term.name in names(syst.terms.list[syst.terms.corr])) {
   quant.name.fake = paste(syst.term.name,"q",sep=".")
   for (meas in syst.terms.list[syst.terms.corr][[syst.term.name]]) {
-    delta[meas, quant.name.fake] = measurements[[meas]]@syst.terms[syst.term.name]
+    delta[meas, quant.name.fake] = measurements[[meas]]$syst.terms[syst.term.name]
   }
 }
 
 ##-- get measurement values
-meas.true = unlist(lapply(measurements, function(x) {x@value}))
+meas.true = unlist(lapply(measurements, function(x) { x$value }))
 names(meas.true) = meas.names.true
 meas.fake = rep(0, meas.num.fake)
 names(meas.fake) = meas.names.fake
@@ -599,12 +347,9 @@ cat("## end fit summary\n")
 cat("\n")
 cat("##\n")
 cat("## numerical fit, chisq/d.o.f = ", chisq.fit, "/", meas.num - quant.num,
-    ", CL= ", 100*(1-pchisq(chisq.fit, df=meas.num-quant.num)), "%\n",sep="")
+    ", CL = ", (1-pchisq(chisq.fit, df=meas.num-quant.num)), "\n",sep="")
 cat("##\n")
-width.max = max(nchar(quant.names.true))
-for (iquant in 1:quant.num.true) {
-  cat(format(quant.names[iquant], width=width.max+2, justify = "right"), "=", quant[iquant], "+-", quant.err[iquant], "\n")
-}
+show(rbind(value=quant[1:quant.num.true], error=quant.err[1:quant.num.true]))
 if (quant.num.true > 1) {
   cat("correlation\n")
   show(quant.corr[1:quant.num.true,1:quant.num.true])
@@ -632,12 +377,9 @@ chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
 cat("\n")
 cat("##\n")
 cat("## exact solution, chisq/d.o.f. = ",chisq, "/", meas.num - quant.num,
-    ", CL= ", 100*(1-pchisq(chisq, df=meas.num-quant.num)), "%\n",sep="")
+    ", CL = ", (1-pchisq(chisq, df=meas.num-quant.num)), "\n",sep="")
 cat("##\n")
-width.max = max(nchar(quant.names.true))
-for (iquant in 1:quant.num.true) {
-  cat(format(quant.names[iquant], width=width.max+2, justify = "right"), "=", quant[iquant], "+-", quant.err[iquant], "\n")
-}
+show(rbind(value=quant[1:quant.num.true], error=quant.err[1:quant.num.true]))
 if (quant.num.true > 1) {
   cat("correlation\n")
   show(quant.corr[1:quant.num.true,1:quant.num.true])
@@ -653,16 +395,18 @@ rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.
 
 ##-- for each "type", will set TRUE at the position of corresponding measurements
 meas.types = matrix(FALSE, dim(meas.types.id)[1], meas.num.true)
-rownames(meas.types) = rownames(meas.types.id)
+meas.types.names = rownames(meas.types.id)
+rownames(meas.types) = meas.types.names
 colnames(meas.types) = meas.names.true
          
-##-- chisq contribution for each measurement type
-chisq.contr = rep(0, dim(meas.types.id)[1])
-names(chisq.contr) = rownames(meas.types.id)
+##-- chisq contribution and dof for each measurement type
+chisq.types = rep(0, dim(meas.types.id)[1])
+names(chisq.types) = meas.types.names
+dof.types = chisq.types
 
 ##-- S-factor for each measurement type
 sfact.types = rep(1, dim(meas.types.id)[1])
-names(sfact.types) = rownames(meas.types.id)
+names(sfact.types) = meas.types.names
 
 ##-- S-factor for each true measurement
 sfact.true = rep(1, meas.num.true)
@@ -672,7 +416,7 @@ names(sfact.true) = meas.names.true
 ## collect chisq contributions for each measurement type
 ##
 for (i in 1:(dim(meas.types.id)[1])) {
-  chisq.contr.meas = numeric(0)
+  chisq.types.meas = numeric()
   for (i.meas in meas.names.true) {
     if (quant.num.true == 1) {
       quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas]
@@ -684,16 +428,17 @@ for (i in 1:(dim(meas.types.id)[1])) {
       meas.types[i,i.meas] = TRUE
       ##-- chisq contribution of the single measurement
       tmp = (meas[i.meas] - drop(quant.comb %*% quant[1:quant.num.true])) / meas.error[i.meas]
-      chisq.contr.meas = c(chisq.contr.meas, tmp^2)
+      chisq.types.meas = c(chisq.types.meas, tmp^2)
     }
   }
-  dof = length(chisq.contr.meas)-1
-  ##-- special treatment for when there is just 1 measurement of a specific type
-  if (dof == 0) dof = 1
   ##-- chisq/dof for each type of measurement
-  chisq.contr[i] = sum(chisq.contr.meas)/(length(chisq.contr.meas)-1)
+  chisq.types[i] = sum(chisq.types.meas)
+  ##-- number of degrees of freedom associated with measurements type
+  dof.types[i] = length(chisq.types.meas)-1
+  ##++ special treatment for when there is just 1 measurement of a specific type
+  if (dof.types[i] == 0) dof.types[i] = 1
   ##-- S-factor for each type of measurement and for each measurement
-  tmp = sqrt(chisq.contr[i])
+  tmp = sqrt(chisq.types[i]/dof.types[i])
   sfact.types[i] = tmp
   sfact.true[meas.types[i,]] = tmp
 }
@@ -708,16 +453,15 @@ chisq.dof = chisq/(meas.num-quant.num)
 ##
 ## S-factor per measurement
 ## - true measurements get the computed S-factors
-## - fake measurements get the average S-factor computed with the complete chisq
+## - fake measurements get S-factor = 1
 ## if any S-factor is less than 1, it is set to 1
 ##
-sfact = rep(min(1,sqrt(chisq.dof)), meas.num)
+sfact = rep(1, meas.num)
 names(sfact) = meas.names
 sfact[1:meas.num.true] = sfact.true.floored
 
 ##
-## inflate the true measurement section of the covariance matrix
-## with the proper S-factors
+## inflate the true+fake (=whole) covariance matrix with the S-factors
 ##
 meas2.cov = diag(sfact) %*% meas.cov %*% diag(sfact)
 invcov2 = solve(meas2.cov)
@@ -745,21 +489,51 @@ quant2.err = sqrt(diag(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
 cat("\n")
-cat("#\n")
-cat("# S-factors accounting for larger than expected chi-quare\n")
-cat("#\n")
+cat("##\n")
+cat("## S-factors accounting for larger than expected chi-quare\n")
+cat("##\n")
 
-cat("Original / updated chi-square/dof:", chisq/(meas.num-quant.num), "/", chisq2/(meas.num-quant.num), "\n")
+dof = (meas.num-quant.num)
+show(rbind(original=c(chisq=chisq, dof=dof, "chisq/dof"=chisq/dof),
+           updated=c(chisq=chisq2, dof=dof, "chisq/dof"=chisq2/dof)))
 
-cat("S-factors per type of measurement (before setting =1 if smaller)\n") 
-show(sfact.types)
+if (FALSE) {
+  cat("Measurement types: chisq, dof, S-factor\n") 
+  show(rbind(chisq=chisq.types,
+             dof=dof.types,
+             "S-factor"=sfact.types.floored ))
+}
 
-cat("S-factors per averaged quantity\n") 
-show(quant2.err[1:quant.num.true] / quant.err[1:quant.num.true])
+cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
+show(rbind(value=quant[1:quant.num.true],
+           error=quant.err[1:quant.num.true],
+           upd.error=quant2.err[1:quant.num.true],
+           "S-factor"=quant2.err[1:quant.num.true] / quant.err[1:quant.num.true],
+           "S-factor_0"=sfact.types[meas.types.names %in% quant.names.true],
+           chisq=chisq.types[meas.types.names %in% quant.names.true],
+           dof=dof.types[meas.types.names %in% quant.names.true]
+           ))
 
-cat("Updated errors and correlation\n") 
-show(quant2.err[1:quant.num.true])
+cat("correlation\n") 
 show(quant2.corr[1:quant.num.true,1:quant.num.true])
+
+##-- measurement types that do not correspond to an averaged quantity
+meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
+meas.extra.id = meas.types.id[meas.types.names %in% meas.names.extra,]
+meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
+meas.extra = drop(meas.extra.id %*% quant[1:quant.num.true])
+meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
+meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
+
+cat("Non-averaged measurement types: value, error, error with S-factor, S-factor\n") 
+show(rbind(value=meas.extra,
+           error=meas.extra.err,
+           upd.error=meas.extra.err.upd,
+           "S-factor"=meas.extra.err.upd/meas.extra.err,
+           "S-factor_0"=sfact.types[meas.types.names %in% meas.names.extra],
+           chisq=chisq.types[meas.types.names %in% meas.names.extra],
+           dof=dof.types[meas.types.names %in% meas.names.extra]
+           ))
 
 } ##-- end function alucomb
 
