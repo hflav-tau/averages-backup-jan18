@@ -62,7 +62,7 @@ get.pdg.average = function(file) {
 get.combos.chi2sym = function(file) {
   rc = list()
   fh = pipe(paste(
-    "awk 2>/dev/null '/CHI2_SYM: CHI2, NMEFF, CHI2\\/NDOF/ {flag++}; flag>1'",
+    "awk 2>/dev/null '/CHI2_SYM: CHI2\\/NDOF, SCALE FAC, CL/ {flag++}; flag>1'",
     file, sep=" "))
   average = readLines(fh)
   close(fh)
@@ -227,8 +227,8 @@ get.alucomb.section = function(lines, pattern, file, offset=0) {
 ##
 get.alucomb = function(file) {
   ol = list()
-
-  lines = suppressWarnings(try(get.file.lines(log.file("average_alucomb.log")), silent=TRUE))
+  
+  lines = suppressWarnings(try(get.file.lines(file), silent=TRUE))
   if (inherits(lines, "try-error")) {
     warning("Cannot open / read file ", file)
     return(ol)
@@ -281,6 +281,7 @@ file = "average.input"
 rc = alucomb.read(file)
 measurements = rc$measurements
 combination = rc$combination
+plot.data = list()
 
 log.dir = file.path("../../../Data", sub("^.*/([^/]*/[^/]*/[^/]*)$", "\\1", getwd()))
 log.file = function(fname) {file.path(log.dir, fname)}
@@ -339,7 +340,6 @@ for (line in lines) {
   names(meas.asymm[[tag]]) = c("meas", "stat_pos", "stat_neg", "syst_pos", "syst_neg")
 }
 
-plot.data = list()
 for (quant in quant.names) {
   plot.data[[quant]] = list()
 }
@@ -396,11 +396,25 @@ for (quant in quant.names) {
   ##
   ## get average info either from alucomb or Combos
   ##
-  value = plot.data$hfag$val[quant]
-  error = plot.data$hfag$err[quant]
-  if (is.null(value)) {
-    warning("could not find HFAG average for ", quant)
+  if (is.null(plot.data$hfag$chisq.all)) {
+    ##-- alucomb info not available, use combos if existing
+    value = plot.data$hfag$val[toupper(quant)]
+    error = plot.data$hfag$err[toupper(quant)]
+    conf.lev = plot.data$hfag$CL
+    conf.lev.plot = conf.lev
+    scale.factor = plot.data$hfag$scale
+    ##++ combos data rule for setting scale, ask Swagato
+    if (conf.lev < 1e-3) {
+      ##++ remove following "if" when scale.factor for chi_sym fixed
+      if (conf.lev != -scale.factor) {
+        error = error*scale.factor
+        conf.lev.plot = -scale.factor
+      }
+    }
   } else {
+    ##-- alucomb info available
+    value = plot.data$hfag$val[quant]
+    error = plot.data$hfag$err[quant]
     chisq = plot.data$hfag$chisq.all[quant]
     dof = plot.data$hfag$dof.all[quant]
     scale.factor = plot.data$hfag$sfact[quant]
@@ -411,20 +425,12 @@ for (quant in quant.names) {
       if (scale.factor > 1) {
         conf.lev.plot = -scale.factor
       }
-    } else {
-      ##-- alucomb data not present, use combos common data
-      conf.lev = plot.data$hfag$CL
-      conf.lev.plot = conf.lev
-      scale.factor = plot.data$hfag$scale
-      ##++ combos data rule for setting scale, ask Swagato
-      if (conf.lev < 1e-3) {
-        ##++ remove following "if" when scale.factor for chi_sym fixed
-        if (conf.lev != -scale.factor) {
-          error = error*scale.factor
-          conf.lev.plot = -scale.factor
-        }
-      }
     }
+  }
+      
+  if (is.null(value) || is.na(value)) {
+    warning("could not find HFAG average data for ", quant)
+  } else {
     plot.data[[quant]]$hfag$avg = c(value, error)
     plot.data[[quant]]$hfag$CL = conf.lev
     plot.data[[quant]]$hfag$CL.plot = conf.lev.plot
