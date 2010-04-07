@@ -7,9 +7,7 @@
 ## return list of lines from file
 ##
 get.file.lines <- function(fname) {
-  fh <- file(fname)
-  lines  <- readLines(fh)
-  close(fh)
+  lines  <- readLines(fname)
   return(lines)
 }
 
@@ -163,10 +161,23 @@ for (line in lines) {
       ##
       ## measurement cards
       ##
-      names(data.values) = data.labels
       if (length(meas.labels) != 3) {
         stop("wrong number of MEASUREMENT labels: ",length(meas.labels),"instead of 3\n")
       }
+
+      ##
+      ## deal with stat & syst errors expressed as percentage of value
+      ##++ assume that first data value is the measurement
+      ##
+      patt.perc = "([[:alnum:]]+[^[:alnum:]]*)(%)([^[:alnum:]]*)$"
+      for (i in 2:length(data.values)) {
+        if (regexpr(patt.perc, data.labels[i]) != -1) {
+          data.labels[i] = gsub(patt.perc, "\\1\\3", data.labels[i])
+          data.values[i] = data.values[1] * data.values[i] /100
+        }
+      }
+      names(data.values) = data.labels
+      
       ##-- get measurement values from following DATA values
       meas.values = numeric(length(meas.labels))
       names(meas.values) = meas.labels
@@ -186,16 +197,9 @@ for (line in lines) {
 
       if (meas$bibitem[2] != meas.labels[1]) {
         ##-- when combining multiple quantities, "method" should same as the measured quantity name
-        cat("warning: measurement method '", meas$bibitem[2], "' does not match value '", data.labels[1], "'\n", sep="")
+        cat("warning: measurement method '", meas$bibitem[2], "' does not match value '", meas.labels[1], "'\n", sep="")
       }
-      ##-- deal with stat & syst errors expressed as percentage of value
-      patt.perc = "([[:alnum:]]+[^[:alnum:]]*)(%)([^[:alnum:]]*)$"
-      for (i in 2:length(meas.values)) {
-        if (regexpr(patt.perc, meas.labels[i]) != -1) {
-          meas.labels[i] = gsub(patt.perc, "\\1\\3", meas.labels[i])
-          meas.values[i] = meas.value[1] * meas.values[i] /100
-        }
-      }
+
       meas$value = meas.values[1]
       meas$stat = meas.values[2]
       meas$syst = meas.values[3]

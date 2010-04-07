@@ -31,7 +31,7 @@ source("../../../Common/bin/alucomb-read.r")
 
 file = "average.input"
 
-alucomb = function(file = "") {
+## alucomb = function(file = "") {
 
 rc = alucomb.read(file)
 measurements = rc$measurements
@@ -73,11 +73,13 @@ meas.names = names(measurements)
 for (meas in names(measurements)) {
   syst.contribs = sqrt(sum(measurements[[meas]]$syst.terms^2))
   if (syst.contribs > (1+1e-3)*measurements[[meas]]$syst) {
-    stop("error: sum of syst. contributions larger than syst. error ",
-         syst.contribs, ", ", measurements[[meas]]$syst)
+    stop("error: syst. terms larger than syst. error\n    ",
+         syst.contribs, " vs. ", measurements[[meas]]$syst, "\n    ",
+         "measurement ", meas)
   } else if (syst.contribs > (1+1e-5)*measurements[[meas]]$syst) {
-    cat("warning: sum of syst. terms slightly larger than syst. error\n  ",
-        syst.contribs, " vs. ", measurements[[meas]]$syst, "\n", sep="")
+    cat("warning: syst. terms slightly larger than syst. error\n    ",
+        syst.contribs, " vs. ", measurements[[meas]]$syst, "\n    ",
+        "measurement ", meas, "\n", sep="")
   }
 }
 
@@ -514,8 +516,10 @@ show(rbind(value=quant[1:quant.num.true],
            dof=dof.types[meas.types.names %in% quant.names.true]
            ))
 
-cat("correlation\n") 
-show(quant2.corr[1:quant.num.true,1:quant.num.true])
+if (quant.num.true > 1) {
+  cat("correlation\n") 
+  show(quant2.corr[1:quant.num.true,1:quant.num.true])
+}
 
 ##-- measurement types that do not correspond to an averaged quantity
 meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
@@ -525,17 +529,19 @@ meas.extra = drop(meas.extra.id %*% quant[1:quant.num.true])
 meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
 meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
 
-cat("Non-averaged measurement types: value, error, error with S-factor, S-factor\n") 
-show(rbind(value=meas.extra,
-           error=meas.extra.err,
-           upd.error=meas.extra.err.upd,
-           "S-factor"=meas.extra.err.upd/meas.extra.err,
-           "S-factor_0"=sfact.types[meas.types.names %in% meas.names.extra],
-           chisq=chisq.types[meas.types.names %in% meas.names.extra],
-           dof=dof.types[meas.types.names %in% meas.names.extra]
+if (length(meas.extra) >0) {
+  cat("Non-averaged measurement types: value, error, error with S-factor, S-factor\n") 
+  show(rbind(value=meas.extra,
+             error=meas.extra.err,
+             upd.error=meas.extra.err.upd,
+             "S-factor"=meas.extra.err.upd/meas.extra.err,
+             "S-factor_0"=sfact.types[meas.types.names %in% meas.names.extra],
+             chisq=chisq.types[meas.types.names %in% meas.names.extra],
+             dof=dof.types[meas.types.names %in% meas.names.extra]
            ))
+}
 
-} ##-- end function alucomb
+##} ##-- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) alucomb(file = args[1]) 
