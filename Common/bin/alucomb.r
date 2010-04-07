@@ -69,8 +69,9 @@ meas.quantities = meas.quantities[meas.list]
 meas.num = length(measurements[meas.list])
 meas.names = names(measurements)
 
-##-- check that the sum of syst. terms does not exceed the syst. error
+##-- checks on syst terms
 for (meas in names(measurements)) {
+  ##-- check that the sum of syst. terms does not exceed the syst. error
   syst.contribs = sqrt(sum(measurements[[meas]]$syst.terms^2))
   if (syst.contribs > (1+1e-3)*measurements[[meas]]$syst) {
     stop("error: syst. terms larger than syst. error\n    ",
@@ -81,26 +82,56 @@ for (meas in names(measurements)) {
         syst.contribs, " vs. ", measurements[[meas]]$syst, "\n    ",
         "measurement ", meas, "\n", sep="")
   }
+  ##-- warning if sum of syst terms different w.r.t. total syst
+  if (abs(syst.contribs-measurements[[meas]]$syst) /
+      sqrt(syst.contribs * measurements[[meas]]$syst) > 1e-3) {
+    warning("syst. terms do not match total syst. error, Combos requires that:\n  ",
+            meas, ": ", measurements[[meas]]$syst, " vs. ", syst.contribs)
+  }
 }
 
 ##
 ## shift measurements according to updated external parameter dependencies
 ## update systematic terms according to updated external parameter errors
 ##
-for (param.upd in names(combination$params)) {
-  for (meas in names(measurements)) {
+for (meas in names(measurements)) {
+  value.delta = numeric()
+  syst.term.deltasq = numeric()
+  for (param.upd in names(combination$params)) {
     for (param.orig in names(measurements[[meas]]$params)) {
       if (param.orig == param.upd) {
-        measurements[[meas]]$value =
-          (measurements[[meas]]$value
-           + (combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
-           * measurements[[meas]]$syst.terms[param.orig] / measurements[[meas]]$params[[param.orig]]["delta_pos"])
-        measurements[[meas]]$syst.terms[param.orig] =
-          (measurements[[meas]]$syst.terms[param.orig]
-           * combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"])
+        ##-- collect differences due to updated parameters
+        value.delta = c(value.delta,
+          ((combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
+           * measurements[[meas]]$syst.terms[param.orig] / measurements[[meas]]$params[[param.orig]]["delta_pos"]))
+        ##-- update systematic contribution according to updated parameter
+        syst.term.orig = measurements[[meas]]$syst.terms[param.orig]
+        syst.term.upd = syst.term.orig *
+          combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"]
+        measurements[[meas]]$syst.terms[param.orig] = syst.term.upd
+        ##-- collect difference of syst term squares, to adjust the total systematic error as well
+        syst.term.deltasq = c(syst.term.deltasq, (syst.term.upd^2 - syst.term.orig^2))
+        cat(format(measurements[[meas]]$tag,width=30),
+            format(param.orig,width=15),
+            format(c(
+            measurements[[meas]]$params[[param.orig]]["value"],
+            combination$params[[param.upd]]["value"],
+            (combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
+            / measurements[[meas]]$params[[param.orig]]["delta_pos"],
+            ## (value.upd - value.orig),
+            measurements[[meas]]$params[[param.orig]]["delta_pos"],
+            combination$params[[param.upd]]["delta_pos"],
+            combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"]),
+            width=10,digits=4,scientific=TRUE),
+            "\n")
       }
     }
   }
+  ##-- update value
+  measurements[[meas]]$value = measurements[[meas]]$value + sum(value.delta)
+  ##-- update systematic error
+  measurements[[meas]]$syst = sqrt(measurements[[meas]]$syst^2 + sum(syst.term.deltasq))
+  cat(measurements[[meas]]$tag, measurements[[meas]]$value, measurements[[meas]]$stat, measurements[[meas]]$syst, "\n")
 }
 
 ##-- collect what measurements are affected by each syst. term
@@ -392,6 +423,7 @@ if (quant.num.true > 1) {
 ## here we collect all the unique linear combinations, named "types"
 ##
 meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true])
+meas.types.id = unique(subset(delta, 1:dim(delta)[1] %in% 1:meas.num.true, 1:dim(delta)[2] %in% 1:quant.num.true))
 if (class(meas.types.id) == "numeric") meas.types.id = matrix(meas.types.id, 1, 1)
 rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
 
@@ -507,6 +539,7 @@ if (FALSE) {
 }
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
+if(FALSE) {
 show(rbind(value=quant[1:quant.num.true],
            error=quant.err[1:quant.num.true],
            upd.error=quant2.err[1:quant.num.true],
@@ -514,6 +547,29 @@ show(rbind(value=quant[1:quant.num.true],
            "S-factor_0"=sfact.types[meas.types.names %in% quant.names.true],
            chisq=chisq.types[meas.types.names %in% quant.names.true],
            dof=dof.types[meas.types.names %in% quant.names.true]
+           ))
+}
+if (quant.num.true > 1) {
+  ##-- if multiple average, use dedicated S-factor computation
+  sfact.row = quant2.err[1:quant.num.true] / quant.err[1:quant.num.true]
+  sfact0.row = sfact.types[meas.types.names %in% quant.names.true]
+  chisq.row = chisq.types[meas.types.names %in% quant.names.true]
+  dof.row = dof.types[meas.types.names %in% quant.names.true]
+} else {
+  ##-- if averaging a single quantity, use global chisq to compute S-factor
+  sfact0.row = sfact.types[meas.types.names %in% quant.names.true]
+  sfact.row = sqrt(chisq/dof)
+  quant2.err[1] = quant.err[1]*sfact.row[1]
+  chisq.row = chisq
+  dof.row = dof
+}
+show(rbind(value=quant[1:quant.num.true],
+           error=quant.err[1:quant.num.true],
+           upd.error=quant2.err[1:quant.num.true],
+           "S-factor"=sfact.row,
+           "S-factor_0"=sfact0.row,
+           chisq=chisq.row,
+           dof=dof.row
            ))
 
 if (quant.num.true > 1) {
