@@ -1,4 +1,4 @@
-.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all makelink
+.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all makelink alucomb aluplot
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
@@ -36,15 +36,23 @@ combos:
 	  /bin/rm -f average.log ; \
 	  echo "../../../combos/combos average.input > average.log" ; \
 	  ../../../combos/combos average.input > average.log ; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average.log created:' ; \
+	  echo "file $(CURDIR)/average.log created" ; \
 	fi
 
 alucomb:
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f average_alucomb.log ; \
-	  echo "../../../Common/bin/alucomb.r average.input > average_alucomb.log" ; \
+	  echo "../../../Common/bin/alucomb.r average.input > average_alucomb.log 2>&1" ; \
 	  ../../../Common/bin/alucomb.r average.input > average_alucomb.log ; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/average_alucomb.log created:' ; \
+	  echo "file $(CURDIR)/average_alucomb.log created" ; \
+	fi
+
+aluplot:
+	@if [ -f average.input ] ; then \
+	  /bin/rm -f aluplot.log ; \
+	  echo "../../../Common/bin/aluplot.r average.input > aluplot.log 2>&1" ; \
+	  ../../../Common/bin/aluplot.r average.input > aluplot.log ; \
+	  echo "file $(CURDIR)/aluplot.log created" ; \
 	fi
 
 pdg:
@@ -53,7 +61,7 @@ pdg:
 	  /bin/rm -f pdg_average.log; \
 	  echo "root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log" ; \
 	  root -l -b -q ../../../Common/pdg_average.cc > pdg_average.log; \
-	  /bin/pwd | sed -e 's:.*/\([^/]*/[^/]*/[^/]*\)$$:file \1/pdg_average.log created:'; \
+	  echo "file $(CURDIR)/pdg_average.log created" ; \
 	fi
 
 plot:	$(PLOTS)
