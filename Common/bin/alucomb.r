@@ -31,7 +31,7 @@ source("../../../Common/bin/alucomb-read.r")
 
 file = "average.input"
 
-## alucomb = function(file = "") {
+alucomb = function(file = "") {
 
 rc = alucomb.read(file)
 measurements = rc$measurements
@@ -541,7 +541,7 @@ if (length(meas.extra) >0) {
            ))
 }
 
-##} ##-- end function alucomb
+} ##-- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) alucomb(file = args[1]) 
