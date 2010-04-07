@@ -83,8 +83,8 @@ for (meas in names(measurements)) {
         "measurement ", meas, "\n", sep="")
   }
   ##-- warning if sum of syst terms different w.r.t. total syst
-  if (abs(syst.contribs-measurements[[meas]]$syst) /
-      sqrt(syst.contribs * measurements[[meas]]$syst) > 1e-3) {
+  if (abs(syst.contribs-measurements[[meas]]$syst) >
+      1e-3 * sqrt(syst.contribs * measurements[[meas]]$syst)) {
     warning("syst. terms do not match total syst. error, Combos requires that:\n  ",
             meas, ": ", measurements[[meas]]$syst, " vs. ", syst.contribs)
   }
