@@ -69,7 +69,7 @@ get.combos.chi2sym = function(file) {
   average = paste(average, collapse=";")
   patt = paste(".*CHI2_SYM\\s+:\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*CL\\s*=\\s*([.0-9eE+-]+).*", sep="")
-  if (regexpr(patt,average,perl=TRUE) == -1) {
+  if (regexpr(patt, average, perl=TRUE) == -1) {
     return(list())
   }
   fields = unlist(strsplit(sub(patt, "\\1;\\2;\\3;\\4", average, perl=TRUE), ";"))
@@ -208,7 +208,7 @@ get.alucomb.data = function(lines) {
 get.alucomb.section = function(lines, pattern, file, offset=0) {
   liv = grep(pattern, lines)
   if (length(liv) == 0) {
-    warning("cannot find '", pattern, "' in ", file)
+    cat("warning: cannot find '", pattern, "' in\n  ", file, "\n", sep="")
     return(NULL)
   }
   li = liv[1]
@@ -261,12 +261,17 @@ get.alucomb = function(file) {
   li = li + rc$lines
 
   data = cbind(rc.av$data, rc.extra$data)
-
+  
   ol$val = data["value",]
+  names(ol$val) = colnames(data)
   ol$err = data["upd.error",]
+  names(ol$err) = colnames(data)
   ol$sfact = data["S-factor",]
+  names(ol$sfact) = colnames(data)
   ol$chisq.all = data["chisq",]
+  names(ol$chisq.all) = colnames(data)
   ol$dof.all = data["dof",]
+  names(ol$dof.all) = colnames(data)
 
   return(ol)
 }
