@@ -85,8 +85,8 @@ for (meas in names(measurements)) {
   ##-- warning if sum of syst terms different w.r.t. total syst
   if (abs(syst.contribs-measurements[[meas]]$syst) >
       1e-3 * sqrt(syst.contribs * measurements[[meas]]$syst)) {
-    warning("syst. terms do not match total syst. error, Combos requires that:\n  ",
-            meas, ": ", measurements[[meas]]$syst, " vs. ", syst.contribs)
+    cat("warning: syst. terms do not match total syst. error, Combos requires that:\n  ",
+            meas, ": ", measurements[[meas]]$syst, " vs. ", syst.contribs, "\n", sep="")
   }
 }
 
@@ -111,6 +111,7 @@ for (meas in names(measurements)) {
         measurements[[meas]]$syst.terms[param.orig] = syst.term.upd
         ##-- collect difference of syst term squares, to adjust the total systematic error as well
         syst.term.deltasq = c(syst.term.deltasq, (syst.term.upd^2 - syst.term.orig^2))
+        if (FALSE) {
         cat(format(measurements[[meas]]$tag,width=30),
             format(param.orig,width=15),
             format(c(
@@ -124,6 +125,7 @@ for (meas in names(measurements)) {
             combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"]),
             width=10,digits=4,scientific=TRUE),
             "\n")
+        }
       }
     }
   }
@@ -131,7 +133,7 @@ for (meas in names(measurements)) {
   measurements[[meas]]$value = measurements[[meas]]$value + sum(value.delta)
   ##-- update systematic error
   measurements[[meas]]$syst = sqrt(measurements[[meas]]$syst^2 + sum(syst.term.deltasq))
-  cat(measurements[[meas]]$tag, measurements[[meas]]$value, measurements[[meas]]$stat, measurements[[meas]]$syst, "\n")
+  ## cat(measurements[[meas]]$tag, measurements[[meas]]$value, measurements[[meas]]$stat, measurements[[meas]]$syst, "\n")
 }
 
 ##-- collect what measurements are affected by each syst. term
