@@ -1,5 +1,5 @@
 .PHONY:	all link combos alucomb pdg aluplot plot 
-.PHONY:	update_combos update_alucomb update_pdg update_plot update_plot_web update_all
+.PHONY:	update_combos update_alucomb update_pdg update_plot update_all
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
@@ -101,8 +101,8 @@ update_plot_all:  $(PLOTS)
 	  for file in $(patsubst %.eps,%.gif, $^) ; do \
 	    echo $${file} | /bin/sed -e 's@plot\(.*\)@/bin/cp plot\1 $(HFAGPLOTDIR)/$(CURDIRBASE)\1@' | sh -v ;\
 	  done ;\
-	  echo "updating plots gallery with albatross" ;\
 	  if [ `uname -s` = "Linux" ] ; then \
+	  echo "updating plots gallery with albatross" ;\
 	  (cd $(HFAGPLOTDIR); \
 	   ../../../tau/bin/albatross --indexname gallery.html --clear; \
 	   ../../../tau/bin/albatross --indexname gallery.html --light --noexif) ;\
