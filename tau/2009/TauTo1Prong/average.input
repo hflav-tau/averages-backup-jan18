@@ -43,6 +43,15 @@ PARAMETER CHI2_N_SYM_06    25 45 -45
 PARAMETER CHI2_N_SYM_07    26 45 -45
 PARAMETER CHI2_N_SYM_08    27 45 -45
 
+SUMOFMEAS DELPHI HmNu published PimNu KmNu
+SUMOFMEAS OPAL HmNu published PimNu KmNu
+SUMOFMEAS CLEO HmNu published PimNu KmNu
+SUMOFMEAS Belle HmPizNu published PimPizNu KmPizNu
+SUMOFMEAS DELPHI HmPizNu published PimPizNu KmPizNu
+SUMOFMEAS OPAL HmPizNu published PimPizNu KmPizNu
+SUMOFMEAS L3 HmPizNu published PimPizNu KmPizNu
+SUMOFMEAS CLEO HmPizNu published PimPizNu KmPizNu
+
 * CALL DUMP_MASTER_INC
 CALL CHI2_N_SYM
 
