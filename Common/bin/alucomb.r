@@ -31,7 +31,7 @@ source("../../../Common/bin/alucomb-read.r")
 
 file = "average.input"
 
-alucomb = function(file = "") {
+##++ alucomb = function(file = "") {
 
 rc = alucomb.read(file)
 measurements = rc$measurements
@@ -424,9 +424,9 @@ if (quant.num.true > 1) {
 ## each measurement is a linear combination of the quantities we fit
 ## here we collect all the unique linear combinations, named "types"
 ##
-meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true])
+## meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true])
+## if (class(meas.types.id) == "numeric") meas.types.id = matrix(meas.types.id, 1, 1)
 meas.types.id = unique(subset(delta, 1:dim(delta)[1] %in% 1:meas.num.true, 1:dim(delta)[2] %in% 1:quant.num.true))
-if (class(meas.types.id) == "numeric") meas.types.id = matrix(meas.types.id, 1, 1)
 rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
 
 ##-- for each "type", will set TRUE at the position of corresponding measurements
@@ -450,6 +450,12 @@ names(sfact.true) = meas.names.true
 
 ##
 ## collect chisq contributions for each measurement type
+## the following is filled:
+## - matrix meas.types[meas.types,quant) with TRUE where a meas.type has a quantity as addendum
+## - chisq.types: chisq per measurement type
+## - dof.types: dof per measurement type
+## - sfact.types: S-factor per measurement type
+## - sfact.true: S-factor per true measurement
 ##
 for (i in 1:(dim(meas.types.id)[1])) {
   chisq.types.meas = numeric()
@@ -482,10 +488,6 @@ for (i in 1:(dim(meas.types.id)[1])) {
 sfact.types.floored = pmax(sfact.types, 1)
 sfact.true.floored = pmax(sfact.true, 1)
 
-##-- recompute chisq and chisq/dof
-chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
-chisq.dof = chisq/(meas.num-quant.num)
-
 ##
 ## S-factor per measurement
 ## - true measurements get the computed S-factors
@@ -510,6 +512,10 @@ delta2 = delta
 for (i.meas in meas.names.true) {
   delta2[i.meas,quant.names %in% quant.names.fake] = delta[i.meas,quant.names %in% quant.names.fake]*sfact[i.meas]
 }
+
+##-- recompute chisq and chisq/dof
+chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+chisq.dof = chisq/(meas.num-quant.num)
 
 ##-- compute new chi-square
 chisq2 = drop(t(meas - delta2 %*% quant) %*% invcov2 %*% (meas - delta2 %*% quant))
@@ -599,7 +605,7 @@ if (length(meas.extra) >0) {
            ))
 }
 
-} ##-- end function alucomb
+##++ } ##-- end function alucomb
 
 args <- commandArgs(TRUE)
-if (length(args) > 0) alucomb(file = args[1]) 
+if (length(args) > 0 && exists("alucomb")) alucomb(file = args[1]) 
