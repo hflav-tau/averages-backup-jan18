@@ -23,6 +23,7 @@ label.root = function(str) {
     str = gsub("F1", "f_{1}",str)
     str = gsub("Pi", "#pi",str)
     str = gsub("Nu", "#nu",str)
+    str = gsub("M", "#mu",str)
     str = gsub("H", "h",str)
     str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
     str = gsub("p($|[#}A-Zh])", "^{+}\\1", str, perl=TRUE)
@@ -264,7 +265,7 @@ get.alucomb = function(file) {
   
   ol$val = data["value",]
   names(ol$val) = colnames(data)
-  ol$err = data["upd.error",]
+  ol$err = data["error",]
   names(ol$err) = colnames(data)
   ol$sfact = data["S-factor",]
   names(ol$sfact) = colnames(data)
@@ -406,16 +407,7 @@ for (quant in quant.names) {
     value = plot.data$hfag$val[toupper(quant)]
     error = plot.data$hfag$err[toupper(quant)]
     conf.lev = plot.data$hfag$CL
-    conf.lev.plot = conf.lev
     scale.factor = plot.data$hfag$scale
-    ##++ combos data rule for setting scale, ask Swagato
-    if (conf.lev < 1e-3) {
-      ##++ remove following "if" when scale.factor for chi_sym fixed
-      if (conf.lev != -scale.factor) {
-        error = error*scale.factor
-        conf.lev.plot = -scale.factor
-      }
-    }
   } else {
     ##-- alucomb info available
     value = plot.data$hfag$val[quant]
@@ -423,16 +415,22 @@ for (quant in quant.names) {
     chisq = plot.data$hfag$chisq.all[quant]
     dof = plot.data$hfag$dof.all[quant]
     scale.factor = plot.data$hfag$sfact[quant]
-    if (!is.null(chisq)) {
-      conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
-      conf.lev.plot = conf.lev
-      ##-- if using alucomb, set S-factor if larger than one
-      if (scale.factor > 1) {
-        conf.lev.plot = -scale.factor
-      }
-    }
+    conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
   }
-      
+  
+  ##
+  ## HFAG does not usually use S-factors but rather quotes CL
+  ## however when CL<CL_min we quote S-factors instead 
+  ##
+  conf.lev.plot = conf.lev
+  if (conf.lev < 1e-2) {
+    ##++ remove following "if" when scale.factor for chi_sym fixed
+    if (conf.lev != -scale.factor) {
+      error = error*scale.factor
+    }
+    conf.lev.plot = -scale.factor
+  }
+  
   if (is.null(value) || is.na(value)) {
     warning("could not find HFAG average data for ", quant)
   } else {
