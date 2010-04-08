@@ -1,4 +1,4 @@
-.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all makelink alucomb aluplot
+.PHONY:	all combos pdg plot update_log update_pdglog update_plotlog update_all link alucomb aluplot
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
 
@@ -124,5 +124,16 @@ update_all: update_log update_pdglog update_plotlog update_alucomblog
 
 all: combos pdg plot update_all
 
-makelink:
-	ln -s /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/$(CURDIR) log
+link:
+	@if [ -d "../../../Data" ] ; then \
+	  /bin/mkdir -p "../../../Data/$(CURDIR)" ;\
+	  ln -sf "../../../Data/$(CURDIR)" log ;\
+	  echo "log is soft link to ../../../Data/$(CURDIR)" ;\
+	elif [ -d /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ] ; then \
+	  /bin/mkdir -p "/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/$(CURDIR)" ;\
+	  ln -fs /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/$(CURDIR) log ;\
+	else \
+	  echo "no data directory found" ;\
+	  echo "either create ../../../Data" ;\
+	  echo "or make accessible /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data" ;\
+	fi
