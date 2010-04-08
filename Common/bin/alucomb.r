@@ -346,20 +346,13 @@ if (!flag.no.maxLik) {
 ## solve for quantities with iterative chi-square minimization
 ##
 
+##-- compute weight matrix for computing chisq
+invcov = solve(meas.cov)
+
 logLik.average = function(par) {
   chisq = t(meas - delta %*% par) %*% invcov %*% (meas - delta %*% par)
   return(-1/2*chisq)
 }
-
-invcov = solve(meas.cov)
-
-quant.cov = solve(t(delta) %*% invcov %*% delta)
-rownames(quant.cov) = quant.names
-colnames(quant.cov) = quant.names
-quant.err = sqrt(diag(quant.cov))
-
-quant = drop(quant.cov %*% t(delta) %*% (invcov %*% meas))
-names(quant) = quant.names
 
 fit = maxLik(logLik.average, start=rep(0,quant.num), method="BFGS")
 
@@ -484,7 +477,6 @@ for (mt.name in meas.types.names) {
     ## mt.select = !meas.types[mt.name,]
     mt.select = c(!meas.types[mt.name,], rep(TRUE, meas.num.fake))
     meas.cov.redu = subset(meas.cov, subset=mt.select, select=mt.select)
-    meas.cov.redu = subset(meas.cov, subset=mt.select, select=mt.select)
     invcov.redu = solve(meas.cov.redu)
     meas.delta = subset(meas - delta %*% quant, subset=mt.select)
     
@@ -512,7 +504,7 @@ sfact.true.floored = pmax(sfact.true, 1)
 ##
 ## S-factor per measurement
 ## - true measurements get the computed S-factors
-## - fake measurements get S-factor = 1
+## - fake measurements get S-factor=1
 ## if any S-factor is less than 1, it is set to 1
 ##
 sfact = rep(1, meas.num)
@@ -531,16 +523,8 @@ invcov2 = solve(meas2.cov)
 ##
 delta2 = delta
 for (m.name in meas.names.true) {
-  delta2[m.name,quant.names %in% quant.names.fake] = delta[m.name,quant.names %in% quant.names.fake]*sfact[m.name]
+  delta2[m.name, quant.names %in% quant.names.fake] = delta[m.name, quant.names %in% quant.names.fake] * sfact[m.name]
 }
-
-##-- recompute chisq and chisq/dof
-chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
-chisq.dof = chisq/(meas.num-quant.num)
-
-##-- compute new chi-square
-chisq2 = drop(t(meas - delta2 %*% quant) %*% invcov2 %*% (meas - delta2 %*% quant))
-chisq2.dof = chisq2/(meas.num-quant.num)
 
 ##-- compute new inflated fitted quantities covariance matrix 
 quant2.cov = solve(t(delta2) %*% invcov2 %*% delta2)
@@ -551,33 +535,42 @@ colnames(quant2.cov) = quant.names
 quant2.err = sqrt(diag(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
+##-- recompute chisq and chisq/dof
+chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+
+##
+## compute new chi-square
+## ++ just here we use re-minimized quantities with S-factor inflated errors
+## ++ in this way the chisq ends up the same when replacing covariance with
+## ++ dummy external parameters
+##
+quant.sfact = drop(quant2.cov %*% t(delta2) %*% (invcov2 %*% meas))
+names(quant.sfact) = quant.names
+chisq2 = drop(t(meas - delta2 %*% quant.sfact) %*% invcov2 %*% (meas - delta2 %*% quant.sfact))
+
 cat("\n")
 cat("##\n")
 cat("## S-factors accounting for larger than expected chi-quare\n")
 cat("##\n")
-
 dof = (meas.num-quant.num)
-show(rbind(original=c(chisq=chisq, dof=dof, "chisq/dof"=chisq/dof, CL=pchisq(chisq,dof,lower.tail=FALSE)),
-           updated=c(chisq=chisq2, dof=dof, "chisq/dof"=chisq2/dof, CL=pchisq(chisq2,dof,lower.tail=FALSE))))
 
-if (FALSE) {
-  cat("Measurement types: chisq, dof, S-factor\n") 
-  show(rbind(chisq=chisq.types,
-             dof=dof.types,
-             "S-factor"=sfact.types.floored ))
-}
+##-- compute chisq for true measurements only (experimental)
+meas.cov.true = meas.cov[1:meas.num.true,1:meas.num.true,drop=FALSE]
+meas.delta = (meas - delta %*% quant)[1:meas.num.true, drop=FALSE]
+invcov.true = solve(meas.cov.true)
+chisq.true = drop(t(meas.delta) %*% invcov.true %*% meas.delta)
+meas2.cov.true = meas2.cov[1:meas.num.true,1:meas.num.true,drop=FALSE]
+meas2.delta = (meas - delta2 %*% quant)[1:meas.num.true, drop=FALSE]
+invcov.true = solve(meas2.cov.true)
+chisq2.true = drop(t(meas2.delta) %*% invcov.true %*% meas2.delta)
+
+show(rbind(original   = c(chisq=chisq, dof=dof, "chisq/dof"=chisq/dof, CL=pchisq(chisq,dof,lower.tail=FALSE))
+           ,updated    = c(chisq=chisq2, dof=dof, "chisq/dof"=chisq2/dof, CL=pchisq(chisq2,dof,lower.tail=FALSE))
+           ##,original.t = c(chisq=chisq.true, dof=dof, "chisq/dof"=chisq.true/dof, CL=pchisq(chisq.true,dof,lower.tail=FALSE))
+           ##,updated.t  = c(chisq=chisq2.true, dof=dof, "chisq/dof"=chisq2.true/dof, CL=pchisq(chisq2.true,dof,lower.tail=FALSE))
+           ))
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
-if(FALSE) {
-show(rbind(value=quant[1:quant.num.true],
-           error=quant.err[1:quant.num.true],
-           upd.error=quant2.err[1:quant.num.true],
-           "S-factor"=quant2.err[1:quant.num.true] / quant.err[1:quant.num.true],
-           "S-factor_0"=sfact.types[meas.types.names %in% quant.names.true],
-           chisq=chisq.types[meas.types.names %in% quant.names.true],
-           dof=dof.types[meas.types.names %in% quant.names.true]
-           ))
-}
 if (quant.num.true > 1) {
   ##-- if multiple average, use dedicated S-factor computation
   sfact.row = quant2.err[1:quant.num.true] / quant.err[1:quant.num.true]
