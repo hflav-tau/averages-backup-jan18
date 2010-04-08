@@ -424,9 +424,7 @@ if (quant.num.true > 1) {
 ## each measurement is a linear combination of the quantities we fit
 ## here we collect all the unique linear combinations, named "types"
 ##
-## meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true])
-## if (class(meas.types.id) == "numeric") meas.types.id = matrix(meas.types.id, 1, 1)
-meas.types.id = unique(subset(delta, 1:dim(delta)[1] %in% 1:meas.num.true, 1:dim(delta)[2] %in% 1:quant.num.true))
+meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true,drop=FALSE])
 rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
 
 ##-- for each "type", will set TRUE at the position of corresponding measurements
@@ -457,32 +455,55 @@ names(sfact.true) = meas.names.true
 ## - sfact.types: S-factor per measurement type
 ## - sfact.true: S-factor per true measurement
 ##
-for (i in 1:(dim(meas.types.id)[1])) {
+for (mt.name in meas.types.names) {
   chisq.types.meas = numeric()
-  for (i.meas in meas.names.true) {
-    if (quant.num.true == 1) {
-      quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas]
-    } else {
-      quant.comb = (delta[1:meas.num.true,1:quant.num.true])[i.meas,]
-    }
-    if (all(quant.comb == meas.types.id[i,])) {
+  for (m.name in meas.names.true) {
+    quant.comb = quant.comb = (delta[1:meas.num.true,1:quant.num.true,drop=FALSE])[m.name,]
+    if (all(quant.comb == meas.types.id[mt.name,])) {
       ##-- take note which measurements belong to each type
-      meas.types[i,i.meas] = TRUE
+      meas.types[mt.name, m.name] = TRUE
       ##-- chisq contribution of the single measurement
-      tmp = (meas[i.meas] - drop(quant.comb %*% quant[1:quant.num.true])) / meas.error[i.meas]
+      tmp = (meas[m.name] - drop(quant.comb %*% quant[1:quant.num.true])) / meas.error[m.name]
       chisq.types.meas = c(chisq.types.meas, tmp^2)
     }
   }
   ##-- chisq/dof for each type of measurement
-  chisq.types[i] = sum(chisq.types.meas)
+  chisq.types[mt.name] = sum(chisq.types.meas)
   ##-- number of degrees of freedom associated with measurements type
-  dof.types[i] = length(chisq.types.meas)-1
+  dof.types[mt.name] = length(chisq.types.meas)-1
   ##++ special treatment for when there is just 1 measurement of a specific type
-  if (dof.types[i] == 0) dof.types[i] = 1
+  if (dof.types[mt.name] == 0) dof.types[mt.name] = 1
+
+  if (FALSE) {
+    ##
+    ## experimental code to compute chisq pertaining to meas. type by
+    ## subsetting the chisq matrix formula
+    ## - either subset to measurements of spec.type
+    ## - or subset to all other meas. types and get difference from total chisq
+    ##
+    ## mt.select = !meas.types[mt.name,]
+    mt.select = c(!meas.types[mt.name,], rep(TRUE, meas.num.fake))
+    meas.cov.redu = subset(meas.cov, subset=mt.select, select=mt.select)
+    meas.cov.redu = subset(meas.cov, subset=mt.select, select=mt.select)
+    invcov.redu = solve(meas.cov.redu)
+    meas.delta = subset(meas - delta %*% quant, subset=mt.select)
+    
+    chisq.partial = drop(t(meas.delta) %*% invcov.redu %*% meas.delta)
+    chisq.partial = chisq - chisq.partial
+    ## dof.partial = length(meas.delta) -1
+    dof.partial = (meas.num - quant.num) - (length(meas.delta) - (quant.num-1))
+    
+    chisq.types[mt.name] = chisq.partial
+    dof.types[mt.name] = dof.partial
+    ##++ special treatment for when there is just 1 measurement of a specific type
+    if (dof.types[mt.name] == 0) dof.types[mt.name] = 1
+    ##-- end
+  }
+  
   ##-- S-factor for each type of measurement and for each measurement
-  tmp = sqrt(chisq.types[i]/dof.types[i])
-  sfact.types[i] = tmp
-  sfact.true[meas.types[i,]] = tmp
+  tmp = sqrt(chisq.types[mt.name]/dof.types[mt.name])
+  sfact.types[mt.name] = tmp
+  sfact.true[meas.types[mt.name,]] = tmp
 }
 
 sfact.types.floored = pmax(sfact.types, 1)
@@ -509,8 +530,8 @@ invcov2 = solve(meas2.cov)
 ## systematic errors with the proper per measurement S-factor
 ##
 delta2 = delta
-for (i.meas in meas.names.true) {
-  delta2[i.meas,quant.names %in% quant.names.fake] = delta[i.meas,quant.names %in% quant.names.fake]*sfact[i.meas]
+for (m.name in meas.names.true) {
+  delta2[m.name,quant.names %in% quant.names.fake] = delta[m.name,quant.names %in% quant.names.fake]*sfact[m.name]
 }
 
 ##-- recompute chisq and chisq/dof
@@ -536,8 +557,8 @@ cat("## S-factors accounting for larger than expected chi-quare\n")
 cat("##\n")
 
 dof = (meas.num-quant.num)
-show(rbind(original=c(chisq=chisq, dof=dof, "chisq/dof"=chisq/dof),
-           updated=c(chisq=chisq2, dof=dof, "chisq/dof"=chisq2/dof)))
+show(rbind(original=c(chisq=chisq, dof=dof, "chisq/dof"=chisq/dof, CL=pchisq(chisq,dof,lower.tail=FALSE)),
+           updated=c(chisq=chisq2, dof=dof, "chisq/dof"=chisq2/dof, CL=pchisq(chisq2,dof,lower.tail=FALSE))))
 
 if (FALSE) {
   cat("Measurement types: chisq, dof, S-factor\n") 
@@ -587,7 +608,7 @@ if (quant.num.true > 1) {
 
 ##-- measurement types that do not correspond to an averaged quantity
 meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
-meas.extra.id = meas.types.id[meas.types.names %in% meas.names.extra,]
+##meas.extra.id = meas.types.id[meas.types.names %in% meas.names.extra,]
 meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
 meas.extra = drop(meas.extra.id %*% quant[1:quant.num.true])
 meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
