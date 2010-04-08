@@ -72,9 +72,31 @@ shell> R
 # aluplot.r (by A.Lusiani)
 #
 
-Produces a plot using information from the current directory and from
+Produces a plot.input file using information from the current directory and from
 global files. It relies on the following files:
+
 - ./average.input
 - ./log/average.log
 - ../../../tau/2009/Common/pdg_averages.input
 - ../../../tau/2009/Common/results_asymm_errors.input
+
+Invoke either as follows:
+
+shell> ../../../Common/bin/aluplot.r
+
+or as follows:
+
+shell> make aluplot
+
+To produce plots from the plot*.input files please do:
+
+shell> make plot
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# tip: remotely mount the slac reference directory
+#
+
+shell> sshfs -oworkaround=rename flora.slac.stanford.edu:/ ~/local/mounts/slac
+shell> ln -s ~/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ../../../Data
+
