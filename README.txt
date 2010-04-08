@@ -3,13 +3,51 @@
 # HFAG - Tau repository
 #
 
+#//////////////////////////////////////////////////////////////////////////////
+# how to create your private working area
+
+svn --username <google username> co https://hfag.googlecode.com/svn/trunk hfag
+cd hfag
+
+#//////////////////////////////////////////////////////////////////////////////
+# organization of the working space
+
+- the subversion repository contains code and cards
+- log files and plots are stored in a data directory
+
+a reference working space is kept at SLAC at:
+/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-googlecode/
+
+a reference data directory is kept at SLAC at:
+/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data
+
+the must be a "Data" directory at the root of the working space,
+i.e. hfag/Data in you private working space
+at SLAC you can set "Data" to a link to the reference data directory:
+
+cd /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-googlecode/
+ls -l Data
+... Data -> /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data
+
+#//////////////////////////////////////////////////////////////////////////////
+# shell environment configuration
+
 please do "source Common/config.csh" to configure your C shell
 this script will add to your PATH
 - the Root path in flora and some other SLAC nodes
 - the R path in flora, iris, and other SLAC nodes
 
+#//////////////////////////////////////////////////////////////////////////////
+# examples
+
 # --- To compile combos
 cd combos ; gmake clean ; gmake ; cd -
+
+# --- create a private data directory
+mkdir Data
+
+# --- link to the reference data directory
+ln -s /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data Data
 
 # --- to get information on Makefile targets
 cd tau/2009; make; cd -
@@ -22,6 +60,9 @@ cd tau/2009/TauToPimKzsNu ; make ; cd -
 
 # --- To obtain PDG style averages
 cd tau/2009/TauToPimKzsNu ; make pdg ; cd -
+
+# --- it is useful to have a "log" link pointing to the Data directory
+cd tau/2009/TauToPimKzsNu ; make link ; cd -
 
 #//////////////////////////////////////////////////////////////////////////////
 #

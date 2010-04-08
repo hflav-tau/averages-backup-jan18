@@ -43,6 +43,7 @@ get.pdg.average = function(file) {
     file, sep=" "))
   average = readLines(fh)
   close(fh)
+  if (length(average) <= 0) return(list())
   average = paste(average, collapse=";")
   patt = paste(".*Scale factor = ([.0-9eE+-]+)",
     ".*.*Weighted average .with scale factor. = ([.0-9eE+-]+)[\\s+-]+([.0-9eE+-]+)",
@@ -67,6 +68,7 @@ get.combos.chi2sym = function(file) {
     file, sep=" "))
   average = readLines(fh)
   close(fh)
+  if (length(average) <= 0) return(list())
   average = paste(average, collapse=";")
   patt = paste(".*CHI2_SYM\\s+:\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*CL\\s*=\\s*([.0-9eE+-]+).*", sep="")
@@ -150,15 +152,23 @@ get.combos.chi2nsym = function(file) {
 ## get Combos results in specified file
 ##
 get.combos.results = function(file) {
+  lines = suppressWarnings(try(get.file.lines(file), silent=TRUE))
+  if (inherits(lines, "try-error")) {
+    warning("Cannot open / read file ", file)
+    return(list())
+  }
   rc.chi2sym = get.combos.chi2sym(file)
   rc.chi2nsym = get.combos.chi2nsym(file)
-  if (length(rc.chi2nsym)) {
-    if (length(rc.chi2sym)) {
+  if (length(rc.chi2nsym) >0) {
+    if (length(rc.chi2sym) >0) {
       warning("both chi2_sym and chi2_nsym results in ", file)
     }
     return(rc.chi2nsym)
+  } else if (length(rc.chi2sym) >0) {
+    return(rc.chi2sym)
   }
-  return(rc.chi2sym)
+  warning("Cannot get Combos information from", file)
+  return(list())
 }
 
 ##
@@ -405,6 +415,9 @@ for (quant in quant.names) {
   if (is.null(plot.data$hfag$chisq.all)) {
     ##-- alucomb info not available, use combos if existing
     value = plot.data$hfag$val[toupper(quant)]
+    if (is.null(value)) {
+      stop("Neither alucomb nor Combos log files were found")
+    }
     error = plot.data$hfag$err[toupper(quant)]
     conf.lev = plot.data$hfag$CL
     scale.factor = plot.data$hfag$scale
