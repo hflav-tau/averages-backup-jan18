@@ -2,7 +2,7 @@
 BEGIN    BaBar PimPimPipNu published PRL100:011801,08
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            8.83e-2       0.01e-2     0.13e-2 
-DATA BaBarOther 0.13e-2
+            8.8337e-2       0.0074e-2     0.126724e-2
+DATA BaBarOther 0.126724e-2
 END
 
