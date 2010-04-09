@@ -311,8 +311,19 @@ meas.quantities.raw = unlist(lapply(measurements, function(x) names(x$value)))
 meas.quantities = sub("[.][^.]+$", "", sub("^[^.]+[.]", "", names(measurements)))
 
 ##-- quantities we want to determine from measurements
-## quant.names = combination$quantities
-quant.names = unique(meas.quantities)
+quant.names = combination$quantities
+
+##-- measurements of quantities that are linear combination of the quantities to be averaged
+meas.names.comb = names(combination$meas.lin.combs[unlist(
+  lapply(combination$meas.lin.combs, function(el) all(names(el) %in% combination$quantities)))])
+##-- quantity measured by each measurement
+meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
+names(meas.quantities) = names(measurements)
+##-- unique quantities corresponding to linear combinations of averaged quantities
+quant.names.comb = unique(meas.quantities[meas.names.comb])
+quant.names.comb = setdiff(quant.names.comb, quant.names)
+
+quant.names = c(quant.names, quant.names.comb)
 
 ##
 ## get PDG average produced from the current directory
@@ -433,10 +444,11 @@ for (quant in quant.names) {
   
   ##
   ## HFAG does not usually use S-factors but rather quotes CL
-  ## however when CL<CL_min we quote S-factors instead 
+  ## however when CL<CL_min we quote S-factors instead
+  ## CL_min is set to the one-sided Gaussian fraction beyond 3 sigma
   ##
   conf.lev.plot = conf.lev
-  if (conf.lev < 1e-2) {
+  if (conf.lev < pnorm(3, mean=0, sd=1, lower.tail=FALSE)) {
     ##++ remove following "if" when scale.factor for chi_sym fixed
     if (conf.lev != -scale.factor) {
       error = error*scale.factor
