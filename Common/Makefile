@@ -1,4 +1,4 @@
-.PHONY:	all link combos alucomb pdg aluplot plot 
+.PHONY:	all combos alucomb pdg aluplot plot 
 .PHONY:	update_combos update_alucomb update_pdg update_plot update_all
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
@@ -7,30 +7,69 @@ CURDIR = $(shell expr $$PWD : '.*/\([^/]*/[^/]*/[^/]*\)')
 CURDIRBASE = $(shell expr $$PWD : '.*/\([^/]*\)')
 #
 # we store data files such as plots and log files in a separate directory tree
-# which is either the:
-# - ../../../Data directory if it exists and is writable
-# - SLAC HFAG-tau area /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/
-# - if none of the above is writable, a new ../../../Data is created and used
+# in ../../..Data which is:
+# - either a link to local private directory like ../../../Data-local/
+# - or a link to the SLAC data reference directory /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/
 #
 DATADIR =     $(shell \
-	if [ -w ../../../Data/. ] ; then \
-	  echo ../../../Data ; \
-	elif [ -w /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/. ] ; then \
-	  echo /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ; \
-	else \
-	  mkdir ../../../Data ; \
-	  echo ../../../Data ; \
-	fi ; \
+	if [ ! -w "../../../Data/." ] ; then \
+	  /bin/mkdir -p "../../../Data-local" ;\
+	  /bin/ln -sf Data-local "../../../Data" ;\
+	fi ;\
+	echo "../../../Data" ;\
 	)
 HFAGPLOTDIR = /afs/slac.stanford.edu/www/xorg/hfag/tau/plots/2009
+HFAGDATADIR = /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data
+SSHFSDIR = $(HOME)/local/mounts/slac
 
+# --- show what data directory you are using
+.PHONY: test
 test:
-	@echo $(CURDIR)
-	@echo $(DATADIR)
-	@if [ -w ../../../Data/. ] ; then \
-	  _datadir=../../../Data/. ; \
-	elif [ -w $(DATADIR)/. ] ; then \
-	  _datadir=$(DATADIR) ; \
+	@echo "you are in: $(CURDIR)"
+	@ll="`/bin/ls -ld "$(DATADIR)"`" ;\
+	if ll="`expr "$$ll" : '.* -> \(.*\)'`" ; then \
+	  : ;\
+	else \
+	  echo else ;\
+	  ll="$(DATADIR)" ;\
+	fi ;\
+	if expr "$$ll" : '/.*' >/dev/null ; then \
+	  : ;\
+	else \
+	  ll="../../../$$ll" ;\
+	fi ;\
+	echo "data dir: $$ll"
+
+# --- set data directory to local private area
+.PHONY: local
+local:
+	@/bin/mkdir -p "../../../Data-local"
+	@/bin/ln -sTf "Data-local" "../../../Data"
+	@echo "Data reference directory now local in ../../../Data-local"
+
+# --- set data directory to the SLAC HFAG refeerence data directory
+.PHONY: slac
+slac:
+	@if [ -w $(HFAGDATADIR)/. ] ; then \
+	  /bin/ln -sTf $(HFAGDATADIR) "../../../Data" ;\
+	  echo "data directory set to SLAC" ;\
+	elif [ -w $(SSHFSDIR)$(HFAGDATADIR) ] ; then \
+	  /bin/ln -sTf $(SSHFSDIR)$(HFAGDATADIR) "../../../Data" ;\
+	  echo "data directory set to SLAC via SSHFS" ;\
+	else \
+	  echo "no write access to $(HFAGDATADIR)" ;\
+	fi
+
+# --- create "log" as link to the respective dir in the data directory
+.PHONY: link
+link:
+	@if [ -d "../../../Data/." ] ; then \
+	  /bin/mkdir -p "../../../Data/$(CURDIR)" ;\
+	  ln -sf "../../../Data/$(CURDIR)" log ;\
+	  echo "log is soft link to ../../../Data/$(CURDIR)" ;\
+	else \
+	  echo "no data directory found" ;\
+	  echo "either \"make local\" or \"make slac\"" ;\
 	fi
 
 combos:
@@ -73,17 +112,7 @@ $(PLOTS): %.eps: %.input
 	root -l -b -q ../../../Common/plot.cc'("$<")' > $(patsubst %.input,%.log, $<)
 	convert $@ $(patsubst %.input,%.gif, $<)
 	@echo "file $(CURDIR)/$(patsubst %.input,%.log, $<) created"
-	@if [ -w $(HFAGPLOTDIR)_disable_/. ] ; then \
-	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
-	  $(HFAGPLOTDIR)/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
-	  echo "created" $(HFAGPLOTDIR)/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
-	elif [ -w $(HOME)/local/mounts/slac$(HFAGPLOTDIR)_disable_/. ] ; then \
-	  /bin/cp -f $(patsubst %.input,%.gif, $<) \
-	  $(HOME)/local/mounts/slac$(HFAGPLOTDIR)/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)); \
-	  echo "created" $(HFAGPLOTDIR)/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<)) ; \
-	else \
-	  : _disable_ echo "#### scp $(patsubst %.input,%.gif, $<) flora.slac.stanford.edu:$(HFAGPLOTDIR)/`basename ${PWD}`$(subst plot,,$(patsubst %.input,%.gif, $<))"; \
-	fi
+	@echo "do \"make update_plot\" to save plots in reference data dir"
 
 update_plot: update_plot_all
 	@/bin/mkdir -p $(DATADIR)/$(CURDIR)
@@ -102,19 +131,19 @@ update_plot_all:  $(PLOTS)
 	    echo $${file} | /bin/sed -e 's@plot\(.*\)@/bin/cp plot\1 $(HFAGPLOTDIR)/$(CURDIRBASE)\1@' | sh -v ;\
 	  done ;\
 	  if [ `uname -s` = "Linux" ] ; then \
-	  echo "updating plots gallery with albatross" ;\
-	  (cd $(HFAGPLOTDIR); \
-	   ../../../tau/bin/albatross --indexname gallery.html --clear; \
-	   ../../../tau/bin/albatross --indexname gallery.html --light --noexif) ;\
+	    echo "updating plots gallery with albatross" ;\
+	    (cd $(HFAGPLOTDIR); \
+	     ../../../tau/bin/albatross --indexname gallery.html --clear; \
+	     ../../../tau/bin/albatross --indexname gallery.html --light --noexif) ;\
 	  else \
-	  echo "you need to be on Linux to use albatross" ;\
-	  echo "should do: cd $(HFAGPLOTDIR)" ;\
-	  echo "should do: ../../../tau/bin/albatross --indexname gallery.html --clear" ;\
-	  echo "should do: ../../../tau/bin/albatross --indexname gallery.html --light --noexif" ;\
+	    echo "you need to be on Linux to use albatross" ;\
+	    echo "should do: cd $(HFAGPLOTDIR)" ;\
+	    echo "should do: ../../../tau/bin/albatross --indexname gallery.html --clear" ;\
+	    echo "should do: ../../../tau/bin/albatross --indexname gallery.html --light --noexif" ;\
 	  fi ;\
-	elif [ -w $(HOME)/local/mounts/slac$(HFAGPLOTDIR)/. ] ; then \
+	elif [ -w $(SSHFSDIR)$(HFAGPLOTDIR)/. ] ; then \
 	  for file in $(patsubst %.eps,%.gif, $^) ; do \
-	    echo $${file} | /bin/sed -e 's@plot\(.*\)@/bin/cp plot\1 $(HOME)/local/mounts/slac$(HFAGPLOTDIR)/$(CURDIRBASE)\1@' | sh -v ;\
+	    echo $${file} | /bin/sed -e 's@plot\(.*\)@/bin/cp plot\1 $(SSHFSDIR)$(HFAGPLOTDIR)/$(CURDIRBASE)\1@' | sh -v ;\
 	  done ;\
 	  echo "should do: cd $(HFAGPLOTDIR)" ;\
 	  echo "should do: ../../../tau/bin/albatross --indexname gallery.html --clear" ;\
@@ -147,17 +176,3 @@ update_alucomb:
 update_all: update_combos update_pdg update_plot update_alucomb
 
 all: combos pdg plot update_all
-
-link:
-	@if [ -d "../../../Data" ] ; then \
-	  /bin/mkdir -p "../../../Data/$(CURDIR)" ;\
-	  ln -sf "../../../Data/$(CURDIR)" log ;\
-	  echo "log is soft link to ../../../Data/$(CURDIR)" ;\
-	elif [ -d /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ] ; then \
-	  /bin/mkdir -p "/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/$(CURDIR)" ;\
-	  ln -fs /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data/$(CURDIR) log ;\
-	else \
-	  echo "no data directory found" ;\
-	  echo "either create ../../../Data" ;\
-	  echo "or make accessible /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data" ;\
-	fi
