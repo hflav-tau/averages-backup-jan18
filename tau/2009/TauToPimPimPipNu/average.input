@@ -1,12 +1,23 @@
-INCLUDE babar.input
-INCLUDE belle.input
-INCLUDE pdg.input
+*
+* in order to avoid having and maintaining input cards with the same
+* data in different places I include the input cards from the common
+* TauToHmHmHpNu directory after having checked that it gives the
+* same result although with more warnings
+* A.Lusiani 9-Apr-2010
+
+* INCLUDE belle.input
+* INCLUDE babar.input
+* INCLUDE pdg.input
+
+INCLUDE ../TauToHmHmHpNu/belle.input
+INCLUDE ../TauToHmHmHpNu/babar.input
+INCLUDE ../TauToHmHmHpNu/pdg.input
 
 BEGIN   BaBar+Belle+PDG all_methods
 
 INCLUDE ../Common/Parameters.input
 
-COMBINE * * * 
+COMBINE * * *
 
 MEASUREMENT m_PimPimPipNu
 
