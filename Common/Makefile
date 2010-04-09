@@ -114,7 +114,7 @@ update_plot_all:  $(PLOTS)
 	  fi ;\
 	elif [ -w $(HOME)/local/mounts/slac$(HFAGPLOTDIR)/. ] ; then \
 	  for file in $(patsubst %.eps,%.gif, $^) ; do \
-	    echo $${file} | /bin/sed -e 's@plot\(.*\)@/bin/cp plot\1 $(HOME)/local/mounts/slac$$(HFAGPLOTDIR)/$(CURDIRBASE)\1@' | sh -v;\
+	    echo $${file} | /bin/sed -e 's@plot\(.*\)@/bin/cp plot\1 $(HOME)/local/mounts/slac$(HFAGPLOTDIR)/$(CURDIRBASE)\1@' | sh -v ;\
 	  done ;\
 	  echo "should do: cd $(HFAGPLOTDIR)" ;\
 	  echo "should do: ../../../tau/bin/albatross --indexname gallery.html --clear" ;\
