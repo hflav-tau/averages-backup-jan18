@@ -2,7 +2,7 @@
 *      5.111      9.866 5.3 B(#tau^{-} #rightarrow #pi^{-}#pi^{-}#pi^{+}#nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 8.952      0.07026    0.06885    HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) inputs combined]
-& 8.773      0.1104     0.2544     HFAG Average [B(#tau^{-} #rightarrow #pi^{-}#pi^{+}#pi^{-} #nu) inputs only]
+& 8.773      0.1104     0.2544     HFAG Average [B(#tau^{-} #rightarrow #pi^{-}#pi^{-}#pi^{+}#nu) inputs only]
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 8.85       0.13       0          PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
