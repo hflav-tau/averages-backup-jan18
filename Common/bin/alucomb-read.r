@@ -208,7 +208,7 @@ for (line in lines) {
         ## but rather a linear combination of them. A warning is issued when that happens, and the MEASUREMENT
         ## label is set to the "method", which actually should indicate what is being measured.
         ##
-        cat("warning: measurement label '", labels[1], "' does not match method '", meas$bibitem[2], "': replaced\n", sep="")
+        cat("warning: measurement label '", labels[1], "' != method '", meas$bibitem[2], "': replaced\n", sep="")
         labels[1] = meas$bibitem[2]
       }
 
