@@ -549,7 +549,26 @@ for (quant in quant.names) {
   ##-- print HFAG averages
   comb = plot.data[[quant]]$hfag$avg
   if (!is.null(comb)) {
-    cat("& ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)), "HFAG Average\n", file=fh, sep="")
+    label.extra = ""
+    if (any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))) {
+      if (length(quant.names) == 1) {
+        fname.temp = paste("../TauToHmHmHpNu/plot-", quant, ".input", sep="")
+        cat("info: get HFAG tau -> hhh nu average from ", fname.temp, "\n", sep="")
+        fhtemp = pipe(paste("grep \"^&\" ", fname.temp, " | head -1", sep=""))
+        average = readLines(fhtemp)
+        close(fhtemp)
+        if (length(average) >0) {
+          average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
+          cat(format(average, width=34),
+              "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) inputs combined]\n", file=fh)
+        }
+        label.extra = paste(" [", label.root(quant), " inputs only]", sep="")
+      } else {
+        label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) inputs combined]"
+      }
+    }
+    cat("& ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)),
+        "HFAG Average", label.extra, "\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
