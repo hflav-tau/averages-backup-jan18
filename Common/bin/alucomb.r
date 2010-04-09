@@ -38,35 +38,44 @@ measurements = rc$measurements
 combination = rc$combination
 rc = NULL
 
-##-- get quantities measured by each experiment
+##
+## build list of all measurements mentioned in the COMBINE section
+## (right now we only handle COMBINE * * *)
+##
+
+##-- quantities to be averaged
+quant.names = combination$quantities
+##-- measurements of quantities that are linear combination of the quantities to be averaged
+meas.names.comb = names(combination$meas.lin.combs[unlist(
+  lapply(combination$meas.lin.combs, function(el) all(names(el) %in% combination$quantities)))])
+##-- quantity measured by each measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
+names(meas.quantities) = names(measurements)
+##-- unique quantities corresponding to linear combinations of averaged quantities
+quant.names.comb = unique(meas.quantities[meas.names.comb])
+quant.names.comb = setdiff(quant.names.comb, quant.names)
+##-- quantities to be averaged plus their linear combinations
+quant.names.include = c(quant.names, quant.names.comb)
+##-- get quantities corresponding to all measurements
+meas.names = names(measurements)
+names(meas.names) = unlist(lapply(measurements, function(x) names(x$value)))
 
-##-- build list of all measurements mentioned in the COMBINE section
-meas.list = rep(FALSE, length(measurements))
-names(meas.list) = names(measurements)
-for (quant in combination$quantities) {
-  meas.list = meas.list | (quant == meas.quantities)
+if (length(quant.names.comb) >0) {
+  cat("The following measurements are included as linear combinations:\n")
+  cat(paste("  ", meas.names[names(meas.names) %in% quant.names.comb], collapse="\n"), "\n");
+}
+meas.included.list = names(meas.names) %in% quant.names.include
+names(meas.included.list) = meas.names
+meas.names.discarded =  meas.names[!meas.included.list]
+if (length(meas.names.discarded) >0) {
+  cat("The following measurements are discarded:\n")
+  cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
 }
 
-##-- include measurements that correspond to combination of quantities
-##++ should probably check also that _all_ quantities are in the combination
-for (meas in names(combination$meas.lin.combs)) {
-  if (sum(combination$quantities %in% names(combination$meas.lin.combs[[meas]])) != 0) {
-    cat("meas", meas, "included, as linear combination\n")
-    meas.list[meas] = TRUE
-  }
-}
-
-##-- retain only measurements that are related to the spec. quantities
-if (sum(!meas.list) > 0) {
-  cat("warning: the following measurements are discarded\n")
-  cat(paste("  ",names(measurements)[!meas.list], collapse="\n",sep=""), "\n")
-  cat("end warning\n")
-}
 ##-- update
-measurements = measurements[meas.list]
-meas.quantities = meas.quantities[meas.list]
-meas.num = length(measurements[meas.list])
+measurements = measurements[meas.included.list]
+meas.quantities = meas.quantities[meas.included.list]
+meas.num = length(measurements[meas.included.list])
 meas.names = names(measurements)
 
 ##-- checks on syst terms
@@ -196,21 +205,19 @@ rownames(meas.corr) = meas.names
 colnames(meas.corr) = meas.names
 meas.corr.stat = meas.corr
 
+##
+## set off-diagonal correlation matrix coefficients from cards
+## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
+## - meas.corr means total correlation, to be multiplied by total errors
+##
 ##-- set off-diagonal statistical correlation matrix coefficients from cards
-for (meas in measurements) {
-  mapply(function(other.tag, other.corr) {
-    meas.corr.stat[meas$tag,other.tag] <<- other.corr
-  }, names(meas$corr.terms), meas$corr.terms)
-}
-
-##
-## set off-diagonal total correlation matrix coefficients from cards
-## total correlation terms are to be multiplied by the total errors
-##
-for (meas in measurements) {
-  mapply(function(other.tag, other.corr) {
-    meas.corr[meas$tag,other.tag] <<- other.corr
-  }, names(meas$corr.terms.tot), meas$corr.terms.tot)
+for (mi.name in meas.names) {
+  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms), meas.names)) {
+    meas.corr.stat[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms[[mj.name]]
+  }
+  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.tot), meas.names)) {
+    meas.corr[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.tot[[mj.name]]
+  }
 }
 
 ##-- not handled and forbidden to enter both total and stat. only correlations
@@ -277,7 +284,6 @@ if (quant.num.fake > 0) {
 }
 quant.names = c(quant.names.true, quant.names.fake)
 ##-- set quantity - measurement correspondence for fake ones
-meas.quantities.true = meas.quantities
 meas.quantities = c(meas.quantities, quant.names.fake)
 
 delta = matrix(0, meas.num, quant.num)
@@ -341,7 +347,7 @@ if (FALSE) {
   show(meas.error.true)
 }
 
-if (!flag.no.maxLik) {
+if (!flag.no.maxLik && FALSE) {
 ##
 ## solve for quantities with iterative chi-square minimization
 ##

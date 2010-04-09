@@ -188,18 +188,34 @@ for (line in lines) {
         meas.values[meas.label] = data.values[meas.label]
       }
 
-      ##-- edit measurement value, stat, syst labels
+      ##-- edit measurement value, stat, syst labels, preserve meas.labels
       labels = meas.labels
       labels = gsub("^m_", "", labels, ignore.case=TRUE)
       labels = gsub("statistical", "stat", labels, ignore.case=TRUE)
       labels = gsub("systematic", "syst", labels, ignore.case=TRUE)
-      names(meas.values) = labels
 
-      if (meas$bibitem[2] != meas.labels[1]) {
-        ##-- when combining multiple quantities, "method" should same as the measured quantity name
-        cat("warning: measurement method '", meas$bibitem[2], "' does not match value '", meas.labels[1], "'\n", sep="")
+      if (meas$bibitem[2] != labels[1]) {
+        ##
+        ## The Combos field "method" was probably intended to indicate the method with which
+        ## a quantity was measured.  However, when averaging measurements of different quantities
+        ## possibly statistically correlated, the STAT_CORR_WITH card requires the indication
+        ## of "experiment" "method" "where".  In this case "method" should actually indicate what
+        ## quantity is measured. Different methods labels should be merged with the "where" label.
+        ## 
+        ## Here we suggest that "method" must actually indicate what quantity is measured.
+        ## Due to Combos, the MEASUREMENT label must be surreptitiously set to a quantity other than the measured one
+        ## in order to include a measurement that does not measure any of the quantities that are to be combined
+        ## but rather a linear combination of them. A warning is issued when that happens, and the MEASUREMENT
+        ## label is set to the "method", which actually should indicate what is being measured.
+        ##
+        cat("warning: measurement label '", labels[1], "' does not match method '", meas$bibitem[2], "': replaced\n", sep="")
+        labels[1] = meas$bibitem[2]
       }
 
+      ##-- set labels for measurement and stat./syst. errors
+      names(meas.values) = labels
+
+      #-- store MEASUREMENT DATA
       meas$value = meas.values[1]
       meas$stat = meas.values[2]
       meas$syst = meas.values[3]
