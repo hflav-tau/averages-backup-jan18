@@ -77,6 +77,13 @@ printf "%s %.4e %s %.4e %s %.4e\n", "rhostat_23 = ",$rhostat_23," rhosyst_23 = "
 printf "%s %.4e %s %.4e %s %.4e\n", "rhostat_24 = ",$rhostat_24," rhosyst_24 = ",$rhosyst_24," rhotot_24 = ",$rhotot_24;
 printf "%s %.4e %s %.4e %s %.4e\n", "rhostat_34 = ",$rhostat_34," rhosyst_34 = ",$rhosyst_34," rhotot_34 = ",$rhotot_34;
 
+printf "%s %.4e\n", "used rhotot_12 = ",($rhostat_12*$stat_1*$stat_2 + $rhosyst_12*$syst_1*$syst_2)/($sigma_1*$sigma_2);
+printf "%s %.4e\n", "used rhotot_13 = ",($rhostat_13*$stat_1*$stat_3 + $rhosyst_13*$syst_1*$syst_3)/($sigma_1*$sigma_3);
+printf "%s %.4e\n", "used rhotot_14 = ",($rhostat_14*$stat_1*$stat_4 + $rhosyst_14*$syst_1*$syst_4)/($sigma_1*$sigma_4);
+printf "%s %.4e\n", "used rhotot_23 = ",($rhostat_23*$stat_2*$stat_3 + $rhosyst_23*$syst_2*$syst_3)/($sigma_2*$sigma_3);
+printf "%s %.4e\n", "used rhotot_24 = ",($rhostat_24*$stat_2*$stat_4 + $rhosyst_24*$syst_2*$syst_4)/($sigma_2*$sigma_4);
+printf "%s %.4e\n", "used rhotot_34 = ",($rhostat_34*$stat_3*$stat_4 + $rhosyst_34*$syst_3*$syst_4)/($sigma_3*$sigma_4);
+
 # In the language of COMBOS, rhosyst_IJ*syst_I*syst_J is written as = Sum_i Delta_I,i Delta_J,i
 # where i = 1..n are the n systematic variations and Delta_I,i = change in BR_I due to i^th systematic error.
 # 
