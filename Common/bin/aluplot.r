@@ -304,6 +304,7 @@ log.file = function(fname) {file.path(log.dir, fname)}
 
 ##-- get quantities measured by each experiment
 meas.names = names(measurements)
+meas.num = length(meas.names)
 
 ##++ gets names in Combos MEASUREMENT card, sometimes incorrect
 meas.quantities.raw = unlist(lapply(measurements, function(x) names(x$value)))
@@ -322,8 +323,114 @@ names(meas.quantities) = names(measurements)
 ##-- unique quantities corresponding to linear combinations of averaged quantities
 quant.names.comb = unique(meas.quantities[meas.names.comb])
 quant.names.comb = setdiff(quant.names.comb, quant.names)
-
+##-- will plot all averaged quantities and all their measured combinations
 quant.names = c(quant.names, quant.names.comb)
+
+##-- get list of stat and syst errors
+meas.stat = unlist(lapply(measurements, function(x) x$stat))
+names(meas.stat) = meas.names
+meas.syst = unlist(lapply(measurements, function(x) x$syst))
+names(meas.syst) = meas.names
+##-- combine true and fake info, compute total error
+meas.error = sqrt(meas.stat^2 + meas.syst^2)
+
+##-- init meas.names.true to use same code as in alucomb
+meas.names.true = meas.names
+
+##++ begin of code in common with alucomb.r
+
+##-- collect what measurements are affected by each syst. term
+syst.terms.list = list()
+for (meas in names(measurements)) {
+  for (syst.term in names(measurements[[meas]]$syst.terms)) {
+    ##-- add measurement to the list of the currect syst. term
+    syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], meas)
+  }
+}
+##-- retain just the syst. contributions that affect at least two measurements
+syst.terms.corr = lapply(syst.terms.list, length) >= 2
+if (length(syst.terms.corr) > 0) {
+  syst.terms.corr = names(syst.terms.corr)[syst.terms.corr]
+} else {
+  syst.terms.corr = character()
+}
+
+##
+## build correlation matrix
+##
+meas.corr = diag(rep(0,meas.num))
+rownames(meas.corr) = meas.names
+colnames(meas.corr) = meas.names
+meas.corr.stat = meas.corr
+
+##
+## set off-diagonal correlation matrix coefficients from cards
+## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
+## - meas.corr means total correlation, to be multiplied by total errors
+##
+##-- set off-diagonal statistical correlation matrix coefficients from cards
+for (mi.name in meas.names) {
+  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms), meas.names)) {
+    meas.corr.stat[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms[[mj.name]]
+  }
+  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.tot), meas.names)) {
+    meas.corr[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.tot[[mj.name]]
+  }
+}
+
+##-- not handled and forbidden to enter both total and stat. only correlations
+flag.ok = TRUE
+for (i in 1:meas.num) {
+  for (j in i:meas.num) {
+    if (meas.corr[i,j] != 0 && meas.corr.stat[i,j] != 0) {
+      flag.ok = FALSE
+      cat(paste("error: both total and statistical correlation specified for measurements:\n  ",
+                meas.names[i], ", ", meas.names[j], "\n", collapse=""))
+    }
+  }
+}
+if (!flag.ok) {
+  stop("aborted because of above errors\n")
+}
+
+##
+## build covariance matrix using errors and correlation coefficients
+## - stat. correlation is multiplied by stat. errors
+## - total correlation is multiplied by total errors
+##
+meas.cov.tot = meas.corr * (meas.error %o% meas.error)
+meas.cov.tot = meas.cov.tot + diag(meas.error^2)
+meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
+
+##++ end of code in common with alucomb.r
+
+##
+## whenever no total correlation error has been specified
+## between two different measurements, determine the respective
+## coefficient from the common systematic terms
+##
+meas.cov = meas.cov.tot
+for (meas.i in meas.names.true) {
+  syst.i = measurements[[meas.i]]$syst.terms
+  for (meas.j in meas.names.true) {
+    ##-- no addition needed for on-diagonal terms
+    if (meas.i == meas.j) next
+    ##-- no addition needed if total syst. correlation specified
+    if (meas.cov[meas.i, meas.j] != 0) next
+    syst.j = measurements[[meas.j]]$syst.terms
+    ##-- systematics common to the two measurements
+    correl.i.j = intersect(names(syst.i), names(syst.j))
+    ##-- remove syst. terms uncorrelated to two different measurements
+    correl.i.j = intersect(correl.i.j, syst.terms.corr)
+    if (length(correl.i.j) == 0) next
+    cov.contrib = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
+    ## cat(meas.i, meas.j, cov.contrib, syst.i[correl.i.j], syst.j[correl.i.j], "\n")
+    meas.cov[meas.i,meas.j] = meas.cov[meas.i,meas.j] + cov.contrib
+  }
+}
+
+##-- add statistical correlation between different measurements
+meas.cov = meas.cov + meas.cov.stat
 
 ##
 ## get PDG average produced from the current directory
@@ -550,6 +657,11 @@ for (quant in quant.names) {
   comb = plot.data[[quant]]$hfag$avg
   if (!is.null(comb)) {
     label.extra = ""
+    ##
+    ## special treatment for hhh results, add hhh global HFAG average by extracting
+    ## the relevant line in a previously produced plot.input file
+    ## moreover, add proper information after "HFAG average"
+    ##
     if (any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))) {
       if (length(quant.names) == 1) {
         fname.temp = paste("../TauToHmHmHpNu/plot-", quant, ".input", sep="")
@@ -577,11 +689,13 @@ for (quant in quant.names) {
   if (!is.null(comb)) {
     cat("% ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$pdg$scale)), "PDG'09 Average\n", file=fh, sep="")
   } else {
-    cat("% ", sprintf("%-10.4g ", c((2*quant.data$xmax - quant.data$xmin),0,0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
+    x.outside.plot = 2*quant.data$xmax - quant.data$xmin
+    cat("% ", sprintf("%-10.4g ", c(x.outside.plot, 0, 0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
   
   ##-- measurements
-  cat("# next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name\n", file=fh)
+  cat("# next lines are measurement, stat pos-error, neg-error[with negative sign]",
+      "syst pos-error, neg-error[with negative sign], experiment-name\n", file=fh)
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
     ##-- capitalize 1st word
