@@ -3,14 +3,14 @@ BEGIN    BaBar PimPimPipNu published PRL100:011801,2008
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            8.83370e-02   7.4000e-05  1.2672e-03
+            8.83370e-02   7.4000e-05  1.26724e-03
 
-ERROR_CORR_WITH BaBar PimKmPipNu published 0.543535 
-ERROR_CORR_WITH BaBar PimKmKpNu published 0.390346 
-ERROR_CORR_WITH BaBar KmKmKpNu published 0.031469 
-
-*DATA
-*            BaBarSyst_12  6.7965e-04
+# ERROR_CORR_WITH BaBar PimKmPipNu published 0.543535 
+# ERROR_CORR_WITH BaBar PimKmKpNu published 0.390346
+# ERROR_CORR_WITH BaBar KmKmKpNu published 0.031469 
+ERROR_CORR_WITH BaBar PimKmPipNu published 5.4398e-01
+ERROR_CORR_WITH BaBar PimKmKpNu published 3.9181e-01
+ERROR_CORR_WITH BaBar KmKmKpNu published 3.1926e-02
 
 END
 
@@ -19,14 +19,14 @@ BEGIN    BaBar PimKmPipNu published PRL100:011801,2008
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            2.72570e-03   1.8000e-05  9.2441e-05
+            2.72570e-03   1.8000e-05  9.24406e-05
 
-ERROR_CORR_WITH BaBar PimPimPipNu published 0.543535 
-ERROR_CORR_WITH BaBar PimKmKpNu published 0.177495 
-ERROR_CORR_WITH BaBar KmKmKpNu published 0.0931907 
-
-*DATA
-*            BaBarSyst_12  6.3701e-05
+# ERROR_CORR_WITH BaBar PimPimPipNu published 0.543535 
+# ERROR_CORR_WITH BaBar PimKmKpNu published 0.177495 
+# ERROR_CORR_WITH BaBar KmKmKpNu published 0.0931907 
+ERROR_CORR_WITH BaBar PimPimPipNu published 5.4398e-01
+ERROR_CORR_WITH BaBar PimKmKpNu published 1.7888e-01
+ERROR_CORR_WITH BaBar KmKmKpNu published 9.4573e-02
 
 END
 
@@ -35,11 +35,14 @@ BEGIN    BaBar PimKmKpNu published PRL100:011801,2008
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.34610e-03   1.0000e-05  3.6413e-05
+            1.34610e-03   1.0000e-05  3.64131e-05
 
-ERROR_CORR_WITH BaBar PimPimPipNu published 0.390346 
-ERROR_CORR_WITH BaBar PimKmPipNu published 0.177495 
-ERROR_CORR_WITH BaBar KmKmKpNu published 0.0870484 
+# ERROR_CORR_WITH BaBar PimPimPipNu published 0.390346 
+# ERROR_CORR_WITH BaBar PimKmPipNu published 0.177495 
+# ERROR_CORR_WITH BaBar KmKmKpNu published 0.0870484 
+ERROR_CORR_WITH BaBar PimPimPipNu published 3.9181e-01
+ERROR_CORR_WITH BaBar PimKmPipNu published 1.7888e-01
+ERROR_CORR_WITH BaBar KmKmKpNu published 9.0128e-02
 
 END
 
@@ -50,8 +53,11 @@ MEASUREMENT m_KmKmKpNu statistical systematic
 DATA        m_KmKmKpNu statistical systematic
             1.57770e-05   1.3000e-06  1.2308e-06
 
-ERROR_CORR_WITH BaBar PimPimPipNu published 0.031469 
-ERROR_CORR_WITH BaBar PimKmPipNu published 0.0931907 
-ERROR_CORR_WITH BaBar PimKmKpNu published 0.0870484 
+# ERROR_CORR_WITH BaBar PimPimPipNu published 0.031469 
+# ERROR_CORR_WITH BaBar PimKmPipNu published 0.0931907 
+# ERROR_CORR_WITH BaBar PimKmKpNu published 0.0870484 
+ERROR_CORR_WITH BaBar PimPimPipNu published 3.1926e-02
+ERROR_CORR_WITH BaBar PimKmPipNu published 9.4573e-02
+ERROR_CORR_WITH BaBar PimKmKpNu published 9.0128e-02
 
 END
