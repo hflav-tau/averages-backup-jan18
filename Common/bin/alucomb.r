@@ -237,39 +237,36 @@ if (!flag.ok) {
 
 ##
 ## build covariance matrix using errors and correlation coefficients
-## diagonal terms are the errors squared
-## stat. correlation is multiplied by stat. errors
-## total correlation is multiplied by total errors
-##
-meas.cov = meas.corr.stat * (meas.stat %o% meas.stat)
-##
-## keep note of total correlation coefficients that might have to be subtracted
-## to remove the fraction of total correlation actually due to correlated systematics
+## - stat. correlation is multiplied by stat. errors
+## - total correlation is multiplied by total errors
 ##
 meas.cov.tot = meas.corr * (meas.error %o% meas.error)
-meas.cov = meas.cov + meas.cov.tot
-meas.cov = meas.cov + diag(meas.error^2)
+meas.cov.tot = meas.cov.tot + diag(meas.error^2)
+meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
 ##
 ## from variance and covariance terms between true measurements
 ## we subtract the correlated systematic terms contributions
 ##
-## for off-diagonal terms the subtraction is only done if
-## total correlation terms were specified
-##
-meas.cov.orig = meas.cov
+meas.cov = meas.cov.tot
 for (meas.i in meas.names.true) {
   syst.i = measurements[[meas.i]]$syst.terms
   for (meas.j in meas.names.true) {
-    if (meas.i != meas.j && meas.cov.tot[meas.i,meas.j] == 0) next
+    ##-- do not subtract anything if no total correlation term was specified
+    if (meas.cov[meas.i, meas.j] == 0) next
     syst.j = measurements[[meas.j]]$syst.terms
+    ##-- systematics common to the two measurements
     correl.i.j = intersect(names(syst.i), names(syst.j))
+    ##-- remove syst. terms uncorrelated to two different measurements
     correl.i.j = intersect(correl.i.j, syst.terms.corr)
     if (length(correl.i.j) == 0) next
     cov.contrib = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
     meas.cov[meas.i,meas.j] = meas.cov[meas.i,meas.j] - cov.contrib
   }
 }
+
+##-- add statistical correlation between different measurements
+meas.cov = meas.cov + meas.cov.stat
 
 ##
 ## quantities we want to determine from measurements
