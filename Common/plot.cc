@@ -214,7 +214,7 @@ int plot(std::string filename_string = "plot.input"){
     fSymbol[i] = 20;
   }
 
-  Double_t fTxtX= 0.05;
+  Double_t fTxtX= 0.015;
   Double_t xtext=fXmin+fTxtX*(fXmax-fXmin);
   Double_t fTxtY= 0.4;
   Double_t ytext;
