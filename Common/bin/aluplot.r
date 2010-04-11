@@ -564,8 +564,8 @@ for (quant in quant.names) {
     if (!is.null(meas.asymm[[meas]])) {
       ##-- override measurement with info on asymmetric errors
       cat("ovverride", meas, "\n")
-      cat("  from", sprintf("%10.4g ", exp.meas$value), "\n")
-      cat("    to", sprintf("%10.4g ", meas.asymm[[meas]]), "\n")
+      cat("  from", sprintf("%12.6g ", exp.meas$value), "\n")
+      cat("    to", sprintf("%12.6g ", meas.asymm[[meas]]), "\n")
       exp.meas$value = meas.asymm[[meas]]
     }
 
@@ -697,7 +697,7 @@ for (quant in quant.names) {
   } else if (quant.data$order == 0) {
     units.label = ""
   }
-  cat("* ", sprintf("%10.4g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
+  cat("* ", sprintf("%12.6g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
       as.character(quant.data$precision), " ", label.root(quant), units.label, "\n", file=fh, sep="")
   cat("# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages\n", file=fh)
 
@@ -727,7 +727,7 @@ for (quant in quant.names) {
         label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) modes combined]"
       }
     }
-    cat("& ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)),
+    cat("& ", sprintf("%-12.6g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)),
         "HFAG Average", label.extra, "\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
   }
@@ -735,10 +735,10 @@ for (quant in quant.names) {
   ##-- PDG average
   comb = plot.data[[quant]]$pdg$avg
   if (!is.null(comb)) {
-    cat("% ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$pdg$scale)), "PDG'09 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%-12.6g ", c(comb/x.units, plot.data[[quant]]$pdg$scale)), "PDG'09 Average\n", file=fh, sep="")
   } else {
     x.outside.plot = 2*quant.data$xmax - quant.data$xmin
-    cat("% ", sprintf("%-10.4g ", c(x.outside.plot, 0, 0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
+    cat("% ", sprintf("%-12.6g ", c(x.outside.plot, 0, 0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
   
   ##-- measurements
@@ -760,7 +760,7 @@ for (quant in quant.names) {
       cat("warning: could not find year in \"where\" Combos field for", quant, "\n")
       cat("  (", exp$bibitem, ")\n", sep="")
     }
-    cat("  ", sprintf("%-10.4g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
+    cat("  ", sprintf("%-12.6g ", exp$value/x.units), bibitem, "\n", file=fh, sep="")
   }
   close(fh)
   cat("file", fname, "created\n")
