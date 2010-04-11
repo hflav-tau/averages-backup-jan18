@@ -722,7 +722,7 @@ for (quant in quant.names) {
           cat(format(average, width=34),
               "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) modes combined]\n", file=fh)
         }
-        label.extra = paste(" [", label.root(quant), " inputs only]", sep="")
+        label.extra = paste(" [", label.root(quant), " mode only]", sep="")
       } else {
         label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) modes combined]"
       }
