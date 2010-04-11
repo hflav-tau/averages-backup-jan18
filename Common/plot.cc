@@ -238,8 +238,8 @@ int plot(std::string filename_string = "plot.input"){
     }else{
       double  nsigma = (stat[i]*stat[i] + syst[i]*syst[i]) / delta;
       if (nsigma > 5) {
-	cout << "Skipping plotting result for "<< expname[i] << " with nsigma = " << nsigma << endl;
-	continue;
+	cout << "NOT Skipping plotting result for "<< expname[i] << " with nsigma = " << nsigma << endl;
+	//	continue;
       }
       totl[0] = sqrt(statl[i]*statl[i] + systl[i]*systl[i]);
       toth[0] = sqrt(stath[i]*stath[i] + systh[i]*systh[i]);
