@@ -20,15 +20,25 @@ BR.2 = 3.30e-3
 BR.3 = 1.55e-3
 BR.4 = 3.29e-5
 
-stat.1 = 0.01e-2
-stat.2 = 0.01e-3
-stat.3 = 0.01e-3
-stat.4 = 0.17e-5
+## stat.1 = 0.01e-2
+## stat.2 = 0.01e-3
+## stat.3 = 0.01e-3
+## stat.4 = 0.17e-5
 
-syst.1 = 0.255e-2
-syst.2 = 0.165e-3
-syst.3 = 0.055e-3
-syst.4 = 0.195e-5
+stat.1 = 3.3211e-05
+stat.2 = 1.2740e-05
+stat.3 = 6.5750e-06
+stat.4 = 1.6941e-06
+
+## syst.1 = 0.255e-2
+## syst.2 = 0.165e-3
+## syst.3 = 0.055e-3
+## syst.4 = 0.195e-5
+
+syst.1 = 2.5879e-03
+syst.2 = 1.6625e-04
+syst.3 = 5.5579e-05
+syst.4 = 1.9621e-06
 
 sigma.1 = sqrt(stat.1**2 + syst.1**2)
 sigma.2 = sqrt(stat.2**2 + syst.2**2)
