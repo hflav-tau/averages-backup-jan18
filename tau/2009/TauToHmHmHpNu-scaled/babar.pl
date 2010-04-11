@@ -8,6 +8,12 @@ $sfac3 = 1.55071;
 $sfac4 = 5.44599;
 $sfac5 = 1.43062;
 
+$sfac1=2.08777669;
+$sfac2=2.08777669;
+$sfac3=2.08777669;
+$sfac4=2.08777669;
+$sfac5=2.08777669;
+
 printf "* B(tau- -> pi- pi- pi+ nu) [ex K0]\n";
 printf "BEGIN    BaBar PimPimPipNu published PRL100:011801,2008\n";
 printf "\n";

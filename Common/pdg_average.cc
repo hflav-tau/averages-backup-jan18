@@ -38,6 +38,7 @@ int pdg_average(){
   //
   double chi2=0; int nchi2=0;
   for (int i=0;i<n;i++){
+    double nsigma=ex[i]/(sqrt(n)*err);
     double chi2tmp=0;
     if (ex[i] < delta) {
       chi2tmp=(x[i]-aver)/ex[i];
@@ -46,7 +47,7 @@ int pdg_average(){
       nchi2++;
     }  
     cout << i << " " << x[i] << " +- " << ex1[i] << "(stat) +- " << ex2[i] << "(syst) +- " << ex[i] << " (tot) from " << experiment[i] << " " << year[i]
-         << " chi2tmp = " << chi2tmp << " chi2 = " << chi2 << " nchi2 = " << nchi2 << endl;
+         << " chi2tmp = " << chi2tmp << " chi2 = " << chi2 << " nchi2 = " << nchi2 << " nsigma = " << nsigma << endl;
   }
   double scale = (nchi2>1) ? sqrt(chi2/(nchi2-1)) : 1;
   cout << "Total Chi2 for " << nchi2 << " measurements (out of " << n << ") = " << chi2 << " Scale factor = " << scale << endl;
