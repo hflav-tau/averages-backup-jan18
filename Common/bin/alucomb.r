@@ -385,7 +385,7 @@ if (quant.num.true > 1) {
   cat("correlation\n")
   show(quant.corr[1:quant.num.true,1:quant.num.true])
 }
-}
+} ## !flag.no.maxLik && FALSE
 
 ##
 ## analytical minimum chi-square solution for quantities
@@ -429,6 +429,15 @@ meas.types.names = rownames(meas.types.id)
 rownames(meas.types) = meas.types.names
 colnames(meas.types) = meas.names.true
          
+##
+## measurement types that do not correspond to an averaged quantity
+## - compute average and errors
+##
+meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
+meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
+meas.extra = drop(meas.extra.id %*% quant[1:quant.num.true])
+meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
+
 ##-- chisq contribution and dof for each measurement type
 chisq.types = rep(0, dim(meas.types.id)[1])
 names(chisq.types) = meas.types.names
@@ -463,12 +472,30 @@ for (mt.name in meas.types.names) {
       chisq.types.meas = c(chisq.types.meas, tmp^2)
     }
   }
+  ##-- do not include chisq contribution of measurements with error >sqrt(3N) times average error (PDG recipe)
+  num = length(chisq.types.meas)
+  mt.m.names = names(chisq.types.meas)
+  average.err = c(quant.err[quant.names.true], meas.extra.err)[mt.name]
+  ##++ keep = ifelse(sqrt(diag(meas.cov.tot)[mt.m.names]) <= (3*sqrt(num)*average.err), 1, 0)
+  keep = ifelse(sqrt(diag(meas.cov.tot)[mt.m.names]) <= (3*sqrt(num)*average.err), 1, 1)
+  if (any(keep == 0)) {
+    cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", (3*sqrt(num)*average.err), "\n")
+    excl = sqrt(diag(meas.cov.tot)[names(keep)[keep == 0]])
+    cat(paste(names(excl), excl, sep=", total error = "), sep="\n")
+  }
+  if (FALSE && any(keep != 0)) {
+    cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", (3*sqrt(num)*average.err), "\n")
+    excl = sqrt(diag(meas.cov.tot)[names(keep)[keep != 0]])
+    cat(paste(names(excl), excl, sep=", total error = "), sep="\n")
+  }
+  
   ##-- chisq/dof for each type of measurement
-  chisq.types[mt.name] = sum(chisq.types.meas)
+  chisq.types[mt.name] = sum(keep*chisq.types.meas)
   ##-- number of degrees of freedom associated with measurements type
-  dof.types[mt.name] = length(chisq.types.meas)-1
+  dof.types[mt.name] = sum(keep != 0) - 1
   ##++ special treatment for when there is just 1 measurement of a specific type
   if (dof.types[mt.name] == 0) dof.types[mt.name] = 1
+  ## cat(mt.name, "chisq=", chisq.types[mt.name], "dof= ", dof.types[mt.name], "\n")
 
   if (FALSE) {
     ##
@@ -602,12 +629,7 @@ if (quant.num.true > 1) {
   show(quant2.corr[1:quant.num.true,1:quant.num.true])
 }
 
-##-- measurement types that do not correspond to an averaged quantity
-meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
-##meas.extra.id = meas.types.id[meas.types.names %in% meas.names.extra,]
-meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
-meas.extra = drop(meas.extra.id %*% quant[1:quant.num.true])
-meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
+##-- update with S-factors measurement types that do not correspond to an averaged quantity
 meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
 
 if (length(meas.extra) >0) {
