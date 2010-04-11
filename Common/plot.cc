@@ -288,7 +288,7 @@ int plot(std::string filename_string = "plot.input"){
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (CL = %s)",
 					    Form(sprecision.Data(),meas[i]),
 					    Form(sprecision.Data(),stat[i]),
-					    Form("%4.2f",syst[i])));
+					    Form("%.2g",syst[i])));
       }
     } else {
       if (!statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
