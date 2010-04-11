@@ -125,6 +125,28 @@ printf "%s %.4e %s %.4e %s %.4e\n", "rhostat_23 = ",$rhostat_23," rhosyst_23 = "
 printf "%s %.4e %s %.4e %s %.4e\n", "rhostat_24 = ",$rhostat_24," rhosyst_24 = ",$rhosyst_24," rhotot_24 = ",$rhotot_24;
 printf "%s %.4e %s %.4e %s %.4e\n", "rhostat_34 = ",$rhostat_34," rhosyst_34 = ",$rhosyst_34," rhotot_34 = ",$rhotot_34;
 
+printf "\n";
+printf "More precise stat. and syst. errors from communicated stat. and syst. covariance\n";
+printf "%s %.4e %s %.4e %s %.4e %s %.4e\n", "BR_1 = ",$BR_1," +- ",sqrt($covstat_11)," +- ",sqrt($covsyst_11)," error= ",sqrt($covtot_11);
+printf "%s %.4e %s %.4e %s %.4e %s %.4e\n", "BR_2 = ",$BR_2," +- ",sqrt($covstat_22)," +- ",sqrt($covsyst_22)," error= ",sqrt($covtot_22);
+printf "%s %.4e %s %.4e %s %.4e %s %.4e\n", "BR_3 = ",$BR_3," +- ",sqrt($covstat_33)," +- ",sqrt($covsyst_33)," error= ",sqrt($covtot_33);
+printf "%s %.4e %s %.4e %s %.4e %s %.4e\n", "BR_4 = ",$BR_4," +- ",sqrt($covstat_44)," +- ",sqrt($covsyst_44)," error= ",sqrt($covtot_44);
+
+$stat_1 = sqrt($covstat_11);
+$stat_2 = sqrt($covstat_22);
+$stat_3 = sqrt($covstat_33);
+$stat_4 = sqrt($covstat_44);
+
+$syst_1 = sqrt($covsyst_11);
+$syst_2 = sqrt($covsyst_22);
+$syst_3 = sqrt($covsyst_33);
+$syst_4 = sqrt($covsyst_44);
+
+$sigma_1 = sqrt($stat_1**2 + $syst_1**2);
+$sigma_2 = sqrt($stat_2**2 + $syst_2**2);
+$sigma_3 = sqrt($stat_3**2 + $syst_3**2);
+$sigma_4 = sqrt($stat_4**2 + $syst_4**2);
+
 # In the language of COMBOS, rhosyst_IJ*syst_I*syst_J is written as = Sum_i Delta_I,i Delta_J,i
 # where i = 1..n are the n systematic variations and Delta_I,i = change in BR_I due to i^th systematic error.
 # 
@@ -240,6 +262,7 @@ $Delta_4_u = sqrt($syst_4**2 - ($Delta_4_0**2 + $Delta_4_c**2 + $Delta_4_e**2 + 
 
 # Printout of the results:
 
+if (0) {
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_0 = ",$Delta_1_0," = ",$common," % of ",$BR_1;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_a = ",$Delta_1_a," = ",100.*$Delta_1_a/$BR_1," % of ",$BR_1;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_b = ",$Delta_1_b," = ",100.*$Delta_1_b/$BR_1," % of ",$BR_1;
@@ -263,3 +286,36 @@ printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_c = ",$Delta_4_c," = ",100.*$Delta_
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_e = ",$Delta_4_e," = ",100.*$Delta_4_e/$BR_4," % of ",$BR_4;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_f = ",$Delta_4_f," = ",100.*$Delta_4_f/$BR_4," % of ",$BR_4;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_u = ",$Delta_4_u," = ",100.*$Delta_4_u/$BR_4," % of ",$BR_4;
+}
+
+printf "\n";
+printf "PimPimPipNu\n";
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_00 = ",$Delta_1_0," = ",$common," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_12 = ",$Delta_1_a," = ",100.*$Delta_1_a/$BR_1," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_13 = ",$Delta_1_b," = ",100.*$Delta_1_b/$BR_1," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_14 = ",$Delta_1_c," = ",100.*$Delta_1_c/$BR_1," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_1u = ",$Delta_1_u," = ",100.*$Delta_1_u/$BR_1," % of ",$BR_1;
+
+printf "\n";
+printf "PimKmPipNu\n";
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_00 = ",$Delta_2_0," = ",$common," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_12 = ",$Delta_2_a," = ",100.*$Delta_2_a/$BR_2," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_23 = ",$Delta_2_d," = ",100.*$Delta_2_d/$BR_2," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_24 = ",$Delta_2_e," = ",100.*$Delta_2_e/$BR_2," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_2u = ",$Delta_2_u," = ",100.*$Delta_2_u/$BR_2," % of ",$BR_2;
+
+printf "\n";
+printf "PimKmKpNu\n";
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_00 = ",$Delta_3_0," = ",$common," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_13 = ",$Delta_3_b," = ",100.*$Delta_3_b/$BR_3," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_23 = ",$Delta_3_d," = ",100.*$Delta_3_d/$BR_3," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_34 = ",$Delta_3_f," = ",100.*$Delta_3_f/$BR_3," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_3u = ",$Delta_3_u," = ",100.*$Delta_3_u/$BR_3," % of ",$BR_3;
+
+printf "\n";
+printf "KmKmKpNu\n";
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_00 = ",$Delta_4_0," = ",$common," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_14 = ",$Delta_4_c," = ",100.*$Delta_4_c/$BR_4," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_24 = ",$Delta_4_e," = ",100.*$Delta_4_e/$BR_4," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_34 = ",$Delta_4_f," = ",100.*$Delta_4_f/$BR_4," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "BelleSyst_4u = ",$Delta_4_u," = ",100.*$Delta_4_u/$BR_4," % of ",$BR_4;
