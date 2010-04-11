@@ -327,6 +327,8 @@ quant.names.comb = setdiff(quant.names.comb, quant.names)
 quant.names = c(quant.names, quant.names.comb)
 
 ##-- get list of stat and syst errors
+meas.value = unlist(lapply(measurements, function(x) x$value))
+names(meas.value) = meas.names
 meas.stat = unlist(lapply(measurements, function(x) x$stat))
 names(meas.stat) = meas.names
 meas.syst = unlist(lapply(measurements, function(x) x$syst))
@@ -398,39 +400,36 @@ if (!flag.ok) {
 ## - stat. correlation is multiplied by stat. errors
 ## - total correlation is multiplied by total errors
 ##
-meas.cov.tot = meas.corr * (meas.error %o% meas.error)
-meas.cov.tot = meas.cov.tot + diag(meas.error^2)
+meas.cov = meas.corr * (meas.error %o% meas.error)
 meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
 ##++ end of code in common with alucomb.r
 
 ##
-## whenever no total correlation error has been specified
-## between two different measurements, determine the respective
-## coefficient from the common systematic terms
+## get syst. correlation corresponding to correlated syst. terms
 ##
-meas.cov = meas.cov.tot
+meas.cov.syst = meas.corr * 0
 for (meas.i in meas.names.true) {
   syst.i = measurements[[meas.i]]$syst.terms
   for (meas.j in meas.names.true) {
     ##-- no addition needed for on-diagonal terms
     if (meas.i == meas.j) next
-    ##-- no addition needed if total syst. correlation specified
-    if (meas.cov[meas.i, meas.j] != 0) next
     syst.j = measurements[[meas.j]]$syst.terms
     ##-- systematics common to the two measurements
     correl.i.j = intersect(names(syst.i), names(syst.j))
     ##-- remove syst. terms uncorrelated to two different measurements
     correl.i.j = intersect(correl.i.j, syst.terms.corr)
     if (length(correl.i.j) == 0) next
-    cov.contrib = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
-    ## cat(meas.i, meas.j, cov.contrib, syst.i[correl.i.j], syst.j[correl.i.j], "\n")
-    meas.cov[meas.i,meas.j] = meas.cov[meas.i,meas.j] + cov.contrib
+    meas.cov.syst[meas.i,meas.j] = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
   }
 }
 
-##-- add statistical correlation between different measurements
-meas.cov = meas.cov + meas.cov.stat
+##-- if total correlation specified, get stat. correlation by subtraction
+meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
+meas.cov.stat = meas.cov.stat + diag(meas.stat^2)
+##-- total covariance
+meas.cov.syst = meas.cov.syst + diag(meas.syst^2)
+meas.cov = meas.cov.stat + meas.cov.syst
 
 ##
 ## get PDG average produced from the current directory
@@ -501,12 +500,58 @@ for (quant in quant.names) {
   x.maxs = numeric()
   x.values = numeric()
   all.exp.meas = list()
+  meas.list.tmp = list()
+
+  ##-- collect value, stat, syst, bibitem of all relevant measurements
   for (meas in meas.names[quant == meas.quantities]) {
+    meas.tmp = list()
+    meas.tmp[[meas]] =
+      list(value=measurements[[meas]]$value,
+           stat=measurements[[meas]]$stat,
+           syst=measurements[[meas]]$syst,
+           bibitem=measurements[[meas]]$bibitem,
+           index=which(meas.names == meas))
+    meas.list.tmp = c(meas.list.tmp, meas.tmp)
+  }
+
+  if (quant == "HmHmHpNu") {
+    ##-- special case, add BaBar and Belle hhh measurements as sum of exclusive modes
+    combnames = c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu")
+    explist = list(
+      list("BaBar", "published"),
+      list("Belle", "published"))
+    reslist = unlist(lapply(explist, function(exp) {
+      rc = list()
+      name = paste(exp[[1]], quant, exp[[2]], sep=".")
+      rc[[name]] = names(meas.quantities) %in% paste(exp[[1]], combnames, exp[[2]], sep=".")
+      return(rc)
+    }), recursive=FALSE)
+    reslist.sorted.names = names(sort(do.call(rbind,lapply(reslist, function(x) which(x)))[,1]))
+    ##-- collect value, stat, syst, bibitem of the combination
+    for (combres in reslist.sorted.names) {
+      combres.vec = as.numeric(reslist[[combres]])
+      value = drop(combres.vec %*% meas.value)
+      stat = sqrt(drop(combres.vec %*% meas.cov.stat %*% combres.vec))
+      syst = sqrt(drop(combres.vec %*% meas.cov.syst %*% combres.vec))
+      ##-- order number of 1st measurement used in the combination
+      index = which(combres.vec !=0)[1]
+      bibitem = measurements[[index]]$bibitem
+      ##-- substitute quantity with the combination we calculated
+      bibitem[2] = quant
+      ## cat(unlist(strsplit(combres, ".", fixed=TRUE)), value, stat, syst, "\n")
+      meas.tmp = list()
+      meas.tmp[[combres]] = list(value=value, stat=stat, syst=syst, bibitem=bibitem, index=index)
+      meas.list.tmp = c(meas.list.tmp, meas.tmp)
+    }
+  }
+  
+  ##-- sort all measurements according to their ordering in the Combos cards
+  for (meas in names(sort(unlist(lapply(meas.list.tmp, function(x) x$index))))) {
     exp.meas = list()
-    value = measurements[[meas]]$value
-    stat = measurements[[meas]]$stat
-    syst = measurements[[meas]]$syst
-    bibitem = measurements[[meas]]$bibitem
+    value = meas.list.tmp[[meas]]$value
+    stat = meas.list.tmp[[meas]]$stat
+    syst = meas.list.tmp[[meas]]$syst
+    bibitem = meas.list.tmp[[meas]]$bibitem
 
     error = sqrt(sum(c(stat), syst)^2)
     x.mins = c(x.mins, value - error)
@@ -694,7 +739,7 @@ for (quant in quant.names) {
   }
   
   ##-- measurements
-  cat("# next lines are measurement, stat pos-error, neg-error[with negative sign]",
+  cat("# next lines are measurement, stat pos-error, neg-error[with negative sign],",
       "syst pos-error, neg-error[with negative sign], experiment-name\n", file=fh)
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
