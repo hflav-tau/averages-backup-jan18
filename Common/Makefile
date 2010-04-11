@@ -60,6 +60,16 @@ slac:
 	  echo "no write access to $(HFAGDATADIR)" ;\
 	fi
 
+# --- mount SLAC AFS via sshfs
+.PHONY: slac_mount
+slac_mount:
+	sshfs -oworkaround=rename flora.slac.stanford.edu:/ $(HOME)/local/mounts/slac
+
+# --- un-mount SLAC AFS via sshfs
+.PHONY: slac_umount
+slac_umount:
+	fusermount -u $(HOME)/local/mounts/slac
+
 # --- create "log" as link to the respective dir in the data directory
 .PHONY: link
 link:
