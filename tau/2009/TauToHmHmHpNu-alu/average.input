@@ -1,7 +1,7 @@
 INCLUDE belle.input
 INCLUDE babar.input
-INCLUDE pdg.input
-INCLUDE pdg_hhh.input
+INCLUDE ../TauToHmHmHpNu/pdg.input
+INCLUDE ../TauToHmHmHpNu/pdg_hhh.input
 
 BEGIN   BaBar+Belle+PDG all_methods
 
