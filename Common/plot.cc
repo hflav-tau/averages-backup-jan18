@@ -160,15 +160,25 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
   cout << "Read " << nPoints << " lines from filename " << filename << endl ;
+  int nexp=0;
+  double num=0,den=0,aver=0,err=0,wt;
   for (int i=0;i<nPoints;i++) {
     if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with CL (or -Scale Factor) = " << syst[i] << " from " << expname[i] << endl;
     } else if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with Scale Factor = " << syst[i] << " from " << expname[i] << endl;
     } else {
+      wt=1./(stat[i]*stat[i]+syst[i]*syst[i]);
+      num+=meas[i]*wt;
+      den+=wt;
+      nexp++;
       cout << i << " " << meas[i] << " +- " << stat[i] << " (stat) +- " << syst[i] << " (syst) from " << expname[i] << endl;
     }
   }
+  aver=num/den;
+  err =sqrt(1/den);
+  double delta=sqrt(nexp)*err;
+  cout << "Simple weighted average of nexp = " << nexp << " data points is " << aver << " +- " << err << " which gives delta = sqrt(nexp)*err = " << delta << endl;
   //
   TString sprecision = Form("%s%3.1f%s","%",precision,"f");
   cout << "sprecision = " << sprecision << endl;
@@ -226,6 +236,11 @@ int plot(std::string filename_string = "plot.input"){
       totl[0] = stat[i];
       toth[0] = stat[i];
     }else{
+      double  nsigma = (stat[i]*stat[i] + syst[i]*syst[i]) / delta;
+      if (nsigma > 5) {
+	cout << "Skipping plotting result for "<< expname[i] << " with nsigma = " << nsigma << endl;
+	continue;
+      }
       totl[0] = sqrt(statl[i]*statl[i] + systl[i]*systl[i]);
       toth[0] = sqrt(stath[i]*stath[i] + systh[i]*systh[i]);
     }
