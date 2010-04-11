@@ -3,19 +3,25 @@ BEGIN    Belle PimPimPipNu  published arXiv:1001.0083 (2010)
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            8.42e-2       0.01e-2     0.255e-2
+            8.42e-2       3.3211e-05  2.5879e-03
+* pub:      8.42e-2       0.01e-2     0.255e-2
 
 STAT_CORR_WITH Belle PimKmPipNu published -3.0087e-01
 STAT_CORR_WITH Belle PimKmKpNu  published  5.0054e-03
 STAT_CORR_WITH Belle KmKmKpNu   published  2.5469e-03
 
 DATA
-            BelleSyst_00  1.6840e-04
-            BelleSyst_12  1.0604e-03
-            BelleSyst_13  5.4735e-04
-            BelleSyst_14  6.8790e-04
-            BelleSyst_1u  2.1394e-03
+*           BelleSyst_00  1.6840e-04
+*           BelleSyst_12  1.0604e-03
+*           BelleSyst_13  5.4735e-04
+*           BelleSyst_14  6.8790e-04
+*           BelleSyst_1u  2.1394e-03
 
+            BelleSyst_00  1.6840e-04
+            BelleSyst_12  1.0764e-03
+            BelleSyst_13  5.5604e-04
+            BelleSyst_14  6.9791e-04
+            BelleSyst_1u  2.1711e-03
 END
 
 * B(tau- -> pi- K- pi+ nu) [ex. K0] 
@@ -23,19 +29,25 @@ BEGIN    Belle PimKmPipNu published arXiv:1001.0083 (2010)
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            0.330e-2     0.001e-2    0.0165e-2
+            0.330e-2     1.2740e-05  1.6625e-04
+* pub:      0.330e-2     0.001e-2    0.0165e-2
 
 STAT_CORR_WITH Belle PimPimPipNu published -3.0087e-01
 STAT_CORR_WITH Belle PimKmKpNu   published -2.0080e-01
 STAT_CORR_WITH Belle KmKmKpNu    published  1.0666e-02
 
 DATA
-            BelleSyst_00  6.6000e-06
-            BelleSyst_12  6.8710e-05
-            BelleSyst_23  4.6869e-05
-            BelleSyst_24  3.4759e-05
-            BelleSyst_2u  1.3804e-04
+*           BelleSyst_00  6.6000e-06
+*           BelleSyst_12  6.8710e-05
+*           BelleSyst_23  4.6869e-05
+*           BelleSyst_24  3.4759e-05
+*           BelleSyst_2u  1.3804e-04
 
+            BelleSyst_00  6.6000e-06
+            BelleSyst_12  6.9241e-05
+            BelleSyst_23  4.7236e-05
+            BelleSyst_24  3.5030e-05
+            BelleSyst_2u  1.3908e-04
 END
 
 * B(tau- -> pi- K- K+ nu)
@@ -43,19 +55,25 @@ BEGIN   Belle PimKmKpNu published arXiv:1001.0083 (2010)
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.550e-3    0.010e-3    0.055e-3
+            1.550e-3    6.5750e-06  5.5579e-05
+* pub:      1.550e-3    0.010e-3    0.055e-3
 
 STAT_CORR_WITH Belle PimPimPipNu published  5.0054e-03
 STAT_CORR_WITH Belle PimKmPipNu  published -2.0080e-01
 STAT_CORR_WITH Belle KmKmKpNu    published -2.1439e-01
 
 DATA
-            BelleSyst_00  3.1000e-06
-            BelleSyst_13  1.1813e-05
-            BelleSyst_23  1.5611e-05
-            BelleSyst_34  5.1968e-06
-            BelleSyst_3u  5.1041e-05
+*           BelleSyst_00  3.1000e-06
+*           BelleSyst_13  1.1813e-05
+*           BelleSyst_23  1.5611e-05
+*           BelleSyst_34  5.1968e-06
+*           BelleSyst_3u  5.1041e-05
 
+            BelleSyst_00  3.1000e-06
+            BelleSyst_13  1.1949e-05
+            BelleSyst_23  1.5779e-05
+            BelleSyst_34  5.2607e-06
+            BelleSyst_3u  5.1575e-05
 END
 
 * B(tau- -> K- K- K+ nu)
@@ -63,17 +81,23 @@ BEGIN   Belle KmKmKpNu published arXiv:1001.0083 (2010)
 
 MEASUREMENT m_KmKmKpNu  statistical systematic
 DATA        m_KmKmKpNu  statistical systematic
-            3.29e-5     0.17e-5     0.195e-5
+            3.29e-5     1.6941e-06  1.9621e-06
+* pub:      3.29e-5     0.17e-5     0.195e-5
 
 STAT_CORR_WITH Belle PimPimPipNu published  2.5469e-03
 STAT_CORR_WITH Belle PimKmPipNu  published  1.0666e-02
 STAT_CORR_WITH Belle PimKmKpNu   published -2.1439e-01
 
 DATA
-            BelleSyst_00  6.5800e-08  
-            BelleSyst_14 -5.2689e-07 
-            BelleSyst_24  4.1088e-07 
-            BelleSyst_34  1.8444e-07 
-            BelleSyst_4u  1.8215e-06 
+*           BelleSyst_00  6.5800e-08  
+*           BelleSyst_14 -5.2689e-07 
+*           BelleSyst_24  4.1088e-07 
+*           BelleSyst_34  1.8444e-07 
+*           BelleSyst_4u  1.8215e-06 
 
+            BelleSyst_00  6.5800e-08
+            BelleSyst_14  -5.2999e-07
+            BelleSyst_24  4.1352e-07
+            BelleSyst_34  1.8591e-07
+            BelleSyst_4u  1.8328e-06
 END
