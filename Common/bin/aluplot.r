@@ -664,7 +664,10 @@ for (quant in quant.names) {
     order = not.higher.order
     precision = 5.3
   }
-  x.padding.left = 0.05+2
+  ## x.fraction.result = 2.5/9.5
+  ## x.fraction.result = 1/3
+  x.fraction.result = 0.3
+  x.padding.left = 0.05 + (1/x.fraction.result -1)
   x.padding.right = 0.05
   x.min = x.min - x.padding.left*(x.max-x.min)
   x.max = x.max + x.padding.right*(x.max-x.min)
@@ -717,11 +720,11 @@ for (quant in quant.names) {
         if (length(average) >0) {
           average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
           cat(format(average, width=34),
-              "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) inputs combined]\n", file=fh)
+              "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) modes combined]\n", file=fh)
         }
         label.extra = paste(" [", label.root(quant), " inputs only]", sep="")
       } else {
-        label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) inputs combined]"
+        label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) modes combined]"
       }
     }
     cat("& ", sprintf("%-10.4g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)),
