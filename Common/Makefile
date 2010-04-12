@@ -116,13 +116,13 @@ pdg:
 	fi
 
 plot:	$(PLOTS)
+	@echo "do \"make update_plot\" to save plots in reference data dir"
 
 $(PLOTS): %.eps: %.input
 	@/bin/rm -f $(patsubst %.input,%.log, $<)
 	root -l -b -q ../../../Common/plot.cc'("$<")' > $(patsubst %.input,%.log, $<)
 	convert $@ $(patsubst %.input,%.gif, $<)
 	@echo "file $(CURDIR)/$(patsubst %.input,%.log, $<) created"
-	@echo "do \"make update_plot\" to save plots in reference data dir"
 
 update_plot: update_plot_all
 	@/bin/mkdir -p $(DATADIR)/$(CURDIR)
