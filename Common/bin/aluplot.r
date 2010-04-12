@@ -713,7 +713,7 @@ for (quant in quant.names) {
     if (any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))) {
       if (length(quant.names) == 1) {
         ##-- single average of a hhh mode, get also the global hhh average result
-        fname.temp = paste("../TauToHmHmHpNu/plot-", quant, ".input", sep="")
+        fname.temp = paste("../TauTo3Prongs/plot-", quant, ".input", sep="")
         cat("info: get HFAG tau -> hhh nu average from ", fname.temp, "\n", sep="")
         fhtemp = pipe(paste("grep \"^&\" ", fname.temp, " | head -1", sep=""))
         average = readLines(fhtemp)

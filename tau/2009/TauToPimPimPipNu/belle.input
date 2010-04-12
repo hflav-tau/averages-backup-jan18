@@ -1,7 +1,0 @@
-* B(tau- -> pi- pi- pi+ nu) [ex K0]
-BEGIN    Belle PimPimPipNu  published arXiv:1001.0083
-MEASUREMENT m_PimPimPipNu statistical systematic
-DATA        m_PimPimPipNu statistical systematic
-            8.42e-2       0.01e-2     0.255e-2
-DATA BelleOther 0.255e-2
-END
