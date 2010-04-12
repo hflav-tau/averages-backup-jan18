@@ -1,7 +1,7 @@
 # first line is xmin, xmax, precision, title
 *      -0.5095     0.236525 5.3 B(#tau^{-} #rightarrow #pi^{-}K^{-}K^{+}#nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 0.143124     0.00279105   0.0347613    HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{+}h^{-} #nu) modes combined]
+& 0.143124     0.00279105   0.0347613    HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu) modes combined]
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 0.137        0.006        1.8          PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
