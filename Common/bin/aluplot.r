@@ -710,7 +710,7 @@ for (quant in quant.names) {
     ## the relevant line in a previously produced plot.input file
     ## moreover, add proper information after "HFAG average"
     ##
-    if (any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))) {
+    if (any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu", "HmHmHpNu"))) {
       if (length(quant.names) == 1) {
         ##-- single average of a hhh mode, get also the global hhh average result
         fname.temp = paste("../TauTo3Prongs/plot-", quant, ".input", sep="")
