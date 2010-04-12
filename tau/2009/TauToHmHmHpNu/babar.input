@@ -1,0 +1,7 @@
+* B(tau- -> h- h- h+ nu) [ex K0]
+BEGIN    BaBar HmHmHpNu published 2008
+MEASUREMENT m_HmHmHpNu statistical systematic
+DATA        m_HmHmHpNu statistical systematic
+            9.242e-2   0.007e-2    0.134e-2
+DATA        BaBarOther 0.134e-2
+END
