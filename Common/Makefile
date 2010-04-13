@@ -118,7 +118,7 @@ pdg:
 plot:	$(PLOTS)
 	@echo "do \"make update_plot\" to save plots in reference data dir"
 
-$(PLOTS): %.eps: %.input
+$(PLOTS): %.eps: %.input ../../../Common/plot.cc
 	@/bin/rm -f $(patsubst %.input,%.log, $<)
 	root -l -b -q ../../../Common/plot.cc'("$<")' > $(patsubst %.input,%.log, $<)
 	convert $@ $(patsubst %.input,%.gif, $<)
