@@ -431,20 +431,23 @@ for (mt.name in meas.types.names) {
   ## average.err = c(quant.err, meas.extra.err)[mt.name]
   ##-- error on average like for PDG, assuming no correlation
   average.err = 1/sqrt(sum(1/meas.error[mt.m.names]^2))
-  keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 0)
+  error.max = 3*sqrt(num)*average.err
+  keep = ifelse(meas.error[mt.m.names] <= error.max, 1, 0)
   ##++ keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 1)
   keep.types.names = c(keep.types.names, names(keep)[keep != 0])
+  save = options()
+  options(digits=4)
   if (any(keep == 0)) {
-    cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", (3*sqrt(num)*average.err), "\n")
+    cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", error.max, "\n")
     excl = meas.error[names(keep)[keep == 0]]
-    cat(paste(names(excl), excl, sep=", total error = "), sep="\n")
+    cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
   if (FALSE && any(keep != 0)) {
-    cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", (3*sqrt(num)*average.err), "\n")
+    cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", error.max, "\n")
     excl = meas.error[names(keep)[keep != 0]]
-    cat(paste(names(excl), excl, sep=", total error = "), sep="\n")
+    cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
-  
+  options(save)
   ##-- chisq/dof for each type of measurement
   chisq.types[mt.name] = sum(keep*chisq.types.meas)
   ##-- number of degrees of freedom associated with measurements type
