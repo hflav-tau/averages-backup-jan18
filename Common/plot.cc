@@ -300,10 +300,17 @@ int plot(std::string filename_string = "plot.input"){
 					    Form(sprecision.Data(),stat[i]),
 					    Form("%4.2f",fabs(syst[i]))));
       } else { // positive means CL is quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (CL = %s%%)",
-					    Form(sprecision.Data(),meas[i]),
-					    Form(sprecision.Data(),stat[i]),
-					    Form("%.2g",100*syst[i])));
+	if (syst[i]>0.1) {
+	  tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (CL = %s%%)",
+					      Form(sprecision.Data(),meas[i]),
+					      Form(sprecision.Data(),stat[i]),
+					      Form("%4.1f",100*syst[i])));
+	}else{
+	  tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s (CL = %s%%)",
+					      Form(sprecision.Data(),meas[i]),
+					      Form(sprecision.Data(),stat[i]),
+					      Form("%3.1f",100*syst[i])));
+	}
       }
     } else {
       if (!statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
