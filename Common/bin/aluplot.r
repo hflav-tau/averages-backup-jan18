@@ -194,11 +194,10 @@ get.alucomb.data = function(lines) {
     fields = unlist(strsplit(lines[li], "\\s+", perl=TRUE))
     prev.options = options()
     options(warn=-1)
+    if (length(fields) <= length(cols)) break
     values = as.numeric(fields[-(1:(length(fields)-length(cols)))])
     options(prev.options)
-    if (length(values) == 0 || any(is.na(values))) {
-      break
-    }
+    if (length(values) == 0 || any(is.na(values))) break
     data = rbind(data, values)
     rows = c(rows, paste(fields[1:(length(fields)-length(cols))], collapse=" "))
   }
@@ -519,7 +518,7 @@ for (quant in quant.names) {
     combnames = c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu")
     explist = list(
       list("BaBar", "published"),
-      list("Belle", "published"))
+      list("Belle", "submitted"))
     reslist = unlist(lapply(explist, function(exp) {
       rc = list()
       name = paste(exp[[1]], quant, exp[[2]], sep=".")
@@ -596,7 +595,9 @@ for (quant in quant.names) {
     chisq = plot.data$hfag$chisq.all[quant]
     dof = plot.data$hfag$dof.all[quant]
     scale.factor = plot.data$hfag$sfact[quant]
-    conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
+    ##-- in case of multiple quantities average, consider global CL
+    ## conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
+    conf.lev = pchisq(plot.data$hfag$chisq, df=plot.data$hfag$dof, lower.tail=FALSE)
   }
   
   ##
