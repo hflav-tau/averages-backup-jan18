@@ -43,29 +43,29 @@ rc = NULL
 ## (right now we only handle COMBINE * * *)
 ##
 
+##-- all measurements in the input cards
+meas.names = names(measurements)
 ##-- quantities to be averaged
 quant.names = combination$quantities
+quant.num = length(quant.names)
 ##-- measurements of quantities that are linear combination of the quantities to be averaged
 meas.names.comb = names(combination$meas.lin.combs[unlist(
   lapply(combination$meas.lin.combs, function(el) all(names(el) %in% combination$quantities)))])
-##-- quantity measured by each measurement
+##-- quantity measured per measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
-names(meas.quantities) = names(measurements)
-##-- unique quantities corresponding to linear combinations of averaged quantities
+names(meas.quantities) = meas.names
+##-- unique quantities corresponding to linear combinations, other than averaged quantities
 quant.names.comb = unique(meas.quantities[meas.names.comb])
 quant.names.comb = setdiff(quant.names.comb, quant.names)
 ##-- quantities to be averaged plus their linear combinations
 quant.names.include = c(quant.names, quant.names.comb)
-##-- get quantities corresponding to all measurements
-meas.names = names(measurements)
-names(meas.names) = unlist(lapply(measurements, function(x) names(x$value)))
 
 if (length(quant.names.comb) >0) {
   cat("The following measurements are included as linear combinations:\n")
-  cat(paste("  ", meas.names[names(meas.names) %in% quant.names.comb], collapse="\n"), "\n");
+  cat(paste("  ", meas.names[meas.quantities %in% quant.names.comb], collapse="\n"), "\n");
 }
-meas.included.list = names(meas.names) %in% quant.names.include
-meas.quantities = meas.quantities[meas.included.list]
+meas.included.list = meas.quantities %in% quant.names.include
+names(meas.included.list) = names(meas.quantities)[meas.included.list]
 meas.names.discarded =  meas.names[!meas.included.list]
 if (length(meas.names.discarded) >0) {
   cat("The following measurements are discarded:\n")
@@ -74,9 +74,9 @@ if (length(meas.names.discarded) >0) {
 
 ##-- update
 measurements = measurements[meas.included.list]
-meas.quantities = meas.quantities[meas.included.list]
-meas.num = length(measurements[meas.included.list])
 meas.names = names(measurements)
+meas.num = length(measurements[meas.included.list])
+meas.quantities = meas.quantities[meas.included.list]
 
 ##-- checks on syst terms
 for (meas in names(measurements)) {
@@ -145,14 +145,15 @@ for (meas in names(measurements)) {
   ## cat(measurements[[meas]]$tag, measurements[[meas]]$value, measurements[[meas]]$stat, measurements[[meas]]$syst, "\n")
 }
 
-##-- collect what measurements are affected by each syst. term
+##-- for each syst. term external parameter, collect affected measurements
 syst.terms.list = list()
-for (meas in names(measurements)) {
+for (meas in meas.names) {
   for (syst.term in names(measurements[[meas]]$syst.terms)) {
     ##-- add measurement to the list of the currect syst. term
     syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], meas)
   }
 }
+
 ##-- retain just the syst. contributions that affect at least two measurements
 syst.terms.corr = lapply(syst.terms.list, length) >= 2
 if (length(syst.terms.corr) > 0) {
@@ -162,39 +163,16 @@ if (length(syst.terms.corr) > 0) {
 }
 
 ##
-## add correlated syst. terms to the measurements vector
-## as fake measurements equal to zero with error one
-##
-meas.quantities.true = meas.quantities
-meas.num.true = meas.num
-meas.names.true = meas.names
-meas.num.fake = length(syst.terms.corr)
-meas.num = meas.num.true + meas.num.fake
-meas.names.fake = character()
-if (meas.num.fake > 0) {
-  meas.names.fake = paste(syst.terms.corr, "m", sep=".")
-}
-meas.names = c(meas.names.true, meas.names.fake)
-
-##
 ## in the following, the covariance matrix for measurements is assembled
 ##
 
-##-- get list of stat and syst errors
-meas.stat.true = unlist(lapply(measurements, function(x) x$stat))
-names(meas.stat.true) = meas.names.true
-meas.syst.true = unlist(lapply(measurements, function(x) x$syst))
-names(meas.syst.true) = meas.names.true
-
-##-- fake measurements have stat. error = 1, syst. error = 0
-meas.stat.fake = rep(1, meas.num.fake)
-names(meas.stat.fake) = meas.names.fake
-meas.syst.fake = rep(0, meas.num.fake)
-names(meas.syst.fake) = meas.names.fake
-
-##-- combine true and fake info, compute total error
-meas.stat = c(meas.stat.true, meas.stat.fake)
-meas.syst = c(meas.syst.true, meas.syst.fake)
+##-- get list of values, stat errors, syst errors
+meas.value = unlist(lapply(measurements, function(x) x$value))
+names(meas.value) = meas.names
+meas.stat = unlist(lapply(measurements, function(x) x$stat))
+names(meas.stat) = meas.names
+meas.syst = unlist(lapply(measurements, function(x) x$syst))
+names(meas.syst) = meas.names
 meas.error = sqrt(meas.stat^2 + meas.syst^2)
 
 ##
@@ -240,52 +218,34 @@ if (!flag.ok) {
 ## - stat. correlation is multiplied by stat. errors
 ## - total correlation is multiplied by total errors
 ##
-meas.cov.tot = meas.corr * (meas.error %o% meas.error)
-meas.cov.tot = meas.cov.tot + diag(meas.error^2)
+meas.cov = meas.corr * (meas.error %o% meas.error)
 meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
 ##
-## from variance and covariance terms between true measurements
-## we subtract the correlated systematic terms contributions
+## get syst. correlation corresponding to correlated syst. terms
 ##
-meas.cov = meas.cov.tot
-for (meas.i in meas.names.true) {
+meas.cov.syst = meas.corr * 0
+for (meas.i in meas.names) {
   syst.i = measurements[[meas.i]]$syst.terms
-  for (meas.j in meas.names.true) {
-    ##-- do not subtract anything if no total correlation term was specified
-    if (meas.cov[meas.i, meas.j] == 0) next
+  for (meas.j in meas.names) {
+    ##-- no addition needed for on-diagonal terms
+    if (meas.i == meas.j) next
     syst.j = measurements[[meas.j]]$syst.terms
     ##-- systematics common to the two measurements
     correl.i.j = intersect(names(syst.i), names(syst.j))
     ##-- remove syst. terms uncorrelated to two different measurements
     correl.i.j = intersect(correl.i.j, syst.terms.corr)
     if (length(correl.i.j) == 0) next
-    cov.contrib = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
-    meas.cov[meas.i,meas.j] = meas.cov[meas.i,meas.j] - cov.contrib
+    meas.cov.syst[meas.i,meas.j] = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
   }
 }
 
-##-- add statistical correlation between different measurements
-meas.cov = meas.cov + meas.cov.stat
-
-##
-## quantities we want to determine from measurements
-##
-quant.names.true = combination$quantities
-quant.num.true = length(quant.names.true)
-quant.num.fake = length(syst.terms.corr)
-quant.num = quant.num.true + quant.num.fake
-quant.names.fake = character()
-if (quant.num.fake > 0) {
-  quant.names.fake = paste(syst.terms.corr, "q", sep=".")
-}
-quant.names = c(quant.names.true, quant.names.fake)
-##-- set quantity - measurement correspondence for fake ones
-meas.quantities = c(meas.quantities, quant.names.fake)
-
-delta = matrix(0, meas.num, quant.num)
-colnames(delta) = quant.names
-rownames(delta) = meas.names
+##-- if total correlation specified, get stat. correlation by subtraction
+meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
+meas.cov.stat = meas.cov.stat + diag(meas.stat^2)
+##-- total covariance
+meas.cov.syst = meas.cov.syst + diag(meas.syst^2)
+meas.cov = meas.cov.stat + meas.cov.syst
 
 ##
 ## build delta matrix
@@ -299,6 +259,9 @@ rownames(delta) = meas.names
 ## one can generalize the above concepts to measurements that are linear combinations
 ## of quantities by using proper coefficients different from 1
 ##
+delta = matrix(0, meas.num, quant.num)
+colnames(delta) = quant.names
+rownames(delta) = meas.names
 
 ##
 ## build column by column
@@ -317,34 +280,18 @@ for (meas in names(combination$meas.lin.combs)) {
   delta[meas,quants] = combination$meas.lin.combs[[meas]]
 }
 
-##
-## for each measurement, systematic term = fake quantity,
-## the delta coefficient is the respective syst. term
-##
-for (syst.term.name in names(syst.terms.list[syst.terms.corr])) {
-  quant.name.fake = paste(syst.term.name,"q",sep=".")
-  for (meas in syst.terms.list[syst.terms.corr][[syst.term.name]]) {
-    delta[meas, quant.name.fake] = measurements[[meas]]$syst.terms[syst.term.name]
-  }
-}
-
-##-- get measurement values
-meas.true = unlist(lapply(measurements, function(x) { x$value }))
-names(meas.true) = meas.names.true
-meas.fake = rep(0, meas.num.fake)
-names(meas.fake) = meas.names.fake
-names(meas.fake) = meas.names.fake
-meas = c(meas.true, meas.fake)
-
 ##-- print corrected measurements
 if (FALSE) {
-  show(meas.true)
-  show(meas.stat.true)
-  show(meas.syst.true)
-  show(meas.error.true)
+  show(meas.value)
+  show(meas.stat)
+  show(meas.syst)
+  show(meas.error)
 }
 
-if (!flag.no.maxLik && FALSE) {
+##-- simplify
+meas = meas.value
+
+if (FALSE && !flag.no.maxLik) {
 ##
 ## solve for quantities with iterative chi-square minimization
 ##
@@ -380,10 +327,10 @@ cat("##\n")
 cat("## numerical fit, chisq/d.o.f = ", chisq.fit, "/", meas.num - quant.num,
     ", CL = ", (1-pchisq(chisq.fit, df=meas.num-quant.num)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant[1:quant.num.true], error=quant.err[1:quant.num.true]))
-if (quant.num.true > 1) {
+show(rbind(value=quant[1:quant.num], error=quant.err[1:quant.num]))
+if (quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr[1:quant.num.true,1:quant.num.true])
+  show(quant.corr[1:quant.num, 1:quant.num])
 }
 } ## !flag.no.maxLik && FALSE
 
@@ -410,33 +357,39 @@ cat("##\n")
 cat("## exact solution, chisq/d.o.f. = ",chisq, "/", meas.num - quant.num,
     ", CL = ", (1-pchisq(chisq, df=meas.num-quant.num)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant[1:quant.num.true], error=quant.err[1:quant.num.true]))
-if (quant.num.true > 1) {
+show(rbind(value=quant[1:quant.num], error=quant.err[1:quant.num]))
+if (quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr[1:quant.num.true,1:quant.num.true])
+  show(quant.corr[1:quant.num, 1:quant.num])
 }
 
 ##
 ## each measurement is a linear combination of the quantities we fit
 ## here we collect all the unique linear combinations, named "types"
 ##
-meas.types.id = unique(delta[1:meas.num.true,1:quant.num.true,drop=FALSE])
+meas.types.id = unique(delta)
+##++ get measurement names from "method" rather than MEASUREMENT card for safety
 rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
 
 ##-- for each "type", will set TRUE at the position of corresponding measurements
-meas.types = matrix(FALSE, dim(meas.types.id)[1], meas.num.true)
+meas.types = matrix(FALSE, dim(meas.types.id)[1], meas.num)
 meas.types.names = rownames(meas.types.id)
 rownames(meas.types) = meas.types.names
-colnames(meas.types) = meas.names.true
-         
+colnames(meas.types) = meas.names
+for (mt.name in meas.types.names) {
+  for (m.name in meas.names) {
+    meas.types[mt.name, m.name] = all(meas.types.id[mt.name,] == delta[m.name,])
+  }
+}
+
 ##
 ## measurement types that do not correspond to an averaged quantity
 ## - compute average and errors
 ##
 meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
 meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
-meas.extra = drop(meas.extra.id %*% quant[1:quant.num.true])
-meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
+meas.extra = drop(meas.extra.id %*% quant[1:quant.num])
+meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov %*% t(meas.extra.id)))
 
 ##-- chisq contribution and dof for each measurement type
 chisq.types = rep(0, dim(meas.types.id)[1])
@@ -448,8 +401,9 @@ sfact.types = rep(1, dim(meas.types.id)[1])
 names(sfact.types) = meas.types.names
 
 ##-- S-factor for each true measurement
-sfact.true = rep(1, meas.num.true)
-names(sfact.true) = meas.names.true
+sfact = rep(1, meas.num)
+names(sfact) = meas.names
+keep.types.names = character(0)
 
 ##
 ## collect chisq contributions for each measurement type
@@ -458,34 +412,36 @@ names(sfact.true) = meas.names.true
 ## - chisq.types: chisq per measurement type
 ## - dof.types: dof per measurement type
 ## - sfact.types: S-factor per measurement type
-## - sfact.true: S-factor per true measurement
+## - sfact: S-factor per measurement
 ##
 for (mt.name in meas.types.names) {
   chisq.types.meas = numeric()
-  for (m.name in meas.names.true) {
-    quant.comb = quant.comb = (delta[1:meas.num.true,1:quant.num.true,drop=FALSE])[m.name,]
-    if (all(quant.comb == meas.types.id[mt.name,])) {
-      ##-- take note which measurements belong to each type
-      meas.types[mt.name, m.name] = TRUE
-      ##-- chisq contribution of the single measurement
-      tmp = (meas[m.name] - drop(quant.comb %*% quant[1:quant.num.true])) / meas.error[m.name]
-      chisq.types.meas = c(chisq.types.meas, tmp^2)
-    }
+  ##-- linear comb. of averaged quantities corresponding to mt.name
+  quant.comb = meas.types.id[mt.name,]
+  mt.m.names = meas.names[meas.types[mt.name,]]
+  for (m.name in mt.m.names) {
+    ##-- chisq contribution of the single measurement
+    tmp = (meas[m.name] - drop(quant.comb %*% quant)) / meas.error[m.name]
+    chisq.types.meas = c(chisq.types.meas, tmp^2)
   }
+
   ##-- do not include chisq contribution of measurements with error >sqrt(3N) times average error (PDG recipe)
   num = length(chisq.types.meas)
-  mt.m.names = names(chisq.types.meas)
-  average.err = c(quant.err[quant.names.true], meas.extra.err)[mt.name]
-  ##++ keep = ifelse(sqrt(diag(meas.cov.tot)[mt.m.names]) <= (3*sqrt(num)*average.err), 1, 0)
-  keep = ifelse(sqrt(diag(meas.cov.tot)[mt.m.names]) <= (3*sqrt(num)*average.err), 1, 1)
+  ##-- error on average as resulting from HFAG fit
+  ## average.err = c(quant.err, meas.extra.err)[mt.name]
+  ##-- error on average like for PDG, assuming no correlation
+  average.err = 1/sum(1/meas.error[mt.m.names])
+  keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 0)
+  ##++ keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 1)
+  keep.types.names = c(keep.types.names, names(keep)[keep != 0])
   if (any(keep == 0)) {
     cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", (3*sqrt(num)*average.err), "\n")
-    excl = sqrt(diag(meas.cov.tot)[names(keep)[keep == 0]])
+    excl = meas.error[names(keep)[keep == 0]]
     cat(paste(names(excl), excl, sep=", total error = "), sep="\n")
   }
   if (FALSE && any(keep != 0)) {
     cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", (3*sqrt(num)*average.err), "\n")
-    excl = sqrt(diag(meas.cov.tot)[names(keep)[keep != 0]])
+    excl = meas.error[names(keep)[keep != 0]]
     cat(paste(names(excl), excl, sep=", total error = "), sep="\n")
   }
   
@@ -505,7 +461,7 @@ for (mt.name in meas.types.names) {
     ## - or subset to all other meas. types and get difference from total chisq
     ##
     ## mt.select = !meas.types[mt.name,]
-    mt.select = c(!meas.types[mt.name,], rep(TRUE, meas.num.fake))
+    mt.select = !meas.types[mt.name,]
     meas.cov.redu = subset(meas.cov, subset=mt.select, select=mt.select)
     invcov.redu = solve(meas.cov.redu)
     meas.delta = subset(meas - delta %*% quant, subset=mt.select)
@@ -525,39 +481,39 @@ for (mt.name in meas.types.names) {
   ##-- S-factor for each type of measurement and for each measurement
   tmp = sqrt(chisq.types[mt.name]/dof.types[mt.name])
   sfact.types[mt.name] = tmp
-  sfact.true[meas.types[mt.name,]] = tmp
+  sfact[meas.types[mt.name,]] = tmp
 }
 
-sfact.types.floored = pmax(sfact.types, 1)
-sfact.true.floored = pmax(sfact.true, 1)
+##-- recompute chisq and chisq/dof
+dof = meas.num - quant.num
+chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+
+##-- update chisq using S-factors
+meas.keep = ifelse(meas.names %in% keep.types.names, 1, 0)
+names(meas.keep) = meas.names
+dof.keep = length(keep.types.names) - quant.num
+chisq.keep = drop(
+  t(meas - delta %*% quant) %*% diag(meas.keep)
+  %*% solve(diag(sfact) %*% meas.cov %*% diag(sfact))
+  %*% diag(meas.keep) %*% (meas - delta %*% quant))
+
+##-- adjust found S-factors to obtain chisq/dof = 1
+sfact = sfact * sqrt(chisq.keep/dof.keep)
+sfact.types = sfact.types * sqrt(chisq.keep/dof.keep)
+
+sfact.types.orig = sfact.types
+sfact.types = pmax(sfact.types, 1)
+sfact.orig = sfact
+sfact = pmax(sfact, 1)
 
 ##
-## S-factor per measurement
-## - true measurements get the computed S-factors
-## - fake measurements get S-factor=1
-## if any S-factor is less than 1, it is set to 1
-##
-sfact = rep(1, meas.num)
-names(sfact) = meas.names
-sfact[1:meas.num.true] = sfact.true.floored
-
-##
-## inflate the true+fake (=whole) covariance matrix with the S-factors
+## inflate the covariance matrix with the S-factors
 ##
 meas2.cov = diag(sfact) %*% meas.cov %*% diag(sfact)
 invcov2 = solve(meas2.cov)
 
-##
-## inflate the delta matrix coefficients corresponding to the correlated
-## systematic errors with the proper per measurement S-factor
-##
-delta2 = delta
-for (m.name in meas.names.true) {
-  delta2[m.name, quant.names %in% quant.names.fake] = delta[m.name, quant.names %in% quant.names.fake] * sfact[m.name]
-}
-
 ##-- compute new inflated fitted quantities covariance matrix 
-quant2.cov = solve(t(delta2) %*% invcov2 %*% delta2)
+quant2.cov = solve(t(delta) %*% invcov2 %*% delta)
 rownames(quant2.cov) = quant.names
 colnames(quant2.cov) = quant.names
 
@@ -565,72 +521,65 @@ colnames(quant2.cov) = quant.names
 quant2.err = sqrt(diag(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
-##-- recompute chisq and chisq/dof
-chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
-
 ##
 ## compute new chi-square
-## ++ just here we use re-minimized quantities with S-factor inflated errors
-## ++ in this way the chisq ends up the same when replacing covariance with
-## ++ dummy external parameters
 ##
-quant.sfact = drop(quant2.cov %*% t(delta2) %*% (invcov2 %*% meas))
-names(quant.sfact) = quant.names
-chisq2 = drop(t(meas - delta2 %*% quant.sfact) %*% invcov2 %*% (meas - delta2 %*% quant.sfact))
+chisq2 = drop(t(meas - delta %*% quant) %*% invcov2 %*% (meas - delta %*% quant))
+chisq.keep = drop(
+  t(meas - delta %*% quant) %*% diag(meas.keep)
+  %*% invcov2
+  %*% diag(meas.keep) %*% (meas - delta %*% quant))
 
 cat("\n")
 cat("##\n")
 cat("## S-factors accounting for larger than expected chi-quare\n")
 cat("##\n")
-dof = (meas.num-quant.num)
 
-##-- compute chisq for true measurements only (experimental)
-meas.cov.true = meas.cov[1:meas.num.true,1:meas.num.true,drop=FALSE]
-meas.delta = (meas - delta %*% quant)[1:meas.num.true, drop=FALSE]
-invcov.true = solve(meas.cov.true)
-chisq.true = drop(t(meas.delta) %*% invcov.true %*% meas.delta)
-meas2.cov.true = meas2.cov[1:meas.num.true,1:meas.num.true,drop=FALSE]
-meas2.delta = (meas - delta2 %*% quant)[1:meas.num.true, drop=FALSE]
-invcov.true = solve(meas2.cov.true)
-chisq2.true = drop(t(meas2.delta) %*% invcov.true %*% meas2.delta)
-
-show(rbind(original   = c(chisq=chisq, dof=dof, "chisq/dof"=chisq/dof, CL=pchisq(chisq,dof,lower.tail=FALSE))
-           ,updated    = c(chisq=chisq2, dof=dof, "chisq/dof"=chisq2/dof, CL=pchisq(chisq2,dof,lower.tail=FALSE))
-           ##,original.t = c(chisq=chisq.true, dof=dof, "chisq/dof"=chisq.true/dof, CL=pchisq(chisq.true,dof,lower.tail=FALSE))
-           ##,updated.t  = c(chisq=chisq2.true, dof=dof, "chisq/dof"=chisq2.true/dof, CL=pchisq(chisq2.true,dof,lower.tail=FALSE))
+show(rbind(original = c(
+             chisq=chisq, dof=dof,
+             "chisq/dof"=chisq/dof,
+             CL=pchisq(chisq,dof,lower.tail=FALSE))
+           ,updated = c(
+              chisq=chisq2, dof=dof,
+              "chisq/dof"=chisq2/dof,
+              CL=pchisq(chisq2,dof,lower.tail=FALSE))
+           ,"no-large-error" = c(
+                        chisq=chisq.keep, dof=dof.keep,
+                        "chisq/dof"=chisq.keep/dof.keep,
+                        CL=pchisq(chisq.keep,dof.keep,lower.tail=FALSE))
            ))
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
-if (quant.num.true > 1) {
+if (quant.num > 1) {
   ##-- if multiple average, use dedicated S-factor computation
-  sfact.row = quant2.err[1:quant.num.true] / quant.err[1:quant.num.true]
-  sfact0.row = sfact.types[meas.types.names %in% quant.names.true]
-  chisq.row = chisq.types[meas.types.names %in% quant.names.true]
-  dof.row = dof.types[meas.types.names %in% quant.names.true]
+  sfact.row = quant2.err / quant.err
+  sfact0.row = sfact.types[meas.types.names %in% quant.names]
+  chisq.row = chisq.types[meas.types.names %in% quant.names]
+  dof.row = dof.types[meas.types.names %in% quant.names]
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact0.row = sfact.types[meas.types.names %in% quant.names.true]
+  sfact0.row = sfact.types[meas.types.names %in% quant.names]
   sfact.row = sqrt(chisq/dof)
   quant2.err[1] = quant.err[1]*sfact.row[1]
   chisq.row = chisq
   dof.row = dof
 }
-show(rbind(value=quant[1:quant.num.true],
-           error=quant.err[1:quant.num.true],
-           upd.error=quant2.err[1:quant.num.true],
+show(rbind(value=quant,
+           error=quant.err,
+           upd.error=quant2.err,
            "S-factor"=sfact.row,
            "S-factor_0"=sfact0.row,
            chisq=chisq.row,
            dof=dof.row
            ))
 
-if (quant.num.true > 1) {
+if (quant.num > 1) {
   cat("correlation\n") 
-  show(quant2.corr[1:quant.num.true,1:quant.num.true])
+  show(quant2.corr)
 }
 
 ##-- update with S-factors measurement types that do not correspond to an averaged quantity
-meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov[1:quant.num.true,1:quant.num.true] %*% t(meas.extra.id)))
+meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov %*% t(meas.extra.id)))
 
 if (length(meas.extra) >0) {
   cat("Non-averaged measurement types: value, error, error with S-factor, S-factor\n") 
