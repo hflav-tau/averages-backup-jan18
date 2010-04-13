@@ -14,7 +14,7 @@ CURDIRBASE = $(shell expr $$PWD : '.*/\([^/]*\)')
 DATADIR =     $(shell \
 	if [ ! -w "../../../Data/." ] ; then \
 	  /bin/mkdir -p "../../../Data-local" ;\
-	  /bin/ln -sf Data-local "../../../Data" ;\
+	  /bin/ln -sTf Data-local "../../../Data" ;\
 	fi ;\
 	echo "../../../Data" ;\
 	)
@@ -75,7 +75,7 @@ slac_umount:
 link:
 	@if [ -d "../../../Data/." ] ; then \
 	  /bin/mkdir -p "../../../Data/$(CURDIR)" ;\
-	  ln -sf "../../../Data/$(CURDIR)" log ;\
+	  /bin/ln -sTf "../../../Data/$(CURDIR)" log ;\
 	  echo "log is soft link to ../../../Data/$(CURDIR)" ;\
 	else \
 	  echo "no data directory found" ;\
