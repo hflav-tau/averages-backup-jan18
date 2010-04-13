@@ -521,13 +521,19 @@ colnames(quant2.cov) = quant.names
 quant2.err = sqrt(diag(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
-##
-## compute new chi-square
-##
+##-- all measurements chisq after S-factor inflation
 chisq2 = drop(t(meas - delta %*% quant) %*% invcov2 %*% (meas - delta %*% quant))
-chisq.keep = drop(
+
+##-- no-large-error measurements chisq after 2nd iteration S-factor inflation
+chisq2.keep = drop(
   t(meas - delta %*% quant) %*% diag(meas.keep)
   %*% invcov2
+  %*% diag(meas.keep) %*% (meas - delta %*% quant))
+
+##-- no-large-error measurements chisq before any S-factor inflation
+chisq.keep.0 = drop(
+  t(meas - delta %*% quant) %*% diag(meas.keep)
+  %*% invcov
   %*% diag(meas.keep) %*% (meas - delta %*% quant))
 
 cat("\n")
@@ -538,15 +544,23 @@ cat("##\n")
 show(rbind(original = c(
              chisq=chisq, dof=dof,
              "chisq/dof"=chisq/dof,
-             CL=pchisq(chisq,dof,lower.tail=FALSE))
-           ,updated = c(
+             CL=pchisq(chisq, dof, lower.tail=FALSE))
+           ,"  after S-factor, 2nd stage" = c(
               chisq=chisq2, dof=dof,
               "chisq/dof"=chisq2/dof,
-              CL=pchisq(chisq2,dof,lower.tail=FALSE))
+              CL=pchisq(chisq2, dof, lower.tail=FALSE))
            ,"no-large-error" = c(
+                        chisq=chisq.keep.0, dof=dof.keep,
+                        "chisq/dof"=chisq.keep.0/dof.keep,
+                        CL=pchisq(chisq.keep.0, dof.keep, lower.tail=FALSE))
+           ,"  after S-factor, 1st stage" = c(
                         chisq=chisq.keep, dof=dof.keep,
                         "chisq/dof"=chisq.keep/dof.keep,
-                        CL=pchisq(chisq.keep,dof.keep,lower.tail=FALSE))
+                        CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE))
+           ,"  after S-factor, 2nd stage" = c(
+                        chisq=chisq2.keep, dof=dof.keep,
+                        "chisq/dof"=chisq2.keep/dof.keep,
+                        CL=pchisq(chisq2.keep, dof.keep, lower.tail=FALSE))
            ))
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
