@@ -526,22 +526,27 @@ for (quant in quant.names) {
       rc[[name]] = names(meas.quantities) %in% paste(exp[[1]], combnames, exp[[2]], sep=".")
       return(rc)
     }), recursive=FALSE)
-    reslist.sorted.names = names(sort(do.call(rbind,lapply(reslist, function(x) which(x)))[,1]))
-    ##-- collect value, stat, syst, bibitem of the combination
-    for (combres in reslist.sorted.names) {
-      combres.vec = as.numeric(reslist[[combres]])
-      value = drop(combres.vec %*% meas.value)
-      stat = sqrt(drop(combres.vec %*% meas.cov.stat %*% combres.vec))
-      syst = sqrt(drop(combres.vec %*% meas.cov.syst %*% combres.vec))
-      ##-- order number of 1st measurement used in the combination
-      index = which(combres.vec !=0)[1]
-      bibitem = measurements[[index]]$bibitem
-      ##-- substitute quantity with the combination we calculated
-      bibitem[2] = quant
-      ## cat(unlist(strsplit(combres, ".", fixed=TRUE)), value, stat, syst, "\n")
-      meas.tmp = list()
-      meas.tmp[[combres]] = list(value=value, stat=stat, syst=syst, bibitem=bibitem, index=index)
-      meas.list.tmp = c(meas.list.tmp, meas.tmp)
+    
+    reslist.sorted.names = character(0)
+    reslist.which.meas = do.call(rbind, lapply(reslist, function(x) which(x)))
+    if (length(reslist.which.meas) >0) {
+      reslist.sorted.names = names(sort(reslist.which.meas[,1]))
+      ##-- collect value, stat, syst, bibitem of the combination
+      for (combres in reslist.sorted.names) {
+        combres.vec = as.numeric(reslist[[combres]])
+        value = drop(combres.vec %*% meas.value)
+        stat = sqrt(drop(combres.vec %*% meas.cov.stat %*% combres.vec))
+        syst = sqrt(drop(combres.vec %*% meas.cov.syst %*% combres.vec))
+        ##-- order number of 1st measurement used in the combination
+        index = which(combres.vec !=0)[1]
+        bibitem = measurements[[index]]$bibitem
+        ##-- substitute quantity with the combination we calculated
+        bibitem[2] = quant
+        ## cat(unlist(strsplit(combres, ".", fixed=TRUE)), value, stat, syst, "\n")
+        meas.tmp = list()
+        meas.tmp[[combres]] = list(value=value, stat=stat, syst=syst, bibitem=bibitem, index=index)
+        meas.list.tmp = c(meas.list.tmp, meas.tmp)
+      }
     }
   }
   
