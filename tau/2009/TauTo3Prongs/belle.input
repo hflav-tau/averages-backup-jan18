@@ -1,14 +1,14 @@
 * B(tau- -> pi- pi- pi+ nu) [ex K0]
-BEGIN    Belle PimPimPipNu  published arXiv:1001.0083 (2010)
+BEGIN    Belle PimPimPipNu  submitted arXiv:1001.0083 (2010)
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
             8.42e-2       3.3211e-05  2.5879e-03
 * pub:      8.42e-2       0.01e-2     0.255e-2
 
-STAT_CORR_WITH Belle PimKmPipNu published -3.0087e-01
-STAT_CORR_WITH Belle PimKmKpNu  published  5.0054e-03
-STAT_CORR_WITH Belle KmKmKpNu   published  2.5469e-03
+STAT_CORR_WITH Belle PimKmPipNu submitted -3.0087e-01
+STAT_CORR_WITH Belle PimKmKpNu  submitted  5.0054e-03
+STAT_CORR_WITH Belle KmKmKpNu   submitted  2.5469e-03
 
 DATA
 *           BelleSyst_00  1.6840e-04
@@ -25,16 +25,16 @@ DATA
 END
 
 * B(tau- -> pi- K- pi+ nu) [ex. K0] 
-BEGIN    Belle PimKmPipNu published arXiv:1001.0083 (2010)
+BEGIN    Belle PimKmPipNu submitted arXiv:1001.0083 (2010)
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
             0.330e-2     1.2740e-05  1.6625e-04
 * pub:      0.330e-2     0.001e-2    0.0165e-2
 
-STAT_CORR_WITH Belle PimPimPipNu published -3.0087e-01
-STAT_CORR_WITH Belle PimKmKpNu   published -2.0080e-01
-STAT_CORR_WITH Belle KmKmKpNu    published  1.0666e-02
+STAT_CORR_WITH Belle PimPimPipNu submitted -3.0087e-01
+STAT_CORR_WITH Belle PimKmKpNu   submitted -2.0080e-01
+STAT_CORR_WITH Belle KmKmKpNu    submitted  1.0666e-02
 
 DATA
 *           BelleSyst_00  6.6000e-06
@@ -51,16 +51,16 @@ DATA
 END
 
 * B(tau- -> pi- K- K+ nu)
-BEGIN   Belle PimKmKpNu published arXiv:1001.0083 (2010)
+BEGIN   Belle PimKmKpNu submitted arXiv:1001.0083 (2010)
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
             1.550e-3    6.5750e-06  5.5579e-05
 * pub:      1.550e-3    0.010e-3    0.055e-3
 
-STAT_CORR_WITH Belle PimPimPipNu published  5.0054e-03
-STAT_CORR_WITH Belle PimKmPipNu  published -2.0080e-01
-STAT_CORR_WITH Belle KmKmKpNu    published -2.1439e-01
+STAT_CORR_WITH Belle PimPimPipNu submitted  5.0054e-03
+STAT_CORR_WITH Belle PimKmPipNu  submitted -2.0080e-01
+STAT_CORR_WITH Belle KmKmKpNu    submitted -2.1439e-01
 
 DATA
 *           BelleSyst_00  3.1000e-06
@@ -77,16 +77,16 @@ DATA
 END
 
 * B(tau- -> K- K- K+ nu)
-BEGIN   Belle KmKmKpNu published arXiv:1001.0083 (2010)
+BEGIN   Belle KmKmKpNu submitted arXiv:1001.0083 (2010)
 
 MEASUREMENT m_KmKmKpNu  statistical systematic
 DATA        m_KmKmKpNu  statistical systematic
             3.29e-5     1.6941e-06  1.9621e-06
 * pub:      3.29e-5     0.17e-5     0.195e-5
 
-STAT_CORR_WITH Belle PimPimPipNu published  2.5469e-03
-STAT_CORR_WITH Belle PimKmPipNu  published  1.0666e-02
-STAT_CORR_WITH Belle PimKmKpNu   published -2.1439e-01
+STAT_CORR_WITH Belle PimPimPipNu submitted  2.5469e-03
+STAT_CORR_WITH Belle PimKmPipNu  submitted  1.0666e-02
+STAT_CORR_WITH Belle PimKmKpNu   submitted -2.1439e-01
 
 DATA
 *           BelleSyst_00  6.5800e-08  
