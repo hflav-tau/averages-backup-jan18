@@ -65,7 +65,7 @@ if (length(quant.names.comb) >0) {
   cat(paste("  ", meas.names[names(meas.names) %in% quant.names.comb], collapse="\n"), "\n");
 }
 meas.included.list = names(meas.names) %in% quant.names.include
-names(meas.included.list) = meas.names
+meas.quantities = meas.quantities[meas.included.list]
 meas.names.discarded =  meas.names[!meas.included.list]
 if (length(meas.names.discarded) >0) {
   cat("The following measurements are discarded:\n")
