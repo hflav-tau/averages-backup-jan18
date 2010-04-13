@@ -430,7 +430,7 @@ for (mt.name in meas.types.names) {
   ##-- error on average as resulting from HFAG fit
   ## average.err = c(quant.err, meas.extra.err)[mt.name]
   ##-- error on average like for PDG, assuming no correlation
-  average.err = 1/sum(1/meas.error[mt.m.names])
+  average.err = 1/sqrt(sum(1/meas.error[mt.m.names]^2))
   keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 0)
   ##++ keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 1)
   keep.types.names = c(keep.types.names, names(keep)[keep != 0])
