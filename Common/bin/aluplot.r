@@ -191,16 +191,16 @@ get.alucomb.data = function(lines) {
     if (is.na(lines[li])) {
       break
     }
-    prev.options = options()
     fields = unlist(strsplit(lines[li], "\\s+", perl=TRUE))
+    prev.options = options()
     options(warn=-1)
-    values = as.numeric(fields[-1])
+    values = as.numeric(fields[-(1:(length(fields)-length(cols)))])
     options(prev.options)
     if (length(values) == 0 || any(is.na(values))) {
       break
     }
     data = rbind(data, values)
-    rows = c(rows, fields[1])
+    rows = c(rows, paste(fields[1:(length(fields)-length(cols))], collapse=" "))
   }
   if (length(data) > 0) {
     if (is.null(dim(data))) {
@@ -250,8 +250,8 @@ get.alucomb = function(file) {
     return(ol)
   }
   li = 1 + rc$lines
-  ol$chisq = rc$data["updated", "chisq"]
-  ol$dof = rc$data["updated", "dof"]
+  ol$chisq = rc$data["no-large-error", "chisq"]
+  ol$dof = rc$data["no-large-error", "dof"]
   
   rc.av = get.alucomb.section(lines[-(1:(li-1))], "^Averaged quantities", file)
   if (is.null(rc)) {
