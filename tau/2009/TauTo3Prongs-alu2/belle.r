@@ -89,7 +89,7 @@ pr.result = function(br, stat, syst) {
 ## begin BR 1
 ##
 cat("* B(tau- -> pi- pi- pi+ nu) [ex K0]\n")
-cat("BEGIN    Belle PimPimPipNu published arXiv:1001.0083 (2010)\n")
+cat("BEGIN    Belle PimPimPipNu submitted arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -101,9 +101,9 @@ cat("DATA        m_PimPimPipNu statistical systematic\n")
 pr.result(BR.1, stat.1, syst.1)
 cat("\n")
 
-cat("STAT_CORR_WITH Belle", name.2, "published", rhotot.12, "\n")
-cat("STAT_CORR_WITH Belle", name.3, "published", rhotot.13, "\n")
-cat("STAT_CORR_WITH Belle", name.4, "published", rhotot.14, "\n")
+cat("STAT_CORR_WITH Belle", name.2, "submitted", rhotot.12, "\n")
+cat("STAT_CORR_WITH Belle", name.3, "submitted", rhotot.13, "\n")
+cat("STAT_CORR_WITH Belle", name.4, "submitted", rhotot.14, "\n")
 cat("\n")
 cat("END\n")
 
@@ -112,7 +112,7 @@ cat("\n")
 ## begin BR 2
 ##
 cat("* B(tau- -> pi- K- pi+ nu) [ex. K0]\n")
-cat("BEGIN    Belle PimKmPipNu published arXiv:1001.0083 (2010)\n")
+cat("BEGIN    Belle PimKmPipNu submitted arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -124,9 +124,9 @@ cat("DATA        m_PimKmPipNu statistical systematic\n")
 pr.result(BR.2, stat.2, syst.2)
 cat("\n")
 
-cat("STAT_CORR_WITH Belle", name.1, "published", rhotot.12, "\n")
-cat("STAT_CORR_WITH Belle", name.3, "published", rhotot.23, "\n")
-cat("STAT_CORR_WITH Belle", name.4, "published", rhotot.24, "\n")
+cat("STAT_CORR_WITH Belle", name.1, "submitted", rhotot.12, "\n")
+cat("STAT_CORR_WITH Belle", name.3, "submitted", rhotot.23, "\n")
+cat("STAT_CORR_WITH Belle", name.4, "submitted", rhotot.24, "\n")
 cat("\n")
 cat("END\n")
 
@@ -135,7 +135,7 @@ cat("\n")
 ## begin BR 3
 ##
 cat("* B(tau- -> pi- K- K+ nu)\n")
-cat("BEGIN    Belle PimKmKpNu published arXiv:1001.0083 (2010)\n")
+cat("BEGIN    Belle PimKmKpNu submitted arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -147,9 +147,9 @@ cat("DATA        m_PimKmKpNu statistical systematic\n")
 pr.result(BR.3, stat.3, syst.3)
 cat("\n")
 
-cat("STAT_CORR_WITH Belle", name.1, "published", rhotot.13, "\n")
-cat("STAT_CORR_WITH Belle", name.2, "published", rhotot.23, "\n")
-cat("STAT_CORR_WITH Belle", name.4, "published", rhotot.34, "\n")
+cat("STAT_CORR_WITH Belle", name.1, "submitted", rhotot.13, "\n")
+cat("STAT_CORR_WITH Belle", name.2, "submitted", rhotot.23, "\n")
+cat("STAT_CORR_WITH Belle", name.4, "submitted", rhotot.34, "\n")
 cat("\n")
 cat("END\n")
 
@@ -158,7 +158,7 @@ cat("\n")
 ## begin BR 4
 ##
 cat("* B(tau- -> K- K- K+ nu)\n")
-cat("BEGIN    Belle KmKmKpNu published arXiv:1001.0083 (2010)\n")
+cat("BEGIN    Belle KmKmKpNu submitted arXiv:1001.0083 (2010)\n")
 cat("\n")
 
 ##
@@ -170,8 +170,8 @@ cat("DATA        m_KmKmKpNu statistical systematic\n")
 pr.result(BR.4, stat.4, syst.4)
 cat("\n")
 
-cat("STAT_CORR_WITH Belle", name.1, "published", rhotot.14, "\n")
-cat("STAT_CORR_WITH Belle", name.2, "published", rhotot.24, "\n")
-cat("STAT_CORR_WITH Belle", name.3, "published", rhotot.34, "\n")
+cat("STAT_CORR_WITH Belle", name.1, "submitted", rhotot.14, "\n")
+cat("STAT_CORR_WITH Belle", name.2, "submitted", rhotot.24, "\n")
+cat("STAT_CORR_WITH Belle", name.3, "submitted", rhotot.34, "\n")
 cat("\n")
 cat("END\n")
