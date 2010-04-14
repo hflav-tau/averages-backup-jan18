@@ -1,11 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
-	information on tau/2009/TauToHmHmHpNu-alu2
+	information on tau/2009/TauTo3Prongs-alu2
 
 ///////////////////////////////////////////////////////////////////////////////
 
 This directory contains input data files to check the procedure that
-has been used by Swagato in tau/2009/TauToHmHmHpNu to do a combined
+has been used by Swagato in tau/2009/TauTo3Prongs to do a combined
 average of tau -> hhh nu BRs (with h = pi, K).
 
 In the original directory, the published total correlation coefficients
