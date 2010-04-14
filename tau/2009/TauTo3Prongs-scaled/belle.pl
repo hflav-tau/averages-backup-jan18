@@ -2,7 +2,8 @@
 
 # print $ARGV[0]."\n";
 
-$rescale = 1.211572;
+$rescale = 1;
+$rescale = 0.930930534;
 $sfac1 = 1.61983 * $rescale;
 $sfac2 = 2.40957 * $rescale;
 $sfac3 = 2.32292 * $rescale;
