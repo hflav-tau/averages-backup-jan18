@@ -253,8 +253,8 @@ get.alucomb = function(file) {
     return(ol)
   }
   li = 1 + rc$lines
-  ol$chisq = rc$data["no-large-error", "chisq"]
-  ol$dof = rc$data["no-large-error", "dof"]
+  ol$chisq = rc$data["original", "chisq"]
+  ol$dof = rc$data["original", "dof"]
   
   rc.av = get.alucomb.section(lines[-(1:(li-1))], "^Averaged quantities", file)
   if (is.null(rc)) {
@@ -749,13 +749,18 @@ for (quant in quant.names) {
         close(fhtemp)
         if (length(average) >0) {
           average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
+          ## cat(format(average, width=12*3+4),
+          ##    "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]\n", file=fh)
           cat(format(average, width=12*3+4),
-              "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]\n", file=fh)
+              "HFAG Average [h^{-}h^{-}h^{+}#nu (ex.K^{0}) modes combined]\n", file=fh)
         }
-        label.extra = paste(" [", label.root(quant), " mode only]", sep="")
+        ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
+        label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
+        label.extra = paste(" [", label, " mode only]", sep="")
       } else {
         ##-- combined average of all hhh modes
-        label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]"
+        ## label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]"
+        label.extra = " [h^{-}h^{-}h^{+}#nu (ex.K^{0}) modes combined]"
       }
     } ## any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))
 
@@ -769,13 +774,18 @@ for (quant in quant.names) {
         close(fhtemp)
         if (length(average) >0) {
           average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
+          ## cat(format(average, width=12*3+4),
+          ##    "HFAG Average [B(#tau^{-} #rightarrow 1-prong) modes combined]\n", file=fh)
           cat(format(average, width=12*3+4),
-              "HFAG Average [B(#tau^{-} #rightarrow 1-prong) modes combined]\n", file=fh)
+              "HFAG Average [1-prong) modes combined]\n", file=fh)
         }
-        label.extra = paste(" [", label.root(quant), " mode only]", sep="")
+        ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
+        label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
+        label.extra = paste(" [", label, " mode only]", sep="")
       } else {
         ##-- combined average of all 1-prong modes
-        label.extra = " [B(#tau^{-} #rightarrow 1-prong) modes combined]"
+        ## label.extra = " [B(#tau^{-} #rightarrow 1-prong) modes combined]"
+        label.extra = " [1-prong modes combined]"
       }
     } ## any(quant == c("HmNu", "HmPizNu", "KmNu", "KmPizNu", "MmNumbarNu", "PimNu", "PimPizNu"))
     
