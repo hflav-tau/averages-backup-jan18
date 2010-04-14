@@ -1,4 +1,4 @@
-BEGIN    BaBar MmNumbarNu submitted ICHEP08
+BEGIN    BaBar MmNumbarNu submitted arXiv:0912.0242 (2009)
 MEASUREMENT m_MmNumbarNu statistical systematic
 DATA        m_MmNumbarNu statistical systematic
             17.46e-2     0.08544e-2  0.0e+0
@@ -32,7 +32,7 @@ DATA        m_MmNumbarNu statistical systematic
             17.325e-2    0.122287e-2 0.0e+0
 END
 
-BEGIN    CLEO MmNumbarNu published ANASTASSOV	 97
+BEGIN    CLEO MmNumbarNu published ANASTASSOV 97
 MEASUREMENT m_MmNumbarNu statistical systematic
 DATA        m_MmNumbarNu statistical systematic
             17.37e-2     0.196977e-2 0.0e+0
