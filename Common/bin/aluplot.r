@@ -561,7 +561,7 @@ for (quant in quant.names) {
     syst = meas.list.tmp[[meas]]$syst
     bibitem = meas.list.tmp[[meas]]$bibitem
 
-    error = sqrt(sum(c(stat), syst)^2)
+    error = sqrt(sum(c(stat, syst)^2))
     x.mins = c(x.mins, value - error)
     x.maxs = c(x.maxs, value + error)
     x.values = c(x.values, value)
@@ -677,8 +677,8 @@ for (quant in quant.names) {
   ## x.fraction.result = 2.5/9.5
   ## x.fraction.result = 1/3
   x.fraction.result = 0.3
-  x.padding.left = 0.05 + (1/x.fraction.result -1)
-  x.padding.right = 0.05
+  x.padding.left = 0.015 + (1/x.fraction.result -1)
+  x.padding.right = 0.015
   x.min = x.min - x.padding.left*(x.max-x.min)
   x.max = x.max + x.padding.right*(x.max-x.min)
   plot.data[[quant]]$xmin = x.min
