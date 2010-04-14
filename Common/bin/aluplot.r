@@ -750,12 +750,12 @@ for (quant in quant.names) {
         if (length(average) >0) {
           average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
           cat(format(average, width=12*3+4),
-              "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu) modes combined]\n", file=fh)
+              "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]\n", file=fh)
         }
         label.extra = paste(" [", label.root(quant), " mode only]", sep="")
       } else {
         ##-- combined average of all hhh modes
-        label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu) modes combined]"
+        label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]"
       }
     } ## any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))
 
