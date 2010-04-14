@@ -12,14 +12,14 @@ DATA        m_HmPizNu statistical systematic
 DATA        OpalOther 0.29e-2
 END
 
-BEGIN    L3 HmPizNu published ACCIARRI  95
+BEGIN    L3 HmPizNu published ACCIARRI 95
 MEASUREMENT m_HmPizNu statistical systematic
 DATA        m_HmPizNu statistical systematic
             25.05e-2  0.35e-2     0.50e-2
 DATA        L3Other 0.50e-2
 END
 
-BEGIN    CLEO HmPizNu published ARTUSO   94
+BEGIN    CLEO HmPizNu published ARTUSO 94
 MEASUREMENT m_HmPizNu statistical systematic
 DATA        m_HmPizNu statistical systematic
             25.87e-2  0.12e-2     0.42e-2

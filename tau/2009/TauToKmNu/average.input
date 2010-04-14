@@ -1,5 +1,6 @@
 INCLUDE babar.input
 INCLUDE pdg.input
+* INCLUDE ../TauTo1Prong/kmnu.input ! this gives same result, but all stat+syst error treated as stat only
 
 BEGIN   BaBar+PDG all_methods
 

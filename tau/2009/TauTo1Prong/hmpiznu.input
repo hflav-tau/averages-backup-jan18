@@ -17,13 +17,13 @@ DATA        m_PimPizNu statistical  systematic
             25.89e-2   0.336155e-2  0.0e+0
 END
 
-BEGIN    L3 HmPizNu published ACCIARRI  95
+BEGIN    L3 HmPizNu published ACCIARRI 95
 MEASUREMENT m_PimPizNu statistical  systematic
 DATA        m_PimPizNu statistical  systematic
             25.05e-2   0.610328e-2  0.0e+0
 END
 
-BEGIN    CLEO HmPizNu published ARTUSO	 94
+BEGIN    CLEO HmPizNu published ARTUSO 94
 MEASUREMENT m_PimPizNu statistical  systematic
 DATA        m_PimPizNu statistical  systematic
             25.87e-2   0.436807e-2  0.0e+0

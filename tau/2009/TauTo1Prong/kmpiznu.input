@@ -1,4 +1,4 @@
-BEGIN    BaBar KmPizNu published AUBERT	 07AP
+BEGIN    BaBar KmPizNu published AUBERT 07AP
 MEASUREMENT m_KmPizNu  statistical  systematic
 DATA        m_KmPizNu  statistical  systematic
             0.416e-2   0.0182483e-2 0.0e+0
@@ -10,13 +10,13 @@ DATA        m_KmPizNu  statistical  systematic
             0.471e-2   0.0633246e-2 0.0e+0
 END
 
-BEGIN    ALEPH KmPizNu published BARATE	99K
+BEGIN    ALEPH KmPizNu published BARATE 99K
 MEASUREMENT m_KmPizNu  statistical  systematic
 DATA        m_KmPizNu  statistical  systematic
             0.444e-2   0.0353836e-2 0.0e+0
 END
 
-BEGIN    CLEO KmPizNu published BATTLE	94
+BEGIN    CLEO KmPizNu published BATTLE 94
 MEASUREMENT m_KmPizNu statistical  systematic
 DATA        m_KmPizNu statistical  systematic
             0.51e-2   0.122066e-2  0.0e+0
