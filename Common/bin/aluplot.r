@@ -18,18 +18,22 @@ source("../../../Common/bin/alucomb-read.r")
 ##
 label.root = function(str) {
   str.orig = str
-  if (str == str.orig) {
-    str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
-    str = gsub("F1", "f_{1}",str)
-    str = gsub("Pi", "#pi",str)
-    str = gsub("Nu", "#nu",str)
-    str = gsub("M", "#mu",str)
-    str = gsub("H", "h",str)
-    str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
-    str = gsub("p($|[#}A-Zh])", "^{+}\\1", str, perl=TRUE)
-    str = gsub("z($|[#}A-Zh])", "^{0}\\1", str, perl=TRUE)
-    str = paste("B(#tau^{-} #rightarrow ", str, ")", sep="")
+
+  str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
+  str = gsub("F1", "f_{1}",str)
+  str = gsub("Pi", "#pi",str)
+  str = gsub("Nu", "#nu",str)
+  str = gsub("M", "#mu",str)
+  str = gsub("H", "h",str)
+  str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
+  str = gsub("p($|[#}A-Zh])", "^{+}\\1", str, perl=TRUE)
+  str = gsub("z($|[#}A-Zh])", "^{0}\\1", str, perl=TRUE)
+
+  if (str.orig %in% c("HmHmHpNu", "PimKmPipNu", "PimPimPipNu")) {
+    str = paste(str, "(ex.K^{0})")
   }
+
+  str = paste("B(#tau^{-} #rightarrow ", str, ")", sep="")
   return(str)
 }
 
@@ -703,7 +707,26 @@ for (quant in quant.names) {
   } else if (quant.data$order == 0) {
     units.label = ""
   }
-  cat("* ", sprintf("%12.6g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)),
+
+  range = quant.data$xmax/x.units - quant.data$xmin/x.units
+  range.order = 10^round(log(range)/log(10))
+  range.order5 = ifelse(abs(log((range.order/2)/range)) < abs(log((range.order*5)/range)), range.order/2, range.order*5)
+  range.prec = ifelse(abs(log(range.order/range)) < abs(log(range.order5/range)), range.order, range.order5)
+  range.prec = range.prec/100
+
+  xmin = quant.data$xmin/x.units
+  xmin = round(xmin/range.prec)*range.prec
+  xmin.prec = round(log(abs(xmin/range.prec))/log(10)+0.51)
+  xmin.fmt = sprintf("%%-12.%dg ", xmin.prec)
+
+  xmax = quant.data$xmax/x.units
+  xmax = round(xmax/range.prec)*range.prec
+  xmax.prec = round(log(abs(xmax/range.prec))/log(10)+0.51)
+  xmax.fmt = sprintf("%%-12.%dg ", xmax.prec)
+  
+  ## cat("* ", sprintf("%12.2g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)))
+  cat("* ",
+      sprintf(paste(xmin.fmt, xmax.fmt, sep=""), xmin, xmax),
       as.character(quant.data$precision), " ", label.root(quant), units.label, "\n", file=fh, sep="")
   cat("# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages\n", file=fh)
 

@@ -1,5 +1,5 @@
 # first line is xmin, xmax, precision, title
-*      -0.5095     0.236525 5.3 B(#tau^{-} #rightarrow #pi^{-}K^{-}K^{+}#nu) [%]
+* -0.51        0.24         5.3 B(#tau^{-} #rightarrow #pi^{-}K^{-}K^{+}#nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 0.143124     0.00599315   -2.14728     HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu) modes combined]
 & 0.142249     0.00297175   0.00481308   HFAG Average [B(#tau^{-} #rightarrow #pi^{-}K^{-}K^{+}#nu) mode only]

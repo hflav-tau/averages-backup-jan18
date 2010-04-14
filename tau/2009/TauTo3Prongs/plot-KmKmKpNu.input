@@ -1,5 +1,5 @@
 # first line is xmin, xmax, precision, title
-*     -4.23093      4.04995 5.3 B(#tau^{-} #rightarrow K^{-}K^{-}K^{+}#nu) [#times10^{-5}]
+* -4.2         4            5.3 B(#tau^{-} #rightarrow K^{-}K^{-}K^{+}#nu) [#times10^{-5}]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 2.15656      0.74449      -5.06484     HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu) modes combined]
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
