@@ -3,7 +3,7 @@ BEGIN    BaBar PimPimPipNu published PRL100:011801,2008
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            8.83370e-02   2.49125e-03 0.00000e+00
+            8.83370e-02   1.91419e-03 0.00000e+00
 
 STAT_CORR_WITH BaBar PimKmPipNu published 0.543535
 STAT_CORR_WITH BaBar PimKmKpNu published 0.390346
@@ -16,7 +16,7 @@ BEGIN    BaBar PimKmPipNu published PRL100:011801,2008
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            2.72570e-03  2.74937e-04 0.00000e+00
+            2.72570e-03  2.11252e-04 0.00000e+00
 
 STAT_CORR_WITH BaBar PimPimPipNu published 0.543535
 STAT_CORR_WITH BaBar PimKmKpNu published 0.177495
@@ -29,7 +29,7 @@ BEGIN    BaBar PimKmKpNu published PRL100:011801,2008
 
 MEASUREMENT m_PimKmKpNu  statistical systematic
 DATA        m_PimKmKpNu  statistical systematic
-            1.34610e-03  1.06275e-04 0.00000e+00
+            1.34610e-03  8.16579e-05 0.00000e+00
 
 STAT_CORR_WITH BaBar PimPimPipNu published 0.390346
 STAT_CORR_WITH BaBar PimKmPipNu published 0.177495
@@ -42,7 +42,7 @@ BEGIN    BaBar KmKmKpNu published PRL100:011801,2008
 
 MEASUREMENT m_KmKmKpNu   statistical systematic
 DATA        m_KmKmKpNu   statistical systematic
-            1.57770e-05  1.17950e-05 0.00000e+00
+            1.57770e-05  9.06288e-06 0.00000e+00
 
 STAT_CORR_WITH BaBar PimPimPipNu published 0.031469
 STAT_CORR_WITH BaBar PimKmPipNu published 0.0931907

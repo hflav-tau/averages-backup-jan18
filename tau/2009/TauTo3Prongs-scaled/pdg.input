@@ -3,11 +3,11 @@ BEGIN       CLEO3 PimPimPipNu published BRIERE   03
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            9.13e-2       9.81270e-04 9.02769e-03
+            9.13e-2       7.53975e-04 6.93657e-03
 
 DATA
-            Cleo3Other_00 8.95900e-03
-            Cleo3Other_1u 1.11152e-03
+            Cleo3Other_00 6.88379e-03
+            Cleo3Other_1u 8.54057e-04
 
 END
 
@@ -16,7 +16,7 @@ END
 * 
 * MEASUREMENT m_PimKmPipNu statistical systematic
 * DATA        m_PimKmPipNu statistical systematic
-*             0.415e-2     1.93847e-03 0.0
+*             0.415e-2     1.48945e-03 0.0
 * 
 * END
 
@@ -24,11 +24,11 @@ BEGIN       CLEO3 PimKmPipNu published BRIERE    03
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            0.384e-2     4.08711e-04 1.10936e-03
+            0.384e-2     3.14040e-04 8.52394e-04
 
 DATA
-            Cleo3Other_00 5.60519e-04
-            Cleo3Other_2u 9.57339e-04
+            Cleo3Other_00 4.30683e-04
+            Cleo3Other_2u 7.35587e-04
 
 END
 
@@ -36,7 +36,7 @@ END
 * 
 * MEASUREMENT m_PimKmPipNu statistical systematic
 * DATA        m_PimKmPipNu statistical systematic
-*             0.346e-2     1.76736e-03 0.0
+*             0.346e-2     1.35798e-03 0.0
 * 
 * END
 
@@ -44,7 +44,7 @@ BEGIN       ALEPH PimKmPipNu published BARATE    98
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            0.214e-2     1.37241e-03 0.0
+            0.214e-2     1.05452e-03 0.0
 
 END
 
@@ -53,11 +53,11 @@ BEGIN       CLEO3 PimKmKpNu published   BRIERE  03
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.550e-3    1.68863e-04 2.53295e-04
+            1.550e-3    1.29749e-04 1.94623e-04
 
 DATA
-            Cleo3Other_00 2.18115e-04
-            Cleo3Other_3u 1.28779e-04
+            Cleo3Other_00 1.67592e-04
+            Cleo3Other_3u 9.89496e-05
 
 END
 
@@ -65,7 +65,7 @@ END
 * 
 * MEASUREMENT m_PimKmKpNu statistical systematic
 * DATA        m_PimKmKpNu statistical systematic
-*             0.870e-3     1.93682e-03 0.0
+*             0.870e-3     1.48819e-03 0.0
 * 
 * END
 
@@ -73,7 +73,7 @@ END
 * 
 * MEASUREMENT m_PimKmKpNu statistical systematic
 * DATA        m_PimKmKpNu statistical systematic
-*             1.450e-3     8.68820e-04 0.0
+*             1.450e-3     6.67572e-04 0.0
 * 
 * END
 
@@ -81,6 +81,6 @@ END
 * 
 * MEASUREMENT m_PimKmKpNu statistical systematic
 * DATA        m_PimKmKpNu statistical systematic
-*             1.630e-3    7.60405e-04 0.0
+*             1.630e-3    5.84269e-04 0.0
 * 
 * END
