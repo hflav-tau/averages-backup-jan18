@@ -548,7 +548,7 @@ chisq.keep.0 = drop(
 
 cat("\n")
 cat("##\n")
-cat("## S-factors accounting for larger than expected chi-quare\n")
+cat("## S-factors accounting for larger than expected chi-square\n")
 cat("##\n")
 
 show(rbind(original = c(
@@ -609,7 +609,7 @@ if (quant.num > 1) {
 meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov %*% t(meas.extra.id)))
 
 if (length(meas.extra) >0) {
-  cat("Non-averaged measurement types: value, error, error with S-factor, S-factor\n") 
+  cat("Non-averaged measurement types\n") 
   show(rbind(value=meas.extra,
              error=meas.extra.err,
              upd.error=meas.extra.err.upd,
