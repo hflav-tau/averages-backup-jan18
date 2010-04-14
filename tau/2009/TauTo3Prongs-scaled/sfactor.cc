@@ -34,16 +34,31 @@
 #include "TPaveText.h"
 
 double calc_sfactor(const int &n, const double* meas, const double *merr, const double &ave, const double& aerr){
-  int nchi2tot=0;
-  double chi2tot=0, chi2temp=0;
-  double delta = 3 * sqrt(n) * aerr;
+
+  double wt[n];
+  double num=0, den=0;
   for (int i = 0; i< n; ++i) {
-    //    if (merr[i] < delta) {
-    chi2temp=(meas[i]-ave)/merr[i];
-    chi2temp*=chi2temp;
-    chi2tot+=chi2temp;
-    nchi2tot++;
-    //    }
+    wt[i] = 1./(merr[i]*merr[i]);
+    num += meas[i]*wt[i];
+    den += wt[i];
+  }
+  double average = num/den;
+  double error  = sqrt(1/den);
+  //  
+  cout << "average = " << average << " error = " << error << endl;
+  cout << "ave     = " << ave     << " aerr = "  << aerr << endl;
+
+  int nchi2tot=0;
+  double chi2tot=0;
+  double delta = 3 * sqrt(n) * error;
+  for (int i = 0; i< n; ++i) {
+    double chi2temp=0;
+    if (merr[i] < delta) {
+      chi2temp=(meas[i]-ave)/merr[i];
+      chi2temp*=chi2temp;
+      chi2tot+=chi2temp;
+      nchi2tot++;
+    }
     cout <<  i << " " << ave << " " << meas[i] << " " <<  merr[i] << " " << chi2temp << " " << chi2tot << " " << nchi2tot << endl;
   }
   double sfactor = (nchi2tot>1) ? sqrt(chi2tot/(nchi2tot-1)) : 1;
@@ -53,7 +68,7 @@ double calc_sfactor(const int &n, const double* meas, const double *merr, const 
 //int main(){
 int sfactor(){
 
-  // Inputs are from printouts after " Corrected measurements:" in TauToHmHmHpNu/average.log
+  // Inputs are from printouts after " Corrected measurements:" in TauTo3Prongs/average.log
 
   const int n_PIMPIMPIPNU = 3;
   TString expname_PIMPIMPIPNU[n_PIMPIMPIPNU] = {TString("BELLE") ,
@@ -62,7 +77,7 @@ int sfactor(){
   const double  meas_PIMPIMPIPNU[n_PIMPIMPIPNU] = { 0.8420000E-01 , 
 					            0.8833700E-01 ,  
 					            0.9130000E-01 } ; 
-  const double  merr_PIMPIMPIPNU[n_PIMPIMPIPNU] = { 0.2551987E-02 , 
+  const double  merr_PIMPIMPIPNU[n_PIMPIMPIPNU] = { 0.2588056E-02 , 
 					            0.1269399E-02 ,  
 					            0.4627094E-02 } ; 
   
@@ -79,7 +94,7 @@ int sfactor(){
 					         0.3840000E-02 , 
 					         0.3460000E-02 , 
 					         0.2140000E-02 } ; 
-  const double merr_PIMKMPIPNU[n_PIMKMPIPNU] = { 0.1653014E-03 ,
+  const double merr_PIMKMPIPNU[n_PIMKMPIPNU] = { 0.1667386E-03 ,
 					         0.9417657E-04 , 
 					         0.6640030E-03 , 
 					         0.4049693E-03 , 
@@ -99,7 +114,7 @@ int sfactor(){
 					       0.8700000E-03 ,
 					       0.1450000E-02 ,
 					       0.1630000E-02 } ;
-  const double merr_PIMKMKPNU[n_PIMKMKPNU] = { 0.5590215E-04 ,
+  const double merr_PIMKMKPNU[n_PIMKMKPNU] = { 0.5596652E-04 ,
 					       0.3776149E-04 ,
 					       0.1081665E-03 ,
 					       0.6881860E-03 ,
@@ -111,7 +126,7 @@ int sfactor(){
 					  TString("BABAR") } ;
   const double meas_KMKMKPNU[n_KMKMKPNU] = { 0.3290000E-04 ,
 					     0.1577700E-04 } ;
-  const double merr_KMKMKPNU[n_KMKMKPNU] = { 0.2587015E-05 ,
+  const double merr_KMKMKPNU[n_KMKMKPNU] = { 0.2592279E-05 ,
 					     0.1790238E-05 } ;
 
   const int n_HMHMHPNU = 3;
@@ -125,23 +140,23 @@ int sfactor(){
 					     0.2600000E-02 ,
 					     0.2118962E-02 } ;
 
-  // TauToHmHmHpNu
-  const double ave_PIMPIMPIPNU = 0.0895163 ;
-  const double ave_PIMKMPIPNU  = 0.0029253 ;
-  const double ave_PIMKMKPNU   = 0.0014318 ;
-  const double ave_KMKMKPNU    = 0.0000216 ;
+  // TauTo3Prongs/average.log
+  const double ave_PIMPIMPIPNU = 0.8952197E-01  ;
+  const double ave_PIMKMPIPNU  = 0.2924142E-02 ;
+  const double ave_PIMKMKPNU   = 0.1431243E-02 ;
+  const double ave_KMKMKPNU    = 0.2156559E-04 ;
 
-  const double aerr_PIMPIMPIPNU = 0.0007026 ;
-  const double aerr_PIMKMPIPNU  = 0.0000709 ;
-  const double aerr_PIMKMKPNU   = 0.0000279 ;
-  const double aerr_KMKMKPNU    = 0.0000015 ;
+  const double aerr_PIMPIMPIPNU = 0.7034080E-03;
+  const double aerr_PIMKMPIPNU  = 0.7097857E-04;
+  const double aerr_PIMKMKPNU   = 0.2791064E-04;
+  const double aerr_KMKMKPNU    = 0.1469934E-05 ;
   
-  const double Correlation_12 =      0.2864430 ;
-  const double Correlation_13 =      0.2247855 ;
-  const double Correlation_14 =     -0.0059314 ;
-  const double Correlation_23 =      0.0479168 ;
-  const double Correlation_24 =      0.0730910 ;
-  const double Correlation_34 =      0.0483768 ;
+  const double Correlation_12 =  0.2867897 ;
+  const double Correlation_13 =  0.2250836 ;
+  const double Correlation_14 = -0.0053385 ;
+  const double Correlation_23 =  0.0482023 ;
+  const double Correlation_24 =  0.0731813 ;
+  const double Correlation_34 =  0.0509580 ;
 
   const double ave_HMHMHPNU = ave_PIMPIMPIPNU + ave_PIMKMPIPNU + ave_PIMKMKPNU + ave_KMKMKPNU;
   const double aerr_HMHMHPNU = sqrt ( aerr_PIMPIMPIPNU * aerr_PIMPIMPIPNU +

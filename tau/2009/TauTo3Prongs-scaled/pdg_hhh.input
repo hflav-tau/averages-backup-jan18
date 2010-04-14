@@ -3,7 +3,7 @@ BEGIN       DELPHI HmHmHpNu published ABDALLAH	 06A
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            9.317e-2      2.54195e-03 0.0
+            9.317e-2      2.10937e-03 0.0
 
 END
 
@@ -11,7 +11,7 @@ BEGIN       OPAL HmHmHpNu published  AKERS	 95Y
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-	    9.87e-2       5.42822e-03 0.0
+	    9.87e-2       4.50447e-03 0.0
 
 END
 
@@ -19,6 +19,6 @@ BEGIN       CLEO HmHmHpNu published  BALEST	 95C
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            9.51e-2       4.42392e-03 0.0
+            9.51e-2       3.67107e-03 0.0
 
 END

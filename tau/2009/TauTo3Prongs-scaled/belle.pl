@@ -2,24 +2,19 @@
 
 # print $ARGV[0]."\n";
 
-$sfac1 = 1.63576;
-$sfac2 = 2.08347;
-$sfac3 = 1.55071;
-$sfac4 = 5.44599;
-$sfac5 = 1.43062;
-
-$sfac1=2.08777669;
-$sfac2=2.08777669;
-$sfac3=2.08777669;
-$sfac4=2.08777669;
-$sfac5=2.08777669;
+$rescale = 1.211572;
+$sfac1 = 1.61983 * $rescale;
+$sfac2 = 2.40957 * $rescale;
+$sfac3 = 2.32292 * $rescale;
+$sfac4 = 5.43807 * $rescale;
+$sfac5 = 1.42995 * $rescale;
 
 printf "* B(tau- -> pi- pi- pi+ nu) [ex K0]\n";
 printf "BEGIN    Belle PimPimPipNu published arXiv:1001.0083 (2010)\n";
 printf "\n";
 printf "MEASUREMENT m_PimPimPipNu statistical systematic\n";
 printf "DATA        m_PimPimPipNu statistical systematic\n";
-printf "            8.42000e-02   %.5e 0.00000e+00\n", 2.55196e-03*$sfac1;
+printf "            8.42000e-02   %.5e 0.00000e+00\n", 2.58811e-03*$sfac1;
 printf "\n";
 printf "STAT_CORR_WITH Belle PimKmPipNu published 0.1749885\n";
 printf "STAT_CORR_WITH Belle PimKmKpNu published 0.04948276\n"; 
@@ -32,7 +27,7 @@ printf "BEGIN    Belle PimKmPipNu published arXiv:1001.0083 (2010)\n";
 printf "\n";
 printf "MEASUREMENT m_PimKmPipNu statistical systematic\n";
 printf "DATA        m_PimKmPipNu statistical systematic\n";
-printf "            3.30000e-03  %.5e 0.00000e+00\n", 1.65303e-04*$sfac2;
+printf "            3.30000e-03  %.5e 0.00000e+00\n", 1.66737e-04*$sfac2;
 printf "\n";
 printf "STAT_CORR_WITH Belle PimPimPipNu published 0.1749885\n";
 printf "STAT_CORR_WITH Belle PimKmKpNu published 0.08026913\n";
@@ -45,7 +40,7 @@ printf "BEGIN    Belle PimKmKpNu published arXiv:1001.0083 (2010)\n";
 printf "\n";
 printf "MEASUREMENT m_PimKmKpNu statistical systematic\n";
 printf "DATA        m_PimKmKpNu statistical systematic\n";
-printf "            1.55000e-03 %.5e 0.00000e+00\n", 5.59017e-05*$sfac3;
+printf "            1.55000e-03 %.5e 0.00000e+00\n", 5.59666e-05*$sfac3;
 printf "\n";
 printf "STAT_CORR_WITH Belle PimPimPipNu published 0.04948276\n";
 printf "STAT_CORR_WITH Belle PimKmPipNu published 0.08026913\n";
@@ -58,7 +53,7 @@ printf "BEGIN    Belle KmKmKpNu published arXiv:1001.0083 (2010)\n";
 printf "\n";
 printf "MEASUREMENT m_KmKmKpNu   statistical  systematic\n";
 printf "DATA        m_KmKmKpNu   statistical  systematic\n";
-printf "            3.29000e-05  %.5e  0.00000e+00\n",2.58699e-06*$sfac4;
+printf "            3.29000e-05  %.5e  0.00000e+00\n",2.59226e-06*$sfac4;
 printf "\n";
 printf "STAT_CORR_WITH Belle PimPimPipNu published -0.05346557\n";
 printf "STAT_CORR_WITH Belle PimKmPipNu published 0.03505142\n";
