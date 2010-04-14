@@ -1,0 +1,5 @@
+./babar.pl  | tee ./babar.input
+./belle.pl  | tee ./belle.input
+./pdg.pl  | tee ./pdg.input
+./pdg_hhh.pl | tee ./pdg_hhh.input
+make combos
