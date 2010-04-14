@@ -3,48 +3,48 @@ BEGIN       CLEO3 PimPimPipNu published BRIERE   03
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-            9.13e-2       1.04389e-03 9.60377e-03
+            9.13e-2       9.81270e-04 9.02769e-03
 
 DATA
-            Cleo3Other_00 9.53070e-03
-            Cleo3Other_1u 1.18245e-03
+            Cleo3Other_00 8.95900e-03
+            Cleo3Other_1u 1.11152e-03
 
 END
 
-* B(tau- -> pi- K- pi+ nu) [ex. K0]
-BEGIN       OPAL PimKmPipNu published  ABBIENDI  04J
-
-MEASUREMENT m_PimKmPipNu statistical systematic
-DATA        m_PimKmPipNu statistical systematic
-            0.415e-2     1.38629e-03 0.0
-
-END
+* * B(tau- -> pi- K- pi+ nu) [ex. K0]
+* BEGIN       OPAL PimKmPipNu published  ABBIENDI  04J
+* 
+* MEASUREMENT m_PimKmPipNu statistical systematic
+* DATA        m_PimKmPipNu statistical systematic
+*             0.415e-2     1.93847e-03 0.0
+* 
+* END
 
 BEGIN       CLEO3 PimKmPipNu published BRIERE    03
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            0.384e-2     2.92289e-04 7.93355e-04
+            0.384e-2     4.08711e-04 1.10936e-03
 
 DATA
-            Cleo3Other_00 4.00853e-04
-            Cleo3Other_2u 6.84638e-04
+            Cleo3Other_00 5.60519e-04
+            Cleo3Other_2u 9.57339e-04
 
 END
 
-BEGIN       CLEO PimKmPipNu published RICHICHI   99
-
-MEASUREMENT m_PimKmPipNu statistical systematic
-DATA        m_PimKmPipNu statistical systematic
-            0.346e-2     1.26392e-03 0.0
-
-END
+* BEGIN       CLEO PimKmPipNu published RICHICHI   99
+* 
+* MEASUREMENT m_PimKmPipNu statistical systematic
+* DATA        m_PimKmPipNu statistical systematic
+*             0.346e-2     1.76736e-03 0.0
+* 
+* END
 
 BEGIN       ALEPH PimKmPipNu published BARATE    98
 
 MEASUREMENT m_PimKmPipNu statistical systematic
 DATA        m_PimKmPipNu statistical systematic
-            0.214e-2     9.81477e-04 0.0
+            0.214e-2     1.37241e-03 0.0
 
 END
 
@@ -53,34 +53,34 @@ BEGIN       CLEO3 PimKmKpNu published   BRIERE  03
 
 MEASUREMENT m_PimKmKpNu statistical systematic
 DATA        m_PimKmKpNu statistical systematic
-            1.550e-3    1.25267e-04 1.87900e-04
+            1.550e-3    1.68863e-04 2.53295e-04
 
 DATA
-            Cleo3Other_00 1.61803e-04
-            Cleo3Other_3u 9.55315e-05
+            Cleo3Other_00 2.18115e-04
+            Cleo3Other_3u 1.28779e-04
 
 END
 
-BEGIN       OPAL PimKmKpNu published   ABBIENDI 00D
+* BEGIN       OPAL PimKmKpNu published   ABBIENDI 00D
+* 
+* MEASUREMENT m_PimKmKpNu statistical systematic
+* DATA        m_PimKmKpNu statistical systematic
+*             0.870e-3     1.93682e-03 0.0
+* 
+* END
 
-MEASUREMENT m_PimKmKpNu statistical systematic
-DATA        m_PimKmKpNu statistical systematic
-            0.870e-3     1.43678e-03 0.0
+* BEGIN       CLEO PimKmKpNu published   RICHICHI 99
+* 
+* MEASUREMENT m_PimKmKpNu statistical systematic
+* DATA        m_PimKmKpNu statistical systematic
+*             1.450e-3     8.68820e-04 0.0
+* 
+* END
 
-END
-
-BEGIN       CLEO PimKmKpNu published   RICHICHI 99
-
-MEASUREMENT m_PimKmKpNu statistical systematic
-DATA        m_PimKmKpNu statistical systematic
-            1.450e-3     6.44511e-04 0.0
-
-END
-
-BEGIN       ALEPH PimKmKpNu published   BARATE  98
-
-MEASUREMENT m_PimKmKpNu statistical systematic
-DATA        m_PimKmKpNu statistical systematic
-            1.630e-3    5.64086e-04 0.0
-
-END
+* BEGIN       ALEPH PimKmKpNu published   BARATE  98
+* 
+* MEASUREMENT m_PimKmKpNu statistical systematic
+* DATA        m_PimKmKpNu statistical systematic
+*             1.630e-3    7.60405e-04 0.0
+* 
+* END
