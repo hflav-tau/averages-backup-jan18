@@ -141,3 +141,13 @@ shell> make plot
 shell> sshfs -oworkaround=rename flora.slac.stanford.edu:/ ~/local/mounts/slac
 shell> ln -s ~/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ../../../Data
 
+#//////////////////////////////////////////////////////////////////////////////
+#
+# end of 2009 paper CVS access
+#
+
+outside of SLAC AFS:
+- env CVS_RSH=ssh cvs -d :ext:flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/cvs co Papers/EndOfYear09
+
+in SLAC AFS:
+- cvs -d /afs/slac.stanford.edu/www/xorg/hfag/cvs co Papers/EndOfYear09
