@@ -442,7 +442,7 @@ for (mt.name in meas.types.names) {
     excl = meas.error[names(keep)[keep == 0]]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
-  if (FALSE && any(keep != 0)) {
+  if (FALSE & any(keep != 0)) {
     cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", error.max, "\n")
     excl = meas.error[names(keep)[keep != 0]]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
@@ -500,13 +500,20 @@ chisq.keep = drop(
   %*% solve(diag(sfact) %*% meas.cov %*% diag(sfact))
   %*% diag(meas.keep) %*% (meas - delta %*% quant))
 
+##-- save step 0
+sfact.types.0 = sfact.types
+sfact.0 = sfact
+
 ##-- adjust found S-factors to obtain chisq/dof = 1
 sfact = sfact * sqrt(chisq.keep/dof.keep)
 sfact.types = sfact.types * sqrt(chisq.keep/dof.keep)
 
-sfact.types.orig = sfact.types
+##-- save step 1
+sfact.types.1 = sfact.types
+sfact.1 = sfact
+
+##-- do not apply S-factors less than one
 sfact.types = pmax(sfact.types, 1)
-sfact.orig = sfact
 sfact = pmax(sfact, 1)
 
 ##
@@ -570,12 +577,14 @@ cat("Averaged quantities: value, error, error with S-factor, S-factor\n")
 if (quant.num > 1) {
   ##-- if multiple average, use dedicated S-factor computation
   sfact.row = quant2.err / quant.err
-  sfact0.row = sfact.types[meas.types.names %in% quant.names]
+  sfact0.row = sfact.types.0[meas.types.names %in% quant.names]
+  sfact1.row = sfact.types.1[meas.types.names %in% quant.names]
   chisq.row = chisq.types[meas.types.names %in% quant.names]
   dof.row = dof.types[meas.types.names %in% quant.names]
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact0.row = sfact.types[meas.types.names %in% quant.names]
+  sfact0.row = sfact.types.0[meas.types.names %in% quant.names]
+  sfact1.row = sfact.types.1[meas.types.names %in% quant.names]
   sfact.row = sqrt(chisq/dof)
   quant2.err[1] = quant.err[1]*sfact.row[1]
   chisq.row = chisq
@@ -585,7 +594,8 @@ show(rbind(value=quant,
            error=quant.err,
            upd.error=quant2.err,
            "S-factor"=sfact.row,
-           "S-factor_0"=sfact0.row,
+           "S-factor_2"=sfact1.row,
+           "S-factor_1"=sfact0.row,
            chisq=chisq.row,
            dof=dof.row
            ))
@@ -604,7 +614,8 @@ if (length(meas.extra) >0) {
              error=meas.extra.err,
              upd.error=meas.extra.err.upd,
              "S-factor"=meas.extra.err.upd/meas.extra.err,
-             "S-factor_0"=sfact.types[meas.types.names %in% meas.names.extra],
+             "S-factor_2"=sfact.types.1[meas.types.names %in% meas.names.extra],
+             "S-factor_1"=sfact.types.0[meas.types.names %in% meas.names.extra],
              chisq=chisq.types[meas.types.names %in% meas.names.extra],
              dof=dof.types[meas.types.names %in% meas.names.extra]
            ))
