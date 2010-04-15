@@ -410,6 +410,7 @@ meas.keep = meas & FALSE
 ## - sfact.types: S-factor per measurement type
 ## - sfact: S-factor per measurement
 ##
+chisq.out = numeric(0)
 for (mt.name in meas.types.names) {
   ##-- linear comb. of averaged quantities corresponding to mt.name
   quant.comb = meas.types.id[mt.name,]
@@ -426,25 +427,34 @@ for (mt.name in meas.types.names) {
   meas.mt.keep = meas.mt & (meas.error <= error.max)
   meas.keep = meas.keep | meas.mt.keep
 
+  ##
+  ## chisq contribution from measurement of one type
+  ##
+  ##-- includes correlation between measurements of the same type
+  meas.mt.chisq.corr = drop(
+    t((meas - delta %*% quant)[meas.mt.keep])
+    %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
+    %*% (meas - delta %*% quant)[meas.mt.keep])
+  ##-- does not include correlation between measurements of the same type
   meas.mt.chisq = sum(((meas[meas.mt.keep] - drop(quant.comb %*% quant)) / meas.error[meas.mt.keep])^2)
+
   meas.mt.dof = sum(meas.mt.keep) - 1
   ##++ special treatment for when there is just 1 measurement of a specific type
   if (meas.mt.dof == 0) meas.mt.dof = 1
 
   ##-- collect chisq/dof for each type of measurement
-  chisq.types[mt.name] = meas.mt.chisq
+  chisq.types[mt.name] = meas.mt.chisq.corr
   dof.types[mt.name] = meas.mt.dof
 
-  ##
-  ## chisq pertaining to meas. type
-  ## ++ must check with correlated results
-  ##
-  meas.mt.chisq.2 = drop(
-    t((meas - delta %*% quant)[meas.mt.keep])
-    %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
-    %*% (meas - delta %*% quant)[meas.mt.keep])
-  
-  ## show(rbind(mt.name=c(chisq=meas.mt.chisq, "chisq-with-corr"=meas.mt.chisq.2, dof=meas.mt.dof)))
+  if (abs(meas.mt.chisq - meas.mt.chisq.corr)/max(meas.mt.chisq, meas.mt.chisq.corr) >1e-4) {
+    chisq.out.tmp = rbind(c(
+      chisq=meas.mt.chisq,
+      "chisq-with-corr"=meas.mt.chisq.corr,
+      dof=meas.mt.dof,
+      "S-factor"=sqrt(meas.mt.chisq.corr/meas.mt.dof)))
+    rownames(chisq.out.tmp) = mt.name
+    chisq.out = rbind(chisq.out, chisq.out.tmp)
+  }
   save = options()
   options(digits=4)
   if (any(xor(meas.mt, meas.mt.keep))) {
@@ -464,6 +474,12 @@ for (mt.name in meas.types.names) {
   sfact.types[mt.name] = tmp
   sfact[meas.types[mt.name,]] = tmp
 }
+
+##-- show chisq differences due to correlation between same types measurements
+if (length(chisq.out)>0) {
+  show(chisq.out)
+}
+rm(chisq.out)
 
 ##-- recompute chisq and chisq/dof
 dof = meas.num - quant.num
