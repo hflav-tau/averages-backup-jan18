@@ -2,7 +2,7 @@
 * B(tau- -> K- phi nu) in 1e-5
 *
 
-BEGIN       BaBar count published PRL100:011801,08
+BEGIN       BaBar KmPhiNu published PRL100:011801,08
 MEASUREMENT m_KmPhiNu statistical systematic
 DATA        m_KmPhiNu statistical systematic
             3.39      0.20        0.28 

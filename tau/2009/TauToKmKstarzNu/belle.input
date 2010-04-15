@@ -2,7 +2,7 @@
 * B(tau- -> K- K*0 nu)
 *
 
-BEGIN       Belle count preliminary ICHEP08
+BEGIN       Belle KmKstarzNu preliminary ICHEP08
 MEASUREMENT m_KmKstarzNu statistical systematic
 DATA        m_KmKstarzNu statistical systematic
             0.156e-2     0.002e-2    0.009e-2
