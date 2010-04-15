@@ -17,7 +17,7 @@ flag.no.maxLik = FALSE
 rc = try(library(maxLik), silent=TRUE)
 if (inherits(rc, "try-error")) flag.no.maxLik = TRUE
 
-source("../../../Common/bin/alucomb-read.r")
+source("../../../Common/bin/alu-utils.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
@@ -178,7 +178,7 @@ meas.error = sqrt(meas.stat^2 + meas.syst^2)
 ##
 ## build correlation matrix
 ##
-meas.corr = diag(rep(0,meas.num))
+meas.corr = diag.m(rep(0,meas.num))
 rownames(meas.corr) = meas.names
 colnames(meas.corr) = meas.names
 meas.corr.stat = meas.corr
@@ -242,9 +242,9 @@ for (meas.i in meas.names) {
 
 ##-- if total correlation specified, get stat. correlation by subtraction
 meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
-meas.cov.stat = meas.cov.stat + diag(meas.stat^2)
+meas.cov.stat = meas.cov.stat + diag.m(meas.stat^2)
 ##-- total covariance
-meas.cov.syst = meas.cov.syst + diag(meas.syst^2)
+meas.cov.syst = meas.cov.syst + diag.m(meas.syst^2)
 meas.cov = meas.cov.stat + meas.cov.syst
 
 ##
@@ -291,6 +291,10 @@ if (FALSE) {
 ##-- simplify
 meas = meas.value
 
+##-- set very large line width to print even large amount of averaged quantities on single line
+options.save = options()
+options(width=400)
+
 if (FALSE && !flag.no.maxLik) {
 ##
 ## solve for quantities with iterative chi-square minimization
@@ -311,7 +315,7 @@ names(quant) = quant.names
 quant.cov = vcov(fit)
 rownames(quant.cov) = quant.names
 colnames(quant.cov) = quant.names
-quant.err = sqrt(diag(quant.cov))
+quant.err = sqrt(diag.m(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
 chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
@@ -343,7 +347,7 @@ invcov = solve(meas.cov)
 quant.cov = solve(t(delta) %*% invcov %*% delta)
 rownames(quant.cov) = quant.names
 colnames(quant.cov) = quant.names
-quant.err = sqrt(diag(quant.cov))
+quant.err = sqrt(diag.m(quant.cov))
 
 quant = drop(quant.cov %*% t(delta) %*% (invcov %*% meas))
 names(quant) = quant.names
@@ -381,15 +385,6 @@ for (mt.name in meas.types.names) {
     meas.types[mt.name, m.name] = all(meas.types.id[mt.name,] == delta[m.name,])
   }
 }
-
-##
-## measurement types that do not correspond to an averaged quantity
-## - compute average and errors
-##
-meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
-meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
-meas.extra = drop(meas.extra.id %*% quant[1:quant.num])
-meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov %*% t(meas.extra.id)))
 
 ##-- chisq contribution, dof, S-factor for each measurement type
 chisq.types = 0*meas.types.id[,1]
@@ -490,12 +485,18 @@ chisq.keep.0 = drop(
   t((meas - delta %*% quant)[meas.keep])
   %*% solve(meas.cov[meas.keep, meas.keep])
   %*% (meas - delta %*% quant)[meas.keep])
+
 dof.keep = sum(meas.keep) - quant.num
+##++ prevent problems when all measurements have large errors but one
+if (dof.keep < 1) {
+  cat("warning: only 1 no-large-error measurement survives\n")
+  dof.keep = 1
+}
 
 ##-- update chisq using S-factors
 chisq.keep = drop(
   t((meas - delta %*% quant)[meas.keep])
-  %*% solve(diag(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag(sfact[meas.keep]))
+  %*% solve(diag.m(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(sfact[meas.keep]))
   %*% (meas - delta %*% quant)[meas.keep])
 
 ##-- save step 0
@@ -517,7 +518,7 @@ sfact = pmax(sfact, 1)
 ##
 ## inflate the covariance matrix with the S-factors
 ##
-meas2.cov = diag(sfact) %*% meas.cov %*% diag(sfact)
+meas2.cov = diag.m(sfact) %*% meas.cov %*% diag.m(sfact)
 invcov2 = solve(meas2.cov)
 
 ##-- compute new inflated fitted quantities covariance matrix 
@@ -526,7 +527,7 @@ rownames(quant2.cov) = quant.names
 colnames(quant2.cov) = quant.names
 
 ##-- updated errors and correlations
-quant2.err = sqrt(diag(quant2.cov))
+quant2.err = sqrt(diag.m(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
 ##-- all measurements chisq after S-factor inflation
@@ -535,7 +536,7 @@ chisq2 = drop(t(meas - delta %*% quant) %*% invcov2 %*% (meas - delta %*% quant)
 ##-- no-large-error measurements chisq after 2nd iteration S-factor inflation
 chisq2.keep = drop(
   t((meas - delta %*% quant)[meas.keep])
-  %*% solve(diag(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag(sfact[meas.keep]))
+  %*% solve(diag.m(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(sfact[meas.keep]))
   %*% (meas - delta %*% quant)[meas.keep])
 
 cat("\n")
@@ -578,7 +579,8 @@ if (quant.num > 1) {
   sfact0.row = sfact.types.0[meas.types.names %in% quant.names]
   sfact1.row = sfact.types.1[meas.types.names %in% quant.names]
   sfact.row = sqrt(chisq/dof)
-  quant2.err[1] = quant.err[1]*sfact.row[1]
+  ##-- also for single quantity, never deflate error
+  quant2.err[1] = quant.err[1] * max(sfact.row[1], 1)
   chisq.row = chisq
   dof.row = dof
 }
@@ -594,13 +596,23 @@ show(rbind(value=quant,
 
 if (quant.num > 1) {
   cat("correlation\n") 
+  show(quant.corr)
+  cat("correlation, S-factor inflated\n") 
   show(quant2.corr)
 }
 
-##-- update with S-factors measurement types that do not correspond to an averaged quantity
-meas.extra.err.upd = sqrt(diag(meas.extra.id %*% quant2.cov %*% t(meas.extra.id)))
-
-if (length(meas.extra) >0) {
+##
+## measurement types that do not correspond to an averaged quantity
+## - compute average and errors
+##
+meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
+if (length(meas.names.extra) >0) {
+  meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
+  meas.extra = drop(meas.extra.id %*% quant[1:quant.num])
+  meas.extra.err = sqrt(diag.m(meas.extra.id %*% quant.cov %*% t(meas.extra.id)))
+  ##-- update with S-factors measurement types that do not correspond to an averaged quantity
+  meas.extra.err.upd = sqrt(diag.m(meas.extra.id %*% quant2.cov %*% t(meas.extra.id)))
+  
   cat("Non-averaged measurement types\n") 
   show(rbind(value=meas.extra,
              error=meas.extra.err,
@@ -613,6 +625,7 @@ if (length(meas.extra) >0) {
            ))
 }
 
+options(options.save)
 ##++ } ##-- end function alucomb
 
 args <- commandArgs(TRUE)

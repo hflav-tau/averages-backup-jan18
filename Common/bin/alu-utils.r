@@ -4,6 +4,18 @@
 ## definitions
 
 ##
+## create diagonal matrix also for vectors of length one
+##
+diag.m <- function(vec) {
+  if (length(vec) <= 1) {
+    rc = diag(as.matrix(vec))
+  } else {
+    rc = diag(vec)
+  }
+  rc
+}
+
+##
 ## return list of lines from file
 ##
 get.file.lines <- function(fname) {
