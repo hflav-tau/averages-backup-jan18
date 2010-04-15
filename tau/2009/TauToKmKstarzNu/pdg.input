@@ -4,14 +4,14 @@
 * all PDG results but the Belle one
 *
 
-BEGIN       ALEPH count pub  BARATE     98
+BEGIN       ALEPH KmKstarzNu pub  BARATE     98
 MEASUREMENT m_KmKstarzNu statistical systematic
 DATA        m_KmKstarzNu statistical systematic
             0.213e-2     0.048e-2    0.000e-2
 DATA AlephOther 0.000e-2
 END
 
-BEGIN       ARGUS count pub   ALBRECHT	 95H
+BEGIN       ARGUS KmKstarzNu pub   ALBRECHT	 95H
 MEASUREMENT m_KmKstarzNu statistical systematic
 DATA        m_KmKstarzNu statistical systematic
 	    0.200e-2     0.050e-2    0.040e-2

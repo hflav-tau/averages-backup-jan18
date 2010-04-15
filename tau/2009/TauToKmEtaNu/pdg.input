@@ -1,4 +1,4 @@
-BEGIN    ALEPH count Published BUSKULIC 97C
+BEGIN    ALEPH KmEtaNu Published BUSKULIC 97C
 
 MEASUREMENT m_KmEtaNu    statistical systematic
 DATA        m_KmEtaNu    statistical systematic
@@ -9,7 +9,7 @@ DATA
 
 END
 
-BEGIN    CLEO count Published BARTELT 96
+BEGIN    CLEO KmEtaNu Published BARTELT 96
 
 MEASUREMENT m_KmEtaNu    statistical systematic
 DATA        m_KmEtaNu    statistical systematic
