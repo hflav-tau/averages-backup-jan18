@@ -8,7 +8,7 @@
 
 library(methods)
 
-source("../../../Common/bin/alucomb-read.r")
+source("../../../Common/bin/alu-utils.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
