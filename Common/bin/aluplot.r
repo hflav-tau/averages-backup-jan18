@@ -751,8 +751,10 @@ for (quant in quant.names) {
           average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
           ## cat(format(average, width=12*3+4),
           ##    "HFAG Average [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]\n", file=fh)
+          ## cat(format(average, width=12*3+4),
+          ##     "HFAG Average [h^{-}h^{-}h^{+}#nu (ex.K^{0}) modes combined]\n", file=fh)
           cat(format(average, width=12*3+4),
-              "HFAG Average [h^{-}h^{-}h^{+}#nu (ex.K^{0}) modes combined]\n", file=fh)
+              "HFAG Average [h^{-}h^{-}h^{+}#nu ex.K^{0} (h=#pi,K) modes fit]\n", file=fh)
         }
         ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
         label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
@@ -760,7 +762,7 @@ for (quant in quant.names) {
       } else {
         ##-- combined average of all hhh modes
         ## label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]"
-        label.extra = " [h^{-}h^{-}h^{+}#nu (ex.K^{0}) modes combined]"
+        label.extra = " [h^{-}h^{-}h^{+}#nu ex.K^{0} (h=#pi,K) modes fit]"
       }
     } ## any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu"))
 
@@ -776,8 +778,10 @@ for (quant in quant.names) {
           average = gsub("(\\S+\\s+\\S+\\s+\\S+\\s+\\S+)\\s*.*$", "\\1", average)
           ## cat(format(average, width=12*3+4),
           ##    "HFAG Average [B(#tau^{-} #rightarrow 1-prong) modes combined]\n", file=fh)
+          ## cat(format(average, width=12*3+4),
+          ##     "HFAG Average [1-prong) modes combined]\n", file=fh)
           cat(format(average, width=12*3+4),
-              "HFAG Average [1-prong) modes combined]\n", file=fh)
+              "HFAG Average [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu/#pi/K) modes fit]\n", file=fh)
         }
         ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
         label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
@@ -785,7 +789,7 @@ for (quant in quant.names) {
       } else {
         ##-- combined average of all 1-prong modes
         ## label.extra = " [B(#tau^{-} #rightarrow 1-prong) modes combined]"
-        label.extra = " [1-prong modes combined]"
+        label.extra = " [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu/#pi/K) modes fit]"
       }
     } ## any(quant == c("HmNu", "HmPizNu", "KmNu", "KmPizNu", "MmNumbarNu", "PimNu", "PimPizNu"))
     
