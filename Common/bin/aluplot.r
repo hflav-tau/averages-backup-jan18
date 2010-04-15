@@ -14,30 +14,6 @@ source("../../../Common/bin/alu-utils.r")
 ## definitions
 
 ##
-## transform the name of a measurement in the HFAG-tau format into a format usable by Root
-##
-label.root = function(str) {
-  str.orig = str
-
-  str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
-  str = gsub("F1", "f_{1}",str)
-  str = gsub("Pi", "#pi",str)
-  str = gsub("Nu", "#nu",str)
-  str = gsub("M", "#mu",str)
-  str = gsub("H", "h",str)
-  str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
-  str = gsub("p($|[#}A-Zh])", "^{+}\\1", str, perl=TRUE)
-  str = gsub("z($|[#}A-Zh])", "^{0}\\1", str, perl=TRUE)
-
-  if (str.orig %in% c("HmHmHpNu", "PimKmPipNu", "PimPimPipNu")) {
-    str = paste(str, "(ex.K^{0})")
-  }
-
-  str = paste("B(#tau^{-} #rightarrow ", str, ")", sep="")
-  return(str)
-}
-
-##
 ## read log file pdg_average.log containing the PDG-like average
 ##
 get.pdg.average = function(file) {
@@ -173,121 +149,6 @@ get.combos.results = function(file) {
   }
   warning("Cannot get Combos information from", file)
   return(list())
-}
-
-##
-## get numeric data from aluxomb log
-##
-get.alucomb.data = function(lines) {
-  data = numeric()
-  li = 1
-  if (is.na(lines[li])) {
-    return(list(lines=li-1, data=data))
-  }
-  fields = unlist(strsplit(lines[li], "\\s+", perl=TRUE))
-  if (fields[1] != "") {
-    warning("Cannot find data header line in ", lines[li])
-  }
-  cols = fields[-1]
-  rows = character()
-  repeat {
-    li = li+1
-    if (is.na(lines[li])) {
-      break
-    }
-    fields = unlist(strsplit(lines[li], "\\s+", perl=TRUE))
-    prev.options = options()
-    options(warn=-1)
-    if (length(fields) <= length(cols)) break
-    values = as.numeric(fields[-(1:(length(fields)-length(cols)))])
-    options(prev.options)
-    if (length(values) == 0 || any(is.na(values))) break
-    data = rbind(data, values)
-    rows = c(rows, paste(fields[1:(length(fields)-length(cols))], collapse=" "))
-  }
-  if (length(data) > 0) {
-    if (is.null(dim(data))) {
-      names(data) = cols
-    } else {
-      colnames(data) = cols
-      rownames(data) = rows
-    }
-  }
-  return(list(lines=li-1, data=data))
-}
-
-##
-## get a section of numeric data from aluxomb log
-##
-get.alucomb.section = function(lines, pattern, file, offset=0) {
-  liv = grep(pattern, lines)
-  if (length(liv) == 0) {
-    cat("warning: cannot find '", pattern, "' in\n  ", file, "\n", sep="")
-    return(NULL)
-  }
-  li = liv[1]
-  li = li+1+offset
-  
-  rc = get.alucomb.data(lines[-(1:(li-1))])
-  if (length(data) == 0) {
-    warning("could not read chisq data in ", file)
-    return(NULL)
-  }
-  return(rc)
-}
-
-##
-## get alucomb log data
-##
-get.alucomb = function(file) {
-  ol = list()
-  
-  lines = suppressWarnings(try(get.file.lines(file), silent=TRUE))
-  if (inherits(lines, "try-error")) {
-    warning("Cannot open / read file ", file)
-    return(ol)
-  }
-  
-  rc = get.alucomb.section(lines, "^#+\\s+S-factors accounting", file, 1)
-  if (is.null(rc)) {
-    return(ol)
-  }
-  li = 1 + rc$lines
-  ol$chisq = rc$data["original", "chisq"]
-  ol$dof = rc$data["original", "dof"]
-  
-  rc.av = get.alucomb.section(lines[-(1:(li-1))], "^Averaged quantities", file)
-  if (is.null(rc)) {
-    return(ol)
-  }
-  li = li + rc$lines
-  
-  rc.corr = get.alucomb.section(lines[-(1:(li-1))], "^correlation", file)
-  if (is.null(rc)) {
-    return(ol)
-  }
-  li = li + rc$lines
-  
-  rc.extra = get.alucomb.section(lines[-(1:(li-1))], "^Non-averaged measurement types", file)
-  if (is.null(rc)) {
-    return(ol)
-  }
-  li = li + rc$lines
-
-  data = cbind(rc.av$data, rc.extra$data)
-  
-  ol$val = data["value",]
-  names(ol$val) = colnames(data)
-  ol$err = data["error",]
-  names(ol$err) = colnames(data)
-  ol$sfact = data["S-factor",]
-  names(ol$sfact) = colnames(data)
-  ol$chisq.all = data["chisq",]
-  names(ol$chisq.all) = colnames(data)
-  ol$dof.all = data["dof",]
-  names(ol$dof.all) = colnames(data)
-
-  return(ol)
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -781,7 +642,7 @@ for (quant in quant.names) {
           ## cat(format(average, width=12*3+4),
           ##     "HFAG Average [1-prong) modes combined]\n", file=fh)
           cat(format(average, width=12*3+4),
-              "HFAG Average [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu/#pi/K) modes fit]\n", file=fh)
+              "HFAG Average [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu,#pi,K) modes fit]\n", file=fh)
         }
         ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
         label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
@@ -789,7 +650,7 @@ for (quant in quant.names) {
       } else {
         ##-- combined average of all 1-prong modes
         ## label.extra = " [B(#tau^{-} #rightarrow 1-prong) modes combined]"
-        label.extra = " [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu/#pi/K) modes fit]"
+        label.extra = " [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu,#pi,K) modes fit]"
       }
     } ## any(quant == c("HmNu", "HmPizNu", "KmNu", "KmPizNu", "MmNumbarNu", "PimNu", "PimPizNu"))
     
