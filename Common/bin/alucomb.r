@@ -391,19 +391,15 @@ meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
 meas.extra = drop(meas.extra.id %*% quant[1:quant.num])
 meas.extra.err = sqrt(diag(meas.extra.id %*% quant.cov %*% t(meas.extra.id)))
 
-##-- chisq contribution and dof for each measurement type
-chisq.types = rep(0, dim(meas.types.id)[1])
+##-- chisq contribution, dof, S-factor for each measurement type
+chisq.types = 0*meas.types.id[,1]
 names(chisq.types) = meas.types.names
 dof.types = chisq.types
+sfact.types = chisq.types + 1
 
-##-- S-factor for each measurement type
-sfact.types = rep(1, dim(meas.types.id)[1])
-names(sfact.types) = meas.types.names
-
-##-- S-factor for each true measurement
-sfact = rep(1, meas.num)
-names(sfact) = meas.names
-keep.types.names = character(0)
+##-- S-factor for each measurement
+sfact = 0*meas + 1
+meas.keep = meas & FALSE
 
 ##
 ## collect chisq contributions for each measurement type
@@ -415,72 +411,54 @@ keep.types.names = character(0)
 ## - sfact: S-factor per measurement
 ##
 for (mt.name in meas.types.names) {
-  chisq.types.meas = numeric()
   ##-- linear comb. of averaged quantities corresponding to mt.name
   quant.comb = meas.types.id[mt.name,]
-  mt.m.names = meas.names[meas.types[mt.name,]]
-  for (m.name in mt.m.names) {
-    ##-- chisq contribution of the single measurement
-    tmp = (meas[m.name] - drop(quant.comb %*% quant)) / meas.error[m.name]
-    chisq.types.meas = c(chisq.types.meas, tmp^2)
-  }
 
-  ##-- do not include chisq contribution of measurements with error >sqrt(3N) times average error (PDG recipe)
-  num = length(chisq.types.meas)
-  ##-- error on average as resulting from HFAG fit
-  ## average.err = c(quant.err, meas.extra.err)[mt.name]
+  ##-- which measurements are of mt.name
+  meas.mt = meas.types[mt.name,]
+  meas.mt.num = sum(meas.mt)
+
   ##-- error on average like for PDG, assuming no correlation
-  average.err = 1/sqrt(sum(1/meas.error[mt.m.names]^2))
-  error.max = 3*sqrt(num)*average.err
-  keep = ifelse(meas.error[mt.m.names] <= error.max, 1, 0)
-  ##++ keep = ifelse(meas.error[mt.m.names] <= (3*sqrt(num)*average.err), 1, 1)
-  keep.types.names = c(keep.types.names, names(keep)[keep != 0])
+  average.err = 1/sqrt(sum(1/meas.error[meas.mt]^2))
+  error.max = 3*sqrt(meas.mt.num)*average.err
+
+  ##-- keep only measurement with not too large errors
+  meas.mt.keep = meas.mt & (meas.error <= error.max)
+  meas.keep = meas.keep | meas.mt.keep
+
+  meas.mt.chisq = sum(((meas[meas.mt.keep] - drop(quant.comb %*% quant)) / meas.error[meas.mt.keep])^2)
+  meas.mt.dof = sum(meas.mt.keep) - 1
+  ##++ special treatment for when there is just 1 measurement of a specific type
+  if (meas.mt.dof == 0) meas.mt.dof = 1
+
+  ##-- collect chisq/dof for each type of measurement
+  chisq.types[mt.name] = meas.mt.chisq
+  dof.types[mt.name] = meas.mt.dof
+
+  ##
+  ## chisq pertaining to meas. type
+  ## ++ must check with correlated results
+  ##
+  meas.mt.chisq.2 = drop(
+    t((meas - delta %*% quant)[meas.mt.keep])
+    %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
+    %*% (meas - delta %*% quant)[meas.mt.keep])
+  
+  ## show(rbind(mt.name=c(chisq=meas.mt.chisq, "chisq-with-corr"=meas.mt.chisq.2, dof=meas.mt.dof)))
   save = options()
   options(digits=4)
-  if (any(keep == 0)) {
+  if (any(xor(meas.mt, meas.mt.keep))) {
     cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", error.max, "\n")
-    excl = meas.error[names(keep)[keep == 0]]
+    excl = meas.error[xor(meas.mt, meas.mt.keep)]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
-  if (FALSE & any(keep != 0)) {
+  if (FALSE && any(meas.mt.keep)) {
     cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", error.max, "\n")
-    excl = meas.error[names(keep)[keep != 0]]
+    excl = meas.error[meas.mt.keep]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
   options(save)
-  ##-- chisq/dof for each type of measurement
-  chisq.types[mt.name] = sum(keep*chisq.types.meas)
-  ##-- number of degrees of freedom associated with measurements type
-  dof.types[mt.name] = sum(keep != 0) - 1
-  ##++ special treatment for when there is just 1 measurement of a specific type
-  if (dof.types[mt.name] == 0) dof.types[mt.name] = 1
-  ## cat(mt.name, "chisq=", chisq.types[mt.name], "dof= ", dof.types[mt.name], "\n")
 
-  if (FALSE) {
-    ##
-    ## experimental code to compute chisq pertaining to meas. type by
-    ## subsetting the chisq matrix formula
-    ## - either subset to measurements of spec.type
-    ## - or subset to all other meas. types and get difference from total chisq
-    ##
-    ## mt.select = !meas.types[mt.name,]
-    mt.select = !meas.types[mt.name,]
-    meas.cov.redu = subset(meas.cov, subset=mt.select, select=mt.select)
-    invcov.redu = solve(meas.cov.redu)
-    meas.delta = subset(meas - delta %*% quant, subset=mt.select)
-    
-    chisq.partial = drop(t(meas.delta) %*% invcov.redu %*% meas.delta)
-    chisq.partial = chisq - chisq.partial
-    ## dof.partial = length(meas.delta) -1
-    dof.partial = (meas.num - quant.num) - (length(meas.delta) - (quant.num-1))
-    
-    chisq.types[mt.name] = chisq.partial
-    dof.types[mt.name] = dof.partial
-    ##++ special treatment for when there is just 1 measurement of a specific type
-    if (dof.types[mt.name] == 0) dof.types[mt.name] = 1
-    ##-- end
-  }
-  
   ##-- S-factor for each type of measurement and for each measurement
   tmp = sqrt(chisq.types[mt.name]/dof.types[mt.name])
   sfact.types[mt.name] = tmp
@@ -491,14 +469,18 @@ for (mt.name in meas.types.names) {
 dof = meas.num - quant.num
 chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
 
+##-- no-large-error measurements chisq before any S-factor inflation
+chisq.keep.0 = drop(
+  t((meas - delta %*% quant)[meas.keep])
+  %*% solve(meas.cov[meas.keep, meas.keep])
+  %*% (meas - delta %*% quant)[meas.keep])
+dof.keep = sum(meas.keep) - quant.num
+
 ##-- update chisq using S-factors
-meas.keep = ifelse(meas.names %in% keep.types.names, 1, 0)
-names(meas.keep) = meas.names
-dof.keep = length(keep.types.names) - quant.num
 chisq.keep = drop(
-  t(meas - delta %*% quant) %*% diag(meas.keep)
-  %*% solve(diag(sfact) %*% meas.cov %*% diag(sfact))
-  %*% diag(meas.keep) %*% (meas - delta %*% quant))
+  t((meas - delta %*% quant)[meas.keep])
+  %*% solve(diag(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag(sfact[meas.keep]))
+  %*% (meas - delta %*% quant)[meas.keep])
 
 ##-- save step 0
 sfact.types.0 = sfact.types
@@ -536,15 +518,9 @@ chisq2 = drop(t(meas - delta %*% quant) %*% invcov2 %*% (meas - delta %*% quant)
 
 ##-- no-large-error measurements chisq after 2nd iteration S-factor inflation
 chisq2.keep = drop(
-  t(meas - delta %*% quant) %*% diag(meas.keep)
-  %*% invcov2
-  %*% diag(meas.keep) %*% (meas - delta %*% quant))
-
-##-- no-large-error measurements chisq before any S-factor inflation
-chisq.keep.0 = drop(
-  t(meas - delta %*% quant) %*% diag(meas.keep)
-  %*% invcov
-  %*% diag(meas.keep) %*% (meas - delta %*% quant))
+  t((meas - delta %*% quant)[meas.keep])
+  %*% solve(diag(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag(sfact[meas.keep]))
+  %*% (meas - delta %*% quant)[meas.keep])
 
 cat("\n")
 cat("##\n")
