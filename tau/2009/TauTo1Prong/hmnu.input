@@ -1,17 +1,17 @@
-BEGIN    DELPHI HmNu published ABDALLAH	 06A
+BEGIN    DELPHI HmNu published ABDALLAH  06A
 MEASUREMENT m_PimNu   statistical systematic
 DATA        m_PimNu   statistical systematic
             11.571e-2 0.165517e-2 0.0e+0
 STAT_CORR_WITH DELPHI HmPizNu published -0.34
 END
 
-BEGIN    OPAL HmNu published ACKERSTAFF	 98M
+BEGIN    OPAL HmNu published ACKERSTAFF  98M
 MEASUREMENT m_PimNu  statistical systematic
 DATA        m_PimNu  statistical systematic
             11.98e-2 0.206155e-2 0.0e+0
 END
 
-BEGIN    CLEO HmNu published ANASTASSOV	 97
+BEGIN    CLEO HmNu published ANASTASSOV  97
 MEASUREMENT m_PimNu  statistical systematic
 DATA        m_PimNu  statistical systematic
             11.52e-2 0.13e-2     0.0e+0

@@ -1,5 +1,5 @@
 * B(tau- -> h- h- h+ nu) [ex K0]
-BEGIN       DELPHI HmHmHpNu published ABDALLAH	 06A
+BEGIN       DELPHI HmHmHpNu published ABDALLAH   06A
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
@@ -7,15 +7,15 @@ DATA        m_PimPimPipNu statistical systematic
 
 END
 
-BEGIN       OPAL HmHmHpNu published  AKERS	 95Y
+BEGIN       OPAL HmHmHpNu published  AKERS       95Y
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
-	    9.87e-2       3.46108e-03 0.0
+            9.87e-2       3.46108e-03 0.0
 
 END
 
-BEGIN       CLEO HmHmHpNu published  BALEST	 95C
+BEGIN       CLEO HmHmHpNu published  BALEST      95C
 
 MEASUREMENT m_PimPimPipNu statistical systematic
 DATA        m_PimPimPipNu statistical systematic
