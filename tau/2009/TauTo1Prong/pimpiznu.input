@@ -6,7 +6,7 @@ STAT_CORR_WITH ALEPH MmNumbarNu published -0.12
 STAT_CORR_WITH ALEPH PimNu      published  0.02
 END
 
-BEGIN    CLEO PimPizNu published ARTUSO	 94
+BEGIN    CLEO PimPizNu published ARTUSO  94
 MEASUREMENT m_PimPizNu statistical systematic
 DATA        m_PimPizNu statistical systematic
             25.36e-2   0.44e-2     0.0e+0

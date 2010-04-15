@@ -11,9 +11,9 @@ DATA        m_KmKstarzNu statistical systematic
 DATA AlephOther 0.000e-2
 END
 
-BEGIN       ARGUS KmKstarzNu pub   ALBRECHT	 95H
+BEGIN       ARGUS KmKstarzNu pub   ALBRECHT      95H
 MEASUREMENT m_KmKstarzNu statistical systematic
 DATA        m_KmKstarzNu statistical systematic
-	    0.200e-2     0.050e-2    0.040e-2
+            0.200e-2     0.050e-2    0.040e-2
 DATA ArgusOther 0.040e-2
 END

@@ -8,6 +8,6 @@ END
 BEGIN    CLEO PimPizNu published ARTUSO 94
 MEASUREMENT m_PimPizNu statistical systematic
 DATA        m_PimPizNu statistical systematic
-	    25.36e-2  0.44e-2  0.00e+0
+            25.36e-2  0.44e-2  0.00e+0
 DATA        CleoOther 0.00e+0
 END
