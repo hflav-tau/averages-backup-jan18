@@ -70,6 +70,36 @@ slac_mount:
 slac_umount:
 	fusermount -u $(HOME)/local/mounts/slac
 
+# --- sync all hfag-data tree into ../../../Data-local/.
+.PHONY: data_download
+data_download:
+	@if [ -r $(HFAGDATADIR)/. ] ; then \
+	  echo rsync -avz --force --delete $(HFAGDATADIR)/. ../../../Data-local/. ;\
+	  rsync -avz --force --delete $(HFAGDATADIR)/. ../../../Data-local/. ;\
+	else \
+	  echo rsync -essh -avz --force --delete flora.slac.stanford.edu:$(HFAGDATADIR)/. ../../../Data-local/. ;\
+	  rsync -essh -avz --force --delete flora.slac.stanford.edu:$(HFAGDATADIR)/. ../../../Data-local/. ;\
+	fi
+
+# --- (currently disabled) upload local ../../../Data-local/. tree into hfag-data/.
+.PHONY: data_upload
+data_upload:
+	@if [ -r $(HFAGDATADIR)/. ] ; then \
+	  echo rsync -avz $(HFAGDATADIR)/. ../../../Data-local/. ;\
+	  read -a REPLY -n1 -p "  <y> to confirm, anything else to abort: " ;\
+	  if [ $$REPLY = "y" -o $$REPLY = "Y" ] ; then \
+	    echo " OK" ;\
+	    rsync -n -avz ../../../Data-local/. $(HFAGDATADIR)/. ;\
+	  fi ;\
+	else \
+	  echo rsync -essh -avz ../../../Data-local/. flora.slac.stanford.edu:$(HFAGDATADIR)/. ;\
+	  read -a REPLY -n1 -p "  <y> to confirm, anything else to abort: " ;\
+	  if [ $$REPLY = "y" -o $$REPLY = "Y" ] ; then \
+	    echo " OK" ;\
+	    rsync -n -essh -avz ../../../Data-local/. flora.slac.stanford.edu:$(HFAGDATADIR)/. ;\
+	  fi ;\
+	fi
+
 # --- create "log" as link to the respective dir in the data directory
 .PHONY: link
 link:
