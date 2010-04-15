@@ -135,14 +135,6 @@ shell> make plot
 
 #//////////////////////////////////////////////////////////////////////////////
 #
-# tip: remotely mount the slac reference directory
-#
-
-shell> sshfs -oworkaround=rename flora.slac.stanford.edu:/ ~/local/mounts/slac
-shell> ln -s ~/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ../../../Data
-
-#//////////////////////////////////////////////////////////////////////////////
-#
 # end of 2009 paper CVS access
 #
 
@@ -151,3 +143,19 @@ outside of SLAC AFS:
 
 in SLAC AFS:
 - cvs -d /afs/slac.stanford.edu/www/xorg/hfag/cvs co Papers/EndOfYear09
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# tip: remotely mount the slac reference directory
+#
+
+shell> sshfs -oworkaround=rename flora.slac.stanford.edu:/ ~/local/mounts/slac
+shell> ln -s ~/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data ../../../Data
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# misc tips
+#
+
+# --- search for tabs in Combos input files
+grep -l MEASUREMENT ../*/*input | xargs grep -Pl '\t'
