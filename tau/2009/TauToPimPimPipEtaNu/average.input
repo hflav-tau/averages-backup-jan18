@@ -1,12 +1,13 @@
 INCLUDE babar.input
+INCLUDE pdg.input
 
-BEGIN   BaBar all_methods
+BEGIN   BaBar+PDG all_methods
 
 INCLUDE ../Common/Parameters.input
 
 COMBINE * * * 
 
-MEASUREMENT m_PimF1Nu
+MEASUREMENT m_PimPimPipEtaNu
 
 CALL DUMP_MASTER_INC
 CALL CHI2_SYM

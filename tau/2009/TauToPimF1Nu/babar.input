@@ -1,13 +1,13 @@
-BEGIN       BaBar F1Nu_1 published AUBERT 08AE
-MEASUREMENT m_F1Nu statistical systematic
-DATA        m_F1Nu statistical systematic
+BEGIN       BaBar PimF1Nu_1 published AUBERT 08AE
+MEASUREMENT m_PimF1Nu statistical systematic
+DATA        m_PimF1Nu statistical systematic
             3.19e-4 0.18e-4 1.00e-4
 DATA        BabarOther_1 1.00e-4
 END
 
-BEGIN       BaBar F1Nu_2 published AUBERT 05W
-MEASUREMENT m_F1Nu statistical systematic
-DATA        m_F1Nu statistical systematic
+BEGIN       BaBar PimF1Nu_2 published AUBERT 05W
+MEASUREMENT m_PimF1Nu statistical systematic
+DATA        m_PimF1Nu statistical systematic
             3.9e-4  0.7e-4  0.5e-4
 DATA        BabarOther_2 0.5e-4
 END

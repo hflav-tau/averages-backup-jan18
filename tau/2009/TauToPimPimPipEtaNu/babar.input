@@ -1,0 +1,6 @@
+BEGIN       BaBar PimPimPipEtaNu published AUBERT 08AE
+MEASUREMENT m_PimPimPipEtaNu statistical systematic
+DATA        m_PimPimPipEtaNu statistical systematic
+            1.60e-4 0.05e-4 0.11e-4
+DATA        BabarOther 0.11e-4
+END
