@@ -1,7 +1,7 @@
 # first line is xmin, xmax, precision, title
 * 5.15         10.2         5.3 B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 9.3899       0.103652     -1.41279     HFAG Average [h^{-}h^{-}h^{+}#nu (ex.K^{0}) modes combined]
+& 9.3899       0.103652     -1.41279     HFAG Average [h^{-}h^{-}h^{+}#nu ex.K^{0} (h=#pi,K) modes fit]
 & 9.33076      0.0756971    0.0897313    HFAG Average [h^{-}h^{-}h^{+}#nu (ex.K^{0}) mode only]
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 9.44         0.14         1.4          PDG'09 Average
