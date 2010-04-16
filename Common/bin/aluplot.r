@@ -576,13 +576,13 @@ for (quant in quant.names) {
   range.prec = range.prec/100
 
   xmin = quant.data$xmin/x.units
-  xmin = round(xmin/range.prec)*range.prec
-  xmin.prec = round(log(abs(xmin/range.prec))/log(10)+0.51)
+  xmin = floor(xmin/range.prec)*range.prec
+  xmin.prec = round(log(abs(xmin/range.prec))/log(10)+1.51)
   xmin.fmt = sprintf("%%-12.%dg ", xmin.prec)
 
   xmax = quant.data$xmax/x.units
-  xmax = round(xmax/range.prec)*range.prec
-  xmax.prec = round(log(abs(xmax/range.prec))/log(10)+0.51)
+  xmax = ceiling(xmax/range.prec)*range.prec
+  xmax.prec = round(log(abs(xmax/range.prec))/log(10)+1.51)
   xmax.fmt = sprintf("%%-12.%dg ", xmax.prec)
   
   ## cat("* ", sprintf("%12.2g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)))
