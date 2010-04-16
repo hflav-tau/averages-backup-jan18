@@ -314,10 +314,17 @@ list(combination=combination, measurements=measurements)
 label.root = function(str) {
   str.orig = str
 
+  str = gsub("Numbar", "#bar{#nu}_{#mu}",str)  
+
   str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
   str = gsub("F1", "f_{1}",str)
   str = gsub("Pi", "#pi",str)
+
+  str = gsub("Nue", "#nu_{e}",str)
+  str = gsub("Num", "#nu_{#mu}",str)
+  str = gsub("Nut", "#nu_{#tau}",str)
   str = gsub("Nu", "#nu",str)
+
   str = gsub("M", "#mu",str)
   str = gsub("H", "h",str)
   str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
