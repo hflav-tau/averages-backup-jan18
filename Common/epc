@@ -1,0 +1,344 @@
+#!/usr/bin/perl
+require "getopts.pl";
+
+####################################
+# http://epc.sourceforge.net/
+# Epc: error-propagating calculator
+###################################
+
+$alpha = 0.05; # Take +- to mean 1:20 odds, following Engineering convention
+$span = 1.96;  # For Normal distribution at this alpha
+
+$version = "0.5.0";
+
+$trials = 100_000;		# adjust if your machine is slow/fast
+
+$help_prompt = "Type \"help\" or \"?\" to get help.";
+$usage = "
+SYNTAX
+    epc OPTIONS < COMMANDS
+
+ACTION
+    Calculates the result of expressions, in terms of variables whose
+    values are uncertain.  This is done by repeated calculation of the
+    expression using variable-values which are generated using a
+    random number generator whose mean and standard-deviation match
+    the values specified for the variable.
+
+OPTIONS (listed in order of likelihood of usage)
+    -t TRIALS -- Set number of random trials to do (default $trials).
+    -s SEED   -- Set seed (an integer) to be used by the random-number
+                 generator.  If not given, the seed is created using
+                 the system time and the process-ID number, so that
+                 repeated uses of 'epc' give differing results.
+    -d        -- Display debugging information, e.g. the expressions
+                 that are being evaluated.
+    -h        -- Print this help message.
+    -l        -- Print license information, then exit.
+    -v        -- Display verbose information about the distribution
+                 of calculated results.
+    -V        -- Print version number, then exit.
+
+COMMANDS
+    Variable assignment
+    -------------------
+	\$var = CONST +- CONST;
+            -- Assign variable a mean value (a constant, written in
+               conventional floating-point notation) and the 
+               confidence interval of the value.
+
+	\$var = CONST;
+            -- Assign variable an error-less value.
+
+    Expression evaluation and printing
+    ----------------------------------
+	print NUMERICAL_EXPRESSION;
+            -- Print mean, standard-deviation, confidence interval,
+               and some other statistical properties of the expression.
+               The expressions are to be written in Perl syntax, i.e.
+               the variable names must have the dollar-signs in them.
+       print \"text\";
+            -- Print indicated text.  Any instances of the characters
+               \"\\n\" are first translated to newlines; any instance
+               of the characters \"\\t\" are first translated to tabs.
+               Note: no newline is printed after printing the text.
+
+    Interaction commands (don't need semicolon at end)
+    --------------------------------------------------
+        exit
+	stop
+	bye
+	quit
+            -- Various ways to exit the program.
+        help
+        ?
+            -- Various ways to get online help.
+
+    Comments
+    --------
+        # ...
+            -- Anything following the pound-sign is ignored.
+
+EXAMPLE
+    To calculate sin(pi/2), with pi known only very roughly, use
+
+        \$pi = 3.14159 +- 1;
+        print sin(\$pi/2);
+
+    and you'll see something like the following (results
+    vary because the random-number sequence is different each
+    time 'epc' is invoked):
+
+      Without perturbation:                     1
+      Assuming symmetric tails:                 0.94414 +- 0.109517
+      Permitting asymmetric tails:              0.94414 (0.775126 to 0.99416)
+
+    Note that the \"+- uncertainty\" here makes little sense given that the
+    the sinusoid function cannot exceed 1; in this and many cases of
+    nonlinear functions, the asymmetric-tail values are more helpful.
+
+BUGS
+    1) 'Epc' cannot handle variables with names that are too similar.
+       It rejects any variable-assignments in which the new variable-name
+       matches the beginning part of an existing variable-name, or
+       vice-versa.  Note that if it accepts a name, without printing
+       an error message, then there will not be any errors associated
+       confusion about names.
+    2) The default number of trials may be too slow for your computer,
+       or may yields results too inaccurate for your application.
+    3) Nobody seems to agree on what the notation '+-' means, but at 
+       least epc is consistent; to test it, try
+           \$x = 1 +- 0.1;
+           print 2 * \$x;
+       and you should see the result 2+-0.2, as expected no matter
+       what you mean by +-.  So, this isn't a bug, is it? :-)
+
+For more information, type
+
+    info epc
+
+at the unix prompt.
+";
+
+
+# Indicate filename
+$wd = `pwd`;
+chop($wd);
+print "# $wd/$ARGV[$#ARGV]\n" if ($#ARGV != -1);
+
+# Get commandline options, if any exist
+&Getopts('dht:s:vVl');
+if (defined($opt_V)) {
+    print "epc version $version\n";
+    exit(0);
+}
+if (defined($opt_l)) {
+    print "`epc' is covered by the standard GPL license and (c) 2001 Dan E Kelley.\n";
+    exit(0);
+}
+$debug = 0;
+$debug = $opt_d if (defined($opt_d));
+if (defined($opt_h)) {
+    print $usage;
+    exit(0);
+}
+$debug = (defined($opt_d)) ? 1 : 0;
+$verbose = 0;
+$verbose = $opt_v if (defined($opt_v));
+if (defined($opt_t)) {
+    print "# The '-t' flag changed the number of trials from the default of $trials to $opt_t.\n";
+    $trials = $opt_t;
+}
+$seed = time|$$;
+if (defined($opt_s)) {
+    print "# The '-s' flag changed the random-number seed from the default $seed to $opt_s.\n";
+    $seed = $opt_s;
+}
+srand($seed);
+print "\n";
+#
+# Generate gaussian-distributed number with mean=0 and stddev=1.
+sub gaussian () {
+    my ($v1, $v2, $rsq);
+    do {			# get v1 and v2 in (0,1)
+	$v1 = 2 * rand() - 1;
+	$v2 = 2 * rand() - 1;
+	$rsq = $v1 * $v1 + $v2 * $v2;
+    } while ($rsq >= 1 || $rsq == 0);
+    return $v1 * sqrt(-2 * log($rsq) / $rsq);
+}
+#LATER:sub gaussian_trimmed() {
+#LATER:    my ($v1, $v2, $rsq, $result);
+#LATER:    do {
+#LATER:	do {			# get v1 and v2 in (0,1)
+#LATER:	    $v1 = 2 * rand() - 1;
+#LATER:	    $v2 = 2 * rand() - 1;
+#LATER:	    $rsq = $v1 * $v1 + $v2 * $v2;
+#LATER:	} while ($rsq >= 1 || $rsq == 0);
+#LATER:	$result = $v1 * sqrt(-2 * log($rsq) / $rsq);
+#LATER:    } while ($result < -$span || $result > $span);
+#LATER:    return $result;
+#LATER:}
+
+#
+# This is used for sorting numerically.
+sub numerically {$a <=> $b;}
+
+$var = 0;			# variable number
+while(<>) {
+    if (/^\s*#/) {
+	print;
+	next;
+    }
+    chomp;			# get rid of trailing newline
+    $comment = "";
+    if (/.*(#.*)/) {
+	    $comment = $1;
+    }
+    s/#.*//;			# skip comments
+    if (/^\s*$/) {
+        print "\n";
+        next;  
+    }
+    # Catch some commands
+    if (/\s*\?/ or /\s*help/) {
+	print "$usage\n";
+	next;
+    } elsif (/\s*quit/ or /\s*bye/ or /\s*exit/ or /\s*stop/) {
+	exit(0);
+    }
+    
+    # Okay, now on to real commands -- demand semicolon here.
+    if (!/;/) {
+	print "SYNTAX ERROR: commands must end in semicolon.  $help_prompt\n";
+	next;
+    }
+    # Parse the two types of commands, catching errors.
+    if (/^\s*\$([^ ]*)\s*=\s*([^ ]*)\s*;/) { # $var = value;
+	# Assign a variable value.  First, check if defined already.
+	my $duplicate = 0;
+	for ($v = 0; $v < $var; $v++) {
+	    if ($1 eq $name[$v]) {
+		$value[$v] = $2;
+		$CI[$v] = 0;
+		$duplicate = 1;
+		print "$_$comment\n";
+		last;
+	    }
+	}
+	if (!$duplicate) {
+	    # Check to see if will collide with other variable name.
+	    my $collision = 0;
+	    for ($v = 0; $v < $var; $v++) {
+		if ((substr($1, 0, length($name[$v])) eq $name[$v])
+		    or ($1 eq substr($name[$v], 0, length($1)))) {
+		    print "ERROR: this variable-name ($1) collides with existing ($name[$v]).  $help_prompt\n";
+		    $collision = 1;
+		    last;
+		}
+	    }
+	    if (!$collision) {
+		$name[$var] = $1;
+		$value[$var] = $2;
+		$CI[$var] = 0;
+		print "$_$comment\n";
+		$var++;
+	    }
+	}
+    } elsif (/^\s*\$([^ ]*)\s*=\s*([^ ]*)\s*\+-\s*([^ ]*);/) { # $var = value +- value;
+	# Assign a variable value.  First, check if defined already.
+	my $duplicate = 0;
+	for ($v = 0; $v < $var; $v++) {
+	    if ($1 eq $name[$v]) {
+		$value[$v] = $2;
+		$CI[$v] = $3;
+		$duplicate = 1;
+		print "$_$comment\n";
+		last;
+	    }
+	}
+	if (!$duplicate) {
+	    # Check to see if will collide with other variable name.
+	    my $collision = 0;
+	    for ($v = 0; $v < $var; $v++) {
+		if ((substr($1, 0, length($name[$v])) eq $name[$v])
+		    or ($1 eq substr($name[$v], 0, length($1)))) {
+		    print "ERROR: this variable-name ($1) collides with existing ($name[$v]).  $help_prompt\n";
+		    $collision = 1;
+		    last;
+		}
+	    }
+	    if (!$collision) {
+		$name[$var] = $1;
+		$value[$var] = $2;
+		$CI[$var] = $3;
+		print "$_$comment\n";
+		$var++;
+	    }
+	}
+    } elsif (/^\s*print\s*"([^"]*)";/) { # print "string";
+	my $msg = $1;
+	$msg =~ s/\\n/\n/g;
+	$msg =~ s/\\t/\t/g;
+	printf "$msg $comment";
+    } elsif (/^\s*calculate\s*(.*);/) { # calculate EXPRESSION;
+	# 
+	# Print an expression.
+	$exp = $1;
+	print "calculate $exp; $comment\n";
+
+	# First, compute error-less estimate.
+        $exp2 = $exp;
+        for ($v = 0; $v < $var; $v++) {
+	    $the_value = $value[$v];
+	    $exp2 =~ s/\$$name[$v]/$the_value/g;
+	    #print "\tcalculate \"$exp2\"\n";
+	    if ($debug) { print "Evaluating (unperturbed) $exp2 ";}
+	    $errorless = eval($exp2);
+            if ($debug) { print "\t= $errorless\n";}
+	}
+	for ($it = 0; $it < $trials; $it++) {
+	    $exp2 = $exp;
+	    for ($v = 0; $v < $var; $v++) {
+                $the_value = $value[$v];
+                if ($CI[$v] != 0) {
+		    $the_value += gaussian() * $CI[$v] / $span;
+                }
+		$exp2 =~ s/\$$name[$v]/$the_value/g;
+		#print "\tprint \"$exp2\"\n";
+	    }
+	    if ($debug) { print "Evaluating (perturbed)   $exp2 ";}
+	    $trial[$it] = eval($exp2);
+            if ($debug) { print "\t= $trial[$it]\n"; }
+	}
+	$mean = 0;
+	for ($t = 0; $t < $trials; $t++) {
+	    $mean += $trial[$t];
+	}
+	$mean /= $trials;
+	$stddev = 0;
+	for ($t = 0; $t < $trials; $t++) {
+	    $stddev += ($trial[$t] - $mean) * ($trial[$t] - $mean);
+	}
+	$stddev = sqrt($stddev / $trials);
+	@trial_sorted = sort numerically @trial;
+	$q_minus = $trial_sorted[int($alpha/2 * $trials)];
+	$q_plus = $trial_sorted[int((1 - $alpha/2) * $trials)];
+	$median = $trial_sorted[int(0.50 * $trials)];
+        if ($verbose) {
+	    printf "  Properties of perturbed results:\n";
+	    printf "    Mean                     %g\n", $mean;
+	    printf "    Standard Deviation       %g\n", $stddev;
+            printf "    Probability Density Function:\n             p         Value\n"; 
+            for ($p = 0; $p < 1; $p += 0.1) {
+                 printf "        %f     %f\n", $p, $trial_sorted[int($p * $trials)];
+            }
+
+        }
+        printf "  Result without perturbation:      %g\n", $errorless;
+	printf "  Result with symmetric tails:      %g +- %g\n", $median, ($q_plus - $q_minus)/2;
+	printf "  Result with asymmetric tails:     %g (%g to %g)\n", $median, $q_minus, $q_plus;
+    } else {
+	print "SYNTAX ERROR.  $help_prompt.\nInput '$_'\n";
+    }
+}
