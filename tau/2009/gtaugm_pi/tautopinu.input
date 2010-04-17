@@ -1,0 +1,12 @@
+$a = 0.1056584; # M_Mu 
+$b = 0.1395702; # M_Pi
+$c = 2.6033e-8 +- 0.0005e-8; # Tau_Pi
+$d = 99.98770e-2 +- 0.00004e-2; # BR_PiToMuNu
+$e = 1.77675 +- 0.15e-3; # M_Tau
+$f = 290.6e-15 +- 1.0e-15; # Tau_Tau
+$g = 1.0016 +-0.0014; # Delta_Pi
+# BR_TauToPiNuBR = BR_PiToMuNu 
+#                * Delta_Pi 
+#                * pow(M_Tau,3) * Tau_Tau * 1./(2*M_Pi * pow(M_Mu,2)* Tau_Pi) 
+#                * pow((1-pow(M_Pi/M_Tau,2))/(1-pow(M_Mu/M_Pi,2)),2);
+calculate 100. * $d * $g * $e**3 * $f * 1/(2 * $b * $a**2 * $c) * ((1-($b/$e)**2)/(1-($a/$b)**2))**2;
