@@ -1,0 +1,15 @@
+* B(tau- -> K-2pi0nu ex.K^0)
+
+BEGIN       ALEPH KmPizPizNu PUBLISHED BARATE 99K
+MEASUREMENT m_KmPizPizNu statistical systematic
+DATA        m_KmPizPizNu statistical systematic
+            5.6e-4       2.0e-4      1.5e-4
+DATA        AlephKmPizPizNu 1.5e-4
+END
+
+BEGIN       CLEO KmPizPizNu PUBLISHED BATTLE 94
+MEASUREMENT m_KmPizPizNu statistical systematic
+DATA        m_KmPizPizNu statistical systematic
+            9e-4       10.0e-4      3e-4
+DATA        CleoKmPizPizNu 3e-4
+END

@@ -51,6 +51,6 @@ DATA                              ! Systematic uncertainties
 * tot = 0.026e-2/0.808e-2*100
 * remaining = sqrt(tot^2 - 1.1^2 - 0.8^2 - 0.6^2 - 0.5^2) = 2.809693
 *
-  BelleOther%      2.809693 
+  BellePimKzbNu%      2.809693 
 
 END

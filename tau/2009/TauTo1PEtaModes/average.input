@@ -1,0 +1,27 @@
+INCLUDE ../TauToPimPizEtaNu/belle.input
+INCLUDE ../TauToPimPizEtaNu/pdg.input
+INCLUDE ../TauToKmEtaNu/belle.input
+INCLUDE ../TauToKmEtaNu/pdg.input
+INCLUDE ../TauToKmPizEtaNu/belle.input
+INCLUDE ../TauToKmPizEtaNu/pdg.input
+INCLUDE ../TauToPimKzbEtaNu/belle.input
+INCLUDE ../TauToPimKzbEtaNu/pdg.input
+INCLUDE ../TauToKstarmEtaNu/belle.input
+INCLUDE ../TauToKstarmEtaNu/pdg.input
+
+BEGIN   Belle+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_PimPizEtaNu statistical systematic
+MEASUREMENT m_KmEtaNu     statistical systematic
+MEASUREMENT m_KmPizEtaNu  statistical systematic
+MEASUREMENT m_PimKzbEtaNu statistical systematic
+MEASUREMENT m_KstarmEtaNu statistical systematic
+
+CALL DUMP_MASTER_INC
+CALL CHI2_N_SYM
+
+END

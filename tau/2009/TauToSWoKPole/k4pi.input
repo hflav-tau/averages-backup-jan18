@@ -1,0 +1,7 @@
+* B(tau- -> (K4pi)- nu)
+
+BEGIN       GUESS K4PiNu PUBLISHED Davier hep-ph/0507078
+MEASUREMENT m_K4PiNu statistical systematic
+DATA        m_K4PiNu statistical systematic
+            1.1e-4   0.7e-4      0.0
+END

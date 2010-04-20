@@ -2,12 +2,12 @@ BEGIN       ALEPH PimPizEtaNu published BUSKULIC 97C
 MEASUREMENT m_PimPizEtaNu statistical systematic
 DATA        m_PimPizEtaNu statistical systematic
             1.8e-3        0.4e-3      0.2e-3
-DATA        AlephOther 0.2e-3
+DATA        AlephPimPizEtaNu 0.2e-3
 END
 
 BEGIN       CLEO  PimPizEtaNu published ARTUSO 92
 MEASUREMENT m_PimPizEtaNu statistical systematic
 DATA        m_PimPizEtaNu statistical systematic
             1.7e-3        0.2e-3      0.2e-3
-DATA        CleoOther 0.2e-3
+DATA        CleoPimPizEtaNu 0.2e-3
 END

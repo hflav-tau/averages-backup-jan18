@@ -1,0 +1,7 @@
+* B(tau- -> (K3pi)- nu)
+
+BEGIN       GUESS K3PiNu PUBLISHED Davier hep-ph/0507078
+MEASUREMENT m_K3PiNu statistical systematic
+DATA        m_K3PiNu statistical systematic
+            7.4e-4   3.0e-4      0.0
+END

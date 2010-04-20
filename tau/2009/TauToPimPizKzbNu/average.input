@@ -7,7 +7,7 @@ INCLUDE ../Common/Parameters.input
 
 COMBINE * * * 
 
-MEASUREMENT m_PimPizKzbNu
+MEASUREMENT m_PimPizKzbNu statistical systematic
 
 CALL DUMP_MASTER_INC
 CALL CHI2_SYM

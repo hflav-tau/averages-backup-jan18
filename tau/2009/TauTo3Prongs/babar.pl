@@ -10,7 +10,7 @@
 # BR_4 = (1.58 +- 0.13 +- 0.12)e-5
 
 $BR_1 = 8.8337e-2;
-$BR_2 = 0.27257e-2; 
+$BR_2 = 0.27257e-2;
 $BR_3 = 0.13461e-2;
 $BR_4 = 1.5777e-5;
 
@@ -45,9 +45,9 @@ $rhotot_34 = 0.0870484;
 # The statistical correlation between channels:
 $rhostat_12 = -0.129981;
 $rhostat_13 =  0.00136523;
-$rhostat_14 = -0.00186661; 
+$rhostat_14 = -0.00186661;
 $rhostat_23 = -0.150561;
-$rhostat_24 =  0.00619404; 
+$rhostat_24 =  0.00619404;
 $rhostat_34 = -0.0948907;
 
 # 
@@ -98,8 +98,25 @@ printf "%s %.4e\n", "used rhotot_34 = ",($rhostat_34*$stat_3*$stat_4 + $rhosyst_
 # Delta_I_0 = sqrt(0.9**2 + 0.3**2 + 0.1**2) % = 0.953939201416946 % of the BR_I 
 #           is the component which is fully correlated between channels 1, 2, 3 and 4
 
-$common = sqrt(0.9**2 + 0.3**2 + 0.1**2);
+$common_1=0.9;
+$Delta_1_0_1 = $common_1 * 1e-2 * $BR_1;
+$Delta_2_0_1 = $common_1 * 1e-2 * $BR_2;
+$Delta_3_0_1 = $common_1 * 1e-2 * $BR_3;
+$Delta_4_0_1 = $common_1 * 1e-2 * $BR_4;
 
+$common_2=0.3;
+$Delta_1_0_2 = $common_2 * 1e-2 * $BR_1;
+$Delta_2_0_2 = $common_2 * 1e-2 * $BR_2;
+$Delta_3_0_2 = $common_2 * 1e-2 * $BR_3;
+$Delta_4_0_2 = $common_2 * 1e-2 * $BR_4;
+
+$common_3=0.1;
+$Delta_1_0_3 = $common_3 * 1e-2 * $BR_1;
+$Delta_2_0_3 = $common_3 * 1e-2 * $BR_2;
+$Delta_3_0_3 = $common_3 * 1e-2 * $BR_3;
+$Delta_4_0_3 = $common_3 * 1e-2 * $BR_4;
+
+$common = sqrt(0.9**2 + 0.3**2 + 0.1**2);
 $Delta_1_0 = $common * 1e-2 * $BR_1;
 $Delta_2_0 = $common * 1e-2 * $BR_2;
 $Delta_3_0 = $common * 1e-2 * $BR_3;
@@ -200,24 +217,36 @@ $Delta_4_u = sqrt($syst_4**2 - ($Delta_4_0**2 + $Delta_4_c**2 + $Delta_4_e**2 + 
 # Printout of the results:
 
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_0 = ",$Delta_1_0," = ",$common," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_0_1 = ",$Delta_1_0_1," = ",$common_1," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_0_2 = ",$Delta_1_0_2," = ",$common_2," % of ",$BR_1;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_0_2 = ",$Delta_1_0_3," = ",$common_3," % of ",$BR_1;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_a = ",$Delta_1_a," = ",100.*$Delta_1_a/$BR_1," % of ",$BR_1;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_b = ",$Delta_1_b," = ",100.*$Delta_1_b/$BR_1," % of ",$BR_1;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_c = ",$Delta_1_c," = ",100.*$Delta_1_c/$BR_1," % of ",$BR_1;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_1_u = ",$Delta_1_u," = ",100.*$Delta_1_u/$BR_1," % of ",$BR_1;
 
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_0 = ",$Delta_2_0," = ",$common," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_0_1 = ",$Delta_2_0_1," = ",$common_1," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_0_2 = ",$Delta_2_0_2," = ",$common_2," % of ",$BR_2;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_0_2 = ",$Delta_2_0_3," = ",$common_3," % of ",$BR_2;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_a = ",$Delta_2_a," = ",100.*$Delta_2_a/$BR_2," % of ",$BR_2;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_d = ",$Delta_2_d," = ",100.*$Delta_2_d/$BR_2," % of ",$BR_2;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_e = ",$Delta_2_e," = ",100.*$Delta_2_e/$BR_2," % of ",$BR_2;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_2_u = ",$Delta_2_u," = ",100.*$Delta_2_u/$BR_2," % of ",$BR_2;
 
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_0 = ",$Delta_3_0," = ",$common," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_0_1 = ",$Delta_3_0_1," = ",$common_1," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_0_2 = ",$Delta_3_0_2," = ",$common_2," % of ",$BR_3;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_0_2 = ",$Delta_3_0_3," = ",$common_3," % of ",$BR_3;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_b = ",$Delta_3_b," = ",100.*$Delta_3_b/$BR_3," % of ",$BR_3;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_d = ",$Delta_3_d," = ",100.*$Delta_3_d/$BR_3," % of ",$BR_3;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_f = ",$Delta_3_f," = ",100.*$Delta_3_f/$BR_3," % of ",$BR_3;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_3_u = ",$Delta_3_u," = ",100.*$Delta_3_u/$BR_3," % of ",$BR_3;
 
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_0 = ",$Delta_4_0," = ",$common," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_0_1 = ",$Delta_4_0_1," = ",$common_1," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_0_2 = ",$Delta_4_0_2," = ",$common_2," % of ",$BR_4;
+printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_0_2 = ",$Delta_4_0_3," = ",$common_3," % of ",$BR_4;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_c = ",$Delta_4_c," = ",100.*$Delta_4_c/$BR_4," % of ",$BR_4;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_e = ",$Delta_4_e," = ",100.*$Delta_4_e/$BR_4," % of ",$BR_4;
 printf "%s %.4e %s %.4e %s %.4e\n", "Delta_4_f = ",$Delta_4_f," = ",100.*$Delta_4_f/$BR_4," % of ",$BR_4;

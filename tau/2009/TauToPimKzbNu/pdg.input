@@ -4,37 +4,37 @@
 * all PDG08 results but the Belle one
 *
 
-BEGIN    OPAL PimKzbNu pub ABBIENDI 00C
+BEGIN       OPAL PimKzbNu PUBLISHED ABBIENDI 00C
 MEASUREMENT m_PimKzbNu statistical systematic
 DATA        m_PimKzbNu statistical systematic
             0.933e-2      0.068e-2    0.049e-2
-DATA OpalOther 0.049e-2
+DATA        OpalPimKzbNu 0.049e-2
 END
 
-BEGIN    ALEPH PimKzbNu pub_KL BARATE 99K 
+BEGIN       ALEPH PimKzbNu PUBLISHED_KL BARATE 99K 
 MEASUREMENT m_PimKzbNu statistical systematic
 DATA        m_PimKzbNu statistical systematic
             0.928e-2   0.045e-2    0.034e-2 
-DATA AlephKLOther 0.034e-2
+DATA        AlephKLPimKzbNu 0.034e-2
 END
 
-BEGIN    ALEPH PimKzbNu pub BARATE 98E
+BEGIN       ALEPH PimKzbNu PUBLISHED_KS BARATE 98E
 MEASUREMENT m_PimKzbNu statistical systematic
 DATA        m_PimKzbNu statistical systematic
             0.855e-2   0.117e-2    0.066e-2
-DATA AlephOther 0.066e-2
+DATA        AlephKSPimKzbNu 0.066e-2
 END
 
-BEGIN    CLEO PimKzbNu pub COAN 96
+BEGIN       CLEO PimKzbNu PUBLISHED COAN 96
 MEASUREMENT m_PimKzbNu statistical systematic
 DATA        m_PimKzbNu statistical systematic
             0.704e-2   0.041e-2    0.072e-2
-DATA CleoOther 0.072e-2 
+DATA        CleoPimKzbNu 0.072e-2 
 END
 
-BEGIN    L3 PimKzbNu pub ACCIARRI 95F
+BEGIN       L3 PimKzbNu PUBLISHED ACCIARRI 95F
 MEASUREMENT m_PimKzbNu statistical systematic
 DATA        m_PimKzbNu statistical systematic
             0.95e-2    0.15e-2     0.06e-2
-DATA L3Other 0.06e-2
+DATA        L3PimKzbNu 0.06e-2
 END
