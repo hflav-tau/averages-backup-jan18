@@ -1,6 +1,6 @@
-BEGIN       Belle Mass published 2007
-MEASUREMENT m_Mass  statistical systematic
-DATA        m_Mass  statistical systematic
-            1776.61 0.13        0.35
-DATA        BelleOther 0.35
+BEGIN       Belle TauMass published 2007
+MEASUREMENT m_TauMass statistical systematic
+DATA        m_TauMass statistical systematic
+            1776.61   0.13        0.35
+DATA        BelleTauMass 0.35
 END

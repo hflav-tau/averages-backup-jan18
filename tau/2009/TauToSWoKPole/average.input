@@ -5,6 +5,9 @@ INCLUDE ../TauToPimKzbNu/babar.input
 INCLUDE ../TauToPimKzbNu/belle.input
 INCLUDE ../TauToPimKzbNu/pdg.input
 *
+INCLUDE ../TauToPimPizKzbNu/babar.input
+INCLUDE ../TauToPimPizKzbNu/pdg.input
+*
 INCLUDE kmpizpiz.input
 *
 INCLUDE ../TauTo3Prongs/belle.input
@@ -33,6 +36,7 @@ COMBINE * * *
 
 MEASUREMENT m_KmPizNu     statistical systematic
 MEASUREMENT m_PimKzbNu    statistical systematic
+MEASUREMENT m_PimPizKzbNu statistical systematic
 MEASUREMENT m_KmPizPizNu  statistical systematic
 MEASUREMENT m_PimKmPipNu  statistical systematic
 MEASUREMENT m_KmPhiNu     statistical systematic

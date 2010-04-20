@@ -216,6 +216,7 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
       DOUBLE PRECISION SYSSUMTOT(MQUAN),SYSTOT(MQUAN),ERRTOT(MQUAN)
       DOUBLE PRECISION STATTOT(MQUAN)
       DOUBLE PRECISION PRTLEV
+      DOUBLE PRECISION AVESUM, AVEERR
       INTEGER LENOCC
       EXTERNAL LENOCC            
 
@@ -403,6 +404,26 @@ c      ENDIF
      &          SAUX(NCSYS+IQUAN,NCSYS+JQUAN)
         ENDDO
       ENDDO
+
+*print average sum of multiple quantities
+      
+      AVESUM=0.0
+      AVEERR=0.0
+      DO IQUAN=1,NQUAN
+        IVAR=NCSYS+IQUAN
+        AVESUM = AVESUM - V (IVAR)
+        AVEERR = AVEERR + ERRTOT(IQUAN)**2
+        DO JQUAN=1,NQUAN
+          IF (IQUAN.LT.JQUAN) THEN
+            AVEERR = AVEERR + 2 * ERRTOT(IQUAN) * ERRTOT(JQUAN) 
+     &                          * SAUX(NCSYS+IQUAN,NCSYS+JQUAN) 
+          ENDIF
+        ENDDO
+      ENDDO
+      AVEERR = SQRT(MAX(0,AVEERR))
+      WRITE(LUNLOG, 
+     &'(''Total of Multi-Quantity Average = '',F14.7,'' +- '',F14.7)')
+     &     AVESUM, AVEERR
       
       WRITE(LUNLOG,*)' '
 

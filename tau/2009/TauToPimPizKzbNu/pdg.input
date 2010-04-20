@@ -1,33 +1,31 @@
 *
 * B(tau- -> pi- pi0 K0bar nu)
 *
-* all PDG results but the Babar one
-*
 
-BEGIN       ALEPH PimPizKzbNu_K0L pub  BARATE 99K
+BEGIN       ALEPH PimPizKzbNu PUBLISHED_KL BARATE 99K
 MEASUREMENT m_PimPizKzbNu statistical systematic
 DATA        m_PimPizKzbNu statistical systematic
             0.347e-2      0.053e-2    0.037e-2
-DATA AlephK0LOther 0.037e-2
+DATA        AlephKLPimPizKzbNu 0.037e-2
 END
 
-BEGIN       ALEPH PimPizKzbNu_K0S pub  BARATE 98E
+BEGIN       ALEPH PimPizKzbNu PUBLISHED_KS BARATE 98E
 MEASUREMENT m_PimPizKzbNu statistical systematic
 DATA        m_PimPizKzbNu statistical systematic
             0.294e-2      0.073e-2    0.037e-2
-DATA AlephK0SOther 0.037e-2
+DATA        AlephKSPimPizKzbNu 0.037e-2
 END
 
-BEGIN       CLEO PimPizKzbNu pub  COAN 96
+BEGIN       CLEO PimPizKzbNu PUBLISHED  COAN 96
 MEASUREMENT m_PimPizKzbNu statistical systematic
 DATA        m_PimPizKzbNu statistical systematic
             0.417e-2      0.058e-2    0.044e-2
-DATA CleoOther 0.044e-2
+DATA        CleoPimPizKzbNu 0.044e-2
 END
 
-BEGIN       L3 PimPizKzbNu pub  ACCIARRI 95F
+BEGIN       L3 PimPizKzbNu PUBLISHED  ACCIARRI 95F
 MEASUREMENT m_PimPizKzbNu statistical systematic
 DATA        m_PimPizKzbNu statistical systematic
             0.410e-2 0.120e-2 0.030e-2 
-DATA L3Other 0.030e-2
+DATA        L3PimPizKzbNu 0.030e-2
 END
