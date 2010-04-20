@@ -1,0 +1,7 @@
+* B(tau- -> K1(1270) -> K-omeganu)
+
+BEGIN       GUESS KmOmNu PUBLISHED Davier hep-ph/0507078
+MEASUREMENT m_KmOmNu statistical systematic
+DATA        m_KmOmNu statistical systematic
+            6.7e-4   2.1e-4      0.0
+END

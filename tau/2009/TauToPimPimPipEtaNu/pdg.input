@@ -2,5 +2,5 @@ BEGIN       CLEO PimPimPipEtaNu published ANASTASSOV 01
 MEASUREMENT m_PimPimPipEtaNu statistical systematic
 DATA        m_PimPimPipEtaNu statistical systematic
             2.3e-4  0.5e-4  0.00
-DATA        CleoOther 0.00
+DATA        Cleo3PiEtaNu 0.00
 END

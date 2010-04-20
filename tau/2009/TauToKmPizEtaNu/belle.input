@@ -1,10 +1,16 @@
-BEGIN    Belle KmPizEtaNu Published  INAMI 09
+BEGIN       Belle KmPizEtaNu Published  INAMI 09
 
 MEASUREMENT m_KmPizEtaNu  statistical systematic
 DATA        m_KmPizEtaNu  statistical systematic
             0.46e-4       0.11e-4     0.04e-4
 
+PARAMETERS !               assumed_value  pos_excurs   neg_excurs
+            sigmataupmy4s  0.919         +0.003       -0.003
+
 DATA 
-            BelleOther 0.04e-4
+            sigmataupmy4s% -0.3
+            BelleLumi%     -1.4
+* uncorrelated = sqrt(0.04**2 - (0.3e-2*0.46)**2 - (1.4e-2*0.46)**2) = 0.039454
+            BelleKmPizEtaNu 0.039454e-4
 
 END

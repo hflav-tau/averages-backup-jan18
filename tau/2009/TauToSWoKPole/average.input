@@ -1,0 +1,52 @@
+INCLUDE ../TauToKmPizNu/babar.input
+INCLUDE ../TauToKmPizNu/pdg.input
+*
+INCLUDE ../TauToPimKzbNu/babar.input
+INCLUDE ../TauToPimKzbNu/belle.input
+INCLUDE ../TauToPimKzbNu/pdg.input
+*
+INCLUDE kmpizpiz.input
+*
+INCLUDE ../TauTo3Prongs/belle.input
+INCLUDE ../TauTo3Prongs/babar.input
+INCLUDE ../TauTo3Prongs/pdg.input
+*
+INCLUDE ../TauToKmPhiNu/babar.input
+INCLUDE ../TauToKmPhiNu/belle.input
+*
+INCLUDE ../TauToKmEtaNu/belle.input
+INCLUDE ../TauToKmEtaNu/pdg.input
+*
+INCLUDE ../TauToKstarmEtaNu/belle.input
+INCLUDE ../TauToKstarmEtaNu/pdg.input
+*
+INCLUDE kmom.input
+INCLUDE k3pi.input
+INCLUDE k4pi.input
+
+BEGIN   BaBar+Belle+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+
+MEASUREMENT m_KmPizNu     statistical systematic
+MEASUREMENT m_PimKzbNu    statistical systematic
+MEASUREMENT m_KmPizPizNu  statistical systematic
+MEASUREMENT m_PimKmPipNu  statistical systematic
+MEASUREMENT m_KmPhiNu     statistical systematic
+MEASUREMENT m_KmEtaNu     statistical systematic
+MEASUREMENT m_KstarmEtaNu statistical systematic
+MEASUREMENT m_KmOmNu      statistical systematic
+MEASUREMENT m_K3PiNu      statistical systematic
+MEASUREMENT m_K4PiNu      statistical systematic
+
+CALL DUMP_MASTER_INC
+
+* dummmy parameter to increase printouts if value > 0
+PARAMETER CHI2_N_SYM_PRT 1.0 0. 0.
+
+CALL CHI2_N_SYM
+
+END

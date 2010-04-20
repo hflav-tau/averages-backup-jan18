@@ -1,21 +1,21 @@
-BEGIN    OPAL KmPizNu published ABBIENDI 04J
+BEGIN       OPAL KmPizNu PUBLISHED ABBIENDI 04J
 MEASUREMENT m_KmPizNu    statistical systematic
 DATA        m_KmPizNu    statistical systematic
             0.471e-2     0.059e-2    0.023e-2
-DATA OpalOther 0.023e-2
+DATA        OpalKmPizNu 0.023e-2
 END
 
-BEGIN    ALEPH KmPizNu published BARATE 99K
+BEGIN       ALEPH KmPizNu PUBLISHED BARATE 99K
 MEASUREMENT m_KmPizNu    statistical systematic
 DATA        m_KmPizNu    statistical systematic
             0.444e-2     0.026e-2    0.024e-2
-DATA AlephOther 0.024e-2
+DATA        AlephKmPizNu 0.024e-2
 END
 
-BEGIN    CLEO KmPizNu published BATTLE 94
+BEGIN       CLEO KmPizNu PUBLISHED BATTLE 94
 MEASUREMENT m_KmPizNu    statistical systematic
 DATA        m_KmPizNu    statistical systematic
             0.51e-2      0.10e-2     0.07e-2
-DATA CleoOther 0.07e-2
+DATA        CleoKmPizNu 0.07e-2
 END
 

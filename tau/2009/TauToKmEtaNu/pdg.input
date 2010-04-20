@@ -1,21 +1,21 @@
-BEGIN    ALEPH KmEtaNu Published BUSKULIC 97C
+BEGIN       ALEPH KmEtaNu Published BUSKULIC 97C
 
 MEASUREMENT m_KmEtaNu    statistical systematic
 DATA        m_KmEtaNu    statistical systematic
             2.9e-4       1.25e-4     0.7e-4
 
 DATA 
-            AlephOther 0.7e-4
+            AlephKmEtaNu 0.7e-4
 
 END
 
-BEGIN    CLEO KmEtaNu Published BARTELT 96
+BEGIN       CLEO KmEtaNu Published BARTELT 96
 
 MEASUREMENT m_KmEtaNu    statistical systematic
 DATA        m_KmEtaNu    statistical systematic
             2.6e-4       0.5e-4      0.5e-4
 
 DATA 
-            CleoOther 0.5e-4
+            CleoKmEtaNu 0.5e-4
 
 END

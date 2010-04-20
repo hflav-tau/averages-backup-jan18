@@ -1,10 +1,10 @@
-BEGIN    CLEO KmPizEtaNu Published BISHAI 99
+BEGIN       CLEO KmPizEtaNu Published BISHAI 99
 
 MEASUREMENT m_KmPizEtaNu  statistical systematic
 DATA        m_KmPizEtaNu  statistical systematic
             1.77e-4       0.56e-4     0.71e-4
 
 DATA 
-            CleoOther 0.71e-4
+            CleoKmPizEtaNu 0.71e-4
 
 END

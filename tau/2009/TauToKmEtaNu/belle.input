@@ -1,10 +1,16 @@
-BEGIN    Belle KmEtaNu Published  INAMI 09
+BEGIN       Belle KmEtaNu Published  INAMI 09
 
 MEASUREMENT m_KmEtaNu statistical systematic
 DATA        m_KmEtaNu statistical systematic
             1.58e-4   0.05e-4     0.09e-4
 
+PARAMETERS !               assumed_value  pos_excurs   neg_excurs
+            sigmataupmy4s  0.919         +0.003       -0.003
+
 DATA 
-            BelleOther 0.09e-4
+            sigmataupmy4s% -0.3
+            BelleLumi%     -1.4
+* uncorrelated = sqrt(0.09**2 - (0.3e-2*1.58)**2 - (1.4e-2*1.58)**2) = 0.0871105
+            BelleKmEtaNu 0.0871105e-4
 
 END
