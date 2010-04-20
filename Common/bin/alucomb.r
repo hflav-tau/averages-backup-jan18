@@ -441,7 +441,8 @@ for (mt.name in meas.types.names) {
   chisq.types[mt.name] = meas.mt.chisq.corr
   dof.types[mt.name] = meas.mt.dof
 
-  if (abs(meas.mt.chisq - meas.mt.chisq.corr)/max(meas.mt.chisq, meas.mt.chisq.corr) >1e-4) {
+  if (meas.mt.chisq != meas.mt.chisq.corr &&
+      abs(meas.mt.chisq - meas.mt.chisq.corr)/max(meas.mt.chisq, meas.mt.chisq.corr) >1e-4) {
     chisq.out.tmp = rbind(c(
       chisq=meas.mt.chisq,
       "chisq-with-corr"=meas.mt.chisq.corr,
@@ -463,9 +464,15 @@ for (mt.name in meas.types.names) {
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
   options(save)
-
+  
+  if (meas.mt.num <= 1 && sum(quant.comb != 0) <= 1) {
+    ##-- if there is only one measurement and it is not a combination, S-factor=1
+    tmp = 1
+  } else {
+    ##-- S-factor
+    tmp = sqrt(chisq.types[mt.name]/dof.types[mt.name])
+  }
   ##-- S-factor for each type of measurement and for each measurement
-  tmp = sqrt(chisq.types[mt.name]/dof.types[mt.name])
   sfact.types[mt.name] = tmp
   sfact[meas.types[mt.name,]] = tmp
 }
