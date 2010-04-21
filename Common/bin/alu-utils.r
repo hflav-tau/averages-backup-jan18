@@ -311,7 +311,7 @@ list(combination=combination, measurements=measurements)
 ##
 ## transform the name of a measurement in the HFAG-tau format into a format usable by Root
 ##
-label.root = function(str) {
+hfag.to.root = function(str) {
   str.orig = str
 
   str = gsub("Numbar", "#bar{#nu}_{#mu}",str)  
@@ -386,7 +386,7 @@ get.alucomb.data = function(lines) {
 get.alucomb.section = function(lines, pattern, file, offset=0) {
   liv = grep(pattern, lines)
   if (length(liv) == 0) {
-    cat("warning: cannot find '", pattern, "' in\n  ", file, "\n", sep="")
+    ## cat("warning: cannot find '", pattern, "' in\n  ", file, "\n", sep="")
     return(NULL)
   }
   li = liv[1]

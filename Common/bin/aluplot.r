@@ -28,6 +28,13 @@ get.pdg.average = function(file) {
   patt = paste(".*Scale factor = ([.0-9eE+-]+)",
     ".*.*Weighted average .with scale factor. = ([.0-9eE+-]+)[\\s+-]+([.0-9eE+-]+)",
     sep="")
+  scaled.flag = TRUE
+  if (regexpr(patt, average, perl=TRUE) == -1) {
+    patt = paste(".*Scale factor = ([.0-9eE+-]+)",
+      ".*.*Weighted average .with scale set to 1. = ([.0-9eE+-]+)[\\s+-]+([.0-9eE+-]+)",
+      sep="")
+    scaled.flag = FALSE
+  }
   if (regexpr(patt, average, perl=TRUE) == -1) {
     warning("Cannot read PDG average from ", file)
     return(list())
@@ -588,7 +595,7 @@ for (quant in quant.names) {
   ## cat("* ", sprintf("%12.2g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)))
   cat("* ",
       sprintf(paste(xmin.fmt, xmax.fmt, sep=""), xmin, xmax),
-      as.character(quant.data$precision), " ", label.root(quant), units.label, "\n", file=fh, sep="")
+      as.character(quant.data$precision), " ", hfag.to.root(quant), units.label, "\n", file=fh, sep="")
   cat("# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages\n", file=fh)
 
   ##-- print HFAG averages
@@ -617,8 +624,8 @@ for (quant in quant.names) {
           cat(format(average, width=12*3+4),
               "HFAG Average [h^{-}h^{-}h^{+}#nu ex.K^{0} (h=#pi,K) modes fit]\n", file=fh)
         }
-        ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
-        label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
+        ## label.extra = paste(" [", hfag.to.root(quant), " mode only]", sep="")
+        label = gsub("B.*rightarrow (.*)\\)", "\\1", hfag.to.root(quant))
         label.extra = paste(" [", label, " mode only]", sep="")
       } else {
         ##-- combined average of all hhh modes
@@ -644,8 +651,8 @@ for (quant in quant.names) {
           cat(format(average, width=12*3+4),
               "HFAG Average [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu,#pi,K) modes fit]\n", file=fh)
         }
-        ## label.extra = paste(" [", label.root(quant), " mode only]", sep="")
-        label = gsub("B.*rightarrow (.*)\\)", "\\1", label.root(quant))
+        ## label.extra = paste(" [", hfag.to.root(quant), " mode only]", sep="")
+        label = gsub("B.*rightarrow (.*)\\)", "\\1", hfag.to.root(quant))
         label.extra = paste(" [", label, " mode only]", sep="")
       } else {
         ##-- combined average of all 1-prong modes
