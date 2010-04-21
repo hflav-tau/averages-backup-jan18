@@ -1,11 +1,15 @@
 # first line is xmin, xmax, units, title
-* 1774.5 1777.5 7.2 m_{#tau} [MeV]
+* 1763 1783 4.2 m_{#tau} [MeV]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 1776.752 0.152 0.8567 HFAG Average
+& 1776.77 0.15   0.5695 HFAG Average
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 1776.84  0.17  0.00   PDG'09 Average
 # next lines are measurement, stat-error, syst-error, experiment-name
   1776.68 0.12 -0.12 0.41 -0.41 BaBar 2009
   1776.69 0.17 -0.19 0.15 -0.15 KEDR  2008
   1776.61 0.13 -0.13 0.35 -0.35 Belle 2007
+  1775.1  1.6  -1.6  1.0  -1.0  OPAL  2000
+  1778.2  0.8  -0.8  1.2  -1.2  CLEO  1997
   1776.96 0.18 -0.21 0.25 -0.17 BES   1996
+  1776.3  2.4  -2.4  1.4  -1.4  ARGUS 1992
+  1783    3    -4    0     0    DELCO 1978

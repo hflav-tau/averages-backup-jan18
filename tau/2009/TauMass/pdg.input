@@ -5,9 +5,37 @@ DATA        m_TauMass statistical systematic
 DATA        KEDRTauMass 0.15
 END
 
+BEGIN       OPAL TauMass published 2000
+MEASUREMENT m_TauMass statistical systematic
+DATA        m_TauMass statistical systematic
+            1775.1    1.6         1.0 
+DATA        OpalTauMass 1.0
+END
+
+BEGIN       CLEO TauMass published 1997
+MEASUREMENT m_TauMass statistical systematic
+DATA        m_TauMass statistical systematic
+            1778.2    0.8         1.2 
+DATA        CleoTauMass 1.2
+END
+
 BEGIN       BES TauMass published 1996
 MEASUREMENT m_TauMass statistical systematic
 DATA        m_TauMass statistical systematic
             1776.96   0.195       0.21
 DATA        BESTauMass 0.21
+END
+
+BEGIN       ARGUS TauMass published 1992
+MEASUREMENT m_TauMass statistical systematic
+DATA        m_TauMass statistical systematic
+            1776.3    2.4         1.4 
+DATA        ArgusTauMass 1.4
+END
+
+BEGIN       DELCO TauMass published 1978
+MEASUREMENT m_TauMass statistical systematic
+DATA        m_TauMass statistical systematic
+            1783      3.5         0
+DATA        DelcoTauMass 0
 END

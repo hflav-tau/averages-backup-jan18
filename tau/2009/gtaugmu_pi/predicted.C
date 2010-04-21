@@ -7,7 +7,7 @@
   const double Tau_Pi = 2.6033e-8; // +- 0.0005e-8 s
   const double BR_PiToMuNu = 99.98770e-2; // +- 0.00004e-2
 
-  const double M_Tau = 1.77675; // +- 0.15e-3 GeV
+  const double M_Tau = 1.77677; // +- 0.15e-3 GeV
   const double Tau_Tau = 290.6e-15; // +- 1.0e-15 s
 
   const double Delta_Pi = 1.0016; // +-0.0014

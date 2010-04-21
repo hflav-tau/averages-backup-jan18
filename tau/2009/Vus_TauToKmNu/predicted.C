@@ -4,7 +4,7 @@
  const double fK  = 157e-3 ; // +- 2e-3 GeV // arXiv:0706.1726 [hep-lat]
  const double Vud = 0.97425; // +- 0.00022 // arXiv:0812.1202 [nucl-ex]
  const double Vus = 0.2255; // +- 0.0010 // Unitarity 
- const double mtau = 1.77675; // +- 0.15e-3 GeV
+ const double mtau = 1.77677; // +- 0.15e-3 GeV
  const double mrho = 775.49e-3; // +- 0.34e-3 GeV
  const double mpi  = 139.57018e-3; // +- 0.00035e-3 GeV
  const double mK   = 493.677e-3; // +- 0.013e-3 GeV

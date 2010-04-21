@@ -1,7 +1,7 @@
 $a = 0.6969439e-2 +- 0.00975197e-2; # measured average
 $b = 1.16637e-5 +- 0.00001e-5; # GMu in GeV-2
 $c = 157e-3 +- 2e-3; # fK in GeV arXiv:0706.1726 [hep-lat]
-$d = 1.77675 +- 0.15e-3; # mtau in GeV
+$d = 1.77677 +- 0.15e-3; # mtau in GeV
 $e = 290.6e-15 +- 1.0e-15; # TauLifeTime in s
 $f = 493.677e-3 +- 0.013e-3; # mK in GeV
 $h = 6.58211899e-25 +- 0.00000016e-25; # GeV s

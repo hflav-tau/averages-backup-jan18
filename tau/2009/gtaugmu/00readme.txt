@@ -8,28 +8,27 @@
 
 # From gtaugmu_pi/log/gtaugmu_pi.log 
 
-# gtaugmu_pi = 0.99463 +- 0.00316042 out of which 0.0025697 is the error-component due to measured BR_TauToPiNu
+# gtaugmu_pi = 0.994612 +- 0.00316036 out of which 0.00256966 is the error-component due to measured BR_TauToPiNu
 
 # From gtaugmu_k/log/gtaugmu_k.log
 
-# gtaugmu_k = 0.985941 +- 0.00733234 out of which 0.00691564 is the error-component due to measured BR_TauToKNu
+# gtaugmu_k = 0.985923 +- 0.00733221 out of which 0.00691551 is the error-component due to measured BR_TauToKNu
 
-# So, Correlation Co-efficient between gtaugmu_pi and gtaugmu_k => (0.0846088 * 0.0025697 * 0.00691564) / (0.00316042 * 0.00733234) = 0.0648848
+# So, Correlation Co-efficient between gtaugmu_pi and gtaugmu_k => (0.0846088 * 0.00256966 * 0.00691551) / (0.00316036*0.00733221) = 0.0648849
 
 # Inputs to 
 # ../../../combos/swagato_example/Common/average.perl 
 # are
-# 0.99463
-# 0.00316042*0.00316042 = 9.98825e-06
-# 0.985941
-# 0.00733234*0.00733234 = 5.37632e-05
-# 0.0846088 * 0.0025697 * 0.00691564 = 1.50359e-06
+# 0.994612
+# 0.00316036*0.00316036 = 9.98788e-06
+# 0.985923
+# 0.00733221*0.00733221 = 5.37613e-05
+# 0.0846088 * 0.00256966 * 0.00691551 = 1.50354e-06
 
 # So, run it by simply typing | source 00readme.txt |
 
-../../../combos/swagato_example/Common/average.perl 0.99463 9.98825e-06 0.985941 5.37632e-05 1.50359e-06 
+../../../combos/swagato_example/Common/average.perl 0.994612 9.98788e-06 0.985923 5.37613e-05 1.50354e-06
 
-# x1 = 0.99463 +- 0.00316041927598222 x2 = 0.985941 +- 0.00733233932657239 rho = 0.0648846806742611
-# w1 = 0.860321640213966 w2 = 0.139678359786034 w1+w2 = 1
-# <x> = 0.993416334731819 +- 0.00296700633768414
-
+# x1 = 0.994612 +- 0.00316036073890308 x2 = 0.985923 +- 0.00733220976241133 rho = 0.0648848713186181
+# w1 = 0.86032191840585 w2 = 0.13967808159415 w1+w2 = 1
+# <x> = 0.993398337149028 +- 0.00296695191487956
