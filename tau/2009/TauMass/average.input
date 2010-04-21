@@ -8,7 +8,7 @@ INCLUDE ../Common/Parameters.input
 
 COMBINE * * * 
 
-MEASUREMENT m_Mass statistical systematic
+MEASUREMENT m_TauMass statistical systematic
 
 CALL DUMP_MASTER_INC
 CALL CHI2_SYM

@@ -226,7 +226,7 @@ int plot(std::string filename_string = "plot.input"){
 
   Double_t fTxtX= 0.015;
   Double_t xtext=fXmin+fTxtX*(fXmax-fXmin);
-  Double_t fTxtY= 0.4;
+  Double_t fTxtY= 0.45;
   Double_t ytext;
   TLatex  tl;
   tl.SetTextSize(0.028);
@@ -276,8 +276,9 @@ int plot(std::string filename_string = "plot.input"){
     if (expname[i].Contains("Average")) {
       tl.SetTextColor(2);
     }
-    ytext=y[i]*1.0;
+    ytext=y[i]*1.0+0.05;
     tl.DrawLatex(xtext,ytext,expname[i]);
+    tl.SetTextSize(0.024);
     if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       if (syst[i]<1e-9) { // zero means no Scale Factor quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",

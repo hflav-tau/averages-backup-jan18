@@ -1,4 +1,4 @@
 $a = 17.380 +- 0.042;  # B(tau->mununubar)
 $b = 17.82  +- 0.05;   # B(tau->e nunubar)
-$c = 0.972557;         # f(mu)/f(e)
+$c = 0.972558;         # f(mu)/f(e)
 calculate sqrt(($a/$b)/$c);

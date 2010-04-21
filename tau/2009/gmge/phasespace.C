@@ -2,7 +2,7 @@
 
   const double elecmass=0.000510999;
   const double muonmass=0.1056584;
-  const double taumass=1.77675;
+  const double taumass=1.77677;
  
   double x1 = (elecmass * elecmass) / (taumass * taumass);
   double fx1 = 1 
