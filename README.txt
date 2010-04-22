@@ -70,10 +70,10 @@ cd tau/2009/TauToPimKzsNu ; make link ; cd -
 #
 
 For daughters of tau decays:
-First negative charge, then positive charge, then neutrals, then neutrino's; within each category : low to high mass.
+First negative charge, then positive charge, then neutrals, then neutrino's, then anti-neutrino's; within each category : low to high mass.
 
-Eg. tau- -> e- mu- pi- K- rho- K*-    e+ mu+ pi+ K+ rho+ K*+    gamma pi0 K0S K0L eta rho0 omega K*0    eta' phi nuebar numbar nut
-    Tau  To Em Mm  Pim Km Rhom Kstarm Ep Mp  Pip Kp Rhop Kstarp Gamma Piz Kzs Kzl Eta Rhoz Omega Kstarz Etap Phi Nuebar Numbar Nu
+Eg. tau- -> e- mu- pi- K- rho- K*-    e+ mu+ pi+ K+ rho+ K*+    gamma pi0 K0S K0L eta rho0 omega K*0    eta' phi nut nuebar numbar
+    Tau  To Em Mm  Pim Km Rhom Kstarm Ep Mp  Pip Kp Rhop Kstarp Gamma Piz Kzs Kzl Eta Rhoz Omega Kstarz Etap Phi Nu  Nueb   Numb  
 
 When writing out decaymodes, no space needs to be inserted between particle names, but first letter is capitalized.
 
