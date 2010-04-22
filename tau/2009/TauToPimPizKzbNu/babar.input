@@ -9,7 +9,7 @@ PARAMETERS           !      value       +err         -err
 DATA
 *  possibly correlated with other BaBar results
             sigmataupmy4s%   -0.3958
-            babarLumi%       -0.7278
+            BaBarLumi%       -0.7278
 * uncorrelated = sqrt(0.015**2 - (0.3958e-2*0.342)**2 - (0.7278e-2*0.342)**2) = 0.01473
             BaBarPimPizKzbNu 0.01473e-2
 END

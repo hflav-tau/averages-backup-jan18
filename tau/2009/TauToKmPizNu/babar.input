@@ -9,7 +9,7 @@ PARAMETERS !    assumed_value  pos_excurs   neg_excurs
 DATA
 * possibly correlated with other results
   sigmataupmy4s%   -0.31
-  babarLumi%       -0.94
+  BaBarLumi%       -0.94
 *remaining part = sqrt((100.*0.018/0.416)**2 - .31**2 - .94**2) = 4.21219 %
   BaBarKmPizNu%     4.21219
 END

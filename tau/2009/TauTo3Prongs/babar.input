@@ -10,8 +10,8 @@ STAT_CORR_WITH BaBar PimKmKpNu  published  1.3652e-03
 STAT_CORR_WITH BaBar KmKmKpNu   published -1.8666e-03
 
 DATA
-            sigmataupmy4s% 0.3
-            babarLumi%     0.9 
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.9 
             BaBarSyst_00%  0.1
 *           BaBarSyst_00  8.4268e-04
             BaBarSyst_12  6.7965e-04
@@ -33,8 +33,8 @@ STAT_CORR_WITH BaBar PimKmKpNu   published -1.5056e-01
 STAT_CORR_WITH BaBar KmKmKpNu    published  6.1940e-03
 
 DATA
-            sigmataupmy4s% 0.3
-            babarLumi%     0.9 
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.9 
             BaBarSyst_00%  0.1
 *           BaBarSyst_00  2.6002e-05
             BaBarSyst_12  6.3701e-05
@@ -56,8 +56,8 @@ STAT_CORR_WITH BaBar PimKmPipNu  published -1.5056e-01
 STAT_CORR_WITH BaBar KmKmKpNu    published -9.4891e-02
 
 DATA
-            sigmataupmy4s% 0.3
-            babarLumi%     0.9 
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.9 
             BaBarSyst_00%  0.1
 *           BaBarSyst_00  1.2841e-05
             BaBarSyst_13  1.6928e-05
@@ -79,8 +79,8 @@ STAT_CORR_WITH BaBar PimKmPipNu  published  6.1940e-03
 STAT_CORR_WITH BaBar PimKmKpNu   published -9.4891e-02
 
 DATA
-            sigmataupmy4s% 0.3
-            babarLumi%     0.9 
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.9 
             BaBarSyst_00%  0.1
 *           BaBarSyst_00  1.5050e-07
             BaBarSyst_14 -2.6423e-07
