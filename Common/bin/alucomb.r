@@ -108,7 +108,7 @@ for (meas in names(measurements)) {
   syst.term.deltasq = numeric()
   for (param.upd in names(combination$params)) {
     for (param.orig in names(measurements[[meas]]$params)) {
-      if (param.orig == param.upd) {
+      if (param.orig == param.upd && param.orig %in% names(measurements[[meas]]$syst.terms)) {
         ##-- collect differences due to updated parameters
         value.delta = c(value.delta,
           ((combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
@@ -366,6 +366,7 @@ if (quant.num > 1) {
   cat("correlation\n")
   show(quant.corr[1:quant.num, 1:quant.num])
 }
+cat("## end\n")
 
 ##
 ## each measurement is a linear combination of the quantities we fit
@@ -631,6 +632,7 @@ if (length(meas.names.extra) >0) {
              dof=dof.types[meas.types.names %in% meas.names.extra]
            ))
 }
+cat("## end\n")
 
 options(options.save)
 ##++ } ##-- end function alucomb

@@ -176,7 +176,9 @@ for (line in lines) {
       if (length(meas.labels) != 3) {
         stop("wrong number of MEASUREMENT labels: ",length(meas.labels),"instead of 3\n")
       }
-
+      if (length(data.labels) != length(data.values)) {
+        stop("number of numeric items does not match number of labels\n")
+      }
       ##
       ## deal with stat & syst errors expressed as percentage of value
       ##++ assume that first data value is the measurement
