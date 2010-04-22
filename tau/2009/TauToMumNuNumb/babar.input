@@ -1,6 +1,6 @@
-BEGIN    BaBar MmNumbarNu submitted arXiv:0912.0242 (2009)
-MEASUREMENT m_MmNumbarNu statistical systematic
-DATA        m_MmNumbarNu statistical systematic
+BEGIN    BaBar MumNuNumb submitted arXiv:0912.0242 (2009)
+MEASUREMENT m_MumNuNumb statistical systematic
+DATA        m_MumNuNumb statistical systematic
             17.46e-2     0.03e-2     0.08e-2
 DATA        BaBarOther 0.08e-2
 END
