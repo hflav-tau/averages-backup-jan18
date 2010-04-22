@@ -42,7 +42,7 @@ DATA                              ! Systematic uncertainties
 
 * possibly correlated with other BaBar results
   sigmataupmy4s%   -0.3958
-  babarLumi%       -0.7278
+  BaBarLumi%       -0.7278
 
 *
 * remaining part of syst error
