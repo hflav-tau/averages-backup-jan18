@@ -1,9 +1,5 @@
- COMBOS version  3.33 (Mar 20, 2010) run on  on 24/03/10 at 15.05.27
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 27/04/10 at 13.54.13
 
- WARNING at (or before) word   1 of line  15 in file average.input 
-         concerning combined analysis ALL 2D_XY PUBLISHED:
-         "Two quantities to be fitted"
-         ---> it should work but are you sure it is what you want to do?
 
  ==============================================================================
 
@@ -59,7 +55,88 @@
                     X      1.8000000 +/-      0.0951190 +/-      0.0000000 Tot Err:     0.0951190 Check Sys:     0.0000000
                     Y      8.2000000 +/-      0.1133893 +/-      0.0000000 Tot Err:     0.1133893 Check Sys:     0.0000000
  Correlation between X and Y =     -0.7947194
+Total of Multi-Quantity Average =     10.0000000 +-      0.0690066
   
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = ALL 2D_XY PUBLISHED
+ CHMEAS = X Y             
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        4
+  NQUAN =        2
+  NMEFF =        4
+  NCSYS =        0
+  NPARA =        4
+ CHANAL = A1 X PUBLISHED
+          A1 Y PUBLISHED
+          A2 X+Y PUBLISHED
+          A3 X+Y PUBLISHED
+
+   MEAS = 0.1800000E+01  0.8200000E+01  0.9900000E+01  0.1010000E+02
+
+   QUAN               1              2              1              1
+
+  STATP = 0.1000000E+00  0.3000000E+00  0.1000000E+00  0.1000000E+00
+
+  STATN = 0.1000000E+00  0.3000000E+00  0.1000000E+00  0.1000000E+00
+
+  STAT  = 0.1000000E+00  0.3000000E+00  0.1000000E+00  0.1000000E+00
+
+  USYSP = 0.2000000E+00  0.4000000E+00  0.5000000E+00  0.5000000E+00
+
+  USYSN = 0.2000000E+00  0.4000000E+00  0.5000000E+00  0.5000000E+00
+
+  USYS  = 0.2000000E+00  0.4000000E+00  0.5000000E+00  0.5000000E+00
+
+STACOR
+      1 | 0.1000000E+01  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.1000000E+01  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.1000000E+01  0.0000000E+00
+      4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.1000000E+01
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+ CHI2_N_SYM_PRT    -.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+ CHI2_N_SYM_NSUM   0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+ CHI2_N_SYM_01     0.3000E+01 0.1200E+02 0.1200E+02 0.1200E+02
+ CHI2_N_SYM_02     0.4000E+01 0.1200E+02 0.1200E+02 0.1200E+02
+  
+ Corrected measurements:
+ A1 X PUBLISHED     0.1800000E+01 +/-  0.1000000E+00 +/-  0.2000000E+00 Tot:  0.2236068E+00
+ A1 Y PUBLISHED     0.8200000E+01 +/-  0.3000000E+00 +/-  0.4000000E+00 Tot:  0.5000000E+00
+ A2 X+Y PUBLISHED   0.9900000E+01 +/-  0.1000000E+00 +/-  0.5000000E+00 Tot:  0.5099020E+00
+ A3 X+Y PUBLISHED   0.1010000E+02 +/-  0.1000000E+00 +/-  0.5000000E+00 Tot:  0.5099020E+00
+  
+ WARNING at (or before) word   1 of line  15 in file average.input 
+         concerning combined analysis ALL 2D_XY PUBLISHED:
+         "Quantities are the same"
+         ---> computing of correlation meaningless
+
+SYSCOR
+      1 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+      4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
  IMEAS,CSYS =  1 -1.  0.
  IMEAS,CSYS =  2  0. -1.
  IMEAS,CSYS =  3 -1. -1.
@@ -84,13 +161,14 @@
                     X      1.8000000 +/-      0.2102048 +/-      0.0000000 Tot Err:     0.2102048 Check Sys:     0.0000000
                     Y      8.1999999 +/-      0.3234983 +/-      0.0000000 Tot Err:     0.3234983 Check Sys:     0.0000000
  Correlation between X and Y =     -0.4274910
+Total of Multi-Quantity Average =      9.9999999 +-      0.3011605
   
- CHI2_N_SYM      :               X=0.18000E+01  +- 0.21020E+00         CL =  0.9623
-                                 Y=0.82000E+01  +- 0.32350E+00         RHO= -0.4275
-                   stat. only -->  0.18000E+01  +- 0.95119E-01         CL =  0.3679
-                                   0.82000E+01  +- 0.11339E+00         RHO= -0.7947
-                   syst. only -->               +- 0.18745E+00                     
-                                                +- 0.30298E+00         RHO= -0.3609
+ CHI2_N_SYM      :               X= 0.1800000E+01  +-  0.2102048E+00            CL =  0.9623
+                                 Y= 0.8200000E+01  +-  0.3234983E+00            RHO= -0.4275
+                   stat. only -->   0.1800000E+01  +-  0.9511897E-01            CL =  0.3679
+                                    0.8200000E+01  +-  0.1133893E+00            RHO= -0.7947
+                   syst. only -->                  +-  0.1874525E+00                        
+                                                   +-  0.3029753E+00            RHO= -0.3609
 
 
  Total number of WARNING messages generated by COMBOS:      1
