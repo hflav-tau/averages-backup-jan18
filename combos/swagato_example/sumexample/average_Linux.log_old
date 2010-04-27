@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Jan 21, 2010) run on  on 16/03/10 at 18.49.07
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 24/03/10 at 15.05.27
 
  WARNING at (or before) word   1 of line  15 in file average.input 
          concerning combined analysis ALL 2D_XY PUBLISHED:
@@ -36,11 +36,12 @@
 
  Results of combination:
 
- IMEAS,CSYS =  -1.  0.
- IMEAS,CSYS =   0. -1.
- IMEAS,CSYS =  -1. -1.
- IMEAS,CSYS =  -1. -1.
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   2.0000152 4 2  1.0000076
+ IMEAS,CSYS =  1 -1.  0.
+ IMEAS,CSYS =  2  0. -1.
+ IMEAS,CSYS =  3 -1. -1.
+ IMEAS,CSYS =  4 -1. -1.
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   2.0000152 4 2 2
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   1.0000076  1.0000038  0.367876649
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      X             Y
@@ -55,15 +56,17 @@
  Y            8.2000000     -0.7947194     0.1133893
                                      X             Y
   
-                    X      1.8000000 +-      0.0951190 +-      0.0000000 Tot Err:     0.0951190 Check Sys:     0.0000000
-                    Y      8.2000000 +-      0.1133893 +-      0.0000000 Tot Err:     0.1133893 Check Sys:     0.0000000
+                    X      1.8000000 +/-      0.0951190 +/-      0.0000000 Tot Err:     0.0951190 Check Sys:     0.0000000
+                    Y      8.2000000 +/-      0.1133893 +/-      0.0000000 Tot Err:     0.1133893 Check Sys:     0.0000000
  Correlation between X and Y =     -0.7947194
   
- IMEAS,CSYS =  -1.  0.
- IMEAS,CSYS =   0. -1.
- IMEAS,CSYS =  -1. -1.
- IMEAS,CSYS =  -1. -1.
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, CHI2/NDOF  =   0.0769236637 4 2  0.0384618319
+ IMEAS,CSYS =  1 -1.  0.
+ IMEAS,CSYS =  2  0. -1.
+ IMEAS,CSYS =  3 -1. -1.
+ IMEAS,CSYS =  4 -1. -1.
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   0.0769236637 4 2 2
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.0384618319  0.196116883
+  0.962268412
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      X             Y
@@ -78,8 +81,8 @@
  Y            8.1999999     -0.4274910     0.3234983
                                      X             Y
   
-                    X      1.8000000 +-      0.2102048 +-      0.0000000 Tot Err:     0.2102048 Check Sys:     0.0000000
-                    Y      8.1999999 +-      0.3234983 +-      0.0000000 Tot Err:     0.3234983 Check Sys:     0.0000000
+                    X      1.8000000 +/-      0.2102048 +/-      0.0000000 Tot Err:     0.2102048 Check Sys:     0.0000000
+                    Y      8.1999999 +/-      0.3234983 +/-      0.0000000 Tot Err:     0.3234983 Check Sys:     0.0000000
  Correlation between X and Y =     -0.4274910
   
  CHI2_N_SYM      :               X=0.18000E+01  +- 0.21020E+00         CL =  0.9623
