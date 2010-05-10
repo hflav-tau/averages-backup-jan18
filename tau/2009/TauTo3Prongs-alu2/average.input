@@ -13,10 +13,9 @@ MEASUREMENT m_PimPimPipNu statistical systematic
 MEASUREMENT m_PimKmPipNu  statistical systematic
 MEASUREMENT m_PimKmKpNu   statistical systematic
 MEASUREMENT m_KmKmKpNu    statistical systematic
+MEASUREMENT m_HmHmHpNu    statistical systematic
 
-SUMOFMEAS DELPHI HmHmHpNu published PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
-SUMOFMEAS OPAL HmHmHpNu published PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
-SUMOFMEAS CLEO HmHmHpNu published PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
+SUMOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
 
 CALL DUMP_MASTER_INC
 
