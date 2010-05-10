@@ -277,7 +277,16 @@ for (quant in quant.names) {
 ##
 for (meas in names(combination$meas.lin.combs)) {
   quants = names(combination$meas.lin.combs[[meas]])
-  delta[meas,quants] = combination$meas.lin.combs[[meas]]
+  if (meas %in% rownames(delta) && all(quants %in% colnames(delta))) {
+    delta[meas, quants] = combination$meas.lin.combs[[meas]]
+  } else {
+    if (!meas %in% rownames(delta)) {
+      cat("warning: lin.comb. missing measurement", meas, "\n")
+    }
+    if (!all(quants %in% colnames(delta))) {
+      cat("warning: lin.comb. missing quantities", quants, "\n")
+    }
+  }
 }
 
 ##-- print corrected measurements
@@ -293,7 +302,7 @@ meas = meas.value
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=500)
+## options(width=500)
 
 if (FALSE && !flag.no.maxLik) {
 ##
