@@ -28,6 +28,8 @@ MEASUREMENT m_PimNu      statistical systematic
 MEASUREMENT m_KmNu       statistical systematic
 MEASUREMENT m_PimPizNu   statistical systematic
 MEASUREMENT m_KmPizNu    statistical systematic
+MEASUREMENT m_HmNu       statistical systematic
+MEASUREMENT m_HmPizNu    statistical systematic
 
 * dummmy parameter to increase printouts if value > 0
 PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
@@ -43,14 +45,8 @@ PARAMETER CHI2_N_SYM_06    25 45 -45
 PARAMETER CHI2_N_SYM_07    26 45 -45
 PARAMETER CHI2_N_SYM_08    27 45 -45
 
-SUMOFMEAS DELPHI HmNu published PimNu KmNu
-SUMOFMEAS OPAL HmNu published PimNu KmNu
-SUMOFMEAS CLEO HmNu published PimNu KmNu
-SUMOFMEAS Belle HmPizNu published PimPizNu KmPizNu
-SUMOFMEAS DELPHI HmPizNu published PimPizNu KmPizNu
-SUMOFMEAS OPAL HmPizNu published PimPizNu KmPizNu
-SUMOFMEAS L3 HmPizNu published PimPizNu KmPizNu
-SUMOFMEAS CLEO HmPizNu published PimPizNu KmPizNu
+SUMOFQUANT HmNu PimNu KmNu
+SUMOFQUANT HmPizNu PimPizNu KmPizNu
 
 * CALL DUMP_MASTER_INC
 CALL CHI2_N_SYM

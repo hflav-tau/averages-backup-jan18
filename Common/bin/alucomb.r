@@ -47,16 +47,16 @@ rc = NULL
 meas.names = names(measurements)
 ##-- quantities to be averaged
 quant.names = combination$quantities
+##-- remove quantities that are linear combinations to only fit independent quantities
+quant.names.comb = names(combination$meas.lin.combs)
+quant.names = setdiff(quant.names, quant.names.comb)
 quant.num = length(quant.names)
-##-- measurements of quantities that are linear combination of the quantities to be averaged
-meas.names.comb = names(combination$meas.lin.combs[unlist(
-  lapply(combination$meas.lin.combs, function(el) all(names(el) %in% combination$quantities)))])
+##-- only retain linear combinations of quantities we want to fit
+quant.names.comb = names(combination$meas.lin.combs[unlist(
+  lapply(combination$meas.lin.combs, function(el) all(names(el) %in% quant.names)))])
 ##-- quantity measured per measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
 names(meas.quantities) = meas.names
-##-- unique quantities corresponding to linear combinations, other than averaged quantities
-quant.names.comb = unique(meas.quantities[meas.names.comb])
-quant.names.comb = setdiff(quant.names.comb, quant.names)
 ##-- quantities to be averaged plus their linear combinations
 quant.names.include = c(quant.names, quant.names.comb)
 
@@ -270,23 +270,13 @@ rownames(delta) = meas.names
 for (quant in quant.names) {
   delta[,quant] = as.numeric(quant == meas.quantities)
 }
-
 ##
 ## for measurements that are linear combination of quantities
 ## set the delta matrix coefficients as specified
 ##
-for (meas in names(combination$meas.lin.combs)) {
-  quants = names(combination$meas.lin.combs[[meas]])
-  if (meas %in% rownames(delta) && all(quants %in% colnames(delta))) {
-    delta[meas, quants] = combination$meas.lin.combs[[meas]]
-  } else {
-    if (!meas %in% rownames(delta)) {
-      cat("warning: lin.comb. missing measurement", meas, "\n")
-    }
-    if (!all(quants %in% colnames(delta))) {
-      cat("warning: lin.comb. missing quantities", quants, "\n")
-    }
-  }
+for (quant.comb in quant.names.comb) {
+  delta[names(meas.quantities[meas.quantities == quant.comb]), names(combination$meas.lin.combs[[quant.comb]])] =
+    combination$meas.lin.combs[[quant.comb]]
 }
 
 ##-- print corrected measurements

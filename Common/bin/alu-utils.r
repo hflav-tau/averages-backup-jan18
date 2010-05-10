@@ -113,8 +113,8 @@ flag.in.meas = FALSE
 flag.in.data = FALSE
 flag.in.params = FALSE
 flag.in.combine = FALSE
-flag.in.sumofmeas = FALSE
-flag.in.combofmeas = FALSE
+flag.in.sumofquant = FALSE
+flag.in.combofquant = FALSE
 
 for (line in lines) {
   ## cat(line,"\n")
@@ -143,9 +143,9 @@ for (line in lines) {
       meas.labels = character()
       data.labels = character()
       data.values = numeric()
-      sumofmeas.values = numeric()
-      combofmeas.labels = character()
-      combofmeas.values = numeric()
+      sumofquant.values = numeric()
+      combofquant.labels = character()
+      combofquant.values = numeric()
       measlincombs.list = list()
       flag.in.meas = TRUE
     }
@@ -157,34 +157,34 @@ for (line in lines) {
   }
   if (!match.nocase("^\\s*$", fields[1])) {
     ##
-    ## store collected data of SUMOFMEAS cards
+    ## store collected data of SUMOFQUANT cards
     ##
-    if (flag.in.sumofmeas) {
+    if (flag.in.sumofquant) {
       ##-- vector with one for each quantity whose sum corresponds to the measurement
-      val = rep(1,length(tail(sumofmeas.values, -3)))
-      names(val) = tail(sumofmeas.values, -3)
+      val = rep(1, length(sumofquant.values)-1)
+      names(val) = tail(sumofquant.values, -1)
       ##-- list of measurements with the coefficients corresponding to the related quantities
-      measlincombs.list[[paste(sumofmeas.values[1:3], collapse=".")]] = val
-      ##-- reset vector of SUMOFMEAS parameter
-      sumofmeas.values = numeric()
+      measlincombs.list[[sumofquant.values[1]]] = val
+      ##-- reset vector of SUMOFQUANT parameter
+      sumofquant.values = numeric()
     }
     ##
-    ## store collected data of COMBOFMEAS cards
+    ## store collected data of COMBOFQUANT cards
     ##
-    if (flag.in.combofmeas) {
-      if (length(combofmeas.labels)-3 != length(combofmeas.values)) {
-        stop("error: comb.lin. coeffs ", length(combofmeas.values), " while expecting ", length(combofmeas.labels)-4)
+    if (flag.in.combofquant) {
+      if (length(combofquant.labels)-1 != length(combofquant.values)) {
+        stop("error: comb.lin. coeffs ", length(combofquant.values), " while expecting ", length(combofquant.labels)-1)
       }
-      names(combofmeas.values) = tail(combofmeas.labels, -3)
-      measlincombs.list[[paste(combofmeas.labels[1:3], collapse=".")]] = combofmeas.values
-      ##-- reset vectors of COMBOFMEAS parameter
-      combofmeas.labels = character()
-      combofmeas.values = numeric()
+      names(combofquant.values) = tail(combofquant.labels, -1)
+      measlincombs.list[[combofquant.labels[1]]] = combofquant.values
+      ##-- reset vectors of COMBOFQUANT parameter
+      combofquant.labels = character()
+      combofquant.values = numeric()
     }
     flag.in.data = FALSE
     flag.in.params = FALSE
-    flag.in.sumofmeas = FALSE
-    flag.in.combofmeas = FALSE
+    flag.in.sumofquant = FALSE
+    flag.in.combofquant = FALSE
   }
   if (match.nocase("^END$", fields[1])) {
     if (!flag.in.combine) {
@@ -319,24 +319,24 @@ for (line in lines) {
     next
   }
   ##
-  ## SUMOFMEAS <exp> <method> <where> <quant 1> [<quant 2> ...]
+  ## SUMOFQUANT <quant> <quant 1> [<quant 2> ...]
   ## define a measurement as sum of quantities to fit
   ##
-  if (match.nocase("^SUMOFMEAS$", fields[1]) ||
-      (flag.in.sumofmeas && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.sumofmeas = TRUE
-    sumofmeas.values = c(sumofmeas.values, as.character(fields[-1]))
+  if (match.nocase("^SUMOFQUANT$", fields[1]) ||
+      (flag.in.sumofquant && match.nocase("^\\s*$", fields[1]))) {
+    flag.in.sumofquant = TRUE
+    sumofquant.values = c(sumofquant.values, as.character(fields[-1]))
   }
   ##
-  ## COMBOFMEAS <exp> <method> <where> <quant 1> [<quant 2> ...] <coeff 1> [<coeff 2> ...]
+  ## COMBOFQUANT <exp> <method> <where> <quant 1> [<quant 2> ...] <coeff 1> [<coeff 2> ...]
   ## define a measurement as linear combination of quantities to fit
   ##
-  if (match.nocase("^COMBOFMEAS$", fields[1]) ||
-      (flag.in.combofmeas && match.nocase("^\\s*$", fields[1]))) {
-    flag.in.combofmeas = TRUE
-    combofmeas.labels = c(combofmeas.labels,
+  if (match.nocase("^COMBOFQUANT$", fields[1]) ||
+      (flag.in.combofquant && match.nocase("^\\s*$", fields[1]))) {
+    flag.in.combofquant = TRUE
+    combofquant.labels = c(combofquant.labels,
       unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
-    combofmeas.values = c(combofmeas.values,
+    combofquant.values = c(combofquant.values,
       unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
   }
 }
