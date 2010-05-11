@@ -47,13 +47,16 @@ rc = NULL
 meas.names = names(measurements)
 ##-- quantities to be averaged
 quant.names = combination$quantities
-##-- remove quantities that are linear combinations to only fit independent quantities
-quant.names.comb = names(combination$meas.lin.combs)
+##
+## get quantities that are combination of other quantities and were
+## mentioned in the MEASUREMENT cards to be included in the fit
+##
+quant.names.comb = intersect(names(combination$meas.lin.combs), quant.names)
+##-- retain only independent quantities, discarding the ones that are combinations
 quant.names = setdiff(quant.names, quant.names.comb)
 quant.num = length(quant.names)
-##-- only retain linear combinations of quantities we want to fit
-quant.names.comb = names(combination$meas.lin.combs[unlist(
-  lapply(combination$meas.lin.combs, function(el) all(names(el) %in% quant.names)))])
+##-- retain only combinations whose terms are all included in the fitted quantities
+quant.names.comb = quant.names.comb[unlist(lapply(quant.names.comb, function(el) all(names(el) %in% quant.names)))]
 ##-- quantity measured per measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
 names(meas.quantities) = meas.names
@@ -275,8 +278,10 @@ for (quant in quant.names) {
 ## set the delta matrix coefficients as specified
 ##
 for (quant.comb in quant.names.comb) {
-  delta[names(meas.quantities[meas.quantities == quant.comb]), names(combination$meas.lin.combs[[quant.comb]])] =
-    combination$meas.lin.combs[[quant.comb]]
+  meas.quant.comb = names(meas.quantities[meas.quantities == quant.comb])
+  comb = combination$meas.lin.combs[[quant.comb]]
+  delta[meas.quant.comb, names(combination$meas.lin.combs[[quant.comb]])] =
+    matrix(comb, ncol=length(comb), nrow=length(meas.quant.comb), byrow=TRUE)
 }
 
 ##-- print corrected measurements
@@ -292,7 +297,7 @@ meas = meas.value
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-## options(width=500)
+options(width=2000)
 
 if (FALSE && !flag.no.maxLik) {
 ##
@@ -333,7 +338,7 @@ cat("##\n")
 show(rbind(value=quant[1:quant.num], error=quant.err[1:quant.num]))
 if (quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr[1:quant.num, 1:quant.num])
+  ##++ show(quant.corr[1:quant.num, 1:quant.num])
 }
 } ## !flag.no.maxLik && FALSE
 
@@ -448,9 +453,9 @@ for (mt.name in meas.types.names) {
       %*% (meas - delta %*% quant)[!meas.mt.keep])
     meas.mt.chisq.sub = chisq - meas.mt.chisq.sub
   }
-  
+
   ##-- collect chisq/dof for each type of measurement
-  chisq.types[mt.name] = meas.mt.chisq.sub
+  chisq.types[mt.name] = meas.mt.chisq.corr
   ##-- number of measurements of the current type that have not too-large errors
   num.types.keep[mt.name] = sum(meas.mt.keep)
   ##
@@ -578,12 +583,20 @@ chisq.select.0 = chisq.select.0 - chisq.select.other
 
 repeat {
   
-##-- chisq with S-factors
+if (FALSE) {
+##-- chisq with S-factors, by subtraction
 chisq.select = drop(
   t(meas - delta %*% quant)
   %*% solve(diag.m(sfact.select) %*% meas.cov %*% diag.m(sfact.select))
   %*% (meas - delta %*% quant))
 chisq.select = chisq.select - chisq.select.other
+}
+
+##-- chisq with S-factors
+chisq.select = drop(
+  t((meas - delta %*% quant)[meas.select])
+  %*% solve(diag.m(sfact.select[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact.select[meas.select]))
+  %*% (meas - delta %*% quant)[meas.select])
 
 ##-- adjust S-factors to obtain chisq/dof = 1, when restricted to selected measurements
 sfact.select[meas.select] = sfact.select[meas.select] * sqrt(chisq.select/dof.select)
