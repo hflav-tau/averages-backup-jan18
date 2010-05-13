@@ -1,0 +1,7 @@
+* B(tau- -> all) = 1
+
+BEGIN       Unitarity Gamma3 constraint
+MEASUREMENT m_Gamma3 statistical systematic
+DATA        m_Gamma3 statistical systematic
+            1.00     1.0e-0      0.0e+0 
+END

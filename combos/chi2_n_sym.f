@@ -63,6 +63,8 @@
       DOUBLE PRECISION V(MCSYS),W(MMEAS,MMEAS),
      &                 CHI2,DUMMY(MCSYS),Z(MMEAS),
      &                 TEMP(MMEAS,MCSYS),S(MCSYS,MCSYS)
+     &                ,SCOPY(MCSYS,MCSYS)
+      INTEGER          ErrorFlag, INVOPT
       DOUBLE PRECISION PRTLEV
 *
 *     Determine debug printout level
@@ -123,7 +125,27 @@
         S(I,I)=S(I,I)+1.D0
       ENDDO
 
-      CALL DSINV(LCSYS,S,MCSYS,IERR)
+      INVOPT=0 ! default option for matrix inversion using DSINV
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(PARA(I))
+      ENDDO
+      IF (INVOPT.EQ.0) THEN
+        CALL DSINV(LCSYS,S,MCSYS,IERR)
+        PRINT *, 'CHI2_N_SYM: DSINV: S->S: IERR = ',IERR 
+      ELSE
+        ErrorFlag=1
+        DO I=1,LCSYS
+          DO J=1,LCSYS
+            if (ErrorFlag.eq.1.and.i.eq.j) print *, 
+     &      'CHI2: i,j,s(i,j) = ',i,j,s(i,j),sqrt(max(0,s(i,j)))
+            SCOPY(I,J)=S(I,J)
+          ENDDO
+        ENDDO
+        CALL FindInv(SCOPY,S,LCSYS,MCSYS,ErrorFlag)
+        PRINT *, 'CHI2_N_SYM: FindInv: S->S: ErrorFlag = ',ErrorFlag
+        IERR=ErrorFlag
+      ENDIF
+
       IF(IERR.NE.0) THEN
         IF(LUNIT.GT.0) WRITE(LUNIT,1001) CHROUT(:LENOCC(CHROUT)),IERR
  1001   FORMAT(1X,A,': cannot invert matrix ! IERR=',I6)
@@ -208,7 +230,7 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
       INCLUDE 'master.inc'
       INCLUDE 'combos.inc' 
  
-      INTEGER IERR
+      INTEGER IERR, ErrorFlag, INVOPT
       DOUBLE PRECISION V(MCSYS),S(MCSYS,MCSYS)
       DOUBLE PRECISION SINV(MCSYS,MCSYS)
       DOUBLE PRECISION SAUX(MCSYS,MCSYS),SSYS(MCSYS)
@@ -222,6 +244,12 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
 
       INTEGER LCSYS,I,J,IQUAN,JQUAN,IVAR
       CHARACTER*16 CHAUX(MCSYS)
+
+      INTEGER PSUM, ISUM, NSUM, II
+      LOGICAL USEQUAN(MQUAN)
+      DOUBLE PRECISION COEFF(MQUAN)
+      CHARACTER*13 CHSUM
+      CHARACTER*16 CHSUM2
 
       LCSYS=NCSYS+NQUAN
 *
@@ -281,10 +309,20 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
       WRITE(LUNLOG,'(T25,20A14)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
       WRITE(LUNLOG,*)' '
 
-
+      INVOPT=0 ! default option for matrix inversion using DSINV
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(PARA(I))
+      ENDDO
 *DR compute S inverse matrix
-      CALL UCOPY(S,SINV,MCSYS*MCSYS*2)
-      CALL DSINV(LCSYS,SINV,MCSYS,IERR)
+      IF (INVOPT.EQ.0) THEN
+        CALL UCOPY(S,SINV,MCSYS*MCSYS*2)
+        CALL DSINV(LCSYS,SINV,MCSYS,IERR)
+        PRINT *, 'DUMP_FIT: DSINV: S->SINV: IERR = ',IERR
+      ELSE
+        CALL FindInv(S,SINV,LCSYS,MCSYS,ErrorFlag)
+        PRINT *, 'DUMP_FIT: FindInv: S->SINV: ErrorFlag = ',ErrorFlag
+        IERR=ErrorFlag
+      ENDIF
 
       IF(IERR.NE.0) THEN
         IF(LUNIT.GT.0) WRITE(LUNIT,1001) CHROUT(:LENOCC(CHROUT)),IERR
@@ -301,8 +339,16 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
       ENDDO        
      
 *inverse
-      CALL UCOPY(SQINV,SQ,MQUAN*MQUAN*2)
-      CALL DSINV(NQUAN,SQ,MQUAN,IERR)
+      IF (INVOPT.EQ.0) THEN
+        CALL UCOPY(SQINV,SQ,MQUAN*MQUAN*2)
+        CALL DSINV(NQUAN,SQ,MQUAN,IERR)
+        PRINT *, 'DUMP_FIT: DSINV: SQINV->SQ: IERR = ',IERR
+      ELSE
+        CALL FindInv(SQINV,SQ,NQUAN,MQUAN,ErrorFlag)
+        PRINT *, 'DUMP_FIT: FindInv: SQINV->SQ: ErrorFlag = ',ErrorFlag
+        IERR=ErrorFlag
+      ENDIF
+
       IF(IERR.NE.0) THEN
         IF(LUNIT.GT.0) WRITE(LUNIT,1002) CHROUT(:LENOCC(CHROUT)),IERR
  1002   FORMAT(1X,A,': cannot reinvert Q error  matrix ! IERR=',I6)
@@ -398,10 +444,10 @@ c      ENDIF
         DO JQUAN=1,NQUAN
           IF (IQUAN.LT.JQUAN) 
      &    WRITE(LUNLOG,
-     & '('' Correlation between '',A,'' and '',A,'' = '',F14.7)')
-     &          CHAUX(NCSYS+IQUAN)(:LENOCC(CHAUX(NCSYS+IQUAN))),
-     &          CHAUX(NCSYS+JQUAN)(:LENOCC(CHAUX(NCSYS+JQUAN))),
-     &          SAUX(NCSYS+IQUAN,NCSYS+JQUAN)
+     & '('' Correlation between '',A20,'' and '',A20,'' = '',F14.7)')
+     &      CHAUX(NCSYS+IQUAN)(:AMIN0(20,LENOCC(CHAUX(NCSYS+IQUAN)))),
+     &      CHAUX(NCSYS+JQUAN)(:AMIN0(20,LENOCC(CHAUX(NCSYS+JQUAN)))),
+     &      SAUX(NCSYS+IQUAN,NCSYS+JQUAN)
         ENDDO
       ENDDO
 
@@ -421,12 +467,65 @@ c      ENDIF
         ENDDO
       ENDDO
       AVEERR = SQRT(MAX(0,AVEERR))
-      WRITE(LUNLOG, 
-     &'(''Total of Multi-Quantity Average = '',F14.7,'' +- '',F14.7)')
-     &     AVESUM, AVEERR
-      
+      WRITE(LUNLOG, '(''All: Sum of Multi-Quantity Average = '','//
+     &              'F14.7,'' +- '',F14.7)')
+     &               AVESUM, AVEERR
       WRITE(LUNLOG,*)' '
 
+* SwB begin
+      PSUM = 0
+      DO I=NCSYS+1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_PSUM') PSUM=INT(PARA(I))
+      ENDDO
+      DO ISUM=1,PSUM            ! next line assumes number of sums to compute <= 9
+        WRITE(CHSUM,'("CHI2_N_SYM_P",I1.1)') ISUM
+        NSUM=0
+        DO I=NCSYS+1,NPARA
+          IF (CHPARA(I).EQ.CHSUM) THEN
+            NSUM=INT(PARA(I))
+          ENDIF
+        ENDDO
+        DO IQUAN=1,NQUAN
+          USEQUAN(IQUAN)=.FALSE.
+          COEFF(IQUAN)=0.0D0
+        ENDDO
+        DO II=1,NSUM             ! next line assumes number of quantities <=99
+          WRITE(CHSUM2,'("CHI2_N_SYM_P",I1.1,"_",I2.2)') ISUM, II
+          DO I=NCSYS+1,NPARA
+            IF (CHPARA(I).EQ.CHSUM2) THEN
+              IQUAN=INT(PARA(I))
+              USEQUAN(IQUAN)=.TRUE.
+              COEFF(IQUAN)=EXCUP(I)
+            ENDIF
+          ENDDO
+        ENDDO
+*     
+        AVESUM=0.0
+        AVEERR=0.0
+        DO IQUAN=1,NQUAN
+          IF (USEQUAN(IQUAN)) THEN
+            IVAR=NCSYS+IQUAN
+            AVESUM = AVESUM - V (IVAR) * COEFF(IQUAN)
+            AVEERR = AVEERR + ERRTOT(IQUAN)**2 * COEFF(IQUAN)**2
+            DO JQUAN=1,NQUAN
+              IF (USEQUAN(JQUAN)) THEN
+                IF (IQUAN.LT.JQUAN) THEN
+                  AVEERR = AVEERR + 2 * ERRTOT(IQUAN) * ERRTOT(JQUAN) *
+     &    SAUX(NCSYS+IQUAN,NCSYS+JQUAN) * COEFF(IQUAN) * COEFF(JQUAN)
+                ENDIF
+              ENDIF
+            ENDDO
+          ENDIF
+        ENDDO
+        AVEERR = SQRT(MAX(0,AVEERR))
+        WRITE(LUNLOG, '('' P'','//
+     &                'I1.1,'': Sum of Multi-Quantity Average = '','//
+     &                'F14.7,'' +- '',F14.7)')
+     &                 ISUM, AVESUM, AVEERR
+        WRITE(LUNLOG,*)' '
+*
+      ENDDO
+* SwB end
       RETURN
       END
 
@@ -468,18 +567,48 @@ c      ENDIF
 C dump matrix A(N,M) with a nice format (NT,MT) TAILLE MATRICE
       IMPLICIT NONE
       DOUBLE PRECISION A(*)
-      INTEGER NT,MT,N,M,I,J,IF,IL,NN,MM
+      INTEGER NT,MT,N,M,I,J,IJ,IL,NN,MM
 
-      NN=MIN(20,N)
-      MM=MIN(20,M)
-
+      NN=MIN(30,N)
+      MM=MIN(30,M)
       DO I=1,NN
-       IF=1
+       IJ=1
        IL=MM
-       WRITE(*,1000) (A((J-1)*NT+I),J=1,IL)
- 1000  FORMAT (1X,20E10.3)
-*1000  FORMAT (1X,20F6.3)
+       WRITE(*,1000) (A((J-1)*NT+I),J=IJ,IL)
       ENDDO
 
+      IF (N.GT.30.OR.M.GT.30) THEN
+      WRITE (*,*) ' '
+      NN=MIN(30,N)
+      MM=MIN(60,M)
+      DO I=1,NN
+       IJ=31
+       IL=MM
+       WRITE(*,1000) (A((J-1)*NT+I),J=IJ,IL)
+      ENDDO
+
+      WRITE (*,*) ' '
+      NN=MIN(60,N)
+      MM=MIN(30,M)
+      DO I=31,NN
+       IJ=1
+       IL=MM
+       WRITE(*,1000) (A((J-1)*NT+I),J=IJ,IL)
+      ENDDO
+
+      WRITE (*,*) ' '
+      NN=MIN(60,N)
+      MM=MIN(60,M)
+      DO I=31,NN
+       IJ=31
+       IL=MM
+       WRITE(*,1000) (A((J-1)*NT+I),J=IJ,IL)
+      ENDDO
+      ENDIF
+
+      
+1000  FORMAT (30(1X,G7.1))
+*1000 FORMAT (1X,20E10.3)
+*1000 FORMAT (1X,20F6.3)
       RETURN
       END

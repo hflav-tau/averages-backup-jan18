@@ -72,7 +72,7 @@
       INTEGER IPOS,IKEY,INDX
       LOGICAL XVALUE
       REAL VALUE
-      CHARACTER*16 WORD
+      CHARACTER*20 WORD
 *
       INTEGER NKEYWORDS,I
       PARAMETER(NKEYWORDS=16)
@@ -237,7 +237,7 @@
 *     Local variables
 *
       INTEGER IPOS,I
-      CHARACTER*16 WORD
+      CHARACTER*20 WORD
       LOGICAL XVALUE
 *
 *     Default output arguments
@@ -318,7 +318,7 @@
       CHARACTER*256 LINE
       SAVE          LINE
       DATA          LINE/' '/
-      CHARACTER*16  WORD
+      CHARACTER*20  WORD
       SAVE          WORD
       DATA          WORD/' '/
       LOGICAL NEXT

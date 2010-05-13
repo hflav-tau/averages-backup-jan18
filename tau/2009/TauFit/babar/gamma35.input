@@ -1,0 +1,56 @@
+*
+* B(tau- -> pi- K0bar nu) = (0.840 +/- 0.004 (stat) +/- 0.023 (syst)) %
+* BaBar 2008 prelim, arXiv:0808.1121 [hep-ex] (ICHEP08) 
+*
+* tau backgrounds from PDG06 unless othwewise specified
+*
+* - pi-pi+pi-nu: PDG06 for errors, G60, p.44, (9.13 +- 0.4627094)%
+*   from tauola/TauolaDecayModes.txt, tau -> 3 pi nu = 0.18356709/2
+*   and tau -> pi-pi+pi- nu is 1/2*0.18356709 = 0.0917835
+*
+
+BEGIN    BaBar Gamma35 preliminary ICHEP08
+
+PARAMETERS !      value       +err         -err
+  sigmataupmy4s   0.919       +0.003       -0.003
+  PimPizNu        25.3754e-2  +0.10e-2     -0.10e-2     ! BaBar MC value, PDG06 fit error
+  KmKzsNu         0.08255e-2  +0.008e-2    -0.008e-2    ! BaBar MC value, PDG06 fit error, 1/2*G37, p.37
+  PimPizKzsNu     0.18835e-2  +0.02e-2     -0.02e-2     ! BaBar MC value, PDG06 fit error, 1/2*G40, p.38
+  KmPizKzsNu      0.0768e-2   +0.013471e-2 -0.013471e-2 ! BaBar MC value, 17.54% error on paper from unknown source
+  PimKzsKzsNu     2.4e-4      +0.5e-4      -0.5e-4      ! PDG06 fit value and error, G47, p.39
+  PimPimPipNu     9.1783e-2   +0.08e-2     -0.08e-2     ! BaBar MC value, PDG06 fit error, G60, p.44 (pi+pi- ex K0S)
+  PimPimPipPizNu  4.3654e-2   +0.06e-2     -0.06e-2     ! BaBar MC value, PDG06 fit error, G69, p.46 (pi+pi- ex K0S)
+  PimKmPipNu      0.3009e-2   +0.04e-2     -0.04e-2     ! BaBar MC value, PDG06 fit error, G84, p.48 (wrong, incl. pi+pi-=K0s)
+  PimKmKpNu       0.1346e-2   +0.003736e-2 -0.003736e-2 ! from BaBar, PRL 100 (2008) 011801
+  PimKzsKzlNu     0.0673e-2   +0.0070e-2   -0.0070e-2   ! estimated (0.50+-0.05) * pi-K+K- from PRL 100 (2008) 011801
+
+MEASUREMENT m_Gamma35  statistical systematic
+DATA        m_Gamma35  statistical systematic
+            0.840e-2      0.004e-2    0.023e-2
+
+DATA                              ! Systematic uncertainties
+  PimPizNu%        -0.00080
+  KmKzsNu%         -0.07581
+  PimPizKzsNu%     -0.70078
+  KmPizKzsNu%      -0.02744         
+  PimKzsKzsNu%     -0.01029
+  PimPimPipNu%     -0.05778
+  PimPimPipPizNu%  -0.01263
+  PimKmPipNu%      -0.02197  
+  PimKmKpNu%       -0.00465
+  PimKzsKzlNu%     -1.17299
+
+* possibly correlated with other BaBar results
+  sigmataupmy4s%   -0.3958
+  BaBarLumi%       -0.7278
+
+*
+* remaining part of syst error
+*
+* st = c(-0.00080,-0.07581,-0.70078,-0.02744,-0.01029,-0.05778,-0.01263,-0.02197,-0.00465,-1.17299,-0.3958,-0.7278)
+* sqrt(0.023e-2^2 - sum((0.840e-2*st/100)^2))/0.840e-2*100
+* --> 2.221083%
+*
+  BaBarPimKzbNu%    2.221083
+
+END

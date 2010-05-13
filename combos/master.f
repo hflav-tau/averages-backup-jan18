@@ -150,7 +150,7 @@
 *     Version 2.98, September 7, 1999:
 *     -- new preparation routine USER_DMS_SENS
 *     Version 3.00, January 29, 2002:
-*     -- size of CH80 increased from 1230 to 160
+*     -- size of CH80 increased from 120 to 160
 *     Version 3.10, January 21, 2003:
 *     -- changed FORMAT statements for Vcb (E. Barberio)
 *     Version 3.22, February 10, 2003:
@@ -224,9 +224,9 @@
 *OSOS INTEGER K,ISTEP1,ISTEP2,IS,JS,IC,KST,KCO,ILINK,NLINKS
       INTEGER K,ISTEP1,ISTEP2,IS,JS,IC,KST,ILINK,NLINKS
 *OSOS end
-      CHARACTER*16 UNDERLINE
-      DATA UNDERLINE/'----------------'/
-      CHARACTER*160 CH80,CH80_BIS
+      CHARACTER*24 UNDERLINE
+      DATA UNDERLINE/'------------------------'/
+      CHARACTER*240 CH80,CH80_BIS
       INTEGER KCORR(MCONT,MANAL)
       INTEGER KCSYS(MCONT),ICSYS
       INTEGER ISYNCH(2,MANAL,0:MSTEP)
@@ -903,7 +903,8 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
         IF(I.EQ.1.AND.I.LE.NCSYS) WRITE(LUNLOG,1300) 'Correlated'
         IF(I.EQ.NCSYS+1)          WRITE(LUNLOG,1300) 'Extra'
         WRITE(LUNLOG,
-     &'(1X,A,'//CH6FORM//',1X,SP,2('//CH6FORM//',1X),SS,'//CH6FORM//')') 
+     &  '(1X,A,1X,'//
+     &   CH6FORM//',1X,SP,2('//CH6FORM//',1X),SS,'//CH6FORM//')') 
      &   CHPARA(I),PARA(I),+EXCUP(I),-EXCUN(I),EXCU(I)
         DO J=1,NNAM
           IF(CHNAM(J).NE.CHPARA(I).AND.CHNAM(KSYN(J)).EQ.CHPARA(I))
@@ -1364,7 +1365,8 @@ c     &    ,err2n(is,2,k),is,2,k
         ELSE
           ICAS2=ICASE ! i.e. printout of this case only
         ENDIF
-        IF(CHROUT.NE.'DUMP_MASTER_INC')
+        IF(CHROUT.NE.'DUMP_MASTER_INC'.AND.
+     &     CHROUT.NE.'CHI2_N_SYM')
      &  CALL PRINT_QUAN(ICAS2,CVAL (IS,ICASE,K),ERR2P(IS,ICASE,K),
      &                        ERR2N(IS,ICASE,K),ERR2 (IS,ICASE,K),
      &                        CL   (IS,ICASE,K),CERR (IS,ICASE,K))
@@ -1510,13 +1512,13 @@ c     &    ,err2n(is,2,k),is,2,k
               ENDIF
             ELSE
               IF(CERR(0,ICASE).EQ.0) THEN
-                WRITE(CH12,'(A4,SP,20(1X,F7.4))') 'RHO=',(
-     &            ERR2(JQUAN,IQUAN,ICASE)/
-     &      DSQRT(ERR2(JQUAN,JQUAN,ICASE)*ERR2(IQUAN,IQUAN,ICASE)),
+                WRITE(CH12,'(A4,SP,60(1X,F7.4))') 'RHO=',(
+     &            ERR2(JQUAN,IQUAN,ICASE)/DMAX1(1.D-12,
+     &      DSQRT(ERR2(JQUAN,JQUAN,ICASE)*ERR2(IQUAN,IQUAN,ICASE))),
      &            JQUAN=1,IQUAN-1)
-                WRITE(CH9,'(A2,SP,20(1X,F6.3))') 'R=',(
-     &            ERR2(JQUAN,IQUAN,ICASE)/
-     &      DSQRT(ERR2(JQUAN,JQUAN,ICASE)*ERR2(IQUAN,IQUAN,ICASE)),
+                WRITE(CH9,'(A2,SP,60(1X,F6.3))') 'R=',(
+     &            ERR2(JQUAN,IQUAN,ICASE)/DMAX1(1.D-12,
+     &      DSQRT(ERR2(JQUAN,JQUAN,ICASE)*ERR2(IQUAN,IQUAN,ICASE))),
      &            JQUAN=1,IQUAN-1)
               ENDIF
             ENDIF
@@ -1542,13 +1544,15 @@ c     &    ,err2n(is,2,k),is,2,k
               ELSE 
                 WRITE(CH12,'(A4,SP,20(1X,F7.4))') 'RHO=',(
      &       (ERR2(JQUAN,IQUAN,ICASE-2)-ERR2(JQUAN,IQUAN,ICASE-1))/
+     &  MAX(1.E-12,
      &  SQRT((ERR2(JQUAN,JQUAN,ICASE-2)-ERR2(JQUAN,JQUAN,ICASE-1))*
-     &       (ERR2(IQUAN,IQUAN,ICASE-2)-ERR2(IQUAN,IQUAN,ICASE-1))),
+     &       (ERR2(IQUAN,IQUAN,ICASE-2)-ERR2(IQUAN,IQUAN,ICASE-1)))),
      &  JQUAN=1,IQUAN-1)
                 WRITE(CH9,'(A2,SP,20(1X,F6.3))') 'R=',(
      &       (ERR2(JQUAN,IQUAN,ICASE-2)-ERR2(JQUAN,IQUAN,ICASE-1))/
+     &  MAX(1.E-12,
      &  SQRT((ERR2(JQUAN,JQUAN,ICASE-2)-ERR2(JQUAN,JQUAN,ICASE-1))*
-     &       (ERR2(IQUAN,IQUAN,ICASE-2)-ERR2(IQUAN,IQUAN,ICASE-1))),
+     &       (ERR2(IQUAN,IQUAN,ICASE-2)-ERR2(IQUAN,IQUAN,ICASE-1)))),
      &  JQUAN=1,IQUAN-1)
               ENDIF
             ENDIF

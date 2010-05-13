@@ -1,0 +1,9 @@
+INCLUDE belle/gamma13.input
+INCLUDE belle/gamma35.input
+INCLUDE belle/gamma60.input
+INCLUDE belle/gamma85.input
+INCLUDE belle/gamma93.input
+INCLUDE belle/gamma126.input
+INCLUDE belle/gamma128.input
+INCLUDE belle/gamma130.input
+INCLUDE belle/gamma132.input

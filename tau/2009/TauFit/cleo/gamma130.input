@@ -1,0 +1,11 @@
+* B (tau- -> K- pi0 eta nu)
+
+BEGIN       CLEO Gamma130 Published BISHAI 99
+
+MEASUREMENT m_Gamma130  statistical systematic
+DATA        m_Gamma130  statistical systematic
+            1.77e-4     0.56e-4     0.71e-4
+
+DATA 
+            CleoKmPizEtaNu 0.71e-4
+END

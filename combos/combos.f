@@ -124,7 +124,7 @@
 *     -- adapt to Scientific Linux SLC 4
 *     -- parameter MNAM increased from MCONT+60 to MCONT+120
 *     Version 3.32, January 17, 2010
-*     -- patches (from Alberto Luisiani) to compile with gfortran
+*     -- patches (from Alberto Lusiani) to compile with gfortran
 *        on Scientific Linux 5 
 *     -- new printout format for the results of the combination routines
 *        allowing for NQUAN=2 (in new subroutine PRINT_QUAN)
@@ -148,7 +148,7 @@
 *     Local variables
 *
       INTEGER NWORDS,IERR
-      CHARACTER*16 KEY,WORDS(MWORDS)
+      CHARACTER*20 KEY,WORDS(MWORDS)
 *
 *     Open input file
 *
@@ -475,7 +475,7 @@
 *     Local variable
 *
       INTEGER I,IANAL,ICONT,IWORD,DUMMY,NEWANAL,IPOS
-      CHARACTER*16 STRING
+      CHARACTER*20 STRING
       LOGICAL XVALUE
       REAL VALUE
 *
@@ -1263,10 +1263,10 @@ crvk
      &     'coefficient specified for '//CH80(:LENOCC(CH80)),
      &     'correlation set to -1')
           RHO=-1.
-        ELSE IF(RHO.LT.0.) THEN
-          CALL COMBOS_ERROR(0,'Negative correlation '//
-     &     'coefficient specified for '//CH80(:LENOCC(CH80)),
-     &     'probably OK if 2D fit is done')
+C        ELSE IF(RHO.LT.0.) THEN
+C          CALL COMBOS_ERROR(0,'Negative correlation '//
+C     &     'coefficient specified for '//CH80(:LENOCC(CH80)),
+C     &     'probably OK if 2D fit is done')
         ELSE IF(RHO.GT.1.) THEN
           CALL COMBOS_ERROR(1,'Invalid statistical correlation '//
      &     'coefficient specified for '//CH80(:LENOCC(CH80)),

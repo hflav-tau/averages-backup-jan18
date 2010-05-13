@@ -1,0 +1,11 @@
+* B(tau- ->pi- K0bar eta nu)
+
+BEGIN       CLEO Gamma132 Published BISHAI 99
+
+MEASUREMENT m_Gamma132 statistical systematic
+DATA        m_Gamma132 statistical systematic
+            2.20e-4    0.70e-4     0.22e-4
+
+DATA 
+            CleoPimKzbEtaNu 0.22e-4
+END
