@@ -252,6 +252,7 @@
 * DR Version 3.0 1 June 1999 modif: allow more than one param
       IMPLICIT NONE
       INCLUDE 'master.inc'
+      INCLUDE 'combos.inc'
 *
 *     Arguments
 *
@@ -264,9 +265,14 @@
 *
 *     Local variables
 *
-      INTEGER I,J
-      INTEGER NSUM, ISUM, IMEAS, INUMBER, IQUAN
+      INTEGER INVOPT, ErrorFlag
+      INTEGER I, J, II
+      INTEGER NSUM, ISUM, IMEAS, IQUAN, ISUMOVER
+      DOUBLE PRECISION    COEFF
       CHARACTER*13 CHSUM
+      CHARACTER*16 CHSUM2
+      DOUBLE PRECISION WCOPY(MMEAS,MMEAS)
+
 *
 *     Check that the number of correlated systematic uncertainties is 
 *     less than the maximum
@@ -315,25 +321,36 @@
       DO I=NCSYS+1,NPARA
         IF(CHPARA(I).EQ.'CHI2_N_SYM_NSUM') NSUM=INT(PARA(I))
       ENDDO
-      IF (NSUM.GT.0) THEN
-        DO ISUM=1,NSUM ! next line assumes number of measurement <= 99
-          WRITE(CHSUM,'("CHI2_N_SYM_",I2.2)') ISUM
+      DO ISUM=1,NSUM            ! next line assumes number of measurement <= 99
+        WRITE(CHSUM,'("CHI2_N_SYM_",I2.2)') ISUM
+        IMEAS=0
+        ISUMOVER=0
+        DO I=NCSYS+1,NPARA
+          IF (CHPARA(I).EQ.CHSUM) THEN
+            IMEAS=INT(PARA(I))
+            ISUMOVER=INT(EXCUP(I))
+            IF (IMEAS.GT.0.AND.ISUMOVER.EQ.0) THEN ! special flag for sum over all quantities
+               DO IQUAN=1,NQUAN 
+                 CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
+               ENDDO
+            ENDIF
+          ENDIF
+        ENDDO
+        DO II=1,ISUMOVER        ! next line assumes number of quantities <=99
+          WRITE(CHSUM2,'("CHI2_N_SYM_",I2.2,"_",I2.2)') ISUM, II
           DO I=NCSYS+1,NPARA
-            IF (CHPARA(I).EQ.CHSUM) THEN
-              IMEAS=INT(PARA(I))
-              INUMBER=INT(EXCUP(I))
+            IF (IMEAS.GT.0.AND.CHPARA(I).EQ.CHSUM2) THEN
+              IQUAN=INT(PARA(I))
+              COEFF=EXCUP(I)
+              CSYS(IMEAS,NCSYS+IQUAN) = -1.D0*COEFF
             ENDIF
           ENDDO
-          DO I=1,9 !assumes number of quantities <=9 [otherwise, use binary system]
-            IQUAN = MOD ( INUMBER /((10)**(I-1)), 10) ! I-th digit of INUMBER (in decimal)
-            IF (IQUAN.NE.0) CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
-          ENDDO
-        ENDDO
-        DO IMEAS=1,NMEAS
-          PRINT*,'IMEAS,CSYS = ',
-     *            IMEAS,(CSYS(IMEAS,NCSYS+IQUAN),IQUAN=1,NQUAN)
-        ENDDO
-      ENDIF
+        ENDDO 
+      ENDDO     
+      DO IMEAS=1,NMEAS
+        WRITE (LUNLOG,'(''IMEAS,CSYS = '',I2,5(T20,20(1X,F5.2),/))')
+     &          IMEAS,(CSYS(IMEAS,NCSYS+IQUAN),IQUAN=1,NQUAN)
+      ENDDO
 * SwB end
 
 *
@@ -351,7 +368,27 @@
 *
 *     Invert total error matrix
 *
-      CALL DSINV(NMEAS,W,MMEAS,IERR)
+      INVOPT=0 ! default option for matrix inversion using DSINV
+      DO I=1,NPARA
+        IF(CHPARA(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(PARA(I))
+      ENDDO
+      IF (INVOPT.EQ.0) THEN
+        CALL MY_DSINV(NMEAS,W,MMEAS,IERR)
+        PRINT *, 'MINUIT_CHI2: DSINV: W->W: IERR = ', IERR
+      ELSE
+        ErrorFlag=1
+        DO I=1,NMEAS
+          DO J=1,NMEAS
+            if (ErrorFlag.eq.1.and.i.eq.j) print *, 
+     &      'CHI2: i,j,w(i,j) = ',i,j,w(i,j),sqrt(max(0,w(i,j)))
+            WCOPY(i,j)=W(i,j)
+          ENDDO
+        ENDDO
+        CALL FindInv(WCOPY,W,NMEAS,MMEAS,ErrorFlag)
+        PRINT *, 'MINUIT_CHI2: FindInv: W->W: ErrorFlag = ',ErrorFlag
+        IERR=ErrorFlag
+      ENDIF
+*     
       IF(IERR.NE.0) THEN
         IF(LUNIT.GT.0) WRITE(LUNIT,1000) CHROUT(:LENOCC(CHROUT)),
      &                 'cannot invert error matrix',IERR
@@ -371,3 +408,218 @@
 *     Matrix of changes:        CSYS                Delta
 *
       END
+      
+!     Subroutine to find the inverse of a square matrix
+!     Author : Louisda16th a.k.a Ashwith J. Rego
+!     Reference : Algorithm has been well explained in:
+!     http://math.uww.edu/~mcfarlat/inverse.htm           
+!     http://www.tutor.ms.unimelb.edu.au/matrix/matrix_inverse.html
+      SUBROUTINE FindInv(matrix, inverse, n, d, errorflag)
+      IMPLICIT NONE
+!     Declarations
+      INTEGER N,D
+      INTEGER ErrorFlag !Return error status. -1 for error, 0 for normal
+      DOUBLE PRECISION matrix(d,d) !Input matrix
+      DOUBLE PRECISION inverse(d,d) !Inverted matrix
+      INTEGER I,J,K,L
+      DOUBLE PRECISION m
+      DOUBLE PRECISION augmatrix(d,2*d) !augmented matrix
+      LOGICAL FLAG
+      DATA    FLAG /.TRUE./
+      SAVE    FLAG
+
+!     Augment input matrix with an identity matrix
+      DO i = 1, n
+        DO j = 1, 2*n
+          IF (j .le. n ) THEN
+            augmatrix(i,j) = matrix(i,j)
+            if (ErrorFlag.eq.1.and.i.eq.j) 
+     &      print *, 'Inv: i,j,matrix(i,j) = ',i,j,matrix(i,j)
+          ELSE IF ((i+n) .eq. j) THEN
+            augmatrix(i,j) = 1.d0
+          Else
+            augmatrix(i,j) = 0.d0
+          ENDIF
+        ENDDO
+      ENDDO
+      
+!Reduce augmented matrix to upper traingular form
+      DO k =1, n-1
+        IF (augmatrix(k,k) .eq. 0.d0) THEN
+          FLAG = .FALSE.
+          DO i = k+1, n
+            IF (augmatrix(i,k) .ne. 0) THEN
+              DO j = 1,2*n
+                augmatrix(k,j) = augmatrix(k,j)+augmatrix(i,j)
+              ENDDO
+              FLAG = .TRUE.
+              EXIT
+            ENDIF
+            IF (FLAG .EQV. .FALSE.) THEN
+              PRINT*, "Matrix is non - invertible : 1 : check k = ",k,
+     &                " augmatrix(k,k) = ",augmatrix(k,k),
+     &                " maxtrix(k,k) = ",matrix(k,k)
+              ErrorFlag = -1
+              return
+            ENDIF
+          ENDDO
+        ENDIF
+        DO j = k+1, n			
+          m = augmatrix(j,k)/augmatrix(k,k)
+          DO i = k, 2*n
+            augmatrix(j,i) = augmatrix(j,i) - m*augmatrix(k,i)
+          ENDDO
+        ENDDO
+      ENDDO
+      
+!Test for invertibility
+      DO i = 1, n
+        IF (augmatrix(i,i) .eq. 0.d0) THEN
+          PRINT*, "Matrix is non - invertible : 2 : check i = ",i
+          ErrorFlag = -1
+          return
+        ENDIF
+      ENDDO
+      
+!Make diagonal elements as 1
+      DO i = 1 , n
+        m = augmatrix(i,i)
+        DO j = i , (2 * n)				
+          augmatrix(i,j) = (augmatrix(i,j) / m)
+        ENDDO
+      ENDDO
+      
+!Reduced right side half of augmented matrix to identity matrix
+      DO k = n-1, 1, -1
+        DO i =1, k
+          m = augmatrix(i,k+1)
+          DO j = k, (2*n)
+            augmatrix(i,j) = augmatrix(i,j) -augmatrix(k+1,j) * m
+          ENDDO
+        ENDDO
+      ENDDO				
+      
+!store answer
+      DO i =1, n
+        DO j = 1, n
+          inverse(i,j) = augmatrix(i,j+n)
+        ENDDO
+      ENDDO
+      ErrorFlag = 0
+      END ! SUBROUTINE FindInv
+      
+*
+* $Id: dsinv.F,v 1.2 1999/09/08 08:05:11 mclareni Exp $
+*
+* $Log: dsinv.F,v $
+* Revision 1.2  1999/09/08 08:05:11  mclareni
+* A problem was reported in DSINV which failed on very small numbers, probably
+* due to converting to single before a test. The conversion has been removed here
+* and also in DSFACT. This resulted in mods to sfact.inc and sfactd.inc which
+* meant that some other routines had to be tidied also.
+*
+* Revision 1.1.1.1  1996/02/15 17:49:05  mclareni
+* Kernlib
+*
+*
+*#include "kernnum/pilot.h"
+          SUBROUTINE          MY_DSINV(N,A,IDIM,IFAIL)
+          DOUBLE PRECISION    A(IDIM,*),  ZERO,  ONE,  X, Y
+          CHARACTER*6         HNAME
+          DOUBLE PRECISION    S1, S31, S32, S33,  DOTF
+          DOTF(X,Y,S1)  =  X * Y + S1
+          DATA      HNAME               /  'DSINV '  /
+          DATA      ZERO, ONE           /  0.D0, 1.D0 /
+          IF(IDIM .LT. N  .OR.  N .LE. 0)  GOTO 900
+*#include "sfact.inc"
+*
+* $Id: sfact.inc,v 1.2 1999/09/08 08:05:21 mclareni Exp $
+*
+* $Log: sfact.inc,v $
+* Revision 1.2  1999/09/08 08:05:21  mclareni
+* A problem was reported in DSINV which failed on very small numbers, probably
+* due to converting to single before a test. The conversion has been removed here
+* and also in DSFACT. This resulted in mods to sfact.inc and sfactd.inc which
+* meant that some other routines had to be tidied also.
+*
+* Revision 1.1.1.1  1996/02/15 17:49:04  mclareni
+* Kernlib
+*
+*
+*
+* sfact.inc
+*
+          IFAIL  =  0
+          DO 144    J  =  1, N
+             PRINT *, 'DSINV: J, A(J,J) = ',J,A(J,J)
+             IF((A(J,J)) .LE. ZERO) GOTO 150
+             A(J,J)  =  ONE / A(J,J)
+             IF(J .EQ. N)  GOTO 199
+ 140         JP1  =  J+1
+             DO 143   L  =  JP1, N
+                A(J,L)  =  A(J,J)*A(L,J)
+                S1      =  -A(L,J+1)
+                DO 141  I  =  1, J
+                   S1  =  DOTF(A(L,I),A(I,J+1),S1)
+ 141               CONTINUE
+                A(L,J+1)  =  -S1
+ 143            CONTINUE
+ 144         CONTINUE
+ 150      IFAIL  =  -1
+          PRINT *, 'dsinv: J, A(J,J), IFAIL = ',J,A(J,J),IFAIL
+          RETURN
+ 199      CONTINUE
+
+*#include "sfinv.inc"
+* $Id: sfinv.inc,v 1.1.1.1 1996/02/15 17:49:04 mclareni Exp $
+*
+* $Log: sfinv.inc,v $
+* Revision 1.1.1.1  1996/02/15 17:49:04  mclareni
+* Kernlib
+*
+*
+*
+* sfinv.inc
+*
+          IF(N .EQ. 1)  GOTO 399
+          A(1,2)  =  -A(1,2)
+          A(2,1)  =   A(1,2)*A(2,2)
+          IF(N .EQ. 2)  GOTO 320
+          DO 314    J  =  3, N
+             JM2  =  J - 2
+             DO 312 K  =  1, JM2
+                S31  =  A(K,J)
+                DO 311  I  =  K, JM2
+                   S31  =  DOTF(A(K,I+1),A(I+1,J),S31)
+ 311               CONTINUE
+                A(K,J)  =  -S31
+                A(J,K)  =  -S31*A(J,J)
+ 312            CONTINUE
+             A(J-1,J)  =  -A(J-1,J)
+             A(J,J-1)  =   A(J-1,J)*A(J,J)
+ 314         CONTINUE
+ 320      J  =  1
+ 323         S33  =  A(J,J)
+             IF(J .EQ. N)  GOTO 325
+             JP1  =  J + 1
+             DO 324 I  =  JP1, N
+                S33  =  DOTF(A(J,I),A(I,J),S33)
+ 324            CONTINUE
+ 325         A(J,J)  =  S33
+          JM1  =  J
+          J    =  JP1
+             DO 328 K  =  1, JM1
+                S32  =  ZERO
+                DO 327  I  =  J, N
+                   S32  =  DOTF(A(K,I),A(I,J),S32)
+ 327               CONTINUE
+                A(K,J)  =  S32
+                A(J,K)  =  S32
+ 328            CONTINUE
+          IF(J .LT. N)  GOTO 323
+ 399      CONTINUE
+
+          RETURN
+ 900      CALL TMPRNT(HNAME,N,IDIM,0)
+          RETURN
+          END

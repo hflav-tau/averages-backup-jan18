@@ -1,0 +1,89 @@
+INCLUDE babar.input
+INCLUDE belle.input
+INCLUDE pdgfit.input
+INCLUDE cleo.input
+INCLUDE unitarity.input
+
+BEGIN   BaBar+Belle+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_Gamma3 statistical systematic   ! NQUAN = 1  
+MEASUREMENT m_Gamma5 statistical systematic   ! NQUAN = 2
+MEASUREMENT m_Gamma9 statistical systematic   ! NQUAN = 3
+MEASUREMENT m_Gamma10 statistical systematic  ! NQUAN = 4
+MEASUREMENT m_Gamma14 statistical systematic  ! NQUAN = 5
+MEASUREMENT m_Gamma16 statistical systematic  ! NQUAN = 6
+MEASUREMENT m_Gamma20 statistical systematic  ! NQUAN = 7
+MEASUREMENT m_Gamma23 statistical systematic  ! NQUAN = 8
+MEASUREMENT m_Gamma27 statistical systematic  ! NQUAN = 9
+MEASUREMENT m_Gamma28 statistical systematic  ! NQUAN = 10
+MEASUREMENT m_Gamma30 statistical systematic  ! NQUAN = 11
+MEASUREMENT m_Gamma35 statistical systematic  ! NQUAN = 12
+MEASUREMENT m_Gamma37 statistical systematic  ! NQUAN = 13
+MEASUREMENT m_Gamma40 statistical systematic  ! NQUAN = 14
+MEASUREMENT m_Gamma42 statistical systematic  ! NQUAN = 15
+MEASUREMENT m_Gamma47 statistical systematic  ! NQUAN = 16
+MEASUREMENT m_Gamma48 statistical systematic  ! NQUAN = 17
+MEASUREMENT m_Gamma62 statistical systematic  ! NQUAN = 18
+MEASUREMENT m_Gamma70 statistical systematic  ! NQUAN = 19
+MEASUREMENT m_Gamma77 statistical systematic  ! NQUAN = 20
+MEASUREMENT m_Gamma78 statistical systematic  ! NQUAN = 21
+MEASUREMENT m_Gamma85 statistical systematic  ! NQUAN = 22
+MEASUREMENT m_Gamma89 statistical systematic  ! NQUAN = 23
+MEASUREMENT m_Gamma93 statistical systematic  ! NQUAN = 24
+MEASUREMENT m_Gamma94 statistical systematic  ! NQUAN = 25
+MEASUREMENT m_Gamma103 statistical systematic ! NQUAN = 26
+MEASUREMENT m_Gamma104 statistical systematic ! NQUAN = 27
+MEASUREMENT m_Gamma126 statistical systematic ! NQUAN = 28
+MEASUREMENT m_Gamma128 statistical systematic ! NQUAN = 29
+MEASUREMENT m_Gamma150 statistical systematic ! NQUAN = 30
+MEASUREMENT m_Gamma152 statistical systematic ! NQUAN = 31
+MEASUREMENT m_Gamma130 statistical systematic ! NQUAN = 32
+MEASUREMENT m_Gamma132 statistical systematic ! NQUAN = 33
+
+* MEASUREMENT m_Gamma13 statistical systematic
+* MEASUREMENT m_Gamma60 statistical systematic
+* MEASUREMENT m_GammaAll statistical systematic
+
+* CALL DUMP_MASTER_INC
+
+* dummmy parameter to increase printouts if value > 0
+PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
+
+*
+* parameters to specify sum of measurements
+*
+PARAMETER CHI2_N_SYM_NSUM  4 0 0   ! a total of 4 measurements correspond to linear combinations
+
+PARAMETER CHI2_N_SYM_01    7 2 0   ! BaBar Gamma60 = Gamma62 + 0.0153 Gamma150
+PARAMETER CHI2_N_SYM_01_01 18 1 0
+PARAMETER CHI2_N_SYM_01_02 30 0.0153 0
+
+PARAMETER CHI2_N_SYM_02    11 2 0  ! Belle Gamma13 = Gamma14 + Gamma16
+PARAMETER CHI2_N_SYM_02_01 5  1 0
+PARAMETER CHI2_N_SYM_02_02 6  1 0
+
+PARAMETER CHI2_N_SYM_03    13 2 0  ! Belle Gamma60 = Gamma62 + 0.0153 Gamma150
+PARAMETER CHI2_N_SYM_03_01 18 1 0
+PARAMETER CHI2_N_SYM_03_02 30 0.0153 0
+
+PARAMETER CHI2_N_SYM_04    53 0 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
+
+*
+* specify linear combinations for alucomb.r
+*
+*COMBOFQUANT Gamma60 1 Gamma62 0.0153 Gamma150
+*COMBOFQUANT Gamma13 1 Gamma14      1 Gamma16
+*SUMOFQUANT GammaAll
+*  Gamma3 Gamma5 Gamma9 Gamma10 Gamma14 Gamma16 Gamma20 Gamma23 Gamma27
+*  Gamma28 Gamma30 Gamma35 Gamma37 Gamma40 Gamma42 Gamma47 Gamma48
+*  Gamma62 Gamma70 Gamma77 Gamma78 Gamma85 Gamma89 Gamma93 Gamma94
+*  Gamma103 Gamma104 Gamma126 Gamma128 Gamma150 Gamma152 Gamma130
+*  Gamma132
+
+CALL CHI2_N_SYM
+
+END

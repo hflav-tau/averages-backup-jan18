@@ -1,0 +1,23 @@
+* B(tau- -> K- K- K+ nu)
+
+BEGIN   BaBar Gamma96 published PRL100:011801,2008
+
+MEASUREMENT m_Gamma96   statistical systematic
+DATA        m_Gamma96   statistical systematic
+            1.5777e-05   1.3000e-06  1.2308e-06
+
+STAT_CORR_WITH BaBar Gamma60 published -1.8666e-03
+STAT_CORR_WITH BaBar Gamma85  published  6.1940e-03 
+STAT_CORR_WITH BaBar Gamma93   published -9.4891e-02
+
+DATA
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.9 
+            BaBarSyst_00%  0.1
+*           BaBarSyst_00  1.5050e-07
+            BaBarSyst_14 -2.6423e-07
+            BaBarSyst_24  4.0458e-07
+            BaBarSyst_34  4.3973e-07
+            BaBarSyst_4u  1.0322e-06
+
+END

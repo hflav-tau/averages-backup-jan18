@@ -1,0 +1,23 @@
+* B(tau- -> pi- K- pi+ nu) [ex. K0] 
+
+BEGIN    BaBar Gamma85 published PRL100:011801,2008
+
+MEASUREMENT m_Gamma85 statistical systematic
+DATA        m_Gamma85 statistical systematic
+            2.7257e-03   1.8000e-05  9.2441e-05
+
+STAT_CORR_WITH BaBar Gamma60 published -1.2998e-01
+STAT_CORR_WITH BaBar Gamma93   published -1.5056e-01
+STAT_CORR_WITH BaBar Gamma96    published  6.1940e-03
+
+DATA
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.9 
+            BaBarSyst_00%  0.1
+*           BaBarSyst_00  2.6002e-05
+            BaBarSyst_12  6.3701e-05
+            BaBarSyst_23  2.9282e-05
+            BaBarSyst_24  2.9380e-05
+            BaBarSyst_2u  4.5724e-05
+
+END

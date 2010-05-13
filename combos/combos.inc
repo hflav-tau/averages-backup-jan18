@@ -111,24 +111,24 @@
 *     ----------
 *
       INTEGER MWORDS
-      PARAMETER(MWORDS=50)      ! max. number of words on a logical line
+      PARAMETER(MWORDS=600)      ! max. number of words on a logical line
 *DR (warning MQUANT is copied into MQUAN in master.inc)
       INTEGER MQUANT
-      PARAMETER(MQUANT=12)      ! max. number of quantities to be averaged
+      PARAMETER(MQUANT=50)     ! max. number of quantities to be averaged
       INTEGER MANAL
-      PARAMETER(MANAL=50)       ! max. number of analyses
+      PARAMETER(MANAL=100)      ! max. number of analyses
       INTEGER MEXP
-      PARAMETER(MEXP=12)         ! max. number of experiments
+      PARAMETER(MEXP=12)        ! max. number of experiments
       INTEGER MMETH
-      PARAMETER(MMETH=50)       ! max. number of methods
+      PARAMETER(MMETH=100)      ! max. number of methods
       INTEGER MSTAT
-      PARAMETER(MSTAT=10)       ! max. number of statuses
+      PARAMETER(MSTAT=12)       ! max. number of statuses
       INTEGER MSTEP
       PARAMETER(MSTEP=MQUANT**2)! max. number of steps 
 *                                 (don't change this; increase MQUANT if 
 *                                  a larger value of MSTEP is needed !)
       INTEGER MPAR
-      PARAMETER(MPAR=50)        ! max. number of parameters
+      PARAMETER(MPAR=150)        ! max. number of parameters
       INTEGER MCONT,FCONT
       PARAMETER(FCONT=4)        ! first systematic contribution
       PARAMETER(MCONT=MPAR+100) ! WARNING: MCONT must be at least equal to FCONT !!
@@ -139,9 +139,9 @@
       CHARACTER*(*) SUPERSEDED
       PARAMETER(SUPERSEDED='SUPERSEDED')
       INTEGER MNAM    
-      PARAMETER(MNAM=MCONT+120) ! maximum number of names
+      PARAMETER(MNAM=MCONT+240) ! maximum number of names
       INTEGER MLINK
-      PARAMETER(MLINK=10)       ! maximum number of links to other analyses
+      PARAMETER(MLINK=50)       ! maximum number of links to other analyses
       INTEGER MCALLP
       PARAMETER(MCALLP=3)       ! maximum number of preparation routines to call
       INTEGER MCALLC
@@ -162,13 +162,13 @@
 *     -----------------------------
 *
       INTEGER NEXP              ! number of experiments
-      CHARACTER*16 CHEXP(MEXP)  ! names of the experiments
+      CHARACTER*20 CHEXP(MEXP)  ! names of the experiments
       INTEGER NMETH             ! number of methods
-      CHARACTER*16 CHMETH(MMETH)! names of the methods
+      CHARACTER*20 CHMETH(MMETH)! names of the methods
       INTEGER NSTAT             ! number of statuses
-      CHARACTER*16 CHSTAT(MSTAT)! names of statuses
+      CHARACTER*20 CHSTAT(MSTAT)! names of statuses
       INTEGER NNAM              ! total number of parameter and variable names 
-      CHARACTER*16 CHNAM(MNAM)  ! names of parameters and variables
+      CHARACTER*20 CHNAM(MNAM)  ! names of parameters and variables
 *
       COMMON/COGENE/NEXP,CHEXP,NMETH,CHMETH,NSTAT,CHSTAT,NNAM,CHNAM
 *

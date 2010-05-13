@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Mar 20, 2010) run on  on 27/04/10 at 13.54.13
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 12/05/10 at 15.49.56
 
 
  ==============================================================================
@@ -25,17 +25,32 @@
  A3_SYST12                       UNC
 
  "Extra" parameters:
- CHI2_N_SYM_PRT  -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_NSUM 0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_01   0.3000E+01 +.1200E+02 -.1200E+02 0.1200E+02
- CHI2_N_SYM_02   0.4000E+01 +.1200E+02 -.1200E+02 0.1200E+02
+ CHI2_N_SYM_PRT   -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_NSUM  0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_01    0.3000E+01 +.2000E+01 +.0000E+00 0.1414E+01
+ CHI2_N_SYM_01_01 0.1000E+01 +.1000E+01 +.0000E+00 0.7071E+00
+ CHI2_N_SYM_01_02 0.2000E+01 +.1000E+01 +.0000E+00 0.7071E+00
+ CHI2_N_SYM_02    0.4000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_PSUM  0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_P1    0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_P1_01 0.1000E+01 +.1000E+01 +.0000E+00 0.7071E+00
+ CHI2_N_SYM_P1_02 0.2000E+01 +.1000E+01 +.0000E+00 0.7071E+00
+ CHI2_N_SYM_P2    0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
+ CHI2_N_SYM_P2_01 0.1000E+01 +.5000E+00 +.0000E+00 0.3536E+00
+ CHI2_N_SYM_P2_02 0.2000E+01 +.1667E+00 +.0000E+00 0.1179E+00
 
  Results of combination:
 
- IMEAS,CSYS =  1 -1.  0.
- IMEAS,CSYS =  2  0. -1.
- IMEAS,CSYS =  3 -1. -1.
- IMEAS,CSYS =  4 -1. -1.
+IMEAS,CSYS =  1     -1.00  0.00
+IMEAS,CSYS =  2      0.00 -1.00
+IMEAS,CSYS =  3     -1.00 -1.00
+IMEAS,CSYS =  4     -1.00 -1.00
+ DSINV: J, A(J,J) =  1  0.0100000003
+ DSINV: J, A(J,J) =  2  0.0900000072
+ DSINV: J, A(J,J) =  3  0.0100000003
+ DSINV: J, A(J,J) =  4  0.0100000003
+ MINUIT_CHI2: DSINV: W->W: IERR =  0
+ CHI2_N_SYM: DSINV: S->S: IERR =  0
  CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   2.0000152 4 2 2
  CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   1.0000076  1.0000038  0.367876649
   
@@ -45,6 +60,8 @@
  Y            8.2000000     -0.7947194     0.1133893
                                      X             Y
   
+ DUMP_FIT: DSINV: S->SINV: IERR =  0
+ DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
  --Averaged parameters, using only stat---
  --breakdown of errors: syst then stat-----
                                      X             Y
@@ -54,8 +71,12 @@
   
                     X      1.8000000 +/-      0.0951190 +/-      0.0000000 Tot Err:     0.0951190 Check Sys:     0.0000000
                     Y      8.2000000 +/-      0.1133893 +/-      0.0000000 Tot Err:     0.1133893 Check Sys:     0.0000000
- Correlation between X and Y =     -0.7947194
-Total of Multi-Quantity Average =     10.0000000 +-      0.0690066
+ Correlation between                    X and                    Y =     -0.7947194
+All: Sum of Multi-Quantity Average =     10.0000000 +-      0.0690066
+  
+ P1: Sum of Multi-Quantity Average =     10.0000000 +-      0.0690066
+  
+ P2: Sum of Multi-Quantity Average =      2.2666612 +-      0.0345033
   
 
  ===============================================================================
@@ -72,7 +93,7 @@ Total of Multi-Quantity Average =     10.0000000 +-      0.0690066
   NQUAN =        2
   NMEFF =        4
   NCSYS =        0
-  NPARA =        4
+  NPARA =       13
  CHANAL = A1 X PUBLISHED
           A1 Y PUBLISHED
           A2 X+Y PUBLISHED
@@ -112,8 +133,17 @@ CSYS percentage error
 
  CHI2_N_SYM_PRT    -.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00
  CHI2_N_SYM_NSUM   0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_01     0.3000E+01 0.1200E+02 0.1200E+02 0.1200E+02
- CHI2_N_SYM_02     0.4000E+01 0.1200E+02 0.1200E+02 0.1200E+02
+ CHI2_N_SYM_01     0.3000E+01 0.2000E+01 0.0000E+00 0.1414E+01
+ CHI2_N_SYM_01_01  0.1000E+01 0.1000E+01 0.0000E+00 0.7071E+00
+ CHI2_N_SYM_01_02  0.2000E+01 0.1000E+01 0.0000E+00 0.7071E+00
+ CHI2_N_SYM_02     0.4000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+ CHI2_N_SYM_PSUM   0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+ CHI2_N_SYM_P1     0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+ CHI2_N_SYM_P1_01  0.1000E+01 0.1000E+01 0.0000E+00 0.7071E+00
+ CHI2_N_SYM_P1_02  0.2000E+01 0.1000E+01 0.0000E+00 0.7071E+00
+ CHI2_N_SYM_P2     0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
+ CHI2_N_SYM_P2_01  0.1000E+01 0.5000E+00 0.0000E+00 0.3536E+00
+ CHI2_N_SYM_P2_02  0.2000E+01 0.1667E+00 0.0000E+00 0.1179E+00
   
  Corrected measurements:
  A1 X PUBLISHED     0.1800000E+01 +/-  0.1000000E+00 +/-  0.2000000E+00 Tot:  0.2236068E+00
@@ -121,7 +151,7 @@ CSYS percentage error
  A2 X+Y PUBLISHED   0.9900000E+01 +/-  0.1000000E+00 +/-  0.5000000E+00 Tot:  0.5099020E+00
  A3 X+Y PUBLISHED   0.1010000E+02 +/-  0.1000000E+00 +/-  0.5000000E+00 Tot:  0.5099020E+00
   
- WARNING at (or before) word   1 of line  15 in file average.input 
+ WARNING at (or before) word   1 of line  35 in file average.input 
          concerning combined analysis ALL 2D_XY PUBLISHED:
          "Quantities are the same"
          ---> computing of correlation meaningless
@@ -137,10 +167,16 @@ TOTCOR
       2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
- IMEAS,CSYS =  1 -1.  0.
- IMEAS,CSYS =  2  0. -1.
- IMEAS,CSYS =  3 -1. -1.
- IMEAS,CSYS =  4 -1. -1.
+IMEAS,CSYS =  1     -1.00  0.00
+IMEAS,CSYS =  2      0.00 -1.00
+IMEAS,CSYS =  3     -1.00 -1.00
+IMEAS,CSYS =  4     -1.00 -1.00
+ DSINV: J, A(J,J) =  1  0.0500000015
+ DSINV: J, A(J,J) =  2  0.250000012
+ DSINV: J, A(J,J) =  3  0.26
+ DSINV: J, A(J,J) =  4  0.26
+ MINUIT_CHI2: DSINV: W->W: IERR =  0
+ CHI2_N_SYM: DSINV: S->S: IERR =  0
  CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   0.0769236637 4 2 2
  CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.0384618319  0.196116883
   0.962268412
@@ -151,6 +187,8 @@ TOTCOR
  Y            8.1999999     -0.4274910     0.3234983
                                      X             Y
   
+ DUMP_FIT: DSINV: S->SINV: IERR =  0
+ DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
  --Averaged parameters, using only stat---
  --breakdown of errors: syst then stat-----
                                      X             Y
@@ -160,15 +198,13 @@ TOTCOR
   
                     X      1.8000000 +/-      0.2102048 +/-      0.0000000 Tot Err:     0.2102048 Check Sys:     0.0000000
                     Y      8.1999999 +/-      0.3234983 +/-      0.0000000 Tot Err:     0.3234983 Check Sys:     0.0000000
- Correlation between X and Y =     -0.4274910
-Total of Multi-Quantity Average =      9.9999999 +-      0.3011605
+ Correlation between                    X and                    Y =     -0.4274910
+All: Sum of Multi-Quantity Average =      9.9999999 +-      0.3011605
   
- CHI2_N_SYM      :               X= 0.1800000E+01  +-  0.2102048E+00            CL =  0.9623
-                                 Y= 0.8200000E+01  +-  0.3234983E+00            RHO= -0.4275
-                   stat. only -->   0.1800000E+01  +-  0.9511897E-01            CL =  0.3679
-                                    0.8200000E+01  +-  0.1133893E+00            RHO= -0.7947
-                   syst. only -->                  +-  0.1874525E+00                        
-                                                   +-  0.3029753E+00            RHO= -0.3609
+ P1: Sum of Multi-Quantity Average =      9.9999999 +-      0.3011605
+  
+ P2: Sum of Multi-Quantity Average =      2.2666612 +-      0.0954386
+  
 
 
  Total number of WARNING messages generated by COMBOS:      1

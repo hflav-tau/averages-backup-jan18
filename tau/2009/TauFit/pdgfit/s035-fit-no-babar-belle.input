@@ -1,0 +1,1112 @@
+* /////////////////////////////////////////////////////////////////////////////
+* Gamma3   tau- --> mu- nubar(mu) nu(tau)
+* Gamma5   tau- --> e- nubar(e) nu(tau)
+* Gamma9   tau- --> pi- nu(tau)
+* Gamma10  tau- --> K- nu(tau)
+* Gamma14  tau- --> pi- pi0 nu(tau)
+* Gamma16  tau- --> K- pi0 nu(tau)
+* Gamma20  tau- --> pi- 2pi0 nu(tau) (ex.K0)
+* Gamma23  tau- --> K- 2pi0 nu(tau) (ex.K0)
+* Gamma27  tau- --> pi- 3pi0 nu(tau) (ex.K0)
+* Gamma28  tau- --> K- 3pi0 nu(tau) (ex.K0, eta)
+* Gamma30  tau- --> h- 4pi0 nu(tau) (ex.K0,eta)
+* Gamma35  tau- --> pi- Kbar0 nu(tau)
+* Gamma37  tau- --> K- K0 nu(tau)
+* Gamma40  tau- --> pi- Kbar0 pi0 nu(tau)
+* Gamma42  tau- --> K- K0 pi0 nu(tau)
+* Gamma47  tau- --> pi- K(S)0 K(S)0 nu(tau)
+* Gamma48  tau- --> pi- K(S)0 K(L)0 nu(tau)
+* Gamma62  tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
+* Gamma70  tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
+* Gamma77  tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
+* Gamma78  tau- --> h- h- h+ 3pi0 nu(tau)
+* Gamma85  tau- --> K- pi+ pi- nu(tau) (ex.K0)
+* Gamma89  tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)
+* Gamma93  tau- --> K- K+ pi- nu(tau)
+* Gamma94  tau- --> K- K+ pi- pi0 nu(tau)
+* Gamma103 tau- --> 3h- 2h+ nu(tau) (ex.K0)
+* Gamma104 tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
+* Gamma126 tau- --> eta pi- pi0 nu(tau)
+* Gamma128 tau- --> eta K- nu(tau)
+* Gamma150 tau- --> h- omega nu(tau)
+* Gamma152 tau- --> h- omega pi0 nu(tau)
+* /////////////////////////////////////////////////////////////////////////////
+
+* tau- --> mu- nubar(mu) nu(tau) 
+BEGIN       PDG Gamma3 published PDG09
+MEASUREMENT m_Gamma3 statistical systematic
+DATA        m_Gamma3 statistical systematic
+            0.173556 0.000465 0
+STAT_CORR_WITH PDG Gamma5 published -0.137
+STAT_CORR_WITH PDG Gamma9 published -0.034
+STAT_CORR_WITH PDG Gamma10 published 0.004
+STAT_CORR_WITH PDG Gamma14 published -0.133
+STAT_CORR_WITH PDG Gamma16 published 0.004
+STAT_CORR_WITH PDG Gamma20 published -0.044
+STAT_CORR_WITH PDG Gamma23 published -0.002
+STAT_CORR_WITH PDG Gamma27 published -0.037
+STAT_CORR_WITH PDG Gamma28 published -0.002
+STAT_CORR_WITH PDG Gamma30 published -0.027
+STAT_CORR_WITH PDG Gamma35 published -0.061
+STAT_CORR_WITH PDG Gamma37 published -0.016
+STAT_CORR_WITH PDG Gamma40 published -0.05
+STAT_CORR_WITH PDG Gamma42 published -0.012
+STAT_CORR_WITH PDG Gamma47 published -0.005
+STAT_CORR_WITH PDG Gamma48 published -0.034
+STAT_CORR_WITH PDG Gamma62 published -0.056
+STAT_CORR_WITH PDG Gamma70 published -0.028
+STAT_CORR_WITH PDG Gamma77 published 0.007
+STAT_CORR_WITH PDG Gamma78 published 0.002
+STAT_CORR_WITH PDG Gamma85 published 0.005
+STAT_CORR_WITH PDG Gamma89 published 0.008
+STAT_CORR_WITH PDG Gamma93 published -0.009
+STAT_CORR_WITH PDG Gamma94 published 0.001
+STAT_CORR_WITH PDG Gamma103 published 0.003
+STAT_CORR_WITH PDG Gamma104 published -0.011
+STAT_CORR_WITH PDG Gamma126 published -0.019
+STAT_CORR_WITH PDG Gamma128 published -0.004
+STAT_CORR_WITH PDG Gamma150 published -0.026
+STAT_CORR_WITH PDG Gamma152 published -0.007
+END 
+
+* tau- --> e- nubar(e) nu(tau) 
+BEGIN       PDG Gamma5 published PDG09
+MEASUREMENT m_Gamma5 statistical systematic
+DATA        m_Gamma5 statistical systematic
+            0.178413 0.000483 0
+STAT_CORR_WITH PDG Gamma3 published -0.137
+STAT_CORR_WITH PDG Gamma9 published -0.049
+STAT_CORR_WITH PDG Gamma10 published 0.019
+STAT_CORR_WITH PDG Gamma14 published -0.123
+STAT_CORR_WITH PDG Gamma16 published 0.014
+STAT_CORR_WITH PDG Gamma20 published -0.099
+STAT_CORR_WITH PDG Gamma23 published 0.005
+STAT_CORR_WITH PDG Gamma27 published -0.051
+STAT_CORR_WITH PDG Gamma28 published 0.005
+STAT_CORR_WITH PDG Gamma30 published -0.029
+STAT_CORR_WITH PDG Gamma35 published -0.044
+STAT_CORR_WITH PDG Gamma37 published -0.016
+STAT_CORR_WITH PDG Gamma40 published -0.035
+STAT_CORR_WITH PDG Gamma42 published -0.014
+STAT_CORR_WITH PDG Gamma47 published -0.003
+STAT_CORR_WITH PDG Gamma48 published -0.024
+STAT_CORR_WITH PDG Gamma62 published -0.027
+STAT_CORR_WITH PDG Gamma70 published -0.013
+STAT_CORR_WITH PDG Gamma77 published -0.011
+STAT_CORR_WITH PDG Gamma78 published 0.004
+STAT_CORR_WITH PDG Gamma85 published 0.017
+STAT_CORR_WITH PDG Gamma89 published 0.012
+STAT_CORR_WITH PDG Gamma93 published -0.007
+STAT_CORR_WITH PDG Gamma94 published 0.002
+STAT_CORR_WITH PDG Gamma103 published -0.016
+STAT_CORR_WITH PDG Gamma104 published -0.003
+STAT_CORR_WITH PDG Gamma126 published -0.01
+STAT_CORR_WITH PDG Gamma128 published -0.003
+STAT_CORR_WITH PDG Gamma150 published -0.015
+STAT_CORR_WITH PDG Gamma152 published -0.024
+END 
+
+* tau- --> pi- nu(tau) 
+BEGIN       PDG Gamma9 published PDG09
+MEASUREMENT m_Gamma9 statistical systematic
+DATA        m_Gamma9 statistical systematic
+            0.109002 0.000660 0
+STAT_CORR_WITH PDG Gamma3 published -0.034
+STAT_CORR_WITH PDG Gamma5 published -0.049
+STAT_CORR_WITH PDG Gamma10 published -0.217
+STAT_CORR_WITH PDG Gamma14 published -0.162
+STAT_CORR_WITH PDG Gamma16 published -0.019
+STAT_CORR_WITH PDG Gamma20 published -0.093
+STAT_CORR_WITH PDG Gamma23 published -0.009
+STAT_CORR_WITH PDG Gamma27 published -0.096
+STAT_CORR_WITH PDG Gamma28 published 0.001
+STAT_CORR_WITH PDG Gamma30 published -0.119
+STAT_CORR_WITH PDG Gamma35 published -0.072
+STAT_CORR_WITH PDG Gamma37 published -0.01
+STAT_CORR_WITH PDG Gamma40 published -0.059
+STAT_CORR_WITH PDG Gamma42 published -0.003
+STAT_CORR_WITH PDG Gamma47 published -0.006
+STAT_CORR_WITH PDG Gamma48 published -0.04
+STAT_CORR_WITH PDG Gamma62 published 0.028
+STAT_CORR_WITH PDG Gamma70 published -0.061
+STAT_CORR_WITH PDG Gamma77 published -0.015
+STAT_CORR_WITH PDG Gamma78 published 0.002
+STAT_CORR_WITH PDG Gamma85 published -0.021
+STAT_CORR_WITH PDG Gamma89 published 0.004
+STAT_CORR_WITH PDG Gamma93 published 0.008
+STAT_CORR_WITH PDG Gamma94 published 0.001
+STAT_CORR_WITH PDG Gamma103 published 0.01
+STAT_CORR_WITH PDG Gamma104 published -0.013
+STAT_CORR_WITH PDG Gamma126 published -0.022
+STAT_CORR_WITH PDG Gamma128 published -0.003
+STAT_CORR_WITH PDG Gamma150 published -0.045
+STAT_CORR_WITH PDG Gamma152 published -0.036
+END 
+
+* tau- --> K- nu(tau) 
+BEGIN       PDG Gamma10 published PDG09
+MEASUREMENT m_Gamma10 statistical systematic
+DATA        m_Gamma10 statistical systematic
+            0.006910 0.000228 0
+STAT_CORR_WITH PDG Gamma3 published 0.004
+STAT_CORR_WITH PDG Gamma5 published 0.019
+STAT_CORR_WITH PDG Gamma9 published -0.217
+STAT_CORR_WITH PDG Gamma14 published 0.005
+STAT_CORR_WITH PDG Gamma16 published -0.034
+STAT_CORR_WITH PDG Gamma20 published -0.055
+STAT_CORR_WITH PDG Gamma23 published -0.026
+STAT_CORR_WITH PDG Gamma27 published -0.015
+STAT_CORR_WITH PDG Gamma28 published -0.024
+STAT_CORR_WITH PDG Gamma30 published 0.012
+STAT_CORR_WITH PDG Gamma35 published -0.022
+STAT_CORR_WITH PDG Gamma37 published -0.014
+STAT_CORR_WITH PDG Gamma40 published -0.016
+STAT_CORR_WITH PDG Gamma42 published -0.015
+STAT_CORR_WITH PDG Gamma47 published -0.002
+STAT_CORR_WITH PDG Gamma48 published -0.012
+STAT_CORR_WITH PDG Gamma62 published 0.002
+STAT_CORR_WITH PDG Gamma70 published 0.04
+STAT_CORR_WITH PDG Gamma77 published -0.007
+STAT_CORR_WITH PDG Gamma78 published -0.005
+STAT_CORR_WITH PDG Gamma85 published -0.023
+STAT_CORR_WITH PDG Gamma89 published -0.011
+STAT_CORR_WITH PDG Gamma93 published 0.005
+STAT_CORR_WITH PDG Gamma94 published -0.002
+STAT_CORR_WITH PDG Gamma103 published -0.023
+STAT_CORR_WITH PDG Gamma104 published 0.003
+STAT_CORR_WITH PDG Gamma126 published -0.012
+STAT_CORR_WITH PDG Gamma128 published -0.005
+STAT_CORR_WITH PDG Gamma150 published 0.009
+STAT_CORR_WITH PDG Gamma152 published -0.015
+END 
+
+* tau- --> pi- pi0 nu(tau) 
+BEGIN       PDG Gamma14 published PDG09
+MEASUREMENT m_Gamma14 statistical systematic
+DATA        m_Gamma14 statistical systematic
+            0.254980 0.001023 0
+STAT_CORR_WITH PDG Gamma3 published -0.133
+STAT_CORR_WITH PDG Gamma5 published -0.123
+STAT_CORR_WITH PDG Gamma9 published -0.162
+STAT_CORR_WITH PDG Gamma10 published 0.005
+STAT_CORR_WITH PDG Gamma16 published -0.085
+STAT_CORR_WITH PDG Gamma20 published -0.538
+STAT_CORR_WITH PDG Gamma23 published 0.003
+STAT_CORR_WITH PDG Gamma27 published -0.051
+STAT_CORR_WITH PDG Gamma28 published 0.025
+STAT_CORR_WITH PDG Gamma30 published -0.122
+STAT_CORR_WITH PDG Gamma35 published 0.002
+STAT_CORR_WITH PDG Gamma37 published 0.01
+STAT_CORR_WITH PDG Gamma40 published 0.002
+STAT_CORR_WITH PDG Gamma42 published 0.014
+STAT_CORR_WITH PDG Gamma62 published 0.076
+STAT_CORR_WITH PDG Gamma70 published -0.043
+STAT_CORR_WITH PDG Gamma77 published -0.057
+STAT_CORR_WITH PDG Gamma78 published 0.009
+STAT_CORR_WITH PDG Gamma85 published 0.02
+STAT_CORR_WITH PDG Gamma89 published 0.018
+STAT_CORR_WITH PDG Gamma93 published 0.006
+STAT_CORR_WITH PDG Gamma94 published 0.003
+STAT_CORR_WITH PDG Gamma103 published -0.047
+STAT_CORR_WITH PDG Gamma104 published -0.012
+STAT_CORR_WITH PDG Gamma126 published 0.009
+STAT_CORR_WITH PDG Gamma128 published 0.004
+STAT_CORR_WITH PDG Gamma150 published -0.015
+STAT_CORR_WITH PDG Gamma152 published -0.068
+END 
+
+* tau- --> K- pi0 nu(tau) 
+BEGIN       PDG Gamma16 published PDG09
+MEASUREMENT m_Gamma16 statistical systematic
+DATA        m_Gamma16 statistical systematic
+            0.004525 0.000267 0
+STAT_CORR_WITH PDG Gamma3 published 0.004
+STAT_CORR_WITH PDG Gamma5 published 0.014
+STAT_CORR_WITH PDG Gamma9 published -0.019
+STAT_CORR_WITH PDG Gamma10 published -0.034
+STAT_CORR_WITH PDG Gamma14 published -0.085
+STAT_CORR_WITH PDG Gamma20 published -0.041
+STAT_CORR_WITH PDG Gamma23 published -0.198
+STAT_CORR_WITH PDG Gamma27 published -0.002
+STAT_CORR_WITH PDG Gamma28 published -0.178
+STAT_CORR_WITH PDG Gamma30 published -0.007
+STAT_CORR_WITH PDG Gamma35 published -0.009
+STAT_CORR_WITH PDG Gamma37 published -0.108
+STAT_CORR_WITH PDG Gamma40 published 0.016
+STAT_CORR_WITH PDG Gamma42 published -0.14
+STAT_CORR_WITH PDG Gamma48 published 0.001
+STAT_CORR_WITH PDG Gamma62 published 0.009
+STAT_CORR_WITH PDG Gamma70 published 0.028
+STAT_CORR_WITH PDG Gamma77 published -0.005
+STAT_CORR_WITH PDG Gamma78 published -0.004
+STAT_CORR_WITH PDG Gamma85 published -0.02
+STAT_CORR_WITH PDG Gamma89 published -0.005
+STAT_CORR_WITH PDG Gamma93 published 0.006
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published -0.016
+STAT_CORR_WITH PDG Gamma104 published 0.001
+STAT_CORR_WITH PDG Gamma126 published -0.009
+STAT_CORR_WITH PDG Gamma128 published -0.032
+STAT_CORR_WITH PDG Gamma150 published 0.005
+STAT_CORR_WITH PDG Gamma152 published -0.011
+END 
+
+* tau- --> pi- 2pi0 nu(tau) (ex.K0) 
+BEGIN       PDG Gamma20 published PDG09
+MEASUREMENT m_Gamma20 statistical systematic
+DATA        m_Gamma20 statistical systematic
+            0.092494 0.001240 0
+STAT_CORR_WITH PDG Gamma3 published -0.044
+STAT_CORR_WITH PDG Gamma5 published -0.099
+STAT_CORR_WITH PDG Gamma9 published -0.093
+STAT_CORR_WITH PDG Gamma10 published -0.055
+STAT_CORR_WITH PDG Gamma14 published -0.538
+STAT_CORR_WITH PDG Gamma16 published -0.041
+STAT_CORR_WITH PDG Gamma23 published -0.068
+STAT_CORR_WITH PDG Gamma27 published -0.142
+STAT_CORR_WITH PDG Gamma28 published -0.044
+STAT_CORR_WITH PDG Gamma30 published 0.145
+STAT_CORR_WITH PDG Gamma35 published -0.122
+STAT_CORR_WITH PDG Gamma37 published -0.009
+STAT_CORR_WITH PDG Gamma40 published -0.102
+STAT_CORR_WITH PDG Gamma42 published 0.006
+STAT_CORR_WITH PDG Gamma47 published -0.01
+STAT_CORR_WITH PDG Gamma48 published -0.067
+STAT_CORR_WITH PDG Gamma62 published -0.346
+STAT_CORR_WITH PDG Gamma70 published -0.068
+STAT_CORR_WITH PDG Gamma77 published 0.086
+STAT_CORR_WITH PDG Gamma78 published -0.011
+STAT_CORR_WITH PDG Gamma85 published -0.073
+STAT_CORR_WITH PDG Gamma89 published -0.025
+STAT_CORR_WITH PDG Gamma93 published -0.033
+STAT_CORR_WITH PDG Gamma94 published -0.004
+STAT_CORR_WITH PDG Gamma103 published 0.093
+STAT_CORR_WITH PDG Gamma104 published 0.012
+STAT_CORR_WITH PDG Gamma126 published -0.073
+STAT_CORR_WITH PDG Gamma128 published -0.007
+STAT_CORR_WITH PDG Gamma150 published -0.062
+STAT_CORR_WITH PDG Gamma152 published 0.071
+END 
+
+* tau- --> K- 2pi0 nu(tau) (ex.K0) 
+BEGIN       PDG Gamma23 published PDG09
+MEASUREMENT m_Gamma23 statistical systematic
+DATA        m_Gamma23 statistical systematic
+            0.000581 0.000232 0
+STAT_CORR_WITH PDG Gamma3 published -0.002
+STAT_CORR_WITH PDG Gamma5 published 0.005
+STAT_CORR_WITH PDG Gamma9 published -0.009
+STAT_CORR_WITH PDG Gamma10 published -0.026
+STAT_CORR_WITH PDG Gamma14 published 0.003
+STAT_CORR_WITH PDG Gamma16 published -0.198
+STAT_CORR_WITH PDG Gamma20 published -0.068
+STAT_CORR_WITH PDG Gamma27 published -0.011
+STAT_CORR_WITH PDG Gamma28 published -0.147
+STAT_CORR_WITH PDG Gamma30 published -0.015
+STAT_CORR_WITH PDG Gamma35 published -0.007
+STAT_CORR_WITH PDG Gamma37 published -0.087
+STAT_CORR_WITH PDG Gamma40 published 0.013
+STAT_CORR_WITH PDG Gamma42 published -0.113
+STAT_CORR_WITH PDG Gamma48 published 0.001
+STAT_CORR_WITH PDG Gamma62 published 0.003
+STAT_CORR_WITH PDG Gamma70 published 0.012
+STAT_CORR_WITH PDG Gamma77 published -0.007
+STAT_CORR_WITH PDG Gamma78 published -0.002
+STAT_CORR_WITH PDG Gamma85 published -0.019
+STAT_CORR_WITH PDG Gamma89 published -0.004
+STAT_CORR_WITH PDG Gamma93 published 0.004
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published -0.005
+STAT_CORR_WITH PDG Gamma104 published 0.003
+STAT_CORR_WITH PDG Gamma126 published -0.007
+STAT_CORR_WITH PDG Gamma128 published -0.026
+STAT_CORR_WITH PDG Gamma152 published -0.013
+END 
+
+* tau- --> pi- 3pi0 nu(tau) (ex.K0) 
+BEGIN       PDG Gamma27 published PDG09
+MEASUREMENT m_Gamma27 statistical systematic
+DATA        m_Gamma27 statistical systematic
+            0.010403 0.000760 0
+STAT_CORR_WITH PDG Gamma3 published -0.037
+STAT_CORR_WITH PDG Gamma5 published -0.051
+STAT_CORR_WITH PDG Gamma9 published -0.096
+STAT_CORR_WITH PDG Gamma10 published -0.015
+STAT_CORR_WITH PDG Gamma14 published -0.051
+STAT_CORR_WITH PDG Gamma16 published -0.002
+STAT_CORR_WITH PDG Gamma20 published -0.142
+STAT_CORR_WITH PDG Gamma23 published -0.011
+STAT_CORR_WITH PDG Gamma28 published -0.103
+STAT_CORR_WITH PDG Gamma30 published -0.367
+STAT_CORR_WITH PDG Gamma35 published -0.054
+STAT_CORR_WITH PDG Gamma37 published 0.003
+STAT_CORR_WITH PDG Gamma40 published -0.067
+STAT_CORR_WITH PDG Gamma42 published 0.003
+STAT_CORR_WITH PDG Gamma47 published -0.004
+STAT_CORR_WITH PDG Gamma48 published -0.028
+STAT_CORR_WITH PDG Gamma62 published -0.215
+STAT_CORR_WITH PDG Gamma70 published -0.056
+STAT_CORR_WITH PDG Gamma77 published 0.065
+STAT_CORR_WITH PDG Gamma78 published -0.005
+STAT_CORR_WITH PDG Gamma85 published -0.025
+STAT_CORR_WITH PDG Gamma89 published -0.008
+STAT_CORR_WITH PDG Gamma93 published -0.025
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published 0.059
+STAT_CORR_WITH PDG Gamma104 published 0.005
+STAT_CORR_WITH PDG Gamma126 published -0.009
+STAT_CORR_WITH PDG Gamma128 published -0.009
+STAT_CORR_WITH PDG Gamma150 published -0.037
+STAT_CORR_WITH PDG Gamma152 published 0.069
+END 
+
+* tau- --> K- 3pi0 nu(tau) (ex.K0, eta) 
+BEGIN       PDG Gamma28 published PDG09
+MEASUREMENT m_Gamma28 statistical systematic
+DATA        m_Gamma28 statistical systematic
+            0.000417 0.000220 0
+STAT_CORR_WITH PDG Gamma3 published -0.002
+STAT_CORR_WITH PDG Gamma5 published 0.005
+STAT_CORR_WITH PDG Gamma9 published 0.001
+STAT_CORR_WITH PDG Gamma10 published -0.024
+STAT_CORR_WITH PDG Gamma14 published 0.025
+STAT_CORR_WITH PDG Gamma16 published -0.178
+STAT_CORR_WITH PDG Gamma20 published -0.044
+STAT_CORR_WITH PDG Gamma23 published -0.147
+STAT_CORR_WITH PDG Gamma27 published -0.103
+STAT_CORR_WITH PDG Gamma30 published 0.014
+STAT_CORR_WITH PDG Gamma35 published -0.003
+STAT_CORR_WITH PDG Gamma37 published -0.081
+STAT_CORR_WITH PDG Gamma40 published 0.01
+STAT_CORR_WITH PDG Gamma42 published -0.108
+STAT_CORR_WITH PDG Gamma48 published 0.003
+STAT_CORR_WITH PDG Gamma62 published 0.014
+STAT_CORR_WITH PDG Gamma70 published 0.011
+STAT_CORR_WITH PDG Gamma77 published -0.013
+STAT_CORR_WITH PDG Gamma78 published -0.002
+STAT_CORR_WITH PDG Gamma85 published -0.018
+STAT_CORR_WITH PDG Gamma89 published -0.003
+STAT_CORR_WITH PDG Gamma93 published 0.006
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published -0.005
+STAT_CORR_WITH PDG Gamma104 published 0.003
+STAT_CORR_WITH PDG Gamma126 published -0.008
+STAT_CORR_WITH PDG Gamma128 published -0.026
+STAT_CORR_WITH PDG Gamma150 published 0.001
+STAT_CORR_WITH PDG Gamma152 published -0.019
+END 
+
+* tau- --> h- 4pi0 nu(tau) (ex.K0,eta) 
+BEGIN       PDG Gamma30 published PDG09
+MEASUREMENT m_Gamma30 statistical systematic
+DATA        m_Gamma30 statistical systematic
+            0.001024 0.000398 0
+STAT_CORR_WITH PDG Gamma3 published -0.027
+STAT_CORR_WITH PDG Gamma5 published -0.029
+STAT_CORR_WITH PDG Gamma9 published -0.119
+STAT_CORR_WITH PDG Gamma10 published 0.012
+STAT_CORR_WITH PDG Gamma14 published -0.122
+STAT_CORR_WITH PDG Gamma16 published -0.007
+STAT_CORR_WITH PDG Gamma20 published 0.145
+STAT_CORR_WITH PDG Gamma23 published -0.015
+STAT_CORR_WITH PDG Gamma27 published -0.367
+STAT_CORR_WITH PDG Gamma28 published 0.014
+STAT_CORR_WITH PDG Gamma35 published -0.014
+STAT_CORR_WITH PDG Gamma37 published -0.003
+STAT_CORR_WITH PDG Gamma40 published -0.004
+STAT_CORR_WITH PDG Gamma42 published 0.001
+STAT_CORR_WITH PDG Gamma47 published -0.001
+STAT_CORR_WITH PDG Gamma48 published -0.008
+STAT_CORR_WITH PDG Gamma62 published -0.112
+STAT_CORR_WITH PDG Gamma70 published 0.014
+STAT_CORR_WITH PDG Gamma77 published 0.047
+STAT_CORR_WITH PDG Gamma78 published -0.005
+STAT_CORR_WITH PDG Gamma85 published -0.015
+STAT_CORR_WITH PDG Gamma89 published -0.011
+STAT_CORR_WITH PDG Gamma93 published -0.012
+STAT_CORR_WITH PDG Gamma94 published -0.002
+STAT_CORR_WITH PDG Gamma103 published 0.015
+STAT_CORR_WITH PDG Gamma104 published -0.006
+STAT_CORR_WITH PDG Gamma126 published -0.07
+STAT_CORR_WITH PDG Gamma150 published 0.002
+STAT_CORR_WITH PDG Gamma152 published 0.044
+END 
+
+* tau- --> pi- Kbar0 nu(tau) 
+BEGIN       PDG Gamma35 published PDG09
+MEASUREMENT m_Gamma35 statistical systematic
+DATA        m_Gamma35 statistical systematic
+            0.008963 0.000409 0
+STAT_CORR_WITH PDG Gamma3 published -0.061
+STAT_CORR_WITH PDG Gamma5 published -0.044
+STAT_CORR_WITH PDG Gamma9 published -0.072
+STAT_CORR_WITH PDG Gamma10 published -0.022
+STAT_CORR_WITH PDG Gamma14 published 0.002
+STAT_CORR_WITH PDG Gamma16 published -0.009
+STAT_CORR_WITH PDG Gamma20 published -0.122
+STAT_CORR_WITH PDG Gamma23 published -0.007
+STAT_CORR_WITH PDG Gamma27 published -0.054
+STAT_CORR_WITH PDG Gamma28 published -0.003
+STAT_CORR_WITH PDG Gamma30 published -0.014
+STAT_CORR_WITH PDG Gamma37 published -0.054
+STAT_CORR_WITH PDG Gamma40 published -0.132
+STAT_CORR_WITH PDG Gamma42 published -0.025
+STAT_CORR_WITH PDG Gamma47 published -0.025
+STAT_CORR_WITH PDG Gamma48 published -0.176
+STAT_CORR_WITH PDG Gamma62 published 0.018
+STAT_CORR_WITH PDG Gamma70 published 0.058
+STAT_CORR_WITH PDG Gamma77 published -0.015
+STAT_CORR_WITH PDG Gamma78 published -0.008
+STAT_CORR_WITH PDG Gamma85 published -0.047
+STAT_CORR_WITH PDG Gamma89 published -0.018
+STAT_CORR_WITH PDG Gamma93 published 0.012
+STAT_CORR_WITH PDG Gamma94 published -0.003
+STAT_CORR_WITH PDG Gamma103 published -0.036
+STAT_CORR_WITH PDG Gamma126 published -0.032
+STAT_CORR_WITH PDG Gamma128 published -0.004
+STAT_CORR_WITH PDG Gamma152 published -0.039
+END 
+
+* tau- --> K- K0 nu(tau) 
+BEGIN       PDG Gamma37 published PDG09
+MEASUREMENT m_Gamma37 statistical systematic
+DATA        m_Gamma37 statistical systematic
+            0.001530 0.000163 0
+STAT_CORR_WITH PDG Gamma3 published -0.016
+STAT_CORR_WITH PDG Gamma5 published -0.016
+STAT_CORR_WITH PDG Gamma9 published -0.01
+STAT_CORR_WITH PDG Gamma10 published -0.014
+STAT_CORR_WITH PDG Gamma14 published 0.01
+STAT_CORR_WITH PDG Gamma16 published -0.108
+STAT_CORR_WITH PDG Gamma20 published -0.009
+STAT_CORR_WITH PDG Gamma23 published -0.087
+STAT_CORR_WITH PDG Gamma27 published 0.003
+STAT_CORR_WITH PDG Gamma28 published -0.081
+STAT_CORR_WITH PDG Gamma30 published -0.003
+STAT_CORR_WITH PDG Gamma35 published -0.054
+STAT_CORR_WITH PDG Gamma40 published -0.005
+STAT_CORR_WITH PDG Gamma42 published -0.159
+STAT_CORR_WITH PDG Gamma47 published -0.006
+STAT_CORR_WITH PDG Gamma48 published -0.046
+STAT_CORR_WITH PDG Gamma62 published 0.001
+STAT_CORR_WITH PDG Gamma70 published 0.007
+STAT_CORR_WITH PDG Gamma78 published -0.001
+STAT_CORR_WITH PDG Gamma85 published -0.004
+STAT_CORR_WITH PDG Gamma93 published 0.001
+STAT_CORR_WITH PDG Gamma103 published -0.005
+STAT_CORR_WITH PDG Gamma104 published -0.001
+STAT_CORR_WITH PDG Gamma126 published -0.005
+STAT_CORR_WITH PDG Gamma128 published -0.015
+STAT_CORR_WITH PDG Gamma150 published -0.001
+STAT_CORR_WITH PDG Gamma152 published -0.004
+END 
+
+* tau- --> pi- Kbar0 pi0 nu(tau) 
+BEGIN       PDG Gamma40 published PDG09
+MEASUREMENT m_Gamma40 statistical systematic
+DATA        m_Gamma40 statistical systematic
+            0.003778 0.000374 0
+STAT_CORR_WITH PDG Gamma3 published -0.05
+STAT_CORR_WITH PDG Gamma5 published -0.035
+STAT_CORR_WITH PDG Gamma9 published -0.059
+STAT_CORR_WITH PDG Gamma10 published -0.016
+STAT_CORR_WITH PDG Gamma14 published 0.002
+STAT_CORR_WITH PDG Gamma16 published 0.016
+STAT_CORR_WITH PDG Gamma20 published -0.102
+STAT_CORR_WITH PDG Gamma23 published 0.013
+STAT_CORR_WITH PDG Gamma27 published -0.067
+STAT_CORR_WITH PDG Gamma28 published 0.01
+STAT_CORR_WITH PDG Gamma30 published -0.004
+STAT_CORR_WITH PDG Gamma35 published -0.132
+STAT_CORR_WITH PDG Gamma37 published -0.005
+STAT_CORR_WITH PDG Gamma42 published -0.192
+STAT_CORR_WITH PDG Gamma47 published -0.02
+STAT_CORR_WITH PDG Gamma48 published -0.144
+STAT_CORR_WITH PDG Gamma62 published 0.02
+STAT_CORR_WITH PDG Gamma70 published 0.05
+STAT_CORR_WITH PDG Gamma77 published -0.014
+STAT_CORR_WITH PDG Gamma78 published -0.006
+STAT_CORR_WITH PDG Gamma85 published -0.04
+STAT_CORR_WITH PDG Gamma89 published -0.016
+STAT_CORR_WITH PDG Gamma93 published 0.011
+STAT_CORR_WITH PDG Gamma94 published -0.002
+STAT_CORR_WITH PDG Gamma103 published -0.032
+STAT_CORR_WITH PDG Gamma126 published -0.027
+STAT_CORR_WITH PDG Gamma150 published 0.001
+STAT_CORR_WITH PDG Gamma152 published -0.034
+END 
+
+* tau- --> K- K0 pi0 nu(tau) 
+BEGIN       PDG Gamma42 published PDG09
+MEASUREMENT m_Gamma42 statistical systematic
+DATA        m_Gamma42 statistical systematic
+            0.001541 0.000200 0
+STAT_CORR_WITH PDG Gamma3 published -0.012
+STAT_CORR_WITH PDG Gamma5 published -0.014
+STAT_CORR_WITH PDG Gamma9 published -0.003
+STAT_CORR_WITH PDG Gamma10 published -0.015
+STAT_CORR_WITH PDG Gamma14 published 0.014
+STAT_CORR_WITH PDG Gamma16 published -0.14
+STAT_CORR_WITH PDG Gamma20 published 0.006
+STAT_CORR_WITH PDG Gamma23 published -0.113
+STAT_CORR_WITH PDG Gamma27 published 0.003
+STAT_CORR_WITH PDG Gamma28 published -0.108
+STAT_CORR_WITH PDG Gamma30 published 0.001
+STAT_CORR_WITH PDG Gamma35 published -0.025
+STAT_CORR_WITH PDG Gamma37 published -0.159
+STAT_CORR_WITH PDG Gamma40 published -0.192
+STAT_CORR_WITH PDG Gamma47 published -0.005
+STAT_CORR_WITH PDG Gamma48 published -0.036
+STAT_CORR_WITH PDG Gamma70 published 0.001
+STAT_CORR_WITH PDG Gamma77 published 0.001
+STAT_CORR_WITH PDG Gamma85 published 0.002
+STAT_CORR_WITH PDG Gamma89 published 0.003
+STAT_CORR_WITH PDG Gamma103 published -0.002
+STAT_CORR_WITH PDG Gamma104 published -0.001
+STAT_CORR_WITH PDG Gamma126 published -0.002
+STAT_CORR_WITH PDG Gamma128 published -0.02
+STAT_CORR_WITH PDG Gamma150 published -0.001
+END 
+
+* tau- --> pi- K(S)0 K(S)0 nu(tau) 
+BEGIN       PDG Gamma47 published PDG09
+MEASUREMENT m_Gamma47 statistical systematic
+DATA        m_Gamma47 statistical systematic
+            0.000241 0.000052 0
+STAT_CORR_WITH PDG Gamma3 published -0.005
+STAT_CORR_WITH PDG Gamma5 published -0.003
+STAT_CORR_WITH PDG Gamma9 published -0.006
+STAT_CORR_WITH PDG Gamma10 published -0.002
+STAT_CORR_WITH PDG Gamma20 published -0.01
+STAT_CORR_WITH PDG Gamma27 published -0.004
+STAT_CORR_WITH PDG Gamma30 published -0.001
+STAT_CORR_WITH PDG Gamma35 published -0.025
+STAT_CORR_WITH PDG Gamma37 published -0.006
+STAT_CORR_WITH PDG Gamma40 published -0.02
+STAT_CORR_WITH PDG Gamma42 published -0.005
+STAT_CORR_WITH PDG Gamma48 published -0.033
+STAT_CORR_WITH PDG Gamma62 published 0.001
+STAT_CORR_WITH PDG Gamma70 published 0.004
+STAT_CORR_WITH PDG Gamma77 published -0.001
+STAT_CORR_WITH PDG Gamma78 published -0.001
+STAT_CORR_WITH PDG Gamma85 published -0.004
+STAT_CORR_WITH PDG Gamma89 published -0.001
+STAT_CORR_WITH PDG Gamma93 published 0.001
+STAT_CORR_WITH PDG Gamma103 published -0.003
+STAT_CORR_WITH PDG Gamma126 published -0.002
+STAT_CORR_WITH PDG Gamma152 published -0.003
+END 
+
+* tau- --> pi- K(S)0 K(L)0 nu(tau) 
+BEGIN       PDG Gamma48 published PDG09
+MEASUREMENT m_Gamma48 statistical systematic
+DATA        m_Gamma48 statistical systematic
+            0.001121 0.000301 0
+STAT_CORR_WITH PDG Gamma3 published -0.034
+STAT_CORR_WITH PDG Gamma5 published -0.024
+STAT_CORR_WITH PDG Gamma9 published -0.04
+STAT_CORR_WITH PDG Gamma10 published -0.012
+STAT_CORR_WITH PDG Gamma16 published 0.001
+STAT_CORR_WITH PDG Gamma20 published -0.067
+STAT_CORR_WITH PDG Gamma23 published 0.001
+STAT_CORR_WITH PDG Gamma27 published -0.028
+STAT_CORR_WITH PDG Gamma28 published 0.003
+STAT_CORR_WITH PDG Gamma30 published -0.008
+STAT_CORR_WITH PDG Gamma35 published -0.176
+STAT_CORR_WITH PDG Gamma37 published -0.046
+STAT_CORR_WITH PDG Gamma40 published -0.144
+STAT_CORR_WITH PDG Gamma42 published -0.036
+STAT_CORR_WITH PDG Gamma47 published -0.033
+STAT_CORR_WITH PDG Gamma62 published 0.009
+STAT_CORR_WITH PDG Gamma70 published 0.031
+STAT_CORR_WITH PDG Gamma77 published -0.006
+STAT_CORR_WITH PDG Gamma78 published -0.004
+STAT_CORR_WITH PDG Gamma85 published -0.027
+STAT_CORR_WITH PDG Gamma89 published -0.01
+STAT_CORR_WITH PDG Gamma93 published 0.007
+STAT_CORR_WITH PDG Gamma94 published -0.002
+STAT_CORR_WITH PDG Gamma103 published -0.02
+STAT_CORR_WITH PDG Gamma126 published -0.018
+STAT_CORR_WITH PDG Gamma128 published -0.001
+STAT_CORR_WITH PDG Gamma152 published -0.019
+END 
+
+* tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) 
+BEGIN       PDG Gamma62 published PDG09
+MEASUREMENT m_Gamma62 statistical systematic
+DATA        m_Gamma62 statistical systematic
+            0.089866 0.000757 0
+STAT_CORR_WITH PDG Gamma3 published -0.056
+STAT_CORR_WITH PDG Gamma5 published -0.027
+STAT_CORR_WITH PDG Gamma9 published 0.028
+STAT_CORR_WITH PDG Gamma10 published 0.002
+STAT_CORR_WITH PDG Gamma14 published 0.076
+STAT_CORR_WITH PDG Gamma16 published 0.009
+STAT_CORR_WITH PDG Gamma20 published -0.346
+STAT_CORR_WITH PDG Gamma23 published 0.003
+STAT_CORR_WITH PDG Gamma27 published -0.215
+STAT_CORR_WITH PDG Gamma28 published 0.014
+STAT_CORR_WITH PDG Gamma30 published -0.112
+STAT_CORR_WITH PDG Gamma35 published 0.018
+STAT_CORR_WITH PDG Gamma37 published 0.001
+STAT_CORR_WITH PDG Gamma40 published 0.02
+STAT_CORR_WITH PDG Gamma47 published 0.001
+STAT_CORR_WITH PDG Gamma48 published 0.009
+STAT_CORR_WITH PDG Gamma70 published -0.085
+STAT_CORR_WITH PDG Gamma77 published -0.068
+STAT_CORR_WITH PDG Gamma78 published -0.005
+STAT_CORR_WITH PDG Gamma85 published -0.126
+STAT_CORR_WITH PDG Gamma89 published -0.026
+STAT_CORR_WITH PDG Gamma93 published 0.166
+STAT_CORR_WITH PDG Gamma94 published -0.004
+STAT_CORR_WITH PDG Gamma103 published -0.101
+STAT_CORR_WITH PDG Gamma104 published -0.015
+STAT_CORR_WITH PDG Gamma126 published 0.009
+STAT_CORR_WITH PDG Gamma150 published -0.045
+STAT_CORR_WITH PDG Gamma152 published -0.081
+END 
+
+* tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) 
+BEGIN       PDG Gamma70 published PDG09
+MEASUREMENT m_Gamma70 statistical systematic
+DATA        m_Gamma70 statistical systematic
+            0.026914 0.000826 0
+STAT_CORR_WITH PDG Gamma3 published -0.028
+STAT_CORR_WITH PDG Gamma5 published -0.013
+STAT_CORR_WITH PDG Gamma9 published -0.061
+STAT_CORR_WITH PDG Gamma10 published 0.04
+STAT_CORR_WITH PDG Gamma14 published -0.043
+STAT_CORR_WITH PDG Gamma16 published 0.028
+STAT_CORR_WITH PDG Gamma20 published -0.068
+STAT_CORR_WITH PDG Gamma23 published 0.012
+STAT_CORR_WITH PDG Gamma27 published -0.056
+STAT_CORR_WITH PDG Gamma28 published 0.011
+STAT_CORR_WITH PDG Gamma30 published 0.014
+STAT_CORR_WITH PDG Gamma35 published 0.058
+STAT_CORR_WITH PDG Gamma37 published 0.007
+STAT_CORR_WITH PDG Gamma40 published 0.05
+STAT_CORR_WITH PDG Gamma42 published 0.001
+STAT_CORR_WITH PDG Gamma47 published 0.004
+STAT_CORR_WITH PDG Gamma48 published 0.031
+STAT_CORR_WITH PDG Gamma62 published -0.085
+STAT_CORR_WITH PDG Gamma77 published -0.094
+STAT_CORR_WITH PDG Gamma78 published -0.012
+STAT_CORR_WITH PDG Gamma85 published -0.012
+STAT_CORR_WITH PDG Gamma89 published -0.072
+STAT_CORR_WITH PDG Gamma93 published -0.011
+STAT_CORR_WITH PDG Gamma94 published -0.01
+STAT_CORR_WITH PDG Gamma103 published -0.041
+STAT_CORR_WITH PDG Gamma126 published 0.023
+STAT_CORR_WITH PDG Gamma128 published 0.003
+STAT_CORR_WITH PDG Gamma150 published -0.653
+STAT_CORR_WITH PDG Gamma152 published -0.117
+END 
+
+* tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) 
+BEGIN       PDG Gamma77 published PDG09
+MEASUREMENT m_Gamma77 statistical systematic
+DATA        m_Gamma77 statistical systematic
+            0.000906 0.000368 0
+STAT_CORR_WITH PDG Gamma3 published 0.007
+STAT_CORR_WITH PDG Gamma5 published -0.011
+STAT_CORR_WITH PDG Gamma9 published -0.015
+STAT_CORR_WITH PDG Gamma10 published -0.007
+STAT_CORR_WITH PDG Gamma14 published -0.057
+STAT_CORR_WITH PDG Gamma16 published -0.005
+STAT_CORR_WITH PDG Gamma20 published 0.086
+STAT_CORR_WITH PDG Gamma23 published -0.007
+STAT_CORR_WITH PDG Gamma27 published 0.065
+STAT_CORR_WITH PDG Gamma28 published -0.013
+STAT_CORR_WITH PDG Gamma30 published 0.047
+STAT_CORR_WITH PDG Gamma35 published -0.015
+STAT_CORR_WITH PDG Gamma40 published -0.014
+STAT_CORR_WITH PDG Gamma42 published 0.001
+STAT_CORR_WITH PDG Gamma47 published -0.001
+STAT_CORR_WITH PDG Gamma48 published -0.006
+STAT_CORR_WITH PDG Gamma62 published -0.068
+STAT_CORR_WITH PDG Gamma70 published -0.094
+STAT_CORR_WITH PDG Gamma78 published -0.008
+STAT_CORR_WITH PDG Gamma85 published -0.005
+STAT_CORR_WITH PDG Gamma89 published -0.007
+STAT_CORR_WITH PDG Gamma93 published -0.008
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published 0.034
+STAT_CORR_WITH PDG Gamma104 published 0.003
+STAT_CORR_WITH PDG Gamma126 published -0.158
+STAT_CORR_WITH PDG Gamma128 published -0.001
+STAT_CORR_WITH PDG Gamma150 published -0.045
+STAT_CORR_WITH PDG Gamma152 published -0.578
+END 
+
+* tau- --> h- h- h+ 3pi0 nu(tau) 
+BEGIN       PDG Gamma78 published PDG09
+MEASUREMENT m_Gamma78 statistical systematic
+DATA        m_Gamma78 statistical systematic
+            0.000223 0.000050 0
+STAT_CORR_WITH PDG Gamma3 published 0.002
+STAT_CORR_WITH PDG Gamma5 published 0.004
+STAT_CORR_WITH PDG Gamma9 published 0.002
+STAT_CORR_WITH PDG Gamma10 published -0.005
+STAT_CORR_WITH PDG Gamma14 published 0.009
+STAT_CORR_WITH PDG Gamma16 published -0.004
+STAT_CORR_WITH PDG Gamma20 published -0.011
+STAT_CORR_WITH PDG Gamma23 published -0.002
+STAT_CORR_WITH PDG Gamma27 published -0.005
+STAT_CORR_WITH PDG Gamma28 published -0.002
+STAT_CORR_WITH PDG Gamma30 published -0.005
+STAT_CORR_WITH PDG Gamma35 published -0.008
+STAT_CORR_WITH PDG Gamma37 published -0.001
+STAT_CORR_WITH PDG Gamma40 published -0.006
+STAT_CORR_WITH PDG Gamma47 published -0.001
+STAT_CORR_WITH PDG Gamma48 published -0.004
+STAT_CORR_WITH PDG Gamma62 published -0.005
+STAT_CORR_WITH PDG Gamma70 published -0.012
+STAT_CORR_WITH PDG Gamma77 published -0.008
+STAT_CORR_WITH PDG Gamma85 published -0.01
+STAT_CORR_WITH PDG Gamma89 published -0.007
+STAT_CORR_WITH PDG Gamma93 published 0.001
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published -0.002
+STAT_CORR_WITH PDG Gamma104 published 0.001
+STAT_CORR_WITH PDG Gamma126 published -0.004
+STAT_CORR_WITH PDG Gamma128 published -0.001
+STAT_CORR_WITH PDG Gamma150 published -0.008
+STAT_CORR_WITH PDG Gamma152 published -0.012
+END 
+
+* tau- --> K- pi+ pi- nu(tau) (ex.K0) 
+BEGIN       PDG Gamma85 published PDG09
+MEASUREMENT m_Gamma85 statistical systematic
+DATA        m_Gamma85 statistical systematic
+            0.003335 0.000352 0
+STAT_CORR_WITH PDG Gamma3 published 0.005
+STAT_CORR_WITH PDG Gamma5 published 0.017
+STAT_CORR_WITH PDG Gamma9 published -0.021
+STAT_CORR_WITH PDG Gamma10 published -0.023
+STAT_CORR_WITH PDG Gamma14 published 0.02
+STAT_CORR_WITH PDG Gamma16 published -0.02
+STAT_CORR_WITH PDG Gamma20 published -0.073
+STAT_CORR_WITH PDG Gamma23 published -0.019
+STAT_CORR_WITH PDG Gamma27 published -0.025
+STAT_CORR_WITH PDG Gamma28 published -0.018
+STAT_CORR_WITH PDG Gamma30 published -0.015
+STAT_CORR_WITH PDG Gamma35 published -0.047
+STAT_CORR_WITH PDG Gamma37 published -0.004
+STAT_CORR_WITH PDG Gamma40 published -0.04
+STAT_CORR_WITH PDG Gamma42 published 0.002
+STAT_CORR_WITH PDG Gamma47 published -0.004
+STAT_CORR_WITH PDG Gamma48 published -0.027
+STAT_CORR_WITH PDG Gamma62 published -0.126
+STAT_CORR_WITH PDG Gamma70 published -0.012
+STAT_CORR_WITH PDG Gamma77 published -0.005
+STAT_CORR_WITH PDG Gamma78 published -0.01
+STAT_CORR_WITH PDG Gamma89 published -0.028
+STAT_CORR_WITH PDG Gamma93 published -0.468
+STAT_CORR_WITH PDG Gamma94 published -0.004
+STAT_CORR_WITH PDG Gamma103 published -0.033
+STAT_CORR_WITH PDG Gamma104 published -0.002
+STAT_CORR_WITH PDG Gamma126 published -0.026
+STAT_CORR_WITH PDG Gamma128 published -0.004
+STAT_CORR_WITH PDG Gamma150 published -0.024
+STAT_CORR_WITH PDG Gamma152 published -0.021
+END 
+
+* tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) 
+BEGIN       PDG Gamma89 published PDG09
+MEASUREMENT m_Gamma89 statistical systematic
+DATA        m_Gamma89 statistical systematic
+            0.000730 0.000122 0
+STAT_CORR_WITH PDG Gamma3 published 0.008
+STAT_CORR_WITH PDG Gamma5 published 0.012
+STAT_CORR_WITH PDG Gamma9 published 0.004
+STAT_CORR_WITH PDG Gamma10 published -0.011
+STAT_CORR_WITH PDG Gamma14 published 0.018
+STAT_CORR_WITH PDG Gamma16 published -0.005
+STAT_CORR_WITH PDG Gamma20 published -0.025
+STAT_CORR_WITH PDG Gamma23 published -0.004
+STAT_CORR_WITH PDG Gamma27 published -0.008
+STAT_CORR_WITH PDG Gamma28 published -0.003
+STAT_CORR_WITH PDG Gamma30 published -0.011
+STAT_CORR_WITH PDG Gamma35 published -0.018
+STAT_CORR_WITH PDG Gamma40 published -0.016
+STAT_CORR_WITH PDG Gamma42 published 0.003
+STAT_CORR_WITH PDG Gamma47 published -0.001
+STAT_CORR_WITH PDG Gamma48 published -0.01
+STAT_CORR_WITH PDG Gamma62 published -0.026
+STAT_CORR_WITH PDG Gamma70 published -0.072
+STAT_CORR_WITH PDG Gamma77 published -0.007
+STAT_CORR_WITH PDG Gamma78 published -0.007
+STAT_CORR_WITH PDG Gamma85 published -0.028
+STAT_CORR_WITH PDG Gamma93 published 0.002
+STAT_CORR_WITH PDG Gamma94 published -0.021
+STAT_CORR_WITH PDG Gamma103 published -0.008
+STAT_CORR_WITH PDG Gamma126 published -0.009
+STAT_CORR_WITH PDG Gamma128 published -0.118
+STAT_CORR_WITH PDG Gamma150 published 0.024
+STAT_CORR_WITH PDG Gamma152 published -0.015
+END 
+
+* tau- --> K- K+ pi- nu(tau) 
+BEGIN       PDG Gamma93 published PDG09
+MEASUREMENT m_Gamma93 statistical systematic
+DATA        m_Gamma93 statistical systematic
+            0.001531 0.000097 0
+STAT_CORR_WITH PDG Gamma3 published -0.009
+STAT_CORR_WITH PDG Gamma5 published -0.007
+STAT_CORR_WITH PDG Gamma9 published 0.008
+STAT_CORR_WITH PDG Gamma10 published 0.005
+STAT_CORR_WITH PDG Gamma14 published 0.006
+STAT_CORR_WITH PDG Gamma16 published 0.006
+STAT_CORR_WITH PDG Gamma20 published -0.033
+STAT_CORR_WITH PDG Gamma23 published 0.004
+STAT_CORR_WITH PDG Gamma27 published -0.025
+STAT_CORR_WITH PDG Gamma28 published 0.006
+STAT_CORR_WITH PDG Gamma30 published -0.012
+STAT_CORR_WITH PDG Gamma35 published 0.012
+STAT_CORR_WITH PDG Gamma37 published 0.001
+STAT_CORR_WITH PDG Gamma40 published 0.011
+STAT_CORR_WITH PDG Gamma47 published 0.001
+STAT_CORR_WITH PDG Gamma48 published 0.007
+STAT_CORR_WITH PDG Gamma62 published 0.166
+STAT_CORR_WITH PDG Gamma70 published -0.011
+STAT_CORR_WITH PDG Gamma77 published -0.008
+STAT_CORR_WITH PDG Gamma78 published 0.001
+STAT_CORR_WITH PDG Gamma85 published -0.468
+STAT_CORR_WITH PDG Gamma89 published 0.002
+STAT_CORR_WITH PDG Gamma103 published -0.007
+STAT_CORR_WITH PDG Gamma104 published -0.002
+STAT_CORR_WITH PDG Gamma126 published 0.007
+STAT_CORR_WITH PDG Gamma128 published 0.001
+STAT_CORR_WITH PDG Gamma150 published 0.001
+STAT_CORR_WITH PDG Gamma152 published -0.007
+END 
+
+* tau- --> K- K+ pi- pi0 nu(tau) 
+BEGIN       PDG Gamma94 published PDG09
+MEASUREMENT m_Gamma94 statistical systematic
+DATA        m_Gamma94 statistical systematic
+            0.000061 0.000020 0
+STAT_CORR_WITH PDG Gamma3 published 0.001
+STAT_CORR_WITH PDG Gamma5 published 0.002
+STAT_CORR_WITH PDG Gamma9 published 0.001
+STAT_CORR_WITH PDG Gamma10 published -0.002
+STAT_CORR_WITH PDG Gamma14 published 0.003
+STAT_CORR_WITH PDG Gamma16 published -0.001
+STAT_CORR_WITH PDG Gamma20 published -0.004
+STAT_CORR_WITH PDG Gamma23 published -0.001
+STAT_CORR_WITH PDG Gamma27 published -0.001
+STAT_CORR_WITH PDG Gamma28 published -0.001
+STAT_CORR_WITH PDG Gamma30 published -0.002
+STAT_CORR_WITH PDG Gamma35 published -0.003
+STAT_CORR_WITH PDG Gamma40 published -0.002
+STAT_CORR_WITH PDG Gamma48 published -0.002
+STAT_CORR_WITH PDG Gamma62 published -0.004
+STAT_CORR_WITH PDG Gamma70 published -0.01
+STAT_CORR_WITH PDG Gamma77 published -0.001
+STAT_CORR_WITH PDG Gamma78 published -0.001
+STAT_CORR_WITH PDG Gamma85 published -0.004
+STAT_CORR_WITH PDG Gamma89 published -0.021
+STAT_CORR_WITH PDG Gamma103 published -0.001
+STAT_CORR_WITH PDG Gamma126 published -0.001
+STAT_CORR_WITH PDG Gamma150 published 0.004
+STAT_CORR_WITH PDG Gamma152 published -0.002
+END 
+
+* tau- --> 3h- 2h+ nu(tau) (ex.K0) 
+BEGIN       PDG Gamma103 published PDG09
+MEASUREMENT m_Gamma103 statistical systematic
+DATA        m_Gamma103 statistical systematic
+            0.000810 0.000055 0
+STAT_CORR_WITH PDG Gamma3 published 0.003
+STAT_CORR_WITH PDG Gamma5 published -0.016
+STAT_CORR_WITH PDG Gamma9 published 0.01
+STAT_CORR_WITH PDG Gamma10 published -0.023
+STAT_CORR_WITH PDG Gamma14 published -0.047
+STAT_CORR_WITH PDG Gamma16 published -0.016
+STAT_CORR_WITH PDG Gamma20 published 0.093
+STAT_CORR_WITH PDG Gamma23 published -0.005
+STAT_CORR_WITH PDG Gamma27 published 0.059
+STAT_CORR_WITH PDG Gamma28 published -0.005
+STAT_CORR_WITH PDG Gamma30 published 0.015
+STAT_CORR_WITH PDG Gamma35 published -0.036
+STAT_CORR_WITH PDG Gamma37 published -0.005
+STAT_CORR_WITH PDG Gamma40 published -0.032
+STAT_CORR_WITH PDG Gamma42 published -0.002
+STAT_CORR_WITH PDG Gamma47 published -0.003
+STAT_CORR_WITH PDG Gamma48 published -0.02
+STAT_CORR_WITH PDG Gamma62 published -0.101
+STAT_CORR_WITH PDG Gamma70 published -0.041
+STAT_CORR_WITH PDG Gamma77 published 0.034
+STAT_CORR_WITH PDG Gamma78 published -0.002
+STAT_CORR_WITH PDG Gamma85 published -0.033
+STAT_CORR_WITH PDG Gamma89 published -0.008
+STAT_CORR_WITH PDG Gamma93 published -0.007
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma104 published -0.165
+STAT_CORR_WITH PDG Gamma126 published -0.014
+STAT_CORR_WITH PDG Gamma128 published -0.002
+STAT_CORR_WITH PDG Gamma150 published -0.028
+STAT_CORR_WITH PDG Gamma152 published 0.033
+END 
+
+* tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) 
+BEGIN       PDG Gamma104 published PDG09
+MEASUREMENT m_Gamma104 statistical systematic
+DATA        m_Gamma104 statistical systematic
+            0.000181 0.000026 0
+STAT_CORR_WITH PDG Gamma3 published -0.011
+STAT_CORR_WITH PDG Gamma5 published -0.003
+STAT_CORR_WITH PDG Gamma9 published -0.013
+STAT_CORR_WITH PDG Gamma10 published 0.003
+STAT_CORR_WITH PDG Gamma14 published -0.012
+STAT_CORR_WITH PDG Gamma16 published 0.001
+STAT_CORR_WITH PDG Gamma20 published 0.012
+STAT_CORR_WITH PDG Gamma23 published 0.003
+STAT_CORR_WITH PDG Gamma27 published 0.005
+STAT_CORR_WITH PDG Gamma28 published 0.003
+STAT_CORR_WITH PDG Gamma30 published -0.006
+STAT_CORR_WITH PDG Gamma37 published -0.001
+STAT_CORR_WITH PDG Gamma42 published -0.001
+STAT_CORR_WITH PDG Gamma62 published -0.015
+STAT_CORR_WITH PDG Gamma77 published 0.003
+STAT_CORR_WITH PDG Gamma78 published 0.001
+STAT_CORR_WITH PDG Gamma85 published -0.002
+STAT_CORR_WITH PDG Gamma93 published -0.002
+STAT_CORR_WITH PDG Gamma103 published -0.165
+STAT_CORR_WITH PDG Gamma126 published 0.002
+STAT_CORR_WITH PDG Gamma152 published 0.004
+END 
+
+* tau- --> eta pi- pi0 nu(tau) 
+BEGIN       PDG Gamma126 published PDG09
+MEASUREMENT m_Gamma126 statistical systematic
+DATA        m_Gamma126 statistical systematic
+            0.001774 0.000236 0
+STAT_CORR_WITH PDG Gamma3 published -0.019
+STAT_CORR_WITH PDG Gamma5 published -0.01
+STAT_CORR_WITH PDG Gamma9 published -0.022
+STAT_CORR_WITH PDG Gamma10 published -0.012
+STAT_CORR_WITH PDG Gamma14 published 0.009
+STAT_CORR_WITH PDG Gamma16 published -0.009
+STAT_CORR_WITH PDG Gamma20 published -0.073
+STAT_CORR_WITH PDG Gamma23 published -0.007
+STAT_CORR_WITH PDG Gamma27 published -0.009
+STAT_CORR_WITH PDG Gamma28 published -0.008
+STAT_CORR_WITH PDG Gamma30 published -0.07
+STAT_CORR_WITH PDG Gamma35 published -0.032
+STAT_CORR_WITH PDG Gamma37 published -0.005
+STAT_CORR_WITH PDG Gamma40 published -0.027
+STAT_CORR_WITH PDG Gamma42 published -0.002
+STAT_CORR_WITH PDG Gamma47 published -0.002
+STAT_CORR_WITH PDG Gamma48 published -0.018
+STAT_CORR_WITH PDG Gamma62 published 0.009
+STAT_CORR_WITH PDG Gamma70 published 0.023
+STAT_CORR_WITH PDG Gamma77 published -0.158
+STAT_CORR_WITH PDG Gamma78 published -0.004
+STAT_CORR_WITH PDG Gamma85 published -0.026
+STAT_CORR_WITH PDG Gamma89 published -0.009
+STAT_CORR_WITH PDG Gamma93 published 0.007
+STAT_CORR_WITH PDG Gamma94 published -0.001
+STAT_CORR_WITH PDG Gamma103 published -0.014
+STAT_CORR_WITH PDG Gamma104 published 0.002
+STAT_CORR_WITH PDG Gamma128 published -0.002
+STAT_CORR_WITH PDG Gamma150 published -0.001
+STAT_CORR_WITH PDG Gamma152 published -0.023
+END 
+
+* tau- --> eta K- nu(tau) 
+BEGIN       PDG Gamma128 published PDG09
+MEASUREMENT m_Gamma128 statistical systematic
+DATA        m_Gamma128 statistical systematic
+            0.000268 0.000063 0
+STAT_CORR_WITH PDG Gamma3 published -0.004
+STAT_CORR_WITH PDG Gamma5 published -0.003
+STAT_CORR_WITH PDG Gamma9 published -0.003
+STAT_CORR_WITH PDG Gamma10 published -0.005
+STAT_CORR_WITH PDG Gamma14 published 0.004
+STAT_CORR_WITH PDG Gamma16 published -0.032
+STAT_CORR_WITH PDG Gamma20 published -0.007
+STAT_CORR_WITH PDG Gamma23 published -0.026
+STAT_CORR_WITH PDG Gamma27 published -0.009
+STAT_CORR_WITH PDG Gamma28 published -0.026
+STAT_CORR_WITH PDG Gamma35 published -0.004
+STAT_CORR_WITH PDG Gamma37 published -0.015
+STAT_CORR_WITH PDG Gamma42 published -0.02
+STAT_CORR_WITH PDG Gamma48 published -0.001
+STAT_CORR_WITH PDG Gamma70 published 0.003
+STAT_CORR_WITH PDG Gamma77 published -0.001
+STAT_CORR_WITH PDG Gamma78 published -0.001
+STAT_CORR_WITH PDG Gamma85 published -0.004
+STAT_CORR_WITH PDG Gamma89 published -0.118
+STAT_CORR_WITH PDG Gamma93 published 0.001
+STAT_CORR_WITH PDG Gamma103 published -0.002
+STAT_CORR_WITH PDG Gamma126 published -0.002
+STAT_CORR_WITH PDG Gamma152 published -0.003
+END 
+
+* tau- --> h- omega nu(tau) 
+BEGIN       PDG Gamma150 published PDG09
+MEASUREMENT m_Gamma150 statistical systematic
+DATA        m_Gamma150 statistical systematic
+            0.019860 0.000788 0
+STAT_CORR_WITH PDG Gamma3 published -0.026
+STAT_CORR_WITH PDG Gamma5 published -0.015
+STAT_CORR_WITH PDG Gamma9 published -0.045
+STAT_CORR_WITH PDG Gamma10 published 0.009
+STAT_CORR_WITH PDG Gamma14 published -0.015
+STAT_CORR_WITH PDG Gamma16 published 0.005
+STAT_CORR_WITH PDG Gamma20 published -0.062
+STAT_CORR_WITH PDG Gamma27 published -0.037
+STAT_CORR_WITH PDG Gamma28 published 0.001
+STAT_CORR_WITH PDG Gamma30 published 0.002
+STAT_CORR_WITH PDG Gamma37 published -0.001
+STAT_CORR_WITH PDG Gamma40 published 0.001
+STAT_CORR_WITH PDG Gamma42 published -0.001
+STAT_CORR_WITH PDG Gamma62 published -0.045
+STAT_CORR_WITH PDG Gamma70 published -0.653
+STAT_CORR_WITH PDG Gamma77 published -0.045
+STAT_CORR_WITH PDG Gamma78 published -0.008
+STAT_CORR_WITH PDG Gamma85 published -0.024
+STAT_CORR_WITH PDG Gamma89 published 0.024
+STAT_CORR_WITH PDG Gamma93 published 0.001
+STAT_CORR_WITH PDG Gamma94 published 0.004
+STAT_CORR_WITH PDG Gamma103 published -0.028
+STAT_CORR_WITH PDG Gamma126 published -0.001
+STAT_CORR_WITH PDG Gamma152 published -0.057
+END 
+
+* tau- --> h- omega pi0 nu(tau) 
+BEGIN       PDG Gamma152 published PDG09
+MEASUREMENT m_Gamma152 statistical systematic
+DATA        m_Gamma152 statistical systematic
+            0.004063 0.000429 0
+STAT_CORR_WITH PDG Gamma3 published -0.007
+STAT_CORR_WITH PDG Gamma5 published -0.024
+STAT_CORR_WITH PDG Gamma9 published -0.036
+STAT_CORR_WITH PDG Gamma10 published -0.015
+STAT_CORR_WITH PDG Gamma14 published -0.068
+STAT_CORR_WITH PDG Gamma16 published -0.011
+STAT_CORR_WITH PDG Gamma20 published 0.071
+STAT_CORR_WITH PDG Gamma23 published -0.013
+STAT_CORR_WITH PDG Gamma27 published 0.069
+STAT_CORR_WITH PDG Gamma28 published -0.019
+STAT_CORR_WITH PDG Gamma30 published 0.044
+STAT_CORR_WITH PDG Gamma35 published -0.039
+STAT_CORR_WITH PDG Gamma37 published -0.004
+STAT_CORR_WITH PDG Gamma40 published -0.034
+STAT_CORR_WITH PDG Gamma47 published -0.003
+STAT_CORR_WITH PDG Gamma48 published -0.019
+STAT_CORR_WITH PDG Gamma62 published -0.081
+STAT_CORR_WITH PDG Gamma70 published -0.117
+STAT_CORR_WITH PDG Gamma77 published -0.578
+STAT_CORR_WITH PDG Gamma78 published -0.012
+STAT_CORR_WITH PDG Gamma85 published -0.021
+STAT_CORR_WITH PDG Gamma89 published -0.015
+STAT_CORR_WITH PDG Gamma93 published -0.007
+STAT_CORR_WITH PDG Gamma94 published -0.002
+STAT_CORR_WITH PDG Gamma103 published 0.033
+STAT_CORR_WITH PDG Gamma104 published 0.004
+STAT_CORR_WITH PDG Gamma126 published -0.023
+STAT_CORR_WITH PDG Gamma128 published -0.003
+STAT_CORR_WITH PDG Gamma150 published -0.057
+END 

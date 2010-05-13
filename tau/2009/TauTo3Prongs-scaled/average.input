@@ -13,9 +13,9 @@ MEASUREMENT m_PimPimPipNu statistical systematic
 MEASUREMENT m_PimKmPipNu  statistical systematic
 MEASUREMENT m_PimKmKpNu   statistical systematic
 MEASUREMENT m_KmKmKpNu    statistical systematic
-MEASUREMENT m_HmHmHpNu    statistical systematic
+* MEASUREMENT m_HmHmHpNu    statistical systematic
 
-SUMOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
+* SUMOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
 
 CALL DUMP_MASTER_INC
 
@@ -23,10 +23,25 @@ CALL DUMP_MASTER_INC
 PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
 
 * parameters to specify sum of measurements in pdg_hhh.input
-PARAMETER CHI2_N_SYM_NSUM  3 0 0
-PARAMETER CHI2_N_SYM_01    13 1234 -1234
-PARAMETER CHI2_N_SYM_02    14 1234 -1234
-PARAMETER CHI2_N_SYM_03    15 1234 -1234
+PARAMETER CHI2_N_SYM_NSUM  3 0 0 ! 3 measurements are sum over multiple quantites
+
+PARAMETER CHI2_N_SYM_01     13 4  0 ! IMEAS = 13 is sum over 4 quantities
+PARAMETER CHI2_N_SYM_01_01  1  1  0 ! first  quantity is IQUAN = 1 with coefficient = 1
+PARAMETER CHI2_N_SYM_01_02  2  1  0 ! second quantity is IQUAN = 2 with coefficient = 1
+PARAMETER CHI2_N_SYM_01_03  3  1  0 ! third  quantity is IQUAN = 3 with coefficient = 1
+PARAMETER CHI2_N_SYM_01_04  4  1  0 ! fourth quantity is IQUAN = 4 with coefficient = 1
+
+PARAMETER CHI2_N_SYM_02     14 4  0 ! IMEAS = 14 is sum over 4 quantities
+PARAMETER CHI2_N_SYM_02_01  1  1  0 ! first  quantity is IQUAN = 1 with coefficient = 1
+PARAMETER CHI2_N_SYM_02_02  2  1  0 ! second quantity is IQUAN = 2 with coefficient = 1
+PARAMETER CHI2_N_SYM_02_03  3  1  0 ! third  quantity is IQUAN = 3 with coefficient = 1
+PARAMETER CHI2_N_SYM_02_04  4  1  0 ! fourth quantity is IQUAN = 4 with coefficient = 1
+
+PARAMETER CHI2_N_SYM_03     15 4  0 ! IMEAS = 15 is sum over 4 quantities
+PARAMETER CHI2_N_SYM_03_01  1  1  0 ! first  quantity is IQUAN = 1 with coefficient = 1
+PARAMETER CHI2_N_SYM_03_02  2  1  0 ! second quantity is IQUAN = 2 with coefficient = 1
+PARAMETER CHI2_N_SYM_03_03  3  1  0 ! third  quantity is IQUAN = 3 with coefficient = 1
+PARAMETER CHI2_N_SYM_03_04  4  1  0 ! fourth quantity is IQUAN = 4 with coefficient = 1
 
 CALL CHI2_N_SYM
 
