@@ -1,0 +1,12 @@
+* Lagrange Multiplier to impose sum_of_quantities = 1 constraint
+
+BEGIN       Lagrange Lambda unknown
+MEASUREMENT m_Lambda statistical systematic
+DATA        m_Lambda statistical systematic
+*            1.0e+1   0.447214   0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
+*            1.0e+2   0.141421   0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
+*            1.0e+3   0.0447214  0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
+             1.0e+4   0.0141421  0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
+*            1.0e+5   0.00447214 0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
+*            1.0e+6   0.00141421 0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
+END
