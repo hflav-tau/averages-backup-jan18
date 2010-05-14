@@ -2,6 +2,6 @@ BEGIN A2 X+Y PUBLISHED
 
 MEASUREMENT X          STAT   SYST
 DATA        X          STAT   SYST
-            9.9        0.1    0.5
-            A2_SYST12  0.5
+            9.7e-1     0.4e-1 0.4e-1
+            A2_SYST12  0.4e-1
 END

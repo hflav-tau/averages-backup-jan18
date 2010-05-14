@@ -1720,6 +1720,7 @@ c     &    ,err2n(is,2,k),is,2,k
         CALL UZERO(ERR2N,1,NW**2)
         CL=-1.D0
       ELSE
+        RETURN
 *       Perform various checks on error matrix (e.g. diagonal elements positive)
         DO I=1,MIN0(NQUAN,NW)
           XCHROUT = CHROUT

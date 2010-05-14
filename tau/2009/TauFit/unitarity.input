@@ -1,7 +1,7 @@
-* B(tau- -> all) = 1
+* Lagrange Multiplier to impose B(tau- -> all) = 1 constraint
 
-BEGIN       Unitarity Gamma3 constraint
-MEASUREMENT m_Gamma3 statistical systematic
-DATA        m_Gamma3 statistical systematic
-            1.00     1.0e-0      0.0e+0 
+BEGIN       Lagrange Lambda unknown
+MEASUREMENT m_Lambda statistical systematic
+DATA        m_Lambda statistical systematic
+            1.0e+4   1.414e-2   0.0e+0      !  error = - sqrt(2/lambda) [sign implemented in code]
 END
