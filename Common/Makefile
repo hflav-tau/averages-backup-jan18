@@ -128,6 +128,19 @@ alucomb:
 	  echo "file $(CURDIR)/average_alucomb.log created" ; \
 	fi
 
+alucomb_sum:
+	@if [ -f average.input ] ; then \
+	  /bin/rm -f average_alucomb.log ; \
+	  echo "../../../Common/bin/alucomb.r average.input > average_alucomb.log 2>&1" ; \
+	  ../../../Common/bin/alucomb.r average.input > average_alucomb.log ; \
+	  echo "file $(CURDIR)/average_alucomb.log created" ; \
+	  echo "" >> average_alucomb.log ; \
+	  echo "sum of all measurements" >> average_alucomb.log ; \
+	  echo "" >> average_alucomb.log ; \
+	  ../../../Common/bin/aluelab-sum.r average_alucomb.log >> average_alucomb.log ; \
+	  echo "file $(CURDIR)/average_alucomb.log: added sum of measurements" ; \
+	fi
+
 aluplot:
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f aluplot.log ; \
