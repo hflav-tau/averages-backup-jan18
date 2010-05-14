@@ -83,10 +83,19 @@ aeb.meas.add.single = function(label, val, err) {
 ## stores results in alucomb.r log files into global variables
 ## meas.val, meas.err, meas.corr, meas.cov
 ##
-aeb.collect.data = function(average.dirs) {
-  for (dir in average.dirs) {
+aeb.collect.data = function(items) {
+  for (item in items) {
+    cat(item, "\n")
+    if (regexpr("[.]log$", item) != -1) {
+      file = item
+    } else {
+      file = file.path(aeb.log.dir.base, item, "average_alucomb.log")
+    }
+    if (!file_test("-f", file)) {
+      cat("error: cannot find alucomb log file", file, "\n")
+    }
     ##-- get alucomb results
-    rc = get.alucomb(file.path(aeb.log.dir.base, dir, "average_alucomb.log"))
+    rc = get.alucomb(file)
     if (length(rc) == 0) {
       cat("error: cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, dir, "average_alucomb.log"), "\n", sep="")
       ## cat("make -C", dir, " update_alucomb\n")

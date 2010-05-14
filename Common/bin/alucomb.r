@@ -29,7 +29,12 @@ source("../../../Common/bin/alu-utils.r")
 ## alucomb
 ##
 
-file = "average.input"
+args <- commandArgs(TRUE)
+if (length(args) > 0) {
+  file = args[1]
+} else {
+  file = "average.input"
+}
 
 ##++ alucomb = function(file = "") {
 

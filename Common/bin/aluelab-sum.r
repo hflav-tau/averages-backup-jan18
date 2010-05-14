@@ -10,8 +10,15 @@
 
 source("../../../Common/bin/aluelab.r")
 
+args <- commandArgs(TRUE)
+if (length(args) > 0) {
+  items = args
+} else {
+  items = basename(getwd())
+}
+
 ##-- collect data for current directory
-aeb.collect.data(basename(getwd()))
+aeb.collect.data(items)
 
 ##-- compute B(tau -> hhh nu) as linear combination of averaged quantities
 meas.sum.lc = meas.val*0 + rep(1, length(meas.val))
