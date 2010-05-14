@@ -443,17 +443,6 @@ for (mt.name in meas.types.names) {
     %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
     %*% (meas - delta %*% quant)[meas.mt.keep])
   
-  if (sum(!meas.mt.keep) == 0) {
-    meas.mt.chisq.sub = meas.mt.chisq.corr
-  } else {
-    ##-- chisq by subtracting from total chisq the chisq of all other measurements
-    meas.mt.chisq.sub = drop(
-      t((meas - delta %*% quant)[!meas.mt.keep])
-      %*% solve(meas.cov[!meas.mt.keep, !meas.mt.keep])
-      %*% (meas - delta %*% quant)[!meas.mt.keep])
-    meas.mt.chisq.sub = chisq - meas.mt.chisq.sub
-  }
-
   ##-- collect chisq/dof for each type of measurement
   chisq.types[mt.name] = meas.mt.chisq.corr
   ##-- number of measurements of the current type that have not too-large errors
@@ -481,21 +470,7 @@ for (mt.name in meas.types.names) {
     cat(mt.name,
         format(meas.mt.chisq/dof.types[mt.name], width=15),
         format(meas.mt.chisq.corr/dof.types[mt.name], width=15),
-        format(meas.mt.chisq.sub/dof.types[mt.name], width=15),
         "\n")
-  }
-
-  ##-- mention when chisq by subtraction is significantly different from simple chisq
-  if (meas.mt.chisq != meas.mt.chisq.sub &&
-      abs(meas.mt.chisq - meas.mt.chisq.sub)/max(meas.mt.chisq, meas.mt.chisq.sub) >1e-3) {
-    dof.tmp = dof.types[mt.name]
-    names(dof.tmp) = NULL
-    chisq.out.tmp = rbind(c(
-      chisq=meas.mt.chisq,
-      "chisq-by-subtraction"=meas.mt.chisq.sub,
-      dof=dof.tmp))
-    rownames(chisq.out.tmp) = mt.name
-    chisq.out = rbind(chisq.out, chisq.out.tmp)
   }
 
   save = options()
@@ -538,9 +513,6 @@ chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
 meas.sfact = sfact > 1
 ##-- measurements with S>1 and not-too-large errors
 meas.select = meas.keep & meas.sfact
-##-- sfact for selected measurements, 1 otherwise
-sfact.select = sfact*0 + 1
-sfact.select[meas.select] = sfact[meas.select]
 
 ##
 ## dof corresponding to selected measurement is the number of quantities
@@ -557,56 +529,39 @@ if (any(meas.select) && dof.select < 1) {
   dof.select = 1
 }
 
-##-- chisq restricted to non-selected measurements
-if (all(meas.select)) {
-  chisq.select.other = 0
-} else {
-  chisq.select.other = drop(
-    t((meas - delta %*% quant)[!meas.select])
-    %*% solve(meas.cov[!meas.select, !meas.select])
-    %*% (meas - delta %*% quant)[!meas.select])
-}
-
-##-- chisq restricted to selected measurements, no S-factors
-chisq.select.0 = chisq - chisq.select.other
-
 ##-- save step 0
 sfact.types.0 = sfact.types
 sfact.0 = sfact
 
-##-- no-large-error measurements chisq at step 0
+##-- chisq without S-factors, just for selected measurements
 chisq.select.0 = drop(
-  t(meas - delta %*% quant)
-  %*% solve(diag.m(sfact.select) %*% meas.cov %*% diag.m(sfact.select))
-  %*% (meas - delta %*% quant))
-chisq.select.0 = chisq.select.0 - chisq.select.other
-
-repeat {
-  
-if (FALSE) {
-##-- chisq with S-factors, by subtraction
-chisq.select = drop(
-  t(meas - delta %*% quant)
-  %*% solve(diag.m(sfact.select) %*% meas.cov %*% diag.m(sfact.select))
-  %*% (meas - delta %*% quant))
-chisq.select = chisq.select - chisq.select.other
-}
-
-##-- chisq with S-factors
-chisq.select = drop(
   t((meas - delta %*% quant)[meas.select])
-  %*% solve(diag.m(sfact.select[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact.select[meas.select]))
+  %*% solve(meas.cov[meas.select, meas.select])
   %*% (meas - delta %*% quant)[meas.select])
 
-##-- adjust S-factors to obtain chisq/dof = 1, when restricted to selected measurements
-sfact.select[meas.select] = sfact.select[meas.select] * sqrt(chisq.select/dof.select)
-sfact[meas.select] = sfact[meas.select] * sqrt(chisq.select/dof.select)
-sfact.types[sfact.types > 1] = sfact.types[sfact.types > 1] * sqrt(chisq.select/dof.select)
-sfact.types[sfact.types < 1] = 1
+##-- chisq with S-factors, just for selected measurements
+chisq.select.1 = drop(
+  t((meas - delta %*% quant)[meas.select])
+  %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
+  %*% (meas - delta %*% quant)[meas.select])
 
-if (!any(meas.select)) break
-if (abs(chisq.select/dof.select -1) < 1e-6) break
+repeat {
+  ##-- chisq with S-factors
+  chisq.select = drop(
+    t((meas - delta %*% quant)[meas.select])
+    %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
+    %*% (meas - delta %*% quant)[meas.select])
+  
+  ##-- adjust S-factors to obtain chisq/dof = 1, when restricted to selected measurements
+  sfact[meas.select] = sfact[meas.select] * sqrt(chisq.select/dof.select)
+  
+  if (!any(meas.select)) break
+  if (abs(chisq.select/dof.select -1) < 1e-6) break
+}
 
+##-- update sfact.types with adjusted sfact for selected meas
+for (meas.s in names(meas.select[meas.select])) {
+  sfact.types[names(which(meas.types[,meas.s]))] = sfact[meas.s]
 }
 
 ##-- save step 1
@@ -656,9 +611,9 @@ if (any(meas.select)) {
        "chisq/dof"=chisq.select.0/dof.select,
        CL=pchisq(chisq.select.0, dof.select, lower.tail=FALSE))
     ,"  after S-factor, 1st stage" = c(
-       chisq=chisq.select.0, dof=dof.select,
-       "chisq/dof"=chisq.select.0/dof.select,
-       CL=pchisq(chisq.select.0, dof.select, lower.tail=FALSE))
+       chisq=chisq.select.1, dof=dof.select,
+       "chisq/dof"=chisq.select.1/dof.select,
+       CL=pchisq(chisq.select.1, dof.select, lower.tail=FALSE))
     ,"  after S-factor, 2nd stage" = c(
        chisq=chisq.select, dof=dof.select,
        "chisq/dof"=chisq.select/dof.select,
@@ -670,14 +625,14 @@ cat("Averaged quantities: value, error, error with S-factor, S-factor\n")
 if (quant.num > 1) {
   ##-- if multiple average, use dedicated S-factor computation
   sfact.row = quant2.err / quant.err
-  sfact0.row = sfact.types.0[meas.types.names %in% quant.names]
-  sfact1.row = sfact.types.1[meas.types.names %in% quant.names]
-  chisq.row = chisq.types[meas.types.names %in% quant.names]
-  dof.row = dof.types[meas.types.names %in% quant.names]
+  sfact0.row = sfact.types.0[quant.names]
+  sfact1.row = sfact.types.1[quant.names]
+  chisq.row = chisq.types[quant.names]
+  dof.row = dof.types[quant.names]
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact0.row = sfact.types.0[meas.types.names %in% quant.names]
-  sfact1.row = sfact.types.1[meas.types.names %in% quant.names]
+  sfact0.row = sfact.types.0[quant.names]
+  sfact1.row = sfact.types.1[quant.names]
   sfact.row = max(sqrt(chisq/dof), 1)
   ##-- also for single quantity, never deflate error
   quant2.err[1] = quant.err[1] * sfact.row
@@ -718,10 +673,10 @@ if (length(meas.names.extra) >0) {
              error=meas.extra.err,
              upd.error=meas.extra.err.upd,
              "S-factor"=meas.extra.err.upd/meas.extra.err,
-             "S-factor_2"=sfact.types.1[meas.types.names %in% meas.names.extra],
-             "S-factor_1"=sfact.types.0[meas.types.names %in% meas.names.extra],
-             chisq=chisq.types[meas.types.names %in% meas.names.extra],
-             dof=dof.types[meas.types.names %in% meas.names.extra]
+             "S-factor_2"=sfact.types.1[meas.names.extra],
+             "S-factor_1"=sfact.types.0[meas.names.extra],
+             chisq=chisq.types[meas.names.extra],
+             dof=dof.types[meas.names.extra]
            ))
 }
 cat("## end\n")
