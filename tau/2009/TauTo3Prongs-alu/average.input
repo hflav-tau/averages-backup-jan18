@@ -15,7 +15,7 @@ MEASUREMENT m_PimKmKpNu   statistical systematic
 MEASUREMENT m_KmKmKpNu    statistical systematic
 MEASUREMENT m_HmHmHpNu    statistical systematic
 
-COMBOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
+SUMOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
 
 * CALL DUMP_MASTER_INC
 
