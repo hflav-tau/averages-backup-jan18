@@ -165,13 +165,9 @@
   h7e->SetStats(0);
   for (i=1;i<=nx;i++) h7e->Fill(os_X[i-1], err_7[i-1]);
   
-  TCanvas *c1 = new TCanvas("c1","c1",800,800);
-  c1->Divide(1,2);
-
-  c1->cd(1);
+  TCanvas *c1 = new TCanvas("c1","c1",600,600);
   c1->SetGrid();
-  c1->SetLogx(1);
-  
+  //  c1->SetLogx(1);
   h1b->Draw("hbar");
   h2b->Draw("hbar,same");
   h3b->Draw("hbar,same");
@@ -179,10 +175,11 @@
   h5b->Draw("hbar,same");
   h6b->Draw("hbar,same");
   h7b->Draw("hbar,same");
-  
-  c1->cd(2);
-  c1->SetGrid();
-  c1->SetLogx(1);
+  c1->SaveAs("compare-val_unitarity_error.eps");
+
+  TCanvas *c2 = new TCanvas("c2","c2",600,600);
+  c2->SetGrid();
+  //  c2->SetLogx(1);
   h1e->Draw("hbar");
   h2e->Draw("hbar,same");
   h3e->Draw("hbar,same");
@@ -190,8 +187,7 @@
   h5e->Draw("hbar,same");
   h6e->Draw("hbar,same");
   h7e->Draw("hbar,same");
-  
-  c1->SaveAs("compare_unitarity_error.eps");
+  c2->SaveAs("compare-err_unitarity_error.eps");
 
-  return c1;
+  return 0;
 }

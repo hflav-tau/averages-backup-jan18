@@ -2,8 +2,8 @@ BEGIN A1 X PUBLISHED
 
 MEASUREMENT X         STAT      SYST
 DATA        X         STAT      SYST
-            1.8       0.1       0.2
-            A1_SYST1  0.2
+            1.6e-1    0.1e-1    0.2e-1
+            A1_SYST1  0.2e-1
 END
 
 
@@ -11,7 +11,6 @@ BEGIN A1 Y PUBLISHED
 
 MEASUREMENT Y         STAT      SYST
 DATA        Y         STAT      SYST
-            8.2       0.3       0.4
-            A1_SYST2  0.4
+            8.8e-1    0.4e-1    0.4e-1
+            A1_SYST2  0.4e-1
 END 
-
