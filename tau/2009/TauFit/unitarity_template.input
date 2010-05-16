@@ -1,0 +1,7 @@
+* Impose B(tau- -> all) = 1 constraint
+
+BEGIN        CONSTRAINT Gamma3 UNITY
+MEASUREMENT  m_Gamma3 statistical systematic
+DATA         m_Gamma3 statistical systematic
+             1.0      SUBSTITUTE  0.0            !  try with error = SUBSTITUTE
+END
