@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Mar 20, 2010) run on  on 14/05/10 at 15.02.23
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 16/05/10 at 06.12.15
 
 
  ==============================================================================
@@ -47,17 +47,17 @@ IMEAS,CSYS =  3     -1.00 -1.00
 IMEAS,CSYS =  4     -1.00 -1.00
  DSINV: J, A(J,J) =  1  9.99999955E-05
  DSINV: J, A(J,J) =  2  0.00159999993
- DSINV: J, A(J,J) =  3  0.00159999993
- DSINV: J, A(J,J) =  4  0.00159999993
+ DSINV: J, A(J,J) =  3  0.00359999984
+ DSINV: J, A(J,J) =  4  0.00089999996
  MINUIT_CHI2: DSINV: W->W: IERR =  0
  CHI2_N_SYM: DSINV: S->S: IERR =  0
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   2.35999632 4 2 2
- CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   1.17999816  1.0862772  0.307279319
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   1.43709573 4 2 2
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.718547863  0.847672026  0.4874596
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      X             Y
- X            0.1588000      0.0097980    -0.2721655
- Y            0.8608000     -0.2721655     0.0240000
+ X            0.1597521      0.0097912    -0.2900074
+ Y            0.8760330     -0.2900074     0.0232841
                                      X             Y
   
  DUMP_FIT: DSINV: S->SINV: IERR =  0
@@ -65,18 +65,18 @@ IMEAS,CSYS =  4     -1.00 -1.00
  --Averaged parameters, using only stat---
  --breakdown of errors: syst then stat-----
                                      X             Y
- X            0.1588000      0.0097980    -0.2721655
- Y            0.8608000     -0.2721655     0.0240000
+ X            0.1597521      0.0097912    -0.2900074
+ Y            0.8760330     -0.2900074     0.0232841
                                      X             Y
   
-                    X      0.1588000 +/-      0.0097980 +/-      0.0000000 Tot Err:     0.0097980 Check Sys:     0.0000000
-                    Y      0.8608000 +/-      0.0240000 +/-      0.0000000 Tot Err:     0.0240000 Check Sys:     0.0000000
- Correlation between                    X and                    Y =     -0.2721655
-All: Sum of Multi-Quantity Average =      1.0196000 +-      0.0233238
+                    X      0.1597521 +/-      0.0097912 +/-      0.0000000 Tot Err:     0.0097912 Check Sys:     0.0000000
+                    Y      0.8760330 +/-      0.0232841 +/-      0.0000000 Tot Err:     0.0232841 Check Sys:     0.0000000
+ Correlation between                    X and                    Y =     -0.2900074
+All: Sum of Multi-Quantity Average =      1.0357851 +-      0.0224897
   
- P1: Sum of Multi-Quantity Average =      1.0196000 +-      0.0233238
+ P1: Sum of Multi-Quantity Average =      1.0357851 +-      0.0224897
   
- P2: Sum of Multi-Quantity Average =      0.2228661 +-      0.0054160
+ P2: Sum of Multi-Quantity Average =      0.2258810 +-      0.0052922
   
 
  ===============================================================================
@@ -103,17 +103,17 @@ All: Sum of Multi-Quantity Average =      1.0196000 +-      0.0233238
 
    QUAN               1              2              1              1
 
-  STATP = 0.1000000E-01  0.4000000E-01  0.4000000E-01  0.4000000E-01
+  STATP = 0.1000000E-01  0.4000000E-01  0.6000000E-01  0.3000000E-01
 
-  STATN = 0.1000000E-01  0.4000000E-01  0.4000000E-01  0.4000000E-01
+  STATN = 0.1000000E-01  0.4000000E-01  0.6000000E-01  0.3000000E-01
 
-  STAT  = 0.1000000E-01  0.4000000E-01  0.4000000E-01  0.4000000E-01
+  STAT  = 0.1000000E-01  0.4000000E-01  0.6000000E-01  0.3000000E-01
 
-  USYSP = 0.2000000E-01  0.4000000E-01  0.4000000E-01  0.4000000E-01
+  USYSP = 0.2000000E-01  0.4000000E-01  0.6000000E-01  0.3000000E-01
 
-  USYSN = 0.2000000E-01  0.4000000E-01  0.4000000E-01  0.4000000E-01
+  USYSN = 0.2000000E-01  0.4000000E-01  0.6000000E-01  0.3000000E-01
 
-  USYS  = 0.2000000E-01  0.4000000E-01  0.4000000E-01  0.4000000E-01
+  USYS  = 0.2000000E-01  0.4000000E-01  0.6000000E-01  0.3000000E-01
 
 STACOR
       1 | 0.1000000E+01  0.0000000E+00  0.0000000E+00  0.0000000E+00
@@ -148,8 +148,8 @@ CSYS percentage error
  Corrected measurements:
  A1 X PUBLISHED     0.1600000E+00 +/-  0.1000000E-01 +/-  0.2000000E-01 Tot:  0.2236068E-01
  A1 Y PUBLISHED     0.8800000E+00 +/-  0.4000000E-01 +/-  0.4000000E-01 Tot:  0.5656854E-01
- A2 X+Y PUBLISHED   0.9700000E+00 +/-  0.4000000E-01 +/-  0.4000000E-01 Tot:  0.5656854E-01
- A3 X+Y PUBLISHED   0.1050000E+01 +/-  0.4000000E-01 +/-  0.4000000E-01 Tot:  0.5656854E-01
+ A2 X+Y PUBLISHED   0.9700000E+00 +/-  0.6000000E-01 +/-  0.6000000E-01 Tot:  0.8485281E-01
+ A3 X+Y PUBLISHED   0.1050000E+01 +/-  0.3000000E-01 +/-  0.3000000E-01 Tot:  0.4242641E-01
   
  WARNING at (or before) word   1 of line  35 in file average.input 
          concerning combined analysis ALL 2D_XY PUBLISHED:
@@ -173,17 +173,17 @@ IMEAS,CSYS =  3     -1.00 -1.00
 IMEAS,CSYS =  4     -1.00 -1.00
  DSINV: J, A(J,J) =  1  0.000499999978
  DSINV: J, A(J,J) =  2  0.00319999986
- DSINV: J, A(J,J) =  3  0.00319999986
- DSINV: J, A(J,J) =  4  0.00319999986
+ DSINV: J, A(J,J) =  3  0.00719999968
+ DSINV: J, A(J,J) =  4  0.00179999992
  MINUIT_CHI2: DSINV: W->W: IERR =  0
  CHI2_N_SYM: DSINV: S->S: IERR =  0
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   1.16980948 4 2 2
- CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.58490474  0.764790651  0.557158947
+ CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   0.718113734 4 2 2
+ CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.359056867  0.59921354  0.698334634
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                      X             Y
- X            0.1571698      0.0212798    -0.3984095
- Y            0.8618868     -0.3984095     0.0356079
+ X            0.1594163      0.0212453    -0.4215995
+ Y            0.8762646     -0.4215995     0.0347532
                                      X             Y
   
  DUMP_FIT: DSINV: S->SINV: IERR =  0
@@ -191,18 +191,18 @@ IMEAS,CSYS =  4     -1.00 -1.00
  --Averaged parameters, using only stat---
  --breakdown of errors: syst then stat-----
                                      X             Y
- X            0.1571698      0.0212798    -0.3984095
- Y            0.8618868     -0.3984095     0.0356079
+ X            0.1594163      0.0212453    -0.4215995
+ Y            0.8762646     -0.4215995     0.0347532
                                      X             Y
   
-                    X      0.1571698 +/-      0.0212798 +/-      0.0000000 Tot Err:     0.0212798 Check Sys:     0.0000000
-                    Y      0.8618868 +/-      0.0356079 +/-      0.0000000 Tot Err:     0.0356079 Check Sys:     0.0000000
- Correlation between                    X and                    Y =     -0.3984095
-All: Sum of Multi-Quantity Average =      1.0190566 +-      0.0334213
+                    X      0.1594163 +/-      0.0212453 +/-      0.0000000 Tot Err:     0.0212453 Check Sys:     0.0000000
+                    Y      0.8762646 +/-      0.0347532 +/-      0.0000000 Tot Err:     0.0347532 Check Sys:     0.0000000
+ Correlation between                    X and                    Y =     -0.4215995
+All: Sum of Multi-Quantity Average =      1.0356809 +-      0.0321959
   
- P1: Sum of Multi-Quantity Average =      1.0190566 +-      0.0334213
+ P1: Sum of Multi-Quantity Average =      1.0356809 +-      0.0321959
   
- P2: Sum of Multi-Quantity Average =      0.2222321 +-      0.0099052
+ P2: Sum of Multi-Quantity Average =      0.2257517 +-      0.0097216
   
 
 

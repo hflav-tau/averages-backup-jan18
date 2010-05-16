@@ -265,7 +265,7 @@
 *
 *     Local variables
 *
-      INTEGER INVOPT, ErrorFlag, ICONSTRAIN
+      INTEGER INVOPT, ErrorFlag
       INTEGER I, J, II
       INTEGER NSUM, ISUM, IMEAS, IQUAN, ISUMOVER
       DOUBLE PRECISION    COEFF
@@ -333,10 +333,6 @@
                DO IQUAN=1,NQUAN 
                  CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
                ENDDO
-            ELSE IF (IMEAS.GT.0.AND.ISUMOVER.EQ.-1) THEN ! special flag for sum over all quantities AS A CONSTRAINT
-               DO IQUAN=1,NQUAN-1
-                 CSYS(IMEAS,NCSYS+IQUAN) = 1.D0
-               ENDDO
             ENDIF
           ENDIF
         ENDDO
@@ -368,11 +364,6 @@
         W(I,I)=W(I,I)+USYS(I)**2 ! add uncorrelated systematic error
       ENDDO
 
-      ICONSTRAIN=0 ! 
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_CONS') ICONSTRAIN=INT(PARA(I))
-      ENDDO
-      IF (ICONSTRAIN.EQ.1) W(NMEAS,NMEAS)=W(NMEAS,NMEAS)*-1
 
 *
 *     Invert total error matrix

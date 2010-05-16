@@ -251,8 +251,6 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
       CHARACTER*13 CHSUM
       CHARACTER*16 CHSUM2
 
-      INTEGER ICONSTRAIN, NQUANDO
-
       LCSYS=NCSYS+NQUAN
 *
 *     Determine debug printout level
@@ -454,23 +452,14 @@ c      ENDIF
       ENDDO
 
 *print average sum of multiple quantities
-      ICONSTRAIN=0 
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_CONS') ICONSTRAIN=INT(PARA(I))
-      ENDDO
-      IF (ICONSTRAIN.EQ.1) THEN
-        NQUANDO=NQUAN-1         ! assumes last NQUAN is Lagrange Multiplier
-      ELSE
-        NQUANDO=NQUAN
-      ENDIF
 
       AVESUM=0.0
       AVEERR=0.0
-      DO IQUAN=1,NQUANDO
+      DO IQUAN=1,NQUAN
         IVAR=NCSYS+IQUAN
         AVESUM = AVESUM - V (IVAR)
         AVEERR = AVEERR + ERRTOT(IQUAN)**2
-        DO JQUAN=1,NQUANDO
+        DO JQUAN=1,NQUAN
           IF (IQUAN.LT.JQUAN) THEN
             AVEERR = AVEERR + 2 * ERRTOT(IQUAN) * ERRTOT(JQUAN) 
      &                          * SAUX(NCSYS+IQUAN,NCSYS+JQUAN) 
