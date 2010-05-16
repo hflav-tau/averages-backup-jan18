@@ -1,0 +1,13 @@
+* Impose sum_of_quantities = 1 constraint
+BEGIN        CONSTRAINT X+Y UNITY
+MEASUREMENT  X statistical systematic
+DATA         X statistical systematic
+*            1.0   1.0e-0  0.0            !  try with error = 1.0e-0
+*            1.0   1.0e-1  0.0            !  try with error = 1.0e-1
+*            1.0   1.0e-2  0.0            !  try with error = 1.0e-2
+*            1.0   1.0e-3  0.0            !  try with error = 1.0e-3
+             1.0   1.0e-4  0.0            !  try with error = 1.0e-4
+*            1.0   1.0e-5  0.0            !  try with error = 1.0e-5
+*            1.0   1.0e-6  0.0            !  try with error = 1.0e-6
+*            1.0   1.0e-7  0.0            !  try with error = 1.0e-7
+END
