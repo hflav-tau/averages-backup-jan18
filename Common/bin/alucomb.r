@@ -52,27 +52,46 @@ rc = NULL
 meas.names = names(measurements)
 ##-- quantities to be averaged
 quant.names = combination$quantities
-##
-## get quantities that are combination of other quantities and were
-## mentioned in the MEASUREMENT cards to be included in the fit
-##
-quant.names.comb = intersect(names(combination$meas.lin.combs), quant.names)
-##-- retain only independent quantities, discarding the ones that are combinations
-quant.names = setdiff(quant.names, quant.names.comb)
 quant.num = length(quant.names)
-##-- retain only combinations whose terms are all included in the fitted quantities
-quant.names.comb = quant.names.comb[unlist(lapply(quant.names.comb, function(el) all(names(el) %in% quant.names)))]
+
+##
+## transform COMBOFMEAS and SUMOF meas information
+## (quantities that are combination of other quantities)
+## into constraints consisting in combinaiton of values equal to constrats
+##
+tmp = mapply(function(name, value) {
+  rc = c(value, -1)
+  names(rc)[length(rc)] = name
+  rc
+},
+  names(combination$meas.lin.combs), combination$meas.lin.combs,
+  SIMPLIFY=FALSE)
+if (length(tmp) > 0) {
+  names(tmp) = paste(names(tmp), "l", sep=".")
+  combination$constr.comb = c(combination$constr.comb, tmp)
+  tmp2 = as.list(rep(0, length(tmp)))
+  names(tmp2) = names(tmp)
+  combination$constr.val = c(combination$constr.val, tmp2)
+  rm(tmp2)
+}
+rm(tmp)
+
+##-- retain only constraints whose terms are all included in the fitted quantities
+constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
+if (any(!constr.select)) {
+  cat("The following constraints are dropped:\n")
+  mapply(function(comb, val) {
+    show(c(comb, constr=val))
+  }, combination$constr.comb[!constr.select], combination$constr.val[!constr.select])
+}
+combination$constr.comb = combination$constr.comb[constr.select]
+combination$constr.val = combination$constr.val[constr.select]
+
 ##-- quantity measured per measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
 names(meas.quantities) = meas.names
-##-- quantities to be averaged plus their linear combinations
-quant.names.include = c(quant.names, quant.names.comb)
 
-if (length(quant.names.comb) >0) {
-  cat("The following measurements are included as linear combinations:\n")
-  cat(paste("  ", meas.names[meas.quantities %in% quant.names.comb], collapse="\n"), "\n");
-}
-meas.included.list = meas.quantities %in% quant.names.include
+meas.included.list = meas.quantities %in% quant.names
 names(meas.included.list) = names(meas.quantities)[meas.included.list]
 meas.names.discarded =  meas.names[!meas.included.list]
 if (length(meas.names.discarded) >0) {
@@ -278,16 +297,6 @@ rownames(delta) = meas.names
 for (quant in quant.names) {
   delta[,quant] = as.numeric(quant == meas.quantities)
 }
-##
-## for measurements that are linear combination of quantities
-## set the delta matrix coefficients as specified
-##
-for (quant.comb in quant.names.comb) {
-  meas.quant.comb = names(meas.quantities[meas.quantities == quant.comb])
-  comb = combination$meas.lin.combs[[quant.comb]]
-  delta[meas.quant.comb, names(combination$meas.lin.combs[[quant.comb]])] =
-    matrix(comb, ncol=length(comb), nrow=length(meas.quant.comb), byrow=TRUE)
-}
 
 ##-- print corrected measurements
 if (FALSE) {
@@ -351,19 +360,63 @@ if (quant.num > 1) {
 ## analytical minimum chi-square solution for quantities
 ##
 
-invcov = solve(meas.cov)
+quant = rep(0, quant.num)
+names(quant) = quant.names
 
-quant.cov = solve(t(delta) %*% invcov %*% delta)
-rownames(quant.cov) = quant.names
-colnames(quant.cov) = quant.names
+meas.invcov = solve(meas.cov)
+
+quant.invcov = t(delta) %*% meas.invcov %*% delta
+##-- multiply constraint equation to avoid unbalanced singular values
+quant.invcon.order = 10^round(log(det(quant.invcov)^(1/quant.num))/log(10))
+
+##-- constraints
+constr.num = length(quant.names.comb)
+constr.names = names(combination$constr.comb)
+constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant; tmp[names(x)] = x; tmp}))
+constr.m = quant.invcon.order * constr.m
+constr.v = quant.invcon.order * unlist(combination$constr.val)
+
+##-- build full matrix in front of c(quant vector, lagr.mult. vector)
+full.m = rbind(
+  cbind(quant.invcov, t(constr.m)),
+  cbind(constr.m, matrix(0, constr.num, constr.num)))
+##-- build full matrix in front of c(meas, constraint values)
+full.v.m = rbind(
+  cbind(t(delta) %*% meas.invcov, matrix(0, quant.num, constr.num, dimnames=list(NULL, constr.names))),
+  cbind(matrix(0, constr.num, meas.num), diag.m(rep(1, constr.num))))
+##-- build full vector c(measurements vector, constraint values)
+full.v = c(meas, constr.v)
+
+##-- matrix that applied to c(meas, constr. values) gives quant
+solve.m = solve(full.m) %*% full.v.m
+
+##-- solve for both quantities and lagrange multipliers
+## quant.constr.val = solve(full.m, (full.v.m %*% full.v))
+quant.constr.val = solve.m %*% full.v
+quant = quant.constr.val[1:quant.num, drop=FALSE]
+names(quant) = quant.names
+
+##
+## full covariance of measurements and constraint values
+## - there is no error on the constraint values
+##
+full.v.cov = rbind(
+  cbind(meas.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
+  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
+
+##-- covariance matrix of fitted values
+quant.constr.cov = solve.m %*% full.v.cov %*% t(solve.m)
+quant.cov = quant.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
+## rownames(quant.cov) = quant.names
+## colnames(quant.cov) = quant.names
 quant.err = sqrt(diag.m(quant.cov))
 
-quant = drop(quant.cov %*% t(delta) %*% (invcov %*% meas))
+quant = drop(quant.cov %*% t(delta) %*% (meas.invcov %*% meas))
 names(quant) = quant.names
 
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
 
 cat("\n")
 cat("##\n")
@@ -505,8 +558,8 @@ if (FALSE && length(chisq.out)>0) {
 rm(chisq.out)
 
 ##-- recompute chisq and chisq/dof
-dof = meas.num - quant.num
-chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+dof = meas.num - quant.num + constr.num
+chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
 
 ##
 ## PDG computes and uses S-factors only if chisq/dof > 1
@@ -526,7 +579,7 @@ meas.select = meas.keep & meas.sfact
 ## quantities that are related to the selected measurements
 ##
 quant.select.num = sum((rep(1, sum(meas.select)) %*% abs(delta[meas.select,])) > 0)
-dof.select = sum(meas.select) - quant.select.num
+dof.select = sum(meas.select) - quant.select.num + constr.num
 
 ##++ prevent problems when all measurements have large errors but one
 if (any(meas.select) && dof.select < 1) {
@@ -581,19 +634,31 @@ sfact = pmax(sfact, 1)
 ## inflate the covariance matrix with the S-factors
 ##
 meas2.cov = diag.m(sfact) %*% meas.cov %*% diag.m(sfact)
-invcov2 = solve(meas2.cov)
+rownames(meas2.cov) = meas.names
+colnames(meas2.cov) = meas.names
+meas2.invcov = solve(meas2.cov)
 
 ##-- compute new inflated fitted quantities covariance matrix 
-quant2.cov = solve(t(delta) %*% invcov2 %*% delta)
-rownames(quant2.cov) = quant.names
-colnames(quant2.cov) = quant.names
+##
+## full covariance of measurements and constraint values
+## - there is no error on the constraint values
+##
+full2.v.cov = rbind(
+  cbind(meas2.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
+  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
+
+##-- covariance matrix of fitted values
+quant2.constr.cov = solve.m %*% full2.v.cov %*% t(solve.m)
+quant2.cov = quant2.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
+## rownames(quant2.cov) = quant.names
+## colnames(quant2.cov) = quant.names
 
 ##-- updated errors and correlations
 quant2.err = sqrt(diag.m(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
 ##-- all measurements chisq after S-factor inflation
-chisq2 = drop(t(meas - delta %*% quant) %*% invcov2 %*% (meas - delta %*% quant))
+chisq2 = drop(t(meas - delta %*% quant) %*% meas2.invcov %*% (meas - delta %*% quant))
 
 cat("\n")
 cat("##\n")

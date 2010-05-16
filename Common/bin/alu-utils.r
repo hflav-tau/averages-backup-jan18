@@ -115,6 +115,7 @@ flag.in.params = FALSE
 flag.in.combine = FALSE
 flag.in.sumofquant = FALSE
 flag.in.combofquant = FALSE
+flag.in.constraint = FALSE
 
 for (line in lines) {
   ## cat(line,"\n")
@@ -143,10 +144,18 @@ for (line in lines) {
       meas.labels = character()
       data.labels = character()
       data.values = numeric()
+
       sumofquant.values = numeric()
+
       combofquant.labels = character()
       combofquant.values = numeric()
       measlincombs.list = list()
+
+      constraint.labels = character()
+      constraint.values = numeric()
+      constraints.list.comb = list()
+      constraints.list.val = list()
+
       flag.in.meas = TRUE
     }
     next
@@ -181,10 +190,25 @@ for (line in lines) {
       combofquant.labels = character()
       combofquant.values = numeric()
     }
+    ##
+    ## store collected data of CONSTRAINT cards
+    ##
+    if (flag.in.constraint) {
+      if (length(constraint.labels) != length(constraint.values)) {
+        stop("error: comb.lin. coeffs ", length(constraint.values), " while expecting ", length(constraint.labels))
+      }
+      names(constraint.values) = constraint.labels
+      constraints.list.comb[[constraint.labels[1]]] = constraint.values[-1]
+      constraints.list.val[[constraint.labels[1]]] = constraint.values[1]
+      ##-- reset vectors of CONSTRAINT parameter
+      constraint.labels = character()
+      constraint.values = numeric()
+    }
     flag.in.data = FALSE
     flag.in.params = FALSE
     flag.in.sumofquant = FALSE
     flag.in.combofquant = FALSE
+    flag.in.constraint = FALSE
   }
   if (match.nocase("^END$", fields[1])) {
     if (!flag.in.combine) {
@@ -262,6 +286,8 @@ for (line in lines) {
       combination$quantities = meas.labels
       combination$params = meas$params
       combination$meas.lin.combs = measlincombs.list
+      combination$constr.comb = constraints.list.comb
+      combination$constr.val = constraints.list.val
     }
     flag.in.meas = FALSE
     flag.in.combine = FALSE
@@ -328,7 +354,7 @@ for (line in lines) {
     sumofquant.values = c(sumofquant.values, as.character(fields[-1]))
   }
   ##
-  ## COMBOFQUANT <exp> <method> <where> <quant 1> [<quant 2> ...] <coeff 1> [<coeff 2> ...]
+  ## COMBOFQUANT <quant> <quant 1> <coeff 1> [<quant 2> <coeff 2> ...]
   ## define a measurement as linear combination of quantities to fit
   ##
   if (match.nocase("^COMBOFQUANT$", fields[1]) ||
@@ -337,6 +363,18 @@ for (line in lines) {
     combofquant.labels = c(combofquant.labels,
       unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
     combofquant.values = c(combofquant.values,
+      unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
+  }
+  ##
+  ## CONSTRAINT <name> <value> <quant 1> <coeff 1> [<quant 2> <coeff 2> ...]
+  ## define a measurement as linear combination of quantities to fit
+  ##
+  if (match.nocase("^CONSTRAINT$", fields[1]) ||
+      (flag.in.constraint && match.nocase("^\\s*$", fields[1]))) {
+    flag.in.constraint = TRUE
+    constraint.labels = c(constraint.labels,
+      unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
+    constraint.values = c(constraint.values,
       unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
   }
 }
