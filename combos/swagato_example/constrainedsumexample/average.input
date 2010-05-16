@@ -9,7 +9,6 @@ COMBINE *   *     *
 
 MEASUREMENT X stat syst
 MEASUREMENT Y stat syst
-MEASUREMENT m_Lambda stat syst
 
 CALL DUMP_MASTER_INC
 
@@ -22,10 +21,8 @@ PARAMETER CHI2_N_SYM_01_01  1  1 0
 PARAMETER CHI2_N_SYM_01_02  2  1 0
 * second method of expressing measurement number 4 as sum over all quantities [with co-effcient = 1]
 PARAMETER CHI2_N_SYM_02     4  0 0
-* build up the correlation matrix for Lagrange multiplier as last measurement 
-PARAMETER CHI2_N_SYM_03     5 -1 0
-PARAMETER CHI2_N_SYM_CONS   1  0 0
-PARAMETER CHI2_N_SYM_INV    1  0 0 
+* second method of expressing measurement number 5 as sum over all quantities [with co-effcient = 1]
+PARAMETER CHI2_N_SYM_03     5  0 0
 
 PARAMETER CHI2_N_SYM_PSUM   2  0 0 ! print 2 kinds of sum over multiple quantities
 * print sum over quantities 1 and 2 [each with co-effcient = 1]
