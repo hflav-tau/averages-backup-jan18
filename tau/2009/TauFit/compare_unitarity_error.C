@@ -57,7 +57,7 @@
     err_7[i-1]/= err_0[i-1];
   }
   
-  TH1F *h1b = new TH1F("h1b","Fitted Values by varying sum error from 1e-1 to 1e-7 Normalized to 1e-0",nx,0,nx);
+  TH1F *h1b = new TH1F("h1b","Fitted Values by varying sum error from 1e-1 to 1e-5 Normalized to 1e-0",nx,0,nx);
   h1b->SetFillColor(kBlue);
   h1b->SetBarWidth(0.12);
   h1b->SetBarOffset(0.0);
@@ -84,21 +84,21 @@
   for (i=1;i<=nx;i++) h3b->Fill(os_X[i-1], val_3[i-1]);
   
   TH1F *h4b = new TH1F("h4b","h4b",nx,0,nx);
-  h4b->SetFillColor(kYellow);
+  h4b->SetFillColor(kOrange);
   h4b->SetBarWidth(0.12);
   h4b->SetBarOffset(0.36);
   h4b->SetStats(0);
   for (i=1;i<=nx;i++) h4b->Fill(os_X[i-1], val_4[i-1]);
   
   TH1F *h5b = new TH1F("h5b","h5b",nx,0,nx);
-  h5b->SetFillColor(kOrange);
+  h5b->SetFillColor(kRed);
   h5b->SetBarWidth(0.12);
   h5b->SetBarOffset(0.48);
   h5b->SetStats(0);
   for (i=1;i<=nx;i++) h5b->Fill(os_X[i-1], val_5[i-1]);
   
   TH1F *h6b = new TH1F("h6b","h6b",nx,0,nx);
-  h6b->SetFillColor(kRed);
+  h6b->SetFillColor(kYellow);
   h6b->SetBarWidth(0.12);
   h6b->SetBarOffset(0.6);
   h6b->SetStats(0);
@@ -111,13 +111,13 @@
   h7b->SetStats(0);
   for (i=1;i<=nx;i++) h7b->Fill(os_X[i-1], val_7[i-1]);
   
-  TH1F *h1e = new TH1F("h1e","Fitted Errors by varying sum error from 1e-1 to 1e-7 Normalized to 1e-0",nx,0,nx);
+  TH1F *h1e = new TH1F("h1e","Fitted Errors by varying sum error from 1e-1 to 1e-5 Normalized to 1e-0",nx,0,nx);
   h1e->SetFillColor(kBlue);
   h1e->SetBarWidth(0.12);
   h1e->SetBarOffset(0.0);
   h1e->SetStats(0);
-  h1e->SetMinimum(.9);
-  h1e->SetMaximum(1.1);
+  h1e->SetMinimum(.8);
+  h1e->SetMaximum(1.2);
   for (i=1; i<=nx; i++) {
     h1e->Fill(os_X[i-1], err_1[i-1]);
     h1e->GetXaxis()->SetBinLabel(i,os_X[i-1]);
@@ -138,21 +138,21 @@
   for (i=1;i<=nx;i++) h3e->Fill(os_X[i-1], err_3[i-1]);
   
   TH1F *h4e = new TH1F("h4e","h4e",nx,0,nx);
-  h4e->SetFillColor(kYellow);
+  h4e->SetFillColor(kOrange);
   h4e->SetBarWidth(0.12);
   h4e->SetBarOffset(0.36);
   h4e->SetStats(0);
   for (i=1;i<=nx;i++) h4e->Fill(os_X[i-1], err_4[i-1]);
   
   TH1F *h5e = new TH1F("h5e","h5e",nx,0,nx);
-  h5e->SetFillColor(kOrange);
+  h5e->SetFillColor(kRed);
   h5e->SetBarWidth(0.12);
   h5e->SetBarOffset(0.48);
   h5e->SetStats(0);
   for (i=1;i<=nx;i++) h5e->Fill(os_X[i-1], err_5[i-1]);
   
   TH1F *h6e = new TH1F("h6e","h6e",nx,0,nx);
-  h6e->SetFillColor(kRed);
+  h6e->SetFillColor(kYellow);
   h6e->SetBarWidth(0.12);
   h6e->SetBarOffset(0.60);
   h6e->SetStats(0);
@@ -173,8 +173,8 @@
   h3b->Draw("hbar,same");
   h4b->Draw("hbar,same");
   h5b->Draw("hbar,same");
-  h6b->Draw("hbar,same");
-  h7b->Draw("hbar,same");
+  //  h6b->Draw("hbar,same");
+  //  h7b->Draw("hbar,same");
   c1->SaveAs("compare-val_unitarity_error.eps");
 
   TCanvas *c2 = new TCanvas("c2","c2",600,600);
@@ -185,8 +185,8 @@
   h3e->Draw("hbar,same");
   h4e->Draw("hbar,same");
   h5e->Draw("hbar,same");
-  h6e->Draw("hbar,same");
-  h7e->Draw("hbar,same");
+  //  h6e->Draw("hbar,same");
+  //  h7e->Draw("hbar,same");
   c2->SaveAs("compare-err_unitarity_error.eps");
 
   return 0;
