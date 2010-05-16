@@ -370,7 +370,7 @@ quant.invcov = t(delta) %*% meas.invcov %*% delta
 quant.invcon.order = 10^round(log(det(quant.invcov)^(1/quant.num))/log(10))
 
 ##-- constraints
-constr.num = length(quant.names.comb)
+constr.num = length(combination$constr.comb)
 constr.names = names(combination$constr.comb)
 constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant; tmp[names(x)] = x; tmp}))
 constr.m = quant.invcon.order * constr.m
@@ -383,7 +383,7 @@ full.m = rbind(
 ##-- build full matrix in front of c(meas, constraint values)
 full.v.m = rbind(
   cbind(t(delta) %*% meas.invcov, matrix(0, quant.num, constr.num, dimnames=list(NULL, constr.names))),
-  cbind(matrix(0, constr.num, meas.num), diag.m(rep(1, constr.num))))
+  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), diag.m(rep(1, constr.num))))
 ##-- build full vector c(measurements vector, constraint values)
 full.v = c(meas, constr.v)
 
@@ -410,10 +410,6 @@ quant.cov = quant.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
 ## rownames(quant.cov) = quant.names
 ## colnames(quant.cov) = quant.names
 quant.err = sqrt(diag.m(quant.cov))
-
-quant = drop(quant.cov %*% t(delta) %*% (meas.invcov %*% meas))
-names(quant) = quant.names
-
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
 chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
