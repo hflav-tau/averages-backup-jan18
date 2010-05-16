@@ -283,11 +283,9 @@ meas.cov = meas.cov.stat + meas.cov.syst
 ##
 ## build delta matrix
 ## - measurements are experimental results or external PDG averages
-## - quantities are the results of the HFAG averaging procedure
+## - quantities are the results of the fit
 ## measurements are linear combinations of quantities, meas_i = delta_ij * quant_j
 ## if a measurement i corresponds to a quantity j then delta_ij = 1
-## some measurements are actually a sum of quantities: meas_i = quant_j1 + quant_j2 + ...
-## in this case delta_i,j1 = 1, delta_i,j2 = 1, ...
 ## all remaining delta matrix terms are zero
 ## one can generalize the above concepts to measurements that are linear combinations
 ## of quantities by using proper coefficients different from 1
@@ -322,6 +320,7 @@ options(width=2000)
 if (FALSE && !flag.no.maxLik) {
 ##
 ## solve for quantities with iterative chi-square minimization
+## numerical minimization needs to be updated to handle constraints
 ##
 
 ##-- compute weight matrix for computing chisq
@@ -373,14 +372,14 @@ meas.invcov = solve(meas.cov)
 
 quant.invcov = t(delta) %*% meas.invcov %*% delta
 ##-- multiply constraint equation to avoid unbalanced singular values
-quant.invcon.order = 10^round(log(det(quant.invcov)^(1/quant.num))/log(10))
+quant.invcov.order = 10^round(log(det(quant.invcov)^(1/quant.num))/log(10))
 
 ##-- constraints
 constr.num = length(combination$constr.comb)
 constr.names = names(combination$constr.comb)
 constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant; tmp[names(x)] = x; tmp}))
-constr.m = quant.invcon.order * constr.m
-constr.v = quant.invcon.order * unlist(combination$constr.val)
+constr.m = quant.invcov.order * constr.m
+constr.v = quant.invcov.order * unlist(combination$constr.val)
 
 ##-- build full matrix in front of c(quant vector, lagr.mult. vector)
 full.m = rbind(
@@ -432,28 +431,9 @@ if (quant.num > 1) {
 }
 cat("## end\n")
 
-##
-## each measurement is a linear combination of the quantities we fit
-## here we collect all the unique linear combinations, named "types"
-##
-meas.types.id = unique(delta)
-##++ get measurement names from "method" rather than MEASUREMENT card for safety
-rownames(meas.types.id) = sub("[^.]*.([^.]*).[^.]*", "\\1", rownames(meas.types.id), perl=TRUE)
-
-##-- for each "type", will set TRUE at the position of corresponding measurements
-meas.types = matrix(FALSE, dim(meas.types.id)[1], meas.num)
-meas.types.names = rownames(meas.types.id)
-rownames(meas.types) = meas.types.names
-colnames(meas.types) = meas.names
-for (mt.name in meas.types.names) {
-  for (m.name in meas.names) {
-    meas.types[mt.name, m.name] = all(meas.types.id[mt.name,] == delta[m.name,])
-  }
-}
-
-##-- chisq contribution, dof, S-factor for each measurement type
-chisq.types = 0*meas.types.id[,1]
-names(chisq.types) = meas.types.names
+##-- chisq contribution, dof, S-factor for each measurement type (now same as quant)
+chisq.types = 0*quant
+names(chisq.types) = quant.names
 dof.types = chisq.types
 num.types = chisq.types
 num.types.keep = chisq.types
@@ -473,12 +453,9 @@ meas.keep = meas & FALSE
 ## - sfact: S-factor per measurement
 ##
 chisq.out = numeric(0)
-for (mt.name in meas.types.names) {
-  ##-- linear comb. of averaged quantities corresponding to mt.name
-  quant.comb = meas.types.id[mt.name,]
-
+for (mt.name in quant.names) {
   ##-- selection of measurements of type mt.name
-  meas.mt = meas.types[mt.name,]
+  meas.mt = delta[, mt.name] != 0
   meas.mt.num = sum(meas.mt)
   num.types[mt.name] = meas.mt.num
 
@@ -495,7 +472,7 @@ for (mt.name in meas.types.names) {
   ##
 
   ##-- chisq when disregarding correlation between measurements of the same type
-  meas.mt.chisq = sum(((meas[meas.mt.keep] - drop(quant.comb %*% quant)) / meas.error[meas.mt.keep])^2)
+  meas.mt.chisq = sum(((meas[meas.mt.keep] - quant[mt.name]) / meas.error[meas.mt.keep])^2)
 
   ##-- chisq from measurements of the current type, including correlations
   meas.mt.chisq.corr = drop(
@@ -621,7 +598,7 @@ repeat {
 
 ##-- update sfact.types with adjusted sfact for selected meas
 for (meas.s in names(meas.select[meas.select])) {
-  sfact.types[names(which(meas.types[,meas.s]))] = sfact[meas.s]
+  sfact.types[delta[meas.s,] != 0] = sfact[meas.s]
 }
 
 ##-- save step 1
@@ -641,10 +618,6 @@ colnames(meas2.cov) = meas.names
 meas2.invcov = solve(meas2.cov)
 
 ##-- compute new inflated fitted quantities covariance matrix 
-##
-## full covariance of measurements and constraint values
-## - there is no error on the constraint values
-##
 full2.v.cov = rbind(
   cbind(meas2.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
   cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
@@ -728,29 +701,6 @@ if (quant.num > 1) {
   show(quant2.corr)
 }
 
-##
-## measurement types that do not correspond to an averaged quantity
-## - compute average and errors
-##
-meas.names.extra = meas.types.names[!(meas.types.names %in% quant.names)]
-if (length(meas.names.extra) >0) {
-  meas.extra.id = subset(meas.types.id, meas.types.names %in% meas.names.extra)
-  meas.extra = drop(meas.extra.id %*% quant[1:quant.num])
-  meas.extra.err = sqrt(diag.m(meas.extra.id %*% quant.cov %*% t(meas.extra.id)))
-  ##-- update with S-factors measurement types that do not correspond to an averaged quantity
-  meas.extra.err.upd = sqrt(diag.m(meas.extra.id %*% quant2.cov %*% t(meas.extra.id)))
-  
-  cat("Non-averaged measurement types\n") 
-  show(rbind(value=meas.extra,
-             error=meas.extra.err,
-             upd.error=meas.extra.err.upd,
-             "S-factor"=meas.extra.err.upd/meas.extra.err,
-             "S-factor_2"=sfact.types.1[meas.names.extra],
-             "S-factor_1"=sfact.types.0[meas.names.extra],
-             chisq=chisq.types[meas.names.extra],
-             dof=dof.types[meas.names.extra]
-           ))
-}
 cat("## end\n")
 
 options(options.save)
