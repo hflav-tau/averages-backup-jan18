@@ -80,9 +80,15 @@ rm(tmp)
 constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
 if (any(!constr.select)) {
   cat("The following constraints are dropped:\n")
-  mapply(function(comb, val) {
-    show(c(comb, constr=val))
-  }, combination$constr.comb[!constr.select], combination$constr.val[!constr.select])
+  mapply(function(comb, val, val.name)
+         {
+           tmp = val
+           names(tmp) = val.name
+           show(c(comb, tmp))
+         },
+         combination$constr.comb[!constr.select],
+         combination$constr.val[!constr.select],
+         names(combination$constr.val[!constr.select]))
 }
 combination$constr.comb = combination$constr.comb[constr.select]
 combination$constr.val = combination$constr.val[constr.select]
@@ -311,7 +317,7 @@ meas = meas.value
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=2000)
+##++ options(width=2000)
 
 if (FALSE && !flag.no.maxLik) {
 ##
