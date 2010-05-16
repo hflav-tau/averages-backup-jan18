@@ -14,5 +14,11 @@
 # grep "Tot Err:" log/average_unitarity_1e-$i.log | tail -34 | awk -v I=$i 'BEGIN{printf "  float err_"I"\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}' >> $LOGFILE
 #end
 
-grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -v SCALE
-grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -e SCALE
+# rm -f unitarity.input ; ln -s unitarity_default.input unitarity.input
+
+# grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -v SCALE
+# grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -e SCALE
+# grep "All: Sum of Multi-Quantity Average" log/*.log | awk '{if (NR%2==0) print $0}'
+ 
+grep "Tot Err:" log/average_unitarity_1e-4.log | tail -34 
+
