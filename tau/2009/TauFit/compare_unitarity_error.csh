@@ -1,24 +1,18 @@
-echo "  // Unitarity Error = 1.0e-0"
-grep "Tot Err:" log/average_unitarity_1e-0.log | tail -33 | awk 'BEGIN{printf "  float val_0\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-0.log | tail -33 | awk 'BEGIN{printf "  float err_0\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-1"
-grep "Tot Err:" log/average_unitarity_1e-1.log | tail -33 | awk 'BEGIN{printf "  float val_1\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-1.log | tail -33 | awk 'BEGIN{printf "  float err_1\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-2"
-grep "Tot Err:" log/average_unitarity_1e-2.log | tail -33 | awk 'BEGIN{printf "  float val_2\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-2.log | tail -33 | awk 'BEGIN{printf "  float err_2\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-3"
-grep "Tot Err:" log/average_unitarity_1e-3.log | tail -33 | awk 'BEGIN{printf "  float val_3\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-3.log | tail -33 | awk 'BEGIN{printf "  float err_3\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-4"
-grep "Tot Err:" log/average_unitarity_1e-4.log | tail -33 | awk 'BEGIN{printf "  float val_4\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-4.log | tail -33 | awk 'BEGIN{printf "  float err_4\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-5"
-grep "Tot Err:" log/average_unitarity_1e-5.log | tail -33 | awk 'BEGIN{printf "  float val_5\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-5.log | tail -33 | awk 'BEGIN{printf "  float err_5\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-6"
-grep "Tot Err:" log/average_unitarity_1e-6.log | tail -33 | awk 'BEGIN{printf "  float val_6\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-6.log | tail -33 | awk 'BEGIN{printf "  float err_6\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
-echo "  // Unitarity Error = 1.0e-7"
-grep "Tot Err:" log/average_unitarity_1e-7.log | tail -33 | awk 'BEGIN{printf "  float val_7\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}'
-grep "Tot Err:" log/average_unitarity_1e-7.log | tail -33 | awk 'BEGIN{printf "  float err_7\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}'
+#!/bin/csh
+
+setenv LOGFILE compare_unitarity_error.log
+rm -f $LOGFILE
+touch $LOGFILE
+
+foreach i ( 0 1 2 3 4 5 6 7)
+ rm -f unitarity.input 
+ sed -e 's/SUBSTITUTE/1.0e-'$i'/g' unitarity_template.input > unitarity.input 
+ make combos
+ cp -p average.log log/average_unitarity_1e-$i.log
+ echo "  // Unitarity Error = 1.0e-$i"  >> $LOGFILE
+ grep "Tot Err:" log/average_unitarity_1e-$i.log | tail -34 | awk -v I=$i 'BEGIN{printf "  float val_"I"\[nx\] = \{"}{printf $2     ", "}END{printf "\};\n"}' >> $LOGFILE
+ grep "Tot Err:" log/average_unitarity_1e-$i.log | tail -34 | awk -v I=$i 'BEGIN{printf "  float err_"I"\[nx\] = \{"}{printf $(NF-3)", "}END{printf "\};\n"}' >> $LOGFILE
+end
+
+grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -v SCALE
+grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -e SCALE

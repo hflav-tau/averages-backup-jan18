@@ -1,7 +1,7 @@
 INCLUDE babar.input
 INCLUDE belle.input
-INCLUDE pdgfit.input
 INCLUDE cleo.input
+INCLUDE pdgfit.input
 INCLUDE unitarity.input
 
 BEGIN   BaBar+Belle+PDG all_methods
@@ -39,12 +39,11 @@ MEASUREMENT m_Gamma103 statistical systematic ! NQUAN = 26
 MEASUREMENT m_Gamma104 statistical systematic ! NQUAN = 27
 MEASUREMENT m_Gamma126 statistical systematic ! NQUAN = 28
 MEASUREMENT m_Gamma128 statistical systematic ! NQUAN = 29
-MEASUREMENT m_Gamma150 statistical systematic ! NQUAN = 30
-MEASUREMENT m_Gamma152 statistical systematic ! NQUAN = 31
-MEASUREMENT m_Gamma130 statistical systematic ! NQUAN = 32
-MEASUREMENT m_Gamma132 statistical systematic ! NQUAN = 33
+MEASUREMENT m_Gamma130 statistical systematic ! NQUAN = 30
+MEASUREMENT m_Gamma132 statistical systematic ! NQUAN = 31
+MEASUREMENT m_Gamma150 statistical systematic ! NQUAN = 32
+MEASUREMENT m_Gamma152 statistical systematic ! NQUAN = 33
 MEASUREMENT m_Gamma999 statistical systematic ! NQUAN = 34
-MEASUREMENT m_Lambda   statistical systematic ! NQUAN = 35
 
 * MEASUREMENT m_Gamma13 statistical systematic
 * MEASUREMENT m_Gamma60 statistical systematic
@@ -64,7 +63,7 @@ PARAMETER CHI2_N_SYM_NSUM  4 0 0   ! a total of 4 measurements correspond to lin
 
 PARAMETER CHI2_N_SYM_01    7 2 0   ! BaBar Gamma60 = Gamma62 + 0.0153 Gamma150
 PARAMETER CHI2_N_SYM_01_01 18 1 0
-PARAMETER CHI2_N_SYM_01_02 30 0.0153 0
+PARAMETER CHI2_N_SYM_01_02 32 0.0153 0
 
 PARAMETER CHI2_N_SYM_02    11 2 0  ! Belle Gamma13 = Gamma14 + Gamma16
 PARAMETER CHI2_N_SYM_02_01 5  1 0
@@ -72,10 +71,10 @@ PARAMETER CHI2_N_SYM_02_02 6  1 0
 
 PARAMETER CHI2_N_SYM_03    13 2 0  ! Belle Gamma60 = Gamma62 + 0.0153 Gamma150
 PARAMETER CHI2_N_SYM_03_01 18 1 0
-PARAMETER CHI2_N_SYM_03_02 30 0.0153 0
+PARAMETER CHI2_N_SYM_03_02 32 0.0153 0
 
-PARAMETER CHI2_N_SYM_04    54 -1 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
-PARAMETER CHI2_N_SYM_CONS  1  0 0
+PARAMETER CHI2_N_SYM_04    54 0 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
+
 *
 * specify linear combinations for alucomb.r
 *

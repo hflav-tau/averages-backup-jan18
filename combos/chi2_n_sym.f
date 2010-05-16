@@ -203,18 +203,28 @@
       IF(NMEFF.GT.1) CL=DBLE(PROB(SNGL(CHI2),NMEFF-NQUAN)) ! is this correct ?
 C     IF(PRTLEV.GT.0) THEN 
       IF (PRTLEV.GT.-999) THEN  ! SwB [default changed]
-C       Print *, 'my chi2', chi2, NMEFF,NQUAn 
+        WRITE(*,'(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF    = '','//
+     &       'G10.5,3(1X,I3))') CHI2, NMEFF, NQUAN, NMEFF-NQUAN
         IF (NMEFF.GT.NQUAN) THEN
-          PRINT *,'CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF = ',
-     &                         CHI2, NMEFF, NQUAN, NMEFF-NQUAN
-          PRINT *,'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = ',
-     &             CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
-     &             CL
+          WRITE (*,'(''CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    = '','//
+     &         '3(1X,G10.5))')
+     &         CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
+     &         CL
         ELSE
-          PRINT *,'CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF = ',
-     &                         CHI2, NMEFF, NQUAN, NMEFF-NQUAN
-          PRINT *,'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL = set to 0.0'
+          WRITE (*,'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL set to 0.0')
         ENDIF
+C     
+        WRITE(*,'(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOFNEW = '','//
+     &       'G10.5,3(1X,I3))') CHI2, NMEFF-1, NQUAN, NMEFF-NQUAN-1
+        IF (NMEFF-1.GT.NQUAN) THEN
+          WRITE (*,'(''CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL = '','//
+     &         '3(1X,G10.5))')
+     &         CHI2/(NMEFF-1-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN-1))),
+     &         PROB(SNGL(CHI2),NMEFF-NQUAN-1)
+        ELSE
+          WRITE (*,'CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL set to 0.0')
+        ENDIF
+C     
       ENDIF
       CALL DUMP_FIT(V,S)
 *DR end
@@ -298,15 +308,13 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
       WRITE(LUNLOG,*)
      &  ' DUMP FIT RESULTS: diag=toterror',
      &  ' off-diag=corr. coeff=corr_sys/toterror'
-
-      WRITE(LUNLOG,'(T25,20A14)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
-
+      WRITE(LUNLOG,'(T30,10A12)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
       DO I=1,LCSYS
         WRITE(LUNLOG,1000)CHAUX(I)(:LENOCC(CHAUX(I))),
      &   -V(I),(SAUX(I,J),J=1,LCSYS)
- 1000  FORMAT(1X,A,T10,F14.7,' | ',T25,85F14.7)
+ 1000  FORMAT(1X,A12,T14,1X,F11.6,' | ',20(T30,10(1X,F11.6),/))
       ENDDO
-      WRITE(LUNLOG,'(T25,20A14)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
+      WRITE(LUNLOG,'(T30,10A12)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
       WRITE(LUNLOG,*)' '
 
       INVOPT=0 ! default option for matrix inversion using DSINV
@@ -364,7 +372,7 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
         WRITE(LUNLOG,*)'--Averaged parameters, using stat+syst---'
       ENDIF
       WRITE(LUNLOG,*)'--breakdown of errors: syst then stat-----'
-      WRITE(LUNLOG,'(T25,20A14)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
+      WRITE(LUNLOG,'(T30,10A12)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
 
       DO IQUAN=1,NQUAN
          IF (PRTLEV.GT.0) PRINT *, ' '
@@ -423,7 +431,7 @@ C       Print *, 'my chi2', chi2, NMEFF,NQUAn
 
       ENDDO
 
-      WRITE(LUNLOG,'(T25,20A14)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
+      WRITE(LUNLOG,'(T30,10A12)')(CHAUX(I)(:LENOCC(CHAUX(I))),I=1,LCSYS)
       WRITE(LUNLOG,*)' '
 
 *dump errors

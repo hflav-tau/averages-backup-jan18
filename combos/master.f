@@ -825,11 +825,11 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
      & WRITE(LUNLOG,1210) (ICOMB(CORLIST(I)),I=1,NCORLIST)
  1210 FORMAT(/,1X,
      & 'Statistical correlations:',
-     & /,/,T02,'Analysis number',T21,20I7)
+     & /,/,T02,'Analysis ',3(T10,24I6,/))
       DO I=1,NCORLIST
         WRITE(LUNLOG,1211) ICOMB(CORLIST(I)),
      &   (STACOR(CORLIST(I),CORLIST(J)),J=1,NCORLIST)
- 1211   FORMAT(T02,I15,T21,20F7.4)
+ 1211   FORMAT(T02,I8,5(T10,24(1X,F5.2),/))
       ENDDO
 *
 *     Printout: correlated and uncorrelated systematics
@@ -838,7 +838,7 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
         WRITE(LUNLOG,1200) (ICOMB(I),I=1,N)
  1200   FORMAT(/,1X,
      &   'CORrelated and UNCorrelated systematic uncertainties:',
-     &   /,/,T21,'Analysis number',/,T02,'Uncertainty',T21,30I4)
+     &   /,/,T21,'Analysis number',/,T02,'Uncertainty',5(T21,30I4,/))
         DO IC=1,NCSYS
           CH80=' '
           DO I=1,N
