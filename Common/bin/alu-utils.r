@@ -199,6 +199,8 @@ for (line in lines) {
       }
       names(constraint.values) = constraint.labels
       constraints.list.comb[[constraint.labels[1]]] = constraint.values[-1]
+      names(constraint.values)[1] = ""
+      show(names(constraint.values))
       constraints.list.val[[constraint.labels[1]]] = constraint.values[1]
       ##-- reset vectors of CONSTRAINT parameter
       constraint.labels = character()
