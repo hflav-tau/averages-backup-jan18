@@ -15,7 +15,8 @@ MEASUREMENT m_PimKmKpNu   statistical systematic
 MEASUREMENT m_KmKmKpNu    statistical systematic
 MEASUREMENT m_HmHmHpNu    statistical systematic
 
-SUMOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
+* SUMOFQUANT HmHmHpNu PimPimPipNu PimKmPipNu PimKmKpNu KmKmKpNu
+CONSTRAINT HmHmHpNu.l 0 HmHmHpNu -1 PimPimPipNu 1 PimKmPipNu 1 PimKmKpNu 1 KmKmKpNu 1
 
 * CALL DUMP_MASTER_INC
 
