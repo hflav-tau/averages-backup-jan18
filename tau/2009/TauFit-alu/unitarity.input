@@ -1,7 +1,0 @@
-* B(tau- -> all) = 1
-
-BEGIN       Unitarity GammaAll constraint
-MEASUREMENT m_GammaAll statistical systematic
-DATA        m_GammaAll statistical systematic
-            1.00     1.0e-0      0.0e+0 
-END
