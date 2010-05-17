@@ -3,5 +3,5 @@
 BEGIN        CONSTRAINT Gamma3 UNITY
 MEASUREMENT  m_Gamma3 statistical systematic
 DATA         m_Gamma3 statistical systematic
-             1.0      1.0e-4  0.0            !  try with error = 1.0e-4
+             1.0      1.0e-5  0.0            !  try with error = 1.0e-5
 END

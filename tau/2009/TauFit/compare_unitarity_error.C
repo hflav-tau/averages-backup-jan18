@@ -57,25 +57,25 @@
   float err_7_re[nx];
 
   for (i=1; i <=nx; i++){
-    val_1_re[i-1] = 100.*(val_1[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_1_re[i-1] = 100.*(err_1[i-1] - err_4[i-1] ) / err_4[i-1];
-    val_2_re[i-1] = 100.*(val_2[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_2_re[i-1] = 100.*(err_2[i-1] - err_4[i-1] ) / err_4[i-1];
-    val_3_re[i-1] = 100.*(val_3[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_3_re[i-1] = 100.*(err_3[i-1] - err_4[i-1] ) / err_4[i-1];
-    val_4_re[i-1] = 100.*(val_4[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_4_re[i-1] = 100.*(err_4[i-1] - err_4[i-1] ) / err_4[i-1];
-    val_5_re[i-1] = 100.*(val_5[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_5_re[i-1] = 100.*(err_5[i-1] - err_4[i-1] ) / err_4[i-1];
-    val_6_re[i-1] = 100.*(val_6[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_6_re[i-1] = 100.*(err_6[i-1] - err_4[i-1] ) / err_4[i-1];
-    val_7_re[i-1] = 100.*(val_7[i-1] - val_4[i-1] ) / val_4[i-1];
-    err_7_re[i-1] = 100.*(err_7[i-1] - err_4[i-1] ) / err_4[i-1];
+    val_1_re[i-1] = 100.*(val_1[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_1_re[i-1] = 100.*(err_1[i-1] - err_5[i-1] ) / err_5[i-1];
+    val_2_re[i-1] = 100.*(val_2[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_2_re[i-1] = 100.*(err_2[i-1] - err_5[i-1] ) / err_5[i-1];
+    val_3_re[i-1] = 100.*(val_3[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_3_re[i-1] = 100.*(err_3[i-1] - err_5[i-1] ) / err_5[i-1];
+    val_4_re[i-1] = 100.*(val_4[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_4_re[i-1] = 100.*(err_4[i-1] - err_5[i-1] ) / err_5[i-1];
+    val_5_re[i-1] = 100.*(val_5[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_5_re[i-1] = 100.*(err_5[i-1] - err_5[i-1] ) / err_5[i-1];
+    val_6_re[i-1] = 100.*(val_6[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_6_re[i-1] = 100.*(err_6[i-1] - err_5[i-1] ) / err_5[i-1];
+    val_7_re[i-1] = 100.*(val_7[i-1] - val_5[i-1] ) / val_5[i-1];
+    err_7_re[i-1] = 100.*(err_7[i-1] - err_5[i-1] ) / err_5[i-1];
 
   }
   
-  int todraw=6;
-  int istart=1;
+  int todraw=3;
+  int istart=4;
   double BARWIDTH=.9/(todraw*1.);
   double OFFSET[7]={0,0,0,0,0,0,0};
   double thisoffset=0;
@@ -88,15 +88,15 @@
   }
 
   //                 1         2      3        4     5       6      7
-  int USECOLOR[7] = {kMagenta, kCyan, kOrange, kBlack, kRed, kTeal, kYellow};
+  int USECOLOR[7] = {kMagenta, kCyan, kOrange, kRed, kBlack, kTeal, kYellow};
 
-  TH1F *h1b = new TH1F("h1b",Form("Difference of fitted Values by varying sum error from 1e-%d to 1e-%d Normalized to 1e-4 [expressed in %]",istart,todraw),nx,0,nx);
+  TH1F *h1b = new TH1F("h1b",Form("Difference of fitted Values by varying sum error from 1e-%d to 1e-%d Normalized to 1e-5 [expressed in %]",istart,istart+todraw-1),nx,0,nx);
   h1b->SetFillColor(USECOLOR[0]);
   h1b->SetBarWidth(BARWIDTH);
   h1b->SetBarOffset(OFFSET[0]);
   h1b->SetStats(0);
-  h1b->SetMinimum(-10);
-  h1b->SetMaximum( 10);
+  h1b->SetMinimum(-5);
+  h1b->SetMaximum( 5);
   for (i=1; i<=nx; i++) {
     h1b->Fill(os_X[i-1], val_1_re[i-1]);
     h1b->GetXaxis()->SetBinLabel(i,os_X[i-1]);
@@ -116,11 +116,13 @@
   h3b->SetStats(0);
   for (i=1;i<=nx;i++) h3b->Fill(os_X[i-1], val_3_re[i-1]);
   
-  TH1F *h4b = new TH1F("h4b","h4b",nx,0,nx);
+  TH1F *h4b = new TH1F("h4b",Form("Difference of fitted Values by varying sum error from 1e-%d to 1e-%d Normalized to 1e-5 [expressed in %]",istart,istart+todraw-1),nx,0,nx);
   h4b->SetFillColor(USECOLOR[3]);
   h4b->SetBarWidth(BARWIDTH);
   h4b->SetBarOffset(OFFSET[3]);
   h4b->SetStats(0);
+  h4b->SetMinimum(-5);
+  h4b->SetMaximum( 5);
   for (i=1;i<=nx;i++) h4b->Fill(os_X[i-1], val_4_re[i-1]);
   
   TH1F *h5b = new TH1F("h5b","h5b",nx,0,nx);
@@ -144,13 +146,13 @@
   h7b->SetStats(0);
   for (i=1;i<=nx;i++) h7b->Fill(os_X[i-1], val_7_re[i-1]);
   
-  TH1F *h1e = new TH1F("h1e",Form("Difference of fitted Errors by varying sum error from 1e-%d to 1e-%d Normalized to 1e-4 [expressed in %]",istart,todraw),nx,0,nx);
+  TH1F *h1e = new TH1F("h1e",Form("Difference of fitted Errors by varying sum error from 1e-%d to 1e-%d Normalized to 1e-5 [expressed in %]",istart,istart+todraw-1),nx,0,nx);
   h1e->SetFillColor(USECOLOR[0]);
   h1e->SetBarWidth(BARWIDTH);
   h1e->SetBarOffset(OFFSET[0]);
   h1e->SetStats(0);
-  h1e->SetMinimum(-25);
-  h1e->SetMaximum( 25);
+  h1e->SetMinimum(-5);
+  h1e->SetMaximum( 5);
   for (i=1; i<=nx; i++) {
     h1e->Fill(os_X[i-1], err_1_re[i-1]);
     h1e->GetXaxis()->SetBinLabel(i,os_X[i-1]);
@@ -170,11 +172,13 @@
   h3e->SetStats(0);
   for (i=1;i<=nx;i++) h3e->Fill(os_X[i-1], err_3_re[i-1]);
   
-  TH1F *h4e = new TH1F("h4e","h4e",nx,0,nx);
+  TH1F *h4e = new TH1F("h4e",Form("Difference of fitted Errors by varying sum error from 1e-%d to 1e-%d Normalized to 1e-5 [expressed in %]",istart,istart+todraw-1),nx,0,nx);
   h4e->SetFillColor(USECOLOR[3]);
   h4e->SetBarWidth(BARWIDTH);
   h4e->SetBarOffset(OFFSET[3]);
   h4e->SetStats(0);
+  h4e->SetMinimum(-5);
+  h4e->SetMaximum( 5);
   for (i=1;i<=nx;i++) h4e->Fill(os_X[i-1], err_4_re[i-1]);
   
   TH1F *h5e = new TH1F("h5e","h5e",nx,0,nx);
@@ -201,10 +205,10 @@
   TCanvas *c1 = new TCanvas("c1","c1",600,600);
   c1->SetGrid();
   //  c1->SetLogx(1);
-  h1b->Draw("hbar");
-  h2b->Draw("hbar,same");
-  h3b->Draw("hbar,same");
-  h4b->Draw("hbar,same");
+  //  h1b->Draw("hbar");
+  //  h2b->Draw("hbar,same");
+  //  h3b->Draw("hbar,same");
+  h4b->Draw("hbar");
   h5b->Draw("hbar,same");
   h6b->Draw("hbar,same");
   //  h7b->Draw("hbar,same");
@@ -213,10 +217,10 @@
   TCanvas *c2 = new TCanvas("c2","c2",600,600);
   c2->SetGrid();
   //  c2->SetLogx(1);
-  h1e->Draw("hbar");
-  h2e->Draw("hbar,same");
-  h3e->Draw("hbar,same");
-  h4e->Draw("hbar,same");
+  //  h1e->Draw("hbar");
+  //  h2e->Draw("hbar,same");
+  //  h3e->Draw("hbar,same");
+  h4e->Draw("hbar");
   h5e->Draw("hbar,same");
   h6e->Draw("hbar,same");
   //  h7e->Draw("hbar,same");
