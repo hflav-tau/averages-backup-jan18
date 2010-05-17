@@ -76,22 +76,24 @@ if (length(tmp) > 0) {
 }
 rm(tmp)
 
-##-- retain only constraints whose terms are all included in the fitted quantities
-constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
-if (any(!constr.select)) {
-  cat("The following constraints are dropped:\n")
-  mapply(function(comb, val, val.name)
-         {
-           tmp = val
-           names(tmp) = val.name
-           show(c(comb, tmp))
-         },
-         combination$constr.comb[!constr.select],
-         combination$constr.val[!constr.select],
-         names(combination$constr.val[!constr.select]))
+if (length(combination$constr.comb) > 0) {
+  ##-- retain only constraints whose terms are all included in the fitted quantities
+  constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
+  if (any(!constr.select)) {
+    cat("The following constraints are dropped:\n")
+    mapply(function(comb, val, val.name)
+           {
+             tmp = val
+             names(tmp) = val.name
+             show(c(comb, tmp))
+           },
+           combination$constr.comb[!constr.select],
+           combination$constr.val[!constr.select],
+           names(combination$constr.val[!constr.select]))
+  }
+  combination$constr.comb = combination$constr.comb[constr.select]
+  combination$constr.val = combination$constr.val[constr.select]
 }
-combination$constr.comb = combination$constr.comb[constr.select]
-combination$constr.val = combination$constr.val[constr.select]
 
 ##-- quantity measured per measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
@@ -381,16 +383,22 @@ constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = qu
 constr.m = quant.invcov.order * constr.m
 constr.v = quant.invcov.order * unlist(combination$constr.val)
 
-##-- build full matrix in front of c(quant vector, lagr.mult. vector)
-full.m = rbind(
-  cbind(quant.invcov, t(constr.m)),
-  cbind(constr.m, matrix(0, constr.num, constr.num)))
-##-- build full matrix in front of c(meas, constraint values)
-full.v.m = rbind(
-  cbind(t(delta) %*% meas.invcov, matrix(0, quant.num, constr.num, dimnames=list(NULL, constr.names))),
-  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), diag.m(rep(1, constr.num))))
-##-- build full vector c(measurements vector, constraint values)
-full.v = c(meas, constr.v)
+if (constr.num > 0) {
+  ##-- build full matrix in front of c(quant vector, lagr.mult. vector)
+  full.m = rbind(
+    cbind(quant.invcov, t(constr.m)),
+    cbind(constr.m, matrix(0, constr.num, constr.num)))
+  ##-- build full matrix in front of c(meas, constraint values)
+  full.v.m = rbind(
+    cbind(t(delta) %*% meas.invcov, matrix(0, quant.num, constr.num, dimnames=list(NULL, constr.names))),
+    cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), diag.m(rep(1, constr.num))))
+  ##-- build full vector c(measurements vector, constraint values)
+  full.v = c(meas, constr.v)
+} else {
+  full.m = quant.invcov
+  full.v.m = t(delta) %*% meas.invcov
+  full.v = meas
+}
 
 ##-- matrix that applied to c(meas, constr. values) gives quant
 solve.m = solve(full.m) %*% full.v.m
@@ -500,7 +508,7 @@ for (mt.name in quant.names) {
   ## we acknowledge that because of correlations the chisq contribution can be different from zero
   ## and we even consider the possibility of applying an S-factor when the chisq contribution is large
   ## 
-  dof.types[mt.name] = max(num.types[mt.name] -1, 1)
+  dof.types[mt.name] = max(num.types.keep[mt.name] -1, 1)
 
   ##-- print different chisq/dof
   if (FALSE) {
@@ -595,6 +603,7 @@ repeat {
   if (!any(meas.select)) break
   if (abs(chisq.select/dof.select -1) < 1e-6) break
 }
+
 
 ##-- update sfact.types with adjusted sfact for selected meas
 for (meas.s in names(meas.select[meas.select])) {
