@@ -400,7 +400,7 @@ if (constr.num > 0) {
   full.v = meas
 }
 
-##-- matrix that applied to c(meas, constr. values) gives quant
+##-- matrix that applied to c(meas, constr. values) gives c(quant, lagr.mult.)
 solve.m = solve(full.m) %*% full.v.m
 
 ##-- solve for both quantities and lagrange multipliers
