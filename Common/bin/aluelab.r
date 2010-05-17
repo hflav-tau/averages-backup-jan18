@@ -85,7 +85,7 @@ aeb.meas.add.single = function(label, val, err) {
 ##
 aeb.collect.data = function(items) {
   for (item in items) {
-    cat(item, "\n")
+    ## cat(item, "\n")
     if (regexpr("[.]log$", item) != -1) {
       file = item
     } else {
@@ -93,13 +93,14 @@ aeb.collect.data = function(items) {
     }
     if (!file_test("-f", file)) {
       cat("error: cannot find alucomb log file", file, "\n")
+      next
     }
     ##-- get alucomb results
     rc = get.alucomb(file)
     if (length(rc) == 0) {
-      cat("error: cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, dir, "average_alucomb.log"), "\n", sep="")
+      cat("error: cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, item, "average_alucomb.log"), "\n", sep="")
       ## cat("make -C", dir, " update_alucomb\n")
-      ## warning("Cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, dir, "average_alucomb.log"))
+      ## warning("Cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, item, "average_alucomb.log"))
       next
     }
     
@@ -131,6 +132,13 @@ aeb.linear.comb = function(lc, val, cov) {
 ## in meas.val, meas.cov
 ##
 aeb.linear.comb.glob = function(lc) {
+  if (length(meas.val) == 0) {
+    stop("error: no data were loaded")
+  }
+  diff = setdiff(names(lc), names(meas.val))
+  if (length(diff) > 0) {
+    stop("error: following quantities were not loaded: ", diff)
+  }
   meas.lc = names(meas.val) %in% names(lc)
   return(aeb.linear.comb(lc, meas.val[meas.lc], meas.cov[meas.lc, meas.lc]))
 }
