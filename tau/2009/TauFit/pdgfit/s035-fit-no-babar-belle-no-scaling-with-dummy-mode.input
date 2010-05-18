@@ -103,6 +103,9 @@ STAT_CORR_WITH PDG Gamma126 published 0.009
 STAT_CORR_WITH PDG Gamma150 published -0.012
 STAT_CORR_WITH PDG Gamma152 published -0.002
 STAT_CORR_WITH PDG Gamma999 published -0.187
+STAT_CORR_WITH BaBar Gamma3 submitted 0.572669
+STAT_CORR_WITH BaBar Gamma9 submitted 0.275811
+STAT_CORR_WITH BaBar Gamma10 submitted 0.165502
 END 
 
 * tau- --> pi- nu(tau) 
