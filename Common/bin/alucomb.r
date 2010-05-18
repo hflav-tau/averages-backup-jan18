@@ -233,6 +233,33 @@ for (mi.name in meas.names) {
   }
 }
 
+flag = FALSE
+if (any(meas.corr.stat != t(meas.corr.stat))) {
+  for (mi in 1:meas.num) {
+    for (mj in seq(mi+1, length=meas.num-mi)) {
+      if (meas.corr.stat[mi, mj] != meas.corr.stat[mj, mi]) {
+        cat("error: asymmetric correlation\n  ", meas.names[mi], " - ", meas.names[mj],
+            " : ", meas.corr.stat[mi, mj], " , ",  meas.corr.stat[mj, mi], "\n", sep="")
+        flag = TRUE
+      }
+    }
+  }
+}
+
+if (any(meas.corr != t(meas.corr))) {
+  for (mi in 1:meas.num) {
+    for (mj in seq(mi+1, length=meas.num-mi)) {
+      if (meas.corr[mi, mj] != meas.corr[mj, mi]) {
+        cat("error: asymmetric correlation\n  ", meas.names[mi], " - ", meas.names[mj],
+            " : ", meas.corr[mi, mj], " , ",  meas.corr[mj, mi], "\n", sep="")
+        flag = TRUE
+      }
+    }
+  }
+}
+
+if (flag) stop("quitting")
+
 ##-- not handled and forbidden to enter both total and stat. only correlations
 flag.ok = TRUE
 for (i in 1:meas.num) {
