@@ -234,28 +234,33 @@ for (mi.name in meas.names) {
 }
 
 flag = FALSE
+
 if (any(meas.corr.stat != t(meas.corr.stat))) {
+  errors = character(0)
   for (mi in 1:meas.num) {
     for (mj in seq(mi+1, length=meas.num-mi)) {
       if (meas.corr.stat[mi, mj] != meas.corr.stat[mj, mi]) {
-        cat("error: asymmetric correlation\n  ", meas.names[mi], " - ", meas.names[mj],
-            " : ", meas.corr.stat[mi, mj], " , ",  meas.corr.stat[mj, mi], "\n", sep="")
+        errors = c(errors, paste(meas.names[mi], " - ", meas.names[mj],
+          " : ", meas.corr.stat[mi, mj], " , ",  meas.corr.stat[mj, mi], sep=""))
         flag = TRUE
       }
     }
   }
+  cat("error: asymmetric statistical correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
 }
 
 if (any(meas.corr != t(meas.corr))) {
+  errors = character(0)
   for (mi in 1:meas.num) {
     for (mj in seq(mi+1, length=meas.num-mi)) {
       if (meas.corr[mi, mj] != meas.corr[mj, mi]) {
-        cat("error: asymmetric correlation\n  ", meas.names[mi], " - ", meas.names[mj],
-            " : ", meas.corr[mi, mj], " , ",  meas.corr[mj, mi], "\n", sep="")
+        errors = c(errors, paste(meas.names[mi], " - ", meas.names[mj],
+          " : ", meas.corr[mi, mj], " , ",  meas.corr[mj, mi], sep=""))
         flag = TRUE
       }
     }
   }
+  cat("error: asymmetric total correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
 }
 
 if (flag) stop("quitting")
