@@ -197,6 +197,9 @@ for (line in lines) {
       if (length(constraint.labels) != length(constraint.values)) {
         stop("error: comb.lin. coeffs ", length(constraint.values), " while expecting ", length(constraint.labels))
       }
+      if (length(constraint.labels) <= 1) {
+        stop("error: no quantities listed for constraint ", constraint.labels[1])
+      }
       names(constraint.values) = constraint.labels
       constraints.list.comb[[constraint.labels[1]]] = constraint.values[-1]
       tmp = constraint.values[1]
