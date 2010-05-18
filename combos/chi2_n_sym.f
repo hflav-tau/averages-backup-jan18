@@ -40,6 +40,7 @@
 *DR  
       IMPLICIT NONE
       INCLUDE 'master.inc'
+      INCLUDE 'combos.inc' 
 *      
 *     Output data: returned in the arguments 
 *     -----------
@@ -211,7 +212,8 @@ C     IF(PRTLEV.GT.0) THEN
      &         CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
      &         CL
         ELSE
-          WRITE (*,'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL set to 0.0')
+          WRITE (LUNLOG, *)
+     &      'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL set to 0.0'
         ENDIF
 C     
         WRITE(*,'(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOFNEW = '','//
@@ -222,7 +224,8 @@ C
      &         CHI2/(NMEFF-1-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN-1))),
      &         PROB(SNGL(CHI2),NMEFF-NQUAN-1)
         ELSE
-          WRITE (*,'CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL set to 0.0')
+          WRITE (LUNLOG,*)
+     &      'CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL set to 0.0'
         ENDIF
 C     
       ENDIF
