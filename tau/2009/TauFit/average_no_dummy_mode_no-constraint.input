@@ -2,8 +2,7 @@ INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE cleo.input
 INCLUDE pdgfit.input
-INCLUDE dummy.input
-INCLUDE unitarity.input
+* INCLUDE unitarity.input
 
 BEGIN   BaBar+Belle+PDG all_methods
 
@@ -44,7 +43,6 @@ MEASUREMENT m_Gamma130 statistical systematic ! NQUAN = 30
 MEASUREMENT m_Gamma132 statistical systematic ! NQUAN = 31
 MEASUREMENT m_Gamma150 statistical systematic ! NQUAN = 32
 MEASUREMENT m_Gamma152 statistical systematic ! NQUAN = 33
-MEASUREMENT m_Gamma998 statistical systematic ! NQUAN = 34
 
 * MEASUREMENT m_Gamma13 statistical systematic
 * MEASUREMENT m_Gamma60 statistical systematic
@@ -59,7 +57,7 @@ PARAMETER CHI2_N_SYM_INV 0 0 0
 *
 * parameters to specify sum of measurements
 *
-PARAMETER CHI2_N_SYM_NSUM  4 0 0   ! a total of 4 measurements correspond to linear combinations
+PARAMETER CHI2_N_SYM_NSUM  3 0 0   ! a total of 3 measurements correspond to linear combinations
 
 PARAMETER CHI2_N_SYM_01    7 2 0   ! BaBar Gamma60 = Gamma62 + 0.0153 Gamma150
 PARAMETER CHI2_N_SYM_01_01 18 1 0
@@ -73,7 +71,7 @@ PARAMETER CHI2_N_SYM_03    13 2 0  ! Belle Gamma60 = Gamma62 + 0.0153 Gamma150
 PARAMETER CHI2_N_SYM_03_01 18 1 0
 PARAMETER CHI2_N_SYM_03_02 32 0.0153 0
 
-PARAMETER CHI2_N_SYM_04    54 0 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
+* PARAMETER CHI2_N_SYM_04    53 0 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
 
 * *
 * * specify linear combinations for alucomb.r

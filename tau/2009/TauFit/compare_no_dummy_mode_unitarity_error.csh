@@ -19,9 +19,9 @@
 
 # rm -f unitarity.input ; ln -s unitarity_default.input unitarity.input
 
-grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -v SCALE
-grep NDOFNEW log/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -e SCALE
-grep "All: Sum of Multi-Quantity Average" log/*.log | awk '{if (NR%2==0) print $0}'
+grep NDOFNEW log/no_dummy_mode/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -v SCALE
+grep NDOFNEW log/no_dummy_mode/average_unitarity_1e-*.log | awk '{if (NR%4==3||NR%4==0) print $0}' | grep -e SCALE
+grep "All: Sum of Multi-Quantity Average" log/no_dummy_mode/*.log | awk '{if (NR%2==0) print $0}'
  
-grep "Tot Err:" log/average_unitarity_1e-4.log | tail -33 | awk '{print $0, $2/$(NF-3)}'
-
+grep "Tot Err:" log/no_dummy_mode/average_with_constraint.log | tail -33 | awk '{print $0, $2/$(NF-3)}'
+echo " "
