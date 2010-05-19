@@ -204,10 +204,12 @@
       IF(NMEFF.GT.1) CL=DBLE(PROB(SNGL(CHI2),NMEFF-NQUAN)) ! is this correct ?
 C     IF(PRTLEV.GT.0) THEN 
       IF (PRTLEV.GT.-999) THEN  ! SwB [default changed]
-        WRITE(*,'(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF    = '','//
+        WRITE(LUNLOG,
+     &       '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF    = '','//
      &       'G10.5,3(1X,I3))') CHI2, NMEFF, NQUAN, NMEFF-NQUAN
         IF (NMEFF.GT.NQUAN) THEN
-          WRITE (*,'(''CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    = '','//
+          WRITE (LUNLOG,
+     &         '(''CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    = '','//
      &         '3(1X,G10.5))')
      &         CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
      &         CL
@@ -216,10 +218,12 @@ C     IF(PRTLEV.GT.0) THEN
      &      'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL set to 0.0'
         ENDIF
 C     
-        WRITE(*,'(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOFNEW = '','//
+        WRITE (LUNLOG,
+     &       '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOFNEW = '','//
      &       'G10.5,3(1X,I3))') CHI2, NMEFF-1, NQUAN, NMEFF-NQUAN-1
         IF (NMEFF-1.GT.NQUAN) THEN
-          WRITE (*,'(''CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL = '','//
+          WRITE (LUNLOG,
+     &         '(''CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL = '','//
      &         '3(1X,G10.5))')
      &         CHI2/(NMEFF-1-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN-1))),
      &         PROB(SNGL(CHI2),NMEFF-NQUAN-1)
