@@ -85,7 +85,6 @@ aeb.meas.add.single = function(label, val, err) {
 ##
 aeb.collect.data = function(items) {
   for (item in items) {
-    ## cat(item, "\n")
     if (regexpr("[.]log$", item) != -1) {
       file = item
     } else {
@@ -123,7 +122,8 @@ aeb.collect.data = function(items) {
 ##
 aeb.linear.comb = function(lc, val, cov) {
   lc.val = val %*% lc
-  lc.err = sqrt(drop(lc %*% cov %*% lc))
+  lc.var = drop(lc %*% cov %*% lc)
+  lc.err = sign(lc.var)*sqrt(abs(lc.var))
   return(c(val=lc.val, err=lc.err))
 }
 
