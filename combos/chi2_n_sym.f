@@ -65,7 +65,7 @@
      &                 CHI2,DUMMY(MCSYS),Z(MMEAS),
      &                 TEMP(MMEAS,MCSYS),S(MCSYS,MCSYS)
      &                ,SCOPY(MCSYS,MCSYS)
-      INTEGER          ErrorFlag, INVOPT
+      INTEGER          ErrorFlag, INVOPT, NMEFFNEW, NQUANNEW, NDOFNEW
       DOUBLE PRECISION PRTLEV
 *
 *     Determine debug printout level
@@ -218,15 +218,25 @@ C     IF(PRTLEV.GT.0) THEN
      &      'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL set to 0.0'
         ENDIF
 C     
+        NMEFFNEW=NMEFF ! initialize
+        NQUANNEW=NQUAN ! initialize
+        DO I=1,NPARA
+          IF(CHPARA(I).EQ.'CHI2_N_SYM_NDOF') THEN
+            NMEFFNEW=INT(PARA(I))
+            NQUANNEW=INT(EXCUP(I))
+          ENDIF
+        ENDDO
+        NDOFNEW = NMEFFNEW - NQUANNEW
+C
         WRITE (LUNLOG,
-     &       '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOFNEW = '','//
-     &       'G10.5,3(1X,I3))') CHI2, NMEFF-1, NQUAN, NMEFF-NQUAN-1
-        IF (NMEFF-1.GT.NQUAN) THEN
+     &       '(''CHI2_N_SYM: CHI2, NMEFFNEW, NQUANNEW, NDOFNEW = '','//
+     &       'G10.5,3(1X,I3))') CHI2, NMEFFNEW, NQUANNEW, NDOFNEW
+        IF (NMEFFNEW.GT.NQUANNEW) THEN
           WRITE (LUNLOG,
      &         '(''CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL = '','//
      &         '3(1X,G10.5))')
-     &         CHI2/(NMEFF-1-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN-1))),
-     &         PROB(SNGL(CHI2),NMEFF-NQUAN-1)
+     &         CHI2/NDOFNEW,SQRT(MAX(0.,CHI2/NDOFNEW)),
+     &         PROB(SNGL(CHI2),NDOFNEW)
         ELSE
           WRITE (LUNLOG,*)
      &      'CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL set to 0.0'

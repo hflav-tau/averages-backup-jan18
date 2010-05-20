@@ -1,6 +1,6 @@
-INCLUDE babar/gamma3.input
-INCLUDE babar/gamma9.input
-INCLUDE babar/gamma10.input
+INCLUDE babar/gamma3by5.input
+INCLUDE babar/gamma9by5.input
+INCLUDE babar/gamma10by5.input
 INCLUDE babar/gamma16.input
 INCLUDE babar/gamma35.input
 INCLUDE babar/gamma40.input
