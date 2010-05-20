@@ -1,18 +1,15 @@
 *
-* from PDG09
-* - http://pdg.lbl.gov/2009/listings/contents_listings.html
-* - http://pdg.lbl.gov/2009/listings/rpp2009-list-tau.pdf
-* - we follow the ordering of PDG 2009 pages
+* from First Iteration of HFAG averages
 *
 PARAMETERS !    assumed_value  pos_excurs   neg_excurs
   sigmataupmy4s   0.919       +0.003       -0.003
-  PimPizNu        25.46e-2    +0.12e-2     -0.12e-2     ! tau -> pi- pi0 nu = G14, p.23
+  PimPizNu        0.2540216   +0.0009643   -0.0009643   ! From TauTo1Prong/log/average.log
   KmKzsNu         0.079e-2    +0.0085e-2   -0.0085e-2   ! tau -> K- K0S nu = 1/2*G37=(0.158 +- 0.017)%, p.30 (K- K0 nu)
-  PimPizKzsNu     0.18e-2     +0.02e-2     -0.02e-2     ! tau -> pi- K0S pi0 nu = 1/2*G40, p.31 (pi- K0B piz nu)
+  PimPizKzsNu     0.1725e-2   +0.0075e-2   -0.0075e-2   ! tau -> pi- K0S pi0 nu = 1/2*(0.345 +- 0.015)% from TauToPimPizKzbNu/log/average.log
   KmPizKzsNu      0.072e-2    +0.0115e-2   -0.0115e-2   ! tau -> K- K0S pi0 nu = 1/2*G42, p.32 (K- K0 pi0 nu)
   PimKzsKzsNu     2.4e-4      +0.5e-4      -0.5e-4      ! tau -> pi- K0S K0S nu = G47, p.33
-  PimPimPipNu     8.85e-2     +0.13e-2     -0.13e-2     ! tau -> pi-pi-pi+ nu = G60, p.37 (pi+pi- ex K0S)
+  PimPimPipNu     0.0895090   +0.0007026   -0.0007026   ! tau -> pi-pi-pi+ nu (ex K0S) from TauToHmHmHpNu/log/average.log
   PimPimPipPizNu  4.55e-2     +0.13e-2     -0.13e-2     ! tau -> pi- pi- pi+ pi0 nu = G69, p.39  (pi+pi- ex K0S)
-  PimKmPipNu      0.280e-2    +0.019e-2    -0.019e-2    ! tau -> K-pi+pi- nu = G85, p.42 (pi+pi- ex K0S)
-  PimKmKpNu       1.37e-3     +0.06e-3     -0.06e-3     ! tau -> pi-K+K- nu = G93, p.44
+  PimKmPipNu      0.0029253   +0.0000709   -0.0000709   ! tau -> K-pi+pi- nu (ex K0S) from TauToHmHmHpNu/log/average.log
+  PimKmKpNu       0.0014303   +0.0000279   -0.0000279   ! tau -> pi-K+K- nu from TauToHmHmHpNu/log/average.log
   PimKzsKzlNu     0.093e-2    +0.011e-2    -0.011e-2    ! tau -> pi- K0S K0L nu, Swagato isospin notes

@@ -57,23 +57,41 @@ PARAMETER CHI2_N_SYM_PRT -1.0 0. 0.
 PARAMETER CHI2_N_SYM_INV 0 0 0 
 
 *
+* NMEAS :: BaBar: 10, Belle: 9, Cleo:2, PDG: 31. So, total = 10 + 9 + 2 + 31 = 52 
+* NQUAN :: 34
+*
+PARAMETER CHI2_N_SYM_NDOF 52 34 0 
+
+*
 * parameters to specify sum of measurements
 *
-PARAMETER CHI2_N_SYM_NSUM  4 0 0   ! a total of 4 measurements correspond to linear combinations
+PARAMETER CHI2_N_SYM_NSUM  7 0 0   ! a total of 7 measurements correspond to linear combinations
 
-PARAMETER CHI2_N_SYM_01    7 2 0   ! BaBar Gamma60 = Gamma62 + 0.0153 Gamma150
-PARAMETER CHI2_N_SYM_01_01 18 1 0
-PARAMETER CHI2_N_SYM_01_02 32 0.0153 0
+PARAMETER CHI2_N_SYM_01    1 2 0        ! BaBar Gamma3by5 = Gamma3/Gamma5
+PARAMETER CHI2_N_SYM_01_01 1  5.61167 0 ! d(Gamma3by5)/d(Gamma3) = 1/Gamma5 =  1/0.1782 = 5.61167
+PARAMETER CHI2_N_SYM_01_02 2 -5.49719 0 ! d(Gamma3by5)/d(Gamma5) = -Gamma3by5/Gamma5 = -0.9796/0.1782 = -5.49719
 
-PARAMETER CHI2_N_SYM_02    11 2 0  ! Belle Gamma13 = Gamma14 + Gamma16
-PARAMETER CHI2_N_SYM_02_01 5  1 0
-PARAMETER CHI2_N_SYM_02_02 6  1 0
+PARAMETER CHI2_N_SYM_02    2 2 0        ! BaBar Gamma9by5 = Gamma9/Gamma5
+PARAMETER CHI2_N_SYM_02_01 3  5.61167 0 ! d(Gamma9by5)/d(Gamma9) = 1/Gamma5 =  1/0.1782 = 5.61167
+PARAMETER CHI2_N_SYM_02_02 2 -3.33614 0 ! d(Gamma9by5)/d(Gamma5) = -Gamma9by5/Gamma5 = -0.5945/0.1782 = -3.33614
 
-PARAMETER CHI2_N_SYM_03    13 2 0  ! Belle Gamma60 = Gamma62 + 0.0153 Gamma150
-PARAMETER CHI2_N_SYM_03_01 18 1 0
-PARAMETER CHI2_N_SYM_03_02 32 0.0153 0
+PARAMETER CHI2_N_SYM_03    3 2 0         ! BaBar Gamma10by5 = Gamma10/Gamma5
+PARAMETER CHI2_N_SYM_03_01 4  5.61167  0 ! d(Gamma10by5)/d(Gamma10) = 1/Gamma5 =  1/0.1782 = 5.61167
+PARAMETER CHI2_N_SYM_03_02 2 -0.217845 0 ! d(Gamma10by5)/d(Gamma5) = -Gamma10by5/Gamma5 = -0.03882/0.1782 = -0.217845
 
-PARAMETER CHI2_N_SYM_04    54 0 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
+PARAMETER CHI2_N_SYM_04    7 2 0   ! BaBar Gamma60 = Gamma62 + 0.0153 Gamma150
+PARAMETER CHI2_N_SYM_04_01 18 1 0
+PARAMETER CHI2_N_SYM_04_02 32 0.0153 0
+
+PARAMETER CHI2_N_SYM_05    11 2 0  ! Belle Gamma13 = Gamma14 + Gamma16
+PARAMETER CHI2_N_SYM_05_01 5  1 0
+PARAMETER CHI2_N_SYM_05_02 6  1 0
+
+PARAMETER CHI2_N_SYM_06    13 2 0  ! Belle Gamma60 = Gamma62 + 0.0153 Gamma150
+PARAMETER CHI2_N_SYM_06_01 18 1 0
+PARAMETER CHI2_N_SYM_06_02 32 0.0153 0
+
+PARAMETER CHI2_N_SYM_07    54 0 0  ! unitarity constraint : sum over all quantities [with co-effcient = 1]
 
 * *
 * * specify linear combinations for alucomb.r
