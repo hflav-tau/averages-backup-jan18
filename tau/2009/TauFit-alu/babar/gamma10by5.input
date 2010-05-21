@@ -1,0 +1,37 @@
+* B(tau- --> K- nu_tau)/B(tau- --> e- nubar_e nu_tau)
+
+BEGIN          BaBar Gamma10by5 submitted arXiv:0912.0242 (2009)
+ 
+PARAMETERS !      value   +err         -err
+               PimPimPipNu     8.83e-2 +0.130384e-2 -0.130384e-2    ! BaBar Published value 
+ 
+MEASUREMENT    m_Gamma10by5  statistical systematic 
+ 
+DATA           m_Gamma10by5  statistical systematic 
+               0.03882    0.000630207 0.000173608
+ 
+* Total Error [stat+syst] on RK= sqrt ( .00032**2 + .00057**2 ) = 0.000653682
+* Common Normalization Error on RK = .20 % of .03882 = 0.00007764
+* Common Tagging       Error on RK = .40 % of .03882 = 0.00015528
+* Total Common Error on RK = sqrt ( .20**2 + .40**2 ) = 0.447214 % of .03882 = 0.000173608
+* Remaining Error on RK = sqrt ( 0.00032**2 + 0.00057**2 - 0.000173608**2 ) = 0.000630207
+ 
+* Corr(Rmu, RK) after removing the common part =
+* [Corr(Rmu, RK) * eRmu * eRK - Delta_eRmu_Lumi * Delta_eRK_Lumi - Delta_eRmu_pipipi * Delta_eRK_pipipi]/
+* [sqrt(eRmu**2 - Delta_eRmu_Lumi**2 - Delta_eRmu_pipipi**2) * sqrt(eRK**2 - Delta_eRK_Lumi**2 - Delta_eRK_pipipi**2)] =
+* ( 0.12 * 0.00393954 * 0.000653682 - 0.00019592 * 0.00007764 - 0.0004898 * 0.00015528 ) / ( 0.00390406 * 0.000630207 ) = 0.0885061
+ 
+STAT_CORR_WITH BaBar Gamma3by5 submitted 0.0885061
+ 
+* Corr(RK, Rpi) after removing the common part =
+* [Corr(RK, Rpi) * eRK * eRpi - Delta_eRK_Lumi * Delta_eRpi_Lumi - Delta_eRK_pipipi * Delta_eRpi_pipipi]/
+* [sqrt(eRK**2 - Delta_eRK_Lumi**2 - Delta_eRK_pipipi**2) * sqrt(eRpi**2 - Delta_eRpi_Lumi**2 - Delta_eRpi_pipipi**2)] =
+* ( 0.33 * 0.000653682 * 0.00625859 - 0.00007764 * 0.00231855 - 0.00015528 * 0.00089175 ) / ( 0.000630207 * 0.00574448 ) = 0.284953
+
+STAT_CORR_WITH BaBar Gamma9by5 submitted 0.284953
+ 
+DATA       
+               PimPimPipNu -0.00015528
+               BaBarLumi  -0.00007764
+ 
+END
