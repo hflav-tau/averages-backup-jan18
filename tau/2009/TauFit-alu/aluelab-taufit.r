@@ -30,7 +30,7 @@ meas.sum = aeb.linear.comb.glob(c(
   Gamma94=1,  Gamma103=1, Gamma104=1, Gamma126=1, Gamma128=1, Gamma130=1,
   Gamma132=1, Gamma150=1, Gamma152=1)) 
 
-cat("aluelab-taufit.r: sum all basic modes:\n")
+cat("aluelab-taufit.r: using the following measurements:\n")
 show(rbind(val=meas.val, err=meas.err))
 
 cat("aluelab-taufit.r: result of sum of all basic modes:\n")
