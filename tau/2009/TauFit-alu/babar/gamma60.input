@@ -9,9 +9,6 @@ DATA        m_Gamma60 statistical systematic
 STAT_CORR_WITH BaBar Gamma85 published -1.2998e-01
 STAT_CORR_WITH BaBar Gamma93 published  1.3652e-03
 STAT_CORR_WITH BaBar Gamma96 published -1.8666e-03
-STAT_CORR_WITH BaBar Gamma3  submitted  0.10205
-STAT_CORR_WITH BaBar Gamma9  submitted  0.147449
-STAT_CORR_WITH BaBar Gamma10 submitted  0.235941
 
 DATA
             sigmataupmy4s% -0.3
