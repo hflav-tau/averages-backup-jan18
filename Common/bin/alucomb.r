@@ -367,7 +367,7 @@ meas = meas.value
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=80)
+options(width=2000)
 
 if (FALSE && !flag.no.maxLik) {
 ##
