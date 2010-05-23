@@ -329,6 +329,12 @@
           IF (CHPARA(I).EQ.CHSUM) THEN
             IMEAS=INT(PARA(I))
             ISUMOVER=INT(EXCUP(I))
+            IF (EXCUN(I).NE.0.0D0) THEN
+              WRITE (LUNLOG,
+     &      '("ADJUSTED TO ZERO MEASUREMENT = ",I3,1X,G10.5)')
+     &        IMEAS, MEAS(IMEAS)
+              MEAS(IMEAS) = 0
+            ENDIF
             IF (IMEAS.GT.0.AND.ISUMOVER.EQ.0) THEN ! special flag for sum over all quantities
                DO IQUAN=1,NQUAN 
                  CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
@@ -342,6 +348,7 @@
             IF (IMEAS.GT.0.AND.CHPARA(I).EQ.CHSUM2) THEN
               IQUAN=INT(PARA(I))
               COEFF=EXCUP(I)
+              IF (COEFF.EQ.0.0D0) COEFF=-1.0D0*DABS(EXCUN(I))
               CSYS(IMEAS,NCSYS+IQUAN) = -1.D0*COEFF
             ENDIF
           ENDDO
