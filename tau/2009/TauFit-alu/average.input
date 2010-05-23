@@ -111,18 +111,31 @@ COMBOFQUANT Gamma13 1 Gamma14      1 Gamma16
 * the constraint line is obtained moving all quantities on one side
 * and all constant terms on the other one
 * a similar procedure is used for R9-5 and R10-5
-*
+
+* --- PDG tau -> e nu nubar
+* G5^pdg = 0.178326
+
+* --- babar measurements
 * R3-5^babar = 0.9796
 * R9-5^babar = 0.5945
 * R10-5^babar = 0.03882
-* G5^pdg = 0.178326
-*
-* 1/G5^pdg = 5.607707 - R3-5^babar/G5^pdg = 5.49331
-CONSTRAINT Gamma3by5.c  -0.9796  Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.49331
-*
+
+* --- babar measurements shifted by updated external parameters
+* R3-5^babar = 0.9791458276
+* R9-5^babar = 0.593673115
+* R10-5^babar = 0.0386760149
+
+* 1/G5^pdg = 5.607707 , R3-5^babar/G5^pdg = 5.49331
+CONSTRAINT Gamma3by5.c  -0.9796  Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.490763 
+* CONSTRAINT Gamma3by5.c  -0.9791458276 Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.49331
+
+* 1/G5^pdg = 5.607707 , R9-5^babar/G5^pdg = 3.333782
 CONSTRAINT Gamma9by5.c  -0.5945  Gamma9by5  -1 Gamma9  5.607707 Gamma5 -3.333782
-*
+* CONSTRAINT Gamma9by5.c -0.593673115 Gamma9by5  -1 Gamma9  5.607707 Gamma5 -3.329145
+
+* 1/G5^pdg = 5.607707 , R10-5^babar/G5^pdg = 0.2176912
 CONSTRAINT Gamma10by5.c -0.03882 Gamma10by5 -1 Gamma10 5.607707 Gamma5 -0.2176912
+* CONSTRAINT Gamma10by5.c -0.0386760149 Gamma10by5 -1 Gamma10 5.607707 Gamma5 -0.2168838
 
 * unitarity constraint (sum of basic modes, possibly adding also dummy
 * CONSTRAINT GammaAll 1
