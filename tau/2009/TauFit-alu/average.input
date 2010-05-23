@@ -126,8 +126,8 @@ COMBOFQUANT Gamma13 1 Gamma14      1 Gamma16
 * R10-5^babar = 0.0386760149
 
 * 1/G5^pdg = 5.607707 , R3-5^babar/G5^pdg = 5.49331
-CONSTRAINT Gamma3by5.c  -0.9796  Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.490763 
-* CONSTRAINT Gamma3by5.c  -0.9791458276 Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.49331
+CONSTRAINT Gamma3by5.c  -0.9796  Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.49331
+* CONSTRAINT Gamma3by5.c  -0.9791458276 Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.490763
 
 * 1/G5^pdg = 5.607707 , R9-5^babar/G5^pdg = 3.333782
 CONSTRAINT Gamma9by5.c  -0.5945  Gamma9by5  -1 Gamma9  5.607707 Gamma5 -3.333782
