@@ -80,7 +80,7 @@ if (length(combination$constr.comb) > 0) {
   ##-- retain only constraints whose terms are all included in the fitted quantities
   constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
   if (any(!constr.select)) {
-    cat("The following constraints are dropped:\n")
+    cat("\nThe following constraints are dropped:\n")
     mapply(function(comb, val, val.name)
            {
              tmp = val
@@ -96,14 +96,13 @@ if (length(combination$constr.comb) > 0) {
 }
 
 ##-- quantity measured per measurement
-meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
-names(meas.quantities) = meas.names
+meas.quantities = sapply(measurements, function(x) names(x$value))
 
 meas.included.list = meas.quantities %in% quant.names
 names(meas.included.list) = names(meas.quantities)[meas.included.list]
 meas.names.discarded =  meas.names[!meas.included.list]
 if (length(meas.names.discarded) >0) {
-  cat("The following measurements are discarded:\n")
+  cat("\nThe following measurements are discarded:\n")
   cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
 }
 
@@ -113,31 +112,52 @@ meas.names = names(measurements)
 meas.num = length(measurements[meas.included.list])
 meas.quantities = meas.quantities[meas.included.list]
 
+larger = numeric()
+slightly.larger = numeric()
+not.matching = numeric()
+
 ##-- checks on syst terms
 for (meas in names(measurements)) {
   ##-- check that the sum of syst. terms does not exceed the syst. error
   syst.contribs = sqrt(sum(measurements[[meas]]$syst.terms^2))
   if (syst.contribs > (1+1e-3)*measurements[[meas]]$syst) {
-    stop("error: syst. terms larger than syst. error\n    ",
-         syst.contribs, " vs. ", measurements[[meas]]$syst, "\n    ",
-         "measurement ", meas)
+    larger = rbind(larger, matrix(c(measurements[[meas]]$syst, syst.contribs), 1, 2, dimnames=list(meas)))
   } else if (syst.contribs > (1+1e-5)*measurements[[meas]]$syst) {
-    cat("warning: syst. terms slightly larger than syst. error\n    ",
-        syst.contribs, " vs. ", measurements[[meas]]$syst, "\n    ",
-        "measurement ", meas, "\n", sep="")
+    slightly.larger = rbind(slightly.larger,  matrix(c(measurements[[meas]]$syst, syst.contribs), 1, 2, dimnames=list(meas)))
   }
   ##-- warning if sum of syst terms different w.r.t. total syst
   if (abs(syst.contribs-measurements[[meas]]$syst) >
       1e-3 * sqrt(syst.contribs * measurements[[meas]]$syst)) {
-    cat("warning: syst. terms do not match total syst. error, Combos requires that:\n  ",
-            meas, ": ", measurements[[meas]]$syst, " vs. ", syst.contribs, "\n", sep="")
+    not.matching = rbind(not.matching, matrix(c(measurements[[meas]]$syst, syst.contribs), 1, 2, dimnames=list(meas)))
   }
+}
+
+if (length(slightly.larger) > 0) {
+  cat("\nwarning: syst. terms sum slightly larger than total syst. error\n")
+  colnames(slightly.larger) = c("total", "sum of terms")
+  show(slightly.larger)
+}
+if (length(larger) > 0) {
+  cat("\nerror: syst. terms sum larger than total syst. error\n")
+  colnames(larger) = c("total", "sum of terms")
+  show(larger)
+  stop("aborting")
+}
+if (length(not.matching) > 0) {
+  cat("\nwarning: syst. terms do not match total syst. error, Combos requires that\n")
+  colnames(not.matching) = c("total", "sum of terms")
+  show(not.matching)
 }
 
 ##
 ## shift measurements according to updated external parameter dependencies
 ## update systematic terms according to updated external parameter errors
 ##
+
+##--- unshifted values
+meas.value.cards = sapply(measurements, function(x) {tmp=x$value; names(tmp)=NULL; tmp})
+meas.syst.cards = sapply(measurements, function(x) {tmp=x$syst; names(tmp)=NULL; tmp})
+
 for (meas in names(measurements)) {
   value.delta = numeric()
   syst.term.deltasq = numeric()
@@ -180,6 +200,22 @@ for (meas in names(measurements)) {
   ## cat(measurements[[meas]]$tag, measurements[[meas]]$value, measurements[[meas]]$stat, measurements[[meas]]$syst, "\n")
 }
 
+##-- get list of values, stat errors, syst errors
+meas.value = sapply(measurements, function(x) {tmp=x$value; names(tmp)=NULL; tmp})
+meas.stat = sapply(measurements, function(x) {tmp=x$stat; names(tmp)=NULL; tmp})
+meas.syst = sapply(measurements, function(x) {tmp=x$syst; names(tmp)=NULL; tmp})
+meas.error = sqrt(meas.stat^2 + meas.syst^2)
+
+##-- which measurements got shifted in value or syst. error
+meas.shifted = (meas.value.cards != meas.value) | (meas.syst.cards != meas.syst)
+
+cat("\nThe following measurements were shifted from updated external parameters\n")
+show(rbind(orig=meas.value.cards[meas.shifted],
+           value=meas.value[meas.shifted],
+           stat=meas.stat[meas.shifted],
+           orig=meas.syst.cards[meas.shifted],
+           syst=meas.syst[meas.shifted]))
+
 ##-- for each syst. term external parameter, collect affected measurements
 syst.terms.list = list()
 for (meas in meas.names) {
@@ -200,15 +236,6 @@ if (length(syst.terms.corr) > 0) {
 ##
 ## in the following, the covariance matrix for measurements is assembled
 ##
-
-##-- get list of values, stat errors, syst errors
-meas.value = unlist(lapply(measurements, function(x) x$value))
-names(meas.value) = meas.names
-meas.stat = unlist(lapply(measurements, function(x) x$stat))
-names(meas.stat) = meas.names
-meas.syst = unlist(lapply(measurements, function(x) x$syst))
-names(meas.syst) = meas.names
-meas.error = sqrt(meas.stat^2 + meas.syst^2)
 
 ##
 ## build correlation matrix
@@ -324,17 +351,8 @@ meas.cov = meas.cov.stat + meas.cov.syst
 ## one can generalize the above concepts to measurements that are linear combinations
 ## of quantities by using proper coefficients different from 1
 ##
-delta = matrix(0, meas.num, quant.num)
-colnames(delta) = quant.names
+delta = sapply(quant.names, function(x) as.numeric(x == meas.quantities))
 rownames(delta) = meas.names
-
-##
-## build column by column
-## a 1 is set for each row where a measurement measures a quantity
-##
-for (quant in quant.names) {
-  delta[,quant] = as.numeric(quant == meas.quantities)
-}
 
 ##-- print corrected measurements
 if (FALSE) {
@@ -349,7 +367,7 @@ meas = meas.value
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=2000)
+options(width=80)
 
 if (FALSE && !flag.no.maxLik) {
 ##
