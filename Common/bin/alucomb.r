@@ -213,13 +213,15 @@ meas.error = sqrt(meas.stat^2 + meas.syst^2)
 ##-- which measurements got shifted in value or syst. error
 meas.shifted = (meas.value.cards != meas.value) | (meas.syst.cards != meas.syst)
 
-cat("\nThe following measurements were shifted from updated external parameters\n")
-show(rbind(orig=meas.value.cards[meas.shifted],
-           value=meas.value[meas.shifted],
-           stat=meas.stat[meas.shifted],
-           orig=meas.syst.cards[meas.shifted],
-           syst=meas.syst[meas.shifted]))
-
+if (any(meas.shifted)) {
+  cat("\nThe following measurements were shifted from updated external parameters\n")
+  show(rbind(orig=meas.value.cards[meas.shifted],
+             value=meas.value[meas.shifted],
+             stat=meas.stat[meas.shifted],
+             orig=meas.syst.cards[meas.shifted],
+             syst=meas.syst[meas.shifted]))
+}
+  
 ##-- for each syst. term external parameter, collect affected measurements
 syst.terms.list = list()
 for (meas in meas.names) {
