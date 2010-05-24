@@ -185,17 +185,9 @@ meas.quantities = sub("[.][^.]+$", "", sub("^[^.]+[.]", "", names(measurements))
 ##-- quantities we want to determine from measurements
 quant.names = combination$quantities
 
-##-- measurements of quantities that are linear combination of the quantities to be averaged
-meas.names.comb = names(combination$meas.lin.combs[unlist(
-  lapply(combination$meas.lin.combs, function(el) all(names(el) %in% combination$quantities)))])
 ##-- quantity measured by each measurement
 meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
 names(meas.quantities) = names(measurements)
-##-- unique quantities corresponding to linear combinations of averaged quantities
-quant.names.comb = unique(meas.quantities[meas.names.comb])
-quant.names.comb = setdiff(quant.names.comb, quant.names)
-##-- will plot all averaged quantities and all their measured combinations
-quant.names = c(quant.names, quant.names.comb)
 
 ##-- get list of stat and syst errors
 meas.value = unlist(lapply(measurements, function(x) x$value))
@@ -204,7 +196,7 @@ meas.stat = unlist(lapply(measurements, function(x) x$stat))
 names(meas.stat) = meas.names
 meas.syst = unlist(lapply(measurements, function(x) x$syst))
 names(meas.syst) = meas.names
-##-- combine true and fake info, compute total error
+##-- combine compute total error
 meas.error = sqrt(meas.stat^2 + meas.syst^2)
 
 ##-- init meas.names.true to use same code as in alucomb
