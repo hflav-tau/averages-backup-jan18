@@ -38,6 +38,10 @@ if (length(args) > 0) {
 
 ##++ alucomb = function(file = "") {
 
+##-- set very large line width to print even large amount of averaged quantities on single line
+options.save = options()
+options(width=2000)
+
 rc = alucomb.read(file)
 measurements = rc$measurements
 combination = rc$combination
@@ -355,19 +359,18 @@ delta = sapply(quant.names, function(x) as.numeric(x == meas.quantities))
 rownames(delta) = meas.names
 
 ##-- print corrected measurements
-if (FALSE) {
-  show(meas.value)
-  show(meas.stat)
-  show(meas.syst)
-  show(meas.error)
+if (TRUE) {
+  cat("\n##\n")
+  cat("## Using the following measurements\n")
+  cat("##\n")
+  show(rbind(value=meas.value,
+             stat=meas.stat,
+             syst=meas.syst,
+             error=meas.error))
 }
 
 ##-- simplify
 meas = meas.value
-
-##-- set very large line width to print even large amount of averaged quantities on single line
-options.save = options()
-options(width=2000)
 
 if (FALSE && !flag.no.maxLik) {
 ##
