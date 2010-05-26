@@ -59,9 +59,10 @@ quant.names = combination$quantities
 quant.num = length(quant.names)
 
 ##
-## transform COMBOFMEAS and SUMOF meas information
+## transform COMBOFQUANT and SUMOFQUANT cards
 ## (quantities that are combination of other quantities)
-## into constraints consisting in combinaiton of values equal to constrats
+## into constraints consisting in requirements that
+## a combination of values be equal to a constant numeric value
 ##
 tmp = mapply(function(name, value) {
   rc = c(value, -1)
@@ -71,7 +72,7 @@ tmp = mapply(function(name, value) {
   names(combination$meas.lin.combs), combination$meas.lin.combs,
   SIMPLIFY=FALSE)
 if (length(tmp) > 0) {
-  names(tmp) = paste(names(tmp), "l", sep=".")
+  names(tmp) = paste(names(tmp), "coq", sep=".")
   combination$constr.comb = c(combination$constr.comb, tmp)
   tmp2 = as.list(rep(0, length(tmp)))
   names(tmp2) = names(tmp)
@@ -85,15 +86,14 @@ if (length(combination$constr.comb) > 0) {
   constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
   if (any(!constr.select)) {
     cat("\nThe following constraints are dropped:\n")
-    mapply(function(comb, val, val.name)
-           {
-             tmp = val
-             names(tmp) = val.name
-             show(c(comb, tmp))
-           },
-           combination$constr.comb[!constr.select],
-           combination$constr.val[!constr.select],
-           names(combination$constr.val[!constr.select]))
+    mapply(function(comb, val, val.name) {
+      tmp = val
+      names(tmp) = val.name
+      show(c(comb, tmp))
+    },
+    combination$constr.comb[!constr.select],
+    combination$constr.val[!constr.select],
+    names(combination$constr.val[!constr.select]))
   }
   combination$constr.comb = combination$constr.comb[constr.select]
   combination$constr.val = combination$constr.val[constr.select]
@@ -268,6 +268,7 @@ for (mi.name in meas.names) {
 
 flag = FALSE
 
+##-- check that the STAT_CORRELATED_WITH terms are symmetric
 if (any(meas.corr.stat != t(meas.corr.stat))) {
   errors = character(0)
   for (mi in 1:meas.num) {
@@ -282,6 +283,7 @@ if (any(meas.corr.stat != t(meas.corr.stat))) {
   cat("error: asymmetric statistical correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
 }
 
+##-- check that the TOTAL_CORRELATED_WITH terms are symmetric
 if (any(meas.corr != t(meas.corr))) {
   errors = character(0)
   for (mi in 1:meas.num) {
@@ -381,10 +383,10 @@ if (FALSE && !flag.no.maxLik) {
 ##
 
 ##-- compute weight matrix for computing chisq
-invcov = solve(meas.cov)
+meas.invcov = solve(meas.cov)
 
 logLik.average = function(par) {
-  chisq = t(meas - delta %*% par) %*% invcov %*% (meas - delta %*% par)
+  chisq = t(meas - delta %*% par) %*% meas.invcov %*% (meas - delta %*% par)
   return(-1/2*chisq)
 }
 
@@ -398,7 +400,7 @@ colnames(quant.cov) = quant.names
 quant.err = sqrt(diag.m(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = drop(t(meas - delta %*% quant) %*% invcov %*% (meas - delta %*% quant))
+chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
 chisq.fit = -2*logLik(fit)
 
 cat("\n")
