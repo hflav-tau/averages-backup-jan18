@@ -440,6 +440,11 @@ constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = qu
 constr.m = quant.invcov.order * constr.m
 constr.v = quant.invcov.order * unlist(combination$constr.val)
 
+cat("\n## Constraint equations\n")
+tmp = mapply(function(name, val, comb) {names(val) = name; cat("\n"); show(c(val, unlist(comb)))},
+  names(constr.v), constr.v/quant.invcov.order,
+  apply(constr.m/quant.invcov.order, 1, function(x) list(x[x!=0])))
+
 if (constr.num > 0) {
   ##-- build full matrix in front of c(quant vector, lagr.mult. vector)
   full.m = rbind(
