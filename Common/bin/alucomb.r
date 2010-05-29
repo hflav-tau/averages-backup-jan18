@@ -40,7 +40,7 @@ if (length(args) > 0) {
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=2000)
+options(width=80)
 
 rc = alucomb.read(file)
 measurements = rc$measurements
@@ -430,8 +430,14 @@ names(quant) = quant.names
 meas.invcov = solve(meas.cov)
 
 quant.invcov = t(delta) %*% meas.invcov %*% delta
-##-- multiply constraint equation to avoid unbalanced singular values
-quant.invcov.order = 10^round(log(det(quant.invcov)^(1/quant.num))/log(10))
+##-- multiply constraint equation to avoid computationally singular matrix
+det = det(quant.invcov)
+if (det == 0) {
+  ##-- if singular matrix, compute pseudo-determinant from singular values
+  sv = svd(quant.invcov)$d
+  det = prod(sv[sv>1])^(quant.num/sum(sv>=1))
+}
+quant.invcov.order = 10^round(log(det^(1/quant.num))/log(10))
 
 ##-- constraints
 constr.num = length(combination$constr.comb)
@@ -545,11 +551,15 @@ for (mt.name in quant.names) {
   meas.mt.chisq = sum(((meas[meas.mt.keep] - quant[mt.name]) / meas.error[meas.mt.keep])^2)
 
   ##-- chisq from measurements of the current type, including correlations
-  meas.mt.chisq.corr = drop(
-    t((meas - delta %*% quant)[meas.mt.keep])
-    %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
-    %*% (meas - delta %*% quant)[meas.mt.keep])
-  
+  if (sum(meas.mt.keep) > 0) {
+    meas.mt.chisq.corr = drop(
+      t((meas - delta %*% quant)[meas.mt.keep])
+      %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
+      %*% (meas - delta %*% quant)[meas.mt.keep])
+  } else {
+    meas.mt.chisq.corr = 0
+  }
+
   ##-- collect chisq/dof for each type of measurement
   chisq.types[mt.name] = meas.mt.chisq.corr
   ##-- number of measurements of the current type that have not too-large errors
