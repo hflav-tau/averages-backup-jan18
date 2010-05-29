@@ -40,7 +40,7 @@ if (length(args) > 0) {
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=80)
+options(width=2000)
 
 rc = alucomb.read(file)
 measurements = rc$measurements
