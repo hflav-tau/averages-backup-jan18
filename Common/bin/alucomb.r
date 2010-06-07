@@ -446,12 +446,12 @@ constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = qu
 constr.m = quant.invcov.order * constr.m
 constr.v = quant.invcov.order * unlist(combination$constr.val)
 
-cat("\n## Constraint equations\n")
-tmp = mapply(function(name, val, comb) {names(val) = name; cat("\n"); show(c(val, unlist(comb)))},
-  names(constr.v), constr.v/quant.invcov.order,
-  apply(constr.m/quant.invcov.order, 1, function(x) list(x[x!=0])))
-
 if (constr.num > 0) {
+  cat("\n## Constraint equations\n")
+  tmp = mapply(function(name, val, comb) {names(val) = name; cat("\n"); show(c(val, unlist(comb)))},
+    names(constr.v), constr.v/quant.invcov.order,
+    apply(constr.m/quant.invcov.order, 1, function(x) list(x[x!=0])))
+
   ##-- build full matrix in front of c(quant vector, lagr.mult. vector)
   full.m = rbind(
     cbind(quant.invcov, t(constr.m)),
@@ -650,36 +650,39 @@ if (any(meas.select) && dof.select < 1) {
 sfact.types.0 = sfact.types
 sfact.0 = sfact
 
-##-- chisq without S-factors, just for selected measurements
-chisq.select.0 = drop(
-  t((meas - delta %*% quant)[meas.select])
-  %*% solve(meas.cov[meas.select, meas.select])
-  %*% (meas - delta %*% quant)[meas.select])
-
-##-- chisq with S-factors, just for selected measurements
-chisq.select.1 = drop(
-  t((meas - delta %*% quant)[meas.select])
-  %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
-  %*% (meas - delta %*% quant)[meas.select])
-
-repeat {
-  ##-- chisq with S-factors
-  chisq.select = drop(
+if (any(meas.select)) {
+  
+  ##-- chisq without S-factors, just for selected measurements
+  chisq.select.0 = drop(
+    t((meas - delta %*% quant)[meas.select])
+    %*% solve(meas.cov[meas.select, meas.select])
+    %*% (meas - delta %*% quant)[meas.select])
+  
+  ##-- chisq with S-factors, just for selected measurements
+  chisq.select.1 = drop(
     t((meas - delta %*% quant)[meas.select])
     %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
     %*% (meas - delta %*% quant)[meas.select])
   
-  ##-- adjust S-factors to obtain chisq/dof = 1, when restricted to selected measurements
-  sfact[meas.select] = sfact[meas.select] * sqrt(chisq.select/dof.select)
+  repeat {
+    ##-- chisq with S-factors
+    chisq.select = drop(
+      t((meas - delta %*% quant)[meas.select])
+      %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
+      %*% (meas - delta %*% quant)[meas.select])
+    
+    ##-- adjust S-factors to obtain chisq/dof = 1, when restricted to selected measurements
+    sfact[meas.select] = sfact[meas.select] * sqrt(chisq.select/dof.select)
+    
+    if (!any(meas.select)) break
+    if (abs(chisq.select/dof.select -1) < 1e-6) break
+  }
   
-  if (!any(meas.select)) break
-  if (abs(chisq.select/dof.select -1) < 1e-6) break
-}
-
-
-##-- update sfact.types with adjusted sfact for selected meas
-for (meas.s in names(meas.select[meas.select])) {
-  sfact.types[delta[meas.s,] != 0] = sfact[meas.s]
+  
+  ##-- update sfact.types with adjusted sfact for selected meas
+  for (meas.s in names(meas.select[meas.select])) {
+    sfact.types[delta[meas.s,] != 0] = sfact[meas.s]
+  }
 }
 
 ##-- save step 1
