@@ -1088,7 +1088,11 @@ int main() {
 	  }
 	}
 	//
-	fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
+	if (p==0) {
+	  fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
+	} else {
+	  fprintf (avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), -measvalue[i], gammaname[i].data());
+	}
 	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
 	  int parm=node_parm[inode].at(ipar);
 	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
@@ -1107,10 +1111,14 @@ int main() {
 	    derivative = (1./derivative_denfactor) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) 
 	                 -1. * (fitvalue[i]/derivative_denfactor) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
 	  }
-	  if (derivative>0) {
-	    fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 \n",isum,ipar+1,quan,derivative);
+	  if (p==0){
+	    if (derivative>0) {
+	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 \n",isum,ipar+1,quan,derivative);
+	    }else{
+	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f \n",isum,ipar+1,quan,derivative);
+	    }
 	  }else{
-	    fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f \n",isum,ipar+1,quan,derivative);
+	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], derivative);
 	  }
 	}
 	fprintf (avefile[p], "\n");
