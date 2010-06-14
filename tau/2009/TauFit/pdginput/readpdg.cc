@@ -1088,9 +1088,26 @@ int main() {
 	  }
 	}
 	//
-	if (p==0) {
+	fprintf (avefile[p], "\n* Gamma%s = ",gammaname[i].data());
+	for (ipar=0; ipar < node_num_parm[inode].size(); ++ipar) {
+	  if (ipar==0) { fprintf (avefile[p], "(") ; } else {fprintf (avefile[p], " + ") ;}
+	  int parm=node_num_parm[inode].at(ipar);
+	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	  int quan=ibase-baseparm.begin()+1;
+	  fprintf (avefile[p], "%f * Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
+	  if (ipar==node_num_parm[inode].size()-1) fprintf (avefile[p], ")");
+	}
+	for (ipar=0; ipar < node_den_parm[inode].size(); ++ipar) {
+	  if (ipar==0) { fprintf (avefile[p], "/(") ; } else {fprintf (avefile[p], " + ") ;}
+	  int parm=node_den_parm[inode].at(ipar);
+	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	  int quan=ibase-baseparm.begin()+1;
+	  fprintf (avefile[p], "%f * Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
+	  if (ipar==node_den_parm[inode].size()-1) fprintf (avefile[p], ")\n\n");
+	}
+	if (p==0) { // COMBOS
 	  fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
-	} else {
+	} else if (p==1) { // ALUCOMB
 	  fprintf (avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), -measvalue[i], gammaname[i].data());
 	}
 	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
@@ -1111,13 +1128,13 @@ int main() {
 	    derivative = (1./derivative_denfactor) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) 
 	                 -1. * (fitvalue[i]/derivative_denfactor) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
 	  }
-	  if (p==0){
+	  if (p==0) { // COMBOS
 	    if (derivative>0) {
 	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 \n",isum,ipar+1,quan,derivative);
 	    }else{
 	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f \n",isum,ipar+1,quan,derivative);
 	    }
-	  }else{
+	  }else if (p==1) { // ALUCOMB
 	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], derivative);
 	  }
 	}
