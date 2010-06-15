@@ -1094,16 +1094,17 @@ int main() {
 	  int parm=node_num_parm[inode].at(ipar);
 	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	  int quan=ibase-baseparm.begin()+1;
-	  fprintf (avefile[p], "%f * Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
+	  fprintf (avefile[p], "%f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
 	  if (ipar==node_num_parm[inode].size()-1) fprintf (avefile[p], ")");
 	}
+	if (node_den_parm[inode].size()==0) fprintf (avefile[p], "\n") ; 
 	for (ipar=0; ipar < node_den_parm[inode].size(); ++ipar) {
-	  if (ipar==0) { fprintf (avefile[p], "/(") ; } else {fprintf (avefile[p], " + ") ;}
+	  if (ipar==0) { fprintf (avefile[p], " / (") ; } else {fprintf (avefile[p], " + ") ;}
 	  int parm=node_den_parm[inode].at(ipar);
 	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	  int quan=ibase-baseparm.begin()+1;
-	  fprintf (avefile[p], "%f * Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
-	  if (ipar==node_den_parm[inode].size()-1) fprintf (avefile[p], ")\n\n");
+	  fprintf (avefile[p], "%f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
+	  if (ipar==node_den_parm[inode].size()-1) fprintf (avefile[p], ")\n");
 	}
 	if (p==0) { // COMBOS
 	  fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
