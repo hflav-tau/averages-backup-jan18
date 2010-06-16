@@ -1059,7 +1059,7 @@ int main() {
     // Case 2c: if P_i both in numerator and denominator: dR/dP_i = (1/sum_k=1,m beta_i P_i) * alpha_i - (R/sum_k=1,m beta_k P_k) * beta_i
     //
     int isum,ipar;
-    double coef,derivative,derivative_denfactor;
+    double coef,derivative,derivative_numfactor,derivative_denfactor;
     //
     isum=0;//number of measurements to be expressed as linearized sum of base quantities
     for (int i=0;i<nmeas;++i){
@@ -1078,13 +1078,25 @@ int main() {
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
 	++isum; // translate C index to Fortran index
 	//
+	derivative_numfactor=0; // sum_j=1,n alpha_j P_j
+	if (node_num_npar[inode]>0) {
+	  for (ipar=0;ipar<node_num_npar[inode];++ipar){
+	    int parm=node_num_parm[inode].at(ipar);
+	    vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	    int quan=ibase-baseparm.begin()+1;
+	    //	    derivative_numfactor+=(node_num_coef[inode].at(ipar))*(basefitvalue[quan-1]);
+	    derivative_numfactor+=(node_num_coef[inode].at(ipar))*(baseseed[quan-1]);
+	  }
+	}
+	//
 	derivative_denfactor=0; // sum_k=1,m beta_k P_k
 	if (node_den_npar[inode]>0) {
 	  for (ipar=0;ipar<node_den_npar[inode];++ipar){
 	    int parm=node_den_parm[inode].at(ipar);
 	    vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	    int quan=ibase-baseparm.begin()+1;
-	    derivative_denfactor+=(node_den_coef[inode].at(ipar))*(basefitvalue[quan-1]);
+	    //	    derivative_denfactor+=(node_den_coef[inode].at(ipar))*(basefitvalue[quan-1]);
+	    derivative_denfactor+=(node_den_coef[inode].at(ipar))*(baseseed[quan-1]);
 	  }
 	}
 	//
@@ -1124,10 +1136,10 @@ int main() {
 	  } else if ( is_in_num && !is_in_den) { // case 2a
 	    derivative = (1./derivative_denfactor) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin()));
 	  } else if (!is_in_num &&  is_in_den) { // case 2b
-	    derivative = -1. * (fitvalue[i]/derivative_denfactor) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
+	    derivative = -1. * (derivative_numfactor/(derivative_denfactor*derivative_denfactor)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
 	  } else if ( is_in_num &&  is_in_den) { // case 2c
 	    derivative = (1./derivative_denfactor) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) 
-	                 -1. * (fitvalue[i]/derivative_denfactor) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
+	                 -1. * (derivative_numfactor/(derivative_denfactor*derivative_denfactor)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
 	  }
 	  if (p==0) { // COMBOS
 	    if (derivative>0) {

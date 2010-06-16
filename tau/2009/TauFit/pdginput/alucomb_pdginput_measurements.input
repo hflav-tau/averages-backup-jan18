@@ -1820,7 +1820,7 @@ END
 
 * IMEAS = 91 
 * GAMMANAME = 102 
-* DECAYNAME = G(3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total)  
+* DECAYNAME = G(3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R33 found at inode+1 = 80 with NODENAME[inode] = S035R33 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
 *                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) coef = 1.000000
