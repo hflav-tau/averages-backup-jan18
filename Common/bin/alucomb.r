@@ -430,14 +430,10 @@ names(quant) = quant.names
 meas.invcov = solve(meas.cov)
 
 quant.invcov = t(delta) %*% meas.invcov %*% delta
-##-- multiply constraint equation to avoid computationally singular matrix
-det = det(quant.invcov)
-if (det == 0) {
-  ##-- if singular matrix, compute pseudo-determinant from singular values
-  sv = svd(quant.invcov)$d
-  det = prod(sv[sv>1])^(quant.num/sum(sv>=1))
-}
-quant.invcov.order = 10^round(log(det^(1/quant.num))/log(10))
+##-- log of determinant from singular values decomposition
+sv = svd(quant.invcov)$d
+logdet = sum(log(sv[sv>1])) * quant.num / sum(sv>=1)
+quant.invcov.order = 10^round(logdet/quant.num/log(10))
 
 ##-- constraints
 constr.num = length(combination$constr.comb)
