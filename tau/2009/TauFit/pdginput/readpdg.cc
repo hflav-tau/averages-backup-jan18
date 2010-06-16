@@ -7,6 +7,7 @@
 using namespace std;
 // ----------------------------------------------------------------------
 int main() {
+  int ipar;
   // from s035-fit-no-babar-belle.fit
   const int nbase=31;//33;
   vector<int> basegamma;
@@ -918,22 +919,80 @@ int main() {
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.1900E-01);               
   ++inode;
   //
+  // Input R [node] as a linearized sum of variables P_i [base quantities]
+  //
+  // General Case:
+  // R(P_i) = (sum_j=1,n alpha_j P_j) / (sum_k=1,m beta_k P_k)
+  // dR/dP_i= (1/sum_k=1,m beta_i P_i) * alpha_j * delta_ij - (R/sum_k=1,m beta_k P_k) * beta_k * delta_ik
+  //
+  // Special Case 1:
+  // R(P_i) = (sum_j=1,n alpha_j P_j) 
+  // dR/dP_i= alpha_i 
+  //
+  // Special Case 2: 
+  // R(P_i) = (sum_j=1,n alpha_j P_j) / (sum_k=1,m beta_k P_k)
+  // Case 2a: if P_i only in numerator: dR/dP_i = (1/sum_k=1,m beta_k P_k) * alpha_i
+  // Case 2b: if P_i only in denominator: dR/dP_i = - (R/sum_k=1,m beta_k P_k) * beta_i
+  // Case 2c: if P_i both in numerator and denominator: dR/dP_i = (1/sum_k=1,m beta_i P_i) * alpha_i - (R/sum_k=1,m beta_k P_k) * beta_i
+  //
   vector<int> node_parm[nnode]; // vector of parameters for each node
   vector<int> node_quan[nnode]; // vector of quantities for each node
+  double node_num[nnode]; //   numerator sum [calculated using seed values of quantities] for each node
+  double node_den[nnode]; // denominator sum [calculated using seed values of quantities] for each node
+  vector<double> node_part[nnode]; // vector of partial derivatives w.r.t quantities for each node
   int first_quan[nnode];  // first quantity measured for each node
   for (inode=0;inode<nnode;++inode){
     node_parm[inode].insert(node_parm[inode].end(),node_num_parm[inode].begin(),node_num_parm[inode].end());
     node_parm[inode].insert(node_parm[inode].end(),node_den_parm[inode].begin(),node_den_parm[inode].end());
     sort(node_parm[inode].begin(), node_parm[inode].end());//sort must be called before unique
     vector<int>::iterator new_end=unique(node_parm[inode].begin(), node_parm[inode].end());
-    node_parm[inode].erase(new_end, node_parm[inode].end());
-    first_quan[inode]=99;
-    for (int ipar=0;ipar<node_parm[inode].size();++ipar){
+    node_parm[inode].erase(new_end, node_parm[inode].end()); // <--
+    //
+    double numerator, denominator, partial;
+    //
+    numerator=0; // sum_j=1,n alpha_j P_j
+    if (node_num_npar[inode]>0) {
+      for (ipar=0;ipar<node_num_npar[inode];++ipar){
+	int parm=node_num_parm[inode].at(ipar);
+	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	int quan=ibase-baseparm.begin()+1;
+	numerator+=(node_num_coef[inode].at(ipar))*(baseseed[quan-1]); //*(basefitvalue[quan-1]);
+      }
+    }
+    node_num[inode]=numerator; // <--
+    //
+    denominator=0; // sum_k=1,m beta_k P_k
+    if (node_den_npar[inode]>0) {
+      for (ipar=0;ipar<node_den_npar[inode];++ipar){
+	int parm=node_den_parm[inode].at(ipar);
+	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	int quan=ibase-baseparm.begin()+1;
+	denominator+=(node_den_coef[inode].at(ipar))*(baseseed[quan-1]); //*(basefitvalue[quan-1]);
+      }
+    }
+    node_den[inode]=denominator; // <--
+    //
+    first_quan[inode]=99; // <--
+    for (ipar=0;ipar<node_parm[inode].size();++ipar){
       int parm=node_parm[inode].at(ipar);
       vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
       int quan=ibase-baseparm.begin()+1;
-      node_quan[inode].push_back(quan);
-      if (quan<first_quan[inode]) first_quan[inode]=quan;
+      node_quan[inode].push_back(quan); // <--
+      if (quan<first_quan[inode]) first_quan[inode]=quan; // <--
+      //
+      vector<int>::iterator it_num=find(node_num_parm[inode].begin(),node_num_parm[inode].end(),parm); bool is_in_num = it_num != node_num_parm[inode].end();
+      vector<int>::iterator it_den=find(node_den_parm[inode].begin(),node_den_parm[inode].end(),parm); bool is_in_den = it_den != node_den_parm[inode].end();
+      partial=0;
+      if (node_den_npar[inode]==0 && is_in_num) {//case 1
+	partial = node_num_coef[inode].at(it_num - node_num_parm[inode].begin());
+      } else if ( is_in_num && !is_in_den) { // case 2a
+	partial = (1./denominator) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin()));
+      } else if (!is_in_num &&  is_in_den) { // case 2b
+	partial = -1. * (numerator/(denominator*denominator)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
+      } else if ( is_in_num &&  is_in_den) { // case 2c
+	partial = (1./denominator) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) -1. * (numerator/(denominator*denominator)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
+      }
+      node_part[inode].push_back(partial); // <--
     }
   }
   //
@@ -992,17 +1051,17 @@ int main() {
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
       fprintf (measfile[p], "* NODENAME = %s found at inode+1 = %d with NODENAME[inode] = %s has %d, %d, %d base quantities in numerator, denominator and both [excluding overlap] \n", measnodename[i].data(), inode+1, nodename[inode].data(),node_num_npar[inode], node_den_npar[inode],node_parm[inode].size());
-      for (int ipar=0;ipar<node_num_parm[inode].size();++ipar){
+      for (ipar=0;ipar<node_num_parm[inode].size();++ipar){
 	int parm=node_num_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	fprintf (measfile[p],"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), node_num_coef[inode].at(ipar));
+	fprintf (measfile[p],"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_num_coef[inode].at(ipar));
       }
-      for (int ipar=0;ipar<node_den_parm[inode].size();++ipar){
+      for (ipar=0;ipar<node_den_parm[inode].size();++ipar){
 	int parm=node_den_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	fprintf (measfile[p],"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), node_den_coef[inode].at(ipar));
+	fprintf (measfile[p],"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_den_coef[inode].at(ipar));
       }
       fprintf (measfile[p], "*  first quantity measured by inode+1 = %d has gamma = %d parm = %d quan = %d title = %s\n",inode+1,basegamma[first_quan[inode]-1],baseparm[first_quan[inode]-1],first_quan[inode],basetitle[first_quan[inode]-1].data());
       //
@@ -1042,26 +1101,7 @@ int main() {
     fprintf (avefile[p], "PARAMETER CHI2_N_SYM_PRT -1.0 0. 0. \n\n");
     fprintf (avefile[p], "PARAMETER CHI2_N_SYM_INV 0 0 0 \n\n");
     //
-    // Input R as a linearized sum of variables P_i
-    //
-    // General Case:
-    // R(P_i) = (sum_j=1,n alpha_j P_j) / (sum_k=1,m beta_k P_k)
-    // dR/dP_i= (1/sum_k=1,m beta_i P_i) * alpha_j * delta_ij - (R/sum_k=1,m beta_k P_k) * beta_k * delta_ik
-    //
-    // Special Case 1:
-    // R(P_i) = (sum_j=1,n alpha_j P_j) 
-    // dR/dP_i= alpha_i 
-    //
-    // Special Case 2: 
-    // R(P_i) = (sum_j=1,n alpha_j P_j) / (sum_k=1,m beta_k P_k)
-    // Case 2a: if P_i only in numerator: dR/dP_i = (1/sum_k=1,m beta_k P_k) * alpha_i
-    // Case 2b: if P_i only in denominator: dR/dP_i = - (R/sum_k=1,m beta_k P_k) * beta_i
-    // Case 2c: if P_i both in numerator and denominator: dR/dP_i = (1/sum_k=1,m beta_i P_i) * alpha_i - (R/sum_k=1,m beta_k P_k) * beta_i
-    //
-    int isum,ipar;
-    double coef,derivative,derivative_numfactor,derivative_denfactor;
-    //
-    isum=0;//number of measurements to be expressed as linearized sum of base quantities
+    int isum=0;//number of measurements to be expressed as linearized sum of base quantities
     for (int i=0;i<nmeas;++i){
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
@@ -1078,27 +1118,7 @@ int main() {
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
 	++isum; // translate C index to Fortran index
 	//
-	derivative_numfactor=0; // sum_j=1,n alpha_j P_j
-	if (node_num_npar[inode]>0) {
-	  for (ipar=0;ipar<node_num_npar[inode];++ipar){
-	    int parm=node_num_parm[inode].at(ipar);
-	    vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
-	    int quan=ibase-baseparm.begin()+1;
-	    //	    derivative_numfactor+=(node_num_coef[inode].at(ipar))*(basefitvalue[quan-1]);
-	    derivative_numfactor+=(node_num_coef[inode].at(ipar))*(baseseed[quan-1]);
-	  }
-	}
-	//
-	derivative_denfactor=0; // sum_k=1,m beta_k P_k
-	if (node_den_npar[inode]>0) {
-	  for (ipar=0;ipar<node_den_npar[inode];++ipar){
-	    int parm=node_den_parm[inode].at(ipar);
-	    vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
-	    int quan=ibase-baseparm.begin()+1;
-	    //	    derivative_denfactor+=(node_den_coef[inode].at(ipar))*(basefitvalue[quan-1]);
-	    derivative_denfactor+=(node_den_coef[inode].at(ipar))*(baseseed[quan-1]);
-	  }
-	}
+	// PRINT NODE DEFINITION
 	//
 	fprintf (avefile[p], "\n* Gamma%s = ",gammaname[i].data());
 	for (ipar=0; ipar < node_num_parm[inode].size(); ++ipar) {
@@ -1118,37 +1138,34 @@ int main() {
 	  fprintf (avefile[p], "%f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
 	  if (ipar==node_den_parm[inode].size()-1) fprintf (avefile[p], ")\n");
 	}
+	//
 	if (p==0) { // COMBOS
 	  fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
 	} else if (p==1) { // ALUCOMB
-	  fprintf (avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), -measvalue[i], gammaname[i].data());
+	  cout << inode << " " << node_num[inode] << " " << node_den[inode] << " " ;
+	  double offset = -node_num[inode];
+	  if (node_den_npar[inode]>0) offset /= node_den[inode];
+	  cout << offset << " " << measvalue[i] << endl;
+	  for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
+	    int parm=node_parm[inode].at(ipar);
+	    int quan=node_quan[inode].at(ipar);
+	    double partial=node_part[inode].at(ipar);
+	    offset += partial*baseseed[quan-1];
+	  }
+	  fprintf (avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), offset, gammaname[i].data());
 	}
 	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
 	  int parm=node_parm[inode].at(ipar);
-	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
-	  int quan=ibase-baseparm.begin()+1;
-	  //	  fprintf (avefile[p], "ipar = %d parm = %d quan = %d baseparm = %d \n",ipar,parm,quan,baseparm[quan]);
-	  vector<int>::iterator it_num=find(node_num_parm[inode].begin(),node_num_parm[inode].end(),parm); bool is_in_num = it_num != node_num_parm[inode].end();
-	  vector<int>::iterator it_den=find(node_den_parm[inode].begin(),node_den_parm[inode].end(),parm); bool is_in_den = it_den != node_den_parm[inode].end();
-	  derivative=0;
-	  if (node_den_npar[inode]==0 && is_in_num) {//case 1
-	    derivative = node_num_coef[inode].at(it_num - node_num_parm[inode].begin());
-	  } else if ( is_in_num && !is_in_den) { // case 2a
-	    derivative = (1./derivative_denfactor) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin()));
-	  } else if (!is_in_num &&  is_in_den) { // case 2b
-	    derivative = -1. * (derivative_numfactor/(derivative_denfactor*derivative_denfactor)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
-	  } else if ( is_in_num &&  is_in_den) { // case 2c
-	    derivative = (1./derivative_denfactor) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) 
-	                 -1. * (derivative_numfactor/(derivative_denfactor*derivative_denfactor)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
-	  }
+	  int quan=node_quan[inode].at(ipar);
+	  double partial=node_part[inode].at(ipar);
 	  if (p==0) { // COMBOS
-	    if (derivative>0) {
-	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 \n",isum,ipar+1,quan,derivative);
+	    if (partial>0) {
+	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 \n",isum,ipar+1,quan,partial);
 	    }else{
-	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f \n",isum,ipar+1,quan,derivative);
+	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f \n",isum,ipar+1,quan,partial);
 	    }
 	  }else if (p==1) { // ALUCOMB
-	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], derivative);
+	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], partial);
 	  }
 	}
 	fprintf (avefile[p], "\n");
