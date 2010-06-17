@@ -12,81 +12,48 @@ int main() {
   const int nbase=31;//33;
   vector<int> basegamma;
   vector<int> baseparm;
-  double    baseseed[nbase];
+  double    baseseed[nbase],basefitvalue[nbase],basefiterror[nbase],baserescalederror[nbase],basescalefactor[nbase];
   string    basetitle[nbase];
+  //
   int ibase = 0;
   // INPUT PARAMETERS
   // GAMMA PARMETER SEED TITLE //BASE = NQUAN (in COMBOS)
+  // RESULTS FOR PARAMETERS
   // ----- -------- ---- ----- 
-  basegamma.push_back(  3); baseparm.push_back(  1) ; baseseed[ibase] = 1.740000E+01 ; basetitle[ibase] = "tau- --> mu- nubar(mu) nu(tau)"; ++ibase;//1
-  basegamma.push_back(  5); baseparm.push_back(  2) ; baseseed[ibase] = 1.780000E+01 ; basetitle[ibase] = "tau- --> e- nubar(e) nu(tau)"; ++ibase;//2
-  basegamma.push_back(  9); baseparm.push_back( 12) ; baseseed[ibase] = 1.140000E+01 ; basetitle[ibase] = "tau- --> pi- nu(tau)"; ++ibase;//3
-  basegamma.push_back( 10); baseparm.push_back(  7) ; baseseed[ibase] = 7.000000E-01 ; basetitle[ibase] = "tau- --> K- nu(tau)"; ++ibase;//4
-  basegamma.push_back( 14); baseparm.push_back( 16) ; baseseed[ibase] = 2.500000E+01 ; basetitle[ibase] = "tau- --> pi- pi0 nu(tau)"; ++ibase;//5
-  basegamma.push_back( 16); baseparm.push_back(182) ; baseseed[ibase] = 4.500000E-01 ; basetitle[ibase] = "tau- --> K- pi0 nu(tau)"; ++ibase;//6
-  basegamma.push_back( 20); baseparm.push_back(201) ; baseseed[ibase] = 9.000000E+00 ; basetitle[ibase] = "tau- --> pi- 2pi0 nu(tau) (ex.K0)"; ++ibase;//7
-  basegamma.push_back( 23); baseparm.push_back(115) ; baseseed[ibase] = 6.000000E-02 ; basetitle[ibase] = "tau- --> K- 2pi0 nu(tau) (ex.K0)"; ++ibase;//8
-  basegamma.push_back( 27); baseparm.push_back(203) ; baseseed[ibase] = 1.000000E+00 ; basetitle[ibase] = "tau- --> pi- 3pi0 nu(tau) (ex.K0)"; ++ibase;//9
-  basegamma.push_back( 28); baseparm.push_back(116) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> K- 3pi0 nu(tau) (ex.K0, eta)"; ++ibase;//10
-  basegamma.push_back( 30); baseparm.push_back(110) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> h- 4pi0 nu(tau) (ex.K0,eta)"; ++ibase;//11
-  basegamma.push_back( 35); baseparm.push_back(117) ; baseseed[ibase] = 9.600000E-01 ; basetitle[ibase] = "tau- --> pi- Kbar0 nu(tau)"; ++ibase;//12
-  basegamma.push_back( 37); baseparm.push_back( 62) ; baseseed[ibase] = 1.600000E-01 ; basetitle[ibase] = "tau- --> K- K0 nu(tau)"; ++ibase;//13
-  basegamma.push_back( 40); baseparm.push_back(118) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> pi- Kbar0 pi0 nu(tau)"; ++ibase;//14
-  basegamma.push_back( 42); baseparm.push_back(119) ; baseseed[ibase] = 2.000000E-01 ; basetitle[ibase] = "tau- --> K- K0 pi0 nu(tau)"; ++ibase;//15
-  basegamma.push_back( 47); baseparm.push_back(214) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> pi- K(S)0 K(S)0 nu(tau)"; ++ibase;//16
-  basegamma.push_back( 48); baseparm.push_back(240) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> pi- K(S)0 K(L)0 nu(tau)"; ++ibase;//17
-  basegamma.push_back( 62); baseparm.push_back(259) ; baseseed[ibase] = 9.100000E+00 ; basetitle[ibase] = "tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)"; ++ibase;//18
-  basegamma.push_back( 70); baseparm.push_back(263) ; baseseed[ibase] = 2.500000E+00 ; basetitle[ibase] = "tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)"; ++ibase;//19
-  basegamma.push_back( 77); baseparm.push_back(216) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)"; ++ibase;//20
-  basegamma.push_back( 78); baseparm.push_back(204) ; baseseed[ibase] = 1.300000E-01 ; basetitle[ibase] = "tau- --> h- h- h+ 3pi0 nu(tau)"; ++ibase;//21
-  basegamma.push_back( 85); baseparm.push_back(260) ; baseseed[ibase] = 3.000000E-01 ; basetitle[ibase] = "tau- --> K- pi+ pi- nu(tau) (ex.K0)"; ++ibase;//22
-  basegamma.push_back( 89); baseparm.push_back(285) ; baseseed[ibase] = 6.000000E-02 ; basetitle[ibase] = "tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)"; ++ibase;//23
-  basegamma.push_back( 93); baseparm.push_back(  5) ; baseseed[ibase] = 1.600000E-01 ; basetitle[ibase] = "tau- --> K- K+ pi- nu(tau)"; ++ibase;//24
-  basegamma.push_back( 94); baseparm.push_back(247) ; baseseed[ibase] = 4.000000E-02 ; basetitle[ibase] = "tau- --> K- K+ pi- pi0 nu(tau)"; ++ibase;//25
-  basegamma.push_back(103); baseparm.push_back(  3) ; baseseed[ibase] = 8.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ nu(tau) (ex.K0)"; ++ibase;//26
-  basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; ++ibase;//27
-  basegamma.push_back(126); baseparm.push_back( 58) ; baseseed[ibase] = 1.700000E-01 ; basetitle[ibase] = "tau- --> eta pi- pi0 nu(tau)"; ++ibase;//28
-  basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)"; ++ibase;//29
-  basegamma.push_back(150); baseparm.push_back(  8) ; baseseed[ibase] = 2.000000E+00 ; basetitle[ibase] = "tau- --> h- omega nu(tau)"; ++ibase;//30
-  basegamma.push_back(152); baseparm.push_back(113) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> h- omega pi0 nu(tau)"; ++ibase;//31
+  basegamma.push_back(  3); baseparm.push_back(  1) ; baseseed[ibase] = 1.740000E+01 ; basetitle[ibase] = "tau- --> mu- nubar(mu) nu(tau)"; basefitvalue[ibase]=0.173556 ; basefiterror[ibase]=0.000463 ; baserescalederror[ibase]=0.000465 ; basescalefactor[ibase]=1.01 ;   ++ibase; // 1
+  basegamma.push_back(  5); baseparm.push_back(  2) ; baseseed[ibase] = 1.780000E+01 ; basetitle[ibase] = "tau- --> e- nubar(e) nu(tau)";   basefitvalue[ibase]=0.178413 ; basefiterror[ibase]=0.000479 ; baserescalederror[ibase]=0.000483 ; basescalefactor[ibase]=1.01 ;   ++ibase; // 2
+  basegamma.push_back(  9); baseparm.push_back( 12) ; baseseed[ibase] = 1.140000E+01 ; basetitle[ibase] = "tau- --> pi- nu(tau)";           basefitvalue[ibase]=0.109002 ; basefiterror[ibase]=0.000617 ; baserescalederror[ibase]=0.000660 ; basescalefactor[ibase]=1.07 ;   ++ibase; // 3
+  basegamma.push_back( 10); baseparm.push_back(  7) ; baseseed[ibase] = 7.000000E-01 ; basetitle[ibase] = "tau- --> K- nu(tau)" ;           basefitvalue[ibase]=0.006910 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000228 ; basescalefactor[ibase]=1.04 ;   ++ibase; // 4
+  basegamma.push_back( 14); baseparm.push_back( 16) ; baseseed[ibase] = 2.500000E+01 ; basetitle[ibase] = "tau- --> pi- pi0 nu(tau)";       basefitvalue[ibase]=0.254980 ; basefiterror[ibase]=0.000924 ; baserescalederror[ibase]=0.001023 ; basescalefactor[ibase]=1.11 ;   ++ibase; // 5
+  basegamma.push_back( 16); baseparm.push_back(182) ; baseseed[ibase] = 4.500000E-01 ; basetitle[ibase] = "tau- --> K- pi0 nu(tau)";        basefitvalue[ibase]=0.004525 ; basefiterror[ibase]=0.000265 ; baserescalederror[ibase]=0.000267 ; basescalefactor[ibase]=1.01 ;   ++ibase; // 6
+  basegamma.push_back( 20); baseparm.push_back(201) ; baseseed[ibase] = 9.000000E+00 ; basetitle[ibase] = "tau- --> pi- 2pi0 nu(tau) (ex.K0)";basefitvalue[ibase]=0.092494 ; basefiterror[ibase]=0.000975 ; baserescalederror[ibase]=0.001240 ; basescalefactor[ibase]=1.27 ; ++ibase; // 7
+  basegamma.push_back( 23); baseparm.push_back(115) ; baseseed[ibase] = 6.000000E-02 ; basetitle[ibase] = "tau- --> K- 2pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000581 ; basefiterror[ibase]=0.000225 ; baserescalederror[ibase]=0.000232 ; basescalefactor[ibase]=1.03 ; ++ibase; // 8
+  basegamma.push_back( 27); baseparm.push_back(203) ; baseseed[ibase] = 1.000000E+00 ; basetitle[ibase] = "tau- --> pi- 3pi0 nu(tau) (ex.K0)";basefitvalue[ibase]=0.010403 ; basefiterror[ibase]=0.000709 ; baserescalederror[ibase]=0.000760 ; basescalefactor[ibase]=1.07 ; ++ibase; // 9
+  basegamma.push_back( 28); baseparm.push_back(116) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> K- 3pi0 nu(tau) (ex.K0, eta)";basefitvalue[ibase]=0.000417 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000220 ; basescalefactor[ibase]=1.01 ; ++ibase; // 10
+  basegamma.push_back( 30); baseparm.push_back(110) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> h- 4pi0 nu(tau) (ex.K0,eta)"; basefitvalue[ibase]=0.001024 ; basefiterror[ibase]=0.000392 ; baserescalederror[ibase]=0.000398 ; basescalefactor[ibase]=1.01 ; ++ibase; // 11
+  basegamma.push_back( 35); baseparm.push_back(117) ; baseseed[ibase] = 9.600000E-01 ; basetitle[ibase] = "tau- --> pi- Kbar0 nu(tau)";     basefitvalue[ibase]=0.008963 ; basefiterror[ibase]=0.000367 ; baserescalederror[ibase]=0.000409 ; basescalefactor[ibase]=1.11 ;   ++ibase; // 12
+  basegamma.push_back( 37); baseparm.push_back( 62) ; baseseed[ibase] = 1.600000E-01 ; basetitle[ibase] = "tau- --> K- K0 nu(tau)";         basefitvalue[ibase]=0.001530 ; basefiterror[ibase]=0.000161 ; baserescalederror[ibase]=0.000163 ; basescalefactor[ibase]=1.01 ;   ++ibase; // 13
+  basegamma.push_back( 40); baseparm.push_back(118) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> pi- Kbar0 pi0 nu(tau)"; basefitvalue[ibase]=0.003778 ; basefiterror[ibase]=0.000368 ; baserescalederror[ibase]=0.000374 ; basescalefactor[ibase]=1.02 ;   ++ibase; // 14
+  basegamma.push_back( 42); baseparm.push_back(119) ; baseseed[ibase] = 2.000000E-01 ; basetitle[ibase] = "tau- --> K- K0 pi0 nu(tau)";     basefitvalue[ibase]=0.001541 ; basefiterror[ibase]=0.000200 ; baserescalederror[ibase]=0.000200 ; basescalefactor[ibase]=1.00 ;   ++ibase; // 15
+  basegamma.push_back( 47); baseparm.push_back(214) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> pi- K(S)0 K(S)0 nu(tau)";basefitvalue[ibase]=0.000241 ; basefiterror[ibase]=0.000052 ; baserescalederror[ibase]=0.000052 ; basescalefactor[ibase]=1.00 ;  ++ibase; // 16
+  basegamma.push_back( 48); baseparm.push_back(240) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> pi- K(S)0 K(L)0 nu(tau)";basefitvalue[ibase]=0.001121 ; basefiterror[ibase]=0.000245 ; baserescalederror[ibase]=0.000301 ; basescalefactor[ibase]=1.23 ;  ++ibase; // 17
+  basegamma.push_back( 62); baseparm.push_back(259) ; baseseed[ibase] = 9.100000E+00 ; basetitle[ibase] = "tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)";basefitvalue[ibase]=0.089866 ; basefiterror[ibase]=0.000600 ; baserescalederror[ibase]=0.000757 ; basescalefactor[ibase]=1.26 ; ++ibase; // 18
+  basegamma.push_back( 70); baseparm.push_back(263) ; baseseed[ibase] = 2.500000E+00 ; basetitle[ibase] = "tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)"; basefitvalue[ibase]=0.026914 ; basefiterror[ibase]=0.000707 ; baserescalederror[ibase]=0.000826 ; basescalefactor[ibase]=1.17 ; ++ibase; // 19
+  basegamma.push_back( 77); baseparm.push_back(216) ; baseseed[ibase] = 1.000000E-01 ; basetitle[ibase] = "tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)"; basefitvalue[ibase]=0.000906 ; basefiterror[ibase]=0.000357 ; baserescalederror[ibase]=0.000368 ; basescalefactor[ibase]=1.03 ;++ibase; // 20
+  basegamma.push_back( 78); baseparm.push_back(204) ; baseseed[ibase] = 1.300000E-01 ; basetitle[ibase] = "tau- --> h- h- h+ 3pi0 nu(tau)"; basefitvalue[ibase]=0.000223 ; basefiterror[ibase]=0.000050 ; baserescalederror[ibase]=0.000050 ; basescalefactor[ibase]=1.00 ;   ++ibase; // 21
+  basegamma.push_back( 85); baseparm.push_back(260) ; baseseed[ibase] = 3.000000E-01 ; basetitle[ibase] = "tau- --> K- pi+ pi- nu(tau) (ex.K0)";basefitvalue[ibase]=0.003335 ; basefiterror[ibase]=0.000223 ; baserescalederror[ibase]=0.000352 ; basescalefactor[ibase]=1.58 ;  ++ibase; // 22
+  basegamma.push_back( 89); baseparm.push_back(285) ; baseseed[ibase] = 6.000000E-02 ; basetitle[ibase] = "tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)"; basefitvalue[ibase]=0.000730 ; basefiterror[ibase]=0.000117 ; baserescalederror[ibase]=0.000122 ; basescalefactor[ibase]=1.04 ; ++ibase; // 23
+  basegamma.push_back( 93); baseparm.push_back(  5) ; baseseed[ibase] = 1.600000E-01 ; basetitle[ibase] = "tau- --> K- K+ pi- nu(tau)";     basefitvalue[ibase]=0.001531 ; basefiterror[ibase]=0.000070 ; baserescalederror[ibase]=0.000097 ; basescalefactor[ibase]=1.38 ;  ++ibase; // 24
+  basegamma.push_back( 94); baseparm.push_back(247) ; baseseed[ibase] = 4.000000E-02 ; basetitle[ibase] = "tau- --> K- K+ pi- pi0 nu(tau)"; basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ;  ++ibase; // 25
+  basegamma.push_back(103); baseparm.push_back(  3) ; baseseed[ibase] = 8.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ;  ++ibase; // 26
+  basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ;  ++ibase; // 27
+  basegamma.push_back(126); baseparm.push_back( 58) ; baseseed[ibase] = 1.700000E-01 ; basetitle[ibase] = "tau- --> eta pi- pi0 nu(tau)"; basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 28
+  basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)";      basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 29
+  basegamma.push_back(150); baseparm.push_back(  8) ; baseseed[ibase] = 2.000000E+00 ; basetitle[ibase] = "tau- --> h- omega nu(tau)";    basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; // 30
+  basegamma.push_back(152); baseparm.push_back(113) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> h- omega pi0 nu(tau)";basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; // 31
   // FOR CROSS-CHECKING PDG FIT THE FOLLOWING SHOULD NOT BE USED
   //  basegamma.push_back(130); baseparm.push_back(266) ; baseseed[ibase] = 4.600000E-03 ; basetitle[ibase] = "tau- --> eta K- pi0 nu(tau)"; ++ibase;//32
   //  basegamma.push_back(132); baseparm.push_back(267) ; baseseed[ibase] = 8.800000E-03 ; basetitle[ibase] = "tau- --> eta Kbar0 pi- nu(tau)"; ++ibase;//33
-
-  ibase=0;
-  double    basefitvalue[nbase],basefiterror[nbase],baserescalederror[nbase],basescalefactor[nbase];
-  // RESULTS FOR PARAMETERS
-  basefitvalue[ibase]=0.173556 ; basefiterror[ibase]=0.000463 ; baserescalederror[ibase]=0.000465 ; basescalefactor[ibase]=1.01 ; ++ibase; //1
-  basefitvalue[ibase]=0.178413 ; basefiterror[ibase]=0.000479 ; baserescalederror[ibase]=0.000483 ; basescalefactor[ibase]=1.01 ; ++ibase; //2
-  basefitvalue[ibase]=0.109002 ; basefiterror[ibase]=0.000617 ; baserescalederror[ibase]=0.000660 ; basescalefactor[ibase]=1.07 ; ++ibase; //3
-  basefitvalue[ibase]=0.006910 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000228 ; basescalefactor[ibase]=1.04 ; ++ibase; //4
-  basefitvalue[ibase]=0.254980 ; basefiterror[ibase]=0.000924 ; baserescalederror[ibase]=0.001023 ; basescalefactor[ibase]=1.11 ; ++ibase; //5
-  basefitvalue[ibase]=0.004525 ; basefiterror[ibase]=0.000265 ; baserescalederror[ibase]=0.000267 ; basescalefactor[ibase]=1.01 ; ++ibase; //6
-  basefitvalue[ibase]=0.092494 ; basefiterror[ibase]=0.000975 ; baserescalederror[ibase]=0.001240 ; basescalefactor[ibase]=1.27 ; ++ibase; //7
-  basefitvalue[ibase]=0.000581 ; basefiterror[ibase]=0.000225 ; baserescalederror[ibase]=0.000232 ; basescalefactor[ibase]=1.03 ; ++ibase; //8
-  basefitvalue[ibase]=0.010403 ; basefiterror[ibase]=0.000709 ; baserescalederror[ibase]=0.000760 ; basescalefactor[ibase]=1.07 ; ++ibase; //9
-  basefitvalue[ibase]=0.000417 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000220 ; basescalefactor[ibase]=1.01 ; ++ibase; //10
-  basefitvalue[ibase]=0.001024 ; basefiterror[ibase]=0.000392 ; baserescalederror[ibase]=0.000398 ; basescalefactor[ibase]=1.01 ; ++ibase; //11
-  basefitvalue[ibase]=0.008963 ; basefiterror[ibase]=0.000367 ; baserescalederror[ibase]=0.000409 ; basescalefactor[ibase]=1.11 ; ++ibase; //12
-  basefitvalue[ibase]=0.001530 ; basefiterror[ibase]=0.000161 ; baserescalederror[ibase]=0.000163 ; basescalefactor[ibase]=1.01 ; ++ibase; //13
-  basefitvalue[ibase]=0.003778 ; basefiterror[ibase]=0.000368 ; baserescalederror[ibase]=0.000374 ; basescalefactor[ibase]=1.02 ; ++ibase; //14
-  basefitvalue[ibase]=0.001541 ; basefiterror[ibase]=0.000200 ; baserescalederror[ibase]=0.000200 ; basescalefactor[ibase]=1.00 ; ++ibase; //15
-  basefitvalue[ibase]=0.000241 ; basefiterror[ibase]=0.000052 ; baserescalederror[ibase]=0.000052 ; basescalefactor[ibase]=1.00 ; ++ibase; //16
-  basefitvalue[ibase]=0.001121 ; basefiterror[ibase]=0.000245 ; baserescalederror[ibase]=0.000301 ; basescalefactor[ibase]=1.23 ; ++ibase; //17
-  basefitvalue[ibase]=0.089866 ; basefiterror[ibase]=0.000600 ; baserescalederror[ibase]=0.000757 ; basescalefactor[ibase]=1.26 ; ++ibase; //18
-  basefitvalue[ibase]=0.026914 ; basefiterror[ibase]=0.000707 ; baserescalederror[ibase]=0.000826 ; basescalefactor[ibase]=1.17 ; ++ibase; //19
-  basefitvalue[ibase]=0.000906 ; basefiterror[ibase]=0.000357 ; baserescalederror[ibase]=0.000368 ; basescalefactor[ibase]=1.03 ; ++ibase; //20
-  basefitvalue[ibase]=0.000223 ; basefiterror[ibase]=0.000050 ; baserescalederror[ibase]=0.000050 ; basescalefactor[ibase]=1.00 ; ++ibase; //21
-  basefitvalue[ibase]=0.003335 ; basefiterror[ibase]=0.000223 ; baserescalederror[ibase]=0.000352 ; basescalefactor[ibase]=1.58 ; ++ibase; //22
-  basefitvalue[ibase]=0.000730 ; basefiterror[ibase]=0.000117 ; baserescalederror[ibase]=0.000122 ; basescalefactor[ibase]=1.04 ; ++ibase; //23
-  basefitvalue[ibase]=0.001531 ; basefiterror[ibase]=0.000070 ; baserescalederror[ibase]=0.000097 ; basescalefactor[ibase]=1.38 ; ++ibase; //24
-  basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ; ++ibase; //25
-  basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ; ++ibase; //26
-  basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ; ++ibase; //27
-  basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; //28
-  basefitvalue[ibase]=0.000268 ; basefiterror[ibase]=0.000063 ; baserescalederror[ibase]=0.000063 ; basescalefactor[ibase]=1.00 ; ++ibase; //29
-  basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; //30
-  basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; //31
   //
   double totalseed = 0;
   for (ibase=0;ibase<nbase;++ibase) {
@@ -1184,6 +1151,13 @@ int main() {
 	}
 	if (p==1) fprintf(avefile[p], "\n");
       }
+    }
+    if (p==0) {
+      fprintf(avefile[p], "*Gamma28 = 1 -Gamma3 -Gamma5 -Gamma9 -Gamma10 -Gamma14 -Gamma16\n");
+      fprintf(avefile[p], "             -Gamma20 -Gamma23 -Gamma27 -Gamma30 -Gamma35 -Gamma37\n");
+      fprintf(avefile[p], "             -Gamma40 -Gamma42 -Gamma47 -Gamma48 -Gamma62 -Gamma70\n");
+      fprintf(avefile[p], "             -Gamma77 -Gamma78 -Gamma85 -Gamma89 -Gamma93 -Gamma94\n");
+      fprintf(avefile[p], "             -Gamma103 -Gamma104 -Gamma126 -Gamma128 -Gamma150 -Gamma152\n");
     }
     if (p==1) {
       fprintf(avefile[p], "\n* unitarity constraint (sum of basic modes, possibly adding also dummy)\n");
