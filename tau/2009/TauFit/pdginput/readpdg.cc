@@ -94,7 +94,7 @@ int main() {
     baseseed[ibase]*=1.e-2; // percent to fraction
     totalseed+=baseseed[ibase];
   }
-  cout << "Totalseed = " << totalseed << " is normalized to 1" << endl << endl;
+  cout << "Totalseed = " << totalseed << " is re-normalized to 1 by adjusting each baseseed value ... " << endl << endl;
   for (ibase=0;ibase<nbase;++ibase) baseseed[ibase]/=totalseed;
   //
   // INPUT NODES
@@ -1037,7 +1037,7 @@ int main() {
     }
   }
   //
-  cout << "nmeas = " << nmeas << endl;
+  //  cout << "nmeas = " << nmeas << endl;
   FILE *measfile[2];
   for (int p=0;p<2;++p){
     if (p==0) measfile[0]=fopen("combos_pdginput_measurements.input","w");
@@ -1096,27 +1096,42 @@ int main() {
     for (ibase=0;ibase<nbase;++ibase){
       fprintf (avefile[p], "MEASUREMENT m_Gamma%d statistical systematic   ! NQUAN = %d \n",basegamma.at(ibase),ibase+1);  
     }
-    fprintf (avefile[p], "\n");
-    fprintf (avefile[p], "*CALL DUMP_MASTER_INC \n\n");
-    fprintf (avefile[p], "PARAMETER CHI2_N_SYM_PRT -1.0 0. 0. \n\n");
-    fprintf (avefile[p], "PARAMETER CHI2_N_SYM_INV 0 0 0 \n\n");
+    if (p==0){
+      fprintf (avefile[p], "\n*CALL DUMP_MASTER_INC \n\n");
+      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_PRT -1.0 0. 0. \n\n");
+      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_INV 0 0 0 \n\n");
+    }
     //
-    int isum=0;//number of measurements to be expressed as linearized sum of base quantities
+    int lastnode=-1;
+    int isum=0;//number of          measurements to be expressed as linearized sum of base quantities
+    int usum=0;//number of [unique] measurements to be expressed as linearized sum of base quantities
     for (int i=0;i<nmeas;++i){
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
 	++isum;
+	if (p==1&&inode!=lastnode){//new node
+	  ++usum;
+	  lastnode=inode;
+	  fprintf (avefile[p], "MEASUREMENT m_Gamma%s statistical systematic   ! NQUAN = %d \n",gammaname[i].data(),ibase+usum);  
+	}
       }
     }
-    fprintf (avefile[p], "PARAMETER CHI2_N_SYM_NSUM  %d 0 0 \n\n",isum); 
+    if (p==0) fprintf (avefile[p], "PARAMETER CHI2_N_SYM_NSUM  %d 0 0 \n",isum); 
     //
     isum=0;      
+    lastnode=-1;
     for (int i=0;i<nmeas;++i){
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
 	++isum; // translate C index to Fortran index
+	//
+	if (inode!=lastnode){//new node
+	  lastnode=inode;
+	}else{
+	  if (p==1) continue;
+	}
 	//
 	// PRINT NODE DEFINITION
 	//
@@ -1142,10 +1157,9 @@ int main() {
 	if (p==0) { // COMBOS
 	  fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
 	} else if (p==1) { // ALUCOMB
-	  cout << inode << " " << node_num[inode] << " " << node_den[inode] << " " ;
 	  double offset = -node_num[inode];
 	  if (node_den_npar[inode]>0) offset /= node_den[inode];
-	  cout << offset << " " << measvalue[i] << endl;
+	  //	  cout << inode << " " << node_num[inode] << " " << node_den[inode] << " " << offset << " " << measvalue[i] << endl;
 	  for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
 	    int parm=node_parm[inode].at(ipar);
 	    int quan=node_quan[inode].at(ipar);
@@ -1168,7 +1182,7 @@ int main() {
 	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], partial);
 	  }
 	}
-	fprintf (avefile[p], "\n");
+	if (p==1) fprintf(avefile[p], "\n");
       }
     }
     fclose(avefile[p]);
