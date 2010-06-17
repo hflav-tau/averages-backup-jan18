@@ -1,4 +1,4 @@
-INCLUDE pdginput_measurements.input 
+INCLUDE combos_pdginput_measurements.input 
 
 BEGIN   PDG-BABAR-BELLE all_methods 
 
