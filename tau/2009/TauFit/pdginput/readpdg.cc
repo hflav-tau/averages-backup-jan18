@@ -56,38 +56,37 @@ int main() {
   ibase=0;
   double    basefitvalue[nbase],basefiterror[nbase],baserescalederror[nbase],basescalefactor[nbase];
   // RESULTS FOR PARAMETERS
-  basefitvalue[ibase]=0.173556 ; basefiterror[ibase]=0.000463 ; baserescalederror[ibase]=0.000465 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.178413 ; basefiterror[ibase]=0.000479 ; baserescalederror[ibase]=0.000483 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.109002 ; basefiterror[ibase]=0.000617 ; baserescalederror[ibase]=0.000660 ; basescalefactor[ibase]=1.07 ; ++ibase; 
-  basefitvalue[ibase]=0.006910 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000228 ; basescalefactor[ibase]=1.04 ; ++ibase; 
-  basefitvalue[ibase]=0.254980 ; basefiterror[ibase]=0.000924 ; baserescalederror[ibase]=0.001023 ; basescalefactor[ibase]=1.11 ; ++ibase; 
-  basefitvalue[ibase]=0.004525 ; basefiterror[ibase]=0.000265 ; baserescalederror[ibase]=0.000267 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.092494 ; basefiterror[ibase]=0.000975 ; baserescalederror[ibase]=0.001240 ; basescalefactor[ibase]=1.27 ; ++ibase; 
-  basefitvalue[ibase]=0.000581 ; basefiterror[ibase]=0.000225 ; baserescalederror[ibase]=0.000232 ; basescalefactor[ibase]=1.03 ; ++ibase; 
-  basefitvalue[ibase]=0.010403 ; basefiterror[ibase]=0.000709 ; baserescalederror[ibase]=0.000760 ; basescalefactor[ibase]=1.07 ; ++ibase; 
-  basefitvalue[ibase]=0.000417 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000220 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.001024 ; basefiterror[ibase]=0.000392 ; baserescalederror[ibase]=0.000398 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.008963 ; basefiterror[ibase]=0.000367 ; baserescalederror[ibase]=0.000409 ; basescalefactor[ibase]=1.11 ; ++ibase; 
-  basefitvalue[ibase]=0.001530 ; basefiterror[ibase]=0.000161 ; baserescalederror[ibase]=0.000163 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.003778 ; basefiterror[ibase]=0.000368 ; baserescalederror[ibase]=0.000374 ; basescalefactor[ibase]=1.02 ; ++ibase; 
-  basefitvalue[ibase]=0.001541 ; basefiterror[ibase]=0.000200 ; baserescalederror[ibase]=0.000200 ; basescalefactor[ibase]=1.00 ; ++ibase; 
-  basefitvalue[ibase]=0.000241 ; basefiterror[ibase]=0.000052 ; baserescalederror[ibase]=0.000052 ; basescalefactor[ibase]=1.00 ; ++ibase; 
-  basefitvalue[ibase]=0.001121 ; basefiterror[ibase]=0.000245 ; baserescalederror[ibase]=0.000301 ; basescalefactor[ibase]=1.23 ; ++ibase; 
-  basefitvalue[ibase]=0.089866 ; basefiterror[ibase]=0.000600 ; baserescalederror[ibase]=0.000757 ; basescalefactor[ibase]=1.26 ; ++ibase; 
-  basefitvalue[ibase]=0.026914 ; basefiterror[ibase]=0.000707 ; baserescalederror[ibase]=0.000826 ; basescalefactor[ibase]=1.17 ; ++ibase; 
-  basefitvalue[ibase]=0.000906 ; basefiterror[ibase]=0.000357 ; baserescalederror[ibase]=0.000368 ; basescalefactor[ibase]=1.03 ; ++ibase; 
-  basefitvalue[ibase]=0.000223 ; basefiterror[ibase]=0.000050 ; baserescalederror[ibase]=0.000050 ; basescalefactor[ibase]=1.00 ; ++ibase; 
-  basefitvalue[ibase]=0.003335 ; basefiterror[ibase]=0.000223 ; baserescalederror[ibase]=0.000352 ; basescalefactor[ibase]=1.58 ; ++ibase; 
-  basefitvalue[ibase]=0.000730 ; basefiterror[ibase]=0.000117 ; baserescalederror[ibase]=0.000122 ; basescalefactor[ibase]=1.04 ; ++ibase; 
-  basefitvalue[ibase]=0.001531 ; basefiterror[ibase]=0.000070 ; baserescalederror[ibase]=0.000097 ; basescalefactor[ibase]=1.38 ; ++ibase; 
-  basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ; ++ibase; 
-  basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ; ++ibase; 
-  basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ; ++ibase; 
-  basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; 
-  basefitvalue[ibase]=0.000268 ; basefiterror[ibase]=0.000063 ; baserescalederror[ibase]=0.000063 ; basescalefactor[ibase]=1.00 ; ++ibase; 
-  basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; 
-  basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; 
-  //
+  basefitvalue[ibase]=0.173556 ; basefiterror[ibase]=0.000463 ; baserescalederror[ibase]=0.000465 ; basescalefactor[ibase]=1.01 ; ++ibase; //1
+  basefitvalue[ibase]=0.178413 ; basefiterror[ibase]=0.000479 ; baserescalederror[ibase]=0.000483 ; basescalefactor[ibase]=1.01 ; ++ibase; //2
+  basefitvalue[ibase]=0.109002 ; basefiterror[ibase]=0.000617 ; baserescalederror[ibase]=0.000660 ; basescalefactor[ibase]=1.07 ; ++ibase; //3
+  basefitvalue[ibase]=0.006910 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000228 ; basescalefactor[ibase]=1.04 ; ++ibase; //4
+  basefitvalue[ibase]=0.254980 ; basefiterror[ibase]=0.000924 ; baserescalederror[ibase]=0.001023 ; basescalefactor[ibase]=1.11 ; ++ibase; //5
+  basefitvalue[ibase]=0.004525 ; basefiterror[ibase]=0.000265 ; baserescalederror[ibase]=0.000267 ; basescalefactor[ibase]=1.01 ; ++ibase; //6
+  basefitvalue[ibase]=0.092494 ; basefiterror[ibase]=0.000975 ; baserescalederror[ibase]=0.001240 ; basescalefactor[ibase]=1.27 ; ++ibase; //7
+  basefitvalue[ibase]=0.000581 ; basefiterror[ibase]=0.000225 ; baserescalederror[ibase]=0.000232 ; basescalefactor[ibase]=1.03 ; ++ibase; //8
+  basefitvalue[ibase]=0.010403 ; basefiterror[ibase]=0.000709 ; baserescalederror[ibase]=0.000760 ; basescalefactor[ibase]=1.07 ; ++ibase; //9
+  basefitvalue[ibase]=0.000417 ; basefiterror[ibase]=0.000219 ; baserescalederror[ibase]=0.000220 ; basescalefactor[ibase]=1.01 ; ++ibase; //10
+  basefitvalue[ibase]=0.001024 ; basefiterror[ibase]=0.000392 ; baserescalederror[ibase]=0.000398 ; basescalefactor[ibase]=1.01 ; ++ibase; //11
+  basefitvalue[ibase]=0.008963 ; basefiterror[ibase]=0.000367 ; baserescalederror[ibase]=0.000409 ; basescalefactor[ibase]=1.11 ; ++ibase; //12
+  basefitvalue[ibase]=0.001530 ; basefiterror[ibase]=0.000161 ; baserescalederror[ibase]=0.000163 ; basescalefactor[ibase]=1.01 ; ++ibase; //13
+  basefitvalue[ibase]=0.003778 ; basefiterror[ibase]=0.000368 ; baserescalederror[ibase]=0.000374 ; basescalefactor[ibase]=1.02 ; ++ibase; //14
+  basefitvalue[ibase]=0.001541 ; basefiterror[ibase]=0.000200 ; baserescalederror[ibase]=0.000200 ; basescalefactor[ibase]=1.00 ; ++ibase; //15
+  basefitvalue[ibase]=0.000241 ; basefiterror[ibase]=0.000052 ; baserescalederror[ibase]=0.000052 ; basescalefactor[ibase]=1.00 ; ++ibase; //16
+  basefitvalue[ibase]=0.001121 ; basefiterror[ibase]=0.000245 ; baserescalederror[ibase]=0.000301 ; basescalefactor[ibase]=1.23 ; ++ibase; //17
+  basefitvalue[ibase]=0.089866 ; basefiterror[ibase]=0.000600 ; baserescalederror[ibase]=0.000757 ; basescalefactor[ibase]=1.26 ; ++ibase; //18
+  basefitvalue[ibase]=0.026914 ; basefiterror[ibase]=0.000707 ; baserescalederror[ibase]=0.000826 ; basescalefactor[ibase]=1.17 ; ++ibase; //19
+  basefitvalue[ibase]=0.000906 ; basefiterror[ibase]=0.000357 ; baserescalederror[ibase]=0.000368 ; basescalefactor[ibase]=1.03 ; ++ibase; //20
+  basefitvalue[ibase]=0.000223 ; basefiterror[ibase]=0.000050 ; baserescalederror[ibase]=0.000050 ; basescalefactor[ibase]=1.00 ; ++ibase; //21
+  basefitvalue[ibase]=0.003335 ; basefiterror[ibase]=0.000223 ; baserescalederror[ibase]=0.000352 ; basescalefactor[ibase]=1.58 ; ++ibase; //22
+  basefitvalue[ibase]=0.000730 ; basefiterror[ibase]=0.000117 ; baserescalederror[ibase]=0.000122 ; basescalefactor[ibase]=1.04 ; ++ibase; //23
+  basefitvalue[ibase]=0.001531 ; basefiterror[ibase]=0.000070 ; baserescalederror[ibase]=0.000097 ; basescalefactor[ibase]=1.38 ; ++ibase; //24
+  basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ; ++ibase; //25
+  basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ; ++ibase; //26
+  basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ; ++ibase; //27
+  basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; //28
+  basefitvalue[ibase]=0.000268 ; basefiterror[ibase]=0.000063 ; baserescalederror[ibase]=0.000063 ; basescalefactor[ibase]=1.00 ; ++ibase; //29
+  basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; //30
+  basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; //31
   //
   double totalseed = 0;
   for (ibase=0;ibase<nbase;++ibase) {
