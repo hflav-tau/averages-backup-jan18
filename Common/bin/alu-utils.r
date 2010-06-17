@@ -281,6 +281,10 @@ for (line in lines) {
       meas$stat = meas.values[2]
       meas$syst = meas.values[3]
       meas$syst.terms = data.values[!data.labels %in% meas.labels]
+      if (!is.null(measurements[[meas$tag]])) {
+        ##-- two measurements have the same tag
+        stop(paste("error: two measurements with tag", meas$tag))
+      }
       measurements[[meas$tag]] = meas
     } else {
       ##
