@@ -1089,7 +1089,8 @@ int main() {
   for (int p=0;p<2;++p){
     if (p==0) avefile[0]=fopen("combos_average_pdginput_no_babar_belle.input","w");
     if (p==1) avefile[1]=fopen("alucomb_average_pdginput_no_babar_belle.input","w");
-    fprintf (avefile[p], "INCLUDE pdginput_measurements.input \n\n"); 
+    if (p==0) fprintf (avefile[p], "INCLUDE combos_pdginput_measurements.input \n\n"); 
+    if (p==1) fprintf (avefile[p], "INCLUDE alucomb_pdginput_measurements.input \n\n"); 
     fprintf (avefile[p], "BEGIN   PDG-BABAR-BELLE all_methods \n\n");
     fprintf (avefile[p], "COMBINE * * * \n\n");
     for (ibase=0;ibase<nbase;++ibase){
