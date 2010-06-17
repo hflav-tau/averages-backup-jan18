@@ -1064,7 +1064,7 @@ int main() {
       }
       fprintf (measfile[p], "*  first quantity measured by inode+1 = %d has gamma = %d parm = %d quan = %d title = %s\n",inode+1,basegamma[first_quan[inode]-1],baseparm[first_quan[inode]-1],first_quan[inode],basetitle[first_quan[inode]-1].data());
       //
-      fprintf (measfile[p], "\nBEGIN %s Gamma%s published %s \n\n", author[i].data(), gammaname[i].data(), year[i].data());
+      fprintf (measfile[p], "\nBEGIN %s Gamma%s published.%s \n\n", author[i].data(), gammaname[i].data(), year[i].data());
       if (p==0) {//COMBOS
 	fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
 	fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
@@ -1077,7 +1077,7 @@ int main() {
       for (int j=0;j<nmeas;++j) {
 	if (corrmat[i][j]!=0) {
 	  if (firstcorr) {fprintf (measfile[p], " \n"); firstcorr=false;}
-	  fprintf (measfile[p], "STAT_CORR_WITH %s Gamma%s published %f ! IMEAS = %d \n",author[j].data(), gammaname[j].data(),corrmat[i][j],imeas[j]);
+	  fprintf (measfile[p], "STAT_CORR_WITH %s Gamma%s published.%s %f ! IMEAS = %d \n",author[j].data(), gammaname[j].data(), year[j].data(), corrmat[i][j], imeas[j]);
 	}
       }
       fprintf (measfile[p], " \nEND \n\n");
@@ -1184,6 +1184,18 @@ int main() {
 	if (p==1) fprintf(avefile[p], "\n");
       }
     }
+    if (p==1) {
+      fprintf(avefile[p], "\n* unitarity constraint (sum of basic modes, possibly adding also dummy)\n");
+      fprintf(avefile[p], "CONSTRAINT GammaAll 1\n");
+      fprintf(avefile[p], "  Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1\n");
+      fprintf(avefile[p], "  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1\n");
+      fprintf(avefile[p], "  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1\n");
+      fprintf(avefile[p], "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
+      fprintf(avefile[p], "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1\n");
+      fprintf(avefile[p], "* Gamma998 1\n");
+    }
+    fprintf(avefile[p], "\nCALL CHI2_N_SYM\n");
+    fprintf(avefile[p], "\nEND\n");
     fclose(avefile[p]);
   }
 }
