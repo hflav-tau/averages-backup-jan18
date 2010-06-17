@@ -3,7 +3,7 @@
 * DECAYNAME = G(eta K- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B20 found at inode+1 = 1 with NODENAME[inode] = S035B20 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 1.000000
+*                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 1.000000
 *  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau)
 
 BEGIN BUSKULIC Gamma128 published.97C 
@@ -19,7 +19,7 @@ END
 * DECAYNAME = G(eta K- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B20 found at inode+1 = 1 with NODENAME[inode] = S035B20 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 1.000000
+*                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 1.000000
 *  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau)
 
 BEGIN BARTELT Gamma128 published.96 
@@ -35,10 +35,10 @@ END
 * DECAYNAME = G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau)) 
 * IWEAK = 1 
 * NODENAME = S035B21 found at inode+1 = 2 with NODENAME[inode] = S035B21 has 2, 2, 4 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 2 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 2 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
-*              denominator of inode+1 = 2 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
-*              denominator of inode+1 = 2 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 2 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 2 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.090000 coef = 1.000000
+*              denominator of inode+1 = 2 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
+*              denominator of inode+1 = 2 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 2 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN PROCARIO Gamma19by13 published.93 
@@ -54,13 +54,13 @@ END
 * DECAYNAME = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) 
 * IWEAK = 0 
 * NODENAME = S035B22 found at inode+1 = 3 with NODENAME[inode] = S035B22 has 5, 2, 7 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 3 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.322000
-*                numerator of inode+1 = 3 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 3 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.157000
-*                numerator of inode+1 = 3 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.157000
-*                numerator of inode+1 = 3 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
-*              denominator of inode+1 = 3 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
-*              denominator of inode+1 = 3 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 3 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.322000
+*                numerator of inode+1 = 3 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 3 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.157000
+*                numerator of inode+1 = 3 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.157000
+*                numerator of inode+1 = 3 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.010000 coef = 1.000000
+*              denominator of inode+1 = 3 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
+*              denominator of inode+1 = 3 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 3 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN PROCARIO Gamma26by13 published.93 
@@ -76,7 +76,7 @@ END
 * DECAYNAME = G(h- 4pi0 nu(tau) (ex.K0,eta))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B23 found at inode+1 = 4 with NODENAME[inode] = S035B23 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 4 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.000997 coef = 1.000000
+*                numerator of inode+1 = 4 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.001000 coef = 1.000000
 *  first quantity measured by inode+1 = 4 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta)
 
 BEGIN SCHAEL Gamma30 published.05C 
@@ -104,27 +104,27 @@ END
 * DECAYNAME = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) 
 * IWEAK = 0 
 * NODENAME = S035B25 found at inode+1 = 5 with NODENAME[inode] = S035B25 has 3, 18, 18 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 5 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.888000
-*                numerator of inode+1 = 5 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 5 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
-*              denominator of inode+1 = 5 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*              denominator of inode+1 = 5 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*              denominator of inode+1 = 5 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.343100
-*              denominator of inode+1 = 5 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.343100
-*              denominator of inode+1 = 5 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.343100
-*              denominator of inode+1 = 5 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 0.430700
-*              denominator of inode+1 = 5 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 0.686100
-*              denominator of inode+1 = 5 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*              denominator of inode+1 = 5 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*              denominator of inode+1 = 5 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.343100
-*              denominator of inode+1 = 5 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 5 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.888000
+*                numerator of inode+1 = 5 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 5 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.226000
+*              denominator of inode+1 = 5 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*              denominator of inode+1 = 5 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*              denominator of inode+1 = 5 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.343100
+*              denominator of inode+1 = 5 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.343100
+*              denominator of inode+1 = 5 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.343100
+*              denominator of inode+1 = 5 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 0.430700
+*              denominator of inode+1 = 5 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 0.686100
+*              denominator of inode+1 = 5 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*              denominator of inode+1 = 5 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*              denominator of inode+1 = 5 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.343100
+*              denominator of inode+1 = 5 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 5 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN BORTOLETTO Gamma76by54 published.93 
@@ -140,10 +140,10 @@ END
 * DECAYNAME = G(h- omega pi0 nu(tau))/G(h- h- h+ 2pi0 nu(tau) (ex.K0)) 
 * IWEAK = 0 
 * NODENAME = S035B27 found at inode+1 = 7 with NODENAME[inode] = S035B27 has 1, 3, 3 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 7 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 1.000000
-*              denominator of inode+1 = 7 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.888000
-*              denominator of inode+1 = 7 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*              denominator of inode+1 = 7 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
+*                numerator of inode+1 = 7 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 1.000000
+*              denominator of inode+1 = 7 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.888000
+*              denominator of inode+1 = 7 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*              denominator of inode+1 = 7 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.226000
 *  first quantity measured by inode+1 = 7 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
 
 BEGIN BORTOLETTO Gamma152by76 published.93 
@@ -159,7 +159,7 @@ END
 * DECAYNAME = G(K- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B29 found at inode+1 = 8 with NODENAME[inode] = S035B29 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau)
 
 BEGIN ABBIENDI Gamma16 published.04J 
@@ -175,7 +175,7 @@ END
 * DECAYNAME = G(K- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B29 found at inode+1 = 8 with NODENAME[inode] = S035B29 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau)
 
 BEGIN BARATE Gamma16 published.99K 
@@ -191,7 +191,7 @@ END
 * DECAYNAME = G(K- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B29 found at inode+1 = 8 with NODENAME[inode] = S035B29 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau)
 
 BEGIN BATTLE Gamma16 published.94 
@@ -207,7 +207,7 @@ END
 * DECAYNAME = G(K- 2pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B30 found at inode+1 = 9 with NODENAME[inode] = S035B30 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
+*                numerator of inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
 *  first quantity measured by inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0)
 
 BEGIN BARATE Gamma23 published.99K 
@@ -223,7 +223,7 @@ END
 * DECAYNAME = G(K- 2pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B30 found at inode+1 = 9 with NODENAME[inode] = S035B30 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
+*                numerator of inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
 *  first quantity measured by inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0)
 
 BEGIN BATTLE Gamma23 published.94 
@@ -239,7 +239,7 @@ END
 * DECAYNAME = G(K- 3pi0 nu(tau) (ex.K0, eta))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B31 found at inode+1 = 10 with NODENAME[inode] = S035B31 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 10 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
+*                numerator of inode+1 = 10 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
 *  first quantity measured by inode+1 = 10 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta)
 
 BEGIN BARATE Gamma28 published.99K 
@@ -255,7 +255,7 @@ END
 * DECAYNAME = G(pi- Kbar0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B32 found at inode+1 = 11 with NODENAME[inode] = S035B32 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
+*                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 1.000000
 *  first quantity measured by inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN ABBIENDI Gamma35 published.00C 
@@ -271,7 +271,7 @@ END
 * DECAYNAME = G(pi- Kbar0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B32 found at inode+1 = 11 with NODENAME[inode] = S035B32 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
+*                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 1.000000
 *  first quantity measured by inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN BARATE Gamma35 published.99K 
@@ -287,7 +287,7 @@ END
 * DECAYNAME = G(pi- Kbar0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B32 found at inode+1 = 11 with NODENAME[inode] = S035B32 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
+*                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 1.000000
 *  first quantity measured by inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN ACCIARRI Gamma35 published.95F 
@@ -303,7 +303,7 @@ END
 * DECAYNAME = G(pi- Kbar0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B33 found at inode+1 = 12 with NODENAME[inode] = S035B33 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
+*                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 1.000000
 *  first quantity measured by inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
 BEGIN BARATE Gamma40 published.99K 
@@ -319,7 +319,7 @@ END
 * DECAYNAME = G(pi- Kbar0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B33 found at inode+1 = 12 with NODENAME[inode] = S035B33 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
+*                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 1.000000
 *  first quantity measured by inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
 BEGIN BARATE Gamma40 published.98E 
@@ -335,7 +335,7 @@ END
 * DECAYNAME = G(pi- Kbar0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B33 found at inode+1 = 12 with NODENAME[inode] = S035B33 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
+*                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 1.000000
 *  first quantity measured by inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
 BEGIN ACCIARRI Gamma40 published.95F 
@@ -351,7 +351,7 @@ END
 * DECAYNAME = G(K- K0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B34 found at inode+1 = 13 with NODENAME[inode] = S035B34 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
+*                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
 *  first quantity measured by inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau)
 
 BEGIN BARATE Gamma42 published.99K 
@@ -367,7 +367,7 @@ END
 * DECAYNAME = G(K- K0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B34 found at inode+1 = 13 with NODENAME[inode] = S035B34 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
+*                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
 *  first quantity measured by inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau)
 
 BEGIN BARATE Gamma42 published.98E 
@@ -383,7 +383,7 @@ END
 * DECAYNAME = G(K- K0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B34 found at inode+1 = 13 with NODENAME[inode] = S035B34 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
+*                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
 *  first quantity measured by inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau)
 
 BEGIN COAN Gamma42 published.96 
@@ -399,8 +399,8 @@ END
 * DECAYNAME = G(K- K+ pi- >=0 neut.  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B37 found at inode+1 = 14 with NODENAME[inode] = S035B37 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 14 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 14 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
 BEGIN ABBIENDI Gamma92 published.00D 
@@ -416,8 +416,8 @@ END
 * DECAYNAME = G(K- K+ pi- >=0 neut.  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B37 found at inode+1 = 14 with NODENAME[inode] = S035B37 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 14 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 14 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
 BEGIN BAUER Gamma92 published.94 
@@ -433,12 +433,12 @@ END
 * DECAYNAME = G(K(S)0 (particles)- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B43 found at inode+1 = 15 with NODENAME[inode] = S035B43 has 6, 0, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.500000
-*                numerator of inode+1 = 15 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.500000
-*                numerator of inode+1 = 15 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.500000
-*                numerator of inode+1 = 15 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 15 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 15 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 15 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 15 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.500000
 *  first quantity measured by inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN BARATE Gamma33 published.98E 
@@ -454,12 +454,12 @@ END
 * DECAYNAME = G(K(S)0 (particles)- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B43 found at inode+1 = 15 with NODENAME[inode] = S035B43 has 6, 0, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.500000
-*                numerator of inode+1 = 15 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.500000
-*                numerator of inode+1 = 15 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.500000
-*                numerator of inode+1 = 15 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 15 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 15 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.500000
+*                numerator of inode+1 = 15 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 15 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 15 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.500000
 *  first quantity measured by inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN AKERS Gamma33 published.94G 
@@ -475,12 +475,12 @@ END
 * DECAYNAME = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B53 found at inode+1 = 18 with NODENAME[inode] = S035B53 has 6, 0, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 18 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*                numerator of inode+1 = 18 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*                numerator of inode+1 = 18 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 18 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 18 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 18 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*                numerator of inode+1 = 18 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*                numerator of inode+1 = 18 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 18 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 18 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN ABDALLAH Gamma66 published.06A 
@@ -504,12 +504,12 @@ END
 * DECAYNAME = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B53 found at inode+1 = 18 with NODENAME[inode] = S035B53 has 6, 0, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 18 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*                numerator of inode+1 = 18 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*                numerator of inode+1 = 18 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 18 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 18 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 18 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*                numerator of inode+1 = 18 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*                numerator of inode+1 = 18 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 18 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 18 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN BALEST Gamma66 published.95C 
@@ -525,7 +525,7 @@ END
 * DECAYNAME = G(pi- 2pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B55 found at inode+1 = 20 with NODENAME[inode] = S035B55 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 20 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
+*                numerator of inode+1 = 20 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.090000 coef = 1.000000
 *  first quantity measured by inode+1 = 20 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
 BEGIN SCHAEL Gamma20 published.05C 
@@ -553,7 +553,7 @@ END
 * DECAYNAME = G(pi- 3pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B56 found at inode+1 = 21 with NODENAME[inode] = S035B56 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 21 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
+*                numerator of inode+1 = 21 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.010000 coef = 1.000000
 *  first quantity measured by inode+1 = 21 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0)
 
 BEGIN SCHAEL Gamma27 published.05C 
@@ -580,7 +580,7 @@ END
 * DECAYNAME = G(h- h- h+ 3pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B57 found at inode+1 = 22 with NODENAME[inode] = S035B57 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 22 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
+*                numerator of inode+1 = 22 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
 *  first quantity measured by inode+1 = 22 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau)
 
 BEGIN ANASTASSOV Gamma78 published.01 
@@ -596,7 +596,7 @@ END
 * DECAYNAME = G(h- omega pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B58 found at inode+1 = 23 with NODENAME[inode] = S035B58 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 23 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 1.000000
+*                numerator of inode+1 = 23 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 1.000000
 *  first quantity measured by inode+1 = 23 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau)
 
 BEGIN BUSKULIC Gamma152 published.97C 
@@ -612,9 +612,9 @@ END
 * DECAYNAME = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B59 found at inode+1 = 24 with NODENAME[inode] = S035B59 has 3, 0, 3 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 24 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.888000
-*                numerator of inode+1 = 24 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 24 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
+*                numerator of inode+1 = 24 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.888000
+*                numerator of inode+1 = 24 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 24 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.226000
 *  first quantity measured by inode+1 = 24 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
 
 BEGIN SCHAEL Gamma76 published.05C 
@@ -641,10 +641,10 @@ END
 * DECAYNAME = G(h- h- h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B62 found at inode+1 = 25 with NODENAME[inode] = S035B62 has 4, 0, 4 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 25 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 25 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 25 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
+*                numerator of inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 25 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 25 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 25 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.017000
 *  first quantity measured by inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN ABDALLAH Gamma57 published.06A 
@@ -668,10 +668,10 @@ END
 * DECAYNAME = G(h- h- h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B62 found at inode+1 = 25 with NODENAME[inode] = S035B62 has 4, 0, 4 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 25 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 25 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 25 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
+*                numerator of inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 25 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 25 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 25 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.017000
 *  first quantity measured by inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN BALEST Gamma57 published.95C 
@@ -687,18 +687,18 @@ END
 * DECAYNAME = G(h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B63 found at inode+1 = 26 with NODENAME[inode] = S035B63 has 12, 0, 12 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 26 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*                numerator of inode+1 = 26 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*                numerator of inode+1 = 26 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*                numerator of inode+1 = 26 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 26 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*                numerator of inode+1 = 26 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*                numerator of inode+1 = 26 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*                numerator of inode+1 = 26 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN ACHARD Gamma55 published.01D 
@@ -716,18 +716,18 @@ END
 * DECAYNAME = G(h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B63 found at inode+1 = 26 with NODENAME[inode] = S035B63 has 12, 0, 12 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 26 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*                numerator of inode+1 = 26 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*                numerator of inode+1 = 26 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 26 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*                numerator of inode+1 = 26 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 26 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*                numerator of inode+1 = 26 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*                numerator of inode+1 = 26 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 26 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*                numerator of inode+1 = 26 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN AKERS Gamma55 published.95Y 
@@ -743,22 +743,22 @@ END
 * DECAYNAME = G(h- h- h+ nu(tau) (ex.K0))/G( h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong'')) 
 * IWEAK = 1 
 * NODENAME = S035B64 found at inode+1 = 27 with NODENAME[inode] = S035B64 has 4, 12, 12 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 27 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 27 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 27 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 27 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
-*              denominator of inode+1 = 27 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*              denominator of inode+1 = 27 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*              denominator of inode+1 = 27 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*              denominator of inode+1 = 27 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*              denominator of inode+1 = 27 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 27 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 27 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 27 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 27 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.017000
+*              denominator of inode+1 = 27 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*              denominator of inode+1 = 27 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*              denominator of inode+1 = 27 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*              denominator of inode+1 = 27 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*              denominator of inode+1 = 27 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 27 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN AKERS Gamma57by55 published.95Y 
@@ -774,8 +774,8 @@ END
 * DECAYNAME = G(h- Kbar0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B67 found at inode+1 = 28 with NODENAME[inode] = S035B67 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 28 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
-*                numerator of inode+1 = 28 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 28 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 1.000000
+*                numerator of inode+1 = 28 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 28 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN COAN Gamma34 published.96 
@@ -791,8 +791,8 @@ END
 * DECAYNAME = G(h- Kbar0 pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B68 found at inode+1 = 29 with NODENAME[inode] = S035B68 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 29 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 29 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
+*                numerator of inode+1 = 29 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 29 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
 *  first quantity measured by inode+1 = 29 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
 BEGIN COAN Gamma39 published.96 
@@ -808,7 +808,7 @@ END
 * DECAYNAME = G(pi- K(S)0 K(S)0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B69 found at inode+1 = 30 with NODENAME[inode] = S035B69 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
+*                numerator of inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
 *  first quantity measured by inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau)
 
 BEGIN BARATE Gamma47 published.98E 
@@ -824,7 +824,7 @@ END
 * DECAYNAME = G(pi- K(S)0 K(S)0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B69 found at inode+1 = 30 with NODENAME[inode] = S035B69 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
+*                numerator of inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
 *  first quantity measured by inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau)
 
 BEGIN COAN Gamma47 published.96 
@@ -840,8 +840,8 @@ END
 * DECAYNAME = G(h- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B73 found at inode+1 = 33 with NODENAME[inode] = S035B73 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
-*                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
+*                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN ABDALLAH Gamma8 published.06A 
@@ -865,8 +865,8 @@ END
 * DECAYNAME = G(h- nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035B73 found at inode+1 = 33 with NODENAME[inode] = S035B73 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
-*                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
+*                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN ACKERSTAFF Gamma8 published.98M 
@@ -882,8 +882,8 @@ END
 * DECAYNAME = G(h- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B73 found at inode+1 = 33 with NODENAME[inode] = S035B73 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
-*                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
+*                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN ANASTASSOV Gamma8 published.97 
@@ -902,8 +902,8 @@ END
 * DECAYNAME = G(h- 4pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035B79 found at inode+1 = 39 with NODENAME[inode] = S035B79 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 39 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 39 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.319000
+*                numerator of inode+1 = 39 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 39 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.319000
 *  first quantity measured by inode+1 = 39 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta)
 
 BEGIN PROCARIO Gamma29 published.93 
@@ -919,11 +919,11 @@ END
 * DECAYNAME = G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C02 found at inode+1 = 42 with NODENAME[inode] = S035C02 has 5, 0, 5 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 42 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.325000
-*                numerator of inode+1 = 42 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 42 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 42 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
-*                numerator of inode+1 = 42 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.325000
+*                numerator of inode+1 = 42 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.325000
+*                numerator of inode+1 = 42 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 42 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 42 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.010000 coef = 1.000000
+*                numerator of inode+1 = 42 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.325000
 *  first quantity measured by inode+1 = 42 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0)
 
 BEGIN ABDALLAH Gamma25 published.06A 
@@ -946,10 +946,10 @@ END
 * DECAYNAME = G(h- h- h+ >= 2pi0 nu(tau) (ex. K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C03 found at inode+1 = 43 with NODENAME[inode] = S035C03 has 4, 0, 4 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 43 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.888000
-*                numerator of inode+1 = 43 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*                numerator of inode+1 = 43 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 43 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
+*                numerator of inode+1 = 43 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.888000
+*                numerator of inode+1 = 43 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*                numerator of inode+1 = 43 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 43 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.226000
 *  first quantity measured by inode+1 = 43 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
 
 BEGIN ABDALLAH Gamma74 published.06A 
@@ -974,7 +974,7 @@ END
 * DECAYNAME = G(pi- K(S)0 K(L)0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C1 found at inode+1 = 44 with NODENAME[inode] = S035C1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 44 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 1.000000
+*                numerator of inode+1 = 44 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 1.000000
 *  first quantity measured by inode+1 = 44 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau)
 
 BEGIN BARATE Gamma48 published.98E 
@@ -990,8 +990,8 @@ END
 * DECAYNAME = G(pi- pi+ pi- nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C19 found at inode+1 = 46 with NODENAME[inode] = S035C19 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 46 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 46 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
+*                numerator of inode+1 = 46 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 46 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.017000
 *  first quantity measured by inode+1 = 46 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN BRIERE Gamma60 published.03 
@@ -1010,7 +1010,7 @@ END
 * DECAYNAME = G(pi- pi+ pi- nu(tau) (ex.K0,omega))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C20 found at inode+1 = 47 with NODENAME[inode] = S035C20 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 47 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
+*                numerator of inode+1 = 47 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
 *  first quantity measured by inode+1 = 47 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN SCHAEL Gamma62 published.05C 
@@ -1038,7 +1038,7 @@ END
 * DECAYNAME = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C21 found at inode+1 = 48 with NODENAME[inode] = S035C21 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
+*                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
 *  first quantity measured by inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0)
 
 BEGIN ABBIENDI Gamma85 published.04J 
@@ -1054,7 +1054,7 @@ END
 * DECAYNAME = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C21 found at inode+1 = 48 with NODENAME[inode] = S035C21 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
+*                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
 *  first quantity measured by inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0)
 
 BEGIN BRIERE Gamma85 published.03 
@@ -1073,7 +1073,7 @@ END
 * DECAYNAME = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C21 found at inode+1 = 48 with NODENAME[inode] = S035C21 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
+*                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
 *  first quantity measured by inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0)
 
 BEGIN BARATE Gamma85 published.98 
@@ -1089,9 +1089,9 @@ END
 * DECAYNAME = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C23 found at inode+1 = 50 with NODENAME[inode] = S035C23 has 3, 0, 3 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 50 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*                numerator of inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 50 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 50 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*                numerator of inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 50 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN SCHAEL Gamma69 published.05C 
@@ -1119,9 +1119,9 @@ END
 * DECAYNAME = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035C23 found at inode+1 = 50 with NODENAME[inode] = S035C23 has 3, 0, 3 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 50 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*                numerator of inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 50 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 50 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*                numerator of inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 50 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN EDWARDS Gamma69 published.00A 
@@ -1137,8 +1137,8 @@ END
 * DECAYNAME = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C25 found at inode+1 = 52 with NODENAME[inode] = S035C25 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 52 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*                numerator of inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
+*                numerator of inode+1 = 52 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*                numerator of inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
 *  first quantity measured by inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)
 
 BEGIN ARMS Gamma88 published.05 
@@ -1154,8 +1154,8 @@ END
 * DECAYNAME = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C25 found at inode+1 = 52 with NODENAME[inode] = S035C25 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 52 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*                numerator of inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
+*                numerator of inode+1 = 52 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*                numerator of inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
 *  first quantity measured by inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)
 
 BEGIN BARATE Gamma88 published.98 
@@ -1171,10 +1171,10 @@ END
 * DECAYNAME = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) 
 * IWEAK = 0 
 * NODENAME = S035C32 found at inode+1 = 54 with NODENAME[inode] = S035C32 has 2, 2, 4 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 54 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 54 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*              denominator of inode+1 = 54 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*              denominator of inode+1 = 54 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
+*                numerator of inode+1 = 54 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 54 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*              denominator of inode+1 = 54 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*              denominator of inode+1 = 54 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.017000
 *  first quantity measured by inode+1 = 54 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN RICHICHI Gamma80by60 published.99 
@@ -1190,12 +1190,12 @@ END
 * DECAYNAME = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) 
 * IWEAK = 0 
 * NODENAME = S035C34 found at inode+1 = 56 with NODENAME[inode] = S035C34 has 3, 3, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 56 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*                numerator of inode+1 = 56 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 56 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*              denominator of inode+1 = 56 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*              denominator of inode+1 = 56 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*              denominator of inode+1 = 56 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 56 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*                numerator of inode+1 = 56 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 56 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*              denominator of inode+1 = 56 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*              denominator of inode+1 = 56 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*              denominator of inode+1 = 56 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 56 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN RICHICHI Gamma81by69 published.99 
@@ -1211,9 +1211,9 @@ END
 * DECAYNAME = G(K- K+ pi- nu(tau))/G(pi- pi+ pi- nu(tau) (ex.K0)) 
 * IWEAK = 1 
 * NODENAME = S035C35 found at inode+1 = 57 with NODENAME[inode] = S035C35 has 1, 2, 3 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 57 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*              denominator of inode+1 = 57 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*              denominator of inode+1 = 57 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
+*                numerator of inode+1 = 57 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*              denominator of inode+1 = 57 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*              denominator of inode+1 = 57 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.017000
 *  first quantity measured by inode+1 = 57 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
 BEGIN RICHICHI Gamma93by60 published.99 
@@ -1229,10 +1229,10 @@ END
 * DECAYNAME = G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) 
 * IWEAK = 1 
 * NODENAME = S035C36 found at inode+1 = 58 with NODENAME[inode] = S035C36 has 1, 3, 4 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 58 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*              denominator of inode+1 = 58 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*              denominator of inode+1 = 58 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*              denominator of inode+1 = 58 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 58 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*              denominator of inode+1 = 58 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*              denominator of inode+1 = 58 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*              denominator of inode+1 = 58 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 58 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN RICHICHI Gamma94by69 published.99 
@@ -1248,8 +1248,8 @@ END
 * DECAYNAME = G(K- K0 >=0pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C38 found at inode+1 = 59 with NODENAME[inode] = S035C38 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 59 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
-*                numerator of inode+1 = 59 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 59 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
+*                numerator of inode+1 = 59 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 59 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
 BEGIN ABBIENDI Gamma38 published.00C 
@@ -1265,7 +1265,7 @@ END
 * DECAYNAME = G(K- K+ pi- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035C8 found at inode+1 = 65 with NODENAME[inode] = S035C8 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
+*                numerator of inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
 *  first quantity measured by inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau)
 
 BEGIN ARMS Gamma94 published.05 
@@ -1281,7 +1281,7 @@ END
 * DECAYNAME = G(K- K+ pi- pi0 nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035C8 found at inode+1 = 65 with NODENAME[inode] = S035C8 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
+*                numerator of inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
 *  first quantity measured by inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau)
 
 BEGIN BARATE Gamma94 published.98 
@@ -1297,7 +1297,7 @@ END
 * DECAYNAME = G(mu- nubar(mu) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R1 found at inode+1 = 66 with NODENAME[inode] = S035R1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
+*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.174000 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
 BEGIN SCHAEL Gamma3 published.05C 
@@ -1325,7 +1325,7 @@ END
 * DECAYNAME = G(mu- nubar(mu) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R1 found at inode+1 = 66 with NODENAME[inode] = S035R1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
+*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.174000 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
 BEGIN ABBIENDI Gamma3 published.03 
@@ -1341,7 +1341,7 @@ END
 * DECAYNAME = G(mu- nubar(mu) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R1 found at inode+1 = 66 with NODENAME[inode] = S035R1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
+*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.174000 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
 BEGIN ACCIARRI Gamma3 published.01F 
@@ -1359,7 +1359,7 @@ END
 * DECAYNAME = G(mu- nubar(mu) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R1 found at inode+1 = 66 with NODENAME[inode] = S035R1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
+*                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.174000 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
 BEGIN ABREU Gamma3 published.99X 
@@ -1375,13 +1375,13 @@ END
 * DECAYNAME = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) 
 * IWEAK = 0 
 * NODENAME = S035R14 found at inode+1 = 67 with NODENAME[inode] = S035R14 has 1, 6, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*              denominator of inode+1 = 67 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*              denominator of inode+1 = 67 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*              denominator of inode+1 = 67 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*              denominator of inode+1 = 67 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN BUSKULIC Gamma150by66 published.96 
@@ -1397,13 +1397,13 @@ END
 * DECAYNAME = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) 
 * IWEAK = 0 
 * NODENAME = S035R14 found at inode+1 = 67 with NODENAME[inode] = S035R14 has 1, 6, 6 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.226000
-*              denominator of inode+1 = 67 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.017000
-*              denominator of inode+1 = 67 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*              denominator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
+*                numerator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.226000
+*              denominator of inode+1 = 67 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.017000
+*              denominator of inode+1 = 67 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*              denominator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.888000
 *  first quantity measured by inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
 BEGIN BALEST Gamma150by66 published.95C 
@@ -1419,7 +1419,7 @@ END
 * DECAYNAME = G(e- nubar(e) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R2 found at inode+1 = 69 with NODENAME[inode] = S035R2 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
 BEGIN SCHAEL Gamma5 published.05C 
@@ -1444,7 +1444,7 @@ END
 * DECAYNAME = G(e- nubar(e) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R2 found at inode+1 = 69 with NODENAME[inode] = S035R2 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
 BEGIN ACCIARRI Gamma5 published.01F 
@@ -1462,7 +1462,7 @@ END
 * DECAYNAME = G(e- nubar(e) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R2 found at inode+1 = 69 with NODENAME[inode] = S035R2 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
 BEGIN ABBIENDI Gamma5 published.99H 
@@ -1478,7 +1478,7 @@ END
 * DECAYNAME = G(e- nubar(e) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R2 found at inode+1 = 69 with NODENAME[inode] = S035R2 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
 BEGIN ABREU Gamma5 published.99X 
@@ -1494,7 +1494,7 @@ END
 * DECAYNAME = G(e- nubar(e) nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R2 found at inode+1 = 69 with NODENAME[inode] = S035R2 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
 BEGIN ANASTASSOV Gamma5 published.97 
@@ -1513,8 +1513,8 @@ END
 * DECAYNAME = G(h- 2pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R20 found at inode+1 = 70 with NODENAME[inode] = S035R20 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 70 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
+*                numerator of inode+1 = 70 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.090000 coef = 1.000000
 *  first quantity measured by inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
 BEGIN ABDALLAH Gamma19 published.06A 
@@ -1536,8 +1536,8 @@ END
 * DECAYNAME = G(h- 2pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R20 found at inode+1 = 70 with NODENAME[inode] = S035R20 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 70 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
+*                numerator of inode+1 = 70 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.090000 coef = 1.000000
 *  first quantity measured by inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
 BEGIN ACCIARRI Gamma19 published.95 
@@ -1553,11 +1553,11 @@ END
 * DECAYNAME = G(h- 3pi0 nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R21 found at inode+1 = 71 with NODENAME[inode] = S035R21 has 5, 0, 5 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 71 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.322000
-*                numerator of inode+1 = 71 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 71 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.157000
-*                numerator of inode+1 = 71 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.157000
-*                numerator of inode+1 = 71 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
+*                numerator of inode+1 = 71 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.322000
+*                numerator of inode+1 = 71 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 71 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.157000
+*                numerator of inode+1 = 71 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.157000
+*                numerator of inode+1 = 71 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.010000 coef = 1.000000
 *  first quantity measured by inode+1 = 71 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0)
 
 BEGIN ACCIARRI Gamma26 published.95 
@@ -1573,7 +1573,7 @@ END
 * DECAYNAME = G(h- omega nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R23 found at inode+1 = 72 with NODENAME[inode] = S035R23 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 1.000000
+*                numerator of inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 1.000000
 *  first quantity measured by inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau)
 
 BEGIN BUSKULIC Gamma150 published.97C 
@@ -1589,7 +1589,7 @@ END
 * DECAYNAME = G(h- omega nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R23 found at inode+1 = 72 with NODENAME[inode] = S035R23 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 1.000000
+*                numerator of inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 1.000000
 *  first quantity measured by inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau)
 
 BEGIN BARINGER Gamma150 published.87 
@@ -1605,13 +1605,13 @@ END
 * DECAYNAME = G(K- >=0pi0 >=0K0  >=0gamma  nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R26 found at inode+1 = 74 with NODENAME[inode] = S035R26 has 7, 0, 7 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 74 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.715000
-*                numerator of inode+1 = 74 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.715000
+*                numerator of inode+1 = 74 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN ABBIENDI Gamma31 published.01J 
@@ -1629,13 +1629,13 @@ END
 * DECAYNAME = G(K- >=0pi0 >=0K0  >=0gamma  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R26 found at inode+1 = 74 with NODENAME[inode] = S035R26 has 7, 0, 7 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 74 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.715000
-*                numerator of inode+1 = 74 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.715000
+*                numerator of inode+1 = 74 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN ABREU Gamma31 published.94K 
@@ -1651,13 +1651,13 @@ END
 * DECAYNAME = G(K- >=0pi0 >=0K0  >=0gamma  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R26 found at inode+1 = 74 with NODENAME[inode] = S035R26 has 7, 0, 7 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 74 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.715000
-*                numerator of inode+1 = 74 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.715000
+*                numerator of inode+1 = 74 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN BATTLE Gamma31 published.94 
@@ -1673,24 +1673,24 @@ END
 * DECAYNAME = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R31 found at inode+1 = 78 with NODENAME[inode] = S035R31 has 18, 0, 18 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 78 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*                numerator of inode+1 = 78 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*                numerator of inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 0.430700
-*                numerator of inode+1 = 78 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 0.686100
-*                numerator of inode+1 = 78 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*                numerator of inode+1 = 78 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 78 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*                numerator of inode+1 = 78 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*                numerator of inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 0.430700
+*                numerator of inode+1 = 78 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 0.686100
+*                numerator of inode+1 = 78 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*                numerator of inode+1 = 78 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN ADEVA Gamma54 published.91F 
@@ -1706,24 +1706,24 @@ END
 * DECAYNAME = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R31 found at inode+1 = 78 with NODENAME[inode] = S035R31 has 18, 0, 18 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 78 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*                numerator of inode+1 = 78 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*                numerator of inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 0.430700
-*                numerator of inode+1 = 78 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 0.686100
-*                numerator of inode+1 = 78 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*                numerator of inode+1 = 78 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 78 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*                numerator of inode+1 = 78 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*                numerator of inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 0.430700
+*                numerator of inode+1 = 78 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 0.686100
+*                numerator of inode+1 = 78 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*                numerator of inode+1 = 78 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN BEHREND Gamma54 published.89B 
@@ -1739,24 +1739,24 @@ END
 * DECAYNAME = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R31 found at inode+1 = 78 with NODENAME[inode] = S035R31 has 18, 0, 18 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 78 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*                numerator of inode+1 = 78 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 0.910100
-*                numerator of inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 0.430700
-*                numerator of inode+1 = 78 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 0.686100
-*                numerator of inode+1 = 78 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.024920 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
-*                numerator of inode+1 = 78 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.285000
-*                numerator of inode+1 = 78 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.343100
-*                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
+*                numerator of inode+1 = 78 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*                numerator of inode+1 = 78 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.004000 coef = 0.910100
+*                numerator of inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001300 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 0.430700
+*                numerator of inode+1 = 78 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.001000 coef = 0.686100
+*                numerator of inode+1 = 78 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000400 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.091000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) seed = 0.025000 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
+*                numerator of inode+1 = 78 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.285000
+*                numerator of inode+1 = 78 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.343100
+*                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.020000 coef = 0.910100
 *  first quantity measured by inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
 BEGIN AIHARA Gamma54 published.87B 
@@ -1772,7 +1772,7 @@ END
 * DECAYNAME = G(eta pi- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R32 found at inode+1 = 79 with NODENAME[inode] = S035R32 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 1.000000
+*                numerator of inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 1.000000
 *  first quantity measured by inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau)
 
 BEGIN BUSKULIC Gamma126 published.97C 
@@ -1788,7 +1788,7 @@ END
 * DECAYNAME = G(eta pi- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R32 found at inode+1 = 79 with NODENAME[inode] = S035R32 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 1.000000
+*                numerator of inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 1.000000
 *  first quantity measured by inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau)
 
 BEGIN ARTUSO Gamma126 published.92 
@@ -1804,8 +1804,8 @@ END
 * DECAYNAME = G(3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R33 found at inode+1 = 80 with NODENAME[inode] = S035R33 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
-*                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
+*                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN ACHARD Gamma102 published.01D 
@@ -1823,8 +1823,8 @@ END
 * DECAYNAME = G(3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R33 found at inode+1 = 80 with NODENAME[inode] = S035R33 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
-*                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
+*                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN GIBAUT Gamma102 published.94B 
@@ -1840,8 +1840,8 @@ END
 * DECAYNAME = G(3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R33 found at inode+1 = 80 with NODENAME[inode] = S035R33 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
-*                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
+*                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN BYLSMA Gamma102 published.87 
@@ -1857,7 +1857,7 @@ END
 * DECAYNAME = G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R38 found at inode+1 = 82 with NODENAME[inode] = S035R38 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
+*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN ABDALLAH Gamma103 published.06A 
@@ -1880,7 +1880,7 @@ END
 * DECAYNAME = G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R38 found at inode+1 = 82 with NODENAME[inode] = S035R38 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
+*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN SCHAEL Gamma103 published.05C 
@@ -1907,7 +1907,7 @@ END
 * DECAYNAME = G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R38 found at inode+1 = 82 with NODENAME[inode] = S035R38 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
+*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN ACKERSTAFF Gamma103 published.99E 
@@ -1923,7 +1923,7 @@ END
 * DECAYNAME = G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R38 found at inode+1 = 82 with NODENAME[inode] = S035R38 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
+*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN GIBAUT Gamma103 published.94B 
@@ -1939,7 +1939,7 @@ END
 * DECAYNAME = G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R38 found at inode+1 = 82 with NODENAME[inode] = S035R38 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
+*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN ALBRECHT Gamma103 published.88B 
@@ -1955,7 +1955,7 @@ END
 * DECAYNAME = G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R38 found at inode+1 = 82 with NODENAME[inode] = S035R38 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
+*                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000800 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
 BEGIN BYLSMA Gamma103 published.87 
@@ -1971,7 +1971,7 @@ END
 * DECAYNAME = G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R39 found at inode+1 = 83 with NODENAME[inode] = S035R39 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
 BEGIN ABDALLAH Gamma104 published.06A 
@@ -1991,7 +1991,7 @@ END
 * DECAYNAME = G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R39 found at inode+1 = 83 with NODENAME[inode] = S035R39 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
 BEGIN SCHAEL Gamma104 published.05C 
@@ -2019,7 +2019,7 @@ END
 * DECAYNAME = G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R39 found at inode+1 = 83 with NODENAME[inode] = S035R39 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
 BEGIN ANASTASSOV Gamma104 published.01 
@@ -2035,7 +2035,7 @@ END
 * DECAYNAME = G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R39 found at inode+1 = 83 with NODENAME[inode] = S035R39 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
+*                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000200 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
 BEGIN ACKERSTAFF Gamma104 published.99E 
@@ -2051,7 +2051,7 @@ END
 * DECAYNAME = G(K- K+ pi- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R40 found at inode+1 = 84 with NODENAME[inode] = S035R40 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
 BEGIN BRIERE Gamma93 published.03 
@@ -2070,7 +2070,7 @@ END
 * DECAYNAME = G(K- K+ pi- nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R40 found at inode+1 = 84 with NODENAME[inode] = S035R40 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
 BEGIN BARATE Gamma93 published.98 
@@ -2086,11 +2086,11 @@ END
 * DECAYNAME = G(K- pi+ pi- >=0 neutrals  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R41 found at inode+1 = 85 with NODENAME[inode] = S035R41 has 5, 0, 5 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 85 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.285000
-*                numerator of inode+1 = 85 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.343100
-*                numerator of inode+1 = 85 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
-*                numerator of inode+1 = 85 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 85 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.343100
+*                numerator of inode+1 = 85 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.285000
+*                numerator of inode+1 = 85 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.343100
+*                numerator of inode+1 = 85 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.003000 coef = 1.000000
+*                numerator of inode+1 = 85 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 85 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.343100
 *  first quantity measured by inode+1 = 85 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
 BEGIN BAUER Gamma82 published.94 
@@ -2106,11 +2106,11 @@ END
 * DECAYNAME = G(h- >=0K(L)0  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R43 found at inode+1 = 87 with NODENAME[inode] = S035R43 has 5, 0, 5 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 87 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.500000
-*                numerator of inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
-*                numerator of inode+1 = 87 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 87 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
-*                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.500000
+*                numerator of inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.500000
+*                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN ACCIARRI Gamma7 published.95 
@@ -2126,11 +2126,11 @@ END
 * DECAYNAME = G(h- >=0K(L)0  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R43 found at inode+1 = 87 with NODENAME[inode] = S035R43 has 5, 0, 5 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 87 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.500000
-*                numerator of inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
-*                numerator of inode+1 = 87 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 87 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
-*                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.500000
+*                numerator of inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.500000
+*                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN ABREU Gamma7 published.92N 
@@ -2146,11 +2146,11 @@ END
 * DECAYNAME = G(h- >=0K(L)0  nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R43 found at inode+1 = 87 with NODENAME[inode] = S035R43 has 5, 0, 5 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 87 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.500000
-*                numerator of inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
-*                numerator of inode+1 = 87 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 87 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
-*                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.500000
+*                numerator of inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 87 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.500000
+*                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN ALEXANDER Gamma7 published.91D 
@@ -2166,18 +2166,18 @@ END
 * DECAYNAME = G(h- >= 2pi0 nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R44 found at inode+1 = 88 with NODENAME[inode] = S035R44 has 12, 0, 12 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 88 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 0.322000
-*                numerator of inode+1 = 88 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.000997 coef = 1.000000
-*                numerator of inode+1 = 88 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
-*                numerator of inode+1 = 88 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
-*                numerator of inode+1 = 88 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 0.157000
-*                numerator of inode+1 = 88 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 0.157000
-*                numerator of inode+1 = 88 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 0.157000
-*                numerator of inode+1 = 88 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
-*                numerator of inode+1 = 88 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
-*                numerator of inode+1 = 88 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 0.098500
-*                numerator of inode+1 = 88 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.319000
-*                numerator of inode+1 = 88 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.157000
+*                numerator of inode+1 = 88 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000300 coef = 0.322000
+*                numerator of inode+1 = 88 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.001000 coef = 1.000000
+*                numerator of inode+1 = 88 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000600 coef = 1.000000
+*                numerator of inode+1 = 88 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.004000 coef = 1.000000
+*                numerator of inode+1 = 88 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009600 coef = 0.157000
+*                numerator of inode+1 = 88 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.004000 coef = 0.157000
+*                numerator of inode+1 = 88 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.002000 coef = 0.157000
+*                numerator of inode+1 = 88 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.090000 coef = 1.000000
+*                numerator of inode+1 = 88 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.010000 coef = 1.000000
+*                numerator of inode+1 = 88 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.001000 coef = 0.098500
+*                numerator of inode+1 = 88 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001700 coef = 0.319000
+*                numerator of inode+1 = 88 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 0.157000
 *  first quantity measured by inode+1 = 88 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
 BEGIN ACKERSTAFF Gamma17 published.98M 
@@ -2193,7 +2193,7 @@ END
 * DECAYNAME = G(K- K0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R46 found at inode+1 = 89 with NODENAME[inode] = S035R46 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
 BEGIN BARATE Gamma37 published.99K 
@@ -2209,7 +2209,7 @@ END
 * DECAYNAME = G(K- K0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R46 found at inode+1 = 89 with NODENAME[inode] = S035R46 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
 BEGIN BARATE Gamma37 published.98E 
@@ -2225,7 +2225,7 @@ END
 * DECAYNAME = G(K- K0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R46 found at inode+1 = 89 with NODENAME[inode] = S035R46 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
+*                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001600 coef = 1.000000
 *  first quantity measured by inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
 BEGIN COAN Gamma37 published.96 
@@ -2241,8 +2241,8 @@ END
 * DECAYNAME = G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau)) 
 * IWEAK = 0 
 * NODENAME = S035R5 found at inode+1 = 90 with NODENAME[inode] = S035R5 has 1, 1, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
-*              denominator of inode+1 = 90 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.174000 coef = 1.000000
+*              denominator of inode+1 = 90 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
 BEGIN ANASTASSOV Gamma3by5 published.97 
@@ -2261,8 +2261,8 @@ END
 * DECAYNAME = G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau)) 
 * IWEAK = 1 
 * NODENAME = S035R5 found at inode+1 = 90 with NODENAME[inode] = S035R5 has 1, 1, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
-*              denominator of inode+1 = 90 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
+*                numerator of inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.174000 coef = 1.000000
+*              denominator of inode+1 = 90 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.178000 coef = 1.000000
 *  first quantity measured by inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
 BEGIN ALBRECHT Gamma3by5 published.92D 
@@ -2278,7 +2278,7 @@ END
 * DECAYNAME = G(pi- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R6 found at inode+1 = 91 with NODENAME[inode] = S035R6 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 91 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
+*                numerator of inode+1 = 91 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.114000 coef = 1.000000
 *  first quantity measured by inode+1 = 91 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
 BEGIN SCHAEL Gamma9 published.05C 
@@ -2306,7 +2306,7 @@ END
 * DECAYNAME = G(K- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R7 found at inode+1 = 92 with NODENAME[inode] = S035R7 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN ABBIENDI Gamma10 published.01J 
@@ -2324,7 +2324,7 @@ END
 * DECAYNAME = G(K- nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R7 found at inode+1 = 92 with NODENAME[inode] = S035R7 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN BARATE Gamma10 published.99K 
@@ -2340,7 +2340,7 @@ END
 * DECAYNAME = G(K- nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R7 found at inode+1 = 92 with NODENAME[inode] = S035R7 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN ABREU Gamma10 published.94K 
@@ -2356,7 +2356,7 @@ END
 * DECAYNAME = G(K- nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R7 found at inode+1 = 92 with NODENAME[inode] = S035R7 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
+*                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.007000 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
 BEGIN BATTLE Gamma10 published.94 
@@ -2372,7 +2372,7 @@ END
 * DECAYNAME = G(pi- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R8 found at inode+1 = 93 with NODENAME[inode] = S035R8 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 93 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
+*                numerator of inode+1 = 93 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
 *  first quantity measured by inode+1 = 93 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN SCHAEL Gamma14 published.05C 
@@ -2400,8 +2400,8 @@ END
 * DECAYNAME = G(h- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R84 found at inode+1 = 94 with NODENAME[inode] = S035R84 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
-*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN ABDALLAH Gamma13 published.06A 
@@ -2425,8 +2425,8 @@ END
 * DECAYNAME = G(h- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R84 found at inode+1 = 94 with NODENAME[inode] = S035R84 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
-*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN ACKERSTAFF Gamma13 published.98M 
@@ -2442,8 +2442,8 @@ END
 * DECAYNAME = G(h- pi0 nu(tau))/G(total) 
 * IWEAK = 1 
 * NODENAME = S035R84 found at inode+1 = 94 with NODENAME[inode] = S035R84 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
-*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN ACCIARRI Gamma13 published.95 
@@ -2459,8 +2459,8 @@ END
 * DECAYNAME = G(h- pi0 nu(tau))/G(total) 
 * IWEAK = 0 
 * NODENAME = S035R84 found at inode+1 = 94 with NODENAME[inode] = S035R84 has 2, 0, 2 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
-*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.250000 coef = 1.000000
+*                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004500 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
 BEGIN ARTUSO Gamma13 published.94 

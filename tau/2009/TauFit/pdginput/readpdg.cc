@@ -93,8 +93,8 @@ int main() {
     baseseed[ibase]*=1.e-2; // percent to fraction
     totalseed+=baseseed[ibase];
   }
-  cout << "Totalseed = " << totalseed << " is re-normalized to 1 by adjusting each baseseed value ... " << endl << endl;
-  for (ibase=0;ibase<nbase;++ibase) baseseed[ibase]/=totalseed;
+  //  cout << "Totalseed = " << totalseed << " is re-normalized to 1 by adjusting each baseseed value ... " << endl << endl;
+  //  for (ibase=0;ibase<nbase;++ibase) baseseed[ibase]/=totalseed;
   //
   // INPUT NODES
   // NODE# NODE    EQ ADJ. UN. COUNT PAR_CODE PARAM.  SUM COEFFICIENT COEFF-EXTRA  
