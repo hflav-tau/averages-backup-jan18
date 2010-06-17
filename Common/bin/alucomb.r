@@ -40,7 +40,7 @@ if (length(args) > 0) {
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
-options(width=2000)
+options(width=10000)
 
 rc = alucomb.read(file)
 measurements = rc$measurements
@@ -504,39 +504,33 @@ if (quant.num > 1) {
 cat("## end\n")
 
 ##-- chisq contribution, dof, S-factor for each measurement type (now same as quant)
-chisq.types = 0*quant
-names(chisq.types) = quant.names
-dof.types = chisq.types
-num.types = chisq.types
-num.types.keep = chisq.types
+chisq.types = quant*0
+num.types = quant*0
 sfact.types = chisq.types + 1
 
 ##-- S-factor for each measurement
-sfact = 0*meas + 1
+sfact = meas*0 + 1
 meas.keep = meas & FALSE
 
 ##
-## collect chisq contributions for each measurement type
+## compute S-factors
 ## the following is filled:
-## - matrix meas.types[meas.types,quant) with TRUE where a meas.type has a quantity as addendum
 ## - chisq.types: chisq per measurement type
-## - dof.types: dof per measurement type
 ## - sfact.types: S-factor per measurement type
 ## - sfact: S-factor per measurement
 ##
-chisq.out = numeric(0)
 for (mt.name in quant.names) {
   ##-- selection of measurements of type mt.name
   meas.mt = delta[, mt.name] != 0
   meas.mt.num = sum(meas.mt)
   num.types[mt.name] = meas.mt.num
 
-  ##-- error on average like for PDG, assuming no correlation
-  average.err = 1/sqrt(sum(1/meas.error[meas.mt]^2))
-  error.max = 3*sqrt(meas.mt.num)*average.err
+  ##-- compute max error to retain measurement for S-factor calculation
+  error.max = 3*sqrt(meas.mt.num)*quant.err[mt.name]
 
   ##-- keep only measurement with not too large errors as in PDG S-factor calculation
-  meas.mt.keep = meas.mt & (meas.error <= error.max)
+  meas.mt.keep = meas.mt & (meas.error < error.max)
+  meas.mt.keep.num = sum(meas.mt.keep)
   meas.keep = meas.keep | meas.mt.keep
 
   ##
@@ -544,48 +538,24 @@ for (mt.name in quant.names) {
   ##
 
   ##-- chisq when disregarding correlation between measurements of the same type
-  meas.mt.chisq = sum(((meas[meas.mt.keep] - quant[mt.name]) / meas.error[meas.mt.keep])^2)
+  meas.mt.chisq = sum(((meas[meas.mt] - quant[mt.name]) / meas.error[meas.mt])^2)
 
   ##-- chisq from measurements of the current type, including correlations
-  if (sum(meas.mt.keep) > 0) {
+  if (meas.mt.num > 0) {
     meas.mt.chisq.corr = drop(
-      t((meas - delta %*% quant)[meas.mt.keep])
-      %*% solve(meas.cov[meas.mt.keep, meas.mt.keep])
-      %*% (meas - delta %*% quant)[meas.mt.keep])
+      t((meas - delta %*% quant)[meas.mt])
+      %*% solve(meas.cov[meas.mt, meas.mt])
+      %*% (meas - delta %*% quant)[meas.mt])
   } else {
     meas.mt.chisq.corr = 0
   }
 
-  ##-- collect chisq/dof for each type of measurement
+  ##-- collect chisq contribution for each type of measurement
   chisq.types[mt.name] = meas.mt.chisq.corr
-  ##-- number of measurements of the current type that have not too-large errors
-  num.types.keep[mt.name] = sum(meas.mt.keep)
-  ##
-  ## compute dof for kept measurements of the current type
-  ##
-  ## special treatment when there is just 1 kept measurement of a specific type
-  ## when there is one measurement and one corresponding fitted quantity we expect
-  ## a residual close to zero, because the fitted quantity converges to the measurement
-  ## relatively undisturbed by chisq contributions due to correlation with other measurement
-  ## however it can happen that even a single measurement of one type has a significant
-  ## chisq contribution when it must match a combination of other measurements
-  ## if there are many measurements of the type tau -> hhh nu with h = pi, K they will
-  ## determine also the total tau -> hhh nu BR when h is not identified.  Even a single
-  ## measurement of tau -> hhh undifferentiated can have a large chisq then.
-  ## by setting dof = 1 rather than zero when a measurement type has a single measurement
-  ## we acknowledge that because of correlations the chisq contribution can be different from zero
-  ## and we even consider the possibility of applying an S-factor when the chisq contribution is large
-  ## 
-  dof.types[mt.name] = max(num.types.keep[mt.name] -1, 1)
 
-  ##-- print different chisq/dof
-  if (FALSE) {
-    cat(mt.name,
-        format(meas.mt.chisq/dof.types[mt.name], width=15),
-        format(meas.mt.chisq.corr/dof.types[mt.name], width=15),
-        "\n")
-  }
-
+  ##
+  ## print measurement with too large errors
+  ##
   save = options()
   options(digits=4)
   if (any(xor(meas.mt, meas.mt.keep))) {
@@ -600,94 +570,42 @@ for (mt.name in quant.names) {
   }
   options(save)
 
-  tmp = sqrt(chisq.types[mt.name]/dof.types[mt.name])
+  ##
+  ## PDG S-factor for fits
+  ## p.13 of http://pdg.lbl.gov/2009/reviews/rpp2009-rev-rpp-intro.pdf
+  ##
+  if (meas.mt.keep.num >0) {
+    res = meas[meas.mt.keep] - quant[mt.name]
+    dr = abs(res) / sqrt(meas.error[meas.mt.keep] * quant.err[mt.name])
+    res.sq.exp = meas.error[meas.mt.keep]^2 - quant.err[mt.name]^2
+    tmp = sum(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1))
+    tmp = sqrt(tmp/meas.mt.keep.num)
+  } else {
+    tmp = 1
+  }
+
   sfact.types[mt.name] = tmp
   sfact[meas.mt] = tmp
 }
-
-##-- show chisq differences due to correlation between same types measurements
-if (FALSE && length(chisq.out)>0) {
-  cat("Chisq differences due to correlation of measurements\n")
-  show(chisq.out)
-}
-rm(chisq.out)
 
 ##-- recompute chisq and chisq/dof
 dof = meas.num - quant.num + constr.num
 chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
 
-##
-## PDG computes and uses S-factors only if chisq/dof > 1
-## similarly, we compute and use S-factors only for the subset of measurements
-## belonging to measurement types for which chisq/dof > 1
-## 
-
-##-- logical array of all measurements with S-factor > 1
-meas.sfact = sfact > 1
-##-- measurements with S>1 and not-too-large errors
-meas.select = meas.keep & meas.sfact
-
-##
-## dof corresponding to selected measurement is the number of quantities
-## that are related to such measurements. The delta matrix says which
-## quantities relate to which measurements, use it to determine the
-## quantities that are related to the selected measurements
-##
-quant.select.num = sum((rep(1, sum(meas.select)) %*% abs(delta[meas.select,])) > 0)
-dof.select = sum(meas.select) - quant.select.num + constr.num
-
-##++ prevent problems when all measurements have large errors but one
-if (any(meas.select) && dof.select < 1) {
-  cat("warning: too few measurements for S-factor calculation, setting dof=1\n")
-  dof.select = 1
-}
-
-##-- save step 0
-sfact.types.0 = sfact.types
-sfact.0 = sfact
-
-if (any(meas.select)) {
-  
-  ##-- chisq without S-factors, just for selected measurements
-  chisq.select.0 = drop(
-    t((meas - delta %*% quant)[meas.select])
-    %*% solve(meas.cov[meas.select, meas.select])
-    %*% (meas - delta %*% quant)[meas.select])
-  
-  ##-- chisq with S-factors, just for selected measurements
-  chisq.select.1 = drop(
-    t((meas - delta %*% quant)[meas.select])
-    %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
-    %*% (meas - delta %*% quant)[meas.select])
-  
-  repeat {
-    ##-- chisq with S-factors
-    chisq.select = drop(
-      t((meas - delta %*% quant)[meas.select])
-      %*% solve(diag.m(sfact[meas.select]) %*% meas.cov[meas.select, meas.select] %*% diag.m(sfact[meas.select]))
-      %*% (meas - delta %*% quant)[meas.select])
-    
-    ##-- adjust S-factors to obtain chisq/dof = 1, when restricted to selected measurements
-    sfact[meas.select] = sfact[meas.select] * sqrt(chisq.select/dof.select)
-    
-    if (!any(meas.select)) break
-    if (abs(chisq.select/dof.select -1) < 1e-6) break
-  }
-  
-  
-  ##-- update sfact.types with adjusted sfact for selected meas
-  for (meas.s in names(meas.select[meas.select])) {
-    sfact.types[delta[meas.s,] != 0] = sfact[meas.s]
-  }
-}
-
-##-- save step 1
-sfact.types.1 = sfact.types
-sfact.1 = sfact
-
 ##-- do not apply S-factors less than one
 sfact.types = pmax(sfact.types, 1)
 sfact = pmax(sfact, 1)
+
+##-- chisq with S-factors, just for not-too-large error measurements
+chisq.keep = drop(
+  t((meas - delta %*% quant)[meas.keep])
+  %*% solve(diag.m(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(sfact[meas.keep]))
+  %*% (meas - delta %*% quant)[meas.keep])
+
+##++ quant.keep.num = sum((rep(1, sum(meas.keep)) %*% abs(delta[meas.keep,])) > 0)
+##++ assume there are no measurement types left without measurements
+quant.keep.num = quant.num - constr.num
+dof.keep = sum(meas.keep) - quant.keep.num
 
 ##
 ## inflate the covariance matrix with the S-factors
@@ -705,8 +623,6 @@ full2.v.cov = rbind(
 ##-- covariance matrix of fitted values
 quant2.constr.cov = solve.m %*% full2.v.cov %*% t(solve.m)
 quant2.cov = quant2.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
-## rownames(quant2.cov) = quant.names
-## colnames(quant2.cov) = quant.names
 
 ##-- updated errors and correlations
 quant2.err = sqrt(diag.m(quant2.cov))
@@ -725,24 +641,12 @@ out = rbind(
     chisq=chisq, dof=dof,
     "chisq/dof"=chisq/dof,
     CL=pchisq(chisq, dof, lower.tail=FALSE)))
-if (any(meas.select)) {
+if (any(meas.keep)) {
   out = rbind(out
-    ,"  after S-factor, 2nd stage" = c(
-       chisq=chisq2, dof=dof,
-       "chisq/dof"=chisq2/dof,
-       CL=pchisq(chisq2, dof, lower.tail=FALSE))
-    ,"no-large-error" = c(
-       chisq=chisq.select.0, dof=dof.select,
-       "chisq/dof"=chisq.select.0/dof.select,
-       CL=pchisq(chisq.select.0, dof.select, lower.tail=FALSE))
-    ,"  after S-factor, 1st stage" = c(
-       chisq=chisq.select.1, dof=dof.select,
-       "chisq/dof"=chisq.select.1/dof.select,
-       CL=pchisq(chisq.select.1, dof.select, lower.tail=FALSE))
-    ,"  after S-factor, 2nd stage" = c(
-       chisq=chisq.select, dof=dof.select,
-       "chisq/dof"=chisq.select/dof.select,
-       CL=pchisq(chisq.select, dof.select, lower.tail=FALSE)))
+    ,"  no-large-error" = c(
+       chisq=chisq.keep, dof=dof.keep,
+       "chisq/dof"=chisq.keep/dof.keep,
+       CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE)))
 }
 show(out)
 
@@ -750,28 +654,14 @@ cat("Averaged quantities: value, error, error with S-factor, S-factor\n")
 if (quant.num > 1) {
   ##-- if multiple average, use dedicated S-factor computation
   sfact.row = quant2.err / quant.err
-  sfact0.row = sfact.types.0[quant.names]
-  sfact1.row = sfact.types.1[quant.names]
-  chisq.row = chisq.types[quant.names]
-  dof.row = dof.types[quant.names]
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact0.row = sfact.types.0[quant.names]
-  sfact1.row = sfact.types.1[quant.names]
   sfact.row = max(sqrt(chisq/dof), 1)
-  ##-- also for single quantity, never deflate error
-  quant2.err[1] = quant.err[1] * sfact.row
-  chisq.row = chisq
-  dof.row = dof
 }
 show(rbind(value=quant,
            error=quant.err,
            upd.error=quant2.err,
-           "S-factor"=sfact.row,
-           "S-factor_2"=sfact1.row,
-           "S-factor_1"=sfact0.row,
-           chisq=chisq.row,
-           dof=dof.row
+           "S-factor"=sfact.row
            ))
 
 if (quant.num > 1) {
