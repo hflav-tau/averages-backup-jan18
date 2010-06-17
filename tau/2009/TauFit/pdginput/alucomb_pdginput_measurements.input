@@ -6,7 +6,7 @@
 *                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 1.000000
 *  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau)
 
-BEGIN BUSKULIC Gamma128 published 97C 
+BEGIN BUSKULIC Gamma128 published.97C 
 
 MEASUREMENT  m_Gamma128 statistical systematic 
 DATA         m_Gamma128 statistical systematic 
@@ -22,7 +22,7 @@ END
 *                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau) seed = 0.000299 coef = 1.000000
 *  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 29 title = tau- --> eta K- nu(tau)
 
-BEGIN BARTELT Gamma128 published 96 
+BEGIN BARTELT Gamma128 published.96 
 
 MEASUREMENT  m_Gamma128 statistical systematic 
 DATA         m_Gamma128 statistical systematic 
@@ -41,7 +41,7 @@ END
 *              denominator of inode+1 = 2 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 2 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN PROCARIO Gamma19by13 published 93 
+BEGIN PROCARIO Gamma19by13 published.93 
 
 MEASUREMENT  m_Gamma19by13 statistical systematic 
 DATA         m_Gamma19by13 statistical systematic 
@@ -63,7 +63,7 @@ END
 *              denominator of inode+1 = 3 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 3 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN PROCARIO Gamma26by13 published 93 
+BEGIN PROCARIO Gamma26by13 published.93 
 
 MEASUREMENT  m_Gamma26by13 statistical systematic 
 DATA         m_Gamma26by13 statistical systematic 
@@ -79,23 +79,23 @@ END
 *                numerator of inode+1 = 4 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) seed = 0.000997 coef = 1.000000
 *  first quantity measured by inode+1 = 4 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta)
 
-BEGIN SCHAEL Gamma30 published 05C 
+BEGIN SCHAEL Gamma30 published.05C 
 
 MEASUREMENT  m_Gamma30 statistical systematic 
 DATA         m_Gamma30 statistical systematic 
                 0.00112  0.0005093  0 
  
-STAT_CORR_WITH SCHAEL Gamma20 published 0.200000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.470000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published 0.130000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.080000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published 0.160000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.040000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.020000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published -0.060000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.040000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.240000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.150000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C 0.200000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.470000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C 0.130000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.080000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C 0.160000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.040000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.020000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C -0.060000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.040000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.240000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.150000 ! IMEAS = 120 
  
 END 
 
@@ -127,7 +127,7 @@ END
 *              denominator of inode+1 = 5 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 5 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN BORTOLETTO Gamma76by54 published 93 
+BEGIN BORTOLETTO Gamma76by54 published.93 
 
 MEASUREMENT  m_Gamma76by54 statistical systematic 
 DATA         m_Gamma76by54 statistical systematic 
@@ -146,7 +146,7 @@ END
 *              denominator of inode+1 = 7 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
 *  first quantity measured by inode+1 = 7 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
 
-BEGIN BORTOLETTO Gamma152by76 published 93 
+BEGIN BORTOLETTO Gamma152by76 published.93 
 
 MEASUREMENT  m_Gamma152by76 statistical systematic 
 DATA         m_Gamma152by76 statistical systematic 
@@ -162,7 +162,7 @@ END
 *                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau)
 
-BEGIN ABBIENDI Gamma16 published 04J 
+BEGIN ABBIENDI Gamma16 published.04J 
 
 MEASUREMENT  m_Gamma16 statistical systematic 
 DATA         m_Gamma16 statistical systematic 
@@ -178,7 +178,7 @@ END
 *                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau)
 
-BEGIN BARATE Gamma16 published 99K 
+BEGIN BARATE Gamma16 published.99K 
 
 MEASUREMENT  m_Gamma16 statistical systematic 
 DATA         m_Gamma16 statistical systematic 
@@ -194,7 +194,7 @@ END
 *                numerator of inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 8 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau)
 
-BEGIN BATTLE Gamma16 published 94 
+BEGIN BATTLE Gamma16 published.94 
 
 MEASUREMENT  m_Gamma16 statistical systematic 
 DATA         m_Gamma16 statistical systematic 
@@ -210,7 +210,7 @@ END
 *                numerator of inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
 *  first quantity measured by inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0)
 
-BEGIN BARATE Gamma23 published 99K 
+BEGIN BARATE Gamma23 published.99K 
 
 MEASUREMENT  m_Gamma23 statistical systematic 
 DATA         m_Gamma23 statistical systematic 
@@ -226,7 +226,7 @@ END
 *                numerator of inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0) seed = 0.000598 coef = 1.000000
 *  first quantity measured by inode+1 = 9 has gamma = 23 parm = 115 quan = 8 title = tau- --> K- 2pi0 nu(tau) (ex.K0)
 
-BEGIN BATTLE Gamma23 published 94 
+BEGIN BATTLE Gamma23 published.94 
 
 MEASUREMENT  m_Gamma23 statistical systematic 
 DATA         m_Gamma23 statistical systematic 
@@ -242,7 +242,7 @@ END
 *                numerator of inode+1 = 10 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) seed = 0.003987 coef = 1.000000
 *  first quantity measured by inode+1 = 10 has gamma = 28 parm = 116 quan = 10 title = tau- --> K- 3pi0 nu(tau) (ex.K0, eta)
 
-BEGIN BARATE Gamma28 published 99K 
+BEGIN BARATE Gamma28 published.99K 
 
 MEASUREMENT  m_Gamma28 statistical systematic 
 DATA         m_Gamma28 statistical systematic 
@@ -258,7 +258,7 @@ END
 *                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
 *  first quantity measured by inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN ABBIENDI Gamma35 published 00C 
+BEGIN ABBIENDI Gamma35 published.00C 
 
 MEASUREMENT  m_Gamma35 statistical systematic 
 DATA         m_Gamma35 statistical systematic 
@@ -274,7 +274,7 @@ END
 *                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
 *  first quantity measured by inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN BARATE Gamma35 published 99K 
+BEGIN BARATE Gamma35 published.99K 
 
 MEASUREMENT  m_Gamma35 statistical systematic 
 DATA         m_Gamma35 statistical systematic 
@@ -290,7 +290,7 @@ END
 *                numerator of inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau) seed = 0.009569 coef = 1.000000
 *  first quantity measured by inode+1 = 11 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN ACCIARRI Gamma35 published 95F 
+BEGIN ACCIARRI Gamma35 published.95F 
 
 MEASUREMENT  m_Gamma35 statistical systematic 
 DATA         m_Gamma35 statistical systematic 
@@ -306,7 +306,7 @@ END
 *                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
 *  first quantity measured by inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
-BEGIN BARATE Gamma40 published 99K 
+BEGIN BARATE Gamma40 published.99K 
 
 MEASUREMENT  m_Gamma40 statistical systematic 
 DATA         m_Gamma40 statistical systematic 
@@ -322,7 +322,7 @@ END
 *                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
 *  first quantity measured by inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
-BEGIN BARATE Gamma40 published 98E 
+BEGIN BARATE Gamma40 published.98E 
 
 MEASUREMENT  m_Gamma40 statistical systematic 
 DATA         m_Gamma40 statistical systematic 
@@ -338,7 +338,7 @@ END
 *                numerator of inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau) seed = 0.003987 coef = 1.000000
 *  first quantity measured by inode+1 = 12 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
-BEGIN ACCIARRI Gamma40 published 95F 
+BEGIN ACCIARRI Gamma40 published.95F 
 
 MEASUREMENT  m_Gamma40 statistical systematic 
 DATA         m_Gamma40 statistical systematic 
@@ -354,7 +354,7 @@ END
 *                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
 *  first quantity measured by inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau)
 
-BEGIN BARATE Gamma42 published 99K 
+BEGIN BARATE Gamma42 published.99K 
 
 MEASUREMENT  m_Gamma42 statistical systematic 
 DATA         m_Gamma42 statistical systematic 
@@ -370,7 +370,7 @@ END
 *                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
 *  first quantity measured by inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau)
 
-BEGIN BARATE Gamma42 published 98E 
+BEGIN BARATE Gamma42 published.98E 
 
 MEASUREMENT  m_Gamma42 statistical systematic 
 DATA         m_Gamma42 statistical systematic 
@@ -386,7 +386,7 @@ END
 *                numerator of inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
 *  first quantity measured by inode+1 = 13 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau)
 
-BEGIN COAN Gamma42 published 96 
+BEGIN COAN Gamma42 published.96 
 
 MEASUREMENT  m_Gamma42 statistical systematic 
 DATA         m_Gamma42 statistical systematic 
@@ -403,7 +403,7 @@ END
 *                numerator of inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
-BEGIN ABBIENDI Gamma92 published 00D 
+BEGIN ABBIENDI Gamma92 published.00D 
 
 MEASUREMENT  m_Gamma92 statistical systematic 
 DATA         m_Gamma92 statistical systematic 
@@ -420,7 +420,7 @@ END
 *                numerator of inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 14 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
-BEGIN BAUER Gamma92 published 94 
+BEGIN BAUER Gamma92 published.94 
 
 MEASUREMENT  m_Gamma92 statistical systematic 
 DATA         m_Gamma92 statistical systematic 
@@ -441,7 +441,7 @@ END
 *                numerator of inode+1 = 15 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
 *  first quantity measured by inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN BARATE Gamma33 published 98E 
+BEGIN BARATE Gamma33 published.98E 
 
 MEASUREMENT  m_Gamma33 statistical systematic 
 DATA         m_Gamma33 statistical systematic 
@@ -462,7 +462,7 @@ END
 *                numerator of inode+1 = 15 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.500000
 *  first quantity measured by inode+1 = 15 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN AKERS Gamma33 published 94G 
+BEGIN AKERS Gamma33 published.94G 
 
 MEASUREMENT  m_Gamma33 statistical systematic 
 DATA         m_Gamma33 statistical systematic 
@@ -483,19 +483,19 @@ END
 *                numerator of inode+1 = 18 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN ABDALLAH Gamma66 published 06A 
+BEGIN ABDALLAH Gamma66 published.06A 
 
 MEASUREMENT  m_Gamma66 statistical systematic 
 DATA         m_Gamma66 statistical systematic 
                 0.04545   0.001478  0 
  
-STAT_CORR_WITH ABDALLAH Gamma57 published -0.530000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma8 published -0.020000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma25 published 0.030000 ! IMEAS = 47 
-STAT_CORR_WITH ABDALLAH Gamma74 published -0.780000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma19 published -0.030000 ! IMEAS = 77 
-STAT_CORR_WITH ABDALLAH Gamma103 published -0.030000 ! IMEAS = 93 
-STAT_CORR_WITH ABDALLAH Gamma13 published -0.010000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A -0.530000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A -0.020000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma25 published.06A 0.030000 ! IMEAS = 47 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A -0.780000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma19 published.06A -0.030000 ! IMEAS = 77 
+STAT_CORR_WITH ABDALLAH Gamma103 published.06A -0.030000 ! IMEAS = 93 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A -0.010000 ! IMEAS = 121 
  
 END 
 
@@ -512,7 +512,7 @@ END
 *                numerator of inode+1 = 18 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 18 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN BALEST Gamma66 published 95C 
+BEGIN BALEST Gamma66 published.95C 
 
 MEASUREMENT  m_Gamma66 statistical systematic 
 DATA         m_Gamma66 statistical systematic 
@@ -528,23 +528,23 @@ END
 *                numerator of inode+1 = 20 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
 *  first quantity measured by inode+1 = 20 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
-BEGIN SCHAEL Gamma20 published 05C 
+BEGIN SCHAEL Gamma20 published.05C 
 
 MEASUREMENT  m_Gamma20 statistical systematic 
 DATA         m_Gamma20 statistical systematic 
                 0.09239   0.001245  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published 0.200000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.270000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published 0.040000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.170000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published 0.040000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.050000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.050000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published -0.080000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published 0.030000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.170000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.370000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C 0.200000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.270000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C 0.040000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.170000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C 0.040000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.050000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.050000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C -0.080000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C 0.030000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.170000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.370000 ! IMEAS = 120 
  
 END 
 
@@ -556,22 +556,22 @@ END
 *                numerator of inode+1 = 21 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
 *  first quantity measured by inode+1 = 21 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0)
 
-BEGIN SCHAEL Gamma27 published 05C 
+BEGIN SCHAEL Gamma27 published.05C 
 
 MEASUREMENT  m_Gamma27 statistical systematic 
 DATA         m_Gamma27 statistical systematic 
                 0.00977  0.0009014  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.470000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.270000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma76 published 0.100000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.140000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.020000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.040000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma103 published -0.040000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published 0.020000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.150000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published 0.020000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.470000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.270000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C 0.100000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.140000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.020000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.040000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C -0.040000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C 0.020000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.150000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C 0.020000 ! IMEAS = 120 
  
 END 
 
@@ -583,7 +583,7 @@ END
 *                numerator of inode+1 = 22 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau) seed = 0.001296 coef = 1.000000
 *  first quantity measured by inode+1 = 22 has gamma = 78 parm = 204 quan = 21 title = tau- --> h- h- h+ 3pi0 nu(tau)
 
-BEGIN ANASTASSOV Gamma78 published 01 
+BEGIN ANASTASSOV Gamma78 published.01 
 
 MEASUREMENT  m_Gamma78 statistical systematic 
 DATA         m_Gamma78 statistical systematic 
@@ -599,7 +599,7 @@ END
 *                numerator of inode+1 = 23 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau) seed = 0.003987 coef = 1.000000
 *  first quantity measured by inode+1 = 23 has gamma = 152 parm = 113 quan = 31 title = tau- --> h- omega pi0 nu(tau)
 
-BEGIN BUSKULIC Gamma152 published 97C 
+BEGIN BUSKULIC Gamma152 published.97C 
 
 MEASUREMENT  m_Gamma152 statistical systematic 
 DATA         m_Gamma152 statistical systematic 
@@ -617,22 +617,22 @@ END
 *                numerator of inode+1 = 24 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
 *  first quantity measured by inode+1 = 24 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
 
-BEGIN SCHAEL Gamma76 published 05C 
+BEGIN SCHAEL Gamma76 published.05C 
 
 MEASUREMENT  m_Gamma76 statistical systematic 
 DATA         m_Gamma76 statistical systematic 
                 0.00435   0.000461  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published 0.130000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published 0.040000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published 0.100000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.060000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.170000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.020000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma103 published -0.040000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published 0.040000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.230000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.140000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C 0.130000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C 0.040000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C 0.100000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.060000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.170000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.020000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C -0.040000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C 0.040000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.230000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.140000 ! IMEAS = 120 
  
 END 
 
@@ -647,19 +647,19 @@ END
 *                numerator of inode+1 = 25 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
 *  first quantity measured by inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN ABDALLAH Gamma57 published 06A 
+BEGIN ABDALLAH Gamma57 published.06A 
 
 MEASUREMENT  m_Gamma57 statistical systematic 
 DATA         m_Gamma57 statistical systematic 
                 0.09317   0.001218  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published -0.530000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma8 published -0.070000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma25 published -0.020000 ! IMEAS = 47 
-STAT_CORR_WITH ABDALLAH Gamma74 published 0.260000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma103 published -0.020000 ! IMEAS = 93 
-STAT_CORR_WITH ABDALLAH Gamma104 published 0.010000 ! IMEAS = 99 
-STAT_CORR_WITH ABDALLAH Gamma13 published -0.080000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A -0.530000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A -0.070000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma25 published.06A -0.020000 ! IMEAS = 47 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A 0.260000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma103 published.06A -0.020000 ! IMEAS = 93 
+STAT_CORR_WITH ABDALLAH Gamma104 published.06A 0.010000 ! IMEAS = 99 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A -0.080000 ! IMEAS = 121 
  
 END 
 
@@ -674,7 +674,7 @@ END
 *                numerator of inode+1 = 25 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
 *  first quantity measured by inode+1 = 25 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN BALEST Gamma57 published 95C 
+BEGIN BALEST Gamma57 published.95C 
 
 MEASUREMENT  m_Gamma57 statistical systematic 
 DATA         m_Gamma57 statistical systematic 
@@ -701,13 +701,13 @@ END
 *                numerator of inode+1 = 26 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN ACHARD Gamma55 published 01D 
+BEGIN ACHARD Gamma55 published.01D 
 
 MEASUREMENT  m_Gamma55 statistical systematic 
 DATA         m_Gamma55 statistical systematic 
                 0.14556   0.001296  0 
  
-STAT_CORR_WITH ACHARD Gamma102 published -0.190000 ! IMEAS = 90 
+STAT_CORR_WITH ACHARD Gamma102 published.01D -0.190000 ! IMEAS = 90 
  
 END 
 
@@ -730,7 +730,7 @@ END
 *                numerator of inode+1 = 26 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 26 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN AKERS Gamma55 published 95Y 
+BEGIN AKERS Gamma55 published.95Y 
 
 MEASUREMENT  m_Gamma55 statistical systematic 
 DATA         m_Gamma55 statistical systematic 
@@ -761,7 +761,7 @@ END
 *              denominator of inode+1 = 27 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 27 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN AKERS Gamma57by55 published 95Y 
+BEGIN AKERS Gamma57by55 published.95Y 
 
 MEASUREMENT  m_Gamma57by55 statistical systematic 
 DATA         m_Gamma57by55 statistical systematic 
@@ -778,7 +778,7 @@ END
 *                numerator of inode+1 = 28 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 28 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN COAN Gamma34 published 96 
+BEGIN COAN Gamma34 published.96 
 
 MEASUREMENT  m_Gamma34 statistical systematic 
 DATA         m_Gamma34 statistical systematic 
@@ -795,7 +795,7 @@ END
 *                numerator of inode+1 = 29 has gamma = 42 parm = 119 quan = 15 title = tau- --> K- K0 pi0 nu(tau) seed = 0.001994 coef = 1.000000
 *  first quantity measured by inode+1 = 29 has gamma = 40 parm = 118 quan = 14 title = tau- --> pi- Kbar0 pi0 nu(tau)
 
-BEGIN COAN Gamma39 published 96 
+BEGIN COAN Gamma39 published.96 
 
 MEASUREMENT  m_Gamma39 statistical systematic 
 DATA         m_Gamma39 statistical systematic 
@@ -811,7 +811,7 @@ END
 *                numerator of inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
 *  first quantity measured by inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau)
 
-BEGIN BARATE Gamma47 published 98E 
+BEGIN BARATE Gamma47 published.98E 
 
 MEASUREMENT  m_Gamma47 statistical systematic 
 DATA         m_Gamma47 statistical systematic 
@@ -827,7 +827,7 @@ END
 *                numerator of inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau) seed = 0.000997 coef = 1.000000
 *  first quantity measured by inode+1 = 30 has gamma = 47 parm = 214 quan = 16 title = tau- --> pi- K(S)0 K(S)0 nu(tau)
 
-BEGIN COAN Gamma47 published 96 
+BEGIN COAN Gamma47 published.96 
 
 MEASUREMENT  m_Gamma47 statistical systematic 
 DATA         m_Gamma47 statistical systematic 
@@ -844,19 +844,19 @@ END
 *                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN ABDALLAH Gamma8 published 06A 
+BEGIN ABDALLAH Gamma8 published.06A 
 
 MEASUREMENT  m_Gamma8 statistical systematic 
 DATA         m_Gamma8 statistical systematic 
                 0.11571   0.001655  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published -0.020000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma57 published -0.070000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma25 published -0.060000 ! IMEAS = 47 
-STAT_CORR_WITH ABDALLAH Gamma74 published -0.010000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma19 published 0.060000 ! IMEAS = 77 
-STAT_CORR_WITH ABDALLAH Gamma103 published -0.010000 ! IMEAS = 93 
-STAT_CORR_WITH ABDALLAH Gamma13 published -0.340000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A -0.020000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A -0.070000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma25 published.06A -0.060000 ! IMEAS = 47 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A -0.010000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma19 published.06A 0.060000 ! IMEAS = 77 
+STAT_CORR_WITH ABDALLAH Gamma103 published.06A -0.010000 ! IMEAS = 93 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A -0.340000 ! IMEAS = 121 
  
 END 
 
@@ -869,7 +869,7 @@ END
 *                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN ACKERSTAFF Gamma8 published 98M 
+BEGIN ACKERSTAFF Gamma8 published.98M 
 
 MEASUREMENT  m_Gamma8 statistical systematic 
 DATA         m_Gamma8 statistical systematic 
@@ -886,14 +886,14 @@ END
 *                numerator of inode+1 = 33 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 33 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN ANASTASSOV Gamma8 published 97 
+BEGIN ANASTASSOV Gamma8 published.97 
 
 MEASUREMENT  m_Gamma8 statistical systematic 
 DATA         m_Gamma8 statistical systematic 
                  0.1152     0.0013  0 
  
-STAT_CORR_WITH ANASTASSOV Gamma5 published 0.480000 ! IMEAS = 76 
-STAT_CORR_WITH ANASTASSOV Gamma3by5 published 0.070000 ! IMEAS = 113 
+STAT_CORR_WITH ANASTASSOV Gamma5 published.97 0.480000 ! IMEAS = 76 
+STAT_CORR_WITH ANASTASSOV Gamma3by5 published.97 0.070000 ! IMEAS = 113 
  
 END 
 
@@ -906,7 +906,7 @@ END
 *                numerator of inode+1 = 39 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.319000
 *  first quantity measured by inode+1 = 39 has gamma = 30 parm = 110 quan = 11 title = tau- --> h- 4pi0 nu(tau) (ex.K0,eta)
 
-BEGIN PROCARIO Gamma29 published 93 
+BEGIN PROCARIO Gamma29 published.93 
 
 MEASUREMENT  m_Gamma29 statistical systematic 
 DATA         m_Gamma29 statistical systematic 
@@ -926,18 +926,18 @@ END
 *                numerator of inode+1 = 42 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.325000
 *  first quantity measured by inode+1 = 42 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0)
 
-BEGIN ABDALLAH Gamma25 published 06A 
+BEGIN ABDALLAH Gamma25 published.06A 
 
 MEASUREMENT  m_Gamma25 statistical systematic 
 DATA         m_Gamma25 statistical systematic 
                 0.01403   0.003098  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published 0.030000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma57 published -0.020000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma8 published -0.060000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma74 published -0.060000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma19 published -0.860000 ! IMEAS = 77 
-STAT_CORR_WITH ABDALLAH Gamma13 published 0.380000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A 0.030000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A -0.020000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A -0.060000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A -0.060000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma19 published.06A -0.860000 ! IMEAS = 77 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A 0.380000 ! IMEAS = 121 
  
 END 
 
@@ -952,20 +952,20 @@ END
 *                numerator of inode+1 = 43 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 0.226000
 *  first quantity measured by inode+1 = 43 has gamma = 77 parm = 216 quan = 20 title = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta)
 
-BEGIN ABDALLAH Gamma74 published 06A 
+BEGIN ABDALLAH Gamma74 published.06A 
 
 MEASUREMENT  m_Gamma74 statistical systematic 
 DATA         m_Gamma74 statistical systematic 
                 0.00561   0.001168  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published -0.780000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma57 published 0.260000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma8 published -0.010000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma25 published -0.060000 ! IMEAS = 47 
-STAT_CORR_WITH ABDALLAH Gamma19 published 0.030000 ! IMEAS = 77 
-STAT_CORR_WITH ABDALLAH Gamma103 published 0.030000 ! IMEAS = 93 
-STAT_CORR_WITH ABDALLAH Gamma104 published 0.050000 ! IMEAS = 99 
-STAT_CORR_WITH ABDALLAH Gamma13 published -0.010000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A -0.780000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A 0.260000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A -0.010000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma25 published.06A -0.060000 ! IMEAS = 47 
+STAT_CORR_WITH ABDALLAH Gamma19 published.06A 0.030000 ! IMEAS = 77 
+STAT_CORR_WITH ABDALLAH Gamma103 published.06A 0.030000 ! IMEAS = 93 
+STAT_CORR_WITH ABDALLAH Gamma104 published.06A 0.050000 ! IMEAS = 99 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A -0.010000 ! IMEAS = 121 
  
 END 
 
@@ -977,7 +977,7 @@ END
 *                numerator of inode+1 = 44 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau) seed = 0.000997 coef = 1.000000
 *  first quantity measured by inode+1 = 44 has gamma = 48 parm = 240 quan = 17 title = tau- --> pi- K(S)0 K(L)0 nu(tau)
 
-BEGIN BARATE Gamma48 published 98E 
+BEGIN BARATE Gamma48 published.98E 
 
 MEASUREMENT  m_Gamma48 statistical systematic 
 DATA         m_Gamma48 statistical systematic 
@@ -994,14 +994,14 @@ END
 *                numerator of inode+1 = 46 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
 *  first quantity measured by inode+1 = 46 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN BRIERE Gamma60 published 03 
+BEGIN BRIERE Gamma60 published.03 
 
 MEASUREMENT  m_Gamma60 statistical systematic 
 DATA         m_Gamma60 statistical systematic 
                  0.0913   0.004627  0 
  
-STAT_CORR_WITH BRIERE Gamma85 published 0.470000 ! IMEAS = 53 
-STAT_CORR_WITH BRIERE Gamma93 published 0.710000 ! IMEAS = 103 
+STAT_CORR_WITH BRIERE Gamma85 published.03 0.470000 ! IMEAS = 53 
+STAT_CORR_WITH BRIERE Gamma93 published.03 0.710000 ! IMEAS = 103 
  
 END 
 
@@ -1013,23 +1013,23 @@ END
 *                numerator of inode+1 = 47 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) seed = 0.090710 coef = 1.000000
 *  first quantity measured by inode+1 = 47 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN SCHAEL Gamma62 published 05C 
+BEGIN SCHAEL Gamma62 published.05C 
 
 MEASUREMENT  m_Gamma62 statistical systematic 
 DATA         m_Gamma62 statistical systematic 
                 0.09041  0.0009683  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.080000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.170000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.140000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published -0.060000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.150000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.090000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.140000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published 0.090000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.030000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published 0.150000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.050000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.080000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.170000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.140000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C -0.060000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.150000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.090000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.140000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C 0.090000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.030000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C 0.150000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.050000 ! IMEAS = 120 
  
 END 
 
@@ -1041,7 +1041,7 @@ END
 *                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
 *  first quantity measured by inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0)
 
-BEGIN ABBIENDI Gamma85 published 04J 
+BEGIN ABBIENDI Gamma85 published.04J 
 
 MEASUREMENT  m_Gamma85 statistical systematic 
 DATA         m_Gamma85 statistical systematic 
@@ -1057,14 +1057,14 @@ END
 *                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
 *  first quantity measured by inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0)
 
-BEGIN BRIERE Gamma85 published 03 
+BEGIN BRIERE Gamma85 published.03 
 
 MEASUREMENT  m_Gamma85 statistical systematic 
 DATA         m_Gamma85 statistical systematic 
                 0.00384   0.000405  0 
  
-STAT_CORR_WITH BRIERE Gamma60 published 0.470000 ! IMEAS = 50 
-STAT_CORR_WITH BRIERE Gamma93 published 0.340000 ! IMEAS = 103 
+STAT_CORR_WITH BRIERE Gamma60 published.03 0.470000 ! IMEAS = 50 
+STAT_CORR_WITH BRIERE Gamma93 published.03 0.340000 ! IMEAS = 103 
  
 END 
 
@@ -1076,7 +1076,7 @@ END
 *                numerator of inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0) seed = 0.002990 coef = 1.000000
 *  first quantity measured by inode+1 = 48 has gamma = 85 parm = 260 quan = 22 title = tau- --> K- pi+ pi- nu(tau) (ex.K0)
 
-BEGIN BARATE Gamma85 published 98 
+BEGIN BARATE Gamma85 published.98 
 
 MEASUREMENT  m_Gamma85 statistical systematic 
 DATA         m_Gamma85 statistical systematic 
@@ -1094,23 +1094,23 @@ END
 *                numerator of inode+1 = 50 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN SCHAEL Gamma69 published 05C 
+BEGIN SCHAEL Gamma69 published.05C 
 
 MEASUREMENT  m_Gamma69 statistical systematic 
 DATA         m_Gamma69 statistical systematic 
                 0.04598   0.000857  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published 0.160000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published 0.040000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.020000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published -0.170000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.150000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.120000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.130000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published -0.050000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.010000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.250000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.300000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C 0.160000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C 0.040000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.020000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C -0.170000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.150000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.120000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.130000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C -0.050000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.010000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.250000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.300000 ! IMEAS = 120 
  
 END 
 
@@ -1124,7 +1124,7 @@ END
 *                numerator of inode+1 = 50 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 50 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN EDWARDS Gamma69 published 00A 
+BEGIN EDWARDS Gamma69 published.00A 
 
 MEASUREMENT  m_Gamma69 statistical systematic 
 DATA         m_Gamma69 statistical systematic 
@@ -1141,7 +1141,7 @@ END
 *                numerator of inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
 *  first quantity measured by inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)
 
-BEGIN ARMS Gamma88 published 05 
+BEGIN ARMS Gamma88 published.05 
 
 MEASUREMENT  m_Gamma88 statistical systematic 
 DATA         m_Gamma88 statistical systematic 
@@ -1158,7 +1158,7 @@ END
 *                numerator of inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) seed = 0.000598 coef = 1.000000
 *  first quantity measured by inode+1 = 52 has gamma = 89 parm = 285 quan = 23 title = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)
 
-BEGIN BARATE Gamma88 published 98 
+BEGIN BARATE Gamma88 published.98 
 
 MEASUREMENT  m_Gamma88 statistical systematic 
 DATA         m_Gamma88 statistical systematic 
@@ -1177,7 +1177,7 @@ END
 *              denominator of inode+1 = 54 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
 *  first quantity measured by inode+1 = 54 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN RICHICHI Gamma80by60 published 99 
+BEGIN RICHICHI Gamma80by60 published.99 
 
 MEASUREMENT  m_Gamma80by60 statistical systematic 
 DATA         m_Gamma80by60 statistical systematic 
@@ -1198,7 +1198,7 @@ END
 *              denominator of inode+1 = 56 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 56 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN RICHICHI Gamma81by69 published 99 
+BEGIN RICHICHI Gamma81by69 published.99 
 
 MEASUREMENT  m_Gamma81by69 statistical systematic 
 DATA         m_Gamma81by69 statistical systematic 
@@ -1216,7 +1216,7 @@ END
 *              denominator of inode+1 = 57 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.017000
 *  first quantity measured by inode+1 = 57 has gamma = 62 parm = 259 quan = 18 title = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega)
 
-BEGIN RICHICHI Gamma93by60 published 99 
+BEGIN RICHICHI Gamma93by60 published.99 
 
 MEASUREMENT  m_Gamma93by60 statistical systematic 
 DATA         m_Gamma93by60 statistical systematic 
@@ -1235,7 +1235,7 @@ END
 *              denominator of inode+1 = 58 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 58 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN RICHICHI Gamma94by69 published 99 
+BEGIN RICHICHI Gamma94by69 published.99 
 
 MEASUREMENT  m_Gamma94by69 statistical systematic 
 DATA         m_Gamma94by69 statistical systematic 
@@ -1252,7 +1252,7 @@ END
 *                numerator of inode+1 = 59 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 59 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
-BEGIN ABBIENDI Gamma38 published 00C 
+BEGIN ABBIENDI Gamma38 published.00C 
 
 MEASUREMENT  m_Gamma38 statistical systematic 
 DATA         m_Gamma38 statistical systematic 
@@ -1268,7 +1268,7 @@ END
 *                numerator of inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
 *  first quantity measured by inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau)
 
-BEGIN ARMS Gamma94 published 05 
+BEGIN ARMS Gamma94 published.05 
 
 MEASUREMENT  m_Gamma94 statistical systematic 
 DATA         m_Gamma94 statistical systematic 
@@ -1284,7 +1284,7 @@ END
 *                numerator of inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau) seed = 0.000399 coef = 1.000000
 *  first quantity measured by inode+1 = 65 has gamma = 94 parm = 247 quan = 25 title = tau- --> K- K+ pi- pi0 nu(tau)
 
-BEGIN BARATE Gamma94 published 98 
+BEGIN BARATE Gamma94 published.98 
 
 MEASUREMENT  m_Gamma94 statistical systematic 
 DATA         m_Gamma94 statistical systematic 
@@ -1300,23 +1300,23 @@ END
 *                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
-BEGIN SCHAEL Gamma3 published 05C 
+BEGIN SCHAEL Gamma3 published.05C 
 
 MEASUREMENT  m_Gamma3 statistical systematic 
 DATA         m_Gamma3 statistical systematic 
                 0.17319  0.0007697  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.040000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.050000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.040000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published -0.020000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.090000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.120000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.200000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published 0.010000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.040000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.060000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.120000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.040000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.050000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.040000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C -0.020000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.090000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.120000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.200000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C 0.010000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.040000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.060000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.120000 ! IMEAS = 120 
  
 END 
 
@@ -1328,7 +1328,7 @@ END
 *                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
-BEGIN ABBIENDI Gamma3 published 03 
+BEGIN ABBIENDI Gamma3 published.03 
 
 MEASUREMENT  m_Gamma3 statistical systematic 
 DATA         m_Gamma3 statistical systematic 
@@ -1344,13 +1344,13 @@ END
 *                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
-BEGIN ACCIARRI Gamma3 published 01F 
+BEGIN ACCIARRI Gamma3 published.01F 
 
 MEASUREMENT  m_Gamma3 statistical systematic 
 DATA         m_Gamma3 statistical systematic 
                 0.17342   0.001288  0 
  
-STAT_CORR_WITH ACCIARRI Gamma5 published 0.078000 ! IMEAS = 73 
+STAT_CORR_WITH ACCIARRI Gamma5 published.01F 0.078000 ! IMEAS = 73 
  
 END 
 
@@ -1362,7 +1362,7 @@ END
 *                numerator of inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau) seed = 0.173445 coef = 1.000000
 *  first quantity measured by inode+1 = 66 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
-BEGIN ABREU Gamma3 published 99X 
+BEGIN ABREU Gamma3 published.99X 
 
 MEASUREMENT  m_Gamma3 statistical systematic 
 DATA         m_Gamma3 statistical systematic 
@@ -1384,7 +1384,7 @@ END
 *              denominator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN BUSKULIC Gamma150by66 published 96 
+BEGIN BUSKULIC Gamma150by66 published.96 
 
 MEASUREMENT  m_Gamma150by66 statistical systematic 
 DATA         m_Gamma150by66 statistical systematic 
@@ -1406,7 +1406,7 @@ END
 *              denominator of inode+1 = 67 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.888000
 *  first quantity measured by inode+1 = 67 has gamma = 70 parm = 263 quan = 19 title = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega)
 
-BEGIN BALEST Gamma150by66 published 95C 
+BEGIN BALEST Gamma150by66 published.95C 
 
 MEASUREMENT  m_Gamma150by66 statistical systematic 
 DATA         m_Gamma150by66 statistical systematic 
@@ -1422,20 +1422,20 @@ END
 *                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
-BEGIN SCHAEL Gamma5 published 05C 
+BEGIN SCHAEL Gamma5 published.05C 
 
 MEASUREMENT  m_Gamma5 statistical systematic 
 DATA         m_Gamma5 statistical systematic 
                 0.17837   0.000805  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.020000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.050000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.140000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.130000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.200000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma104 published 0.010000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.090000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.160000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.020000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.050000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.140000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.130000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.200000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C 0.010000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.090000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.160000 ! IMEAS = 120 
  
 END 
 
@@ -1447,13 +1447,13 @@ END
 *                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
-BEGIN ACCIARRI Gamma5 published 01F 
+BEGIN ACCIARRI Gamma5 published.01F 
 
 MEASUREMENT  m_Gamma5 statistical systematic 
 DATA         m_Gamma5 statistical systematic 
                 0.17806   0.001288  0 
  
-STAT_CORR_WITH ACCIARRI Gamma3 published 0.078000 ! IMEAS = 68 
+STAT_CORR_WITH ACCIARRI Gamma3 published.01F 0.078000 ! IMEAS = 68 
  
 END 
 
@@ -1465,7 +1465,7 @@ END
 *                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
-BEGIN ABBIENDI Gamma5 published 99H 
+BEGIN ABBIENDI Gamma5 published.99H 
 
 MEASUREMENT  m_Gamma5 statistical systematic 
 DATA         m_Gamma5 statistical systematic 
@@ -1481,7 +1481,7 @@ END
 *                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
-BEGIN ABREU Gamma5 published 99X 
+BEGIN ABREU Gamma5 published.99X 
 
 MEASUREMENT  m_Gamma5 statistical systematic 
 DATA         m_Gamma5 statistical systematic 
@@ -1497,14 +1497,14 @@ END
 *                numerator of inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 69 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau)
 
-BEGIN ANASTASSOV Gamma5 published 97 
+BEGIN ANASTASSOV Gamma5 published.97 
 
 MEASUREMENT  m_Gamma5 statistical systematic 
 DATA         m_Gamma5 statistical systematic 
                  0.1776   0.001803  0 
  
-STAT_CORR_WITH ANASTASSOV Gamma8 published 0.480000 ! IMEAS = 45 
-STAT_CORR_WITH ANASTASSOV Gamma3by5 published -0.420000 ! IMEAS = 113 
+STAT_CORR_WITH ANASTASSOV Gamma8 published.97 0.480000 ! IMEAS = 45 
+STAT_CORR_WITH ANASTASSOV Gamma3by5 published.97 -0.420000 ! IMEAS = 113 
  
 END 
 
@@ -1517,17 +1517,17 @@ END
 *                numerator of inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
 *  first quantity measured by inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
-BEGIN ABDALLAH Gamma19 published 06A 
+BEGIN ABDALLAH Gamma19 published.06A 
 
 MEASUREMENT  m_Gamma19 statistical systematic 
 DATA         m_Gamma19 statistical systematic 
                 0.09498   0.004219  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published -0.030000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma8 published 0.060000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma25 published -0.860000 ! IMEAS = 47 
-STAT_CORR_WITH ABDALLAH Gamma74 published 0.030000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma13 published -0.660000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A -0.030000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A 0.060000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma25 published.06A -0.860000 ! IMEAS = 47 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A 0.030000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A -0.660000 ! IMEAS = 121 
  
 END 
 
@@ -1540,7 +1540,7 @@ END
 *                numerator of inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0) seed = 0.089713 coef = 1.000000
 *  first quantity measured by inode+1 = 70 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
-BEGIN ACCIARRI Gamma19 published 95 
+BEGIN ACCIARRI Gamma19 published.95 
 
 MEASUREMENT  m_Gamma19 statistical systematic 
 DATA         m_Gamma19 statistical systematic 
@@ -1560,7 +1560,7 @@ END
 *                numerator of inode+1 = 71 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0) seed = 0.009968 coef = 1.000000
 *  first quantity measured by inode+1 = 71 has gamma = 27 parm = 203 quan = 9 title = tau- --> pi- 3pi0 nu(tau) (ex.K0)
 
-BEGIN ACCIARRI Gamma26 published 95 
+BEGIN ACCIARRI Gamma26 published.95 
 
 MEASUREMENT  m_Gamma26 statistical systematic 
 DATA         m_Gamma26 statistical systematic 
@@ -1576,7 +1576,7 @@ END
 *                numerator of inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 1.000000
 *  first quantity measured by inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau)
 
-BEGIN BUSKULIC Gamma150 published 97C 
+BEGIN BUSKULIC Gamma150 published.97C 
 
 MEASUREMENT  m_Gamma150 statistical systematic 
 DATA         m_Gamma150 statistical systematic 
@@ -1592,7 +1592,7 @@ END
 *                numerator of inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 1.000000
 *  first quantity measured by inode+1 = 72 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau)
 
-BEGIN BARINGER Gamma150 published 87 
+BEGIN BARINGER Gamma150 published.87 
 
 MEASUREMENT  m_Gamma150 statistical systematic 
 DATA         m_Gamma150 statistical systematic 
@@ -1614,13 +1614,13 @@ END
 *                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN ABBIENDI Gamma31 published 01J 
+BEGIN ABBIENDI Gamma31 published.01J 
 
 MEASUREMENT  m_Gamma31 statistical systematic 
 DATA         m_Gamma31 statistical systematic 
                 0.01528  0.0005587  0 
  
-STAT_CORR_WITH ABBIENDI Gamma10 published 0.600000 ! IMEAS = 116 
+STAT_CORR_WITH ABBIENDI Gamma10 published.01J 0.600000 ! IMEAS = 116 
  
 END 
 
@@ -1638,7 +1638,7 @@ END
 *                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN ABREU Gamma31 published 94K 
+BEGIN ABREU Gamma31 published.94K 
 
 MEASUREMENT  m_Gamma31 statistical systematic 
 DATA         m_Gamma31 statistical systematic 
@@ -1660,7 +1660,7 @@ END
 *                numerator of inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 74 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN BATTLE Gamma31 published 94 
+BEGIN BATTLE Gamma31 published.94 
 
 MEASUREMENT  m_Gamma31 statistical systematic 
 DATA         m_Gamma31 statistical systematic 
@@ -1693,7 +1693,7 @@ END
 *                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN ADEVA Gamma54 published 91F 
+BEGIN ADEVA Gamma54 published.91F 
 
 MEASUREMENT  m_Gamma54 statistical systematic 
 DATA         m_Gamma54 statistical systematic 
@@ -1726,7 +1726,7 @@ END
 *                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN BEHREND Gamma54 published 89B 
+BEGIN BEHREND Gamma54 published.89B 
 
 MEASUREMENT  m_Gamma54 statistical systematic 
 DATA         m_Gamma54 statistical systematic 
@@ -1759,7 +1759,7 @@ END
 *                numerator of inode+1 = 78 has gamma = 150 parm = 8 quan = 30 title = tau- --> h- omega nu(tau) seed = 0.019936 coef = 0.910100
 *  first quantity measured by inode+1 = 78 has gamma = 35 parm = 117 quan = 12 title = tau- --> pi- Kbar0 nu(tau)
 
-BEGIN AIHARA Gamma54 published 87B 
+BEGIN AIHARA Gamma54 published.87B 
 
 MEASUREMENT  m_Gamma54 statistical systematic 
 DATA         m_Gamma54 statistical systematic 
@@ -1775,7 +1775,7 @@ END
 *                numerator of inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 1.000000
 *  first quantity measured by inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau)
 
-BEGIN BUSKULIC Gamma126 published 97C 
+BEGIN BUSKULIC Gamma126 published.97C 
 
 MEASUREMENT  m_Gamma126 statistical systematic 
 DATA         m_Gamma126 statistical systematic 
@@ -1791,7 +1791,7 @@ END
 *                numerator of inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau) seed = 0.001695 coef = 1.000000
 *  first quantity measured by inode+1 = 79 has gamma = 126 parm = 58 quan = 28 title = tau- --> eta pi- pi0 nu(tau)
 
-BEGIN ARTUSO Gamma126 published 92 
+BEGIN ARTUSO Gamma126 published.92 
 
 MEASUREMENT  m_Gamma126 statistical systematic 
 DATA         m_Gamma126 statistical systematic 
@@ -1808,13 +1808,13 @@ END
 *                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN ACHARD Gamma102 published 01D 
+BEGIN ACHARD Gamma102 published.01D 
 
 MEASUREMENT  m_Gamma102 statistical systematic 
 DATA         m_Gamma102 statistical systematic 
                  0.0017  0.0003406  0 
  
-STAT_CORR_WITH ACHARD Gamma55 published -0.190000 ! IMEAS = 36 
+STAT_CORR_WITH ACHARD Gamma55 published.01D -0.190000 ! IMEAS = 36 
  
 END 
 
@@ -1827,7 +1827,7 @@ END
 *                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN GIBAUT Gamma102 published 94B 
+BEGIN GIBAUT Gamma102 published.94B 
 
 MEASUREMENT  m_Gamma102 statistical systematic 
 DATA         m_Gamma102 statistical systematic 
@@ -1844,7 +1844,7 @@ END
 *                numerator of inode+1 = 80 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 80 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN BYLSMA Gamma102 published 87 
+BEGIN BYLSMA Gamma102 published.87 
 
 MEASUREMENT  m_Gamma102 statistical systematic 
 DATA         m_Gamma102 statistical systematic 
@@ -1860,18 +1860,18 @@ END
 *                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN ABDALLAH Gamma103 published 06A 
+BEGIN ABDALLAH Gamma103 published.06A 
 
 MEASUREMENT  m_Gamma103 statistical systematic 
 DATA         m_Gamma103 statistical systematic 
                 0.00097  0.0001581  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published -0.030000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma57 published -0.020000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma8 published -0.010000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma74 published 0.030000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma104 published -0.570000 ! IMEAS = 99 
-STAT_CORR_WITH ABDALLAH Gamma13 published -0.010000 ! IMEAS = 121 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A -0.030000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A -0.020000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A -0.010000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A 0.030000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma104 published.06A -0.570000 ! IMEAS = 99 
+STAT_CORR_WITH ABDALLAH Gamma13 published.06A -0.010000 ! IMEAS = 121 
  
 END 
 
@@ -1883,22 +1883,22 @@ END
 *                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN SCHAEL Gamma103 published 05C 
+BEGIN SCHAEL Gamma103 published.05C 
 
 MEASUREMENT  m_Gamma103 statistical systematic 
 DATA         m_Gamma103 statistical systematic 
                 0.00072    0.00015  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.060000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.080000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.040000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published -0.040000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published 0.090000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.050000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published 0.010000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.240000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published 0.090000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published 0.040000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.060000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.080000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.040000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C -0.040000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C 0.090000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.050000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C 0.010000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.240000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C 0.090000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C 0.040000 ! IMEAS = 120 
  
 END 
 
@@ -1910,7 +1910,7 @@ END
 *                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN ACKERSTAFF Gamma103 published 99E 
+BEGIN ACKERSTAFF Gamma103 published.99E 
 
 MEASUREMENT  m_Gamma103 statistical systematic 
 DATA         m_Gamma103 statistical systematic 
@@ -1926,7 +1926,7 @@ END
 *                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN GIBAUT Gamma103 published 94B 
+BEGIN GIBAUT Gamma103 published.94B 
 
 MEASUREMENT  m_Gamma103 statistical systematic 
 DATA         m_Gamma103 statistical systematic 
@@ -1942,7 +1942,7 @@ END
 *                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN ALBRECHT Gamma103 published 88B 
+BEGIN ALBRECHT Gamma103 published.88B 
 
 MEASUREMENT  m_Gamma103 statistical systematic 
 DATA         m_Gamma103 statistical systematic 
@@ -1958,7 +1958,7 @@ END
 *                numerator of inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0) seed = 0.000797 coef = 1.000000
 *  first quantity measured by inode+1 = 82 has gamma = 103 parm = 3 quan = 26 title = tau- --> 3h- 2h+ nu(tau) (ex.K0)
 
-BEGIN BYLSMA Gamma103 published 87 
+BEGIN BYLSMA Gamma103 published.87 
 
 MEASUREMENT  m_Gamma103 statistical systematic 
 DATA         m_Gamma103 statistical systematic 
@@ -1974,15 +1974,15 @@ END
 *                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
-BEGIN ABDALLAH Gamma104 published 06A 
+BEGIN ABDALLAH Gamma104 published.06A 
 
 MEASUREMENT  m_Gamma104 statistical systematic 
 DATA         m_Gamma104 statistical systematic 
                 0.00016  0.0001342  0 
  
-STAT_CORR_WITH ABDALLAH Gamma57 published 0.010000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma74 published 0.050000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma103 published -0.570000 ! IMEAS = 93 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A 0.010000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A 0.050000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma103 published.06A -0.570000 ! IMEAS = 93 
  
 END 
 
@@ -1994,23 +1994,23 @@ END
 *                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
-BEGIN SCHAEL Gamma104 published 05C 
+BEGIN SCHAEL Gamma104 published.05C 
 
 MEASUREMENT  m_Gamma104 statistical systematic 
 DATA         m_Gamma104 statistical systematic 
                 0.00021   0.000114  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.040000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published 0.030000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published 0.020000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published 0.040000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.030000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.010000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.040000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published 0.010000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published -0.240000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma9 published -0.030000 ! IMEAS = 115 
-STAT_CORR_WITH SCHAEL Gamma14 published -0.050000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.040000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C 0.030000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C 0.020000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C 0.040000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.030000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.010000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.040000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C 0.010000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C -0.240000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C -0.030000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C -0.050000 ! IMEAS = 120 
  
 END 
 
@@ -2022,7 +2022,7 @@ END
 *                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
-BEGIN ANASTASSOV Gamma104 published 01 
+BEGIN ANASTASSOV Gamma104 published.01 
 
 MEASUREMENT  m_Gamma104 statistical systematic 
 DATA         m_Gamma104 statistical systematic 
@@ -2038,7 +2038,7 @@ END
 *                numerator of inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) seed = 0.000199 coef = 1.000000
 *  first quantity measured by inode+1 = 83 has gamma = 104 parm = 4 quan = 27 title = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)
 
-BEGIN ACKERSTAFF Gamma104 published 99E 
+BEGIN ACKERSTAFF Gamma104 published.99E 
 
 MEASUREMENT  m_Gamma104 statistical systematic 
 DATA         m_Gamma104 statistical systematic 
@@ -2054,14 +2054,14 @@ END
 *                numerator of inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
-BEGIN BRIERE Gamma93 published 03 
+BEGIN BRIERE Gamma93 published.03 
 
 MEASUREMENT  m_Gamma93 statistical systematic 
 DATA         m_Gamma93 statistical systematic 
                 0.00155  0.0001082  0 
  
-STAT_CORR_WITH BRIERE Gamma60 published 0.710000 ! IMEAS = 50 
-STAT_CORR_WITH BRIERE Gamma85 published 0.340000 ! IMEAS = 53 
+STAT_CORR_WITH BRIERE Gamma60 published.03 0.710000 ! IMEAS = 50 
+STAT_CORR_WITH BRIERE Gamma85 published.03 0.340000 ! IMEAS = 53 
  
 END 
 
@@ -2073,7 +2073,7 @@ END
 *                numerator of inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 84 has gamma = 93 parm = 5 quan = 24 title = tau- --> K- K+ pi- nu(tau)
 
-BEGIN BARATE Gamma93 published 98 
+BEGIN BARATE Gamma93 published.98 
 
 MEASUREMENT  m_Gamma93 statistical systematic 
 DATA         m_Gamma93 statistical systematic 
@@ -2093,7 +2093,7 @@ END
 *                numerator of inode+1 = 85 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.343100
 *  first quantity measured by inode+1 = 85 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
-BEGIN BAUER Gamma82 published 94 
+BEGIN BAUER Gamma82 published.94 
 
 MEASUREMENT  m_Gamma82 statistical systematic 
 DATA         m_Gamma82 statistical systematic 
@@ -2113,7 +2113,7 @@ END
 *                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN ACCIARRI Gamma7 published 95 
+BEGIN ACCIARRI Gamma7 published.95 
 
 MEASUREMENT  m_Gamma7 statistical systematic 
 DATA         m_Gamma7 statistical systematic 
@@ -2133,7 +2133,7 @@ END
 *                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN ABREU Gamma7 published 92N 
+BEGIN ABREU Gamma7 published.92N 
 
 MEASUREMENT  m_Gamma7 statistical systematic 
 DATA         m_Gamma7 statistical systematic 
@@ -2153,7 +2153,7 @@ END
 *                numerator of inode+1 = 87 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 87 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN ALEXANDER Gamma7 published 91D 
+BEGIN ALEXANDER Gamma7 published.91D 
 
 MEASUREMENT  m_Gamma7 statistical systematic 
 DATA         m_Gamma7 statistical systematic 
@@ -2180,7 +2180,7 @@ END
 *                numerator of inode+1 = 88 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 0.157000
 *  first quantity measured by inode+1 = 88 has gamma = 20 parm = 201 quan = 7 title = tau- --> pi- 2pi0 nu(tau) (ex.K0)
 
-BEGIN ACKERSTAFF Gamma17 published 98M 
+BEGIN ACKERSTAFF Gamma17 published.98M 
 
 MEASUREMENT  m_Gamma17 statistical systematic 
 DATA         m_Gamma17 statistical systematic 
@@ -2196,7 +2196,7 @@ END
 *                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
-BEGIN BARATE Gamma37 published 99K 
+BEGIN BARATE Gamma37 published.99K 
 
 MEASUREMENT  m_Gamma37 statistical systematic 
 DATA         m_Gamma37 statistical systematic 
@@ -2212,7 +2212,7 @@ END
 *                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
-BEGIN BARATE Gamma37 published 98E 
+BEGIN BARATE Gamma37 published.98E 
 
 MEASUREMENT  m_Gamma37 statistical systematic 
 DATA         m_Gamma37 statistical systematic 
@@ -2228,7 +2228,7 @@ END
 *                numerator of inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau) seed = 0.001595 coef = 1.000000
 *  first quantity measured by inode+1 = 89 has gamma = 37 parm = 62 quan = 13 title = tau- --> K- K0 nu(tau)
 
-BEGIN COAN Gamma37 published 96 
+BEGIN COAN Gamma37 published.96 
 
 MEASUREMENT  m_Gamma37 statistical systematic 
 DATA         m_Gamma37 statistical systematic 
@@ -2245,14 +2245,14 @@ END
 *              denominator of inode+1 = 90 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
-BEGIN ANASTASSOV Gamma3by5 published 97 
+BEGIN ANASTASSOV Gamma3by5 published.97 
 
 MEASUREMENT  m_Gamma3by5 statistical systematic 
 DATA         m_Gamma3by5 statistical systematic 
                  0.9777    0.01074  0 
  
-STAT_CORR_WITH ANASTASSOV Gamma8 published 0.070000 ! IMEAS = 45 
-STAT_CORR_WITH ANASTASSOV Gamma5 published -0.420000 ! IMEAS = 76 
+STAT_CORR_WITH ANASTASSOV Gamma8 published.97 0.070000 ! IMEAS = 45 
+STAT_CORR_WITH ANASTASSOV Gamma5 published.97 -0.420000 ! IMEAS = 76 
  
 END 
 
@@ -2265,7 +2265,7 @@ END
 *              denominator of inode+1 = 90 has gamma = 5 parm = 2 quan = 2 title = tau- --> e- nubar(e) nu(tau) seed = 0.177432 coef = 1.000000
 *  first quantity measured by inode+1 = 90 has gamma = 3 parm = 1 quan = 1 title = tau- --> mu- nubar(mu) nu(tau)
 
-BEGIN ALBRECHT Gamma3by5 published 92D 
+BEGIN ALBRECHT Gamma3by5 published.92D 
 
 MEASUREMENT  m_Gamma3by5 statistical systematic 
 DATA         m_Gamma3by5 statistical systematic 
@@ -2281,23 +2281,23 @@ END
 *                numerator of inode+1 = 91 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau) seed = 0.113636 coef = 1.000000
 *  first quantity measured by inode+1 = 91 has gamma = 9 parm = 12 quan = 3 title = tau- --> pi- nu(tau)
 
-BEGIN SCHAEL Gamma9 published 05C 
+BEGIN SCHAEL Gamma9 published.05C 
 
 MEASUREMENT  m_Gamma9 statistical systematic 
 DATA         m_Gamma9 statistical systematic 
                 0.10828   0.001048  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.240000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.170000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published -0.150000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published -0.230000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published 0.150000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.250000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.060000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.090000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published 0.090000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.030000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma14 published 0.020000 ! IMEAS = 120 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.240000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.170000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C -0.150000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C -0.230000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C 0.150000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.250000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.060000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.090000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C 0.090000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.030000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma14 published.05C 0.020000 ! IMEAS = 120 
  
 END 
 
@@ -2309,13 +2309,13 @@ END
 *                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN ABBIENDI Gamma10 published 01J 
+BEGIN ABBIENDI Gamma10 published.01J 
 
 MEASUREMENT  m_Gamma10 statistical systematic 
 DATA         m_Gamma10 statistical systematic 
                 0.00658  0.0003962  0 
  
-STAT_CORR_WITH ABBIENDI Gamma31 published 0.600000 ! IMEAS = 82 
+STAT_CORR_WITH ABBIENDI Gamma31 published.01J 0.600000 ! IMEAS = 82 
  
 END 
 
@@ -2327,7 +2327,7 @@ END
 *                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN BARATE Gamma10 published 99K 
+BEGIN BARATE Gamma10 published.99K 
 
 MEASUREMENT  m_Gamma10 statistical systematic 
 DATA         m_Gamma10 statistical systematic 
@@ -2343,7 +2343,7 @@ END
 *                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN ABREU Gamma10 published 94K 
+BEGIN ABREU Gamma10 published.94K 
 
 MEASUREMENT  m_Gamma10 statistical systematic 
 DATA         m_Gamma10 statistical systematic 
@@ -2359,7 +2359,7 @@ END
 *                numerator of inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau) seed = 0.006978 coef = 1.000000
 *  first quantity measured by inode+1 = 92 has gamma = 10 parm = 7 quan = 4 title = tau- --> K- nu(tau)
 
-BEGIN BATTLE Gamma10 published 94 
+BEGIN BATTLE Gamma10 published.94 
 
 MEASUREMENT  m_Gamma10 statistical systematic 
 DATA         m_Gamma10 statistical systematic 
@@ -2375,23 +2375,23 @@ END
 *                numerator of inode+1 = 93 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau) seed = 0.249203 coef = 1.000000
 *  first quantity measured by inode+1 = 93 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN SCHAEL Gamma14 published 05C 
+BEGIN SCHAEL Gamma14 published.05C 
 
 MEASUREMENT  m_Gamma14 statistical systematic 
 DATA         m_Gamma14 statistical systematic 
                 0.25471    0.00129  0 
  
-STAT_CORR_WITH SCHAEL Gamma30 published -0.150000 ! IMEAS = 5 
-STAT_CORR_WITH SCHAEL Gamma20 published -0.370000 ! IMEAS = 29 
-STAT_CORR_WITH SCHAEL Gamma27 published 0.020000 ! IMEAS = 30 
-STAT_CORR_WITH SCHAEL Gamma76 published -0.140000 ! IMEAS = 33 
-STAT_CORR_WITH SCHAEL Gamma62 published -0.050000 ! IMEAS = 51 
-STAT_CORR_WITH SCHAEL Gamma69 published -0.300000 ! IMEAS = 55 
-STAT_CORR_WITH SCHAEL Gamma3 published -0.120000 ! IMEAS = 66 
-STAT_CORR_WITH SCHAEL Gamma5 published -0.160000 ! IMEAS = 72 
-STAT_CORR_WITH SCHAEL Gamma103 published 0.040000 ! IMEAS = 94 
-STAT_CORR_WITH SCHAEL Gamma104 published -0.050000 ! IMEAS = 100 
-STAT_CORR_WITH SCHAEL Gamma9 published 0.020000 ! IMEAS = 115 
+STAT_CORR_WITH SCHAEL Gamma30 published.05C -0.150000 ! IMEAS = 5 
+STAT_CORR_WITH SCHAEL Gamma20 published.05C -0.370000 ! IMEAS = 29 
+STAT_CORR_WITH SCHAEL Gamma27 published.05C 0.020000 ! IMEAS = 30 
+STAT_CORR_WITH SCHAEL Gamma76 published.05C -0.140000 ! IMEAS = 33 
+STAT_CORR_WITH SCHAEL Gamma62 published.05C -0.050000 ! IMEAS = 51 
+STAT_CORR_WITH SCHAEL Gamma69 published.05C -0.300000 ! IMEAS = 55 
+STAT_CORR_WITH SCHAEL Gamma3 published.05C -0.120000 ! IMEAS = 66 
+STAT_CORR_WITH SCHAEL Gamma5 published.05C -0.160000 ! IMEAS = 72 
+STAT_CORR_WITH SCHAEL Gamma103 published.05C 0.040000 ! IMEAS = 94 
+STAT_CORR_WITH SCHAEL Gamma104 published.05C -0.050000 ! IMEAS = 100 
+STAT_CORR_WITH SCHAEL Gamma9 published.05C 0.020000 ! IMEAS = 115 
  
 END 
 
@@ -2404,19 +2404,19 @@ END
 *                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN ABDALLAH Gamma13 published 06A 
+BEGIN ABDALLAH Gamma13 published.06A 
 
 MEASUREMENT  m_Gamma13 statistical systematic 
 DATA         m_Gamma13 statistical systematic 
                  0.2574   0.002438  0 
  
-STAT_CORR_WITH ABDALLAH Gamma66 published -0.010000 ! IMEAS = 27 
-STAT_CORR_WITH ABDALLAH Gamma57 published -0.080000 ! IMEAS = 34 
-STAT_CORR_WITH ABDALLAH Gamma8 published -0.340000 ! IMEAS = 43 
-STAT_CORR_WITH ABDALLAH Gamma25 published 0.380000 ! IMEAS = 47 
-STAT_CORR_WITH ABDALLAH Gamma74 published -0.010000 ! IMEAS = 48 
-STAT_CORR_WITH ABDALLAH Gamma19 published -0.660000 ! IMEAS = 77 
-STAT_CORR_WITH ABDALLAH Gamma103 published -0.010000 ! IMEAS = 93 
+STAT_CORR_WITH ABDALLAH Gamma66 published.06A -0.010000 ! IMEAS = 27 
+STAT_CORR_WITH ABDALLAH Gamma57 published.06A -0.080000 ! IMEAS = 34 
+STAT_CORR_WITH ABDALLAH Gamma8 published.06A -0.340000 ! IMEAS = 43 
+STAT_CORR_WITH ABDALLAH Gamma25 published.06A 0.380000 ! IMEAS = 47 
+STAT_CORR_WITH ABDALLAH Gamma74 published.06A -0.010000 ! IMEAS = 48 
+STAT_CORR_WITH ABDALLAH Gamma19 published.06A -0.660000 ! IMEAS = 77 
+STAT_CORR_WITH ABDALLAH Gamma103 published.06A -0.010000 ! IMEAS = 93 
  
 END 
 
@@ -2429,7 +2429,7 @@ END
 *                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN ACKERSTAFF Gamma13 published 98M 
+BEGIN ACKERSTAFF Gamma13 published.98M 
 
 MEASUREMENT  m_Gamma13 statistical systematic 
 DATA         m_Gamma13 statistical systematic 
@@ -2446,7 +2446,7 @@ END
 *                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN ACCIARRI Gamma13 published 95 
+BEGIN ACCIARRI Gamma13 published.95 
 
 MEASUREMENT  m_Gamma13 statistical systematic 
 DATA         m_Gamma13 statistical systematic 
@@ -2463,7 +2463,7 @@ END
 *                numerator of inode+1 = 94 has gamma = 16 parm = 182 quan = 6 title = tau- --> K- pi0 nu(tau) seed = 0.004486 coef = 1.000000
 *  first quantity measured by inode+1 = 94 has gamma = 14 parm = 16 quan = 5 title = tau- --> pi- pi0 nu(tau)
 
-BEGIN ARTUSO Gamma13 published 94 
+BEGIN ARTUSO Gamma13 published.94 
 
 MEASUREMENT  m_Gamma13 statistical systematic 
 DATA         m_Gamma13 statistical systematic 
