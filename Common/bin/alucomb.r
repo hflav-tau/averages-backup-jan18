@@ -582,8 +582,7 @@ for (mt.name in quant.names) {
     res = meas[meas.mt.keep] - quant[mt.name]
     dr = abs(res) / sqrt(meas.error[meas.mt.keep] * quant.err[mt.name])
     res.sq.exp = meas.error[meas.mt.keep]^2 - quant.err[mt.name]^2
-    tmp = sum(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1))
-    tmp = sqrt(tmp/meas.mt.keep.num)
+    tmp = sqrt(mean(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1)))
   } else {
     tmp = 1
   }
