@@ -430,17 +430,21 @@ names(quant) = quant.names
 meas.invcov = solve(meas.cov)
 
 quant.invcov = t(delta) %*% meas.invcov %*% delta
-##-- log of determinant from singular values decomposition
+
+##-- determine the typical size of quant.invcov elements
 sv = svd(quant.invcov)$d
-logdet = sum(log(sv[sv>1])) * quant.num / sum(sv>=1)
-quant.invcov.order = 10^round(logdet/quant.num/log(10))
+sv.central = round(quant.num*1/3):round(quant.num*2/3)
+sv.log.mean = mean(log(sv[sv.central]))
+quant.invcov.order = 10^round(sv.log.mean/log(10))
 
 ##-- constraints
 constr.num = length(combination$constr.comb)
 constr.names = names(combination$constr.comb)
 constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant; tmp[names(x)] = x; tmp}))
-constr.m = quant.invcov.order * constr.m
-constr.v = quant.invcov.order * unlist(combination$constr.val)
+##-- to avoid computationally singular matrix, apply proper factor to constraint equations
+constr.m.order = 10^round(log(mean(abs(constr.m[constr.m!=0])))/log(10))
+constr.m = constr.m * quant.invcov.order/constr.m.order
+constr.v = unlist(combination$constr.val) * quant.invcov.order/constr.m.order
 
 if (constr.num > 0) {
   cat("\n## Constraint equations\n")
