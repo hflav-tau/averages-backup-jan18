@@ -426,31 +426,31 @@ if (quant.num > 1) {
 
 quant = rep(0, quant.num)
 names(quant) = quant.names
-
 meas.invcov = solve(meas.cov)
-
 quant.invcov = t(delta) %*% meas.invcov %*% delta
-
-##-- determine the typical size of quant.invcov elements
-sv = svd(quant.invcov)$d
-sv.central = round(quant.num*1/3):round(quant.num*2/3)
-sv.log.mean = mean(log(sv[sv.central]))
-quant.invcov.order = 10^round(sv.log.mean/log(10))
 
 ##-- constraints
 constr.num = length(combination$constr.comb)
 constr.names = names(combination$constr.comb)
 constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant; tmp[names(x)] = x; tmp}))
-##-- to avoid computationally singular matrix, apply proper factor to constraint equations
-constr.m.order = 10^round(log(mean(abs(constr.m[constr.m!=0])))/log(10))
-constr.m = constr.m * quant.invcov.order/constr.m.order
-constr.v = unlist(combination$constr.val) * quant.invcov.order/constr.m.order
+constr.v = unlist(combination$constr.val)
 
 if (constr.num > 0) {
+  ##-- determine the typical size of quant.invcov elements
+  sv = svd(quant.invcov)$d
+  sv.central = round(quant.num*1/3):round(quant.num*2/3)
+  sv.log.mean = mean(log(sv[sv.central]))
+  quant.invcov.order = 10^round(sv.log.mean/log(10))
+
+  ##-- to avoid computationally singular matrix, apply proper factor to constraint equations
+  constr.m.order = 10^round(log(mean(abs(constr.m[constr.m!=0])))/log(10))
+  constr.m = constr.m * quant.invcov.order/constr.m.order
+  constr.v = constr.v * quant.invcov.order/constr.m.order
+
   cat("\n## Constraint equations\n")
   tmp = mapply(function(name, val, comb) {names(val) = name; cat("\n"); show(c(val, unlist(comb)))},
-    names(constr.v), constr.v/quant.invcov.order,
-    apply(constr.m/quant.invcov.order, 1, function(x) list(x[x!=0])))
+    names(constr.v), constr.v/quant.invcov.order*constr.m.order,
+    apply(constr.m/quant.invcov.order*constr.m.order, 1, function(x) list(x[x!=0])))
 
   ##-- build full matrix in front of c(quant vector, lagr.mult. vector)
   full.m = rbind(
