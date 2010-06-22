@@ -510,6 +510,7 @@ cat("## end\n")
 ##-- chisq contribution, dof, S-factor for each measurement type (now same as quant)
 chisq.types = quant*0
 num.types = quant*0
+num.types.keep = quant*0
 sfact.types = chisq.types + 1
 
 ##-- S-factor for each measurement
@@ -535,6 +536,7 @@ for (mt.name in quant.names) {
   ##-- keep only measurement with not too large errors as in PDG S-factor calculation
   meas.mt.keep = meas.mt & (meas.error < error.max)
   meas.mt.keep.num = sum(meas.mt.keep)
+  num.types.keep[mt.name] = meas.mt.keep.num
   meas.keep = meas.keep | meas.mt.keep
 
   ##
@@ -582,6 +584,9 @@ for (mt.name in quant.names) {
     res = meas[meas.mt.keep] - quant[mt.name]
     dr = abs(res) / sqrt(meas.error[meas.mt.keep] * quant.err[mt.name])
     res.sq.exp = meas.error[meas.mt.keep]^2 - quant.err[mt.name]^2
+    if (any(res.sq.exp < 0)) {
+      stop("measurement on fitted quantity is larger than error on one of its measurements")
+    }
     tmp = sqrt(mean(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1)))
   } else {
     tmp = 1
