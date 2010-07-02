@@ -75,7 +75,7 @@
       CHARACTER*20 WORD
 *
       INTEGER NKEYWORDS,I
-      PARAMETER(NKEYWORDS=16)
+      PARAMETER(NKEYWORDS=17)
       CHARACTER*16 KEYWORDS(NKEYWORDS)
       INTEGER NWEXP(NKEYWORDS)
       LOGICAL NUMER(NKEYWORDS)
@@ -93,6 +93,7 @@
      &     'DISP*LAY',       'BD',    'BD',          -1, .FALSE.,
      &     'STEP*S',         'BCLlD', 'BCllD',        1, .TRUE.,
      &     'PARA*METERS',    'BCLlD', 'BCllD',        1, .TRUE.,
+     &     'SPAR*AMETER',    'BCLlD', 'BCllD',        1, .TRUE.,
      &     'SWIT*CH',        'BCLl',  'CCCC',        -1, .TRUE.,
      &     'SYNO*NYMS      ','BCLl',  'CCCC',        -2, .FALSE., 
      &     'CALL',           'BCLl',  'CCCC',        -1, .TRUE.,
@@ -123,7 +124,7 @@
 *
 *     Get next word from input until next keyword
 *
-    1 CALL GET_NEXT_WORD(IPOS,KEY,XVALUE,VALUE)
+ 1    CALL GET_NEXT_WORD(IPOS,KEY,XVALUE,VALUE)
       IF(KEY.EQ.' ') THEN 
         IF(STATE.NE.'A') THEN 
           CALL COMBOS_ERROR(1,
@@ -202,7 +203,7 @@
       ENDIF
       GOTO 2
 *
-    3 IF(NWORDS.LT.IABS(NWEXP(IKEY))) THEN
+   3  IF(NWORDS.LT.IABS(NWEXP(IKEY))) THEN
         XKEY = KEY
         CALL COMBOS_ERROR(0,
      &  'Too few strings found after '//XKEY(:LENOCC(KEY))

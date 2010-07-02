@@ -189,6 +189,8 @@
         CALL STORE_BEGI(NWORDS,WORDS)
       ELSE IF(KEY.EQ.'PARA') THEN 
         CALL STORE_PARA(NWORDS,WORDS)
+      ELSE IF(KEY.EQ.'SPAR') THEN  ! special parameter (SwB)
+        CALL STORE_SPAR(NWORDS,WORDS)
       ELSE IF(KEY.EQ.'STEP') THEN 
         CALL STORE_STEP(NWORDS,WORDS)
       ELSE IF(KEY.EQ.'MEAS') THEN 
@@ -628,6 +630,51 @@
         ENDIF
       ENDDO
       IF(ISAME.NE.0) NPAR(NANAL)=NPAR(NANAL)-1
+      END
+*
+************************************************************************
+*
+      SUBROUTINE STORE_SPAR(NWORDS,WORD)
+*     ==================================
+*
+*     Routine called for the "SPARAMETER" keyword: 
+*     the parameter name, value, positive and negetive excusrions are 
+*     read in and stored
+*
+      IMPLICIT NONE
+*
+*     Arguments
+*
+      INTEGER NWORDS
+      CHARACTER*(*) WORD
+*
+*     Externals
+*
+      INTEGER LENOCC
+*
+*     Local variable
+*
+      INTEGER NVAL
+      REAL VAL(2)
+*
+      INCLUDE 'combos.inc'
+*
+      INTEGER ISTART
+      DATA ISTART/0/
+      SAVE ISTART
+*
+*     Create new parameter
+*
+      ISTART = ISTART + 1
+      IF (ISTART.EQ.1) NSPAR = 0
+*
+      NSPAR = NSPAR + 1
+      IF(NSPAR.EQ.MSPAR) CALL COMBOS_ERROR(-1,
+     & 'Too many parameters','please increase parameter MSPAR')
+      CALL GET_NEXT_VALUE(2,NVAL,VAL)
+      CHSPAR(NSPAR) = WORD
+      SPAR1(NSPAR) = VAL(1)
+      SPAR2(NSPAR) = VAL(2)
       END
 *
 ************************************************************************

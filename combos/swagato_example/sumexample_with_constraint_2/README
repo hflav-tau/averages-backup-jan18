@@ -1,0 +1,8 @@
+apply unitarity constraint [by substituting one of variables by 1 - remaining] for sumexample 
+
+but how do we express measurements of X+Y in such a situation?
+
+THIS EXAMPLE IS A TOUGH ONE ... but probably a case with *only* 2 variables will not arise very often
+[if it does, use previous method ala Lagrange Multipliers]
+
+

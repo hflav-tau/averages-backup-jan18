@@ -226,7 +226,7 @@
 *OSOS end
       CHARACTER*24 UNDERLINE
       DATA UNDERLINE/'------------------------'/
-      CHARACTER*240 CH80,CH80_BIS
+      CHARACTER*500 CH80,CH80_BIS
       INTEGER KCORR(MCONT,MANAL)
       INTEGER KCSYS(MCONT),ICSYS
       INTEGER ISYNCH(2,MANAL,0:MSTEP)
@@ -685,7 +685,7 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
 * 1000 FORMAT(/,1X,78('='),/,/,1X,
 *     &       A,' combination: ',A,/,1X,
 *     &       A,'-------------',/,/,1X,
-*     &       'List of',I3,' analyses to combine:',/,/,
+*     &       'List of',I4,' analyses to combine:',/,/,
 *     &       T02,'Analysis',T12,'Experiment',T28,'Method',
 *     &       T44,'Quality ',T60,' N_steps')
  
@@ -698,7 +698,7 @@ C    & 'Never tested!') ! SwB, Jan 2010 :: Tested!!
  1000 FORMAT(/,1X,78('='),/,/,1X,
      &       A,' combination: ',A,/,1X,
      &       A,'-------------',/,/,1X,
-     &       'List of',I3,' analyses to combine:',/,/,
+     &       'List of',I4,' analyses to combine:',/,/,
      &       T02,'Analysis',T12,'Experiment',T28,'Method',
 *OSOS start
 *OSOS&       T44,'Quality ',T60,' Quantity',T70,'N_steps')
