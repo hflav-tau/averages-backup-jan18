@@ -1,0 +1,6 @@
+* Impose sum_of_quantities = 1 constraint
+BEGIN        CONSTRAINT X+Y UNITY
+MEASUREMENT  X statistical systematic
+DATA         X statistical systematic
+             1.0      SUBSTITUTE  0.0    !  try with error = SUBSTITUTE
+END

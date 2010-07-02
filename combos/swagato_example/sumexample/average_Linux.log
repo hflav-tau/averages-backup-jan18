@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Mar 20, 2010) run on  on 16/05/10 at 06.12.15
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 02/07/10 at 02.22.18
 
 
  ==============================================================================
@@ -6,7 +6,7 @@
  X Y combination: combined analysis ALL 2D_XY PUBLISHED
  ----------------
 
- List of  4 analyses to combine:
+ List of   4 analyses to combine:
 
  Analysis  Experiment      Method          Quality         Measurement     Steps
        1>  A1              X               PUBLISHED       X                      1
@@ -24,50 +24,33 @@
  A2_SYST12                   UNC
  A3_SYST12                       UNC
 
- "Extra" parameters:
- CHI2_N_SYM_PRT   -.1000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_NSUM  0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_01    0.3000E+01 +.2000E+01 +.0000E+00 0.1414E+01
- CHI2_N_SYM_01_01 0.1000E+01 +.1000E+01 +.0000E+00 0.7071E+00
- CHI2_N_SYM_01_02 0.2000E+01 +.1000E+01 +.0000E+00 0.7071E+00
- CHI2_N_SYM_02    0.4000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_PSUM  0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_P1    0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_P1_01 0.1000E+01 +.1000E+01 +.0000E+00 0.7071E+00
- CHI2_N_SYM_P1_02 0.2000E+01 +.1000E+01 +.0000E+00 0.7071E+00
- CHI2_N_SYM_P2    0.2000E+01 +.0000E+00 +.0000E+00 0.0000E+00
- CHI2_N_SYM_P2_01 0.1000E+01 +.5000E+00 +.0000E+00 0.3536E+00
- CHI2_N_SYM_P2_02 0.2000E+01 +.1667E+00 +.0000E+00 0.1179E+00
-
  Results of combination:
 
-IMEAS,CSYS =  1     -1.00  0.00
-IMEAS,CSYS =  2      0.00 -1.00
-IMEAS,CSYS =  3     -1.00 -1.00
-IMEAS,CSYS =  4     -1.00 -1.00
- DSINV: J, A(J,J) =  1  9.99999955E-05
- DSINV: J, A(J,J) =  2  0.00159999993
- DSINV: J, A(J,J) =  3  0.00359999984
- DSINV: J, A(J,J) =  4  0.00089999996
+IMEAS,CSYS =    1    -1.00   0.00
+IMEAS,CSYS =    2     0.00  -1.00
+IMEAS,CSYS =    3    -1.00  -1.00
+IMEAS,CSYS =    4    -1.00  -1.00
  MINUIT_CHI2: DSINV: W->W: IERR =  0
  CHI2_N_SYM: DSINV: S->S: IERR =  0
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   1.43709573 4 2 2
- CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.718547863  0.847672026  0.4874596
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF          = 1.4371       4   2   2
+CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    =  .71855     .84767     .48746    
+CHI2_N_SYM: CHI2, NMEFFNEW, NQUANNEW, NDOFNEW = 1.4371       4   2   2
+CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL =  .71855     .84767     .48746    
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
-                                     X             Y
- X            0.1597521      0.0097912    -0.2900074
- Y            0.8760330     -0.2900074     0.0232841
-                                     X             Y
+                                        X           Y
+            X    0.159752 |      0.009791   -0.290007
+            Y    0.876033 |     -0.290007    0.023284
+                                        X           Y
   
  DUMP_FIT: DSINV: S->SINV: IERR =  0
  DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
  --Averaged parameters, using only stat---
  --breakdown of errors: syst then stat-----
-                                     X             Y
- X            0.1597521      0.0097912    -0.2900074
- Y            0.8760330     -0.2900074     0.0232841
-                                     X             Y
+                                        X           Y
+            X    0.159752 |      0.009791   -0.290007
+            Y    0.876033 |     -0.290007    0.023284
+                                        X           Y
   
                     X      0.1597521 +/-      0.0097912 +/-      0.0000000 Tot Err:     0.0097912 Check Sys:     0.0000000
                     Y      0.8760330 +/-      0.0232841 +/-      0.0000000 Tot Err:     0.0232841 Check Sys:     0.0000000
@@ -93,7 +76,7 @@ All: Sum of Multi-Quantity Average =      1.0357851 +-      0.0224897
   NQUAN =        2
   NMEFF =        4
   NCSYS =        0
-  NPARA =       13
+  NPARA =        0
  CHANAL = A1 X PUBLISHED
           A1 Y PUBLISHED
           A2 X+Y PUBLISHED
@@ -131,19 +114,6 @@ CSYS percentage error
 
  CHPARA                  PARA     EXCUP     EXCUN      EXCU
 
- CHI2_N_SYM_PRT    -.1000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_NSUM   0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_01     0.3000E+01 0.2000E+01 0.0000E+00 0.1414E+01
- CHI2_N_SYM_01_01  0.1000E+01 0.1000E+01 0.0000E+00 0.7071E+00
- CHI2_N_SYM_01_02  0.2000E+01 0.1000E+01 0.0000E+00 0.7071E+00
- CHI2_N_SYM_02     0.4000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_PSUM   0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_P1     0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_P1_01  0.1000E+01 0.1000E+01 0.0000E+00 0.7071E+00
- CHI2_N_SYM_P1_02  0.2000E+01 0.1000E+01 0.0000E+00 0.7071E+00
- CHI2_N_SYM_P2     0.2000E+01 0.0000E+00 0.0000E+00 0.0000E+00
- CHI2_N_SYM_P2_01  0.1000E+01 0.5000E+00 0.0000E+00 0.3536E+00
- CHI2_N_SYM_P2_02  0.2000E+01 0.1667E+00 0.0000E+00 0.1179E+00
   
  Corrected measurements:
  A1 X PUBLISHED     0.1600000E+00 +/-  0.1000000E-01 +/-  0.2000000E-01 Tot:  0.2236068E-01
@@ -151,7 +121,7 @@ CSYS percentage error
  A2 X+Y PUBLISHED   0.9700000E+00 +/-  0.6000000E-01 +/-  0.6000000E-01 Tot:  0.8485281E-01
  A3 X+Y PUBLISHED   0.1050000E+01 +/-  0.3000000E-01 +/-  0.3000000E-01 Tot:  0.4242641E-01
   
- WARNING at (or before) word   1 of line  35 in file average.input 
+ WARNING at (or before) word   1 of line  39 in file average.input 
          concerning combined analysis ALL 2D_XY PUBLISHED:
          "Quantities are the same"
          ---> computing of correlation meaningless
@@ -167,33 +137,31 @@ TOTCOR
       2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
       4 | 0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
-IMEAS,CSYS =  1     -1.00  0.00
-IMEAS,CSYS =  2      0.00 -1.00
-IMEAS,CSYS =  3     -1.00 -1.00
-IMEAS,CSYS =  4     -1.00 -1.00
- DSINV: J, A(J,J) =  1  0.000499999978
- DSINV: J, A(J,J) =  2  0.00319999986
- DSINV: J, A(J,J) =  3  0.00719999968
- DSINV: J, A(J,J) =  4  0.00179999992
+IMEAS,CSYS =    1    -1.00   0.00
+IMEAS,CSYS =    2     0.00  -1.00
+IMEAS,CSYS =    3    -1.00  -1.00
+IMEAS,CSYS =    4    -1.00  -1.00
  MINUIT_CHI2: DSINV: W->W: IERR =  0
  CHI2_N_SYM: DSINV: S->S: IERR =  0
- CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF =   0.718113734 4 2 2
- CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL =   0.359056867  0.59921354  0.698334634
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF          = .71811       4   2   2
+CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    =  .35906     .59921     .69833    
+CHI2_N_SYM: CHI2, NMEFFNEW, NQUANNEW, NDOFNEW = .71811       4   2   2
+CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL =  .35906     .59921     .69833    
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
-                                     X             Y
- X            0.1594163      0.0212453    -0.4215995
- Y            0.8762646     -0.4215995     0.0347532
-                                     X             Y
+                                        X           Y
+            X    0.159416 |      0.021245   -0.421600
+            Y    0.876265 |     -0.421600    0.034753
+                                        X           Y
   
  DUMP_FIT: DSINV: S->SINV: IERR =  0
  DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
  --Averaged parameters, using only stat---
  --breakdown of errors: syst then stat-----
-                                     X             Y
- X            0.1594163      0.0212453    -0.4215995
- Y            0.8762646     -0.4215995     0.0347532
-                                     X             Y
+                                        X           Y
+            X    0.159416 |      0.021245   -0.421600
+            Y    0.876265 |     -0.421600    0.034753
+                                        X           Y
   
                     X      0.1594163 +/-      0.0212453 +/-      0.0000000 Tot Err:     0.0212453 Check Sys:     0.0000000
                     Y      0.8762646 +/-      0.0347532 +/-      0.0000000 Tot Err:     0.0347532 Check Sys:     0.0000000
