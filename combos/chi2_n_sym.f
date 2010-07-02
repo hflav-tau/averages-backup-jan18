@@ -71,8 +71,8 @@
 *     Determine debug printout level
 *
       PRTLEV=-1.D0 ! default printout level: none
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=PARA(I)
+      DO I=1,NSPAR
+        IF(CHSPAR(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=SPAR1(I)
       ENDDO
 *
 *     Default output arguments
@@ -127,8 +127,8 @@
       ENDDO
 
       INVOPT=0 ! default option for matrix inversion using DSINV
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(PARA(I))
+      DO I=1,NSPAR
+        IF(CHSPAR(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(SPAR1(I))
       ENDDO
       IF (INVOPT.EQ.0) THEN
         CALL DSINV(LCSYS,S,MCSYS,IERR)
@@ -205,7 +205,7 @@
 C     IF(PRTLEV.GT.0) THEN 
       IF (PRTLEV.GT.-999) THEN  ! SwB [default changed]
         WRITE(LUNLOG,
-     &       '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF    = '','//
+     &       '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF          = '','//
      &       'G10.5,3(1X,I3))') CHI2, NMEFF, NQUAN, NMEFF-NQUAN
         IF (NMEFF.GT.NQUAN) THEN
           WRITE (LUNLOG,
@@ -220,10 +220,10 @@ C     IF(PRTLEV.GT.0) THEN
 C     
         NMEFFNEW=NMEFF ! initialize
         NQUANNEW=NQUAN ! initialize
-        DO I=1,NPARA
-          IF(CHPARA(I).EQ.'CHI2_N_SYM_NDOF') THEN
-            NMEFFNEW=INT(PARA(I))
-            NQUANNEW=INT(EXCUP(I))
+        DO I=1,NSPAR
+          IF(CHSPAR(I).EQ.'CHI2_N_SYM_NDOF') THEN
+            NMEFFNEW=INT(SPAR1(I))
+            NQUANNEW=INT(SPAR2(I))
           ENDIF
         ENDDO
         NDOFNEW = NMEFFNEW - NQUANNEW
@@ -283,8 +283,8 @@ C
 *     Determine debug printout level
 *
       PRTLEV=-1.D0 ! default printout level: none
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=PARA(I)
+      DO I=1,NSPAR
+        IF(CHSPAR(I).EQ.'CHI2_N_SYM_PRT') PRTLEV=SPAR1(I)
       ENDDO
       IF (PRTLEV.GT.0) THEN 
          PRINT*,'SwB: NCSYS,NQUAN,LCSYS,LUNIT= ',NCSYS,NQUAN,LCSYS,LUNIT
@@ -335,8 +335,8 @@ C
       WRITE(LUNLOG,*)' '
 
       INVOPT=0 ! default option for matrix inversion using DSINV
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(PARA(I))
+      DO I=1,NSPAR
+        IF(CHSPAR(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(SPAR1(I))
       ENDDO
 *DR compute S inverse matrix
       IF (INVOPT.EQ.0) THEN
@@ -499,15 +499,15 @@ c      ENDIF
 
 * SwB begin
       PSUM = 0
-      DO I=NCSYS+1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_PSUM') PSUM=INT(PARA(I))
+      DO I=1,NSPAR
+        IF(CHSPAR(I).EQ.'CHI2_N_SYM_PSUM') PSUM=INT(SPAR1(I))
       ENDDO
       DO ISUM=1,PSUM            ! next line assumes number of sums to compute <= 9
         WRITE(CHSUM,'("CHI2_N_SYM_P",I1.1)') ISUM
         NSUM=0
-        DO I=NCSYS+1,NPARA
-          IF (CHPARA(I).EQ.CHSUM) THEN
-            NSUM=INT(PARA(I))
+        DO I=1,NSPAR
+          IF (CHSPAR(I).EQ.CHSUM) THEN
+            NSUM=INT(SPAR1(I))
           ENDIF
         ENDDO
         DO IQUAN=1,NQUAN
@@ -516,11 +516,11 @@ c      ENDIF
         ENDDO
         DO II=1,NSUM             ! next line assumes number of quantities <=99
           WRITE(CHSUM2,'("CHI2_N_SYM_P",I1.1,"_",I2.2)') ISUM, II
-          DO I=NCSYS+1,NPARA
-            IF (CHPARA(I).EQ.CHSUM2) THEN
-              IQUAN=INT(PARA(I))
+          DO I=1,NSPAR
+            IF (CHSPAR(I).EQ.CHSUM2) THEN
+              IQUAN=INT(SPAR1(I))
               USEQUAN(IQUAN)=.TRUE.
-              COEFF(IQUAN)=EXCUP(I)
+              COEFF(IQUAN)=SPAR2(I)
             ENDIF
           ENDDO
         ENDDO

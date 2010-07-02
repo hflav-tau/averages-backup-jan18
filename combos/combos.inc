@@ -116,13 +116,13 @@
       INTEGER MQUANT
       PARAMETER(MQUANT=50)     ! max. number of quantities to be averaged
       INTEGER MANAL
-      PARAMETER(MANAL=100)      ! max. number of analyses
+      PARAMETER(MANAL=200)      ! max. number of analyses
       INTEGER MEXP
-      PARAMETER(MEXP=12)        ! max. number of experiments
+      PARAMETER(MEXP=100)        ! max. number of experiments
       INTEGER MMETH
       PARAMETER(MMETH=100)      ! max. number of methods
       INTEGER MSTAT
-      PARAMETER(MSTAT=12)       ! max. number of statuses
+      PARAMETER(MSTAT=100)       ! max. number of statuses
       INTEGER MSTEP
       PARAMETER(MSTEP=MQUANT**2)! max. number of steps 
 *                                 (don't change this; increase MQUANT if 
@@ -308,3 +308,10 @@
 *            if one parameter is 'ALL' calculate them for all parameters
 * NMINOS  -- Number of entries in the array CHMINOS
 * XMINOS  -- Flag to indicate if MINOS errors to be calculated
+*****************************************************************************
+      INTEGER NSPAR, MSPAR	
+      PARAMETER (MSPAR = 1000)
+      CHARACTER*16 CHSPAR(MSPAR)
+      DOUBLE PRECISION SPAR1(MSPAR), SPAR2(MSPAR)
+      COMMON /SPAR/ NSPAR,CHSPAR,SPAR1,SPAR2
+*****************************************************************************

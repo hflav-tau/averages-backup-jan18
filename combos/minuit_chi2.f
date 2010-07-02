@@ -265,14 +265,20 @@
 *
 *     Local variables
 *
+      INTEGER IADJ
+      DOUBLE PRECISION ADJ(2)
       INTEGER INVOPT, ErrorFlag
       INTEGER I, J, II
       INTEGER NSUM, ISUM, IMEAS, IQUAN, ISUMOVER
       DOUBLE PRECISION    COEFF
       CHARACTER*13 CHSUM
+      CHARACTER*16 CHSUM1
       CHARACTER*16 CHSUM2
       DOUBLE PRECISION WCOPY(MMEAS,MMEAS)
-
+      DOUBLE PRECISION MEAS_SV(1000)
+      LOGICAL IFIRST
+      DATA IFIRST /.TRUE./
+      SAVE MEAS_SV, IFIRST
 *
 *     Check that the number of correlated systematic uncertainties is 
 *     less than the maximum
@@ -317,45 +323,72 @@
 *DR end 
 
 * SwB begin
+      IF (IFIRST.EQV..TRUE.) THEN
+        IFIRST = .FALSE.
+        DO IMEAS = 1, NMEAS
+          MEAS_SV(IMEAS)=MEAS(IMEAS)
+        ENDDO
+      ENDIF
+*
       NSUM = 0
-      DO I=NCSYS+1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_NSUM') NSUM=INT(PARA(I))
+      DO I=1,NSPAR
+        IF (CHSPAR(I).EQ.'CHI2_N_SYM_NSUM') NSUM=INT(SPAR1(I))
       ENDDO
-      DO ISUM=1,NSUM            ! next line assumes number of measurement <= 99
-        WRITE(CHSUM,'("CHI2_N_SYM_",I2.2)') ISUM
+*
+      DO ISUM=1,NSUM            ! next line assumes number of linearized measurements <= 99
+*
+        WRITE (CHSUM,'("CHI2_N_SYM_",I2.2)') ISUM
         IMEAS=0
         ISUMOVER=0
-        DO I=NCSYS+1,NPARA
-          IF (CHPARA(I).EQ.CHSUM) THEN
-            IMEAS=INT(PARA(I))
-            ISUMOVER=INT(EXCUP(I))
-            IF (EXCUN(I).NE.0.0D0) THEN
-              WRITE (LUNLOG,
-     &      '("ADJUSTED TO ZERO MEASUREMENT = ",I3,1X,G10.5)')
-     &        IMEAS, MEAS(IMEAS)
-              MEAS(IMEAS) = 0
-            ENDIF
-            IF (IMEAS.GT.0.AND.ISUMOVER.EQ.0) THEN ! special flag for sum over all quantities
-               DO IQUAN=1,NQUAN 
-                 CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
-               ENDDO
-            ENDIF
+        DO I=1,NSPAR
+          IF (CHSPAR(I).EQ.CHSUM) THEN
+            IMEAS=INT(SPAR1(I))
+            ISUMOVER=INT(SPAR2(I))
           ENDIF
         ENDDO
+*
+        WRITE (CHSUM1,'("CHI2_N_SYM_",I2.2,"_AD")') ISUM
+        IADJ=0
+        ADJ(1)=0.0
+        ADJ(2)=0.0
+        DO I=1,NSPAR
+          IF (CHSPAR(I).EQ.CHSUM1) THEN
+            IADJ=1
+            ADJ(1)=SPAR1(I)
+            ADJ(2)=SPAR2(I)
+          ENDIF
+        ENDDO
+* 
+        IF (IADJ.NE.0) THEN
+          WRITE (LUNLOG,
+     &         '("ADJUST IMEAS = ",I3," MEAS = ",G10.5," to ",G10.5)')
+     &         IMEAS, MEAS(IMEAS), ADJ(1)*MEAS_SV(IMEAS) + ADJ(2)
+          MEAS(IMEAS) = ADJ(1)*MEAS_SV(IMEAS) + ADJ(2)
+        ENDIF
+*        
+        IF (IMEAS.GT.0.AND.ISUMOVER.EQ.0) THEN ! special flag for sum over all quantities
+          WRITE (LUNLOG, '("OBSOLETE FEATURE")')
+          STOP
+*         DO IQUAN=1,NQUAN 
+*            CSYS(IMEAS,NCSYS+IQUAN) = -1.D0
+*         ENDDO
+        ENDIF
+*
         DO II=1,ISUMOVER        ! next line assumes number of quantities <=99
           WRITE(CHSUM2,'("CHI2_N_SYM_",I2.2,"_",I2.2)') ISUM, II
-          DO I=NCSYS+1,NPARA
-            IF (IMEAS.GT.0.AND.CHPARA(I).EQ.CHSUM2) THEN
-              IQUAN=INT(PARA(I))
-              COEFF=EXCUP(I)
-              IF (COEFF.EQ.0.0D0) COEFF=-1.0D0*DABS(EXCUN(I))
+          DO I=1,NSPAR
+            IF (IMEAS.GT.0.AND.CHSPAR(I).EQ.CHSUM2) THEN
+              IQUAN=INT(SPAR1(I))
+              COEFF=SPAR2(I)
               CSYS(IMEAS,NCSYS+IQUAN) = -1.D0*COEFF
             ENDIF
           ENDDO
         ENDDO 
+*
       ENDDO     
+*
       DO IMEAS=1,NMEAS
-        WRITE (LUNLOG,'(''IMEAS,CSYS = '',I2,5(T20,20(1X,F5.2),/))')
+        WRITE (LUNLOG,'(''IMEAS,CSYS = '',I4,5(T20,20(1X,F6.2),/))')
      &          IMEAS,(CSYS(IMEAS,NCSYS+IQUAN),IQUAN=1,NQUAN)
       ENDDO
 * SwB end
@@ -376,8 +409,8 @@
 *     Invert total error matrix
 *
       INVOPT=0 ! default option for matrix inversion using DSINV
-      DO I=1,NPARA
-        IF(CHPARA(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(PARA(I))
+      DO I=1,NSPAR
+        IF(CHSPAR(I).EQ.'CHI2_N_SYM_INV') INVOPT=INT(SPAR1(I))
       ENDDO
       IF (INVOPT.EQ.0) THEN
         CALL MY_DSINV(NMEAS,W,MMEAS,IERR)
@@ -558,7 +591,7 @@
 *
           IFAIL  =  0
           DO 144    J  =  1, N
-             PRINT *, 'DSINV: J, A(J,J) = ',J,A(J,J)
+C             PRINT *, 'DSINV: J, A(J,J) = ',J,A(J,J)
              IF((A(J,J)) .LE. ZERO) GOTO 150
              A(J,J)  =  ONE / A(J,J)
              IF(J .EQ. N)  GOTO 199
