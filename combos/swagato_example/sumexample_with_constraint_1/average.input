@@ -1,6 +1,7 @@
-INCLUDE analysis1.input
-INCLUDE analysis2.input
-INCLUDE analysis3.input
+INCLUDE ../sumexample/analysis1.input
+INCLUDE ../sumexample/analysis2.input
+INCLUDE ../sumexample/analysis3.input
+INCLUDE unitarity.input
 
 BEGIN   ALL 2D_XY PUBLISHED
 
@@ -13,7 +14,7 @@ CALL DUMP_MASTER_INC
 
 SPARAMETER CHI2_N_SYM_PRT   -1  0
 
-SPARAMETER CHI2_N_SYM_NSUM   2  0 ! 2 measurements are sum over multiple quantites
+SPARAMETER CHI2_N_SYM_NSUM   3  0 ! 3 measurements are sum over multiple quantites
 
 * express measurement number 3 as sum over 2 quantities : they are quantities 1 and 2 [each with co-effcient = 1]
 SPARAMETER CHI2_N_SYM_01     3  2
@@ -24,6 +25,11 @@ SPARAMETER CHI2_N_SYM_01_02  2  1
 SPARAMETER CHI2_N_SYM_02     4  2
 SPARAMETER CHI2_N_SYM_02_01  1  1
 SPARAMETER CHI2_N_SYM_02_02  2  1
+
+* express measurement number 5 as sum over 2 quantities : they are quantities 1 and 2 [each with co-effcient = 1]
+SPARAMETER CHI2_N_SYM_03     5  2
+SPARAMETER CHI2_N_SYM_03_01  1  1
+SPARAMETER CHI2_N_SYM_03_02  2  1
 
 SPARAMETER CHI2_N_SYM_PSUM   2  0 ! print 2 kinds of sum over multiple quantities
 * print sum over quantities 1 and 2 [each with co-effcient = 1]
