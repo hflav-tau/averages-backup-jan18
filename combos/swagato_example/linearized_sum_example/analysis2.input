@@ -1,0 +1,8 @@
+* Experiment A2 actually measured the ratio (W  + X ) / ( Y + Z )
+BEGIN A2 W PUBLISHED 
+MEASUREMENT W         STAT      SYST
+DATA        W         STAT      SYST
+            1.10      0.01      0.02
+            A2_SYS_W  0.02
+END
+

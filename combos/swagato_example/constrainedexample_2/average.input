@@ -1,29 +1,22 @@
-INCLUDE ../sumexample/analysis1.input
-INCLUDE unitarity.input
+INCLUDE analysis1.input
+
 
 BEGIN   ALL 2D_XY PUBLISHED
 
 COMBINE *   *     *
 
 MEASUREMENT X stat syst
-MEASUREMENT Y stat syst
+* MEASUREMENT Y stat syst
 
 CALL DUMP_MASTER_INC
 
-PARAMETER CHI2_N_SYM_PRT   -1  0 0
+SPARAMETER CHI2_N_SYM_PRT   -1  0
 
-PARAMETER CHI2_N_SYM_NSUM   1  0 0 ! 1 measurement is sum over multiple quantites
-PARAMETER CHI2_N_SYM_01     3  0 0
+SPARAMETER CHI2_N_SYM_NSUM   1  0 ! 1 measurement is a linearized sum of other quantities
 
-PARAMETER CHI2_N_SYM_PSUM   2  0 0 ! print 2 kinds of sum over multiple quantities
-* print sum over quantities 1 and 2 [each with co-effcient = 1]
-PARAMETER CHI2_N_SYM_P1     2  0 0
-PARAMETER CHI2_N_SYM_P1_01  1  1 0
-PARAMETER CHI2_N_SYM_P1_02  2  1 0
-* print sum over quantities 1 and 2 [with co-effcients = .5, .166666]
-PARAMETER CHI2_N_SYM_P2     2  0 0
-PARAMETER CHI2_N_SYM_P2_01  1 .5 0
-PARAMETER CHI2_N_SYM_P2_02  2 .166666 0
+SPARAMETER CHI2_N_SYM_01     2  1 ! measurement 2 depends on 1 quantity 
+SPARAMETER CHI2_N_SYM_01_AD  1 -1 ! adjstment measurements = y to A+By where A = +1, B=-1 [now it is a measurement of 1 - y = x]
+SPARAMETER CHI2_N_SYM_01_01  1  1 ! quantity 1 has factor = 1
 
 CALL CHI2_N_SYM
 END

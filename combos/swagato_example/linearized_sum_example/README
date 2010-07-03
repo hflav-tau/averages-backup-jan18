@@ -1,0 +1,27 @@
+Experiment A1 measured W :    1.6e-1 +-  0.1e-1 (stat) +-  0.2e-1 (syst)
+Experiment A1 measured X :    8.8e-1 +-  0.4e-1 (stat) +-  0.4e-1 (syst)
+Experiment A1 measured Y :    1.1e-1 +-  0.1e-1 (stat) +-  0.2e-1 (syst)
+Experiment A1 measured Z :    8.2e-1 +-  0.4e-1 (stat) +-  0.4e-1 (syst)
+
+
+Experiment A2  measured the ratio (W  + X ) / ( Y + Z ) : 1.10  +-  0.01 (stat) +-  0.02 (syst)
+
+quantity = f(wxyz) = f(0) + f'w (w-w0) + f'x (x-x0) + f'y (y-y0) + f'z (z-z0)
+                   =[f(0) - f'w w0 - f'x x0 - f'y y0 - f'z z0] + f'w w + f'x x + f'y y + f'z z
+
+[measurement - quantity] = [measurement - (f(0) - f'w w0 - f'x x0 - f'y y0 - f'z z0])] - (f'w w + f'x x + f'y y + f'z z) 
+
+Adjust measurement = M to A + B M , where A = -[f(0) - f'w w0 - f'x x0 - f'y y0 - f'z z0], B = 1
+
+f(0) = ( 1.6e-1 +  8.8e-1 ) / (1.1e-1 +  8.2e-1) = 1.11828
+
+f'w = 1/(Y + Z) = 1/ (1.1e-1 +  8.2e-1) = 1.07527
+
+f'x = 1/(Y + Z) = 1/ (1.1e-1 +  8.2e-1) = 1.07527
+
+f'y = - (W + X)/(Y + Z)**2 = - ( 1.6e-1 +  8.8e-1 ) / (1.1e-1 +  8.2e-1)**2 = -1.20245
+
+f'z = - (W + X)/(Y + Z)**2 = - ( 1.6e-1 +  8.8e-1 ) / (1.1e-1 +  8.2e-1)**2 = -1.20245
+
+A = - [ 1.11828 - 1.07527 * 1.6e-1 - 1.07527 * 8.8e-1 + 1.20245 * 1.1e-1 + 1.20245 * 8.2e-1 ] = -1.11828
+

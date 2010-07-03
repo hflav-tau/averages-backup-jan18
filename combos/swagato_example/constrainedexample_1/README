@@ -1,0 +1,5 @@
+see README in sumexample_with_constraint_2 directory
+
+this directory is same as sumexample_with_constraint_1 directory,
+except that the measurements of X + Y are ignored because of the X+Y=1 constraint.
+

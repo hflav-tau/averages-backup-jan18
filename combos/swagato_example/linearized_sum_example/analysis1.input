@@ -1,0 +1,27 @@
+BEGIN A1 W PUBLISHED 
+MEASUREMENT W         STAT      SYST
+DATA        W         STAT      SYST
+            1.6e-1    0.1e-1    0.2e-1
+            A1_SYS_W  0.2e-1
+END
+
+BEGIN A1 X PUBLISHED
+MEASUREMENT X         STAT      SYST
+DATA        X         STAT      SYST
+            8.8e-1    0.4e-1    0.4e-1
+            A1_SYS_X  0.4e-1
+END 
+
+BEGIN A1 Y PUBLISHED 
+MEASUREMENT Y         STAT      SYST
+DATA        Y         STAT      SYST
+            1.1e-1    0.1e-1    0.2e-1
+            A1_SYS_Y  0.2e-1
+END
+
+BEGIN A1 Z PUBLISHED
+MEASUREMENT Z         STAT      SYST
+DATA        Z         STAT      SYST
+            8.2e-1    0.4e-1    0.4e-1
+            A1_SYS_Z  0.4e-1
+END 

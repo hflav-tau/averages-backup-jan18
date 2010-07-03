@@ -46,11 +46,11 @@ int main() {
   basegamma.push_back( 93); baseparm.push_back(  5) ; baseseed[ibase] = 1.600000E-01 ; basetitle[ibase] = "tau- --> K- K+ pi- nu(tau)";     basefitvalue[ibase]=0.001531 ; basefiterror[ibase]=0.000070 ; baserescalederror[ibase]=0.000097 ; basescalefactor[ibase]=1.38 ;  ++ibase; // 24
   basegamma.push_back( 94); baseparm.push_back(247) ; baseseed[ibase] = 4.000000E-02 ; basetitle[ibase] = "tau- --> K- K+ pi- pi0 nu(tau)"; basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ;  ++ibase; // 25
   basegamma.push_back(103); baseparm.push_back(  3) ; baseseed[ibase] = 8.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ;  ++ibase; // 26
-  basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ;  ++ibase; // 27
-  basegamma.push_back(126); baseparm.push_back( 58) ; baseseed[ibase] = 1.700000E-01 ; basetitle[ibase] = "tau- --> eta pi- pi0 nu(tau)"; basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 28
-  basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)";      basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 29
-  basegamma.push_back(150); baseparm.push_back(  8) ; baseseed[ibase] = 2.000000E+00 ; basetitle[ibase] = "tau- --> h- omega nu(tau)";    basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; // 30
-  basegamma.push_back(152); baseparm.push_back(113) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> h- omega pi0 nu(tau)";basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; // 31
+  basegamma.push_back(126); baseparm.push_back( 58) ; baseseed[ibase] = 1.700000E-01 ; basetitle[ibase] = "tau- --> eta pi- pi0 nu(tau)"; basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 27
+  basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)";      basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 28
+  basegamma.push_back(150); baseparm.push_back(  8) ; baseseed[ibase] = 2.000000E+00 ; basetitle[ibase] = "tau- --> h- omega nu(tau)";    basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; // 29
+  basegamma.push_back(152); baseparm.push_back(113) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> h- omega pi0 nu(tau)";basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; // 30
+  basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ;  ++ibase; // 31
   // FOR CROSS-CHECKING PDG FIT THE FOLLOWING SHOULD NOT BE USED
   //  basegamma.push_back(130); baseparm.push_back(266) ; baseseed[ibase] = 4.600000E-03 ; basetitle[ibase] = "tau- --> eta K- pi0 nu(tau)"; ++ibase;//32
   //  basegamma.push_back(132); baseparm.push_back(267) ; baseseed[ibase] = 8.800000E-03 ; basetitle[ibase] = "tau- --> eta Kbar0 pi- nu(tau)"; ++ibase;//33
@@ -903,6 +903,7 @@ int main() {
   //
   vector<int> node_parm[nnode]; // vector of parameters for each node
   vector<int> node_quan[nnode]; // vector of quantities for each node
+  vector<int> node_gamma[nnode]; // vector of gamma for each node
   double node_num[nnode]; //   numerator sum [calculated using seed values of quantities] for each node
   double node_den[nnode]; // denominator sum [calculated using seed values of quantities] for each node
   vector<double> node_part[nnode]; // vector of partial derivatives w.r.t quantities for each node
@@ -944,6 +945,8 @@ int main() {
       vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
       int quan=ibase-baseparm.begin()+1;
       node_quan[inode].push_back(quan); // <--
+      int gamma = basegamma.at(quan-1); 
+      node_gamma[inode].push_back(gamma); // <--
       if (quan<first_quan[inode]) first_quan[inode]=quan; // <--
       //
       vector<int>::iterator it_num=find(node_num_parm[inode].begin(),node_num_parm[inode].end(),parm); bool is_in_num = it_num != node_num_parm[inode].end();
@@ -959,6 +962,9 @@ int main() {
 	partial = (1./denominator) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) -1. * (numerator/(denominator*denominator)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
       }
       node_part[inode].push_back(partial); // <--
+      if (inode==14) cout << " inode = " << inode << " ipar = " << ipar << " parm = " << parm << " quan = " << quan << " gamma = " << gamma << " partial = " << partial 
+			  << " it_num - node_num_parm[inode].begin() = " << it_num - node_num_parm[inode].begin() 
+			  << endl;
     }
   }
   //
@@ -1033,8 +1039,13 @@ int main() {
       //
       fprintf (measfile[p], "\nBEGIN %s Gamma%s published.%s \n\n", author[i].data(), gammaname[i].data(), year[i].data());
       if (p==0) {//COMBOS
-	fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
-	fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	if (inode==82) { // SPECIAL CASE
+	  fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
+	  fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",3);
+	}else{
+	  fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	  fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	}
       }else if (p==1) {//ALUCOMB
 	fprintf (measfile[p], "MEASUREMENT  m_Gamma%s statistical systematic \n",gammaname[i].data());
 	fprintf (measfile[p], "DATA         m_Gamma%s statistical systematic \n",gammaname[i].data());
@@ -1061,22 +1072,22 @@ int main() {
     fprintf (avefile[p], "BEGIN   PDG-BABAR-BELLE all_methods \n\n");
     fprintf (avefile[p], "COMBINE * * * \n\n");
     for (ibase=0;ibase<nbase;++ibase){
-      fprintf (avefile[p], "MEASUREMENT m_Gamma%d statistical systematic   ! NQUAN = %d \n",basegamma.at(ibase),ibase+1);  
+      if (p==0&&ibase==(nbase-1)){/* skip */}else{
+	fprintf (avefile[p], "MEASUREMENT m_Gamma%d statistical systematic   ! NQUAN = %d \n",basegamma.at(ibase),ibase+1);  
+      }
     }
     if (p==0){
-      fprintf (avefile[p], "\n*CALL DUMP_MASTER_INC \n\n");
-      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_PRT -1.0 0. 0. \n\n");
-      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_INV 0 0 0 \n\n");
+      fprintf (avefile[p], "\nCALL DUMP_MASTER_INC \n\n");
+      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_PRT 1.0 0. 0. \n\n");
+      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_INV 0 0 0 \n\n");
     }
     //
     int lastnode=-1;
-    int isum=0;//number of          measurements to be expressed as linearized sum of base quantities
     int usum=0;//number of [unique] measurements to be expressed as linearized sum of base quantities
     for (int i=0;i<nmeas;++i){
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
-	++isum;
 	if (p==1&&inode!=lastnode){//new node
 	  ++usum;
 	  lastnode=inode;
@@ -1084,14 +1095,15 @@ int main() {
 	}
       }
     }
-    if (p==0) fprintf (avefile[p], "PARAMETER CHI2_N_SYM_NSUM  %d 0 0 \n",isum); 
     //
-    isum=0;      
+    int isum=0;//number of          measurements to be expressed as linearized sum of base quantities
     lastnode=-1;
     for (int i=0;i<nmeas;++i){
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
+	//
+	if (p==0&&inode==79) continue; // SPECIAL CASE
 	++isum; // translate C index to Fortran index
 	//
 	if (inode!=lastnode){//new node
@@ -1121,18 +1133,18 @@ int main() {
 	  if (ipar==node_den_parm[inode].size()-1) fprintf (avefile[p], ")\n");
 	}
 	//
+	double offset = -node_num[inode]; // - [ f(x0,y0) - df/dx(x=x0) x0 - df/dy(y=y0) y0 - ...]
+	if (node_den_npar[inode]>0) offset /= node_den[inode];
+	//	  cout << inode << " " << node_num[inode] << " " << node_den[inode] << " " << offset << " " << measvalue[i] << endl;
+	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
+	  int parm=node_parm[inode].at(ipar);
+	  int quan=node_quan[inode].at(ipar);
+	  double partial=node_part[inode].at(ipar);
+	  offset += partial*baseseed[quan-1];
+	}
 	if (p==0) { // COMBOS
-	  fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d    %2d %d -1 \n",isum,i+1,node_parm[inode].size()); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d %f \n",isum,i+1,node_parm[inode].size(),offset); 
 	} else if (p==1) { // ALUCOMB
-	  double offset = -node_num[inode];
-	  if (node_den_npar[inode]>0) offset /= node_den[inode];
-	  //	  cout << inode << " " << node_num[inode] << " " << node_den[inode] << " " << offset << " " << measvalue[i] << endl;
-	  for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
-	    int parm=node_parm[inode].at(ipar);
-	    int quan=node_quan[inode].at(ipar);
-	    double partial=node_part[inode].at(ipar);
-	    offset += partial*baseseed[quan-1];
-	  }
 	  fprintf (avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), offset, gammaname[i].data());
 	}
 	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
@@ -1141,9 +1153,9 @@ int main() {
 	  double partial=node_part[inode].at(ipar);
 	  if (p==0) { // COMBOS
 	    if (partial>0) {
-	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 \n",isum,ipar+1,quan,partial);
+	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
 	    }else{
-	      fprintf (avefile[p], "PARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f \n",isum,ipar+1,quan,partial);
+	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
 	    }
 	  }else if (p==1) { // ALUCOMB
 	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], partial);
@@ -1153,11 +1165,37 @@ int main() {
       }
     }
     if (p==0) {
-      fprintf(avefile[p], "*Gamma28 = 1 -Gamma3 -Gamma5 -Gamma9 -Gamma10 -Gamma14 -Gamma16\n");
-      fprintf(avefile[p], "             -Gamma20 -Gamma23 -Gamma27 -Gamma30 -Gamma35 -Gamma37\n");
-      fprintf(avefile[p], "             -Gamma40 -Gamma42 -Gamma47 -Gamma48 -Gamma62 -Gamma70\n");
-      fprintf(avefile[p], "             -Gamma77 -Gamma78 -Gamma85 -Gamma89 -Gamma93 -Gamma94\n");
-      fprintf(avefile[p], "             -Gamma103 -Gamma104 -Gamma126 -Gamma128 -Gamma150 -Gamma152\n");
+      for (int i=0;i<nmeas;++i){
+	vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+	inode=it-nodename.begin();
+	if (find(node_quan[inode].begin(),node_quan[inode].end(),nbase)!=node_quan[inode].end() && node_parm[inode].size()==2) {// relies on prior knowledge that it is 103 & 104
+	  fprintf(avefile[p], "\n*Gamma102 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
+	  fprintf(avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30  - Gamma35\n");
+	  fprintf(avefile[p], "*             - Gamma37  - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
+	  fprintf(avefile[p], "*             - Gamma70  - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+	  fprintf(avefile[p], "*             - Gamma94  - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d -1.0 \n",++isum,i+1,nbase-2); 
+	  for (ibase=0;ibase<nbase-2;++ibase){
+	    if (basegamma[ibase]>=103) {
+	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0.0 -1.0 \n",isum,ibase+1,ibase+2);
+	    }else{
+	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0.0 -1.0 \n",isum,ibase+1,ibase+1);
+	    }
+	  }
+	}
+	if (find(node_quan[inode].begin(),node_quan[inode].end(),nbase)!=node_quan[inode].end() && node_parm[inode].size()==1) {
+	  fprintf(avefile[p], "\n*Gamma104 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
+	  fprintf(avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30  - Gamma35\n");
+	  fprintf(avefile[p], "*             - Gamma37  - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
+	  fprintf(avefile[p], "*             - Gamma70  - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+	  fprintf(avefile[p], "*             - Gamma94  - Gamma103 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d -1.0 \n",++isum,i+1,nbase-1); 
+	  for (ibase=0;ibase<nbase-1;++ibase){
+	    fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0.0 -1.0 \n",isum,ibase+1,ibase+1);
+	  }
+	}
+      }
+      if (p==0) fprintf (avefile[p], "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 0 \n",isum); 
     }
     if (p==1) {
       fprintf(avefile[p], "\n* unitarity constraint (sum of basic modes, possibly adding also dummy)\n");
@@ -1172,5 +1210,50 @@ int main() {
     fprintf(avefile[p], "\nCALL CHI2_N_SYM\n");
     fprintf(avefile[p], "\nEND\n");
     fclose(avefile[p]);
+  }
+  //
+  vector<int> basemodes_used_in_measured_derivednodes;
+  for (int i=0;i<nmeas;++i){
+    vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+    inode=it-nodename.begin();
+    if ((node_num_npar[inode]+node_den_npar[inode])>1) {
+      basemodes_used_in_measured_derivednodes.insert(basemodes_used_in_measured_derivednodes.end(),node_quan[inode].begin(),node_quan[inode].end());
+      sort(basemodes_used_in_measured_derivednodes.begin(),basemodes_used_in_measured_derivednodes.end());
+      vector<int>::iterator new_end=unique(basemodes_used_in_measured_derivednodes.begin(),basemodes_used_in_measured_derivednodes.end());
+      basemodes_used_in_measured_derivednodes.erase(new_end,basemodes_used_in_measured_derivednodes.end());
+    }
+  }
+  cout << "basemodes_used_in_measured_derivednodes.size() = " << basemodes_used_in_measured_derivednodes.size() << endl;
+  for (ibase=0;ibase<basemodes_used_in_measured_derivednodes.size();++ibase) {
+    int quan = basemodes_used_in_measured_derivednodes.at(ibase) ;
+    cout << "basetitle = " << basetitle[quan-1] << " with quan = " << quan << " gamma = " << basegamma[quan-1]  << " appears in ";
+    int iquan_occurance=0;
+    int inode_occurance=0;
+    int lastnode=-1;
+    for (int i=0;i<nmeas;++i){
+      vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+      inode=it-nodename.begin();
+      for (int ii=0;ii<node_quan[inode].size();++ii){
+	if (quan == node_quan[inode].at(ii)) { 
+	  ++iquan_occurance;
+	  if (inode!=lastnode){
+	    lastnode=inode;
+	    ++inode_occurance;
+	  }
+	}
+      }
+    }
+    cout << iquan_occurance << " measurements of " << inode_occurance << " nodes. \nThese " << iquan_occurance << " measurements are :" ;
+    iquan_occurance = 0;
+    for (int i=0;i<nmeas;++i){
+      vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+      inode=it-nodename.begin();
+      for (int ii=0;ii<node_quan[inode].size();++ii){
+	if (quan == node_quan[inode].at(ii)) { 
+	  cout << " (" << ++iquan_occurance << ") IMEAS = " << i+1 << " NODE = " << nodename[inode].data() ;
+	}
+      }
+    }
+    cout << endl << endl;
   }
 }
