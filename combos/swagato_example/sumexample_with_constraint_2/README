@@ -1,8 +1,16 @@
-apply unitarity constraint [by substituting one of variables by 1 - remaining] for sumexample 
+apply unitarity constraint [by substituting one of variables by 1 - remaining]  for the problem in "sumexample" directory
 
-but how do we express measurements of X+Y in such a situation?
+How do we express measurements of X+Y in such a situation?
 
-THIS EXAMPLE IS A TOUGH ONE ... but probably a case with *only* 2 variables will not arise very often
-[if it does, use previous method ala Lagrange Multipliers]
+We cannot. But this is not a problem, because the measurements of  X+Y do not make any sense with X+Y = 1 constraint.
 
+So, we ignore measurements of X+Y.
 
+Then there are 2 measurements, one for X and one for Y [= 1-X], and 1 quantity => NDOF = 1 [as expected]
+
+NOTE: This is a special situation for the case with *only* 2 quantities.
+ 
+If there were 3 quantities, eg. X, Y & Z and we were applying the constraint X + Y  + Z = 1,
+then measurements of X + Y would be treated as measurements of 1 - Z.
+
+But of course measurements of X + Y + Z would be ignored if the constraint X + Y  + Z = 1 is applied.

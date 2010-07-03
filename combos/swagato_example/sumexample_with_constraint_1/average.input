@@ -1,6 +1,6 @@
-INCLUDE ../sumexample/analysis1.input
-INCLUDE ../sumexample/analysis2.input
-INCLUDE ../sumexample/analysis3.input
+INCLUDE analysis1.input
+INCLUDE analysis2.input
+INCLUDE analysis3.input
 INCLUDE unitarity.input
 
 BEGIN   ALL 2D_XY PUBLISHED
@@ -13,6 +13,8 @@ MEASUREMENT Y stat syst
 CALL DUMP_MASTER_INC
 
 SPARAMETER CHI2_N_SYM_PRT   -1  0
+
+SPARAMETER CHI2_N_SYM_NDOF   5  4 ! 5 measurements, 2 quantites + 1 sum-as-a-pseudo-quantity + 1 LagrangeMultiplier
 
 SPARAMETER CHI2_N_SYM_NSUM   3  0 ! 3 measurements are sum over multiple quantites
 

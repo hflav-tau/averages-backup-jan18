@@ -204,18 +204,20 @@
       IF(NMEFF.GT.1) CL=DBLE(PROB(SNGL(CHI2),NMEFF-NQUAN)) ! is this correct ?
 C     IF(PRTLEV.GT.0) THEN 
       IF (PRTLEV.GT.-999) THEN  ! SwB [default changed]
-        WRITE(LUNLOG,
-     &       '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF          = '','//
-     &       'G10.5,3(1X,I3))') CHI2, NMEFF, NQUAN, NMEFF-NQUAN
         IF (NMEFF.GT.NQUAN) THEN
-          WRITE (LUNLOG,
-     &         '(''CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    = '','//
+          WRITE(LUNLOG,
+     &         '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = '','//
+     &         'G10.5,3(1X,I3),'//
+     &         ''' CHI2/NDOF, SCALE FAC, CL = '','//
      &         '3(1X,G10.5))')
-     &         CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),
-     &         CL
+     &         CHI2, NMEFF, NQUAN, NMEFF-NQUAN,
+     &         CHI2/(NMEFF-NQUAN),SQRT(MAX(0.,CHI2/(NMEFF-NQUAN))),CL
         ELSE
-          WRITE (LUNLOG, *)
-     &      'CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL set to 0.0'
+          WRITE(LUNLOG,
+     &         '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = '','//
+     &         'G10.5,3(1X,I3),'//
+     &         ''' CHI2/NDOF, SCALE FAC, CL set to 0.0'')')
+     &         CHI2, NMEFF, NQUAN, NMEFF-NQUAN
         ENDIF
 C     
         NMEFFNEW=NMEFF ! initialize
@@ -228,18 +230,21 @@ C
         ENDDO
         NDOFNEW = NMEFFNEW - NQUANNEW
 C
-        WRITE (LUNLOG,
-     &       '(''CHI2_N_SYM: CHI2, NMEFFNEW, NQUANNEW, NDOFNEW = '','//
-     &       'G10.5,3(1X,I3))') CHI2, NMEFFNEW, NQUANNEW, NDOFNEW
         IF (NMEFFNEW.GT.NQUANNEW) THEN
-          WRITE (LUNLOG,
-     &         '(''CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL = '','//
+          WRITE(LUNLOG,
+     &         '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = '','//
+     &         'G10.5,3(1X,I3),'//
+     &         ''' CHI2/NDOF, SCALE FAC, CL = '','//
      &         '3(1X,G10.5))')
-     &         CHI2/NDOFNEW,SQRT(MAX(0.,CHI2/NDOFNEW)),
+     &         CHI2, NMEFFNEW, NQUANNEW, NDOFNEW,
+     &         CHI2/ NDOFNEW, SQRT(MAX(0.,CHI2/NDOFNEW)),
      &         PROB(SNGL(CHI2),NDOFNEW)
         ELSE
-          WRITE (LUNLOG,*)
-     &      'CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL set to 0.0'
+          WRITE(LUNLOG,
+     &         '(''CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = '','//
+     &         'G10.5,3(1X,I3),'//
+     &         ''' CHI2/NDOF, SCALE FAC, CL set to 0.0'')')
+     &         CHI2, NMEFFNEW, NQUANNEW, NDOFNEW
         ENDIF
 C     
       ENDIF

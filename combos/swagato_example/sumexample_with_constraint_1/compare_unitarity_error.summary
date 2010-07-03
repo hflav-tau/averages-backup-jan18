@@ -30,3 +30,19 @@ average_unitarity_1e-4.log:All: Sum of Multi-Quantity Average =      1.0000003 +
 average_unitarity_1e-5.log:All: Sum of Multi-Quantity Average =      1.0000000 +-      0.0000100
 average_unitarity_1e-6.log:All: Sum of Multi-Quantity Average =      1.0000001 +-      0.0000010
 average_unitarity_1e-7.log:All: Sum of Multi-Quantity Average =      0.9999945 +-      0.0000001
+average_unitarity_1e-0.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = .71939       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .23980     .48969     .86864    
+average_unitarity_1e-1.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = .83347       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .27782     .52709     .84145    
+average_unitarity_1e-2.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.8383       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .61275     .78278     .60665    
+average_unitarity_1e-3.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.9451       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .64838     .80522     .58387    
+average_unitarity_1e-4.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.9463       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .64877     .80546     .58363    
+average_unitarity_1e-5.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.9463       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .64877     .80546     .58362    
+average_unitarity_1e-6.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.9492       5   2   3 CHI2/NDOF, SCALE FAC, CL =  .64974     .80606     .58302    
+average_unitarity_1e-7.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 3062.3       5   2   3 CHI2/NDOF, SCALE FAC, CL =  1020.8     31.949     0.0000    
+average_unitarity_1e-0.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = .71939       5   4   1 CHI2/NDOF, SCALE FAC, CL =  .71939     .84817     .39635    
+average_unitarity_1e-1.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = .83347       5   4   1 CHI2/NDOF, SCALE FAC, CL =  .83347     .91295     .36127    
+average_unitarity_1e-2.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.8383       5   4   1 CHI2/NDOF, SCALE FAC, CL =  1.8383     1.3558     .17516    
+average_unitarity_1e-3.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.9451       5   4   1 CHI2/NDOF, SCALE FAC, CL =  1.9451     1.3947     .16311    
+average_unitarity_1e-4.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.9463       5   4   1 CHI2/NDOF, SCALE FAC, CL =  1.9463     1.3951     .16299    
+average_unitarity_1e-5.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.9463       5   4   1 CHI2/NDOF, SCALE FAC, CL =  1.9463     1.3951     .16298    
+average_unitarity_1e-6.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.9492       5   4   1 CHI2/NDOF, SCALE FAC, CL =  1.9492     1.3961     .16267    
+average_unitarity_1e-7.log:CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 3062.3       5   4   1 CHI2/NDOF, SCALE FAC, CL =  3062.3     55.338     0.0000    

@@ -361,9 +361,9 @@
 * 
         IF (IADJ.NE.0) THEN
           WRITE (LUNLOG,
-     &         '("ADJUST IMEAS = ",I3," MEAS = ",G10.5," to ",G10.5)')
-     &         IMEAS, MEAS(IMEAS), ADJ(1)*MEAS_SV(IMEAS) + ADJ(2)
-          MEAS(IMEAS) = ADJ(1)*MEAS_SV(IMEAS) + ADJ(2)
+     &         '("ADJUST IMEAS = ",I3," MEAS = ",G14.7," to ",G14.7)')
+     &         IMEAS, MEAS_SV(IMEAS), ADJ(1) + ADJ(2)*MEAS_SV(IMEAS)
+          MEAS(IMEAS) = ADJ(1) + ADJ(2)*MEAS_SV(IMEAS)
         ENDIF
 *        
         IF (IMEAS.GT.0.AND.ISUMOVER.EQ.0) THEN ! special flag for sum over all quantities

@@ -1,4 +1,4 @@
- COMBOS version  3.33 (Mar 20, 2010) run on  on 02/07/10 at 02.22.18
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 02/07/10 at 07.50.03
 
 
  ==============================================================================
@@ -32,10 +32,8 @@ IMEAS,CSYS =    3    -1.00  -1.00
 IMEAS,CSYS =    4    -1.00  -1.00
  MINUIT_CHI2: DSINV: W->W: IERR =  0
  CHI2_N_SYM: DSINV: S->S: IERR =  0
-CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF          = 1.4371       4   2   2
-CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    =  .71855     .84767     .48746    
-CHI2_N_SYM: CHI2, NMEFFNEW, NQUANNEW, NDOFNEW = 1.4371       4   2   2
-CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL =  .71855     .84767     .48746    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.4371       4   2   2 CHI2/NDOF, SCALE FAC, CL =  .71855     .84767     .48746    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.4371       4   2   2 CHI2/NDOF, SCALE FAC, CL =  .71855     .84767     .48746    
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                         X           Y
@@ -143,10 +141,8 @@ IMEAS,CSYS =    3    -1.00  -1.00
 IMEAS,CSYS =    4    -1.00  -1.00
  MINUIT_CHI2: DSINV: W->W: IERR =  0
  CHI2_N_SYM: DSINV: S->S: IERR =  0
-CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF          = .71811       4   2   2
-CHI2_N_SYM: CHI2/NDOF, SCALE FAC, CL    =  .35906     .59921     .69833    
-CHI2_N_SYM: CHI2, NMEFFNEW, NQUANNEW, NDOFNEW = .71811       4   2   2
-CHI2_N_SYM: CHI2/NDOFNEW, SCALE FAC, CL =  .35906     .59921     .69833    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = .71811       4   2   2 CHI2/NDOF, SCALE FAC, CL =  .35906     .59921     .69833    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = .71811       4   2   2 CHI2/NDOF, SCALE FAC, CL =  .35906     .59921     .69833    
   
   DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
                                         X           Y
