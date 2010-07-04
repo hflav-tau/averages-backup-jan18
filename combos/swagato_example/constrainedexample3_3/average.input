@@ -1,0 +1,23 @@
+INCLUDE analysis1.input
+
+
+BEGIN   ALL 3D_XYZ PUBLISHED
+
+COMBINE *   *     *
+
+MEASUREMENT X stat syst
+MEASUREMENT Y stat syst
+
+CALL DUMP_MASTER_INC
+
+SPARAMETER CHI2_N_SYM_PRT   -1  0
+
+SPARAMETER CHI2_N_SYM_NSUM   1  0 ! 1 measurement is a linearized sum of other quantities
+
+SPARAMETER CHI2_N_SYM_01     3  2 ! measurement 3 depends on 2 quantity 
+SPARAMETER CHI2_N_SYM_01_AD -1 +1 ! adjust measurement = z to A+Bz where A = -1, B=+1 [now it is a measurement of -1 + z = -x -y]
+SPARAMETER CHI2_N_SYM_01_01  1 -1 ! quantity 1 has factor = -1
+SPARAMETER CHI2_N_SYM_01_02  2 -1 ! quantity 2 has factor = -1
+
+CALL CHI2_N_SYM
+END
