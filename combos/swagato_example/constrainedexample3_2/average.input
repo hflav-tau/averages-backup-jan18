@@ -1,7 +1,7 @@
 INCLUDE analysis1.input
 
 
-BEGIN   ALL 3D_XY PUBLISHED
+BEGIN   ALL 3D_XYZ PUBLISHED
 
 COMBINE *   *     *
 

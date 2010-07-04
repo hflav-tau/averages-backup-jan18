@@ -45,12 +45,12 @@ int main() {
   basegamma.push_back( 89); baseparm.push_back(285) ; baseseed[ibase] = 6.000000E-02 ; basetitle[ibase] = "tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)"; basefitvalue[ibase]=0.000730 ; basefiterror[ibase]=0.000117 ; baserescalederror[ibase]=0.000122 ; basescalefactor[ibase]=1.04 ; ++ibase; // 23
   basegamma.push_back( 93); baseparm.push_back(  5) ; baseseed[ibase] = 1.600000E-01 ; basetitle[ibase] = "tau- --> K- K+ pi- nu(tau)";     basefitvalue[ibase]=0.001531 ; basefiterror[ibase]=0.000070 ; baserescalederror[ibase]=0.000097 ; basescalefactor[ibase]=1.38 ;  ++ibase; // 24
   basegamma.push_back( 94); baseparm.push_back(247) ; baseseed[ibase] = 4.000000E-02 ; basetitle[ibase] = "tau- --> K- K+ pi- pi0 nu(tau)"; basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ;  ++ibase; // 25
-  basegamma.push_back(103); baseparm.push_back(  3) ; baseseed[ibase] = 8.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ;  ++ibase; // 26
+  basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ;  ++ibase; // 26
   basegamma.push_back(126); baseparm.push_back( 58) ; baseseed[ibase] = 1.700000E-01 ; basetitle[ibase] = "tau- --> eta pi- pi0 nu(tau)"; basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 27
   basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)";      basefitvalue[ibase]=0.000268 ; basefiterror[ibase]=0.000063 ; baserescalederror[ibase]=0.000063 ; basescalefactor[ibase]=1.00 ; ++ibase; // 28
   basegamma.push_back(150); baseparm.push_back(  8) ; baseseed[ibase] = 2.000000E+00 ; basetitle[ibase] = "tau- --> h- omega nu(tau)";    basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; // 29
   basegamma.push_back(152); baseparm.push_back(113) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> h- omega pi0 nu(tau)";basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; // 30
-  basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ;  ++ibase; // 31
+  basegamma.push_back(103); baseparm.push_back(  3) ; baseseed[ibase] = 8.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ;  ++ibase; // 31
   // FOR CROSS-CHECKING PDG FIT THE FOLLOWING SHOULD NOT BE USED
   //  basegamma.push_back(130); baseparm.push_back(266) ; baseseed[ibase] = 4.600000E-03 ; basetitle[ibase] = "tau- --> eta K- pi0 nu(tau)"; ++ibase;//32
   //  basegamma.push_back(132); baseparm.push_back(267) ; baseseed[ibase] = 8.800000E-03 ; basetitle[ibase] = "tau- --> eta Kbar0 pi- nu(tau)"; ++ibase;//33
@@ -63,6 +63,39 @@ int main() {
   //  cout << "Totalseed = " << totalseed << " is re-normalized to 1 by adjusting each baseseed value ... " << endl << endl;
   //  for (ibase=0;ibase<nbase;++ibase) baseseed[ibase]/=totalseed;
   //
+  // From previous iteration :
+  ibase=-1;
+  baseseed[++ibase] = /*           M_GAMMA3    */  0.1735575 ; //+/-      0.0004626 +/-      0.0000000 Tot Err:     0.0004626 Check Sys:     0.0000000
+  baseseed[++ibase] = /*           M_GAMMA5    */  0.1784136 ; //+/-      0.0004788 +/-      0.0000000 Tot Err:     0.0004788 Check Sys:     0.0000000
+  baseseed[++ibase] = /*           M_GAMMA9    */  0.1090047 ; //+/-      0.0006175 +/-      0.0000000 Tot Err:     0.0006175 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA10    */  0.0069093 ; //+/-      0.0002188 +/-      0.0000000 Tot Err:     0.0002188 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA14    */  0.2549936 ; //+/-      0.0009233 +/-      0.0000000 Tot Err:     0.0009233 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA16    */  0.0045244 ; //+/-      0.0002645 +/-      0.0000000 Tot Err:     0.0002645 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA20    */  0.0924794 ; //+/-      0.0009745 +/-      0.0000000 Tot Err:     0.0009745 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA23    */  0.0005801 ; //+/-      0.0002251 +/-      0.0000000 Tot Err:     0.0002251 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA27    */  0.0104186 ; //+/-      0.0007060 +/-      0.0000000 Tot Err:     0.0007060 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA28    */  0.0004181 ; //+/-      0.0002186 +/-      0.0000000 Tot Err:     0.0002186 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA30    */  0.0010186 ; //+/-      0.0003920 +/-      0.0000000 Tot Err:     0.0003920 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA35    */  0.0089618 ; //+/-      0.0003671 +/-      0.0000000 Tot Err:     0.0003671 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA37    */  0.0015298 ; //+/-      0.0001606 +/-      0.0000000 Tot Err:     0.0001606 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA40    */  0.0037774 ; //+/-      0.0003676 +/-      0.0000000 Tot Err:     0.0003676 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA42    */  0.0015407 ; //+/-      0.0001995 +/-      0.0000000 Tot Err:     0.0001995 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA47    */  0.0002411 ; //+/-      0.0000516 +/-      0.0000000 Tot Err:     0.0000516 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA48    */  0.0011208 ; //+/-      0.0002454 +/-      0.0000000 Tot Err:     0.0002454 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA62    */  0.0898792 ; //+/-      0.0006003 +/-      0.0000000 Tot Err:     0.0006003 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA70    */  0.0268568 ; //+/-      0.0006932 +/-      0.0000000 Tot Err:     0.0006932 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA77    */  0.0009086 ; //+/-      0.0003595 +/-      0.0000000 Tot Err:     0.0003595 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA78    */  0.0002233 ; //+/-      0.0000499 +/-      0.0000000 Tot Err:     0.0000499 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA85    */  0.0033354 ; //+/-      0.0002232 +/-      0.0000000 Tot Err:     0.0002232 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA89    */  0.0007347 ; //+/-      0.0001157 +/-      0.0000000 Tot Err:     0.0001157 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA93    */  0.0015313 ; //+/-      0.0000699 +/-      0.0000000 Tot Err:     0.0000699 Check Sys:     0.0000000
+  baseseed[++ibase] = /*          M_GAMMA94    */  0.0000609 ; //+/-      0.0000183 +/-      0.0000000 Tot Err:     0.0000183 Check Sys:     0.0000000
+  baseseed[++ibase] = /*         M_GAMMA104    */  0.0001807 ; //+/-      0.0000260 +/-      0.0000000 Tot Err:     0.0000260 Check Sys:     0.0000000
+  baseseed[++ibase] = /*         M_GAMMA126    */  0.0017735 ; //+/-      0.0002354 +/-      0.0000000 Tot Err:     0.0002354 Check Sys:     0.0000000
+  baseseed[++ibase] = /*         M_GAMMA128    */  0.0002679 ; //+/-      0.0000632 +/-      0.0000000 Tot Err:     0.0000632 Check Sys:     0.0000000
+  baseseed[++ibase] = /*         M_GAMMA150    */  0.0198809 ; //+/-      0.0006285 +/-      0.0000000 Tot Err:     0.0006285 Check Sys:     0.0000000
+  baseseed[++ibase] = /*         M_GAMMA152    */  0.0040670 ; //+/-      0.0004175 +/-      0.0000000 Tot Err:     0.0004175 Check Sys:     0.0000000
+  baseseed[++ibase] = 1- 0.9991898;
   // INPUT NODES
   // NODE# NODE    EQ ADJ. UN. COUNT PAR_CODE PARAM.  SUM COEFFICIENT COEFF-EXTRA  
   // ----- ------- -- -------- ----- -------- ------- --- ----------- ------------ 
@@ -923,7 +956,8 @@ int main() {
 	int parm=node_num_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	numerator+=(node_num_coef[inode].at(ipar))*(baseseed[quan-1]); //*(basefitvalue[quan-1]);
+	numerator+=(node_num_coef[inode].at(ipar))*(baseseed[quan-1]); 
+	//	numerator+=(node_num_coef[inode].at(ipar))*(basefitvalue[quan-1]);
       }
     }
     node_num[inode]=numerator; // <--
@@ -934,7 +968,8 @@ int main() {
 	int parm=node_den_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	denominator+=(node_den_coef[inode].at(ipar))*(baseseed[quan-1]); //*(basefitvalue[quan-1]);
+	denominator+=(node_den_coef[inode].at(ipar))*(baseseed[quan-1]); 
+	//	denominator+=(node_den_coef[inode].at(ipar))*(basefitvalue[quan-1]);
       }
     }
     node_den[inode]=denominator; // <--
@@ -962,9 +997,9 @@ int main() {
 	partial = (1./denominator) * (node_num_coef[inode].at(it_num - node_num_parm[inode].begin())) -1. * (numerator/(denominator*denominator)) * (node_den_coef[inode].at(it_den - node_den_parm[inode].begin()));
       }
       node_part[inode].push_back(partial); // <--
-      if (inode==14) cout << " inode = " << inode << " ipar = " << ipar << " parm = " << parm << " quan = " << quan << " gamma = " << gamma << " partial = " << partial 
-			  << " it_num - node_num_parm[inode].begin() = " << it_num - node_num_parm[inode].begin() 
-			  << endl;
+      //      if (inode==14) cout << " inode = " << inode << " ipar = " << ipar << " parm = " << parm << " quan = " << quan << " gamma = " << gamma << " partial = " << partial 
+      //			  << " it_num - node_num_parm[inode].begin() = " << it_num - node_num_parm[inode].begin() 
+      //			  << endl;
     }
   }
   //
@@ -1039,7 +1074,9 @@ int main() {
       //
       fprintf (measfile[p], "\nBEGIN %s Gamma%s published.%s \n\n", author[i].data(), gammaname[i].data(), year[i].data());
       if (p==0) {//COMBOS
-	if (inode==82 || inode== 79) { // SPECIAL CASE [because these correspond to  NODE = S035R39 & S035R33 respectively, where Gamma104 [used to express constraint] occurs
+	if (// SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint]
+	    (inode+1)==80 || // NODE = 79 NAME = S035R33 GAMMA = 102
+	    (inode+1)==82) { // NODE = 81 NAME = S035R38 GAMMA = 103
 	  fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
 	  fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",3);
 	}else{
@@ -1103,7 +1140,7 @@ int main() {
       inode=it-nodename.begin();
       if ((node_num_npar[inode]+node_den_npar[inode])>1) {
 	//
-	if (p==0&&inode==79) continue; // SPECIAL CASE
+	if (p==0&&(((inode+1)==80)||((inode+1)==82))) continue; // SPECIAL CASE [because these are derived nodes containing Gamma103 ]
 	++isum; // translate C index to Fortran index
 	//
 	if (inode!=lastnode){//new node
@@ -1140,7 +1177,8 @@ int main() {
 	  int parm=node_parm[inode].at(ipar);
 	  int quan=node_quan[inode].at(ipar);
 	  double partial=node_part[inode].at(ipar);
-	  offset += partial*baseseed[quan-1];
+	  offset += partial*baseseed[quan-1]; 
+	  //	  offset += partial*(basefitvalue[quan-1]);
 	}
 	if (p==0) { // COMBOS
 	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d\n",isum,i+1,node_parm[inode].size()); 
@@ -1165,34 +1203,86 @@ int main() {
       for (int i=0;i<nmeas;++i){
 	vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
 	inode=it-nodename.begin();
-	if (find(node_quan[inode].begin(),node_quan[inode].end(),nbase)!=node_quan[inode].end() && node_parm[inode].size()==2) {// relies on prior knowledge that it is 103 & 104
+	//
+	if ((inode+1)==80) { // SPECIAL CASE : NODE = 79 NAME = S035R33 GAMMA = 102 :: Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)
 	  fprintf(avefile[p], "\n*Gamma102 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
-	  fprintf(avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30  - Gamma35\n");
-	  fprintf(avefile[p], "*             - Gamma37  - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
-	  fprintf(avefile[p], "*             - Gamma70  - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
-	  fprintf(avefile[p], "*             - Gamma94  - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d \n",++isum,i+1,nbase-2); 
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD 1.0 -1.0 \n",isum); 
-	  for (ibase=0;ibase<nbase-2;++ibase){
-	    if (basegamma[ibase]>=103) { // special
-	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 1.0 ! Gamma%d \n",isum,ibase+1,ibase+2,basegamma[ibase+1]);
-	    }else{
-	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 1.0 ! Gamma%d \n",isum,ibase+1,ibase+1,basegamma[ibase]);
-	    }
-	  }
+	  fprintf(avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
+	  fprintf(avefile[p], "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
+	  fprintf(avefile[p], "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+	  fprintf(avefile[p], "*             - Gamma94 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d 29 \n",++isum,i+1); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma102; thats why the coefficients below have - sign 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_02  2 -1 ! Gamma5  \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_03  3 -1 ! Gamma9  \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_04  4 -1 ! Gamma10 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_05  5 -1 ! Gamma14 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_06  6 -1 ! Gamma16 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_07  7 -1 ! Gamma20 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_08  8 -1 ! Gamma23 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_09  9 -1 ! Gamma27 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_10 10 -1 ! Gamma28 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_11 11 -1 ! Gamma30 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_12 12 -1 ! Gamma35 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_13 13 -1 ! Gamma37 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_14 14 -1 ! Gamma40 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_15 15 -1 ! Gamma42 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_16 16 -1 ! Gamma47 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_17 17 -1 ! Gamma48 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_18 18 -1 ! Gamma62 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_19 19 -1 ! Gamma70 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_20 20 -1 ! Gamma77 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_21 21 -1 ! Gamma78 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma85 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma89 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_24 24 -1 ! Gamma93 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_26 27 -1 ! Gamma126\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_27 28 -1 ! Gamma128\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_28 29 -1 ! Gamma150\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_29 30 -1 ! Gamma152\n",isum);
 	}
-	if (find(node_quan[inode].begin(),node_quan[inode].end(),nbase)!=node_quan[inode].end() && node_parm[inode].size()==1) {
-	  fprintf(avefile[p], "\n*Gamma104 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
-	  fprintf(avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30  - Gamma35\n");
-	  fprintf(avefile[p], "*             - Gamma37  - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
-	  fprintf(avefile[p], "*             - Gamma70  - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
-	  fprintf(avefile[p], "*             - Gamma94  - Gamma103 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d \n",++isum,i+1,nbase-1); 
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD 1.0 -1.0 \n",isum); 
-	  for (ibase=0;ibase<nbase-1;++ibase){
-	    fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 1.0 ! Gamma%d \n",isum,ibase+1,ibase+1,basegamma[ibase]);
-	  }
+	//
+	if ((inode+1)==82) { // SPECIAL CASE : NODE = 81 NAME = S035R38 GAMMA = 103 
+	  fprintf(avefile[p], "\n*Gamma103 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
+	  fprintf(avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
+	  fprintf(avefile[p], "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
+	  fprintf(avefile[p], "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+	  fprintf(avefile[p], "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d 30 \n",++isum,i+1); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma103; thats why the coefficients below have - sign 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_02  2 -1 ! Gamma5  \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_03  3 -1 ! Gamma9  \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_04  4 -1 ! Gamma10 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_05  5 -1 ! Gamma14 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_06  6 -1 ! Gamma16 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_07  7 -1 ! Gamma20 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_08  8 -1 ! Gamma23 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_09  9 -1 ! Gamma27 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_10 10 -1 ! Gamma28 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_11 11 -1 ! Gamma30 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_12 12 -1 ! Gamma35 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_13 13 -1 ! Gamma37 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_14 14 -1 ! Gamma40 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_15 15 -1 ! Gamma42 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_16 16 -1 ! Gamma47 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_17 17 -1 ! Gamma48 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_18 18 -1 ! Gamma62 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_19 19 -1 ! Gamma70 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_20 20 -1 ! Gamma77 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_21 21 -1 ! Gamma78 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma85 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma89 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_24 24 -1 ! Gamma93 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_26 26 -1 ! Gamma104\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_27 27 -1 ! Gamma126\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_28 28 -1 ! Gamma128\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_29 29 -1 ! Gamma150\n",isum);
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_30 30 -1 ! Gamma152\n",isum);
 	}
+	//
       }
       if (p==0) fprintf (avefile[p], "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 \n",isum); 
     }
@@ -1244,15 +1334,31 @@ int main() {
     }
     cout << iquan_occurance << " measurements of " << inode_occurance << " nodes. \nThese " << iquan_occurance << " measurements are :" ;
     iquan_occurance = 0;
+    vector<int> vector_meas_with_correlation;
     for (int i=0;i<nmeas;++i){
+      bool meas_with_correlation = false;
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
       for (int ii=0;ii<node_quan[inode].size();++ii){
 	if (quan == node_quan[inode].at(ii)) { 
-	  cout << " (" << ++iquan_occurance << ") IMEAS = " << i+1 << " NODE = " << nodename[inode].data() ;
+	  cout << " (" << ++iquan_occurance << ") IMEAS = " << i+1 << " NODE = " << inode << " NAME = " << nodename[inode].data() << " GAMMA = " << gammaname[i].data() ;
+	  for (int j=0;j<nmeas;++j){
+	    if (corrmat[i][j] != 0) {
+	      meas_with_correlation = true;
+	      break;
+	    }
+	  }
 	}
       }
+      if (meas_with_correlation) vector_meas_with_correlation.push_back(i+1);
     }
-    cout << endl << endl;
+    cout << endl;
+    if (vector_meas_with_correlation.size()!=0) {
+      cout << "vector_meas_with_correlation has size = "<< vector_meas_with_correlation.size() << " : ";
+      for (int i=0; i < vector_meas_with_correlation.size(); ++i) cout << vector_meas_with_correlation[i] << " " ; cout << endl;
+    }else{
+      cout << "vector_meas_with_correlation has size = 0"<< endl;
+    }
+    cout << endl;
   }
 }
