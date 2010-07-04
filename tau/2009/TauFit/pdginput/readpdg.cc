@@ -47,7 +47,7 @@ int main() {
   basegamma.push_back( 94); baseparm.push_back(247) ; baseseed[ibase] = 4.000000E-02 ; basetitle[ibase] = "tau- --> K- K+ pi- pi0 nu(tau)"; basefitvalue[ibase]=0.000061 ; basefiterror[ibase]=0.000018 ; baserescalederror[ibase]=0.000020 ; basescalefactor[ibase]=1.10 ;  ++ibase; // 25
   basegamma.push_back(103); baseparm.push_back(  3) ; baseseed[ibase] = 8.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000810 ; basefiterror[ibase]=0.000053 ; baserescalederror[ibase]=0.000055 ; basescalefactor[ibase]=1.05 ;  ++ibase; // 26
   basegamma.push_back(126); baseparm.push_back( 58) ; baseseed[ibase] = 1.700000E-01 ; basetitle[ibase] = "tau- --> eta pi- pi0 nu(tau)"; basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 27
-  basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)";      basefitvalue[ibase]=0.001774 ; basefiterror[ibase]=0.000235 ; baserescalederror[ibase]=0.000236 ; basescalefactor[ibase]=1.00 ; ++ibase; // 28
+  basegamma.push_back(128); baseparm.push_back(109) ; baseseed[ibase] = 3.000000E-02 ; basetitle[ibase] = "tau- --> eta K- nu(tau)";      basefitvalue[ibase]=0.000268 ; basefiterror[ibase]=0.000063 ; baserescalederror[ibase]=0.000063 ; basescalefactor[ibase]=1.00 ; ++ibase; // 28
   basegamma.push_back(150); baseparm.push_back(  8) ; baseseed[ibase] = 2.000000E+00 ; basetitle[ibase] = "tau- --> h- omega nu(tau)";    basefitvalue[ibase]=0.019860 ; basefiterror[ibase]=0.000638 ; baserescalederror[ibase]=0.000788 ; basescalefactor[ibase]=1.24 ; ++ibase; // 29
   basegamma.push_back(152); baseparm.push_back(113) ; baseseed[ibase] = 4.000000E-01 ; basetitle[ibase] = "tau- --> h- omega pi0 nu(tau)";basefitvalue[ibase]=0.004063 ; basefiterror[ibase]=0.000418 ; baserescalederror[ibase]=0.000429 ; basescalefactor[ibase]=1.03 ; ++ibase; // 30
   basegamma.push_back(104); baseparm.push_back(  4) ; baseseed[ibase] = 2.000000E-02 ; basetitle[ibase] = "tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0)"; basefitvalue[ibase]=0.000181 ; basefiterror[ibase]=0.000026 ; baserescalederror[ibase]=0.000026 ; basescalefactor[ibase]=1.01 ;  ++ibase; // 31
@@ -1039,7 +1039,7 @@ int main() {
       //
       fprintf (measfile[p], "\nBEGIN %s Gamma%s published.%s \n\n", author[i].data(), gammaname[i].data(), year[i].data());
       if (p==0) {//COMBOS
-	if (inode==82) { // SPECIAL CASE
+	if (inode==82 || inode== 79) { // SPECIAL CASE [because these correspond to  NODE = S035R39 & S035R33 respectively, where Gamma104 [used to express constraint] occurs
 	  fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
 	  fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",3);
 	}else{
@@ -1078,8 +1078,8 @@ int main() {
     }
     if (p==0){
       fprintf (avefile[p], "\nCALL DUMP_MASTER_INC \n\n");
-      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_PRT 1.0 0. 0. \n\n");
-      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_INV 0 0 0 \n\n");
+      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_PRT -1.0 0. \n\n");
+      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_INV 0 0    \n\n");
     }
     //
     int lastnode=-1;
@@ -1143,7 +1143,8 @@ int main() {
 	  offset += partial*baseseed[quan-1];
 	}
 	if (p==0) { // COMBOS
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d %f \n",isum,i+1,node_parm[inode].size(),offset); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d\n",isum,i+1,node_parm[inode].size()); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD %f 1.0\n",isum,offset); 
 	} else if (p==1) { // ALUCOMB
 	  fprintf (avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), offset, gammaname[i].data());
 	}
@@ -1152,11 +1153,7 @@ int main() {
 	  int quan=node_quan[inode].at(ipar);
 	  double partial=node_part[inode].at(ipar);
 	  if (p==0) { // COMBOS
-	    if (partial>0) {
-	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f 0 ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
-	    }else{
-	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0 %f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
-	    }
+	    fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
 	  }else if (p==1) { // ALUCOMB
 	    fprintf(avefile[p], " Gamma%d %f", basegamma[quan-1], partial);
 	  }
@@ -1174,12 +1171,13 @@ int main() {
 	  fprintf(avefile[p], "*             - Gamma37  - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
 	  fprintf(avefile[p], "*             - Gamma70  - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 	  fprintf(avefile[p], "*             - Gamma94  - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d -1.0 \n",++isum,i+1,nbase-2); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d \n",++isum,i+1,nbase-2); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD 1.0 -1.0 \n",isum); 
 	  for (ibase=0;ibase<nbase-2;++ibase){
-	    if (basegamma[ibase]>=103) {
-	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0.0 -1.0 \n",isum,ibase+1,ibase+2);
+	    if (basegamma[ibase]>=103) { // special
+	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 1.0 ! Gamma%d \n",isum,ibase+1,ibase+2,basegamma[ibase+1]);
 	    }else{
-	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0.0 -1.0 \n",isum,ibase+1,ibase+1);
+	      fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 1.0 ! Gamma%d \n",isum,ibase+1,ibase+1,basegamma[ibase]);
 	    }
 	  }
 	}
@@ -1189,13 +1187,14 @@ int main() {
 	  fprintf(avefile[p], "*             - Gamma37  - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
 	  fprintf(avefile[p], "*             - Gamma70  - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 	  fprintf(avefile[p], "*             - Gamma94  - Gamma103 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
-	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d -1.0 \n",++isum,i+1,nbase-1); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d \n",++isum,i+1,nbase-1); 
+	  fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD 1.0 -1.0 \n",isum); 
 	  for (ibase=0;ibase<nbase-1;++ibase){
-	    fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 0.0 -1.0 \n",isum,ibase+1,ibase+1);
+	    fprintf (avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d 1.0 ! Gamma%d \n",isum,ibase+1,ibase+1,basegamma[ibase]);
 	  }
 	}
       }
-      if (p==0) fprintf (avefile[p], "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 0 \n",isum); 
+      if (p==0) fprintf (avefile[p], "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 \n",isum); 
     }
     if (p==1) {
       fprintf(avefile[p], "\n* unitarity constraint (sum of basic modes, possibly adding also dummy)\n");
