@@ -1,1 +1,4 @@
-see README in sumexample_with_constraint_2 directory
+ there are 2 measurements, one for X and one for Y [= 1-X], and 1 quantity => NDOF = 1 [as expected]
+
+Functionally, this directory is same as sumexample_with_constraint_2 directory
+

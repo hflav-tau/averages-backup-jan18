@@ -1,0 +1,15 @@
+ there are 2 measurements, one for X and one for y = 1 - x and 1 quantity => NDOF = 1 [as expected]
+
+  f ( x0 ) = 1 - x0
+  f' = -1
+  f = -[f ( 0 ) - f'x x0 ]
+
+[measurement - quantity] = [measurement - (f(0) - f'x x0 ])] - (f'x x ) 
+
+Adjust measurement = M to A + B M , where A = -[f(0) - f'x x0 ], B = 1
+
+  A = -[ 1 - x0 + x0 ] = -1
+ 
+Functionally, this directory is same as sumexample_with_constraint_2 or constrainedexample_2 directory
+
+

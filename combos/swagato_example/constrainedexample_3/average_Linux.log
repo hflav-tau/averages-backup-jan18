@@ -1,0 +1,136 @@
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 04/07/10 at 14.08.24
+
+
+ ==============================================================================
+
+ X combination: combined analysis ALL 2D_XY PUBLISHED
+ --------------
+
+ List of   2 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  A1              X               PUBLISHED       X                      1
+       2>  A1              Y               PUBLISHED       X                      1
+ Combined  ALL             2D_XY           PUBLISHED       X                      1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2
+ A1_SYST1            UNC
+ A1_SYST2                UNC
+
+ Results of combination:
+
+ADJUST IMEAS =   2 MEAS =  0.8800000     to -0.1200000    
+IMEAS,CSYS =    1    -1.00
+IMEAS,CSYS =    2     1.00
+ MINUIT_CHI2: DSINV: W->W: IERR =  0
+ CHI2_N_SYM: DSINV: S->S: IERR =  0
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = .94118       2   1   1 CHI2/NDOF, SCALE FAC, CL =  .94118     .97014     .33198    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = .94118       2   1   1 CHI2/NDOF, SCALE FAC, CL =  .94118     .97014     .33198    
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                        X
+            X    0.157647 |      0.009701
+                                        X
+  
+ DUMP_FIT: DSINV: S->SINV: IERR =  0
+ DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                        X
+            X    0.157647 |      0.009701
+                                        X
+  
+                    X      0.1576471 +/-      0.0097014 +/-      0.0000000 Tot Err:     0.0097014 Check Sys:     0.0000000
+All: Sum of Multi-Quantity Average =      0.1576471 +-      0.0097014
+  
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = ALL 2D_XY PUBLISHED
+ CHMEAS = X               
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        2
+  NQUAN =        1
+  NMEFF =        2
+  NCSYS =        0
+  NPARA =        0
+ CHANAL = A1 X PUBLISHED
+          A1 Y PUBLISHED
+
+   MEAS = 0.1600000E+00 -0.1200000E+00
+
+   QUAN               1              1
+
+  STATP = 0.1000000E-01  0.4000000E-01
+
+  STATN = 0.1000000E-01  0.4000000E-01
+
+  STAT  = 0.1000000E-01  0.4000000E-01
+
+  USYSP = 0.2000000E-01  0.4000000E-01
+
+  USYSN = 0.2000000E-01  0.4000000E-01
+
+  USYS  = 0.2000000E-01  0.4000000E-01
+
+STACOR
+      1 | 0.1000000E+01  0.0000000E+00
+      2 | 0.0000000E+00  0.1000000E+01
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+  
+ Corrected measurements:
+ A1 X PUBLISHED     0.1600000E+00 +/-  0.1000000E-01 +/-  0.2000000E-01 Tot:  0.2236068E-01
+ A1 Y PUBLISHED    -0.1200000E+00 +/-  0.4000000E-01 +/-  0.4000000E-01 Tot:  0.5656854E-01
+  
+
+SYSCOR
+      1 | 0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00
+ADJUST IMEAS =   2 MEAS =  0.8800000     to -0.1200000    
+IMEAS,CSYS =    1    -1.00
+IMEAS,CSYS =    2     1.00
+ MINUIT_CHI2: DSINV: W->W: IERR =  0
+ CHI2_N_SYM: DSINV: S->S: IERR =  0
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = .43243       2   1   1 CHI2/NDOF, SCALE FAC, CL =  .43243     .65760     .51080    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = .43243       2   1   1 CHI2/NDOF, SCALE FAC, CL =  .43243     .65760     .51080    
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                        X
+            X    0.154595 |      0.020795
+                                        X
+  
+ DUMP_FIT: DSINV: S->SINV: IERR =  0
+ DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                        X
+            X    0.154595 |      0.020795
+                                        X
+  
+                    X      0.1545946 +/-      0.0207950 +/-      0.0000000 Tot Err:     0.0207950 Check Sys:     0.0000000
+All: Sum of Multi-Quantity Average =      0.1545946 +-      0.0207950
+  
+
+

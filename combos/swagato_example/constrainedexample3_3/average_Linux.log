@@ -1,0 +1,153 @@
+ COMBOS version  3.33 (Mar 20, 2010) run on  on 04/07/10 at 14.41.10
+
+
+ ==============================================================================
+
+ X Y combination: combined analysis ALL 3D_XYZ PUBLISHED
+ ----------------
+
+ List of   3 analyses to combine:
+
+ Analysis  Experiment      Method          Quality         Measurement     Steps
+       1>  A1              X               PUBLISHED       X                      1
+       2>  A1              Y               PUBLISHED       Y                      1
+       3>  A1              Z               PUBLISHED       X                      1
+ Combined  ALL             3D_XYZ          PUBLISHED       X Y                    1
+
+ CORrelated and UNCorrelated systematic uncertainties:
+
+                    Analysis number
+ Uncertainty           1   2   3
+ A1_SYST1            UNC
+ A1_SYST2                UNC
+ A1_SYST3                    UNC
+
+ Results of combination:
+
+ADJUST IMEAS =   3 MEAS =  0.4200000     to -0.5800000    
+IMEAS,CSYS =    1    -1.00   0.00
+IMEAS,CSYS =    2     0.00  -1.00
+IMEAS,CSYS =    3     1.00   1.00
+ MINUIT_CHI2: DSINV: W->W: IERR =  0
+ CHI2_N_SYM: DSINV: S->S: IERR =  0
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = 1.0909       3   2   1 CHI2/NDOF, SCALE FAC, CL =  1.0909     1.0445     .29627    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = 1.0909       3   2   1 CHI2/NDOF, SCALE FAC, CL =  1.0909     1.0445     .29627    
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                        X           Y
+            X    0.158182 |      0.009847   -0.171499
+            Y    0.450909 |     -0.171499    0.028710
+                                        X           Y
+  
+ DUMP_FIT: DSINV: S->SINV: IERR =  0
+ DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                        X           Y
+            X    0.158182 |      0.009847   -0.171499
+            Y    0.450909 |     -0.171499    0.028710
+                                        X           Y
+  
+                    X      0.1581818 +/-      0.0098473 +/-      0.0000000 Tot Err:     0.0098473 Check Sys:     0.0000000
+                    Y      0.4509091 +/-      0.0287096 +/-      0.0000000 Tot Err:     0.0287096 Check Sys:     0.0000000
+ Correlation between                    X and                    Y =     -0.1714986
+All: Sum of Multi-Quantity Average =      0.6090909 +-      0.0287096
+  
+
+ ===============================================================================
+ Dump of master.inc:
+
+ CHROUT = DUMP_MASTER_INC 
+ CHCOMB = ALL 3D_XYZ PUBLISHED
+ CHMEAS = X Y             
+ CHSTEP =                 
+  ISTEP =        1
+  VSTEP = 0.0000E+00
+  LUNIT =        6
+  NMEAS =        3
+  NQUAN =        2
+  NMEFF =        3
+  NCSYS =        0
+  NPARA =        0
+ CHANAL = A1 X PUBLISHED
+          A1 Y PUBLISHED
+          A1 Z PUBLISHED
+
+   MEAS = 0.1600000E+00  0.4800000E+00 -0.5800000E+00
+
+   QUAN               1              2              1
+
+  STATP = 0.1000000E-01  0.4000000E-01  0.4000000E-01
+
+  STATN = 0.1000000E-01  0.4000000E-01  0.4000000E-01
+
+  STAT  = 0.1000000E-01  0.4000000E-01  0.4000000E-01
+
+  USYSP = 0.2000000E-01  0.4000000E-01  0.4000000E-01
+
+  USYSN = 0.2000000E-01  0.4000000E-01  0.4000000E-01
+
+  USYS  = 0.2000000E-01  0.4000000E-01  0.4000000E-01
+
+STACOR
+      1 | 0.1000000E+01  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.1000000E+01  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.1000000E+01
+
+CSYSP
+
+CSYSN
+
+CSYS
+
+CSYS percentage error
+
+ CHPARA                  PARA     EXCUP     EXCUN      EXCU
+
+  
+ Corrected measurements:
+ A1 X PUBLISHED     0.1600000E+00 +/-  0.1000000E-01 +/-  0.2000000E-01 Tot:  0.2236068E-01
+ A1 Y PUBLISHED     0.4800000E+00 +/-  0.4000000E-01 +/-  0.4000000E-01 Tot:  0.5656854E-01
+ A1 Z PUBLISHED    -0.5800000E+00 +/-  0.4000000E-01 +/-  0.4000000E-01 Tot:  0.5656854E-01
+  
+
+SYSCOR
+      1 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+
+TOTCOR
+      1 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      2 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+      3 | 0.0000000E+00  0.0000000E+00  0.0000000E+00
+ADJUST IMEAS =   3 MEAS =  0.4200000     to -0.5800000    
+IMEAS,CSYS =    1    -1.00   0.00
+IMEAS,CSYS =    2     0.00  -1.00
+IMEAS,CSYS =    3     1.00   1.00
+ MINUIT_CHI2: DSINV: W->W: IERR =  0
+ CHI2_N_SYM: DSINV: S->S: IERR =  0
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (DEF) = .52174       3   2   1 CHI2/NDOF, SCALE FAC, CL =  .52174     .72231     .47010    
+CHI2_N_SYM: CHI2, NMEFF, NQUAN, NDOF (NEW) = .52174       3   2   1 CHI2/NDOF, SCALE FAC, CL =  .52174     .72231     .47010    
+  
+  DUMP FIT RESULTS: diag=toterror off-diag=corr. coeff=corr_sys/toterror
+                                        X           Y
+            X    0.155652 |      0.021535   -0.259938
+            Y    0.452174 |     -0.259938    0.041424
+                                        X           Y
+  
+ DUMP_FIT: DSINV: S->SINV: IERR =  0
+ DUMP_FIT: DSINV: SQINV->SQ: IERR =  0
+ --Averaged parameters, using only stat---
+ --breakdown of errors: syst then stat-----
+                                        X           Y
+            X    0.155652 |      0.021535   -0.259938
+            Y    0.452174 |     -0.259938    0.041424
+                                        X           Y
+  
+                    X      0.1556522 +/-      0.0215353 +/-      0.0000000 Tot Err:     0.0215353 Check Sys:     0.0000000
+                    Y      0.4521739 +/-      0.0414239 +/-      0.0000000 Tot Err:     0.0414239 Check Sys:     0.0000000
+ Correlation between                    X and                    Y =     -0.2599376
+All: Sum of Multi-Quantity Average =      0.6078261 +-      0.0414239
+  
+
+
