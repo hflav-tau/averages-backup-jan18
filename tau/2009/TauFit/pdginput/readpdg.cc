@@ -1361,4 +1361,24 @@ int main() {
     }
     cout << endl;
   }
+  //
+  // Cross-check understanding of chisquare and pullaverage in the input file
+  //
+  double chisquare_re[200],pullav_re[200];
+  vector<int> icorrj[200];
+  for (int i=0;i<nmeas;++i){
+    for (int j=0;j<nmeas;++j){
+      if (corrmat[i][j]!=0.0) {
+	icorrj[i].push_back(j);
+      }
+    }
+  }
+  for (int i=0; i<nmeas; ++i){
+    cout << "meas = i+1 = " << i+1 << " icorrj.size = " << icorrj[i].size() << endl;
+    if ( icorrj[i].size() > 0 ) {
+      cout << "icorrj = " ;
+      for (int j=0; j < icorrj[i].size(); ++j) cout << icorrj[i][j]+1 << " "; cout << endl;
+    }
+  }
+
 }

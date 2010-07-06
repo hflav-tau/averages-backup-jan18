@@ -67,6 +67,8 @@
      &                ,SCOPY(MCSYS,MCSYS)
       INTEGER          ErrorFlag, INVOPT, NMEFFNEW, NQUANNEW, NDOFNEW
       DOUBLE PRECISION PRTLEV
+      DOUBLE PRECISION CHI2TEMP(MMEAS),CHI2TEMP_NEW(MMEAS),CHI2SUM
+      INTEGER          NCHI2TMP(MMEAS),ICORRJ(MMEAS,MMEAS)
 *
 *     Determine debug printout level
 *
@@ -179,11 +181,50 @@
       CHI2=0.D0
       DO I=1,NCSYS ! not LCSYS !
         CHI2=CHI2+V(I)**2
+        WRITE (LUNLOG,
+     &       '(''CHI2TOT: I, V, CHI2, TOT = '',I4,3(1X,G14.7))')
+     &       I, V(I),V(I)**2,CHI2
+      ENDDO
+      DO I=1,NMEAS
+        CHI2TEMP(I)=0.D0
+        DO J=1,NMEAS
+          CHI2=CHI2+Z(I)*W(I,J)*Z(J)
+          CHI2TEMP(I)=CHI2TEMP(I)+Z(I)*W(I,J)*Z(J)
+        ENDDO
+      ENDDO
+*
+      DO I=1,NMEAS
+        NCHI2TMP(I)=1
+        ICORRJ(I,NCHI2TMP(I))=I
       ENDDO
       DO I=1,NMEAS
         DO J=1,NMEAS
-          CHI2=CHI2+Z(I)*W(I,J)*Z(J)
+          IF (J.GT.I.AND.W(I,J).NE.0.0) THEN
+            NCHI2TMP(I)=NCHI2TMP(I)+1
+            ICORRJ(I,NCHI2TMP(I))=J
+            NCHI2TMP(J)=NCHI2TMP(J)+1
+            ICORRJ(J,NCHI2TMP(J))=I
+          ENDIF
         ENDDO
+      ENDDO
+*
+      DO I=1,NMEAS
+        IF (NCHI2TMP(I).GT.1) THEN
+         CHI2SUM=0.0D0
+         DO J=1,NCHI2TMP(I)
+           CHI2SUM=CHI2SUM+CHI2TEMP(ICORRJ(I,J))
+         ENDDO
+         CHI2TEMP_NEW(I)=CHI2SUM/NCHI2TMP(I)
+        ENDIF
+      ENDDO
+*
+      CHI2SUM=0.D0
+      DO I=1,NMEAS
+        IF (NCHI2TMP(I).GT.1) CHI2TEMP(I) = CHI2TEMP_NEW(I)
+        CHI2SUM=CHI2SUM+CHI2TEMP(I)
+        WRITE (LUNLOG,
+     &       '(''CHI2TOT: I, N, CHI2, TOT = '',2I4,2(1X,G14.7))')
+     &             I, NCHI2TMP(I),CHI2TEMP(I), CHI2SUM
       ENDDO
 *
 *     Return result
