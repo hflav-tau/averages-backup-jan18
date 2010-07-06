@@ -16,14 +16,6 @@ diag.m <- function(vec) {
 }
 
 ##
-## return list of lines from file
-##
-get.file.lines <- function(fname) {
-  lines  <- readLines(fname)
-  return(lines)
-}
-
-##
 ## test if pattern matches string irrespective of letters case
 ##
 match.nocase = function(pattern, str) {
@@ -77,7 +69,7 @@ if (!file.exists(file)) {
   stop("cannot find file ", file, "\n")
 }
 dir.base = dirname(file)
-lines = get.file.lines(file)
+lines = readLines(file)
 cat("read file", file, "\n")
 
 iline = 1
@@ -91,7 +83,7 @@ repeat {
     if (!file.exists(file.inc)) {
       stop("cannot find included file ", file.inc, "\n")
     }
-    lines.inc = get.file.lines(file.inc)
+    lines.inc = readLines(file.inc)
     cat("read file", file.inc, "\n")
     lines = c(
       if (iline-1>=1) {lines[1:(iline-1)]} else {NULL},
@@ -490,7 +482,7 @@ get.alucomb.section = function(lines, pattern, file, offset=0) {
 get.alucomb = function(file) {
   ol = list()
   
-  lines = suppressWarnings(try(get.file.lines(file), silent=TRUE))
+  lines = suppressWarnings(try(readLines(file), silent=TRUE))
   if (inherits(lines, "try-error")) {
     warning("Cannot open / read file ", file)
     return(ol)

@@ -31,21 +31,23 @@ source("../../../Common/bin/alu-utils.r")
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) {
-  file = args[1]
+  file.name = args[1]
 } else {
-  file = "average.input"
+  file.name = "average.input"
 }
 
-##++ alucomb = function(file = "") {
+##++ alucomb = function(file.name = "") {
 
 ##-- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
 options(width=10000)
 
-rc = alucomb.read(file)
+file.name.data = gsub("[.][^.]*$", ".rdata", file.name)
+
+rc = alucomb.read(file.name)
 measurements = rc$measurements
 combination = rc$combination
-rc = NULL
+rm(rc)
 
 ##
 ## build list of all measurements mentioned in the COMBINE section
@@ -679,6 +681,16 @@ if (quant.num > 1) {
   show(quant2.corr)
 }
 
+##--- save data and results
+save(file=file.name.data,
+     measurements, combination,
+     meas, meas.error, meas.cov, meas.cov.stat, meas.cov.syst, meas.corr,
+     quant, quant.err, quant.cov, quant.corr, quant2.err, quant2.cov, quant2.corr,
+     sfact.row, constr.m, constr.v)
+
+cat("\n")
+cat(paste("file", file.name.data, "produced\n"))
+cat("\n")
 cat("## end\n")
 
 options(options.save)
