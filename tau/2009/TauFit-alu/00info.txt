@@ -9,4 +9,6 @@ cd -
 
 ../../../Common/bin/alucomb.r alucomb_average_pdginput_no_babar_belle.input > ! alucomb_average_pdginput_no_babar_belle.log
 
+./compare_alucomb_pdg.r >! compare_alucomb_pdg.log
+
 ///////////////////////////////////////////////////////////////////////////////
