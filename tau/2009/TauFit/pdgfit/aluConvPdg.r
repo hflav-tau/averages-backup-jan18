@@ -4,14 +4,6 @@
 ## definitions
 
 ##
-## return list of lines from file
-##
-get.file.lines <- function(fname) {
-  lines  <- readLines(fname)
-  return(lines)
-}
-
-##
 ## test if pattern matches string irrespective of letters case
 ##
 match.nocase = function(pattern, str) {
@@ -25,7 +17,7 @@ file = "s035-fit-no-babar-belle-no-scaling-with-dummy-mode.fit"
 args <- commandArgs(TRUE)
 if (length(args) > 0) file = args[1]
 
-lines = get.file.lines(file)
+lines = readLines(file)
 cat("read file", file, "\n", file=stderr())
 
 par.beg = grep("^\\s*RESULTS FOR PARAMETERS", lines, perl=TRUE)[3] + 3

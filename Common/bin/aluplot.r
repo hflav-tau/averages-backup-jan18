@@ -139,7 +139,7 @@ get.combos.chi2nsym = function(file) {
 ## get Combos results in specified file
 ##
 get.combos.results = function(file) {
-  lines = suppressWarnings(try(get.file.lines(file), silent=TRUE))
+  lines = suppressWarnings(try(readLines(file), silent=TRUE))
   if (inherits(lines, "try-error")) {
     warning("Cannot open / read file ", file)
     return(list())
@@ -304,7 +304,7 @@ if (length(rc) > 0) {
 }
 
 ##-- read dedicated file with PDG 2009 averages
-lines = get.file.lines("../Common/pdg_averages.input")
+lines = readLines("../Common/pdg_averages.input")
 pdg.averages = list()
 for (line in lines) {
   ##-- remove comments up to end of line, and preceding space
@@ -322,7 +322,7 @@ for (line in lines) {
 ## in the Combos cards the measurement results have symmetrized errors
 ## override symmetrized errors with the original ones usind a dedicated file
 ##
-lines = get.file.lines("../Common/results_asymm_errors.input")
+lines = readLines("../Common/results_asymm_errors.input")
 meas.asymm = list()
 for (line in lines) {
   if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
