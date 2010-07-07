@@ -1,12 +1,53 @@
+#include <assert.h>
+#include <math.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "TROOT.h"
+#include "TChain.h"
+#include "TTree.h"
+#include "TFile.h"
+#include "TSystem.h"
+#include "TMath.h"
+#include "TPostScript.h"
+#include "TStyle.h"
+#include "TCanvas.h"
+#include "TKey.h"
+#include "TLine.h"
+#include "TBox.h"
+#include "TArrow.h"
+#include "TEllipse.h"
+#include "TSpline.h"
+#include "TF1.h"
+#include "TH2D.h"
+#include "TString.h"
+#include "TCut.h"
+#include "TVector3.h"
+#include "TLorentzVector.h"
+#include "TGraph.h"
+#include "TGraphErrors.h"
+#include "TGraphAsymmErrors.h"
+#include "TLatex.h"
+#include "TColor.h"
+#include "TPaveText.h"
+#include "Riostream.h"
+#include "TMatrixD.h"
+#include "TMatrixDLazy.h"
+#include "TVectorD.h"
+#include "TDecompLU.h"
+#include "TDecompSVD.h"
+
 using namespace std;
 // ----------------------------------------------------------------------
 int main() {
+  gSystem->Load("libMatrix");
+  //
   int ipar;
   // from s035-fit-no-babar-belle.fit
   const int nbase=31;//33;
@@ -1015,7 +1056,7 @@ int main() {
   while(ifs.good()) {
     if (ifs.eof()) break;
     char firstch(' ') ; ifs.get(firstch) ;
-    if (firstch=='#'||firstch=='\n') { // Skip this line
+    if (firstch=='#'||firstch=='\n') { // Skip this linex
       ifs.ignore(256,'\n') ;
     } else if (firstch=='*') {  // measurement line
       ifs >> imeas[nmeas] >> gammaname[nmeas] >> measnodename[nmeas]
@@ -1364,21 +1405,122 @@ int main() {
   //
   // Cross-check understanding of chisquare and pullaverage in the input file
   //
-  double chisquare_re[200],pullav_re[200];
+  int i,j;
+  TMatrixD ErrorMatrix(nmeas,nmeas);
+  for (i=0;i<nmeas;++i) {
+    for (j=0;j<nmeas;++j) {
+      if (i==j) {
+	ErrorMatrix(i,j)=measerror[i]*measerror[i];
+      }else{
+	ErrorMatrix(i,j)=corrmat[i][j]*measerror[i]*measerror[j];
+      }
+    }
+  }
+  Double_t determinant;
+  TMatrixD InvErrorMatrix = ErrorMatrix;
+  InvErrorMatrix.Invert(&determinant);  
+
+  TMatrixD Unitary(InvErrorMatrix,TMatrixD::kMult,ErrorMatrix);
+  TMatrixDDiag diagonal(Unitary); diagonal = 0.0;
+  const Double_t Unitary_max_offdiag = (Unitary.Abs()).Max();
+  cout << "  Maximum off-diagonal = " << Unitary_max_offdiag << endl;
+  cout << "  Determinant          = " << determinant <<endl;
+  //
+  double chisquare_re[200];
+  double chisquare_tot=0;
+  for (i=0;i<nmeas;++i){
+    chisquare_re[i]=0.0;
+    for (j=0;j<nmeas;++j){
+      chisquare_re[i]+=(measvalue[i]-fitvalue[i])*InvErrorMatrix[i][j]*(measvalue[j]-fitvalue[j]);
+    }
+    chisquare_tot+=chisquare_re[i];
+  }
+  cout << "chisquare_tot = " << chisquare_tot << endl;
+  //
   vector<int> icorrj[200];
-  for (int i=0;i<nmeas;++i){
-    for (int j=0;j<nmeas;++j){
-      if (corrmat[i][j]!=0.0) {
+  for (i=0;i<nmeas;++i){
+    for (j=0;j<nmeas;++j){
+      if (InvErrorMatrix[i][j]!=0.0) {
 	icorrj[i].push_back(j);
       }
     }
   }
-  for (int i=0; i<nmeas; ++i){
-    cout << "meas = i+1 = " << i+1 << " icorrj.size = " << icorrj[i].size() << endl;
-    if ( icorrj[i].size() > 0 ) {
-      cout << "icorrj = " ;
-      for (int j=0; j < icorrj[i].size(); ++j) cout << icorrj[i][j]+1 << " "; cout << endl;
+  double chisquare_tmp[200];
+  for (i=0; i<nmeas; ++i){
+    if ( icorrj[i].size() > 1 ) {
+      chisquare_tmp[i]=0;
+      //      cout << "meas = i+1 = " << i+1 << " icorrj.size = " << icorrj[i].size() << " ; ";
+      //      cout << "icorrj = " ;
+      for (j=0; j < icorrj[i].size(); ++j) {
+	//	cout << icorrj[i][j]+1 << " "; cout << endl;
+	chisquare_tmp[i]+=chisquare_re[icorrj[i][j]];
+      }
+      chisquare_tmp[i]/=icorrj[i].size();
     }
   }
-
+  //
+  for (i=0; i<nmeas; ++i){
+    if ( icorrj[i].size() > 1 ) {
+      chisquare_re[i]=chisquare_tmp[i];
+    }
+  }
+  //
+  double pullraw[200];
+  double pullsq[200];
+  int lastnode=-1;
+  int newnode=-1;
+  int measurednode[200];
+  for (i=0;i<nmeas;++i) {
+    pullraw[i] = (measvalue[i]-fitvalue[i]) / (measerror[i]);
+    pullsq[i] = ((measvalue[i]-fitvalue[i])*(measvalue[i]-fitvalue[i])) / (measerror[i]*measerror[i] - fiterror[i]*fiterror[i]);
+    vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+    inode=it-nodename.begin();
+    measurednode[i]=-1;
+    if (measweak[i]==0) {
+      if (inode!=lastnode) {
+	lastnode=inode;
+	++newnode;
+      }
+      measurednode[i] = newnode;
+    }
+    //cout << "imeas = " << i << " inode = " << inode <<  " lastnode = " << lastnode << " newnode = " << newnode << "  measurednode[i] = " <<  measurednode[i] << " pullraw[i] = " << pullraw[i] << " pullsq[i] = " << pullsq[i] << endl;
+  }
+  //
+  double pullav_pernode[200];
+  double pullsq_pernode[200];
+  int    imeas_pernode[200];
+  for (inode=0;inode<=newnode;++inode){
+    pullsq_pernode[inode]=0;
+    imeas_pernode[inode]=0;
+    for (i=0;i<nmeas;++i){
+      if (measurednode[i]==inode) {
+	pullsq_pernode[inode]+=pullsq[i];
+	imeas_pernode[inode]+=1;
+      }
+    }
+    pullav_pernode[inode]=sqrt(pullsq_pernode[inode]/imeas_pernode[inode]);
+    cout << "inode = " << inode << " imeas_pernode[inode] = " << imeas_pernode[inode] << " pullsq_pernode[inode] = " << pullsq_pernode[inode] << " pullav_pernode[inode] = " << pullav_pernode[inode] << endl;
+  }
+  //
+  double pullav_re[200];
+  for (i=0;i<nmeas;++i){
+    //    cout << "imeas = " <<i << " measurednode[i] = " << measurednode[i] << endl;
+    if (measweak[i]==0) {
+      pullav_re[i]=pullav_pernode[measurednode[i]];
+    }else{
+      pullav_re[i]=0;
+    }
+  }
+  //
+  chisquare_tot=0;
+  for (i=0; i<nmeas; ++i){
+    chisquare_tot+=chisquare_re[i];
+    TString spull=Form("%4.2f",pullav_re[i]);
+    double dpull=atof(spull.Data());
+    bool same=dpull==pullav[i];
+    if (!same) {
+      cout << "Summary: " << i+1 << " " << icorrj[i].size() << " " << chisquare_re[i] << " " << chisquare[i] << " " << chisquare_tot << " " << pullav_re[i] << " " << pullav[i] << " " << dpull <<" " << same <<  endl;
+    }
+  } 
+  //
 }

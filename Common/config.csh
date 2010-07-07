@@ -23,3 +23,11 @@ if ($sl3 == 0 && `uname -s` == "Linux") then
 endif
 
 alias make gmake
+
+setenv ROOTSYS /afs/slac.stanford.edu/g/babar/package/root/5.26-00/Linux26SL5_i386_gcc412
+if ( ${?LD_LIBRARY_PATH} ) then
+   setenv LD_LIBRARY_PATH $ROOTSYS/lib:/usr/local/lib:/cern/2002/lib:${PWD}/tmp
+else
+   setenv LD_LIBRARY_PATH "/usr/lib:/usr/local/lib:${ROOTSYS}/lib:/cern/2002/lib"
+endif
+addpath2 PATH $ROOTSYS/bin
