@@ -2,7 +2,10 @@
 
 ## ////////////////////////////////////////////////////////////////////////////
 ##
+## aluplot-make.r
+##
 ## plot measurements in pdg_average.input
+## - preliminary code, replaced by Root code executed with "make plot"
 ##
 
 library(plotrix)
