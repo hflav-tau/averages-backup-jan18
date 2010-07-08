@@ -202,7 +202,8 @@ update_plot_all:  $(PLOTS)
 	  echo "should do: ../../../tau/bin/albatross --indexname gallery.html --clear" ;\
 	  echo "should do: ../../../tau/bin/albatross --indexname gallery.html --light --noexif" ;\
 	else \
-	  echo "cannot write to $(HFAGPLOTDIR)" ;\
+	  echo "plots saved but cannot update web accessible plot directory" ;\
+	  echo "  $(HFAGPLOTDIR)" ;\
 	fi
 
 update_combos:
