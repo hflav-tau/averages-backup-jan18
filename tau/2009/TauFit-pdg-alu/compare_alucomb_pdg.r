@@ -25,71 +25,68 @@ if (length(args) > 0) {
 } else {
   file.name = "average_alucomb.rdata"
 }
-file.name.pdg = "pdginput/readpdg.cc"
+file.name.pdg.swb = "pdginput/readpdg.cc"
+file.name.pdg = "pdginput/s035-fit-no-babar-belle.data"
 
+##--- get alucomb results and data
 load(file.name)
-lines = readLines(file.name.pdg)
-lines.results = suppressWarnings(grep("push_back.*basefitvalue", lines, perl=TRUE))
-lines = lines[lines.results]
 
-pdg = gsub(paste("^.*basegamma.push_back.\\s*(\\S+)\\s*.;",
-           ".*baseseed.ibase.\\s*=\\s*(\\S+)\\s*;",
-           ".*basefitvalue.ibase.\\s*=\\s*(\\S+)\\s*;",
-           ".*basefiterror.ibase.\\s*=\\s*(\\S+)\\s*;",
-           ".*baserescalederror.ibase.\\s*=\\s*(\\S+)\\s*;",
-           ".*basescalefactor.ibase.\\s*=\\s*(\\S+)\\s*;",
-           ".*$",
-           sep=""),
-     "\\1;\\2;\\3;\\4;\\5;\\6", lines, perl=TRUE)
+##--- get pdg data
+ll = readLines(file.name.pdg)
+labels = tolower(unlist(strsplit(ll[2], "\\s+", perl=TRUE)))
+labels[1] = "num"
+labels[7] = paste(labels[4], labels[7], sep=".")
+labels[6] = paste(labels[4], labels[6], sep=".")
+labels[4] = paste(labels[4], labels[5], sep=".")
+labels[10] = paste(labels[8], labels[10], sep=".")
+labels[8] = paste(labels[8], labels[9], sep=".")
+labels = labels[c(-5, -9)]
+labels = c(labels, "descr")
+ll.sel = grep("^\\*", ll, perl=TRUE)
+ll = ll[ll.sel]
+ll =
+  gsub(paste("^.\\s*(\\d+)", paste(rep("\\s+(\\S+)", 7), sep="", collapse=""), "\\s+(.*\\S+)\\s*$", sep="", collapse=""),
+       paste("\\", 1:9, sep="", collapse=";"), ll, perl=TRUE)
+ll =
+  gsub(paste("(", paste(rep("[^;\\s]*", 9), collapse=";"), ")",
+             paste(rep("\\s+(\\S+)", 5), collapse=""), "\\s+(.*\\S+)\\s*$", sep="", collapse=""),
+       paste("\\", 1:7, sep="", collapse=";"), ll, perl=TRUE)
+con = textConnection(ll)
+pdg = read.table(con, sep=";")
+close(con)
+colnames(pdg) = labels
+pdg$quant.name = paste("Gamma", pdg$gamma, sep="")
 
-pdg.num = t(sapply(strsplit(pdg, ";"), as.numeric))
-pdg.quant.names = sprintf("Gamma%d", pdg.num[,1])
+##--- get data from Swagato .cc file
+ll = readLines(file.name.pdg.swb)
+ll.sel = grep("push_back.*basefitvalue", ll, perl=TRUE, useBytes=TRUE)
+ll = ll[ll.sel]
 
-pdg.quant.seed = pdg.num[,2]
-pdg.quant = pdg.num[,3]
-pdg.quant.err = pdg.num[,4]
-pdg.quant2.err = pdg.num[,5]
-pdg.sfact.row = pdg.num[,6]
+ll = gsub(paste("^.*basegamma.push_back.\\s*(\\S+)\\s*.;",
+  ".*baseseed.ibase.\\s*=\\s*(\\S+)\\s*;",
+  ".*basefitvalue.ibase.\\s*=\\s*(\\S+)\\s*;",
+  ".*basefiterror.ibase.\\s*=\\s*(\\S+)\\s*;",
+  ".*baserescalederror.ibase.\\s*=\\s*(\\S+)\\s*;",
+  ".*basescalefactor.ibase.\\s*=\\s*(\\S+)\\s*;",
+  ".*$",
+  sep=""),
+  "\\1;\\2;\\3;\\4;\\5;\\6", ll, perl=TRUE, useBytes=TRUE)
 
-names(pdg.quant.seed) = pdg.quant.names
-names(pdg.quant) = pdg.quant.names
-names(pdg.quant.err) = pdg.quant.names
-names(pdg.quant2.err) = pdg.quant.names
-names(pdg.sfact.row) = pdg.quant.names
+con = textConnection(ll)
+pdg.swb = read.table(con, sep=";")
+close(con)
+colnames(pdg.swb) = c("quant.id", "quant.seed", "quant", "quant.err", "quant2.err", "sfact")
+pdg.swb$quant.name = paste("Gamma", pdg.swb$quant.id, sep="")
 
 quant.names = names(quant)
-pdg.select = quant.names %in% pdg.quant.names
+
+pdg.select = quant.names %in% pdg.swb$quant.name
 quant.names.pdg = quant.names[pdg.select]
+pdg.swb.sel = match(quant.names.pdg, pdg.swb$quant.name)
 
-if (FALSE) {
-show(rbind(fit       = quant[quant.names.pdg],
-           pdg       = pdg.quant[quant.names.pdg],
-           fit.err   = quant.err[quant.names.pdg],
-           pdg.err   = pdg.quant.err[quant.names.pdg],
-           fit.err2  = quant2.err[quant.names.pdg],
-           pdg.err2  = pdg.quant2.err[quant.names.pdg],
-           fit.sf    = sfact.row[quant.names.pdg],
-           pdg.sf    = pdg.sfact.row[quant.names.pdg],
-           "Dquant%" = (quant[quant.names.pdg]/pdg.quant[quant.names.pdg]-1)*100,
-           "Derr%"   = (quant.err[quant.names.pdg]/pdg.quant.err[quant.names.pdg]-1)*100,
-           "Derr2%"  = (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100,
-           "Dsf2%"   = (sfact.row[quant.names.pdg]/pdg.sfact.row[quant.names.pdg]-1)*100
-           ))
-
-show(rbind(fit       = quant[quant.names.pdg],
-           pdg       = pdg.quant[quant.names.pdg],
-           fit.err   = quant.err[quant.names.pdg],
-           pdg.err   = pdg.quant.err[quant.names.pdg],
-           fit.err2  = quant2.err[quant.names.pdg],
-           pdg.err2  = pdg.quant2.err[quant.names.pdg],
-           fit.sf    = sfact.row[quant.names.pdg],
-           pdg.sf    = pdg.sfact.row[quant.names.pdg],
-           "Dquant%" = sprintf("%7.5f", (quant[quant.names.pdg]/pdg.quant[quant.names.pdg]-1)*100),
-           "Derr%"   = sprintf("%7.5f", (quant.err[quant.names.pdg]/pdg.quant.err[quant.names.pdg]-1)*100),
-           "Derr2%"  = sprintf("%7.5f", (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100),
-           "Dsf2%"   = sprintf("%7.5f", (sfact.row[quant.names.pdg]/pdg.sfact.row[quant.names.pdg]-1)*100)
-           ))
-}
+## pdg.rows = sapply(unique(pdg$quant.name), function(x) which(x == pdg$quant.name)[1])
+pdg.rows = match(quant.names.pdg, pdg$quant.name)
+pdg.rows = pdg.rows[!is.na(pdg.rows)]
 
 cat("             quant     err       err2      sf   pdg       pdg.err   pdg.err3  pdg.sf Dquant%    Derr%       Derr2%    Dsf% \n")
 rc = mapply(function(
@@ -124,8 +121,42 @@ rc = mapply(function(
   quant.err[quant.names.pdg],
   quant2.err[quant.names.pdg],
   sfact.row[quant.names.pdg],
-  pdg.quant[quant.names.pdg],
-  pdg.quant.err[quant.names.pdg],
-  pdg.quant2.err[quant.names.pdg],
-  pdg.sfact.row[quant.names.pdg]
+  ## pdg.quant$fit.value[pdg.rows],
+  ## pdg.quant$fit.error,
+  ## pdg.quant$fit.scalederr,
+  ## pdg.quant$scale
+  pdg.swb$quant[pdg.swb.sel],
+  pdg.swb$quant.err[pdg.swb.sel],
+  pdg.swb$quant2.err[pdg.swb.sel],
+  pdg.swb$sfact[pdg.swb.sel]
   )
+
+if (FALSE) {
+show(rbind(fit       = quant[quant.names.pdg],
+           pdg       = pdg.quant[quant.names.pdg],
+           fit.err   = quant.err[quant.names.pdg],
+           pdg.err   = pdg.quant.err[quant.names.pdg],
+           fit.err2  = quant2.err[quant.names.pdg],
+           pdg.err2  = pdg.quant2.err[quant.names.pdg],
+           fit.sf    = sfact.row[quant.names.pdg],
+           pdg.sf    = pdg.sfact.row[quant.names.pdg],
+           "Dquant%" = (quant[quant.names.pdg]/pdg.quant[quant.names.pdg]-1)*100,
+           "Derr%"   = (quant.err[quant.names.pdg]/pdg.quant.err[quant.names.pdg]-1)*100,
+           "Derr2%"  = (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100,
+           "Dsf2%"   = (sfact.row[quant.names.pdg]/pdg.sfact.row[quant.names.pdg]-1)*100
+           ))
+
+show(rbind(fit       = quant[quant.names.pdg],
+           pdg       = pdg.quant[quant.names.pdg],
+           fit.err   = quant.err[quant.names.pdg],
+           pdg.err   = pdg.quant.err[quant.names.pdg],
+           fit.err2  = quant2.err[quant.names.pdg],
+           pdg.err2  = pdg.quant2.err[quant.names.pdg],
+           fit.sf    = sfact.row[quant.names.pdg],
+           pdg.sf    = pdg.sfact.row[quant.names.pdg],
+           "Dquant%" = sprintf("%7.5f", (quant[quant.names.pdg]/pdg.quant[quant.names.pdg]-1)*100),
+           "Derr%"   = sprintf("%7.5f", (quant.err[quant.names.pdg]/pdg.quant.err[quant.names.pdg]-1)*100),
+           "Derr2%"  = sprintf("%7.5f", (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100),
+           "Dsf2%"   = sprintf("%7.5f", (sfact.row[quant.names.pdg]/pdg.sfact.row[quant.names.pdg]-1)*100)
+           ))
+}
