@@ -23,7 +23,7 @@ args <- commandArgs(TRUE)
 if (length(args) > 0) {
   file.name = args[1]
 } else {
-  file.name = "alucomb_average_pdginput_no_babar_belle.rdata"
+  file.name = "average_alucomb.rdata"
 }
 file.name.pdg = "pdginput/readpdg.cc"
 
