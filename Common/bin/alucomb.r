@@ -42,7 +42,7 @@ if (length(args) > 0) {
 options.save = options()
 options(width=10000)
 
-file.name.data = gsub("[.][^.]*$", ".rdata", file.name)
+file.name.data = gsub("[.][^.]*$", "_alucomb.rdata", file.name)
 
 rc = alucomb.read(file.name)
 measurements = rc$measurements
