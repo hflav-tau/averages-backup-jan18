@@ -4,7 +4,7 @@
 ##
 ## compare_alucomb_pdg.r
 ##
-## - get averages from alucomb.r .rdata fiel
+## - get averages from alucomb.r .rdata file
 ## - get PDG averages from pdginput/pdgread.cc
 ##
 ## ////////////////////////////////////////////////////////////////////////////
