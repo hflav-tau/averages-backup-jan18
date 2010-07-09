@@ -75,7 +75,7 @@ ll = gsub(paste("^.*basegamma.push_back.\\s*(\\S+)\\s*.;",
 con = textConnection(ll)
 pdg.swb = read.table(con, sep=";")
 close(con)
-colnames(pdg.swb) = c("quant.id", "quant.seed", "quant", "quant.err", "quant2.err", "sfact")
+colnames(pdg.swb) = c("quant.id", "quant.seed", "quant", "quant.err", "quant3.err", "sfact3.types")
 pdg.swb$quant.name = paste("Gamma", pdg.swb$quant.id, sep="")
 
 quant.names = names(quant)
@@ -93,42 +93,42 @@ rc = mapply(function(
   name,
   quant,
   quant.err,
-  quant2.err,
-  sfact.row,
+  quant3.err,
+  sfact3.types,
   pdg.quant,
   pdg.quant.err,
-  pdg.quant2.err,
-  pdg.sfact.row
+  pdg.quant3.err,
+  pdg.sfact3.types
   ) {
   cat(sprintf("%12s %9.7f %9.7f %9.7f %4.2f %9.7f %9.7f %9.7f %4.2f %9.4f%% %9.4f%% %9.4f%% %9.4f%%\n",
               name,
               quant,
               quant.err,
-              quant2.err,
-              sfact.row,
+              quant3.err,
+              sfact3.types,
               pdg.quant,
               pdg.quant.err,
-              pdg.quant2.err,
-              pdg.sfact.row,
+              pdg.quant3.err,
+              pdg.sfact3.types,
               (quant/pdg.quant-1)*100,
               (quant.err/pdg.quant.err-1)*100,
-              (quant2.err/pdg.quant2.err-1)*100,
-              (sfact.row/pdg.sfact.row-1)*100
+              (quant3.err/pdg.quant3.err-1)*100,
+              (sfact3.types/pdg.sfact3.types-1)*100
               ))
 },
   quant.names.pdg,
   quant[quant.names.pdg],
   quant.err[quant.names.pdg],
-  quant2.err[quant.names.pdg],
-  sfact.row[quant.names.pdg],
+  quant3.err[quant.names.pdg],
+  sfact3.types[quant.names.pdg],
   ## pdg.quant$fit.value[pdg.rows],
   ## pdg.quant$fit.error,
   ## pdg.quant$fit.scalederr,
   ## pdg.quant$scale
   pdg.swb$quant[pdg.swb.sel],
   pdg.swb$quant.err[pdg.swb.sel],
-  pdg.swb$quant2.err[pdg.swb.sel],
-  pdg.swb$sfact[pdg.swb.sel]
+  pdg.swb$quant3.err[pdg.swb.sel],
+  pdg.swb$sfact3.types[pdg.swb.sel]
   )
 
 if (FALSE) {
@@ -138,12 +138,12 @@ show(rbind(fit       = quant[quant.names.pdg],
            pdg.err   = pdg.quant.err[quant.names.pdg],
            fit.err2  = quant2.err[quant.names.pdg],
            pdg.err2  = pdg.quant2.err[quant.names.pdg],
-           fit.sf    = sfact.row[quant.names.pdg],
-           pdg.sf    = pdg.sfact.row[quant.names.pdg],
+           fit.sf    = sfact3.types[quant.names.pdg],
+           pdg.sf    = pdg.sfact3.types[quant.names.pdg],
            "Dquant%" = (quant[quant.names.pdg]/pdg.quant[quant.names.pdg]-1)*100,
            "Derr%"   = (quant.err[quant.names.pdg]/pdg.quant.err[quant.names.pdg]-1)*100,
            "Derr2%"  = (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100,
-           "Dsf2%"   = (sfact.row[quant.names.pdg]/pdg.sfact.row[quant.names.pdg]-1)*100
+           "Dsf2%"   = (sfact3.types[quant.names.pdg]/pdg.sfact3.types[quant.names.pdg]-1)*100
            ))
 
 show(rbind(fit       = quant[quant.names.pdg],
@@ -152,11 +152,11 @@ show(rbind(fit       = quant[quant.names.pdg],
            pdg.err   = pdg.quant.err[quant.names.pdg],
            fit.err2  = quant2.err[quant.names.pdg],
            pdg.err2  = pdg.quant2.err[quant.names.pdg],
-           fit.sf    = sfact.row[quant.names.pdg],
-           pdg.sf    = pdg.sfact.row[quant.names.pdg],
+           fit.sf    = sfact3.types[quant.names.pdg],
+           pdg.sf    = pdg.sfact3.types[quant.names.pdg],
            "Dquant%" = sprintf("%7.5f", (quant[quant.names.pdg]/pdg.quant[quant.names.pdg]-1)*100),
            "Derr%"   = sprintf("%7.5f", (quant.err[quant.names.pdg]/pdg.quant.err[quant.names.pdg]-1)*100),
            "Derr2%"  = sprintf("%7.5f", (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100),
-           "Dsf2%"   = sprintf("%7.5f", (sfact.row[quant.names.pdg]/pdg.sfact.row[quant.names.pdg]-1)*100)
+           "Dsf2%"   = sprintf("%7.5f", (sfact3.types[quant.names.pdg]/pdg.sfact3.types[quant.names.pdg]-1)*100)
            ))
 }
