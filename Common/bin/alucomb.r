@@ -641,52 +641,118 @@ quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 ##-- all measurements chisq after S-factor inflation
 chisq2 = drop(t(meas - delta %*% quant) %*% meas2.invcov %*% (meas - delta %*% quant))
 
+##
+## new S-factors computed after 1st S-factor inflation
+##
+if (quant.num > 1) {
+  ##-- if multiple average, use dedicated S-factor computation
+  sfact2.types = quant2.err / quant.err
+} else {
+  ##-- if averaging a single quantity, use global chisq to compute S-factor
+  sfact2.types = max(sqrt(chisq/dof), 1)
+}
+
+##
+## final S-factors
+## - use 1st stage S-factors to inflate errors
+## - recompute errors and S-factors
+##
+sfact2.types = pmax(sfact2.types, 1)
+sfact2 = drop(delta %*% sfact2.types)
+
+##-- chisq with S-factors, just for not-too-large error measurements
+chisq2.keep = drop(
+  t((meas - delta %*% quant)[meas.keep])
+  %*% solve(diag.m(sfact2[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(sfact2[meas.keep]))
+  %*% (meas - delta %*% quant)[meas.keep])
+
+dof2.keep = dof.keep
+
+##
+## inflate the covariance matrix with the S-factors
+##
+meas3.cov = diag.m(sfact2) %*% meas.cov %*% diag.m(sfact2)
+rownames(meas3.cov) = meas.names
+colnames(meas3.cov) = meas.names
+meas3.invcov = solve(meas3.cov)
+
+##-- compute new inflated fitted quantities covariance matrix 
+full3.v.cov = rbind(
+  cbind(meas3.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
+  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
+
+##-- covariance matrix of fitted values
+quant3.constr.cov = solve.m %*% full3.v.cov %*% t(solve.m)
+quant3.cov = quant3.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
+
+##-- updated errors and correlations
+quant3.err = sqrt(diag.m(quant3.cov))
+quant3.corr = quant3.cov / (quant3.err %o% quant3.err)
+
+##-- all measurements chisq after S-factor inflation
+chisq3 = drop(t(meas - delta %*% quant) %*% meas3.invcov %*% (meas - delta %*% quant))
+
+##
+## final S-factors computed after 1st S-factor inflation
+##
+if (quant.num > 1) {
+  ##-- if multiple average, use dedicated S-factor computation
+  sfact3.types = quant3.err / quant.err
+} else {
+  ##-- if averaging a single quantity, use global chisq to compute S-factor
+  sfact3.types = sfact2.types
+}
+
 cat("\n")
 cat("##\n")
 cat("## S-factors accounting for larger than expected chi-square\n")
 cat("##\n")
 
 out = rbind(
-  original = c(
+  "fit.1" = c(
     chisq=chisq, dof=dof,
     "chisq/dof"=chisq/dof,
     CL=pchisq(chisq, dof, lower.tail=FALSE)))
 if (any(meas.keep)) {
   out = rbind(out
-    ,"  no-large-error" = c(
+    ,"fit.2" = c(
        chisq=chisq.keep, dof=dof.keep,
        "chisq/dof"=chisq.keep/dof.keep,
-       CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE)))
+       CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE))
+    ,"fit.3" = c(
+       chisq=chisq2.keep, dof=dof2.keep,
+       "chisq/dof"=chisq2.keep/dof2.keep,
+       CL=pchisq(chisq2.keep, dof2.keep, lower.tail=FALSE)))
 }
 show(out)
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
-if (quant.num > 1) {
-  ##-- if multiple average, use dedicated S-factor computation
-  sfact.row = quant2.err / quant.err
-} else {
-  ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact.row = max(sqrt(chisq/dof), 1)
-}
 show(rbind(value=quant,
            error=quant.err,
-           upd.error=quant2.err,
-           "S-factor"=sfact.row
+           error.2=quant2.err,
+           error.3=quant3.err,
+           "S-factor"=sfact.types,
+           "S-factor.2"=sfact2.types,
+           "S-factor.3"=sfact3.types
            ))
 
 if (quant.num > 1) {
   cat("correlation\n") 
   show(quant.corr)
   cat("correlation, S-factor inflated\n") 
-  show(quant2.corr)
+  show(quant3.corr)
 }
 
 ##--- save data and results
 save(file=file.name.data,
      measurements, combination,
      meas, meas.error, meas.cov, meas.cov.stat, meas.cov.syst, meas.corr,
-     quant, quant.err, quant.cov, quant.corr, quant2.err, quant2.cov, quant2.corr,
-     sfact.row, constr.m, constr.v)
+     quant,
+     quant.err, quant.cov, quant.corr,
+     quant2.err, quant2.cov, quant2.corr,
+     quant3.err, quant3.cov, quant3.corr,
+     sfact.types, sfact2.types, sfact3.types,
+     constr.m, constr.v)
 
 cat("\n")
 cat(paste("file", file.name.data, "produced\n"))
