@@ -87,7 +87,7 @@ pdg.swb.sel = match(quant.names.pdg, pdg.swb$quant.name)
 pdg.rows = match(quant.names.pdg, pdg$quant.name)
 pdg.rows = pdg.rows[!is.na(pdg.rows)]
 
-cat("             quant     err       err2      sf   pdg       pdg.err   pdg.err3  pdg.sf Dquant%    Derr%       Derr2%    Dsf% \n")
+cat("             quant     err       err3      sf3  pdg       pdg.err   pdg.err3  pdg.sf3 Dquant%    Derr%       Derr2%    Dsf% \n")
 rc = mapply(function(
   name,
   quant,
