@@ -52,9 +52,8 @@ ll =
              paste(rep("\\s+(\\S+)", 5), collapse=""), "\\s+(.*\\S+)\\s*$", sep="", collapse=""),
        paste("\\", 1:7, sep="", collapse=";"), ll, perl=TRUE)
 con = textConnection(ll)
-pdg = read.table(con, sep=";")
+pdg = read.table(con, sep=";", col.names=labels)
 close(con)
-colnames(pdg) = labels
 pdg$quant.name = paste("Gamma", pdg$gamma, sep="")
 
 ##--- get data from Swagato .cc file
@@ -73,9 +72,9 @@ ll = gsub(paste("^.*basegamma.push_back.\\s*(\\S+)\\s*.;",
   "\\1;\\2;\\3;\\4;\\5;\\6", ll, perl=TRUE, useBytes=TRUE)
 
 con = textConnection(ll)
-pdg.swb = read.table(con, sep=";")
+pdg.swb = read.table(con, sep=";",
+  col.names = c("quant.id", "quant.seed", "quant", "quant.err", "quant3.err", "sfact3.types"))
 close(con)
-colnames(pdg.swb) = c("quant.id", "quant.seed", "quant", "quant.err", "quant3.err", "sfact3.types")
 pdg.swb$quant.name = paste("Gamma", pdg.swb$quant.id, sep="")
 
 quant.names = names(quant)
