@@ -668,29 +668,36 @@ chisq2.keep = drop(
 
 dof2.keep = dof.keep
 
-##
-## inflate the covariance matrix with the S-factors
-##
-meas3.cov = diag.m(sfact2) %*% meas.cov %*% diag.m(sfact2)
-rownames(meas3.cov) = meas.names
-colnames(meas3.cov) = meas.names
-meas3.invcov = solve(meas3.cov)
+if (quant.num > 1) {
+  ##
+  ## inflate the covariance matrix with the S-factors
+  ##
+  meas3.cov = diag.m(sfact2) %*% meas.cov %*% diag.m(sfact2)
+  rownames(meas3.cov) = meas.names
+  colnames(meas3.cov) = meas.names
+  meas3.invcov = solve(meas3.cov)
 
-##-- compute new inflated fitted quantities covariance matrix 
-full3.v.cov = rbind(
-  cbind(meas3.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
-  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
-
-##-- covariance matrix of fitted values
-quant3.constr.cov = solve.m %*% full3.v.cov %*% t(solve.m)
-quant3.cov = quant3.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
-
-##-- updated errors and correlations
-quant3.err = sqrt(diag.m(quant3.cov))
-quant3.corr = quant3.cov / (quant3.err %o% quant3.err)
-
-##-- all measurements chisq after S-factor inflation
-chisq3 = drop(t(meas - delta %*% quant) %*% meas3.invcov %*% (meas - delta %*% quant))
+  ##-- compute new inflated fitted quantities covariance matrix 
+  full3.v.cov = rbind(
+    cbind(meas3.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
+    cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
+  
+  ##-- covariance matrix of fitted values
+  quant3.constr.cov = solve.m %*% full3.v.cov %*% t(solve.m)
+  quant3.cov = quant3.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
+  
+  ##-- updated errors and correlations
+  quant3.err = sqrt(diag.m(quant3.cov))
+  quant3.corr = quant3.cov / (quant3.err %o% quant3.err)
+  
+  ##-- all measurements chisq after S-factor inflation
+  chisq3 = drop(t(meas - delta %*% quant) %*% meas3.invcov %*% (meas - delta %*% quant))
+} else {
+  quant3.cov = quant2.cov
+  quant3.err = quant2.err
+  quant3.corr = quant2.corr
+  chisq3 = chisq2
+}
 
 ##
 ## final S-factors computed after 1st S-factor inflation
