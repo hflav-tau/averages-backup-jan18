@@ -131,6 +131,7 @@ rc = mapply(function(
   )
 
 if (FALSE) {
+
 show(rbind(fit       = quant[quant.names.pdg],
            pdg       = pdg.quant[quant.names.pdg],
            fit.err   = quant.err[quant.names.pdg],
@@ -158,4 +159,32 @@ show(rbind(fit       = quant[quant.names.pdg],
            "Derr2%"  = sprintf("%7.5f", (quant2.err[quant.names.pdg]/pdg.quant2.err[quant.names.pdg]-1)*100),
            "Dsf2%"   = sprintf("%7.5f", (sfact3.types[quant.names.pdg]/pdg.sfact3.types[quant.names.pdg]-1)*100)
            ))
+
+##---
+
+print.wo.rownames = function(df) {
+  matr = as.matrix(df)
+  rownames(matr) = rep("", nrow(matr))
+  print(matr, quote=FALSE, right=TRUE)
 }
+
+options.save = options()
+options(width=132)
+
+rc = print.wo.rownames(data.frame(
+  Gamma=as.character(pdg$quant.name),
+  Descr=as.character(pdg$descr)))
+
+options(options.save)
+
+##---
+
+pdg.rows = sapply(unique(pdg$quant.name[order(pdg$quant.name)]), function(x) which(x == pdg$quant.name)[1])
+quant.name.maxwidth = max(nchar(pdg$quant.name[pdg.rows]))
+node.maxwidth = max(nchar(as.character(pdg$node[pdg.rows])))
+rc = mapply(function(node, quant.name, descr) {
+  cat(sprintf(paste("%-", node.maxwidth+1, "s %-", quant.name.maxwidth+1, "s %s\n", sep=""), node, quant.name, descr))
+}, pdg$node[pdg.rows], pdg$quant.name[pdg.rows], pdg$descr[pdg.rows])
+
+}
+
