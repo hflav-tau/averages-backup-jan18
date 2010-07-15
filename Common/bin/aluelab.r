@@ -1,5 +1,3 @@
-#!/usr/bin/env Rscript
-
 ## ////////////////////////////////////////////////////////////////////////////
 ##
 ## aluelab.r
@@ -27,14 +25,14 @@ aeb.cl.min = pnorm(3, mean=0, sd=1, lower.tail=FALSE)
 ## code
 
 ##-- global variables for averages and their variance
-meas.val = numeric(0)
-meas.err = numeric(0)
-meas.corr = matrix(0,0,0)
-meas.cov = matrix(0,0,0)
+quant.val = numeric(0)
+quant.err = numeric(0)
+quant.corr = matrix(0,0,0)
+quant.cov = matrix(0,0,0)
 
 ##
 ## add a vector of measurements and their correlation to the list
-## to meas.val, meas.err, meas.corr, meas.cov
+## to quant.val, quant.err, quant.corr, quant.cov
 ##
 aeb.meas.add = function(add.val, add.err, add.corr=NULL) {
   ##
@@ -52,26 +50,26 @@ aeb.meas.add = function(add.val, add.err, add.corr=NULL) {
   }
 
   ##-- assemble correlation matrix
-  corr.right = matrix(0, dim(meas.corr)[1], dim(add.corr)[2])
+  corr.right = matrix(0, dim(quant.corr)[1], dim(add.corr)[2])
   colnames(corr.right) = colnames(add.corr)
-  corr.top = cbind(meas.corr, corr.right)
-  corr.left = matrix(0, dim(add.corr)[1], dim(meas.corr)[2])
+  corr.top = cbind(quant.corr, corr.right)
+  corr.left = matrix(0, dim(add.corr)[1], dim(quant.corr)[2])
   rownames(corr.left) = rownames(add.corr)
   corr.bottom = cbind(corr.left, add.corr)
-  meas.corr <<- rbind(corr.top, corr.bottom)
+  quant.corr <<- rbind(corr.top, corr.bottom)
 
   ##-- assemble averaged quantities
   quant.averaged.sel = names(add.val) %in% quant.names.averaged
-  meas.val <<- c(meas.val, add.val[quant.averaged.sel])
-  meas.err <<- c(meas.err, add.err[quant.averaged.sel])
+  quant.val <<- c(quant.val, add.val[quant.averaged.sel])
+  quant.err <<- c(quant.err, add.err[quant.averaged.sel])
 
   ##-- update variance matrix
-  meas.cov <<- meas.corr * (meas.err %o% meas.err)
+  quant.cov <<- quant.corr * (quant.err %o% quant.err)
 }
 
 ##
 ## add a single additional uncorrelated measurement
-## to meas.val, meas.err, meas.corr, meas.cov
+## to quant.val, quant.err, quant.corr, quant.cov
 ##
 aeb.meas.add.single = function(label, val, err) {
   names(val) = label
@@ -81,7 +79,7 @@ aeb.meas.add.single = function(label, val, err) {
 
 ##
 ## stores results in alucomb.r log files into global variables
-## meas.val, meas.err, meas.corr, meas.cov
+## quant.val, quant.err, quant.corr, quant.cov
 ##
 aeb.collect.data = function(items) {
   for (item in items) {
@@ -129,16 +127,16 @@ aeb.linear.comb = function(lc, val, cov) {
 
 ##
 ## compute linear combinations using measurements stored
-## in meas.val, meas.cov
+## in quant.val, quant.cov
 ##
 aeb.linear.comb.glob = function(lc) {
-  if (length(meas.val) == 0) {
+  if (length(quant.val) == 0) {
     stop("error: no data were loaded")
   }
-  diff = setdiff(names(lc), names(meas.val))
+  diff = setdiff(names(lc), names(quant.val))
   if (length(diff) > 0) {
     stop("error: following quantities were not loaded: ", diff)
   }
-  meas.lc = names(meas.val) %in% names(lc)
-  return(aeb.linear.comb(lc, meas.val[meas.lc], meas.cov[meas.lc, meas.lc]))
+  meas.lc = names(quant.val) %in% names(lc)
+  return(aeb.linear.comb(lc, quant.val[meas.lc], quant.cov[meas.lc, meas.lc]))
 }
