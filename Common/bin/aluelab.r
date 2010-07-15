@@ -137,6 +137,6 @@ aeb.linear.comb.glob = function(lc) {
   if (length(diff) > 0) {
     stop("error: following quantities were not loaded: ", diff)
   }
-  meas.lc = names(quant.val) %in% names(lc)
+  meas.lc = names(lc)
   return(aeb.linear.comb(lc, quant.val[meas.lc], quant.cov[meas.lc, meas.lc]))
 }
