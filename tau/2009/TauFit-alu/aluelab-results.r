@@ -122,9 +122,6 @@ sel.swb = c(
 tau.to.s.swb = aeb.linear.comb.glob(sel.swb)
 sel.swb.names = names(sel.swb[sel.swb != 0])
 
-show(rbind(cbind(val=quant.val[sel.swb.names], err=quant.err[sel.swb.names]),
-           Gamma110=tau.to.s.swb))
-
 ##
 ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2) = 0.972565 +- 0.000009 -- PDG 2004
 ## http://pi.physik.uni-bonn.de/~brock/teaching/vtp_ss06/doc/davier_0507078.pdf
@@ -136,8 +133,8 @@ mm.val = quant.val[sel.names]
 mm.cov = quant.cov[sel.names, sel.names]
 delta = matrix(c(1, 0.972565), 2, 1)
 
-mm.invcov = solve(t(delta) %*% solve(cc) %*% delta)
-vv = mm.invcov %*% t(delta) %*% solve(cc) %*% mm
+mm.invcov = solve(t(delta) %*% solve(mm.cov) %*% delta)
+vv.val = mm.invcov %*% t(delta) %*% solve(mm.cov) %*% mm.val
 vv.cov = mm.invcov
 vv.err = sqrt(diag(vv.cov))
 
@@ -155,4 +152,7 @@ DeltaR.ope.err = 0.032
 
 Vus.val = sqrt(Rtau.s/(Rtau.ns/Vud.val^2 - DeltaR.ope))
 
-
+show(rbind(cbind(val=quant.val[sel.swb.names], err=quant.err[sel.swb.names]),
+           Gamma110=tau.to.s.swb,
+           B.tau.e.univ=data.frame(val=vv.val, err=vv.err),
+           B.tau.s=data.frame(val=Vus.val, err=0)))
