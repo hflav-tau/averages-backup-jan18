@@ -117,11 +117,42 @@ sel.swb = c(
   Gamma85=1,  Gamma89=1,
   Gamma128=1, Gamma129=0,
   Gamma130=1, Gamma132=1,
-  Gamma144=1,
-  Gamma151=1, Km3PiNu=0, Km4PiNu=0)
+  Gamma144=1, Gamma151=1,
+  Km3PiNu=0, Km4PiNu=0)
 tau.to.s.swb = aeb.linear.comb.glob(sel.swb)
 sel.swb.names = names(sel.swb[sel.swb != 0])
 
 show(rbind(cbind(val=quant.val[sel.swb.names], err=quant.err[sel.swb.names]),
            Gamma110=tau.to.s.swb))
+
+##
+## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2) = 0.972565 +- 0.000009 -- PDG 2004
+## http://pi.physik.uni-bonn.de/~brock/teaching/vtp_ss06/doc/davier_0507078.pdf
+##
+sel = c(Gamma5=1, Gamma3=1/0.972565)
+sel.names = names(sel)
+
+mm.val = quant.val[sel.names]
+mm.cov = quant.cov[sel.names, sel.names]
+delta = matrix(c(1, 0.972565), 2, 1)
+
+mm.invcov = solve(t(delta) %*% solve(cc) %*% delta)
+vv = mm.invcov %*% t(delta) %*% solve(cc) %*% mm
+vv.cov = mm.invcov
+vv.err = sqrt(diag(vv.cov))
+
+##--- Vud
+Vud.val = 0.97425
+Vud.err = 0.00022
+
+Rtau = (1 - quant.val["Gamma3"])/quant.val["Gamma5"] -1
+Rtau.s = tau.to.s.swb["val"] / quant.val["Gamma5"]
+Rtau.ns = Rtau-Rtau.s
+
+##--- 0.240 +- 0.032
+DeltaR.ope = 0.240
+DeltaR.ope.err = 0.032
+
+Vus.val = sqrt(Rtau.s/(Rtau.ns/Vud.val^2 - DeltaR.ope))
+
 
