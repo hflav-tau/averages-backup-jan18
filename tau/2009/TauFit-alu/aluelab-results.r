@@ -30,56 +30,45 @@ meas.val = meas
 rm(meas)
 
 ##
+## Gamma43 = pi K0 >=1pi0 nu
+## PDG 2009 -- 0.324 ± 0.074 ± 0.066 ABBIENDI 00C OPAL
+##
+##+++ aeb.meas.add.single("Gamma43", 0.324e-2, quadrature(0.074e-2, 0.0066e-2))
+
+##
 ## Gamma44 = pi K0 pi0 pi0 nu
-## PDG 2009 ( 2.6 ± 2.4 ) × 10~3 
-##
-aeb.meas.add.single("Gamma44", 2.6e-4, 2.4e-4)
+## PDG 2009 -- 0.26 ± 0.24 BARATE 99R ALEPH
+##+++ aeb.meas.add.single("Gamma44", 2.6e-4, 2.4e-4)
 
 ##
-## Gamma53 =  K0 h+ h~ h~ nu
+## Gamma53 =  K0 h+ h- h- nu
 ## PDG 2009 ( ( 2.3 ± 2.0 ) × 10~4
-##
-aeb.meas.add.single("Gamma53", 2.3e-4, 2.0e-4)
-
-##
-## Gamma129 = K*(892) eta nu
-## PDG 2009 ( 1.38 ± 0.15 ) × 10~4 
-##
-aeb.meas.add.single("Gamma129", 1.38e-4, 0.15e-4)
-
-##
-## Gamma130 = eta K pi0 nu
-## PDG 2009 ( 4.8 ± 1.2 ) × 10 ~ 5
-##
-aeb.meas.add.single("Gamma130", 4.8e-5, 1.2e-5)
-
-##
-## Gamma132 = eta K0 pi nu
-## PDG 2009 ( 9.3 ± 1.5 ) × 10 ~ 5
-##
-aeb.meas.add.single("Gamma132", 9.3e-5, 1.5e-5)
+## PDG 2009 -- (2.3 ± 1.9 ± 0.7) × 10-4	BARATE	 98E ALEPH
+##+++ aeb.meas.add.single("Gamma53", 2.3e-4, 2.0e-4)
 
 ##
 ## Gamma144 = K phi nu
 ## KmPhiNu HFAG 2009 3.704330e-05 +- 3.259888e-06 (S=1.3)
 ##
-aeb.meas.add.single("Gamma144", 3.704330e-05, 3.259888e-06)
+##+++ aeb.meas.add.single("Gamma144", 3.704330e-05, 3.259888e-06)
 
 ##
 ## Gamma151 = K omega nu
 ## PDG 2009 ( 4.1 ± 0.9 ) × 10 ~ 4
-##
-aeb.meas.add.single("Gamma151", 4.1e-4, 0.9e-4)
+##+++ do not include, included in K 3pi nu
+##+++ aeb.meas.add.single("Gamma151", 4.1e-4, 0.9e-4)
 
 ##
 ## B[tau- -> (K3pi)- nu (ex. K0, omega,eta)]  : 1e-2 : 0.074 ± 0.030    
+## Aleph estimate, not used
 ##
-aeb.meas.add.single("Km3PiNu", 0.074e-2, 0.030e-2)
+##+++ aeb.meas.add.single("Km3PiNu", 0.074e-2, 0.030e-2)
 
 ##
 ## B[tau- -> (K4pi)- nu]                      : 1e-2 : 0.011 ± 0.007
+## Aleph estimate, not used
 ##
-aeb.meas.add.single("Km4PiNu", 0.011e-2, 0.007e-2)
+##+++ aeb.meas.add.single("Km4PiNu", 0.011e-2, 0.007e-2)
 
 ## S035B33  Gamma40       G(pi- Kbar0 pi0 nu(tau))/G(total)
 ## S035C1   Gamma48       G(pi- K(S)0 K(L)0 nu(tau))/G(total)
@@ -87,7 +76,7 @@ aeb.meas.add.single("Km4PiNu", 0.011e-2, 0.007e-2)
 ##
 ## Sudan's paper
 ## B(tau -> KSKL pi nu) = 0.00087 +- 0.000085 +- 0.000030
-## - va aggiunta alle misure se approvata in tempo
+##+++ include if approved in time
 ##
 
 ##--- measurement names matching a specific PDG Gamma
@@ -113,15 +102,16 @@ tau.to.s.pdg08 = aeb.linear.comb.glob(c(
 ## - Gamma110 = Gamma10 + Gamma16 + Gamma35 + Gamma23 + Gamma40 + Gamma85 + Gamma128 + Gamma129 + Gamma144 + estimates
 ## - replace estimates with PDG values
 ##
+## Gamma110 = Gamma10+Gamma16+Gamma23+Gamma28+Gamma35+Gamma40+Gamma44+Gamma53+Gamma85+Gamma89+Gamma128+Gamma130+Gamma132+Gamma144
+##
 sel.swb = c(
   Gamma10=1,  Gamma16=1, 
   Gamma23=1,  Gamma28=1,  Gamma35=1, 
   Gamma40=1,  Gamma44=1,  Gamma53=1,
   Gamma85=1,  Gamma89=1,
-  Gamma128=1, Gamma129=0,
+  Gamma128=1,
   Gamma130=1, Gamma132=1,
-  Gamma144=1, Gamma151=1,
-  Km3PiNu=0, Km4PiNu=0)
+  Gamma96=1.699387)
 tau.to.s.swb = aeb.linear.comb.glob(sel.swb)
 sel.swb.names = names(sel.swb[sel.swb != 0])
 

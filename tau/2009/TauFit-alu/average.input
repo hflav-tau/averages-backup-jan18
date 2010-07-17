@@ -2,6 +2,7 @@ INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE cleo.input
 INCLUDE pdgfit.input
+INCLUDE pdg-for-vus.input
 INCLUDE dummy.input
 
 BEGIN   BaBar+Belle+PDG all_methods
@@ -50,6 +51,12 @@ MEASUREMENT m_Gamma60 statistical systematic
 MEASUREMENT m_Gamma3by5 statistical systematic
 MEASUREMENT m_Gamma9by5 statistical systematic
 MEASUREMENT m_Gamma10by5 statistical systematic
+
+*--- pdf_for_vus.input
+MEASUREMENT m_Gamma43 statistical systematic
+MEASUREMENT m_Gamma44 statistical systematic
+MEASUREMENT m_Gamma53 statistical systematic
+MEASUREMENT m_Gamma96 statistical systematic
 
 MEASUREMENT m_Gamma998 statistical systematic
 
@@ -137,7 +144,23 @@ CONSTRAINT Gamma9by5.c  -0.5945  Gamma9by5  -1 Gamma9  5.607707 Gamma5 -3.333782
 CONSTRAINT Gamma10by5.c -0.03882 Gamma10by5 -1 Gamma10 5.607707 Gamma5 -0.2176912
 * CONSTRAINT Gamma10by5.c -0.0386760149 Gamma10by5 -1 Gamma10 5.607707 Gamma5 -0.2168838
 
-unitarity constraint (sum of basic modes, possibly adding also dummy
+*
+* unitarity constraint (sum of basic modes, possibly adding also dummy
+*
+* - added modes w.r.t. PDG 2009 
+*   - Gamma44, tau- --> pi K0 pi0 pi0 nu
+*   - Gamma53, tau- --> K0 h+ h- h- nu
+*   - Gamma144, tau --> K phi nu, phi -> K+K-, K0K0
+*
+* phi BRs on PDG 2009
+* - K+K-	0.489 +- 0.05
+* - KL0 KS0	0.342 +- 0.04
+*
+* PDG 2009 does not include
+* - Gamma50, tau --> pi KL0 KS0 pi0 nu
+* - Gamma96, tau --> KKK nu
+* - Gamma132 tau --> eta K0 pi nu
+*
 CONSTRAINT GammaAll 1
   Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1
   Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1
@@ -145,6 +168,7 @@ CONSTRAINT GammaAll 1
   Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1
   Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma130 1
   Gamma132 1 Gamma150 1 Gamma152 1
+  Gamma44  1 Gamma53  1 Gamma96  1.699387
 *  Gamma998 1
 
 CALL CHI2_N_SYM
