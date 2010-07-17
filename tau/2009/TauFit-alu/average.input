@@ -58,6 +58,8 @@ MEASUREMENT m_Gamma44 statistical systematic
 MEASUREMENT m_Gamma53 statistical systematic
 MEASUREMENT m_Gamma96 statistical systematic
 
+MEASUREMENT m_Gamma110 statistical systematic
+
 MEASUREMENT m_Gamma998 statistical systematic
 
 * dummmy parameter to increase printouts if value > 0
@@ -143,6 +145,13 @@ CONSTRAINT Gamma9by5.c  -0.5945  Gamma9by5  -1 Gamma9  5.607707 Gamma5 -3.333782
 * 1/G5^pdg = 5.607707 , R10-5^babar/G5^pdg = 0.2176912
 CONSTRAINT Gamma10by5.c -0.03882 Gamma10by5 -1 Gamma10 5.607707 Gamma5 -0.2176912
 * CONSTRAINT Gamma10by5.c -0.0386760149 Gamma10by5 -1 Gamma10 5.607707 Gamma5 -0.2168838
+
+* --- compute Gamma(tau -> Xs nu) 
+COMBOFQUANT Gamma110
+  1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28
+  1 Gamma35  1 Gamma40  1 Gamma44  1 Gamma53
+  1 Gamma85  1 Gamma89  1 Gamma128 1 Gamma130
+  1 Gamma132 1.699387   Gamma96
 
 *
 * unitarity constraint (sum of basic modes, possibly adding also dummy
