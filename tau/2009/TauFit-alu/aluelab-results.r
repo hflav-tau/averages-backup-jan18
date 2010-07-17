@@ -26,6 +26,9 @@ quant.err = quant3.err
 quant.corr = quant3.corr
 quant.cov = quant3.cov
 
+meas.val = meas
+rm(meas)
+
 ##
 ## Gamma44 = pi K0 pi0 pi0 nu
 ## PDG 2009 ( 2.6 ± 2.4 ) × 10~3 
@@ -89,7 +92,7 @@ aeb.meas.add.single("Km4PiNu", 0.011e-2, 0.007e-2)
 
 ##--- measurement names matching a specific PDG Gamma
 meas.match = function(gamma) {
-  return( regexpr(paste("[.]", "Gamma40", "[.]", sep=""), names(meas)) != -1 )
+  return( regexpr(paste("[.]", gamma, "[.]", sep=""), names(meas.val)) != -1 )
 }
 
 ##--- sum in quadrature
@@ -126,12 +129,15 @@ sel.swb.names = names(sel.swb[sel.swb != 0])
 ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2) = 0.972565 +- 0.000009 -- PDG 2004
 ## http://pi.physik.uni-bonn.de/~brock/teaching/vtp_ss06/doc/davier_0507078.pdf
 ##
-sel = c(Gamma5=1, Gamma3=1/0.972565)
+B.tau.mu.by.e.th = 0.972565
+B.tau.mu.by.e.th.err = 0.000009
+
+sel = c(Gamma5=1, Gamma3=B.tau.mu.by.e.th)
 sel.names = names(sel)
 
 mm.val = quant.val[sel.names]
 mm.cov = quant.cov[sel.names, sel.names]
-delta = matrix(c(1, 0.972565), 2, 1)
+delta = matrix(sel, 2, 1)
 
 mm.invcov = solve(t(delta) %*% solve(mm.cov) %*% delta)
 vv.val = mm.invcov %*% t(delta) %*% solve(mm.cov) %*% mm.val
@@ -142,17 +148,22 @@ vv.err = sqrt(diag(vv.cov))
 Vud.val = 0.97425
 Vud.err = 0.00022
 
-Rtau = (1 - quant.val["Gamma3"])/quant.val["Gamma5"] -1
-Rtau.s = tau.to.s.swb["val"] / quant.val["Gamma5"]
-Rtau.ns = Rtau-Rtau.s
+Rtau = 1/vv.val -1 -B.tau.mu.by.e.th
+Rtau.s = tau.to.s.swb["val"] / vv.val
+Rtau.ns = Rtau - Rtau.s
 
 ##--- 0.240 +- 0.032
 DeltaR.ope = 0.240
 DeltaR.ope.err = 0.032
 
 Vus.val = sqrt(Rtau.s/(Rtau.ns/Vud.val^2 - DeltaR.ope))
+Vus.err = 0
 
 show(rbind(cbind(val=quant.val[sel.swb.names], err=quant.err[sel.swb.names]),
-           Gamma110=tau.to.s.swb,
-           B.tau.e.univ=data.frame(val=vv.val, err=vv.err),
-           B.tau.s=data.frame(val=Vus.val, err=0)))
+           Gamma110 = tau.to.s.swb,
+           B_tau_e_univ = data.frame(val=vv.val, err=vv.err),
+           R_tau_h = data.frame(val=Rtau, err=0),
+           R_tau_S = data.frame(val=Rtau.s, err=0),
+           R_tau_VA = data.frame(val=Rtau.ns, err=0),
+           Vus = data.frame(val=Vus.val, err=Vus.err)
+           ))
