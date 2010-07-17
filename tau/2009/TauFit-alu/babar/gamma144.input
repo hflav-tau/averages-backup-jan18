@@ -1,0 +1,19 @@
+*
+* B(tau- -> K- phi nu) 
+*
+
+BEGIN       BaBar Gamma144 published PRL100:011801,08
+MEASUREMENT m_Gamma144 statistical systematic
+DATA        m_Gamma144 statistical systematic
+            3.39e-5   0.20e-5     0.28e-5
+
+PARAMETERS !               assumed_value  pos_excurs   neg_excurs
+            sigmataupmy4s  0.919         +0.003       -0.003
+
+DATA
+* possibly correlated with other results
+            sigmataupmy4s%   -0.3
+            BaBarLumi%       -0.9
+* uncorrelated = sqrt(0.28**2 - (0.3e-2*3.39)**2 - (0.9e-2*3.39)**2) = 0.278147
+            BaBarGamma144 0.278147e-5
+END
