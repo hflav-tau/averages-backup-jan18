@@ -225,6 +225,7 @@ update_alucomb:
 	  /bin/mkdir -p $(DATADIR)/$(CURDIR) ; \
 	  echo "/bin/cp -f average_alucomb.log $(DATADIR)/$(CURDIR)" ; \
 	  /bin/cp -f average_alucomb.log $(DATADIR)/$(CURDIR)/. ; \
+	  /bin/cp -f average_alucomb.rdata $(DATADIR)/$(CURDIR)/. ; \
 	fi
 
 update_all: update_combos update_pdg update_plot update_alucomb
