@@ -133,24 +133,43 @@ B_tau_s.err = quant.err["Gamma110"]
 ##
 
 ##
+## compute phase space factors for Bmu/Be universality
+## PDG 2009 values, plus HFAG 2009 value of tau mass
+##
+aeb.meas.add.single("m_e", 0.510998910, 0.000000013)
+aeb.meas.add.single("m_mu", 105.658367, 0.000004)
+aeb.meas.add.single("m_tau", 1776.7673082, 0.1507259)
+
+aeb.meas.expr.add("xe", quote(m_e^2/m_tau^2))
+aeb.meas.expr.add("xmu", quote(m_mu^2/m_tau^2))
+rc = aeb.meas.expr.add("fx_e",
+  quote(1 -8*xe + 8*xe^3 - xe^4 - 12*xe^2*log(xe)));
+rc = aeb.meas.expr.add("fx_mu",
+  quote(1 -8*xmu + 8*xmu^3 - xmu^4 - 12*xmu^2*log(xmu)));
+aeb.meas.expr.add("fx_mu_by_e", quote(fx_mu/fx_e))
+
+##
 ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2) = 0.972565 +- 0.000009 -- PDG 2004
 ## http://pi.physik.uni-bonn.de/~brock/teaching/vtp_ss06/doc/davier_0507078.pdf
+## updated to HFAG 2009 by Swagato
 ##
-B_tau_mu_by_e_th.val = 0.972565
-B_tau_mu_by_e_th.err = 0.000009
-aeb.meas.add.single("B_tau_mu_by_e_th", B_tau_mu_by_e_th.val, B_tau_mu_by_e_th.err)
+## B_tau_mu_by_e_th.val = 0.972565
+## B_tau_mu_by_e_th.err = 0.000009
+## B_tau_mu_by_e_th.val = 0.972558
+## B_tau_mu_by_e_th.err = 4.50333e-06
+## aeb.meas.add.single("B_tau_mu_by_e_th", B_tau_mu_by_e_th.val, B_tau_mu_by_e_th.err)
 
 ##
 ## model matrix
 ## multiplied by the vector of theory parameters returns the vector of measurement types
 ##
 ## for universality Be = B(tau -> e nu nubar) = Be_univ
-## -                    1 * Be_univ = Be
-## - B_tau_mu_by_e_th.val * Be_univ = Bmu
+## -          1 * Be_univ = Be
+## - fx_mu_by_e * Be_univ = Bmu
 ##
-aeb.meas.fit.add("Gamma5univ", c(Gamma5=1, Gamma3=B_tau_mu_by_e_th.val))
-B_tau_e_univ.val = quant.val["Gamma5univ"]
-B_tau_e_univ.err = quant.err["Gamma5univ"]
+fx_mu_by_e.val = quant.val["fx_mu_by_e"]
+names(fx_mu_by_e.val) = NULL
+aeb.meas.fit.add("Gamma5univ", c(Gamma5=1, Gamma3=fx_mu_by_e.val))
 
 ##
 ## Vud
@@ -173,7 +192,7 @@ deltaR.su3break.err = 0.016
 aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
 ##--- add R_tau as function of quantities
-aeb.meas.expr.add("R_tau", quote(1/Gamma5univ -1 -B_tau_mu_by_e_th))
+aeb.meas.expr.add("R_tau", quote(1/Gamma5univ -1 -fx_mu_by_e))
 ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
 aeb.meas.expr.add("R_tau_s", quote(Gamma110/Gamma5univ))
 ##--- add R_tay_VA = R_tau - R_tau_s
@@ -181,8 +200,17 @@ aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
 ##--- add Vus
 aeb.meas.expr.add("Vus", quote(sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break))))
 
+##--- theory error
+Vus.err.th = abs(quant.cov["Vus", "deltaR_su3break"])/quant.err["deltaR_su3break"]
+Vus.err.exp = sqrt(quant.err["Vus"]^2 - Vus.err.th^2)
+
+nsigma = (quant.val["Vus"] - 0.2255)/quadrature(c(quant.err["Vus"], 0.0010))
+
 display.names = c(Gamma110.names,
-  "Gamma110", "Gamma110_pdg09", "B_tau_mu_by_e_th", "Gamma5univ",
+  "Gamma110", "Gamma110_pdg09", "fx_mu_by_e", "Gamma5univ",
   "R_tau", "R_tau_s", "R_tau_VA", "Vus")
-show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names])
+show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names]),
+           Vus_err_exp_th = c(Vus.err.exp, Vus.err.th),
+           nsigma = c(val=nsigma, err=0)
            ))
+
