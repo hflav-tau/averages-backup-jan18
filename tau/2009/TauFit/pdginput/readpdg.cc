@@ -1423,8 +1423,8 @@ int main() {
   TMatrixD Unitary(InvErrorMatrix,TMatrixD::kMult,ErrorMatrix);
   TMatrixDDiag diagonal(Unitary); diagonal = 0.0;
   const Double_t Unitary_max_offdiag = (Unitary.Abs()).Max();
-  cout << "  Maximum off-diagonal = " << Unitary_max_offdiag << endl;
-  cout << "  Determinant          = " << determinant <<endl;
+  //  cout << "  Maximum off-diagonal = " << Unitary_max_offdiag << endl;
+  //  cout << "  Determinant          = " << determinant <<endl;
   //
   double chisquare_re[200];
   double chisquare_tot=0;
@@ -1449,12 +1449,13 @@ int main() {
   for (i=0; i<nmeas; ++i){
     if ( icorrj[i].size() > 1 ) {
       chisquare_tmp[i]=0;
-      //      cout << "meas = i+1 = " << i+1 << " icorrj.size = " << icorrj[i].size() << " ; ";
-      //      cout << "icorrj = " ;
+      //      cout << "meas = i+1 = " << i+1 << " icorrj[i].size = " << icorrj[i].size() << " ; ";
+      //      cout << "icorrj[i][j]+1 = " ;
       for (j=0; j < icorrj[i].size(); ++j) {
-	//	cout << icorrj[i][j]+1 << " "; cout << endl;
+	//	cout << icorrj[i][j]+1 << " "; 
 	chisquare_tmp[i]+=chisquare_re[icorrj[i][j]];
       }
+      //      cout << endl;
       chisquare_tmp[i]/=icorrj[i].size();
     }
   }
@@ -1465,25 +1466,129 @@ int main() {
     }
   }
   //
-  double pullraw[200];
-  double pullsq[200];
+  int ncorrij=0;
+  int ifirstj[200];
+  for (i=0;i<nmeas;++i) {
+    if (icorrj[i].size() > 1) {
+      bool isnew=true;
+      for (j=0;j<i;++j){
+	if (icorrj[j].size() > 1) {
+	  if (find(icorrj[j].begin(),icorrj[j].end(),i)!=icorrj[j].end()) {
+	    isnew=false;
+	    break;
+	  }
+	}
+      }
+      if (isnew) {
+	ifirstj[ncorrij] = i;
+	++ncorrij;
+      }
+      //      cout << "i,isnew,ncorrij = " << i << " " << isnew << " " << ncorrij << endl;
+    }
+  }
+  cout << "ncorrij = " << ncorrij << endl;
+  vector<int> veccorrij[200];
+  for (i=0;i<ncorrij;++i){
+    cout << "i = " << i << " ifirstj[i]+1 = " << ifirstj[i]+1 << " : ";
+    veccorrij[i].insert(veccorrij[i].end(),icorrj[ifirstj[i]].begin(),icorrj[ifirstj[i]].end());
+    cout << "veccorrij[i].size() : " << veccorrij[i].size() << " : veccorrij[i][j]+1 = " ;
+    for (j=0;j<veccorrij[i].size();++j) cout << veccorrij[i][j]+1 << " ";
+    cout << endl;
+  }
+  //
+  int lastnode_all=-1;
+  int newnode_all=-1;
+  int measnode_all[200];
+  for (i=0;i<nmeas;++i) {
+    measnode_all[i] = -1;
+    vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+    inode=it-nodename.begin();
+    if (inode!=lastnode_all) {
+      lastnode_all=inode;
+      ++newnode_all;
+    }
+    measnode_all[i] = newnode_all;
+  }
+  double aver_pernode[200];
+  double error_pernode[200];
+  double delta_pernode[200];
+  int n_pernode[200];
+  for (inode=0;inode<=newnode_all;++inode){
+    double num=0,den=0;
+    for (i=0;i<nmeas;++i){
+      if (measnode_all[i]==inode){
+	if (icorrj[i].size()==1) {
+	  double weight=1./(measerror[i]*measerror[i]);
+	  num+=measvalue[i]*weight;
+	  den+=weight;
+	  n_pernode[inode]+=1;
+	}
+      }
+    }
+    if (n_pernode[inode] > 0 ) {
+      aver_pernode[inode]=num/den;
+      error_pernode[inode]=sqrt(1/den);
+      delta_pernode[inode]=3*sqrt(n_pernode[inode])*error_pernode[inode];
+    }else{
+      aver_pernode[inode]=0;
+      error_pernode[inode]=0;
+      delta_pernode[inode]=0;
+    }
+    cout << "inode = " << inode << " n_pernode = " << n_pernode[inode] << " aver_pernode[inode] = " << aver_pernode[inode] << " error_pernode[inode] = " << error_pernode[inode] << " delta_pernode[inode] = " << delta_pernode[inode] << endl;
+  }
+  //
+  double aver_re[200];
+  double error_re[200];
+  double delta_re[200];
+  bool weak_re[200];
+  for (i=0;i<nmeas;++i){
+    aver_re[i]=aver_pernode[measnode_all[i]];
+    error_re[i]=error_pernode[measnode_all[i]];
+    delta_re[i]=delta_pernode[measnode_all[i]];
+    double nsig_fit=0;
+    double nsig_av =0;
+    if (n_pernode[measnode_all[i]] > 0 ) {
+      nsig_fit = measerror[i]/((sqrt(n_pernode[measnode_all[i]]))*fiterror[i]);
+      nsig_av = measerror[i]/((sqrt(n_pernode[measnode_all[i]]))*error_re[i]);
+    }
+    weak_re[i] = icorrj[i].size()==1 && nsig_fit > 3;
+    cout << "i+1 = " << i+1 << " node = " << measnode_all[i] << " meas  = " << measvalue[i] << " +- " << measerror[i] << " fit = " << fitvalue[i] << " +- " << fiterror[i] << " av  = " << aver_re[i] << " +- " << error_re[i] << " weak = " << measweak[i] << " nsig_fit = " << nsig_fit  << " nsig_av = " << nsig_av << " corr = " << icorrj[i].size() << " n = " << n_pernode[measnode_all[i]]  << endl;
+  }
+  //
   int lastnode=-1;
   int newnode=-1;
-  int measurednode[200];
+  double pullraw[200];
+  double pullsq[200];
+  int measnode[200];
   for (i=0;i<nmeas;++i) {
-    pullraw[i] = (measvalue[i]-fitvalue[i]) / (measerror[i]);
+    measnode[i] = -1;
+    if (measweak[i]==1) continue;
+    if (icorrj[i].size() >1 ) continue;
+    pullraw[i] = (measvalue[i]-fitvalue[i])/(measerror[i]);
     pullsq[i] = ((measvalue[i]-fitvalue[i])*(measvalue[i]-fitvalue[i])) / (measerror[i]*measerror[i] - fiterror[i]*fiterror[i]);
     vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
     inode=it-nodename.begin();
-    measurednode[i]=-1;
-    if (measweak[i]==0) {
-      if (inode!=lastnode) {
-	lastnode=inode;
-	++newnode;
-      }
-      measurednode[i] = newnode;
+    if (inode!=lastnode) {
+      lastnode=inode;
+      ++newnode;
     }
-    //cout << "imeas = " << i << " inode = " << inode <<  " lastnode = " << lastnode << " newnode = " << newnode << "  measurednode[i] = " <<  measurednode[i] << " pullraw[i] = " << pullraw[i] << " pullsq[i] = " << pullsq[i] << endl;
+    measnode[i] = newnode;
+    cout << "meas+1 = " << i+1 << " inode = " << inode << " measnode[meas] = newnode = " <<  measnode[i] << " icorrj[meas] = " << icorrj[i].size() << " pull[meas] = " << pullraw[i] << " pullsq[meas] = " << pullsq[i] << " pullav[meas] = " << pullav[i] << " fit/err = " << fitvalue[i]/fiterror[i] << " meas/err = " << measvalue[i]/measerror[i] << endl;
+  }
+  //
+  for (i=0;i<ncorrij;++i) {
+    ++newnode;
+    for (j=0;j<veccorrij[i].size();++j) {
+      int meas=veccorrij[i][j];
+      measnode[meas] = -1;
+      if (measweak[meas]==1) continue; // doesnt happen, but just in case
+      pullraw[meas] = (measvalue[meas]-fitvalue[meas])/(measerror[meas]);
+      pullsq[meas] = ((measvalue[meas]-fitvalue[meas])*(measvalue[meas]-fitvalue[meas])) / (measerror[meas]*measerror[meas] - fiterror[meas]*fiterror[meas]);
+      vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[meas]);      
+      inode=it-nodename.begin();
+      measnode[meas] = newnode;
+      cout << "meas+1 = " << meas+1 << " inode = " << inode << " measnode[meas] = newnode = " <<  measnode[meas] << " icorrj[meas] = " << icorrj[meas].size() << " pull[meas] = " << pullraw[meas] << " pullsq[meas] = " << pullsq[meas] << " pullav[meas] = " << pullav[meas] << " fit/err = " << fitvalue[meas]/fiterror[meas] << " meas/error = " << measvalue[meas]/measerror[meas] << endl;
+    }
   }
   //
   double pullav_pernode[200];
@@ -1493,20 +1598,20 @@ int main() {
     pullsq_pernode[inode]=0;
     imeas_pernode[inode]=0;
     for (i=0;i<nmeas;++i){
-      if (measurednode[i]==inode) {
+      if (measnode[i]==inode) {
 	pullsq_pernode[inode]+=pullsq[i];
-	imeas_pernode[inode]+=1;
+	if (icorrj[i].size()==1) imeas_pernode[inode]+=1;
       }
     }
-    pullav_pernode[inode]=sqrt(pullsq_pernode[inode]/imeas_pernode[inode]);
-    cout << "inode = " << inode << " imeas_pernode[inode] = " << imeas_pernode[inode] << " pullsq_pernode[inode] = " << pullsq_pernode[inode] << " pullav_pernode[inode] = " << pullav_pernode[inode] << endl;
+    pullav_pernode[inode]= (imeas_pernode[inode]>0) ? sqrt(pullsq_pernode[inode]/imeas_pernode[inode]) : sqrt(pullsq_pernode[inode]) ;
+    cout << "inode = " << inode << " imeas_pernode[inode] = " << imeas_pernode[inode] << " pullsq_pernode[inode] = " << pullsq_pernode[inode] << " pullav_pernode[inode] = " << pullav_pernode[inode]  << endl;
   }
   //
   double pullav_re[200];
   for (i=0;i<nmeas;++i){
-    //    cout << "imeas = " <<i << " measurednode[i] = " << measurednode[i] << endl;
+    //    cout << "imeas = " <<i << " measnode[i] = " << measnode[i] << endl;
     if (measweak[i]==0) {
-      pullav_re[i]=pullav_pernode[measurednode[i]];
+      pullav_re[i]=pullav_pernode[measnode[i]];
     }else{
       pullav_re[i]=0;
     }
@@ -1517,10 +1622,269 @@ int main() {
     chisquare_tot+=chisquare_re[i];
     TString spull=Form("%4.2f",pullav_re[i]);
     double dpull=atof(spull.Data());
-    bool same=dpull==pullav[i];
-    if (!same) {
-      cout << "Summary: " << i+1 << " " << icorrj[i].size() << " " << chisquare_re[i] << " " << chisquare[i] << " " << chisquare_tot << " " << pullav_re[i] << " " << pullav[i] << " " << dpull <<" " << same <<  endl;
-    }
+    bool same=(dpull==pullav[i]);
+    //
+
+    //    if (!same) {
+    cout << "Summary: i+1 = " << i+1 << " icorrj[i] = " << icorrj[i].size() << " chi2_re = " << chisquare_re[i] << " chi2 = " << chisquare[i] << " chi2sum = " << chisquare_tot << " pull_re = " << pullav_re[i] << " pull = " << pullav[i] << " same = " << same << " weak = " << measweak[i] <<  " weak_re = " << weak_re[i] << " delta = " << delta_re[i] << " nsig = " << fabs(measvalue[i] - fitvalue[i])/(sqrt(n_pernode[measnode_all[i]])*fiterror[i])  << endl;
+      //    }
   } 
+  //
+  FILE *scaled_measfile[2];
+  for (int p=0;p<2;++p){
+    if (p==0) scaled_measfile[0]=fopen("combos_pdginput_measurements_scaled.input","w");
+    if (p==1) scaled_measfile[1]=fopen("alucomb_pdginput_measurements_scaled.input","w");
+    for (int i=0;i<nmeas;++i){
+      //      cout << "i = " << i << endl;
+      fprintf (scaled_measfile[p], "* IMEAS = %d \n",     imeas[i]);
+      fprintf (scaled_measfile[p], "* GAMMANAME = %s \n", gammaname[i].data());
+      fprintf (scaled_measfile[p], "* DECAYNAME = %s \n", meastitle[i].data());
+      fprintf (scaled_measfile[p], "* IWEAK = %d \n",   measweak[i]);
+      vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+      inode=it-nodename.begin();
+      fprintf (scaled_measfile[p], "* NODENAME = %s found at inode+1 = %d with NODENAME[inode] = %s has %d, %d, %d base quantities in numerator, denominator and both [excluding overlap] \n", measnodename[i].data(), inode+1, nodename[inode].data(),node_num_npar[inode], node_den_npar[inode],node_parm[inode].size());
+      for (ipar=0;ipar<node_num_parm[inode].size();++ipar){
+	int parm=node_num_parm[inode].at(ipar);
+	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	int quan=ibase-baseparm.begin()+1;
+	fprintf (scaled_measfile[p],"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_num_coef[inode].at(ipar));
+      }
+      for (ipar=0;ipar<node_den_parm[inode].size();++ipar){
+	int parm=node_den_parm[inode].at(ipar);
+	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	int quan=ibase-baseparm.begin()+1;
+	fprintf (scaled_measfile[p],"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_den_coef[inode].at(ipar));
+      }
+      fprintf (scaled_measfile[p], "*  first quantity measured by inode+1 = %d has gamma = %d parm = %d quan = %d title = %s\n",inode+1,basegamma[first_quan[inode]-1],baseparm[first_quan[inode]-1],first_quan[inode],basetitle[first_quan[inode]-1].data());
+      //
+      fprintf (scaled_measfile[p], "\nBEGIN %s Gamma%s published.%s \n\n", author[i].data(), gammaname[i].data(), year[i].data());
+      if (p==0) {//COMBOS
+	if (// SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint]
+	    (inode+1)==80 || // NODE = 79 NAME = S035R33 GAMMA = 102
+	    (inode+1)==82) { // NODE = 81 NAME = S035R38 GAMMA = 103
+	  fprintf (scaled_measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
+	  fprintf (scaled_measfile[p], "DATA         m_Gamma%d statistical systematic \n",3);
+	}else{
+	  fprintf (scaled_measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	  fprintf (scaled_measfile[p], "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	}
+      }else if (p==1) {//ALUCOMB
+	fprintf (scaled_measfile[p], "MEASUREMENT  m_Gamma%s statistical systematic \n",gammaname[i].data());
+	fprintf (scaled_measfile[p], "DATA         m_Gamma%s statistical systematic \n",gammaname[i].data());
+      }
+      fprintf (scaled_measfile[p], "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]*pullav_re[i]);
+      bool firstcorr=true;
+      for (int j=0;j<nmeas;++j) {
+	if (corrmat[i][j]!=0) {
+	  if (firstcorr) {fprintf (scaled_measfile[p], " \n"); firstcorr=false;}
+	  fprintf (scaled_measfile[p], "STAT_CORR_WITH %s Gamma%s published.%s %f ! IMEAS = %d \n",author[j].data(), gammaname[j].data(), year[j].data(), corrmat[i][j], imeas[j]);
+	}
+      }
+      fprintf (scaled_measfile[p], " \nEND \n\n");
+    }
+    fclose(scaled_measfile[p]);
+  }
+  //
+  //
+  FILE *scaled_avefile[2];
+  for (int p=0;p<2;++p){
+    if (p==0) scaled_avefile[0]=fopen("combos_average_pdginput_no_babar_belle_scaled.input","w");
+    if (p==1) scaled_avefile[1]=fopen("alucomb_average_pdginput_no_babar_belle_scaled.input","w");
+    if (p==0) fprintf (scaled_avefile[p], "INCLUDE combos_pdginput_measurements_scaled.input \n\n"); 
+    if (p==1) fprintf (scaled_avefile[p], "INCLUDE alucomb_pdginput_measurements_scaled.input \n\n"); 
+    fprintf (scaled_avefile[p], "BEGIN   PDG-BABAR-BELLE all_methods \n\n");
+    fprintf (scaled_avefile[p], "COMBINE * * * \n\n");
+    for (ibase=0;ibase<nbase;++ibase){
+      if (p==0&&ibase==(nbase-1)){/* skip */}else{
+	fprintf (scaled_avefile[p], "MEASUREMENT m_Gamma%d statistical systematic   ! NQUAN = %d \n",basegamma.at(ibase),ibase+1);  
+      }
+    }
+    if (p==0){
+      fprintf (scaled_avefile[p], "\nCALL DUMP_MASTER_INC \n\n");
+      fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_PRT -1.0 0. \n\n");
+      fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_INV 0 0    \n\n");
+    }
+    //
+    int lastnode=-1;
+    int usum=0;//number of [unique] measurements to be expressed as linearized sum of base quantities
+    for (int i=0;i<nmeas;++i){
+      vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+      inode=it-nodename.begin();
+      if ((node_num_npar[inode]+node_den_npar[inode])>1) {
+	if (p==1&&inode!=lastnode){//new node
+	  ++usum;
+	  lastnode=inode;
+	  fprintf (scaled_avefile[p], "MEASUREMENT m_Gamma%s statistical systematic   ! NQUAN = %d \n",gammaname[i].data(),ibase+usum);  
+	}
+      }
+    }
+    //
+    int isum=0;//number of          measurements to be expressed as linearized sum of base quantities
+    lastnode=-1;
+    for (int i=0;i<nmeas;++i){
+      vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+      inode=it-nodename.begin();
+      if ((node_num_npar[inode]+node_den_npar[inode])>1) {
+	//
+	if (p==0&&(((inode+1)==80)||((inode+1)==82))) continue; // SPECIAL CASE [because these are derived nodes containing Gamma103 ]
+	++isum; // translate C index to Fortran index
+	//
+	if (inode!=lastnode){//new node
+	  lastnode=inode;
+	}else{
+	  if (p==1) continue;
+	}
+	//
+	// PRINT NODE DEFINITION
+	//
+	fprintf (scaled_avefile[p], "\n* Gamma%s = ",gammaname[i].data());
+	for (ipar=0; ipar < node_num_parm[inode].size(); ++ipar) {
+	  if (ipar==0) { fprintf (scaled_avefile[p], "(") ; } else {fprintf (scaled_avefile[p], " + ") ;}
+	  int parm=node_num_parm[inode].at(ipar);
+	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	  int quan=ibase-baseparm.begin()+1;
+	  fprintf (scaled_avefile[p], "%f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
+	  if (ipar==node_num_parm[inode].size()-1) fprintf (scaled_avefile[p], ")");
+	}
+	if (node_den_parm[inode].size()==0) fprintf (scaled_avefile[p], "\n") ; 
+	for (ipar=0; ipar < node_den_parm[inode].size(); ++ipar) {
+	  if (ipar==0) { fprintf (scaled_avefile[p], " / (") ; } else {fprintf (scaled_avefile[p], " + ") ;}
+	  int parm=node_den_parm[inode].at(ipar);
+	  vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+	  int quan=ibase-baseparm.begin()+1;
+	  fprintf (scaled_avefile[p], "%f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
+	  if (ipar==node_den_parm[inode].size()-1) fprintf (scaled_avefile[p], ")\n");
+	}
+	//
+	double offset = -node_num[inode]; // - [ f(x0,y0) - df/dx(x=x0) x0 - df/dy(y=y0) y0 - ...]
+	if (node_den_npar[inode]>0) offset /= node_den[inode];
+	//	  cout << inode << " " << node_num[inode] << " " << node_den[inode] << " " << offset << " " << measvalue[i] << endl;
+	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
+	  int parm=node_parm[inode].at(ipar);
+	  int quan=node_quan[inode].at(ipar);
+	  double partial=node_part[inode].at(ipar);
+	  offset += partial*baseseed[quan-1]; 
+	  //	  offset += partial*(basefitvalue[quan-1]);
+	}
+	if (p==0) { // COMBOS
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d\n",isum,i+1,node_parm[inode].size()); 
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD %f 1.0\n",isum,offset); 
+	} else if (p==1) { // ALUCOMB
+	  fprintf (scaled_avefile[p], "CONSTRAINT Gamma%s.c %f Gamma%s -1", gammaname[i].data(), offset, gammaname[i].data());
+	}
+	for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
+	  int parm=node_parm[inode].at(ipar);
+	  int quan=node_quan[inode].at(ipar);
+	  double partial=node_part[inode].at(ipar);
+	  if (p==0) { // COMBOS
+	    fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
+	  }else if (p==1) { // ALUCOMB
+	    fprintf(scaled_avefile[p], " Gamma%d %f", basegamma[quan-1], partial);
+	  }
+	}
+	if (p==1) fprintf(scaled_avefile[p], "\n");
+      }
+    }
+    if (p==0) {
+      for (int i=0;i<nmeas;++i){
+	vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
+	inode=it-nodename.begin();
+	//
+	if ((inode+1)==80) { // SPECIAL CASE : NODE = 79 NAME = S035R33 GAMMA = 102 :: Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)
+	  fprintf(scaled_avefile[p], "\n*Gamma102 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma94 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d 29 \n",++isum,i+1); 
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma102; thats why the coefficients below have - sign 
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_02  2 -1 ! Gamma5  \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_03  3 -1 ! Gamma9  \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_04  4 -1 ! Gamma10 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_05  5 -1 ! Gamma14 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_06  6 -1 ! Gamma16 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_07  7 -1 ! Gamma20 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_08  8 -1 ! Gamma23 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_09  9 -1 ! Gamma27 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_10 10 -1 ! Gamma28 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_11 11 -1 ! Gamma30 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_12 12 -1 ! Gamma35 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_13 13 -1 ! Gamma37 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_14 14 -1 ! Gamma40 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_15 15 -1 ! Gamma42 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_16 16 -1 ! Gamma47 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_17 17 -1 ! Gamma48 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_18 18 -1 ! Gamma62 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_19 19 -1 ! Gamma70 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_20 20 -1 ! Gamma77 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_21 21 -1 ! Gamma78 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma85 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma89 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_24 24 -1 ! Gamma93 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_26 27 -1 ! Gamma126\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_27 28 -1 ! Gamma128\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_28 29 -1 ! Gamma150\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_29 30 -1 ! Gamma152\n",isum);
+	}
+	//
+	if ((inode+1)==82) { // SPECIAL CASE : NODE = 81 NAME = S035R38 GAMMA = 103 
+	  fprintf(scaled_avefile[p], "\n*Gamma103 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+	  fprintf(scaled_avefile[p], "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d    %2d 30 \n",++isum,i+1); 
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma103; thats why the coefficients below have - sign 
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_02  2 -1 ! Gamma5  \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_03  3 -1 ! Gamma9  \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_04  4 -1 ! Gamma10 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_05  5 -1 ! Gamma14 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_06  6 -1 ! Gamma16 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_07  7 -1 ! Gamma20 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_08  8 -1 ! Gamma23 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_09  9 -1 ! Gamma27 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_10 10 -1 ! Gamma28 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_11 11 -1 ! Gamma30 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_12 12 -1 ! Gamma35 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_13 13 -1 ! Gamma37 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_14 14 -1 ! Gamma40 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_15 15 -1 ! Gamma42 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_16 16 -1 ! Gamma47 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_17 17 -1 ! Gamma48 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_18 18 -1 ! Gamma62 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_19 19 -1 ! Gamma70 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_20 20 -1 ! Gamma77 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_21 21 -1 ! Gamma78 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma85 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma89 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_24 24 -1 ! Gamma93 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_26 26 -1 ! Gamma104\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_27 27 -1 ! Gamma126\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_28 28 -1 ! Gamma128\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_29 29 -1 ! Gamma150\n",isum);
+	  fprintf (scaled_avefile[p], "SPARAMETER CHI2_N_SYM_%2.2d_30 30 -1 ! Gamma152\n",isum);
+	}
+	//
+      }
+      if (p==0) fprintf (scaled_avefile[p], "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 \n",isum); 
+    }
+    if (p==1) {
+      fprintf(scaled_avefile[p], "\n* unitarity constraint (sum of basic modes, possibly adding also dummy)\n");
+      fprintf(scaled_avefile[p], "CONSTRAINT GammaAll 1\n");
+      fprintf(scaled_avefile[p], "  Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1\n");
+      fprintf(scaled_avefile[p], "  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1\n");
+      fprintf(scaled_avefile[p], "  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1\n");
+      fprintf(scaled_avefile[p], "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
+      fprintf(scaled_avefile[p], "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1\n");
+      fprintf(scaled_avefile[p], "* Gamma998 1\n");
+    }
+    fprintf(scaled_avefile[p], "\nCALL CHI2_N_SYM\n");
+    fprintf(scaled_avefile[p], "\nEND\n");
+    fclose(scaled_avefile[p]);
+  }
   //
 }
