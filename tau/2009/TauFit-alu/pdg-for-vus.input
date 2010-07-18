@@ -11,7 +11,7 @@ END
 BEGIN       ALEPH Gamma44 published BARATE 99R
 MEASUREMENT m_Gamma44 statistical systematic
 DATA        m_Gamma44 statistical systematic
-            0.26e-2   0.24e-2     0
+            0.26e-3   0.24e-3     0
 END
 
 * tau- --> K0 h+ h- h- nu
