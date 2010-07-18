@@ -14,6 +14,8 @@
 ##+++ include if approved in time
 ##
 
+require(numDeriv)
+
 source("../../../Common/bin/aluelab.r")
 
 args <- commandArgs(TRUE)
@@ -87,13 +89,14 @@ quadrature = function(x) {
 }
 
 ##
-## PDG 2009 definitio of Gamma110 = B(tau -> Xs nu)
+## PDG 2009 definition of Gamma110 = B(tau -> Xs nu)
 ##
-B_tau_s.pdg09.val.err = aeb.linear.comb.glob(c(
+Gamma110_pdg09.comb = c(
   Gamma10=1,  Gamma16=1, 
   Gamma23=1,  Gamma28=1,  Gamma35=1, 
   Gamma40=1,  Gamma85=1,  Gamma89=1,
-  Gamma128=1))
+  Gamma128=1)
+aeb.meas.comb.add("Gamma110_pdg09", Gamma110_pdg09.comb)
 
 ##
 ## compute Gamma110 = B(tau -> Xs)
@@ -103,22 +106,20 @@ B_tau_s.pdg09.val.err = aeb.linear.comb.glob(c(
 ##   Gamma53+Gamma85+Gamma89+Gamma128+Gamma130+Gamma132+
 ##   Gamma96+Gamma96*B(phi -> KS0 KL0)/B(phi -> K+ K-)
 ##
-B_tau_s.sel = c(
+Gamma110.comb = c(
   Gamma10=1,  Gamma16=1, 
   Gamma23=1,  Gamma28=1,  Gamma35=1, 
   Gamma40=1,  Gamma44=1,  Gamma53=1,
   Gamma85=1,  Gamma89=1,  Gamma128=1,
   Gamma130=1, Gamma132=1,
   Gamma96=1.699387)
-B_tau_s.val.err = aeb.linear.comb.glob(B_tau_s.sel)
-B_tau_s.names = names(B_tau_s.sel[B_tau_s.sel != 0])
-B_tau_s.val = B_tau_s.val.err["val"]
-B_tau_s.err = B_tau_s.val.err["err"]
+Gamma110.names = names(Gamma110.comb[Gamma110.comb != 0])
+## aeb.meas.comb.add("Gamma110", Gamma110.comb)
 
 ##
 ## B(tau -> Xs nu)
 ##
-## use Gamma110 via COMBOFQUANT in alucomb.r
+## can use Gamma110 via COMBOFQUANT in alucomb.r
 ## same definition as above
 ##
 B_tau_s.val = quant.val["Gamma110"]
@@ -135,37 +136,21 @@ B_tau_s.err = quant.err["Gamma110"]
 ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2) = 0.972565 +- 0.000009 -- PDG 2004
 ## http://pi.physik.uni-bonn.de/~brock/teaching/vtp_ss06/doc/davier_0507078.pdf
 ##
-B.tau.mu.by.e.th.val = 0.972565
-B.tau.mu.by.e.th.err = 0.000009
-
-B_tau_e_univ.sel = c(Gamma5=1, Gamma3=B.tau.mu.by.e.th.val)
-B_tau_e_univ.names = names(B_tau_e_univ.sel)
-
-quant.mu.e.val = quant.val[B_tau_e_univ.names]
-quant.mu.e.cov = quant.cov[B_tau_e_univ.names, B_tau_e_univ.names]
-B_tau_e_univ.delta = matrix(B_tau_e_univ.sel, 2, 1)
-
-quant.mu.e.invcov = solve(quant.mu.e.cov)
-B_tau_e_univ.cov = solve(t(B_tau_e_univ.delta) %*% solve(quant.mu.e.cov) %*% B_tau_e_univ.delta)
-quant.mu.e.comb = B_tau_e_univ.cov %*% t(B_tau_e_univ.delta) %*% quant.mu.e.invcov
-names(quant.mu.e.comb) = names(quant.mu.e.val)
-
-B_tau_e_univ.val = quant.mu.e.comb %*% quant.mu.e.val
-B_tau_e_univ.err = sqrt(diag(B_tau_e_univ.cov))
-
-B_tau_e_univ.comb = quant.val * 0
-B_tau_e_univ.comb[names(quant.mu.e.comb)] = quant.mu.e.comb
+B_tau_mu_by_e_th.val = 0.972565
+B_tau_mu_by_e_th.err = 0.000009
+aeb.meas.add.single("B_tau_mu_by_e_th", B_tau_mu_by_e_th.val, B_tau_mu_by_e_th.err)
 
 ##
-## add quantity that is combination of existing quantities
-## by updating the quantities vector and covariance matrix
+## model matrix
+## multiplied by the vector of theory parameters returns the vector of measurement types
 ##
-quant.val = c(quant.val, Gamma5univ = B_tau_e_univ.val)
-quant.cov = rbind(
-  cbind(quant.cov,
-        matrix(quant.cov %*% B_tau_e_univ.comb, dimnames=list(NULL, "Gamma5univ"))),
-  Gamma5univ=c(B_tau_e_univ.comb %*% quant.cov, B_tau_e_univ.err^2))
-quant.corr = quant.cov / sqrt(diag(quant.cov)) %o% sqrt(diag(quant.cov))
+## for universality Be = B(tau -> e nu nubar) = Be_univ
+## -                    1 * Be_univ = Be
+## - B_tau_mu_by_e_th.val * Be_univ = Bmu
+##
+aeb.meas.fit.add("Gamma5univ", c(Gamma5=1, Gamma3=B_tau_mu_by_e_th.val))
+B_tau_e_univ.val = quant.val["Gamma5univ"]
+B_tau_e_univ.err = quant.err["Gamma5univ"]
 
 ##
 ## Vud
@@ -175,29 +160,29 @@ quant.corr = quant.cov / sqrt(diag(quant.cov)) %o% sqrt(diag(quant.cov))
 ##
 Vud.val = 0.97425
 Vud.err = 0.00022
+aeb.meas.add.single("Vud", Vud.val, Vud.err)
 
 ##
-## SU3 breaking correction 
+## SU3 breaking correction
+## POS(KAON)08, A.Pich, Theoretical progress on the Vus determination from tau decays
 ##
-DeltaR.su3viol.val = 0.240
-DeltaR.su3viol.err = 0.032
+deltaR.su3break.val = 0.240
+deltaR.su3break.err = 0.032
+deltaR.su3break.val = 0.216
+deltaR.su3break.err = 0.016
+aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
-Vus.fun = function(B_tau_s.val, B_tau_e_univ.val, Vud.val, DeltaR.su3viol.val) {
-  Rtau <<- 1/B_tau_e_univ.val -1 -B.tau.mu.by.e.th.val
-  Rtau.s <<- B_tau_s.val / B_tau_e_univ.val
-  Rtau.ns <<- Rtau - Rtau.s
-  return(sqrt(Rtau.s/(Rtau.ns/Vud.val^2 - DeltaR.su3viol.val)))
-}
+##--- add R_tau as function of quantities
+aeb.meas.expr.add("R_tau", quote(1/Gamma5univ -1 -B_tau_mu_by_e_th))
+##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
+aeb.meas.expr.add("R_tau_s", quote(Gamma110/Gamma5univ))
+##--- add R_tay_VA = R_tau - R_tau_s
+aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
+##--- add Vus
+aeb.meas.expr.add("Vus", quote(sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break))))
 
-Vus.val = Vus.fun(B_tau_s.val, B_tau_e_univ.val, Vud.val, DeltaR.su3viol.val)
-Vus.err = 0
-
-show(rbind(cbind(val=quant.val[B_tau_s.names], err=quant.err[B_tau_s.names]),
-           Gamma110 = B_tau_s.val.err,
-           Gamma110_pdg09 = B_tau_s.pdg09.val.err,
-           B_tau_e_univ = data.frame(val=B_tau_e_univ.val, err=B_tau_e_univ.err),
-           R_tau_h = data.frame(val=Rtau, err=0),
-           R_tau_S = data.frame(val=Rtau.s, err=0),
-           R_tau_VA = data.frame(val=Rtau.ns, err=0),
-           Vus = data.frame(val=Vus.val, err=Vus.err)
+display.names = c(Gamma110.names,
+  "Gamma110", "Gamma110_pdg09", "B_tau_mu_by_e_th", "Gamma5univ",
+  "R_tau", "R_tau_s", "R_tau_VA", "Vus")
+show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names])
            ))

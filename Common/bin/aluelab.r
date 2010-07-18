@@ -140,3 +140,81 @@ aeb.linear.comb.glob = function(lc) {
   meas.lc = names(lc)
   return(aeb.linear.comb(lc, quant.val[meas.lc], quant.cov[meas.lc, meas.lc]))
 }
+
+##
+## add quantity, specifying its gradient to compute the covariance
+## - add value, error, covariamce, correlation
+##
+aeb.meas.val.grad.add = function(add.name, add.val, add.grad) {
+  names(add.val) = add.name
+  add.comb = drop(add.grad)
+  add.comb.full = quant.val * 0
+  add.comb.full[names(add.comb)] = add.grad
+  add.cov = add.comb.full %*% quant.cov %*% add.comb.full
+  names(add.cov) = add.name
+  quant.cov <<- rbind(
+    cbind(quant.cov, matrix(quant.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
+    matrix(c(add.comb.full %*% quant.cov, add.cov), 1, dim(quant.cov)[2]+1, dimnames=list(add.name)))
+  quant.val <<- c(quant.val, add.val)
+  quant.err <<- c(quant.err, sqrt(add.cov))
+  quant.corr <<- quant.cov / sqrt(diag(quant.cov)) %o% sqrt(diag(quant.cov))
+  return
+}
+
+##
+## add quantity that is combination of other quantities
+## - add value, error, covariamce, correlation
+##
+aeb.meas.comb.add = function(add.name, add.comb) {
+  add.comb = drop(add.comb)
+  add.comb.full = quant.val * 0
+  add.comb.full[names(add.comb)] = add.comb
+  add.val = add.comb.full %*% quant.val
+  names(add.val) = add.name
+  add.err = sqrt(add.comb.full %*% quant.cov %*% add.comb.full)
+  names(add.err) = add.name
+  quant.val <<- c(quant.val, add.val)
+  quant.err <<- c(quant.err, add.err)
+  quant.cov <<- rbind(
+    cbind(quant.cov, matrix(quant.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
+    matrix(c(add.comb.full %*% quant.cov, add.err^2), 1, dim(quant.cov)[2]+1, dimnames=list(add.name)))
+  quant.corr <<- quant.cov / sqrt(diag(quant.cov)) %o% sqrt(diag(quant.cov))
+  return
+}
+
+##
+## add quantity defined as expression of existing quantities
+##
+aeb.meas.expr.add = function(add.name, add.expr) {
+  rc = mapply(function(name, val) {assign(name, val, pos=1)}, names(quant.val), quant.val)
+  add.deriv.expr = deriv(add.expr, all.vars(add.expr))
+  add.val = eval(add.deriv.expr)
+  add.grad = attr(add.val, "gradient")
+  aeb.meas.val.grad.add(add.name, add.val, add.grad)
+  return
+}
+
+##
+## given a model matrix that describes how a parameter relates to quantities,
+## fit for it and return the fitted combination of quantities
+##
+aeb.model.matrix.fit = function(model.matrix) {
+  model.matrix.names = names(model.matrix)
+  val = quant.val[model.matrix.names]
+  cov = quant.cov[model.matrix.names, model.matrix.names]
+  model.matrix = matrix(model.matrix, length(model.matrix), 1)
+  invcov = solve(cov)
+  fit.cov = solve(t(model.matrix) %*% solve(cov) %*% model.matrix)
+  fit.comb = fit.cov %*% t(model.matrix) %*% invcov
+  return(fit.comb)
+}
+
+##
+## fit theory parameter according to model matrix and
+## add the result to the quantities
+##
+aeb.meas.fit.add = function(add.name, add.model.matrix) {
+  fit.comb = aeb.model.matrix.fit(add.model.matrix)
+  aeb.meas.comb.add(add.name, fit.comb)
+  return
+}
