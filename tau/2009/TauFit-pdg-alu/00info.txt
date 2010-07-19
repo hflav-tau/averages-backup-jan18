@@ -2,12 +2,21 @@
 
 	how to compare with PDG fit
 
-cd pdginput/
-g++ readpdg.cc -o readpdg
-./readpdg >! readpdg.log
+cd pdginput/ 
+./any.com readpdg
+./readpdg.exe | tee readpdg.log
 cd -
 
 make alucomb
 ./compare_alucomb_pdg.r >! compare_alucomb_pdg.log
+
+///////////////////////////////////////////////////////////////////////////////
+
+	older instructions
+
+cd pdginput/
+g++ readpdg.cc -o readpdg
+./readpdg >! readpdg.log
+cd -
 
 ///////////////////////////////////////////////////////////////////////////////
