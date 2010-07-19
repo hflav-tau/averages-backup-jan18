@@ -1,7 +1,7 @@
 INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE cleo.input
-INCLUDE pdgfit.input
+INCLUDE alucomb_pdginput_measurements.input
 INCLUDE pdg-for-vus.input
 INCLUDE dummy.input
 

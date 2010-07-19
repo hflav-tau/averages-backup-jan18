@@ -1,0 +1,11 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	tau/2009/TauFit-alu
+
+use PDG 2009 measurements extracted by readpdg.cc and stored in
+alucomb_average_pdginput_no_babar_belle.input as follows
+
+cd pdginput/ 
+./any.com readpdg
+./readpdg.exe | tee readpdg.log
+cd -
