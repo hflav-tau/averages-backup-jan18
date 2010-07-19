@@ -130,6 +130,7 @@ B_tau_s.err = quant.err["Gamma110"]
 ##
 ## minimum chisq fit constraining Bmu/Be from Standard Model,
 ## using Be, Bmu and their covariance
+## tau lifetime should also be included, see arXiv:hep-ph/0507078v2 p.89
 ##
 
 ##
