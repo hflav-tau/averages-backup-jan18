@@ -30,4 +30,4 @@ if ( ${?LD_LIBRARY_PATH} ) then
 else
    setenv LD_LIBRARY_PATH "/usr/lib:/usr/local/lib:${ROOTSYS}/lib:/cern/2002/lib"
 endif
-addpath2 PATH $ROOTSYS/bin
+aluPathAppIfD PATH $ROOTSYS/bin
