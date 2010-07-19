@@ -1627,9 +1627,9 @@ int main() {
 	fprintf (scaled_measfile[p], "MEASUREMENT  m_Gamma%s statistical systematic \n",gammaname[i].data());
 	fprintf (scaled_measfile[p], "DATA         m_Gamma%s statistical systematic \n",gammaname[i].data());
       }
-      if (pullav_re[i]>1&&icorrj[i].size()>1) {
+      if (icorrj[i].size() > 1 && pullav_re[i]/icorrj[i].size() >1 ) {
 	fprintf (scaled_measfile[p], "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]*(pullav_re[i]/sqrt(icorrj[i].size() )));
-      }else if (pullav_re[i]>1&&icorrj[i].size()==1) {
+      }else if (icorrj[i].size()==1 && pullav_re[i]>1 ) {
 	fprintf (scaled_measfile[p], "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]*(pullav_re[i]));
       }else{
 	fprintf (scaled_measfile[p], "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]);
