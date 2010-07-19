@@ -158,7 +158,7 @@ aeb.meas.val.grad.add = function(add.name, add.val, add.grad) {
   quant.val <<- c(quant.val, add.val)
   quant.err <<- c(quant.err, sqrt(add.cov))
   quant.corr <<- quant.cov / sqrt(diag(quant.cov)) %o% sqrt(diag(quant.cov))
-  return
+  return(invisible())
 }
 
 ##
@@ -179,7 +179,7 @@ aeb.meas.comb.add = function(add.name, add.comb) {
     cbind(quant.cov, matrix(quant.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
     matrix(c(add.comb.full %*% quant.cov, add.err^2), 1, dim(quant.cov)[2]+1, dimnames=list(add.name)))
   quant.corr <<- quant.cov / sqrt(diag(quant.cov)) %o% sqrt(diag(quant.cov))
-  return
+  return(invisible())
 }
 
 ##
@@ -191,7 +191,7 @@ aeb.meas.expr.add = function(add.name, add.expr) {
   add.val = eval(add.deriv.expr)
   add.grad = attr(add.val, "gradient")
   aeb.meas.val.grad.add(add.name, add.val, add.grad)
-  return
+  return(invisible())
 }
 
 ##
@@ -216,5 +216,5 @@ aeb.model.matrix.fit = function(model.matrix) {
 aeb.meas.fit.add = function(add.name, add.model.matrix) {
   fit.comb = aeb.model.matrix.fit(add.model.matrix)
   aeb.meas.comb.add(add.name, fit.comb)
-  return
+  return(invisible())
 }
