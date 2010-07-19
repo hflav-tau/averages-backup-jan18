@@ -1,0 +1,8 @@
+* tau- --> K0 h+ h- h- nu
+BEGIN       ALEPH Gamma53 published BARATE 98E
+MEASUREMENT m_Gamma53 statistical systematic
+DATA        m_Gamma53 statistical systematic
+            2.3e-4    1.9e-4      0.7e-4
+DATA
+            AlephGamma53syst  0.7e-4
+END
