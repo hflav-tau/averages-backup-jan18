@@ -96,6 +96,8 @@ if (length(combination$constr.comb) > 0) {
     combination$constr.comb[!constr.select],
     combination$constr.val[!constr.select],
     names(combination$constr.val[!constr.select]))
+    cat("\nThe following measurement types are missing:\n")
+    show(unique(unlist(lapply(combination$constr.comb, function(x) setdiff(names(x), quant.names)))))
   }
   combination$constr.comb = combination$constr.comb[constr.select]
   combination$constr.val = combination$constr.val[constr.select]
@@ -587,9 +589,14 @@ for (mt.name in quant.names) {
     dr = abs(res) / sqrt(meas.error[meas.mt.keep] * quant.err[mt.name])
     res.sq.exp = meas.error[meas.mt.keep]^2 - quant.err[mt.name]^2
     if (any(res.sq.exp < 0)) {
-      stop("measurement on fitted quantity is larger than error on one of its measurements")
+      show(mt.name)
+      show(res.sq.exp[res.sq.exp < 0])
+      cat("warning: measurement on fitted quantity is larger than error on one of its measurements\n")
+      ## stop("measurement on fitted quantity is larger than error on one of its measurements")
     }
-    tmp = sqrt(mean(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1)))
+    ## tmp = sqrt(mean(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1)))
+    ##--- protect against negative expected error
+    tmp = sqrt(mean(ifelse(dr > 1e-6 & res.sq.exp > 0, res^2 / res.sq.exp, 1)))
   } else {
     tmp = 1
   }
