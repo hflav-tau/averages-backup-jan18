@@ -14,8 +14,6 @@
 ##+++ include if approved in time
 ##
 
-require(numDeriv)
-
 source("../../../Common/bin/aluelab.r")
 
 args <- commandArgs(TRUE)
@@ -128,8 +126,7 @@ B_tau_s.err = quant.err["Gamma110"]
 ##
 ## universality Be = B(tau -> e nu nubar)
 ##
-## minimum chisq fit constraining Bmu/Be from Standard Model,
-## using Be, Bmu and their covariance
+## minimum chisq fit constraining Bmu/Be from Standard Model, using Be, Bmu
 ## tau lifetime should also be included, see arXiv:hep-ph/0507078v2 p.89
 ##
 
