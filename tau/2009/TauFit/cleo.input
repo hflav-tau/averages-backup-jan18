@@ -1,2 +1,2 @@
-INCLUDE cleo/gamma130.input ! 146
-INCLUDE cleo/gamma132.input ! 147
+INCLUDE cleo/gamma130.input 
+INCLUDE cleo/gamma132.input 
