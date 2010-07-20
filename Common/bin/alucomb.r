@@ -83,6 +83,24 @@ if (length(tmp) > 0) {
 }
 rm(tmp)
 
+dupl.constr = NULL
+for (i in seq(1, length(combination$constr.comb))) {
+  for (j in seq(i+1, length=length(combination$constr.comb)-i)) {
+    if (length(setdiff(names(combination$constr.comb[[i]]), names(combination$constr.comb[[j]]))) == 0) {
+      qn = names(combination$constr.comb[[i]])
+      dupl.constr = rbind(dupl.constr,
+        matrix(c(combination$constr.val[[i]], unlist(combination$constr.comb[[i]][qn])), nrow=1,
+               dimnames=list(names(combination$constr.comb[i]), c("val", qn))),
+        matrix(c(combination$constr.val[[j]], unlist(combination$constr.comb[[j]][qn])), nrow=1,
+               dimnames=list(names(combination$constr.comb[j]), c("val", qn))))
+    }
+  }
+}
+if (length(dupl.constr) > 0) {
+  cat("warning: duplicated constraints, listed in row pairs\n")
+  show(dupl.constr)
+}
+
 if (length(combination$constr.comb) > 0) {
   ##-- retain only constraints whose terms are all included in the fitted quantities
   constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
