@@ -31,5 +31,8 @@ display.names = c(
 ##--- list all fitted quantities
 display.names = names(quant.val)
 
-show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names])))
+show(rbind(cbind(val=quant.val[display.names],
+                 err=quant.err[display.names],
+                 "S-factor"=sfact3.types[display.names],
+                 "err*S"=quant3.err[display.names])))
 
