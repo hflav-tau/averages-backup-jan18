@@ -1,0 +1,10 @@
+* tau- --> pi K0 >=1pi0 nu
+
+BEGIN       OPAL Gamma43 published ABBIENDI 00C
+MEASUREMENT m_Gamma43 statistical systematic
+DATA        m_Gamma43 statistical systematic
+            0.324e-2  0.074e-2    0.066e-2
+
+DATA
+            OpalGamma43syst 0.066e-2
+END
