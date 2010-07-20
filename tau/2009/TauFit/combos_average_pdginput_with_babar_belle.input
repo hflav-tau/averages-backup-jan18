@@ -987,10 +987,10 @@ SPARAMETER CHI2_N_SYM_68_AD -0.03882 1.0 ! BaBar Gamma10by5 = Gamma10/Gamma5
 SPARAMETER CHI2_N_SYM_68_01  4  5.610265  ! Gamma10 :: d(Gamma10by5)/d(Gamma10) = 1/Gamma5 = 1/0.1782447 = 5.610265
 SPARAMETER CHI2_N_SYM_68_02  2 -0.21779 ! Gamma5 :: d(Gamma10by5)/d(Gamma5) = -Gamma10by5/Gamma5 = -0.03882/0.1782447 = -0.21779
 
-* Gamma60 = Gamma62 + 0.0153 Gamma150
+* Gamma60 = Gamma62 + 0.017000 Gamma150
 SPARAMETER CHI2_N_SYM_69    131 2     ! BaBar 
 SPARAMETER CHI2_N_SYM_69_01 18 1      ! Gamma62
-SPARAMETER CHI2_N_SYM_69_02 29 0.0153 ! Gamma150
+SPARAMETER CHI2_N_SYM_69_02 29 0.017000 ! Gamma150
  
 *Gamma103 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16
 *             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35
@@ -1040,9 +1040,9 @@ SPARAMETER CHI2_N_SYM_71    136 2     ! Belle Gamma13 = Gamma14 + Gamma16
 SPARAMETER CHI2_N_SYM_71_01 5  1      ! Gamma14
 SPARAMETER CHI2_N_SYM_71_02 6  1      ! Gamma16
  
-SPARAMETER CHI2_N_SYM_72    138 2     ! Belle Gamma60 = Gamma62 + 0.0153 Gamma150
+SPARAMETER CHI2_N_SYM_72    138 2     ! Belle Gamma60 = Gamma62 + 0.017000 Gamma150
 SPARAMETER CHI2_N_SYM_72_01 18 1      ! Gamma62
-SPARAMETER CHI2_N_SYM_72_02 29 0.0153 ! Gamma150
+SPARAMETER CHI2_N_SYM_72_02 29 0.017000 ! Gamma150
 
 SPARAMETER CHI2_N_SYM_73    148 2     ! OPAL Gamma43 = Gamma40 + Gamma44
 SPARAMETER CHI2_N_SYM_73_01 14 1      ! Gamma40
