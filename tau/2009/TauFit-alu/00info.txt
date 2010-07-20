@@ -2,10 +2,10 @@
 
 	tau/2009/TauFit-alu
 
-use PDG 2009 measurements extracted by readpdg.cc and stored in
-alucomb_average_pdginput_no_babar_belle.input as follows
+The correct sequence is:
 
-cd pdginput/ 
-./any.com readpdg
-./readpdg.exe | tee readpdg.log
-cd -
+make alucomb
+make update_alucomb
+# ../../../Common/bin/aluelab-sum.r
+../../../Common/bin/aluelab-list.r
+
