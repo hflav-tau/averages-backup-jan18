@@ -95,7 +95,6 @@ MEASUREMENT m_Gamma998 statistical systematic
 MEASUREMENT m_Gamma130 statistical systematic
 MEASUREMENT m_Gamma132 statistical systematic
 MEASUREMENT m_Gamma144 statistical systematic
-MEASUREMENT m_Gamma3by5 statistical systematic
 MEASUREMENT m_Gamma9by5 statistical systematic
 MEASUREMENT m_Gamma10by5 statistical systematic
 
@@ -215,7 +214,7 @@ CONSTRAINT GammaAll 1
   Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1
   Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1
   Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma96  1.699387
-* Gamma998 1
+*  Gamma998 1
 
 *
 * additional notes on unitarity constraint
@@ -270,7 +269,7 @@ COMBOFQUANT Gamma110
 * R10-5^babar = 0.0386760149
 
 * 1/G5^pdg = 5.607707 , R3-5^babar/G5^pdg = 5.49331
-CONSTRAINT Gamma3by5.c  -0.9796  Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.49331
+* CONSTRAINT Gamma3by5.c  -0.9796  Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.49331
 * CONSTRAINT Gamma3by5.c  -0.9791458276 Gamma3by5  -1 Gamma3  5.607707 Gamma5 -5.490763
 
 * 1/G5^pdg = 5.607707 , R9-5^babar/G5^pdg = 3.333782
