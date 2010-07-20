@@ -7,5 +7,4 @@ The correct sequence is:
 make alucomb
 make update_alucomb
 # ../../../Common/bin/aluelab-sum.r
-../../../Common/bin/aluelab-list.r
-
+ ../../../Common/bin/aluelab-list.r | tee getresults_alucomb.log

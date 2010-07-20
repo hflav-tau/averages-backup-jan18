@@ -1,8 +1,9 @@
+INCLUDE alucomb_pdginput_measurements.input
 INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE cleo.input
-INCLUDE alucomb_pdginput_measurements.input
-INCLUDE pdg-for-vus.input
+INCLUDE opal.input
+INCLUDE aleph.input
 INCLUDE dummy.input
 
 BEGIN   PDG+BaBar+Belle all_methods 
@@ -79,11 +80,12 @@ MEASUREMENT m_Gamma17 statistical systematic   ! NQUAN = 65
 MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 66 
 MEASUREMENT m_Gamma13 statistical systematic   ! NQUAN = 67 
 
-*--- pdg_for_vus.input
+*--- opal.input
 MEASUREMENT m_Gamma43 statistical systematic
+
+*--- aleph.input
 MEASUREMENT m_Gamma44 statistical systematic
 MEASUREMENT m_Gamma53 statistical systematic
-MEASUREMENT m_Gamma96 statistical systematic
 
 *--- Gamma110, only present in constraint
 MEASUREMENT m_Gamma110 statistical systematic
@@ -94,7 +96,7 @@ MEASUREMENT m_Gamma998 statistical systematic
 *--- babar/belle/cleo measurements not in PDG list
 MEASUREMENT m_Gamma130 statistical systematic
 MEASUREMENT m_Gamma132 statistical systematic
-MEASUREMENT m_Gamma144 statistical systematic
+MEASUREMENT m_Gamma96 statistical systematic
 MEASUREMENT m_Gamma9by5 statistical systematic
 MEASUREMENT m_Gamma10by5 statistical systematic
 
