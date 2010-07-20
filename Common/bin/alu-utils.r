@@ -192,6 +192,10 @@ for (line in lines) {
       if (length(constraint.labels) <= 1) {
         stop("error: no quantities listed for constraint ", constraint.labels[1])
       }
+      if (!is.null(constraints.list.comb[[constraint.labels[1]]]) ||
+          !is.null(constraints.list.val[[constraint.labels[1]]])) {
+        stop("error: constraint entered twice: ", constraint.labels[1])
+      }
       names(constraint.values) = constraint.labels
       constraints.list.comb[[constraint.labels[1]]] = constraint.values[-1]
       tmp = constraint.values[1]
