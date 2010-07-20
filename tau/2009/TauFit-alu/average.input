@@ -278,7 +278,7 @@ CONSTRAINT Gamma9by5.c  -0.5945  Gamma9by5  -1 Gamma9  5.610265  Gamma5 -3.3353
 CONSTRAINT Gamma10by5.c -0.03882 Gamma10by5 -1 Gamma10 5.610265  Gamma5 -0.21779 
 
 * Gamma43 = Gamma40 + Gamma44
-CONSTRAINT Gamma43.c 0.0 Gamma43 -1.0 Gamma40 1.0 Gamam44 1.0
+CONSTRAINT Gamma43.c 0.0 Gamma43 -1.0 Gamma40 1.0 Gamma44 1.0
 
 CALL CHI2_N_SYM
 
