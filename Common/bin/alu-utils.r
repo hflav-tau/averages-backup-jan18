@@ -217,7 +217,7 @@ for (line in lines) {
       ## measurement cards
       ##
       if (length(meas.labels) != 3) {
-        stop("wrong number of MEASUREMENT labels: ",length(meas.labels),"instead of 3\n")
+        stop("wrong number of MEASUREMENT labels: ", length(meas.labels), "instead of 3\n")
       }
       if (length(data.labels) != length(data.values)) {
         stop("number of numeric items does not match number of labels\n")
@@ -265,7 +265,7 @@ for (line in lines) {
         ## but rather a linear combination of them. A warning is issued when that happens, and the MEASUREMENT
         ## label is set to the "method", which actually should indicate what is being measured.
         ##
-        cat("warning: measurement label '", labels[1], "' != method '", meas$bibitem[2], "': replaced\n", sep="")
+        cat("warning: label '", labels[1], "' != method '", paste(meas$bibitem[1:3], collapse="."), "': replaced\n", sep="")
         labels[1] = meas$bibitem[2]
       }
 
@@ -497,8 +497,8 @@ get.alucomb = function(file) {
     return(ol)
   }
   li = 1 + rc$lines
-  ol$chisq = rc$data["original", "chisq"]
-  ol$dof = rc$data["original", "dof"]
+  ol$chisq = rc$data["fit.1", "chisq"]
+  ol$dof = rc$data["fit.1", "dof"]
   
   rc.av = get.alucomb.section(lines[-(1:(li-1))], "^Averaged quantities", file)
   if (is.null(rc.av)) {
@@ -531,10 +531,10 @@ get.alucomb = function(file) {
   names(ol$err) = colnames(data)
   ol$sfact = data["S-factor",]
   names(ol$sfact) = colnames(data)
-  ol$chisq.all = data["chisq",]
-  names(ol$chisq.all) = colnames(data)
-  ol$dof.all = data["dof",]
-  names(ol$dof.all) = colnames(data)
+  ol$chisq.all = 1
+  ## names(ol$chisq.all) = colnames(data)
+  ## ol$dof.all = data["dof",]
+  ## names(ol$dof.all) = colnames(data)
 
   return(ol)
 }
