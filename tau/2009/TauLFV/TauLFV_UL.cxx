@@ -285,14 +285,14 @@ void fillBelle_2010001(double * array)
   array[-1+EGAMMA]  = 12;
   array[-1+MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
 
-  array[-1+EPI0]    = 2.2; 
-  array[-1+MUPI0]   = 2.7;
+  array[-1+EPI0]    = 2.2; // 8.0; 
+  array[-1+MUPI0]   = 2.7; // 12;
 
-  array[-1+EETA]    = 4.4;
-  array[-1+MUETA]   = 2.3;
+  array[-1+EETA]    = 4.4; // 9.2;
+  array[-1+MUETA]   = 2.3; // 6.5;
 
-  array[-1+EETAP]   = 3.6;
-  array[-1+MUETAP]  = 3.8;
+  array[-1+EETAP]   = 3.6; // 16;
+  array[-1+MUETAP]  = 3.8; // 13;
 
   array[-1+EKS0]    = 2.6;
   array[-1+MUKS0]   = 2.3;
@@ -300,16 +300,16 @@ void fillBelle_2010001(double * array)
   array[-1+EF0]     = 3.2;
   array[-1+MUF0]    = 3.4;
 
-  array[-1+ERHO]    = 6.3;
-  array[-1+MURHO]   = 6.8;
-  array[-1+EKSTAR]  = 7.8;
-  array[-1+MUKSTAR] = 5.9;
-  array[-1+EAKSTAR] = 7.7;
-  array[-1+MUAKSTAR]= 10;
-  array[-1+EPHI]    = 7.3;
-  array[-1+MUPHI]   = 13;
-  array[-1+EOMEGA]  = 18;
-  array[-1+MUOMEGA] = 8.9;
+  array[-1+ERHO]    = 1.8; // 6.3;
+  array[-1+MURHO]   = 1.2; // 6.8;
+  array[-1+EKSTAR]  = 3.2; // 7.8;
+  array[-1+MUKSTAR] = 7.2; // 5.9;
+  array[-1+EAKSTAR] = 3.4; // 7.7;
+  array[-1+MUAKSTAR]= 7.0; // 10;
+  array[-1+EPHI]    = 3.1; // 7.3;
+  array[-1+MUPHI]   = 8.4; // 13;
+  array[-1+EOMEGA]  = 4.8; // 18;
+  array[-1+MUOMEGA] = 4.7; // 8.9;
  
   array[-1+EEE]     = 2.7;
   array[-1+MEE]     = 1.8;
