@@ -305,8 +305,8 @@ void fillBelle_2010001(double * array)
   array[-1+EKSTAR]  = 3.2; // 7.8;
   array[-1+MUKSTAR] = 7.2; // 5.9;
   array[-1+EAKSTAR] = 3.4; // 7.7;
-  array[-1+MUAKSTAR]= 7.0 - 0.4; // 10; // substracted .4 for clarity in display
-  array[-1+EPHI]    = 3.1 - 0.4; // 7.3; // substracted .4 for clarity in display
+  array[-1+MUAKSTAR]= 7.0 - 0.2; // 10; // substracted .2 for clarity in display
+  array[-1+EPHI]    = 3.1 - 0.2; // 7.3; // substracted .2 for clarity in display
   array[-1+MUPHI]   = 8.4; // 13;
   array[-1+EOMEGA]  = 4.8; // 18;
   array[-1+MUOMEGA] = 4.7; // 8.9;
@@ -490,8 +490,8 @@ void fillBaBar_2010001(double * array)
   array[-1+EKSTAR]  = 5.9;
   array[-1+MUKSTAR] = 17;
   array[-1+EAKSTAR] = 4.6;
-  array[-1+MUAKSTAR]= 7.3 + 0.4; //added .4 for clarity in display
-  array[-1+EPHI]    = 3.1 + 0.4; //added .4 for clarity in display
+  array[-1+MUAKSTAR]= 7.3 + 0.2; //added .2 for clarity in display
+  array[-1+EPHI]    = 3.1 + 0.2; //added .2 for clarity in display
   array[-1+MUPHI]   = 19;
   array[-1+EOMEGA]  = 11;
   array[-1+MUOMEGA] = 10;
