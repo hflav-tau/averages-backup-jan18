@@ -25,38 +25,9 @@ if (length(args) > 0) {
 
 ##--- get alucomb results and data
 load(file.name)
-
-quant.val = quant
-rm(quant)
 ## quant.err = quant3.err
 ## quant.corr = quant3.corr
 ## quant.cov = quant3.cov
-
-meas.val = meas
-rm(meas)
-
-##
-## Gamma43 = pi K0 >=1pi0 nu
-## PDG 2009 -- 0.324 ± 0.074 ± 0.066 ABBIENDI 00C OPAL
-##
-##+++ aeb.meas.add.single("Gamma43", 0.324e-2, quadrature(0.074e-2, 0.0066e-2))
-
-##
-## Gamma44 = pi K0 pi0 pi0 nu
-## PDG 2009 -- 0.26 ± 0.24 BARATE 99R ALEPH
-##+++ aeb.meas.add.single("Gamma44", 2.6e-4, 2.4e-4)
-
-##
-## Gamma53 =  K0 h+ h- h- nu
-## PDG 2009 ( ( 2.3 ± 2.0 ) × 10~4
-## PDG 2009 -- (2.3 ± 1.9 ± 0.7) × 10-4	BARATE	 98E ALEPH
-##+++ aeb.meas.add.single("Gamma53", 2.3e-4, 2.0e-4)
-
-##
-## Gamma144 = K phi nu
-## KmPhiNu HFAG 2009 3.704330e-05 +- 3.259888e-06 (S=1.3)
-##
-##+++ aeb.meas.add.single("Gamma144", 3.704330e-05, 3.259888e-06)
 
 ##
 ## Gamma151 = K omega nu
