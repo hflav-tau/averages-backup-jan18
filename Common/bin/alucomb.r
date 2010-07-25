@@ -182,10 +182,6 @@ if (length(not.matching) > 0) {
 ## update systematic terms according to updated external parameter errors
 ##
 
-##--- unshifted values
-meas.value.cards = sapply(measurements, function(x) {tmp=x$value; names(tmp)=NULL; tmp})
-meas.syst.cards = sapply(measurements, function(x) {tmp=x$syst; names(tmp)=NULL; tmp})
-
 for (mn in meas.names) {
   value.delta = numeric()
   syst.term.deltasq = numeric()
@@ -222,10 +218,11 @@ for (mn in meas.names) {
     }
   }
   ##-- update value
+  measurements[[mn]]$value.orig = measurements[[mn]]$value
   measurements[[mn]]$value = measurements[[mn]]$value + sum(value.delta)
   ##-- update systematic error
+  measurements[[mn]]$syst.orig = measurements[[mn]]$syst
   measurements[[mn]]$syst = sqrt(measurements[[mn]]$syst^2 + sum(syst.term.deltasq))
-  ## cat(measurements[[mn]]$tag, measurements[[mn]]$value, measurements[[mn]]$stat, measurements[[mn]]$syst, "\n")
 }
 
 ##-- get list of values, stat errors, syst errors
@@ -234,15 +231,19 @@ meas.stat = sapply(measurements, function(x) {tmp=x$stat; names(tmp)=NULL; tmp})
 meas.syst = sapply(measurements, function(x) {tmp=x$syst; names(tmp)=NULL; tmp})
 meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
+##--- unshifted values
+meas.val.orig = sapply(measurements, function(x) {tmp=x$value.orig; names(tmp)=NULL; tmp})
+meas.syst.orig = sapply(measurements, function(x) {tmp=x$syst.orig; names(tmp)=NULL; tmp})
+
 ##-- which measurements got shifted in value or syst. error
-meas.shifted = (meas.value.cards != meas.val) | (meas.syst.cards != meas.syst)
+meas.shifted = (meas.val.orig != meas.val) | (meas.syst.orig != meas.syst)
 
 if (any(meas.shifted)) {
   cat("\nThe following measurements were shifted from updated external parameters\n")
-  show(rbind(orig=meas.value.cards[meas.shifted],
+  show(rbind(orig=meas.val.orig[meas.shifted],
              value=meas.val[meas.shifted],
              stat=meas.stat[meas.shifted],
-             orig=meas.syst.cards[meas.shifted],
+             orig=meas.syst.orig[meas.shifted],
              syst=meas.syst[meas.shifted]))
 }
   
@@ -733,6 +734,15 @@ if (quant.num > 1) {
   quant3.sfact = quant2.sfact
 }
 
+quant.sf.err = quant3.err
+quant.sf.cov = quant3.cov
+quant.sf.corr = quant3.corr
+quant.sf.sfact = quant3.sfact
+rm(quant3.err)
+rm(quant3.cov)
+rm(quant3.corr)
+rm(quant3.sfact)
+
 cat("\n")
 cat("##\n")
 cat("## S-factors accounting for larger than expected chi-square\n")
@@ -745,11 +755,11 @@ out = rbind(
     CL=pchisq(chisq, dof, lower.tail=FALSE)))
 if (any(meas.keep)) {
   out = rbind(out
-    ,"fit.2" = c(
+    ,"fit.sf.1" = c(
        chisq=chisq.keep, dof=dof.keep,
        "chisq/dof"=chisq.keep/dof.keep,
        CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE))
-    ,"fit.3" = c(
+    ,"fit.sf" = c(
        chisq=chisq2.keep, dof=dof2.keep,
        "chisq/dof"=chisq2.keep/dof2.keep,
        CL=pchisq(chisq2.keep, dof2.keep, lower.tail=FALSE)))
@@ -759,28 +769,28 @@ show(out)
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
 show(rbind(value=quant.val,
            error=quant.err,
-           error.2=quant2.err,
-           error.3=quant3.err,
-           "S-factor"=quant.sfact,
+           error.sf.2=quant2.err,
+           error.sf=quant.sf.err,
+           "S-factor.1"=quant.sfact,
            "S-factor.2"=quant2.sfact,
-           "S-factor.3"=quant3.sfact
+           "S-factor"=quant.sf.sfact
            ))
 
 if (quant.num > 1) {
   cat("correlation\n") 
   show(quant.corr)
   cat("correlation, S-factor inflated\n") 
-  show(quant3.corr)
+  show(quant.sf.corr)
 }
 
 ##--- save data and results
 save(file=file.name.data,
      measurements, combination,
+     chisq, chisq.keep, chisq2.keep,
+     dof, dof.keep, dof2.keep,
      meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
-     quant.val,  quant.err,  quant.cov, quant.corr,
-     quant2.err, quant2.cov, quant2.corr,
-     quant3.err, quant3.cov, quant3.corr,
-     quant.sfact, quant2.sfact, quant3.sfact,
+     quant.val,  quant.err,  quant.cov,  quant.corr,  quant.sfact, 
+                 quant.sf.err, quant.sf.cov, quant.sf.corr, quant.sf.sfact,
      constr.m, constr.v)
 
 cat("\n")
