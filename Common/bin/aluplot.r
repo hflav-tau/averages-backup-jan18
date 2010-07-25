@@ -96,10 +96,10 @@ get.combos.chi2nsym = function(file) {
   rc$CL = 1 - pchisq(rc[["chisq"]], rc[["dof"]])
   rc$scale = sqrt(rc$chisq/rc$dof)
 
-  ##-- first line containig combos averages
+  ##--- first line containig combos averages
   patt = paste(".*CHI2_N_SYM\\s+:\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*CL\\s*=\\s*([.0-9eE+-]+).*", sep="")
-  ##-- following lines
+  ##--- following lines
   patt2 = paste(".*\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*.*", sep="")
 
@@ -161,138 +161,40 @@ get.combos.results = function(file) {
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
 
-file = "average.input"
+file = "average_alucomb.rdata"
 
 ##++ aluplot = function(file = "") {
-
-rc = alucomb.read(file)
-measurements = rc$measurements
-combination = rc$combination
-plot.data = list()
 
 log.dir = file.path("../../../Data", sub("^.*/([^/]*/[^/]*/[^/]*)$", "\\1", getwd()))
 log.file = function(fname) {file.path(log.dir, fname)}
 
-##-- get quantities measured by each experiment
-meas.names = names(measurements)
-meas.num = length(meas.names)
+##--- load alucomb.r results
+load(log.file(file))
+##--- recover useful lists of names
+quant.names = names(quant.val)
+meas.names = names(meas.val)
+##--- quantity measured per measurement
+meas.quantities = sapply(measurements, function(x) names(x$value))
 
-##++ gets names in Combos MEASUREMENT card, sometimes incorrect
-meas.quantities.raw = unlist(lapply(measurements, function(x) names(x$value)))
-##++ get accurate names for quantities measured by experiments
-meas.quantities = sub("[.][^.]+$", "", sub("^[^.]+[.]", "", names(measurements)))
+##--- put alucomb.r fitted values in plot.data$hfag list
+plot.data = list()
+plot.data$hfag = list()
+plot.data$hfag = within(plot.data$hfag, {
+  val = quant.val
+  err = quant.err
+  sfact = quant.sf.sfact
+  chisq = chisq
+  dof = dof
+  chisq.all = 1
+})
 
-##-- quantities we want to determine from measurements
-quant.names = combination$quantities
-
-##-- quantity measured by each measurement
-meas.quantities = unlist(lapply(measurements, function(x) names(x$value)))
-names(meas.quantities) = names(measurements)
-
-##-- get list of stat and syst errors
-meas.value = unlist(lapply(measurements, function(x) x$value))
-names(meas.value) = meas.names
-meas.stat = unlist(lapply(measurements, function(x) x$stat))
-names(meas.stat) = meas.names
-meas.syst = unlist(lapply(measurements, function(x) x$syst))
-names(meas.syst) = meas.names
-##-- combine compute total error
-meas.error = sqrt(meas.stat^2 + meas.syst^2)
-
-##-- init meas.names.true to use same code as in alucomb
-meas.names.true = meas.names
-
-##++ begin of code in common with alucomb.r
-
-##-- collect what measurements are affected by each syst. term
-syst.terms.list = list()
-for (meas in names(measurements)) {
-  for (syst.term in names(measurements[[meas]]$syst.terms)) {
-    ##-- add measurement to the list of the currect syst. term
-    syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], meas)
+##--- get Combos results
+if (FALSE) {
+  rc = get.combos.results(log.file("average.log"))
+  if (length(rc) > 0) {
+    plot.data$hfag = rc
   }
 }
-##-- retain just the syst. contributions that affect at least two measurements
-syst.terms.corr = lapply(syst.terms.list, length) >= 2
-if (length(syst.terms.corr) > 0) {
-  syst.terms.corr = names(syst.terms.corr)[syst.terms.corr]
-} else {
-  syst.terms.corr = character()
-}
-
-##
-## build correlation matrix
-##
-meas.corr = diag(rep(0,meas.num))
-rownames(meas.corr) = meas.names
-colnames(meas.corr) = meas.names
-meas.corr.stat = meas.corr
-
-##
-## set off-diagonal correlation matrix coefficients from cards
-## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
-## - meas.corr means total correlation, to be multiplied by total errors
-##
-##-- set off-diagonal statistical correlation matrix coefficients from cards
-for (mi.name in meas.names) {
-  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms), meas.names)) {
-    meas.corr.stat[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms[[mj.name]]
-  }
-  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.tot), meas.names)) {
-    meas.corr[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.tot[[mj.name]]
-  }
-}
-
-##-- not handled and forbidden to enter both total and stat. only correlations
-flag.ok = TRUE
-for (i in 1:meas.num) {
-  for (j in i:meas.num) {
-    if (meas.corr[i,j] != 0 && meas.corr.stat[i,j] != 0) {
-      flag.ok = FALSE
-      cat(paste("error: both total and statistical correlation specified for measurements:\n  ",
-                meas.names[i], ", ", meas.names[j], "\n", collapse=""))
-    }
-  }
-}
-if (!flag.ok) {
-  stop("aborted because of above errors\n")
-}
-
-##
-## build covariance matrix using errors and correlation coefficients
-## - stat. correlation is multiplied by stat. errors
-## - total correlation is multiplied by total errors
-##
-meas.cov = meas.corr * (meas.error %o% meas.error)
-meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
-
-##++ end of code in common with alucomb.r
-
-##
-## get syst. correlation corresponding to correlated syst. terms
-##
-meas.cov.syst = meas.corr * 0
-for (meas.i in meas.names.true) {
-  syst.i = measurements[[meas.i]]$syst.terms
-  for (meas.j in meas.names.true) {
-    ##-- no addition needed for on-diagonal terms
-    if (meas.i == meas.j) next
-    syst.j = measurements[[meas.j]]$syst.terms
-    ##-- systematics common to the two measurements
-    correl.i.j = intersect(names(syst.i), names(syst.j))
-    ##-- remove syst. terms uncorrelated to two different measurements
-    correl.i.j = intersect(correl.i.j, syst.terms.corr)
-    if (length(correl.i.j) == 0) next
-    meas.cov.syst[meas.i,meas.j] = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
-  }
-}
-
-##-- if total correlation specified, get stat. correlation by subtraction
-meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
-meas.cov.stat = meas.cov.stat + diag(meas.stat^2)
-##-- total covariance
-meas.cov.syst = meas.cov.syst + diag(meas.syst^2)
-meas.cov = meas.cov.stat + meas.cov.syst
 
 ##
 ## get PDG average produced from the current directory
@@ -303,16 +205,16 @@ if (length(rc) > 0) {
    plot.data$pdg = rc
 }
 
-##-- read dedicated file with PDG 2009 averages
+##--- read dedicated file with PDG 2009 averages
 lines = readLines("../Common/pdg_averages.input")
 pdg.averages = list()
 for (line in lines) {
-  ##-- remove comments up to end of line, and preceding space
+  ##--- remove comments up to end of line, and preceding space
   line = gsub("\\s*[*#;].*$", "", line, perl=TRUE)
   if (line == "") {
     next
   }
-  ##-- remove leading space
+  ##--- remove leading space
   line = gsub("^\\s+", "", line, perl=TRUE)
   fields = unlist(strsplit(line, "\\s+", perl=TRUE))
   pdg.averages[[fields[1]]] = as.numeric(fields[-1])
@@ -320,7 +222,7 @@ for (line in lines) {
 
 ##
 ## in the Combos cards the measurement results have symmetrized errors
-## override symmetrized errors with the original ones usind a dedicated file
+## override symmetrized errors with the original ones using a dedicated file
 ##
 lines = readLines("../Common/results_asymm_errors.input")
 meas.asymm = list()
@@ -336,21 +238,8 @@ for (line in lines) {
   names(meas.asymm[[tag]]) = c("meas", "stat_pos", "stat_neg", "syst_pos", "syst_neg")
 }
 
-for (quant in quant.names) {
-  plot.data[[quant]] = list()
-}
-
-##-- get alucomb results
-rc = get.alucomb(log.file("average_alucomb.log"))
-if (length(rc) > 0) {
-  plot.data$hfag = rc
-} else {
-  ##-- get Combos results
-  rc = get.combos.results(log.file("average.log"))
-  if (length(rc) > 0) {
-    plot.data$hfag = rc
-  }
-}
+##--- skip if no measurements
+quant.names = quant.names[sapply(quant.names, function(x) {length(meas.names[x == meas.quantities])>0})]
 
 ##
 ## for each quantity to be plotted, collect in plot.data[[quant]]
@@ -359,26 +248,27 @@ if (length(rc) > 0) {
 ## - the list of the experiments that measured it
 ##
 for (quant in quant.names) {
+  plot.data[[quant]] = list()
   x.mins = numeric()
   x.maxs = numeric()
   x.values = numeric()
   all.exp.meas = list()
   meas.list.tmp = list()
 
-  ##-- collect value, stat, syst, bibitem of all relevant measurements
+  ##--- collect value, stat, syst, bibitem of all relevant measurements
   for (meas in meas.names[quant == meas.quantities]) {
     meas.tmp = list()
     meas.tmp[[meas]] =
-      list(value=measurements[[meas]]$value,
+      list(value=measurements[[meas]]$value.orig,
            stat=measurements[[meas]]$stat,
-           syst=measurements[[meas]]$syst,
+           syst=measurements[[meas]]$syst.orig,
            bibitem=measurements[[meas]]$bibitem,
            index=which(meas.names == meas))
     meas.list.tmp = c(meas.list.tmp, meas.tmp)
   }
 
   if (quant == "HmHmHpNu") {
-    ##-- special case, add BaBar and Belle hhh measurements as sum of exclusive modes
+    ##--- special case, add BaBar and Belle hhh measurements as sum of exclusive modes
     combnames = c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu")
     explist = list(
       list("BaBar", "published"),
@@ -394,16 +284,16 @@ for (quant in quant.names) {
     reslist.which.meas = do.call(rbind, lapply(reslist, function(x) which(x)))
     if (length(reslist.which.meas) >0) {
       reslist.sorted.names = names(sort(reslist.which.meas[,1]))
-      ##-- collect value, stat, syst, bibitem of the combination
+      ##--- collect value, stat, syst, bibitem of the combination
       for (combres in reslist.sorted.names) {
         combres.vec = as.numeric(reslist[[combres]])
         value = drop(combres.vec %*% meas.value)
         stat = sqrt(drop(combres.vec %*% meas.cov.stat %*% combres.vec))
         syst = sqrt(drop(combres.vec %*% meas.cov.syst %*% combres.vec))
-        ##-- order number of 1st measurement used in the combination
+        ##--- order number of 1st measurement used in the combination
         index = which(combres.vec !=0)[1]
         bibitem = measurements[[index]]$bibitem
-        ##-- substitute quantity with the combination we calculated
+        ##--- substitute quantity with the combination we calculated
         bibitem[2] = quant
         ## cat(unlist(strsplit(combres, ".", fixed=TRUE)), value, stat, syst, "\n")
         meas.tmp = list()
@@ -413,7 +303,7 @@ for (quant in quant.names) {
     }
   }
   
-  ##-- sort all measurements according to their ordering in the Combos cards
+  ##--- sort all measurements according to their ordering in the Combos cards
   for (meas in names(sort(unlist(lapply(meas.list.tmp, function(x) x$index))))) {
     exp.meas = list()
     value = meas.list.tmp[[meas]]$value
@@ -430,7 +320,7 @@ for (quant in quant.names) {
     exp.meas$bibitem = paste(c(bibitem[1], bibitem[-(1:3)]), collapse=" ")
 
     if (!is.null(meas.asymm[[meas]])) {
-      ##-- override measurement with info on asymmetric errors
+      ##--- override measurement with info on asymmetric errors
       cat("ovverride", meas, "\n")
       cat("  from", sprintf("%12.6g ", exp.meas$value), "\n")
       cat("    to", sprintf("%12.6g ", meas.asymm[[meas]]), "\n")
@@ -444,7 +334,7 @@ for (quant in quant.names) {
   ## get average info either from alucomb or Combos
   ##
   if (is.null(plot.data$hfag$chisq.all)) {
-    ##-- alucomb info not available, use combos if existing
+    ##--- alucomb info not available, use combos if existing
     value = plot.data$hfag$val[toupper(quant)]
     if (is.null(value)) {
       stop("Neither alucomb nor Combos log files were found")
@@ -453,13 +343,13 @@ for (quant in quant.names) {
     conf.lev = plot.data$hfag$CL
     scale.factor = plot.data$hfag$scale
   } else {
-    ##-- alucomb info available
+    ##--- alucomb info available
     value = plot.data$hfag$val[quant]
     error = plot.data$hfag$err[quant]
     chisq = plot.data$hfag$chisq.all[quant]
     dof = plot.data$hfag$dof.all[quant]
     scale.factor = plot.data$hfag$sfact[quant]
-    ##-- in case of multiple quantities average, consider global CL
+    ##--- in case of multiple quantities average, consider global CL
     ## conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
     conf.lev = pchisq(plot.data$hfag$chisq, df=plot.data$hfag$dof, lower.tail=FALSE)
   }
@@ -489,7 +379,7 @@ for (quant in quant.names) {
     x.maxs = c(x.maxs, value + error)
   }
   
-  ##-- get xmin/xmax of PGD average if existing
+  ##--- get xmin/xmax of PGD average if existing
   tmp = pdg.averages[[quant]]
   if (is.null(tmp)) {
     warning("could not find PDG average for ", quant)
@@ -498,17 +388,21 @@ for (quant in quant.names) {
     x.maxs = c(x.maxs, tmp[1] + tmp[2])
     plot.data[[quant]]$pdg$avg = tmp[1:2]
     plot.data[[quant]]$pdg$scale = tmp[3]
-    ##-- in plot.input set scale = 0 if PDG used no scale factor
+    ##--- in plot.input set scale = 0 if PDG used no scale factor
     if (tmp[3] == 1) {
       plot.data[[quant]]$pdg$scale = 0
     }
   }
 
-  ##-- compute plot size, units, precision
+  ##--- compute plot size, units, precision
   x.min = min(x.mins)
   x.max = max(x.maxs)
   x.mean = (x.min+x.max)/2
-  not.higher.order = floor(log(max(x.values)*1.01)/log(10))
+  if (abs(max(x.values)) == 0) {
+    not.higher.order = 0
+  } else {
+    not.higher.order = floor(log(abs(max(x.values))*1.01)/log(10))
+  }
   if (not.higher.order == -1) {
     order = -2
     precision = 5.2
@@ -576,11 +470,14 @@ for (quant in quant.names) {
 
   xmin = quant.data$xmin/x.units
   xmin = floor(xmin/range.prec)*range.prec
-  xmin.prec = round(log(abs(xmin/range.prec))/log(10)+1.51)
-  xmin.fmt = sprintf("%%-12.%dg ", xmin.prec)
 
   xmax = quant.data$xmax/x.units
   xmax = ceiling(xmax/range.prec)*range.prec
+
+  if (xmin == 0) xmin = xmax
+  if (xmax == 0) xmax = xmin
+  xmin.prec = round(log(abs(xmin/range.prec))/log(10)+1.51)
+  xmin.fmt = sprintf("%%-12.%dg ", xmin.prec)
   xmax.prec = round(log(abs(xmax/range.prec))/log(10)+1.51)
   xmax.fmt = sprintf("%%-12.%dg ", xmax.prec)
   
@@ -590,7 +487,7 @@ for (quant in quant.names) {
       as.character(quant.data$precision), " ", hfag.to.root(quant), units.label, "\n", file=fh, sep="")
   cat("# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages\n", file=fh)
 
-  ##-- print HFAG averages
+  ##--- print HFAG averages
   comb = plot.data[[quant]]$hfag$avg
   if (!is.null(comb)) {
     label.extra = ""
@@ -601,7 +498,7 @@ for (quant in quant.names) {
     ##
     if (any(quant == c("PimPimPipNu", "PimKmPipNu", "PimKmKpNu", "KmKmKpNu", "HmHmHpNu"))) {
       if (length(quant.names) == 1) {
-        ##-- single average of a hhh mode, get also the global hhh average result
+        ##--- single average of a hhh mode, get also the global hhh average result
         fname.temp = paste("../TauTo3Prongs/plot-", quant, ".input", sep="")
         cat("info: get HFAG tau -> hhh nu average from ", fname.temp, "\n", sep="")
         fhtemp = pipe(paste("grep \"^&\" ", fname.temp, " | head -1", sep=""))
@@ -620,7 +517,7 @@ for (quant in quant.names) {
         label = gsub("B.*rightarrow (.*)\\)", "\\1", hfag.to.root(quant))
         label.extra = paste(" [", label, " mode only]", sep="")
       } else {
-        ##-- combined average of all hhh modes
+        ##--- combined average of all hhh modes
         ## label.extra = " [B(#tau^{-} #rightarrow h^{-}h^{-}h^{+}#nu (ex.K^{0})) modes combined]"
         label.extra = " [h^{-}h^{-}h^{+}#nu ex.K^{0} (h=#pi,K) modes fit]"
       }
@@ -628,7 +525,7 @@ for (quant in quant.names) {
 
     if (any(quant == c("HmNu", "HmPizNu", "KmNu", "KmPizNu", "MmNumbarNu", "PimNu", "PimPizNu"))) {
       if (length(quant.names) == 1) {
-        ##-- single average of a 1-prong mode, get also the global 1-prong average result
+        ##--- single average of a 1-prong mode, get also the global 1-prong average result
         fname.temp = paste("../TauTo1Prong/plot-", quant, ".input", sep="")
         cat("info: get HFAG tau -> 1-prong average from ", fname.temp, "\n", sep="")
         fhtemp = pipe(paste("grep \"^&\" ", fname.temp, " | head -1", sep=""))
@@ -647,7 +544,7 @@ for (quant in quant.names) {
         label = gsub("B.*rightarrow (.*)\\)", "\\1", hfag.to.root(quant))
         label.extra = paste(" [", label, " mode only]", sep="")
       } else {
-        ##-- combined average of all 1-prong modes
+        ##--- combined average of all 1-prong modes
         ## label.extra = " [B(#tau^{-} #rightarrow 1-prong) modes combined]"
         label.extra = " [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu,#pi,K) modes fit]"
       }
@@ -658,7 +555,7 @@ for (quant in quant.names) {
     cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
   }
 
-  ##-- PDG average
+  ##--- PDG average
   comb = plot.data[[quant]]$pdg$avg
   if (!is.null(comb)) {
     cat("% ", sprintf("%-12.6g ", c(comb/x.units, plot.data[[quant]]$pdg$scale)), "PDG'09 Average\n", file=fh, sep="")
@@ -667,12 +564,12 @@ for (quant in quant.names) {
     cat("% ", sprintf("%-12.6g ", c(x.outside.plot, 0, 0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
   
-  ##-- measurements
+  ##--- measurements
   cat("# next lines are measurement, stat pos-error, neg-error[with negative sign],",
       "syst pos-error, neg-error[with negative sign], experiment-name\n", file=fh)
   for (exp in plot.data[[quant]]$expts) {
     bibitem = exp$bibitem
-    ##-- capitalize 1st word
+    ##--- capitalize 1st word
     bibitem = sub("^(\\S+)", "\\1", bibitem, perl=TRUE)
     ##
     ## get the year from the "where" field in the Combos cards

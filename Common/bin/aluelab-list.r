@@ -30,7 +30,7 @@ display.names = names(quant.val)
 
 show(rbind(cbind(val=quant.val[display.names],
                  err=quant.err[display.names],
-                 "err*S"=quant3.err[display.names],
-                 "S-factor"=quant3.sfact[display.names]
+                 "err*S"=quant.sf.err[display.names],
+                 "S-factor"=quant.sf.sfact[display.names]
                  )))
 
