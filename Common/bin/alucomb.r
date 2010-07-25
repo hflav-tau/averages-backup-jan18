@@ -674,6 +674,7 @@ if (quant.num > 1) {
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
   quant2.sfact = max(sqrt(chisq/dof), 1)
+  names(quant2.sfact) = quant.names[1]
 }
 
 ##
