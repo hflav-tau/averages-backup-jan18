@@ -28,9 +28,9 @@ load(file.name)
 
 quant.val = quant
 rm(quant)
-quant.err = quant3.err
-quant.corr = quant3.corr
-quant.cov = quant3.cov
+## quant.err = quant3.err
+## quant.corr = quant3.corr
+## quant.cov = quant3.cov
 
 meas.val = meas
 rm(meas)
@@ -130,14 +130,17 @@ B_tau_s.err = quant.err["Gamma110"]
 ## tau lifetime should also be included, see arXiv:hep-ph/0507078v2 p.89
 ##
 
-##
-## compute phase space factors for Bmu/Be universality
-## PDG 2009 values, plus HFAG 2009 value of tau mass
-##
+##--- from PDG 2009
 aeb.meas.add.single("m_e", 0.510998910, 0.000000013)
 aeb.meas.add.single("m_mu", 105.658367, 0.000004)
+aeb.meas.add.single("tau_tau", 290.6, 1.0)
+
+##--- HFAG 2009
 aeb.meas.add.single("m_tau", 1776.7673082, 0.1507259)
 
+##
+## compute phase space factors for Bmu/Be universality
+##
 aeb.meas.expr.add("xe", quote(m_e^2/m_tau^2))
 aeb.meas.expr.add("xmu", quote(m_mu^2/m_tau^2))
 rc = aeb.meas.expr.add("fx_e",
@@ -181,13 +184,26 @@ aeb.meas.add.single("Vud", Vud.val, Vud.err)
 
 ##
 ## SU3 breaking correction
-## POS(KAON)08, A.Pich, Theoretical progress on the Vus determination from tau decays
 ##
-deltaR.su3break.val = 0.240
-deltaR.su3break.err = 0.032
+##--- POS(KAON)08, A.Pich, Theoretical progress on the Vus determination from tau decays
 deltaR.su3break.val = 0.216
 deltaR.su3break.err = 0.016
-aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
+##--- E. Gamiz, M. Jamin, A. Pich, J. Prades, F. Schwab, V_us and m_s from hadronic tau decays
+deltaR.su3break.val = 0.218
+deltaR.su3break.err = 0.026
+
+##--- PhysRevD.74.074009
+aeb.meas.add.single("m_s", 94./1000., 6./1000.)
+##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
+deltaR.su3break.val = 0.240
+deltaR.su3break.err = 0.032
+deltaR.su3break.val = 0.1544 + 9.3*0.094^2 + 0.0034 
+deltaR.su3break.err = 0.032
+aeb.meas.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
+aeb.meas.add.single("deltaR_su3break_msd2", 9.3, 3.4)
+aeb.meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
+aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*m_s^2 + deltaR_su3break_remain))
+## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
 ##--- add R_tau as function of quantities
 aeb.meas.expr.add("R_tau", quote(1/Gamma5univ -1 -fx_mu_by_e))
@@ -206,11 +222,12 @@ nsigma = (quant.val["Vus"] - 0.2255)/quadrature(c(quant.err["Vus"], 0.0010))
 
 display.names = c(Gamma110.names,
   "Gamma110", "Gamma110_pdg09", "fx_mu_by_e", "Gamma5univ",
-  "R_tau", "R_tau_s", "R_tau_VA", "Vus")
+  "R_tau", "R_tau_s", "R_tau_VA", "deltaR_su3break", "Vus")
 show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names]),
            Vus_err_exp = c(Vus.err.exp, 0),
            Vus_err_th = c(Vus.err.th, 0),
            Vus_err_perc = c(quant.err["Vus"]/quant.val["Vus"]*100, 0),
+           Vus_th_err_perc = c(Vus.err.th /quant.val["Vus"]*100, 0),
            nsigma = c(val=nsigma, err=0)
            ))
 
