@@ -25,9 +25,9 @@ if (length(args) > 0) {
 
 ##--- get alucomb results and data
 load(file.name)
-## quant.err = quant3.err
-## quant.corr = quant3.corr
-## quant.cov = quant3.cov
+## quant.err = quant.sf.err
+## quant.corr = quant.sf.corr
+## quant.cov = quant.sf.cov
 
 ##
 ## Gamma151 = K omega nu
