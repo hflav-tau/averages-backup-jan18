@@ -145,18 +145,18 @@ slightly.larger = numeric()
 not.matching = numeric()
 
 ##-- checks on syst terms
-for (meas in names(measurements)) {
+for (mn in meas.names) {
   ##-- check that the sum of syst. terms does not exceed the syst. error
-  syst.contribs = sqrt(sum(measurements[[meas]]$syst.terms^2))
-  if (syst.contribs > (1+1e-3)*measurements[[meas]]$syst) {
-    larger = rbind(larger, matrix(c(measurements[[meas]]$syst, syst.contribs), 1, 2, dimnames=list(meas)))
-  } else if (syst.contribs > (1+1e-5)*measurements[[meas]]$syst) {
-    slightly.larger = rbind(slightly.larger,  matrix(c(measurements[[meas]]$syst, syst.contribs), 1, 2, dimnames=list(meas)))
+  syst.contribs = sqrt(sum(measurements[[mn]]$syst.terms^2))
+  if (syst.contribs > (1+1e-3)*measurements[[mn]]$syst) {
+    larger = rbind(larger, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
+  } else if (syst.contribs > (1+1e-5)*measurements[[mn]]$syst) {
+    slightly.larger = rbind(slightly.larger, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
   }
   ##-- warning if sum of syst terms different w.r.t. total syst
-  if (abs(syst.contribs-measurements[[meas]]$syst) >
-      1e-3 * sqrt(syst.contribs * measurements[[meas]]$syst)) {
-    not.matching = rbind(not.matching, matrix(c(measurements[[meas]]$syst, syst.contribs), 1, 2, dimnames=list(meas)))
+  if (abs(syst.contribs-measurements[[mn]]$syst) >
+      1e-3 * sqrt(syst.contribs * measurements[[mn]]$syst)) {
+    not.matching = rbind(not.matching, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
   }
 }
 
@@ -186,35 +186,35 @@ if (length(not.matching) > 0) {
 meas.value.cards = sapply(measurements, function(x) {tmp=x$value; names(tmp)=NULL; tmp})
 meas.syst.cards = sapply(measurements, function(x) {tmp=x$syst; names(tmp)=NULL; tmp})
 
-for (meas in names(measurements)) {
+for (mn in meas.names) {
   value.delta = numeric()
   syst.term.deltasq = numeric()
   for (param.upd in names(combination$params)) {
-    for (param.orig in names(measurements[[meas]]$params)) {
-      if (param.orig == param.upd && param.orig %in% names(measurements[[meas]]$syst.terms)) {
+    for (param.orig in names(measurements[[mn]]$params)) {
+      if (param.orig == param.upd && param.orig %in% names(measurements[[mn]]$syst.terms)) {
         ##-- collect differences due to updated parameters
         value.delta = c(value.delta,
-          ((combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
-           * measurements[[meas]]$syst.terms[param.orig] / measurements[[meas]]$params[[param.orig]]["delta_pos"]))
+          ((combination$params[[param.upd]]["value"] - measurements[[mn]]$params[[param.orig]]["value"])
+           * measurements[[mn]]$syst.terms[param.orig] / measurements[[mn]]$params[[param.orig]]["delta_pos"]))
         ##-- update systematic contribution according to updated parameter
-        syst.term.orig = measurements[[meas]]$syst.terms[param.orig]
+        syst.term.orig = measurements[[mn]]$syst.terms[param.orig]
         syst.term.upd = syst.term.orig *
-          combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"]
-        measurements[[meas]]$syst.terms[param.orig] = syst.term.upd
+          combination$params[[param.upd]]["delta_pos"] / measurements[[mn]]$params[[param.orig]]["delta_pos"]
+        measurements[[mn]]$syst.terms[param.orig] = syst.term.upd
         ##-- collect difference of syst term squares, to adjust the total systematic error as well
         syst.term.deltasq = c(syst.term.deltasq, (syst.term.upd^2 - syst.term.orig^2))
         if (FALSE) {
-        cat(format(measurements[[meas]]$tag,width=30),
+        cat(format(measurements[[mn]]$tag,width=30),
             format(param.orig,width=15),
             format(c(
-            measurements[[meas]]$params[[param.orig]]["value"],
+            measurements[[mn]]$params[[param.orig]]["value"],
             combination$params[[param.upd]]["value"],
-            (combination$params[[param.upd]]["value"] - measurements[[meas]]$params[[param.orig]]["value"])
-            / measurements[[meas]]$params[[param.orig]]["delta_pos"],
+            (combination$params[[param.upd]]["value"] - measurements[[mn]]$params[[param.orig]]["value"])
+            / measurements[[mn]]$params[[param.orig]]["delta_pos"],
             ## (value.upd - value.orig),
-            measurements[[meas]]$params[[param.orig]]["delta_pos"],
+            measurements[[mn]]$params[[param.orig]]["delta_pos"],
             combination$params[[param.upd]]["delta_pos"],
-            combination$params[[param.upd]]["delta_pos"] / measurements[[meas]]$params[[param.orig]]["delta_pos"]),
+            combination$params[[param.upd]]["delta_pos"] / measurements[[mn]]$params[[param.orig]]["delta_pos"]),
             width=10,digits=4,scientific=TRUE),
             "\n")
         }
@@ -222,25 +222,25 @@ for (meas in names(measurements)) {
     }
   }
   ##-- update value
-  measurements[[meas]]$value = measurements[[meas]]$value + sum(value.delta)
+  measurements[[mn]]$value = measurements[[mn]]$value + sum(value.delta)
   ##-- update systematic error
-  measurements[[meas]]$syst = sqrt(measurements[[meas]]$syst^2 + sum(syst.term.deltasq))
-  ## cat(measurements[[meas]]$tag, measurements[[meas]]$value, measurements[[meas]]$stat, measurements[[meas]]$syst, "\n")
+  measurements[[mn]]$syst = sqrt(measurements[[mn]]$syst^2 + sum(syst.term.deltasq))
+  ## cat(measurements[[mn]]$tag, measurements[[mn]]$value, measurements[[mn]]$stat, measurements[[mn]]$syst, "\n")
 }
 
 ##-- get list of values, stat errors, syst errors
-meas.value = sapply(measurements, function(x) {tmp=x$value; names(tmp)=NULL; tmp})
+meas.val = sapply(measurements, function(x) {tmp=x$value; names(tmp)=NULL; tmp})
 meas.stat = sapply(measurements, function(x) {tmp=x$stat; names(tmp)=NULL; tmp})
 meas.syst = sapply(measurements, function(x) {tmp=x$syst; names(tmp)=NULL; tmp})
-meas.error = sqrt(meas.stat^2 + meas.syst^2)
+meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
 ##-- which measurements got shifted in value or syst. error
-meas.shifted = (meas.value.cards != meas.value) | (meas.syst.cards != meas.syst)
+meas.shifted = (meas.value.cards != meas.val) | (meas.syst.cards != meas.syst)
 
 if (any(meas.shifted)) {
   cat("\nThe following measurements were shifted from updated external parameters\n")
   show(rbind(orig=meas.value.cards[meas.shifted],
-             value=meas.value[meas.shifted],
+             value=meas.val[meas.shifted],
              stat=meas.stat[meas.shifted],
              orig=meas.syst.cards[meas.shifted],
              syst=meas.syst[meas.shifted]))
@@ -248,10 +248,10 @@ if (any(meas.shifted)) {
   
 ##-- for each syst. term external parameter, collect affected measurements
 syst.terms.list = list()
-for (meas in meas.names) {
-  for (syst.term in names(measurements[[meas]]$syst.terms)) {
+for (mn in meas.names) {
+  for (syst.term in names(measurements[[mn]]$syst.terms)) {
     ##-- add measurement to the list of the currect syst. term
-    syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], meas)
+    syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], mn)
   }
 }
 
@@ -344,7 +344,7 @@ if (!flag.ok) {
 ## - stat. correlation is multiplied by stat. errors
 ## - total correlation is multiplied by total errors
 ##
-meas.cov = meas.corr * (meas.error %o% meas.error)
+meas.cov = meas.corr * (meas.err %o% meas.err)
 meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
 ##
@@ -391,14 +391,11 @@ if (TRUE) {
   cat("\n##\n")
   cat("## Using the following measurements\n")
   cat("##\n")
-  show(rbind(value=meas.value,
+  show(rbind(value=meas.val,
              stat=meas.stat,
              syst=meas.syst,
-             error=meas.error))
+             error=meas.err))
 }
-
-##-- simplify
-meas = meas.value
 
 if (FALSE && !flag.no.maxLik) {
 ##
@@ -410,21 +407,21 @@ if (FALSE && !flag.no.maxLik) {
 meas.invcov = solve(meas.cov)
 
 logLik.average = function(par) {
-  chisq = t(meas - delta %*% par) %*% meas.invcov %*% (meas - delta %*% par)
+  chisq = t(meas.val - delta %*% par) %*% meas.invcov %*% (meas.val - delta %*% par)
   return(-1/2*chisq)
 }
 
 fit = maxLik(logLik.average, start=rep(0,quant.num), method="BFGS")
 
-quant = coef(fit)
-names(quant) = quant.names
+quant.val = coef(fit)
+names(quant.val) = quant.names
 quant.cov = vcov(fit)
 rownames(quant.cov) = quant.names
 colnames(quant.cov) = quant.names
 quant.err = sqrt(diag.m(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
+chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
 chisq.fit = -2*logLik(fit)
 
 cat("\n")
@@ -437,7 +434,7 @@ cat("##\n")
 cat("## numerical fit, chisq/d.o.f = ", chisq.fit, "/", meas.num - quant.num,
     ", CL = ", (1-pchisq(chisq.fit, df=meas.num-quant.num)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant[1:quant.num], error=quant.err[1:quant.num]))
+show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
 if (quant.num > 1) {
   cat("correlation\n")
   ##++ show(quant.corr[1:quant.num, 1:quant.num])
@@ -447,16 +444,15 @@ if (quant.num > 1) {
 ##
 ## analytical minimum chi-square solution for quantities
 ##
-
-quant = rep(0, quant.num)
-names(quant) = quant.names
+quant.val = rep(0, quant.num)
+names(quant.val) = quant.names
 meas.invcov = solve(meas.cov)
 quant.invcov = t(delta) %*% meas.invcov %*% delta
 
 ##-- constraints
 constr.num = length(combination$constr.comb)
 constr.names = names(combination$constr.comb)
-constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant; tmp[names(x)] = x; tmp}))
+constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant.val; tmp[names(x)] = x; tmp}))
 constr.v = unlist(combination$constr.val)
 
 if (constr.num > 0) {
@@ -476,30 +472,30 @@ if (constr.num > 0) {
     names(constr.v), constr.v/quant.invcov.order*constr.m.order,
     apply(constr.m/quant.invcov.order*constr.m.order, 1, function(x) list(x[x!=0])))
 
-  ##-- build full matrix in front of c(quant vector, lagr.mult. vector)
+  ##-- build full matrix in front of c(quant.val vector, lagr.mult. vector)
   full.m = rbind(
     cbind(quant.invcov, t(constr.m)),
     cbind(constr.m, matrix(0, constr.num, constr.num)))
-  ##-- build full matrix in front of c(meas, constraint values)
+  ##-- build full matrix in front of c(meas.val, constraint values)
   full.v.m = rbind(
     cbind(t(delta) %*% meas.invcov, matrix(0, quant.num, constr.num, dimnames=list(NULL, constr.names))),
     cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), diag.m(rep(1, constr.num))))
   ##-- build full vector c(measurements vector, constraint values)
-  full.v = c(meas, constr.v)
+  full.v = c(meas.val, constr.v)
 } else {
   full.m = quant.invcov
   full.v.m = t(delta) %*% meas.invcov
-  full.v = meas
+  full.v = meas.val
 }
 
-##-- matrix that applied to c(meas, constr. values) gives c(quant, lagr.mult.)
+##-- matrix that applied to c(meas.val, constr. values) gives c(quant.val, lagr.mult.)
 solve.m = solve(full.m) %*% full.v.m
 
 ##-- solve for both quantities and lagrange multipliers
 ## quant.constr.val = solve(full.m, (full.v.m %*% full.v))
 quant.constr.val = solve.m %*% full.v
-quant = quant.constr.val[1:quant.num, drop=FALSE]
-names(quant) = quant.names
+quant.val = quant.constr.val[1:quant.num, drop=FALSE]
+names(quant.val) = quant.names
 
 ##
 ## full covariance of measurements and constraint values
@@ -517,50 +513,50 @@ quant.cov = quant.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
 quant.err = sqrt(diag.m(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
-chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
+chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
 
 cat("\n")
 cat("##\n")
 cat("## exact solution, chisq/d.o.f. = ",chisq, "/", meas.num - quant.num,
     ", CL = ", (1-pchisq(chisq, df=meas.num-quant.num)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant[1:quant.num], error=quant.err[1:quant.num]))
+show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
 if (quant.num > 1) {
   cat("correlation\n")
   show(quant.corr[1:quant.num, 1:quant.num])
 }
 cat("## end\n")
 
-##-- chisq contribution, dof, S-factor for each measurement type (now same as quant)
-chisq.types = quant*0
-num.types = quant*0
-num.types.keep = quant*0
-sfact.types = chisq.types + 1
+##-- chisq contribution, dof, S-factor for each measurement type (now same as quant.val)
+quant.chisq = quant.val*0
+quant.nums = quant.val*0
+quant.nums.keep = quant.val*0
+quant.sfact = quant.chisq + 1
 
 ##-- S-factor for each measurement
-sfact = meas*0 + 1
-meas.keep = meas & FALSE
+meas.sfact = meas.val*0 + 1
+meas.keep = meas.val & FALSE
 
 ##
 ## compute S-factors
 ## the following is filled:
-## - chisq.types: chisq per measurement type
-## - sfact.types: S-factor per measurement type
-## - sfact: S-factor per measurement
+## - quant.chisq: chisq per measurement type
+## - quant.sfact: S-factor per measurement type
+## - meas.sfact: S-factor per measurement
 ##
 for (mt.name in quant.names) {
   ##-- selection of measurements of type mt.name
   meas.mt = delta[, mt.name] != 0
   meas.mt.num = sum(meas.mt)
-  num.types[mt.name] = meas.mt.num
+  quant.nums[mt.name] = meas.mt.num
 
   ##-- compute max error to retain measurement for S-factor calculation
   error.max = 3*sqrt(meas.mt.num)*quant.err[mt.name]
 
   ##-- keep only measurement with not too large errors as in PDG S-factor calculation
-  meas.mt.keep = meas.mt & (meas.error < error.max)
+  meas.mt.keep = meas.mt & (meas.err < error.max)
   meas.mt.keep.num = sum(meas.mt.keep)
-  num.types.keep[mt.name] = meas.mt.keep.num
+  quant.nums.keep[mt.name] = meas.mt.keep.num
   meas.keep = meas.keep | meas.mt.keep
 
   ##
@@ -568,20 +564,20 @@ for (mt.name in quant.names) {
   ##
 
   ##-- chisq when disregarding correlation between measurements of the same type
-  meas.mt.chisq = sum(((meas[meas.mt] - quant[mt.name]) / meas.error[meas.mt])^2)
+  meas.mt.chisq = sum(((meas.val[meas.mt] - quant.val[mt.name]) / meas.err[meas.mt])^2)
 
   ##-- chisq from measurements of the current type, including correlations
   if (meas.mt.num > 0) {
     meas.mt.chisq.corr = drop(
-      t((meas - delta %*% quant)[meas.mt])
+      t((meas.val - delta %*% quant.val)[meas.mt])
       %*% solve(meas.cov[meas.mt, meas.mt])
-      %*% (meas - delta %*% quant)[meas.mt])
+      %*% (meas.val - delta %*% quant.val)[meas.mt])
   } else {
     meas.mt.chisq.corr = 0
   }
 
   ##-- collect chisq contribution for each type of measurement
-  chisq.types[mt.name] = meas.mt.chisq.corr
+  quant.chisq[mt.name] = meas.mt.chisq.corr
 
   ##
   ## print measurement with too large errors
@@ -590,12 +586,12 @@ for (mt.name in quant.names) {
   options(digits=4)
   if (any(xor(meas.mt, meas.mt.keep))) {
     cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", error.max, "\n")
-    excl = meas.error[xor(meas.mt, meas.mt.keep)]
+    excl = meas.err[xor(meas.mt, meas.mt.keep)]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
   if (FALSE && any(meas.mt.keep)) {
     cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", error.max, "\n")
-    excl = meas.error[meas.mt.keep]
+    excl = meas.err[meas.mt.keep]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
   options(save)
@@ -605,9 +601,9 @@ for (mt.name in quant.names) {
   ## p.13 of http://pdg.lbl.gov/2009/reviews/rpp2009-rev-rpp-intro.pdf
   ##
   if (meas.mt.keep.num >0) {
-    res = meas[meas.mt.keep] - quant[mt.name]
-    dr = abs(res) / sqrt(meas.error[meas.mt.keep] * quant.err[mt.name])
-    res.sq.exp = meas.error[meas.mt.keep]^2 - quant.err[mt.name]^2
+    res = meas.val[meas.mt.keep] - quant.val[mt.name]
+    dr = abs(res) / sqrt(meas.err[meas.mt.keep] * quant.err[mt.name])
+    res.sq.exp = meas.err[meas.mt.keep]^2 - quant.err[mt.name]^2
     if (any(res.sq.exp < 0)) {
       show(mt.name)
       show(res.sq.exp[res.sq.exp < 0])
@@ -621,23 +617,23 @@ for (mt.name in quant.names) {
     tmp = 1
   }
 
-  sfact.types[mt.name] = tmp
-  sfact[meas.mt] = tmp
+  quant.sfact[mt.name] = tmp
+  meas.sfact[meas.mt] = tmp
 }
 
 ##-- recompute chisq and chisq/dof
 dof = meas.num - quant.num + constr.num
-chisq = drop(t(meas - delta %*% quant) %*% meas.invcov %*% (meas - delta %*% quant))
+chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
 
 ##-- do not apply S-factors less than one
-sfact.types = pmax(sfact.types, 1)
-sfact = pmax(sfact, 1)
+quant.sfact = pmax(quant.sfact, 1)
+meas.sfact = pmax(meas.sfact, 1)
 
 ##-- chisq with S-factors, just for not-too-large error measurements
 chisq.keep = drop(
-  t((meas - delta %*% quant)[meas.keep])
-  %*% solve(diag.m(sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(sfact[meas.keep]))
-  %*% (meas - delta %*% quant)[meas.keep])
+  t((meas.val - delta %*% quant.val)[meas.keep])
+  %*% solve(diag.m(meas.sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(meas.sfact[meas.keep]))
+  %*% (meas.val - delta %*% quant.val)[meas.keep])
 
 ##++ quant.keep.num = sum((rep(1, sum(meas.keep)) %*% abs(delta[meas.keep,])) > 0)
 ##++ assume there are no measurement types left without measurements
@@ -647,7 +643,7 @@ dof.keep = sum(meas.keep) - quant.keep.num
 ##
 ## inflate the covariance matrix with the S-factors
 ##
-meas2.cov = diag.m(sfact) %*% meas.cov %*% diag.m(sfact)
+meas2.cov = diag.m(meas.sfact) %*% meas.cov %*% diag.m(meas.sfact)
 rownames(meas2.cov) = meas.names
 colnames(meas2.cov) = meas.names
 meas2.invcov = solve(meas2.cov)
@@ -666,17 +662,17 @@ quant2.err = sqrt(diag.m(quant2.cov))
 quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
 
 ##-- all measurements chisq after S-factor inflation
-chisq2 = drop(t(meas - delta %*% quant) %*% meas2.invcov %*% (meas - delta %*% quant))
+chisq2 = drop(t(meas.val - delta %*% quant.val) %*% meas2.invcov %*% (meas.val - delta %*% quant.val))
 
 ##
 ## new S-factors computed after 1st S-factor inflation
 ##
 if (quant.num > 1) {
   ##-- if multiple average, use dedicated S-factor computation
-  sfact2.types = quant2.err / quant.err
+  quant2.sfact = quant2.err / quant.err
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact2.types = max(sqrt(chisq/dof), 1)
+  quant2.sfact = max(sqrt(chisq/dof), 1)
 }
 
 ##
@@ -684,14 +680,14 @@ if (quant.num > 1) {
 ## - use 1st stage S-factors to inflate errors
 ## - recompute errors and S-factors
 ##
-sfact2.types = pmax(sfact2.types, 1)
-sfact2 = drop(delta %*% sfact2.types)
+quant2.sfact = pmax(quant2.sfact, 1)
+meas2.sfact = drop(delta %*% quant2.sfact)
 
 ##-- chisq with S-factors, just for not-too-large error measurements
 chisq2.keep = drop(
-  t((meas - delta %*% quant)[meas.keep])
-  %*% solve(diag.m(sfact2[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(sfact2[meas.keep]))
-  %*% (meas - delta %*% quant)[meas.keep])
+  t((meas.val - delta %*% quant.val)[meas.keep])
+  %*% solve(diag.m(meas2.sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(meas2.sfact[meas.keep]))
+  %*% (meas.val - delta %*% quant.val)[meas.keep])
 
 dof2.keep = dof.keep
 
@@ -699,7 +695,7 @@ if (quant.num > 1) {
   ##
   ## inflate the covariance matrix with the S-factors
   ##
-  meas3.cov = diag.m(sfact2) %*% meas.cov %*% diag.m(sfact2)
+  meas3.cov = diag.m(meas2.sfact) %*% meas.cov %*% diag.m(meas2.sfact)
   rownames(meas3.cov) = meas.names
   colnames(meas3.cov) = meas.names
   meas3.invcov = solve(meas3.cov)
@@ -718,7 +714,7 @@ if (quant.num > 1) {
   quant3.corr = quant3.cov / (quant3.err %o% quant3.err)
   
   ##-- all measurements chisq after S-factor inflation
-  chisq3 = drop(t(meas - delta %*% quant) %*% meas3.invcov %*% (meas - delta %*% quant))
+  chisq3 = drop(t(meas.val - delta %*% quant.val) %*% meas3.invcov %*% (meas.val - delta %*% quant.val))
 } else {
   quant3.cov = quant2.cov
   quant3.err = quant2.err
@@ -731,10 +727,10 @@ if (quant.num > 1) {
 ##
 if (quant.num > 1) {
   ##-- if multiple average, use dedicated S-factor computation
-  sfact3.types = quant3.err / quant.err
+  quant3.sfact = quant3.err / quant.err
 } else {
   ##-- if averaging a single quantity, use global chisq to compute S-factor
-  sfact3.types = sfact2.types
+  quant3.sfact = quant2.sfact
 }
 
 cat("\n")
@@ -761,13 +757,13 @@ if (any(meas.keep)) {
 show(out)
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
-show(rbind(value=quant,
+show(rbind(value=quant.val,
            error=quant.err,
            error.2=quant2.err,
            error.3=quant3.err,
-           "S-factor"=sfact.types,
-           "S-factor.2"=sfact2.types,
-           "S-factor.3"=sfact3.types
+           "S-factor"=quant.sfact,
+           "S-factor.2"=quant2.sfact,
+           "S-factor.3"=quant3.sfact
            ))
 
 if (quant.num > 1) {
@@ -780,12 +776,11 @@ if (quant.num > 1) {
 ##--- save data and results
 save(file=file.name.data,
      measurements, combination,
-     meas, meas.error, meas.cov, meas.cov.stat, meas.cov.syst, meas.corr,
-     quant,
-     quant.err, quant.cov, quant.corr,
+     meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
+     quant.val,  quant.err,  quant.cov, quant.corr,
      quant2.err, quant2.cov, quant2.corr,
      quant3.err, quant3.cov, quant3.corr,
-     sfact.types, sfact2.types, sfact3.types,
+     quant.sfact, quant2.sfact, quant3.sfact,
      constr.m, constr.v)
 
 cat("\n")
