@@ -20,9 +20,6 @@ if (length(args) > 0) {
 ##--- get alucomb results and data
 load(file.name)
 
-quant.val = quant
-rm(quant)
-
 ##--- list a subtset of fitted quantities
 display.names = c(
   "Gamma3", "Gamma5", "Gamma110"
@@ -33,6 +30,7 @@ display.names = names(quant.val)
 
 show(rbind(cbind(val=quant.val[display.names],
                  err=quant.err[display.names],
-                 "S-factor"=sfact3.types[display.names],
-                 "err*S"=quant3.err[display.names])))
+                 "err*S"=quant3.err[display.names],
+                 "S-factor"=quant3.sfact[display.names]
+                 )))
 
