@@ -184,7 +184,7 @@ plot.data$hfag = within(plot.data$hfag, {
   err = quant.err
   sfact = quant.sf.sfact
   chisq = chisq
-  dof = dof
+  dof.all = 1
   chisq.all = 1
 })
 
