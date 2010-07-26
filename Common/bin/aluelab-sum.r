@@ -21,10 +21,10 @@ if (length(args) > 0) {
 aeb.collect.data(items)
 
 ##-- compute B(tau -> hhh nu) as linear combination of averaged quantities
-meas.sum.lc = meas.val*0 + rep(1, length(meas.val))
-meas.sum = aeb.linear.comb.glob(meas.sum.lc)
+quant.sum.lc = quant.val*0 + rep(1, length(quant.val))
+quant.sum = aeb.linear.comb.glob(quant.sum.lc)
 
 cat("summing following measurements:\n")
-show(rbind(val=meas.val, err=meas.err))
+show(rbind(val=quant.val, err=quant.err))
 cat("result:\n")
-show(rbind(sum=meas.sum))
+show(rbind(sum=quant.sum))
