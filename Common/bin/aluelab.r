@@ -83,24 +83,26 @@ aeb.meas.add.single = function(label, val, err) {
 ##
 aeb.collect.data = function(items) {
   for (item in items) {
-    if (regexpr("[.]log$", item) != -1) {
+    if (regexpr("[.]rdata$", item) != -1) {
       file = item
     } else {
-      file = file.path(aeb.log.dir.base, item, "average_alucomb.log")
+      file = file.path(aeb.log.dir.base, item, "average_alucomb.rdata")
     }
     if (!file_test("-f", file)) {
-      cat("error: cannot find alucomb log file", file, "\n")
+      cat("error: cannot find alucomb log file\n  ", file, "\n")
       next
     }
     ##-- get alucomb results
-    rc = get.alucomb(file)
-    if (length(rc) == 0) {
-      cat("error: cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, item, "average_alucomb.log"), "\n", sep="")
+    rc = suppressWarnings(try(load(file), silent=TRUE))
+    rc = attr(rc, "class")
+    if (!is.null(rc) && rc == "try-error") {
+      cat("error: cannot read alucomb .rdata file\n  ", file, "\n", sep="")
       ## cat("make -C", dir, " update_alucomb\n")
       ## warning("Cannot read alucomb log file\n  ", file.path(aeb.log.dir.base, item, "average_alucomb.log"))
       next
     }
-    
+
+    if (FALSE) {
     ##-- default correlation matrix (NULL if not read)
     corr.current = rc$corr
     conf.lev = pchisq(rc$chisq, df=rc$dof, lower.tail=FALSE)
@@ -110,8 +112,9 @@ aeb.collect.data = function(items) {
       ##-- correlation after S-factor error inflation
       corr.current = rc$corr2
     }
+    }
     
-    aeb.meas.add(rc$val, rc$err, corr.current)
+    aeb.meas.add(quant.val, quant.err, quant.corr)
   }
 }
 
