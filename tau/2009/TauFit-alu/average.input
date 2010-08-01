@@ -4,7 +4,7 @@ INCLUDE belle.input
 INCLUDE cleo.input
 INCLUDE opal.input
 INCLUDE aleph.input
-INCLUDE dummy.input
+* INCLUDE dummy.input
 
 BEGIN   PDG+BaBar+Belle all_methods 
 
@@ -216,7 +216,7 @@ CONSTRAINT GammaAll 1
   Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1
   Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1
   Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma96  1.699387
-*  Gamma998 1
+  Gamma998 1
 
 *
 * additional notes on unitarity constraint
