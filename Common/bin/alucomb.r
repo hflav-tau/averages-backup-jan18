@@ -36,7 +36,7 @@ if (length(args) > 0) {
   file.name = "average.input"
 }
 
-##++ alucomb = function(file.name = "") {
+##+++ alucomb = function(file.name = "") {
 
 ##--- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
@@ -438,7 +438,7 @@ cat("##\n")
 show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
 if (quant.num > 1) {
   cat("correlation\n")
-  ##++ show(quant.corr[1:quant.num, 1:quant.num])
+  show(quant.corr[1:quant.num, 1:quant.num])
 }
 } ## !flag.no.maxLik && FALSE
 
@@ -636,8 +636,8 @@ chisq.keep = drop(
   %*% solve(diag.m(meas.sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(meas.sfact[meas.keep]))
   %*% (meas.val - delta %*% quant.val)[meas.keep])
 
-##++ quant.keep.num = sum((rep(1, sum(meas.keep)) %*% abs(delta[meas.keep,])) > 0)
-##++ assume there are no measurement types left without measurements
+##+++ quant.keep.num = sum((rep(1, sum(meas.keep)) %*% abs(delta[meas.keep,])) > 0)
+##+++ assume there are no measurement types left without measurements
 quant.keep.num = quant.num - constr.num
 dof.keep = sum(meas.keep) - quant.keep.num
 
@@ -800,7 +800,7 @@ cat("\n")
 cat("## end\n")
 
 options(options.save)
-##++ } ##--- end function alucomb
+##+++ } ##--- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0 && exists("alucomb")) alucomb(file = args[1]) 
