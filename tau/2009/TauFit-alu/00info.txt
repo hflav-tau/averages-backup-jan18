@@ -2,9 +2,13 @@
 
 	tau/2009/TauFit-alu
 
-The correct sequence is:
+///////////////////////////////////////////////////////////////////////////////
+
+do global fit of tau BRs with alucomb.r using
+- PDG 2009 results and 
+- recent preliminary results
+
+you can see the results in a compact form with:
 
 make alucomb
-make update_alucomb
-# ../../../Common/bin/aluelab-sum.r
- ../../../Common/bin/aluelab-list.r | tee getresults_alucomb.log
+ ../../../Common/bin/aluelab-list.r
