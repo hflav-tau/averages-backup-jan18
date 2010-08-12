@@ -573,7 +573,7 @@ pull = ifelse(abs(pull) > tol, pull, 0)
 meas.sfact.pull.full = ifelse(abs(pull) > 1, abs(pull), 1)
 
 ##
-## per fitted quantity S-factors, A.Lusiani prescription #1
+## per fitted quantity S-factors, A.Lusiani prescription
 ##
 meas.sfact.alu.fq = meas.val * 0 + 1
 quant.sfact.alu.fq = quant.val * 0 + 1
@@ -608,6 +608,7 @@ for (mt.name in quant.names) {
   }
   options(save)
 
+  mm.list.all = mm.list
   mm.list = mm.list.keep
   if (sum(mm.list) == 0) next
 
@@ -628,7 +629,7 @@ for (mt.name in quant.names) {
     sfact = sqrt(sum(pull^2)/dof.mm)
     if (sfact < 1) sfact = 1
     quant.sfact.alu.fq[mt.name] = sfact
-    meas.sfact.alu.fq[mm.list] = sfact
+    meas.sfact.alu.fq[mm.list.all] = sfact
   }
 
   ##--- Orin Dahl prescription, modify correlation matrix
@@ -687,10 +688,13 @@ for (mt.name in quant.names) {
   ##--- compute max error to retain measurement for S-factor calculation
   error.max = 3*sqrt(mm.num)*quant.err[mt.name]
   ##--- keep only measurement with not too large errors as in PDG S-factor calculation
+  mm.list.all = mm.list
   mm.list = mm.list & (meas.err < error.max)
   if (sum(mm.list) == 0) next
 
-  meas.uncorrelated.list[[mt.name]] = which(mm.list)
+  mm.list.which = which(mm.list)
+  attr(mm.list.which, "not.kept") = which(mm.list.all & ! mm.list)
+  meas.uncorrelated.list[[mt.name]] = mm.list.which
 }
 
 ##--- compute S-factors
@@ -727,8 +731,10 @@ for (mm.list in c(meas.correlated.list, meas.uncorrelated.list)) {
     meas.corr.orin.sc[mm.list, mm.list] = meas.corr[mm.list, mm.list, drop=FALSE] + (pull.versor %o% pull.versor) * pull.sf.corr
   }
 
-  ##--- A.Lusiani per measurement S-factors, prescription #2
+  ##--- A.Lusiani per measurement S-factors, S-factors by measurement
   meas.sfact.alu.sc[mm.list] = ifelse(abs(pull) > 1, abs(pull), 1)
+  ##--- for non kept discarded measurements use measurement group S-factor
+  meas.sfact.alu.sc[attr(mm.list, "not.kept")] = sqrt(pull.sq/dof.mm)
 }
 ##--- Orin Dahl S-factor inflated measurement covariance
 meas.cov.orin.sc = meas.corr.orin.sc * (meas.err %o% meas.err)
