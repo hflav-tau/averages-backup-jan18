@@ -417,3 +417,71 @@ hfag.to.root = function(str) {
   str = paste("B(#tau^{-} #rightarrow ", str, ")", sep="")
   return(str)
 }
+
+##
+## compute pseudo-inverse square root of symmetric real positive semi-definite matrix
+## zero eigenvalues produce zero eigenvalues in the inverse-square matrix
+##
+alu.matr.inv.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
+  if (!is.matrix(X)) 
+    X <- as.matrix(X)
+  if (length(dim(X)) > 2L || !(is.numeric(X))) 
+    stop("'X' must be a numeric or complex matrix")
+
+  X = (X + t(X))/2
+  rc.e = eigen(X)
+  ##--- force to zero computationally zero or negative eigenvalues
+  comp.positive = rc.e$values > tol*rc.e$values[1]
+  rc.vals = ifelse(comp.positive, rc.e$values, 0)
+  rc.vecs = rc.e$vectors
+  rc.vecs.inv = ifelse(rc.vals > 0, 1/rc.vals, 0)
+  
+  rc.inv = rc.vecs %*% diag.m(rc.vecs.inv) %*% t(rc.vecs)
+  rc.inv = (rc.inv + t(rc.inv))/2
+  rownames(rc.inv) = rownames(X)
+  colnames(rc.inv) = colnames(X)
+  rc = rc.vecs %*% diag.m(sqrt(rc.vecs.inv)) %*% t(rc.vecs)
+  rc = (rc + t(rc))/2
+  rownames(rc) = rownames(X)
+  colnames(rc) = colnames(X)
+  
+  attr(rc, "pos.eigen.num") = sum(comp.positive)
+  attr(rc, "inv") = rc.inv
+  return(rc)
+}
+
+##
+## compute pseudo-inverse square root of symmetric real positive semi-definite matrix
+## zero eigenvalues produce zero eigenvalues in the inverse-square matrix
+## apply provided weight vector to matrix before inversion in order to reduce computational errors
+##
+alu.matr.inv.sqrt.symm.semipos.norm = function(X, X.norm, tol = sqrt(.Machine$double.eps)) {
+  if (!is.matrix(X)) 
+    X <- as.matrix(X)
+  if (length(dim(X)) > 2L || !is.numeric(X))
+    stop("'X' must be a numeric matrix")
+
+  if (dim(X)[1] != dim(X)[2])
+    stop("'X' must be a square matrix")
+
+  if (!is.numeric(X.norm))
+    stop("'X.norm' must be a numeric vector/matrix")
+
+  if (length(X.norm) != dim(X)[1])
+    stop("X.norm vector dimension must match X matrix rank")
+
+  XX = diag.m(1/X.norm) %*% X %*% diag.m(1/X.norm)
+  XX.inv.sqrt = alu.matr.inv.sqrt.symm.semipos(XX, tol)
+  XX.inv.sqrt.inv = diag.m(1/X.norm) %*% attr(XX.inv.sqrt, "inv") %*% diag.m(1/X.norm)
+  rownames(XX.inv.sqrt.inv) = rownames(X)
+  colnames(XX.inv.sqrt.inv) = colnames(X)
+  XX.pos.eigen.num = attr(XX.inv.sqrt, "pos.eigen.num")
+  XX.inv.sqrt = diag.m(1/sqrt(X.norm)) %*% XX.inv.sqrt %*% diag.m(1/sqrt(X.norm))
+  XX.inv.sqrt = (XX.inv.sqrt + t(XX.inv.sqrt))/2
+  attr(XX.inv.sqrt, "inv") = (XX.inv.sqrt.inv + t(XX.inv.sqrt.inv))/2
+  attr(XX.inv.sqrt, "pos.eigen.num") = XX.pos.eigen.num
+  rownames(XX.inv.sqrt) = rownames(X)
+  colnames(XX.inv.sqrt) = colnames(X)
+  
+  return(XX.inv.sqrt)
+}

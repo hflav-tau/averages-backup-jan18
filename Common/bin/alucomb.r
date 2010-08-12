@@ -448,9 +448,12 @@ if (quant.num > 1) {
 quant.val = rep(0, quant.num)
 names(quant.val) = quant.names
 meas.invcov = solve(meas.cov)
+##--- useful in calculations but not actual quant.invcov if there are constraints
 quant.invcov = t(delta) %*% meas.invcov %*% delta
 
-##--- constraints
+##
+## obtain constraint equations
+##
 constr.num = length(combination$constr.comb)
 constr.names = names(combination$constr.comb)
 constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant.val; tmp[names(x)] = x; tmp}))
@@ -472,7 +475,12 @@ if (constr.num > 0) {
   tmp = mapply(function(name, val, comb) {names(val) = name; cat("\n"); show(c(val, unlist(comb)))},
     names(constr.v), constr.v/quant.invcov.order*constr.m.order,
     apply(constr.m/quant.invcov.order*constr.m.order, 1, function(x) list(x[x!=0])))
+}
 
+##
+## if there are constraints, assemble full matrix equation
+##
+if (constr.num > 0) {
   ##--- build full matrix in front of c(quant.val vector, lagr.mult. vector)
   full.m = rbind(
     cbind(quant.invcov, t(constr.m)),
@@ -480,7 +488,7 @@ if (constr.num > 0) {
   ##--- build full matrix in front of c(meas.val, constraint values)
   full.v.m = rbind(
     cbind(t(delta) %*% meas.invcov, matrix(0, quant.num, constr.num, dimnames=list(NULL, constr.names))),
-    cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), diag.m(rep(1, constr.num))))
+    cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), diag(constr.num)))
   ##--- build full vector c(measurements vector, constraint values)
   full.v = c(meas.val, constr.v)
 } else {
@@ -495,31 +503,18 @@ solve.m = solve(full.m) %*% full.v.m
 ##--- solve for both quantities and lagrange multipliers
 ## quant.constr.val = solve(full.m, (full.v.m %*% full.v))
 quant.constr.val = solve.m %*% full.v
-quant.val = quant.constr.val[1:quant.num, drop=FALSE]
-names(quant.val) = quant.names
-
-##
-## full covariance of measurements and constraint values
-## - there is no error on the constraint values
-##
-full.v.cov = rbind(
-  cbind(meas.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
-  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
-
-##--- covariance matrix of fitted values
-quant.constr.cov = solve.m %*% full.v.cov %*% t(solve.m)
-quant.cov = quant.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
-## rownames(quant.cov) = quant.names
-## colnames(quant.cov) = quant.names
-quant.err = sqrt(diag.m(quant.cov))
+quant.val = drop(quant.constr.val)[1:quant.num]
+quant.cov = solve.m[1:quant.num,1:meas.num, drop=FALSE] %*% meas.cov %*% t(solve.m[1:quant.num,1:meas.num, drop=FALSE])
+quant.cov = (quant.cov + t(quant.cov))/2
+quant.err = sqrt(diag(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
 
 chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
+dof = meas.num - quant.num + constr.num
 
 cat("\n")
 cat("##\n")
-cat("## exact solution, chisq/d.o.f. = ",chisq, "/", meas.num - quant.num,
-    ", CL = ", (1-pchisq(chisq, df=meas.num-quant.num)), "\n",sep="")
+cat("## exact solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
 show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
 if (quant.num > 1) {
@@ -528,221 +523,192 @@ if (quant.num > 1) {
 }
 cat("## end\n")
 
-##--- chisq contribution, dof, S-factor for each measurement type (now same as quant.val)
-quant.chisq = quant.val*0
-quant.nums = quant.val*0
-quant.nums.keep = quant.val*0
-quant.sfact = quant.chisq + 1
+##--- compute covariance matrix for pull averages
+## pull.cov = meas.cov + (delta %*% quant.cov %*% t(delta)) -
+##   delta %*% solve.m[1:quant.num,1:meas.num] %*% meas.cov -
+##   meas.cov %*% t(solve.m[1:quant.num,1:meas.num]) %*% t(delta)
+pull.cov = meas.cov - delta %*% quant.cov %*% t(delta)
 
-##--- S-factor for each measurement
-meas.sfact = meas.val*0 + 1
+##--- square root of pull weight matrix, to get pull direction
+pull.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos.norm(pull.cov, meas.err)
+
+##--- pull
+pull = drop(pull.invcov.sqrt %*% (meas.val - (delta %*% quant.val)))
+##--- force to zero very small pulls
+tol = sqrt(.Machine$double.eps)
+pull = ifelse(abs(pull) > tol, pull, 0)
+##--- measurement pull from full pull matrix
+meas.sfact.pull.full = ifelse(abs(pull) > 1, abs(pull), 1)
+
+##
+## per fitted quantity S-factors, A.Lusiani prescription #1
+##
+meas.sfact.alu.1 = meas.val * 0 + 1
+quant.sfact.alu.1 = quant.val * 0 + 1
 meas.keep = meas.val & FALSE
-
-##
-## compute S-factors
-## the following is filled:
-## - quant.chisq: chisq per measurement type
-## - quant.sfact: S-factor per measurement type
-## - meas.sfact: S-factor per measurement
-##
 for (mt.name in quant.names) {
-  ##--- selection of measurements of type mt.name
-  meas.mt = delta[, mt.name] != 0
-  meas.mt.num = sum(meas.mt)
-  quant.nums[mt.name] = meas.mt.num
+  ##--- selection of measurements connected to the specified fitted quantity
+  mm.list = (delta[, mt.name] == 1)
+  mm.num = sum(mm.list)
+  if (mm.num == 0) next
 
   ##--- compute max error to retain measurement for S-factor calculation
-  error.max = 3*sqrt(meas.mt.num)*quant.err[mt.name]
-
+  error.max = 3*sqrt(mm.num)*quant.err[mt.name]
   ##--- keep only measurement with not too large errors as in PDG S-factor calculation
-  meas.mt.keep = meas.mt & (meas.err < error.max)
-  meas.mt.keep.num = sum(meas.mt.keep)
-  quant.nums.keep[mt.name] = meas.mt.keep.num
-  meas.keep = meas.keep | meas.mt.keep
-
-  ##
-  ## chisq contribution from measurement of one type
-  ##
-
-  ##--- chisq when disregarding correlation between measurements of the same type
-  meas.mt.chisq = sum(((meas.val[meas.mt] - quant.val[mt.name]) / meas.err[meas.mt])^2)
-
-  ##--- chisq from measurements of the current type, including correlations
-  if (meas.mt.num > 0) {
-    meas.mt.chisq.corr = drop(
-      t((meas.val - delta %*% quant.val)[meas.mt])
-      %*% solve(meas.cov[meas.mt, meas.mt])
-      %*% (meas.val - delta %*% quant.val)[meas.mt])
-  } else {
-    meas.mt.chisq.corr = 0
-  }
-
-  ##--- collect chisq contribution for each type of measurement
-  quant.chisq[mt.name] = meas.mt.chisq.corr
+  mm.list.keep = mm.list & (meas.err < error.max)
+  meas.keep = meas.keep | mm.list.keep
 
   ##
   ## print measurement with too large errors
   ##
   save = options()
   options(digits=4)
-  if (any(xor(meas.mt, meas.mt.keep))) {
+  if (any(xor(mm.list, mm.list.keep))) {
     cat("\nS-factor calculation, exclude because error > 3*sqrt(N)*av_err=", error.max, "\n")
-    excl = meas.err[xor(meas.mt, meas.mt.keep)]
+    excl = meas.err[xor(mm.list, mm.list.keep)]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
-  if (FALSE && any(meas.mt.keep)) {
+  if (FALSE && any(mm.list.keep)) {
     cat("\nS-factor calculation, included measurements, 3*sqrt(N)*av_err=", error.max, "\n")
-    excl = meas.err[meas.mt.keep]
+    excl = meas.err[mm.list.keep]
     cat(paste(names(excl), "error=", format(excl, digits=4), "nsigma=", format(excl/error.max*3, digits=4), sep=" "), sep="\n")
   }
   options(save)
 
-  ##
-  ## PDG S-factor for fits
-  ## p.13 of http://pdg.lbl.gov/2009/reviews/rpp2009-rev-rpp-intro.pdf
-  ##
-  if (meas.mt.keep.num >0) {
-    res = meas.val[meas.mt.keep] - quant.val[mt.name]
-    dr = abs(res) / sqrt(meas.err[meas.mt.keep] * quant.err[mt.name])
-    res.sq.exp = meas.err[meas.mt.keep]^2 - quant.err[mt.name]^2
-    if (any(res.sq.exp < 0)) {
-      show(mt.name)
-      show(res.sq.exp[res.sq.exp < 0])
-      cat("warning: measurement on fitted quantity is larger than error on one of its measurements\n")
-      ## stop("measurement on fitted quantity is larger than error on one of its measurements")
-    }
-    ## tmp = sqrt(mean(ifelse(dr > 1e-6, res^2 / res.sq.exp, 1)))
-    ##--- protect against negative expected error
-    tmp = sqrt(mean(ifelse(dr > 1e-6 & res.sq.exp > 0, res^2 / res.sq.exp, 1)))
+  mm.list = mm.list.keep
+  if (sum(mm.list) == 0) next
+
+  ##--- get proper section of full pull covariance
+  pull.mm.cov = pull.cov[mm.list, mm.list, drop=FALSE]
+  ##--- get just diagonal part of pull matrix (equivalent to old implementation)
+  ## pull.mm.cov = diag.m(diag(pull.mm.cov))
+
+  pull.mm.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos(pull.mm.cov)
+  dof.mm = attr(pull.mm.invcov.sqrt, "pos.eigen.num")
+  if (dof.mm == 0) next
+  pull = drop(pull.mm.invcov.sqrt %*% (meas.val[mm.list] - (delta %*% quant.val)[mm.list]))
+  sfact = sqrt(sum(pull^2)/dof.mm)
+  if (sfact < 1) sfact = 1
+  quant.sfact.alu.1[mt.name] = sfact
+  meas.sfact.alu.1[mm.list] = sfact
+}
+
+##
+## per measurement group S-factors (Orin Dahl)
+##
+## - group measurements
+##   - first among statistically correlated ones
+##   - second by their connection to a fitted quantity
+## - compute pulls for each measurement group
+##
+
+##--- fix diagonal of correlation matrix
+diag(meas.corr.stat) = 1
+meas.correlated = colSums(meas.corr.stat != 0) > 1
+meas.correlated.which = which(meas.correlated)
+meas.correlated.list = list()
+
+##--- group statistically correlated measurements
+repeat {
+  if (length(meas.correlated.which) == 0) break
+  mm = meas.correlated.which[1]
+  mm.list = which(meas.corr.stat[mm, ] != 0)
+  meas.correlated.list = c(meas.correlated.list, list(mm.list))
+  meas.correlated.which = setdiff(meas.correlated.which, mm.list)
+}
+
+##--- group statistically uncorrelated measurements per fitted quantity
+meas.uncorrelated.list = list()
+for (mt.name in quant.names) {
+  ##--- selection of measurements of type mt.name but not stat correlated
+  mm.list = (delta[, mt.name] == 1) & !meas.correlated
+  mm.num = sum(mm.list)
+  if (mm.num == 0) next
+
+  ##--- compute max error to retain measurement for S-factor calculation
+  error.max = 3*sqrt(mm.num)*quant.err[mt.name]
+  ##--- keep only measurement with not too large errors as in PDG S-factor calculation
+  mm.list = mm.list & (meas.err < error.max)
+  if (sum(mm.list) == 0) next
+
+  meas.uncorrelated.list[[mt.name]] = which(mm.list)
+}
+
+##--- compute S-factors
+meas.corr = meas.cov / (meas.err %o% meas.err)
+meas2.corr = meas.corr
+meas.sfact.alu.2 = meas.val * 0 + 1
+for (mm.list in c(meas.correlated.list, meas.uncorrelated.list)) {
+  ## pull.mm.cov = meas.cov[mm.list, mm.list, drop=FALSE] - (delta %*% quant.cov %*% t(delta))[mm.list, mm.list, drop=FALSE]
+  pull.mm.cov = pull.cov[mm.list, mm.list, drop=FALSE]
+
+  pull.mm.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos(pull.mm.cov)
+  dof.mm = attr(pull.mm.invcov.sqrt, "pos.eigen.num")
+  pull = drop(pull.mm.invcov.sqrt %*% (meas.val[mm.list] - (delta %*% quant.val)[mm.list]))
+
+  ##--- force to zero very small pulls
+  tol = sqrt(.Machine$double.eps)
+  pull = ifelse(abs(pull) > tol, pull, 0)
+  
+  pull.sq = sum(pull^2)
+  if (pull.sq != 0) {
+    pull.versor = pull / sqrt(pull.sq)
   } else {
-    tmp = 1
+    pull.versor = pull * 0
   }
 
-  quant.sfact[mt.name] = tmp
-  meas.sfact[meas.mt] = tmp
+  ##--- Orin Dahl prescription
+  if (pull.sq > dof.mm && pull.sq > 1) {
+    ##--- inflate measurements correlation and covariance according to pull
+    meas.corr.pull = drop(t(pull.versor) %*% meas.corr[mm.list, mm.list] %*% pull.versor)
+    pull.sf.corr = (pull.sq - 1) * meas.corr.pull
+    meas2.corr[mm.list, mm.list] = meas.corr[mm.list, mm.list, drop=FALSE] + (pull.versor %o% pull.versor) * pull.sf.corr
+  }
+
+  ##--- A.Lusiani per measurement S-factors, prescription #2
+  meas.sfact.alu.2[mm.list] = ifelse(abs(pull) > 1, abs(pull), 1)
 }
 
-##--- recompute chisq and chisq/dof
-dof = meas.num - quant.num + constr.num
-chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
+##--- Orin Dahl S-factor inflated measurement covariance
+meas.cov.orin = meas2.corr * (meas.err %o% meas.err)
+##--- other S-factor inflated covariances
+meas.cov.alu.1 = meas.cov * (meas.sfact.alu.1 %o% meas.sfact.alu.1)
+meas.cov.alu.2 = meas.cov * (meas.sfact.alu.2 %o% meas.sfact.alu.2)
 
-##--- do not apply S-factors less than one
-quant.sfact = pmax(quant.sfact, 1)
-meas.sfact = pmax(meas.sfact, 1)
+##
+## use S-factor inflated measurement covariance to update fitted quantities covariance
+##
+sfact.inflate = function(meas.cov) {
+  rc = list()
+  meas.invcov = solve(meas.cov)
+  rc$quant.cov = solve.m[1:quant.num,1:meas.num, drop=FALSE] %*% meas.cov %*% t(solve.m[1:quant.num,1:meas.num, drop=FALSE])
+  rc$quant.err = sqrt(diag(rc$quant.cov))
+  rc$quant.corr = rc$quant.cov / (rc$quant.err %o% rc$quant.err)
+  rc$chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
+  rc$chisq.keep = drop(
+    t((meas.val - delta %*% quant.val)[meas.keep])
+    %*% meas.invcov[meas.keep, meas.keep]
+    %*% (meas.val - delta %*% quant.val)[meas.keep])
+  rc$quant.sfact = rc$quant.err / quant.err
+  return(rc)
+}
 
-##--- chisq with S-factors, just for not-too-large error measurements
 chisq.keep = drop(
   t((meas.val - delta %*% quant.val)[meas.keep])
-  %*% solve(diag.m(meas.sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(meas.sfact[meas.keep]))
+  %*% meas.invcov[meas.keep, meas.keep]
   %*% (meas.val - delta %*% quant.val)[meas.keep])
+##--- assume no quantity left without a kept measurement
+dof.keep = sum(meas.keep) - (quant.num - constr.num)
 
-##+++ quant.keep.num = sum((rep(1, sum(meas.keep)) %*% abs(delta[meas.keep,])) > 0)
-##+++ assume there are no measurement types left without measurements
-quant.keep.num = quant.num - constr.num
-dof.keep = sum(meas.keep) - quant.keep.num
+orin = sfact.inflate(meas.cov.orin)
+alu.1 = sfact.inflate(meas.cov.alu.1)
+alu.2 = sfact.inflate(meas.cov.alu.2)
 
-##
-## inflate the covariance matrix with the S-factors
-##
-meas2.cov = diag.m(meas.sfact) %*% meas.cov %*% diag.m(meas.sfact)
-rownames(meas2.cov) = meas.names
-colnames(meas2.cov) = meas.names
-meas2.invcov = solve(meas2.cov)
-
-##--- compute new inflated fitted quantities covariance matrix 
-full2.v.cov = rbind(
-  cbind(meas2.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
-  cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
-
-##--- covariance matrix of fitted values
-quant2.constr.cov = solve.m %*% full2.v.cov %*% t(solve.m)
-quant2.cov = quant2.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
-
-##--- updated errors and correlations
-quant2.err = sqrt(diag.m(quant2.cov))
-quant2.corr = quant2.cov / (quant2.err %o% quant2.err)
-
-##--- all measurements chisq after S-factor inflation
-chisq2 = drop(t(meas.val - delta %*% quant.val) %*% meas2.invcov %*% (meas.val - delta %*% quant.val))
-
-##
-## new S-factors computed after 1st S-factor inflation
-##
-if (quant.num > 1) {
-  ##--- if multiple average, use dedicated S-factor computation
-  quant2.sfact = quant2.err / quant.err
-} else {
-  ##--- if averaging a single quantity, use global chisq to compute S-factor
-  quant2.sfact = max(sqrt(chisq/dof), 1)
-  names(quant2.sfact) = quant.names[1]
-}
-
-##
-## final S-factors
-## - use 1st stage S-factors to inflate errors
-## - recompute errors and S-factors
-##
-quant2.sfact = pmax(quant2.sfact, 1)
-meas2.sfact = drop(delta %*% quant2.sfact)
-
-##--- chisq with S-factors, just for not-too-large error measurements
-chisq2.keep = drop(
-  t((meas.val - delta %*% quant.val)[meas.keep])
-  %*% solve(diag.m(meas2.sfact[meas.keep]) %*% meas.cov[meas.keep, meas.keep] %*% diag.m(meas2.sfact[meas.keep]))
-  %*% (meas.val - delta %*% quant.val)[meas.keep])
-
-dof2.keep = dof.keep
-
-if (quant.num > 1) {
-  ##
-  ## inflate the covariance matrix with the S-factors
-  ##
-  meas3.cov = diag.m(meas2.sfact) %*% meas.cov %*% diag.m(meas2.sfact)
-  rownames(meas3.cov) = meas.names
-  colnames(meas3.cov) = meas.names
-  meas3.invcov = solve(meas3.cov)
-
-  ##--- compute new inflated fitted quantities covariance matrix 
-  full3.v.cov = rbind(
-    cbind(meas3.cov, matrix(0, meas.num, constr.num, dimnames=list(NULL, constr.names))),
-    cbind(matrix(0, constr.num, meas.num, dimnames=list(constr.names)), matrix(0, constr.num, constr.num)))
-  
-  ##--- covariance matrix of fitted values
-  quant3.constr.cov = solve.m %*% full3.v.cov %*% t(solve.m)
-  quant3.cov = quant3.constr.cov[1:quant.num, 1:quant.num, drop=FALSE]
-  
-  ##--- updated errors and correlations
-  quant3.err = sqrt(diag.m(quant3.cov))
-  quant3.corr = quant3.cov / (quant3.err %o% quant3.err)
-  
-  ##--- all measurements chisq after S-factor inflation
-  chisq3 = drop(t(meas.val - delta %*% quant.val) %*% meas3.invcov %*% (meas.val - delta %*% quant.val))
-} else {
-  quant3.cov = quant2.cov
-  quant3.err = quant2.err
-  quant3.corr = quant2.corr
-  chisq3 = chisq2
-}
-
-##
-## final S-factors computed after 1st S-factor inflation
-##
-if (quant.num > 1) {
-  ##--- if multiple average, use dedicated S-factor computation
-  quant3.sfact = quant3.err / quant.err
-} else {
-  ##--- if averaging a single quantity, use global chisq to compute S-factor
-  quant3.sfact = quant2.sfact
-}
-
-quant.sf.err = quant3.err
-quant.sf.cov = quant3.cov
-quant.sf.corr = quant3.corr
-quant.sf.sfact = quant3.sfact
-rm(quant3.err)
-rm(quant3.cov)
-rm(quant3.corr)
-rm(quant3.sfact)
+quant.sfact = quant.sfact.alu.1
+quant.sf.err = orin$quant.err
+quant.sf.cov = orin$quant.cov
+quant.sf.corr = orin$quant.corr
+quant.sf.sfact = orin$quant.sfact
 
 cat("\n")
 cat("##\n")
@@ -753,44 +719,66 @@ out = rbind(
   "fit" = c(
     chisq=chisq, dof=dof,
     "chisq/dof"=chisq/dof,
-    CL=pchisq(chisq, dof, lower.tail=FALSE)))
+    CL=pchisq(chisq, dof, lower.tail=FALSE))
+  , "sfact.alu.1" = c(
+      chisq=alu.1$chisq, dof=dof,
+      "chisq/dof"=alu.1$chisq/dof,
+      CL=pchisq(alu.1$chisq, dof, lower.tail=FALSE))
+  , "sfact.orin" = c(
+      chisq=orin$chisq, dof=dof,
+      "chisq/dof"=orin$chisq/dof,
+      CL=pchisq(orin$chisq, dof, lower.tail=FALSE))
+  , "sfact.alu.2" = c(
+      chisq=alu.2$chisq, dof=dof,
+      "chisq/dof"=alu.2$chisq/dof,
+      CL=pchisq(alu.2$chisq, dof, lower.tail=FALSE))
+  )
 if (any(meas.keep)) {
   out = rbind(out
-    ,"fit.sf.1" = c(
-       chisq=chisq.keep, dof=dof.keep,
-       "chisq/dof"=chisq.keep/dof.keep,
-       CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE))
-    ,"fit.sf" = c(
-       chisq=chisq2.keep, dof=dof2.keep,
-       "chisq/dof"=chisq2.keep/dof2.keep,
-       CL=pchisq(chisq2.keep, dof2.keep, lower.tail=FALSE)))
+    , "keep" = c(
+        chisq=chisq.keep, dof=dof.keep,
+        "chisq/dof"=chisq.keep/dof.keep,
+        CL=pchisq(chisq.keep, dof.keep, lower.tail=FALSE))
+    , "keep.alu.1" = c(
+        chisq=alu.1$chisq.keep, dof=dof.keep,
+        "chisq/dof"=alu.1$chisq.keep/dof.keep,
+        CL=pchisq(alu.1$chisq.keep, dof.keep, lower.tail=FALSE))
+    , "keep.orin" = c(
+        chisq=orin$chisq.keep, dof=dof.keep,
+        "chisq/dof"=orin$chisq.keep/dof.keep,
+        CL=pchisq(orin$chisq.keep, dof.keep, lower.tail=FALSE))
+    , "keep.alu.2" = c(
+        chisq=alu.2$chisq.keep, dof=dof.keep,
+        "chisq/dof"=alu.2$chisq.keep/dof.keep,
+        CL=pchisq(alu.2$chisq.keep, dof.keep, lower.tail=FALSE))
+    )
 }
 show(out)
 
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
-show(rbind(value=quant.val,
-           error=quant.err,
-           error.sf.2=quant2.err,
-           error.sf=quant.sf.err,
-           "S-factor.1"=quant.sfact,
-           "S-factor.2"=quant2.sfact,
-           "S-factor"=quant.sf.sfact
+show(rbind("value"=quant.val,
+           "error"=quant.err,
+           "error.alu.1"=alu.1$quant.err,
+           "error.orin"=orin$quant.err,
+           "error.alu.2"=alu.2$quant.err,
+           "S-factor.alu.1"=alu.1$quant.sfact,
+           "S-factor.orin"=orin$quant.sfact,
+           "S-factor.alu.2"=alu.2$quant.sfact
            ))
 
 if (quant.num > 1) {
   ## cat("correlation\n") 
   ## show(quant.corr)
   cat("correlation, S-factor inflated\n") 
-  show(quant.sf.corr)
+  show(orin$quant.corr)
 }
 
 ##--- save data and results
 save(file=file.name.data,
-     measurements, combination,
-     chisq, chisq.keep, chisq2.keep,
-     dof, dof.keep, dof2.keep,
+     measurements, combination, delta,
+     chisq, dof,
      meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
-     quant.val,  quant.err,  quant.cov,  quant.corr,  quant.sfact, 
+     quant.val,  quant.err,  quant.cov,  quant.corr,  quant.sfact,
                  quant.sf.err, quant.sf.cov, quant.sf.corr, quant.sf.sfact,
      constr.m, constr.v)
 
