@@ -195,10 +195,10 @@ display.names = c(Gamma110.names,
   "Gamma110", "Gamma110_pdg09", "fx_mu_by_e", "Gamma5univ",
   "R_tau", "R_tau_s", "R_tau_VA", "deltaR_su3break", "Vus")
 show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names]),
+           Vus_err_perc = c(quant.err["Vus"]/quant.val["Vus"]*100, 0),
            Vus_err_exp = c(Vus.err.exp, 0),
            Vus_err_th = c(Vus.err.th, 0),
-           Vus_err_perc = c(quant.err["Vus"]/quant.val["Vus"]*100, 0),
-           Vus_th_err_perc = c(Vus.err.th /quant.val["Vus"]*100, 0),
+           Vus_err_th_perc = c(Vus.err.th /quant.val["Vus"]*100, 0),
            nsigma = c(val=nsigma, err=0)
            ))
 
