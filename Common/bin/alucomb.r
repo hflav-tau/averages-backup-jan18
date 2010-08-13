@@ -555,6 +555,13 @@ get.fit.errors = function(meas.cov, meas.keep) {
   return(rc)
 }
 
+##
+## S-factors, no grouping (i.e. all measurements together)
+##
+
+##--- computational tolerance
+tol = sqrt(.Machine$double.eps)
+
 ##--- compute covariance matrix for pull averages
 ## pull.cov = meas.cov + (delta %*% quant.cov %*% t(delta)) -
 ##   delta %*% solve.m[1:quant.num,1:meas.num] %*% meas.cov -
@@ -562,18 +569,40 @@ get.fit.errors = function(meas.cov, meas.keep) {
 pull.cov = meas.cov - delta %*% quant.cov %*% t(delta)
 
 ##--- square root of pull weight matrix, to get pull direction
+## pull.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos(pull.cov)
 pull.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos.norm(pull.cov, meas.err)
-
+dof.pull = attr(pull.invcov.sqrt, "pos.eigen.num")
 ##--- pull
 pull = drop(pull.invcov.sqrt %*% (meas.val - (delta %*% quant.val)))
 ##--- force to zero very small pulls
-tol = sqrt(.Machine$double.eps)
-pull = ifelse(abs(pull) > tol, pull, 0)
-##--- measurement pull from full pull matrix
-meas.sfact.pull.full = ifelse(abs(pull) > 1, abs(pull), 1)
+pull[abs(pull) <= tol] = 0
+
+##--- alu prescription #2, measurement pull from full pull matrix
+meas.sfact.alu.full = ifelse(abs(pull) > 1, abs(pull), 1)
+
+##--- Orin Dahl S-factors prescription, all measurements together
+pull.sq = sum(pull^2)
+if (pull.sq != 0) {
+  pull.versor = pull / sqrt(pull.sq)
+} else {
+  pull.versor = pull * 0
+}
+if (pull.sq > dof.pull && pull.sq > 1) {
+  ##--- add to measurements correlation a matrix proportional to pull vector outer product
+  meas.corr.pull = drop(t(pull.versor) %*% meas.corr %*% pull.versor)
+  pull.sf.corr = (pull.sq - 1) * meas.corr.pull
+  meas.corr.orin.full = meas.corr + (pull.versor %o% pull.versor) * pull.sf.corr
+}
+
+##--- Orin Dahl S-factor inflated measurement covariance
+meas.cov.orin.full = meas.corr.orin.full * (meas.err %o% meas.err)
+orin.full = get.fit.errors(meas.cov.orin.full, (meas.val | TRUE))
+##--- alu S-factor inflated measurement covariance
+meas.cov.alu.full = meas.cov * (meas.sfact.alu.full %o% meas.sfact.alu.full)
+alu.full = get.fit.errors(meas.cov.alu.full, (meas.val | TRUE))
 
 ##
-## per fitted quantity S-factors, A.Lusiani prescription
+## S-factors, grouping by correlation to fitted quantity
 ##
 meas.sfact.alu.fq = meas.val * 0 + 1
 quant.sfact.alu.fq = quant.val * 0 + 1
@@ -619,28 +648,28 @@ for (mt.name in quant.names) {
 
   pull.mm.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos(pull.mm.cov)
   dof.mm = attr(pull.mm.invcov.sqrt, "pos.eigen.num")
+  ##--- go to next measurement group if the pull matrix is entirely singular
+  if (dof.mm == 0) next
+
   pull = drop(pull.mm.invcov.sqrt %*% (meas.val[mm.list] - (delta %*% quant.val)[mm.list]))
   ##--- force to zero very small pulls
-  tol = sqrt(.Machine$double.eps)
-  pull = ifelse(abs(pull) > tol, pull, 0)
-
-  ##--- alu prescription, collect one single S-factor per measurement group
-  if (dof.mm != 0) {
-    sfact = sqrt(sum(pull^2)/dof.mm)
-    if (sfact < 1) sfact = 1
-    quant.sfact.alu.fq[mt.name] = sfact
-    meas.sfact.alu.fq[mm.list.all] = sfact
-  }
-
-  ##--- Orin Dahl prescription, modify correlation matrix
+  pull[abs(pull) <= tol] = 0
   pull.sq = sum(pull^2)
+
+  ##--- one single S-factor per measurement group
+  sfact = sqrt(pull.sq/dof.mm)
+  if (sfact < 1) sfact = 1
+  quant.sfact.alu.fq[mt.name] = sfact
+  meas.sfact.alu.fq[mm.list.all] = sfact
+
+  ##--- use pull direction as in Orin Dahl S-factors prescription for grouping by statistical correlation
   if (pull.sq != 0) {
     pull.versor = pull / sqrt(pull.sq)
   } else {
     pull.versor = pull * 0
   }
   if (pull.sq > dof.mm && pull.sq > 1) {
-    ##--- inflate measurements correlation and covariance according to pull
+    ##--- add to measurements correlation a matrix proportional to pull vector outer product
     meas.corr.pull = drop(t(pull.versor) %*% meas.corr[mm.list, mm.list] %*% pull.versor)
     pull.sf.corr = (pull.sq - 1) * meas.corr.pull
     meas.corr.orin.fq[mm.list, mm.list] = meas.corr[mm.list, mm.list, drop=FALSE] + (pull.versor %o% pull.versor) * pull.sf.corr
@@ -654,7 +683,7 @@ meas.cov.alu.fq = meas.cov * (meas.sfact.alu.fq %o% meas.sfact.alu.fq)
 alu.fq = get.fit.errors(meas.cov.alu.fq, meas.keep.fq)
 
 ##
-## per measurement group S-factors (Orin Dahl)
+## S-factors, grouping by statistical correlation (Orin Dahl)
 ##
 ## - group measurements
 ##   - first among statistically correlated ones
@@ -693,6 +722,7 @@ for (mt.name in quant.names) {
   if (sum(mm.list) == 0) next
 
   mm.list.which = which(mm.list)
+  attr(mm.list.which, "fitted.quantity") = mt.name
   attr(mm.list.which, "not.kept") = which(mm.list.all & ! mm.list)
   meas.uncorrelated.list[[mt.name]] = mm.list.which
 }
@@ -701,6 +731,7 @@ for (mt.name in quant.names) {
 meas.corr = meas.cov / (meas.err %o% meas.err)
 meas.corr.orin.sc = meas.corr
 meas.sfact.alu.sc = meas.val * 0 + 1
+meas.sfact.orin.sc = meas.val * 0 + 1
 meas.keep.sc = meas.val & FALSE
 for (mm.list in c(meas.correlated.list, meas.uncorrelated.list)) {
   ##--- assemble list of kept measurements for S-factors determination
@@ -711,33 +742,44 @@ for (mm.list in c(meas.correlated.list, meas.uncorrelated.list)) {
 
   pull.mm.invcov.sqrt = alu.matr.inv.sqrt.symm.semipos(pull.mm.cov)
   dof.mm = attr(pull.mm.invcov.sqrt, "pos.eigen.num")
+  ##--- go to next measurement group if the pull matrix is entirely singular
+  if (dof.mm == 0) next
+
   pull = drop(pull.mm.invcov.sqrt %*% (meas.val[mm.list] - (delta %*% quant.val)[mm.list]))
   ##--- force to zero very small pulls
-  tol = sqrt(.Machine$double.eps)
-  pull = ifelse(abs(pull) > tol, pull, 0)
-  
+  pull[abs(pull) <= tol] = 0
   pull.sq = sum(pull^2)
-  if (pull.sq != 0) {
-    pull.versor = pull / sqrt(pull.sq)
+
+  mt.name = attr(mm.list, "fitted.quantity")
+  if (!is.null(mt.name)) {
+    ##--- measurements connected to a single fit quantity
+    sfact = sqrt(pull.sq/dof.mm)
+    if (sfact < 1) sfact = 1
+    meas.sfact.alu.sc[c(mm.list, attr(mm.list, "not.kept"))] = sfact
+    meas.sfact.orin.sc[c(mm.list, attr(mm.list, "not.kept"))] = sfact
   } else {
-    pull.versor = pull * 0
-  }
+    ##--- measurements grouped by statistical correlation
 
-  ##--- Orin Dahl prescription
-  if (pull.sq > dof.mm && pull.sq > 1) {
-    ##--- inflate measurements correlation and covariance according to pull
-    meas.corr.pull = drop(t(pull.versor) %*% meas.corr[mm.list, mm.list] %*% pull.versor)
-    pull.sf.corr = (pull.sq - 1) * meas.corr.pull
-    meas.corr.orin.sc[mm.list, mm.list] = meas.corr[mm.list, mm.list, drop=FALSE] + (pull.versor %o% pull.versor) * pull.sf.corr
-  }
+    ##--- Orin Dahl S-factors prescription, grouping by statistical correlation
+    if (pull.sq != 0) {
+      pull.versor = pull / sqrt(pull.sq)
+    } else {
+      pull.versor = pull * 0
+    }
+    if (pull.sq > dof.mm && pull.sq > 1) {
+      ##--- add to measurements correlation a matrix proportional to pull vector outer product
+      meas.corr.pull = drop(t(pull.versor) %*% meas.corr[mm.list, mm.list] %*% pull.versor)
+      pull.sf.corr = (pull.sq - 1) * meas.corr.pull
+      meas.corr.orin.sc[mm.list, mm.list] = meas.corr[mm.list, mm.list, drop=FALSE] + (pull.versor %o% pull.versor) * pull.sf.corr
+    }
 
-  ##--- A.Lusiani per measurement S-factors, S-factors by measurement
-  meas.sfact.alu.sc[mm.list] = ifelse(abs(pull) > 1, abs(pull), 1)
-  ##--- for non kept discarded measurements use measurement group S-factor
-  meas.sfact.alu.sc[attr(mm.list, "not.kept")] = sqrt(pull.sq/dof.mm)
+    ##--- A.Lusiani S-factors prescription #2, grouping by statistical correlation
+    meas.sfact.alu.sc[mm.list] = ifelse(abs(pull) > 1, abs(pull), 1)
+  }
 }
-##--- Orin Dahl S-factor inflated measurement covariance
+##--- Orin Dahl S-factor inflated measurement covariance, grouping by statistical correlation
 meas.cov.orin.sc = meas.corr.orin.sc * (meas.err %o% meas.err)
+meas.cov.orin.sc = meas.cov.orin.sc * (meas.sfact.orin.sc %o% meas.sfact.orin.sc)
 orin.sc = get.fit.errors(meas.cov.orin.sc, meas.keep.sc)
 ##--- alu S-factor inflated measurement covariance, grouping by statistical correlation
 meas.cov.alu.sc = meas.cov * (meas.sfact.alu.sc %o% meas.sfact.alu.sc)
@@ -797,6 +839,8 @@ out = rbind(
     chisq=chisq, dof=dof,
     "chisq/dof"=chisq/dof,
     CL=pchisq(chisq, dof, lower.tail=FALSE))
+  , "  orin.full" = get.chisq.dof.pchisq(orin.full)
+  , "  alu.full" = get.chisq.dof.pchisq(alu.full)
   , "  orin.sc" = get.chisq.dof.pchisq(orin.sc)
   , "  alu.sc" = get.chisq.dof.pchisq(alu.sc)
   , "  orin.fq" = get.chisq.dof.pchisq(orin.fq)
@@ -824,10 +868,14 @@ show(out)
 cat("Averaged quantities: value, error, error with S-factor, S-factor\n") 
 show(rbind("value"=quant.val,
            "error"=quant.err,
+           "  orin.full"=orin.full$quant.err,
+           "  alu.full"=alu.full$quant.err,
            "  orin.sc"=orin.sc$quant.err,
            "  alu.sc"=alu.sc$quant.err,
            "  orin.fq"=orin.fq$quant.err,
            "  alu.fq"=alu.fq$quant.err,
+           "S-factor orin.full"=orin.full$quant.sfact,
+           "S-factor alu.full"=alu.full$quant.sfact,
            "S-factor orin.sc"=orin.sc$quant.sfact,
            "S-factor alu.sc"=alu.sc$quant.sfact,
            "S-factor orin.fq"=orin.fq$quant.sfact,
