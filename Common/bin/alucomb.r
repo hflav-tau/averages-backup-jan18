@@ -58,7 +58,6 @@ rm(rc)
 meas.names = names(measurements)
 ##--- quantities to be averaged
 quant.names = combination$quantities
-quant.num = length(quant.names)
 
 ##
 ## transform COMBOFQUANT and SUMOFQUANT cards
@@ -126,12 +125,25 @@ if (length(combination$constr.comb) > 0) {
 ##--- quantity measured per measurement
 meas.quantities = sapply(measurements, function(x) names(x$value))
 
+##--- discard measurements that are not associated to a declared fitted quantity
 meas.included.list = meas.quantities %in% quant.names
 names(meas.included.list) = names(meas.quantities)[meas.included.list]
 meas.names.discarded =  meas.names[!meas.included.list]
 if (length(meas.names.discarded) >0) {
-  cat("\nThe following measurements are discarded:\n")
+  cat("\nwarning: the following measurements are discarded:\n")
   cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
+}
+
+##--- quantities involved in constraints
+constr.quantities = unique(do.call(c, lapply(combination$constr.comb, function(x) names(x))))
+
+##--- discard fitted quantities that are not defined by measurements and constraints
+quant.discarded = !(quant.names %in% c(meas.quantities, constr.quantities))
+if (any(quant.discarded)) {
+  cat("\nwarning: the following fitted quantities are discarded:\n")
+  cat(paste("  ", quant.names[quant.discarded], collapse="\n"), "\n");
+  combination$quantities = combination$quantities[!quant.discarded]
+  quant.names = combination$quantities
 }
 
 ##--- update
@@ -139,6 +151,7 @@ measurements = measurements[meas.included.list]
 meas.names = names(measurements)
 meas.num = length(measurements[meas.included.list])
 meas.quantities = meas.quantities[meas.included.list]
+quant.num = length(quant.names)
 
 larger = numeric()
 slightly.larger = numeric()
@@ -654,8 +667,10 @@ for (mt.name in quant.names) {
   pull = drop(pull.mm.invcov.sqrt %*% (meas.val[mm.list] - (delta %*% quant.val)[mm.list]))
   ##--- force to zero very small pulls
   pull[abs(pull) <= tol] = 0
+  ##--- reduce pull components to account for unaccounted correlations
+  ##+++ pull = pull * sqrt(1-quant.err[mt.name]^2/meas.err[mm.list]^2) + sign(pull)*quant.err[mt.name]/meas.err[mm.list]
   pull.sq = sum(pull^2)
-
+  
   ##--- one single S-factor per measurement group
   sfact = sqrt(pull.sq/dof.mm)
   if (sfact < 1) sfact = 1
@@ -897,6 +912,8 @@ save(file=file.name.data,
      meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
      quant.val,  quant.err,  quant.cov,  quant.corr,  quant.sfact,
                  quant.sf.err, quant.sf.cov, quant.sf.corr, quant.sf.sfact,
+     alu.full, orin.full,
+     alu.fq, alu.sc, orin.fq, orin.sc,
      constr.m, constr.v)
 
 cat("\n")
