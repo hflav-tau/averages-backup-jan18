@@ -30,8 +30,8 @@ MEASUREMENT m_KmNu       statistical systematic
 MEASUREMENT m_PimPizNu   statistical systematic
 MEASUREMENT m_KmPizNu    statistical systematic
 
-* MEASUREMENT m_HmNu       statistical systematic
-* MEASUREMENT m_HmPizNu    statistical systematic
+MEASUREMENT m_HmNu       statistical systematic
+MEASUREMENT m_HmPizNu    statistical systematic
 
 * SUMOFMEAS DELPHI HmNu published PimNu KmNu
 * SUMOFMEAS OPAL HmNu published PimNu KmNu
