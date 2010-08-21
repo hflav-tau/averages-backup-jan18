@@ -207,7 +207,7 @@ aeb.model.matrix.fit = function(model.matrix) {
   cov = quant.cov[model.matrix.names, model.matrix.names]
   model.matrix = matrix(model.matrix, length(model.matrix), 1)
   invcov = solve(cov)
-  fit.cov = solve(t(model.matrix) %*% solve(cov) %*% model.matrix)
+  fit.cov = solve(t(model.matrix) %*% invcov %*% model.matrix)
   fit.comb = fit.cov %*% t(model.matrix) %*% invcov
   return(fit.comb)
 }
