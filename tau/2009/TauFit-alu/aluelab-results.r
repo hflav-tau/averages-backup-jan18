@@ -135,6 +135,16 @@ aeb.meas.add.single("m_W", 80.399*1e3, 0.023*1e3)
 aeb.meas.add.single("tau_mu", 2.197034e-6, 0.000021e-6)
 
 ##
+## Be, from unitarity = 1 - Bmu - B_VA - B_s
+## Bmu, from unitarity = 1 - Be - B_VA - B_s
+##
+aeb.meas.expr.add("Be_unitarity", quote(1 - Gamma3 - B_tau_VA - Gamma110))
+aeb.meas.expr.add("Bmu_unitarity", quote(1 - Gamma5 - B_tau_VA - Gamma110))
+##--- fit for best Be, Bmu
+aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
+aeb.meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
+
+##
 ## compute phase space factors for Bmu/Be universality
 ##
 aeb.meas.expr.add("me_by_mtau", quote(m_e^2/m_tau^2))
@@ -150,7 +160,7 @@ rc = aeb.meas.expr.add("phspf_mebymmu", eval(bquote(substitute(.(phspf), list(x=
 rc = aeb.meas.expr.add("Bmu_by_Be_th", quote(phspf_mmubymtau/phspf_mebymtau))
 
 ##--- Be from Bmu
-aeb.meas.expr.add("Be_from_Bmu", quote(phspf_mebymtau/phspf_mmubymtau*Gamma3))
+aeb.meas.expr.add("Be_from_Bmu", quote(phspf_mebymtau/phspf_mmubymtau *Bmu_fit))
 
 ##
 ## rad. corrections from to get Be from tau lifetime
@@ -171,14 +181,9 @@ aeb.meas.expr.add("Be_from_taulife",
                   bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
                          *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
 ##
-## Be from unitarity = 1 - Bmu - B_VA - B_s
-##
-aeb.meas.expr.add("Be_unitarity", quote(1 - Gamma3 - B_tau_VA - Gamma110))
-
-##
 ## add Be_univ as covariance weigthed combination of Be, Be_from_Bmu and Be_from_taulife
 ##
-aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
+aeb.meas.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
 ##
 ## Vud
@@ -216,18 +221,18 @@ aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3bre
 if (FALSE) {
 
 ##--- add R_tau as function of quantities
-aeb.meas.expr.add("R_tau", quote(1/Be_fit -1 -phspf_mmubymtau/phspf_mebymtau))
+aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
 ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-aeb.meas.expr.add("R_tau_s", quote(Gamma110/Be_fit))
+aeb.meas.expr.add("R_tau_s", quote(Gamma110/Be_univ))
 ##--- add R_tau_VA = R_tau - R_tau_s
 aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
 
 } else {
 
 ##--- add R_tau_VA = R - R_tau_s
-aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_fit))
+aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_univ))
 ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_fit))
+aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_univ))
 ##--- add R_tau as function of quantities
 aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
 
@@ -245,7 +250,9 @@ Vus.unitarity.err = 0.0010
 nsigma = (quant.val["Vus"] - Vus.unitarity.val)/quadrature(c(quant.err["Vus"], Vus.unitarity.err))
 
 display.names = c(Gamma110.names,
-  "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife", "Be_unitarity", "Be_fit",
+  "Gamma5", "Be_unitarity", "Be_fit",
+  "Gamma3", "Bmu_unitarity", "Bmu_fit",
+  "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife", "Be_univ",
   "B_tau_VA", "B_tau_VA_unitarity", "B_tau_VA_fit",
   "Gamma110", "B_tau_s_unitarity", "B_tau_s_fit", "Gamma110_pdg09",
   "R_tau", "R_tau_s", "R_tau_VA", "deltaR_su3break", "Vus")
