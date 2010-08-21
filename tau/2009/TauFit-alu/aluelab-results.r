@@ -17,6 +17,14 @@
 source("../../../Common/bin/aluelab.r")
 
 args <- commandArgs(TRUE)
+
+##--- option -s, use S-factors
+use.s.factors =  FALSE
+if(any(args == "-s")) {
+  use.s.factors =  TRUE
+  args = args[args != "-s"]
+}
+
 if (length(args) > 0) {
   file.name = args[1]
 } else {
@@ -25,9 +33,12 @@ if (length(args) > 0) {
 
 ##--- get alucomb results and data
 load(file.name)
-## quant.err = quant.sf.err
-## quant.corr = quant.sf.corr
-## quant.cov = quant.sf.cov
+
+if (use.s.factors) {
+  quant.err = quant.sf.err
+  quant.corr = quant.sf.corr
+  quant.cov = quant.sf.cov
+}
 
 ##
 ## Gamma151 = K omega nu
@@ -68,7 +79,7 @@ Gamma110_pdg09.comb = c(
 aeb.meas.comb.add("Gamma110_pdg09", Gamma110_pdg09.comb)
 
 ##
-## compute Gamma110 = B(tau -> Xs)
+## Gamma110 = B(tau -> Xs) -- local definition
 ##
 ## Gamma110 =
 ##   Gamma10+Gamma16+Gamma23+Gamma28+Gamma35+Gamma40+Gamma44+
@@ -83,65 +94,91 @@ Gamma110.comb = c(
   Gamma130=1, Gamma132=1,
   Gamma96=1.699387)
 Gamma110.names = names(Gamma110.comb[Gamma110.comb != 0])
+##--- use Gamma110 defined through COMBOFQUANT rather than here
 ## aeb.meas.comb.add("Gamma110", Gamma110.comb)
 
+##--- list of all tau BRs that are not leptonic and not strange, i.e. not-strange-hadronic
+B.tau.VA.names = setdiff(names(combination$constr.comb[["GammaAll"]]), names(combination$constr.comb[["Gamma110.coq"]]))
+B.tau.VA.names = setdiff(B.tau.VA.names, c("Gamma5", "Gamma3", "Gamma998"))
+aeb.meas.expr.add("B_tau_VA", parse(text=paste(B.tau.VA.names, collapse="+")))
+aeb.meas.expr.add("B_tau_VA_unitarity", quote(1-Gamma5-Gamma3-Gamma110))
+aeb.meas.expr.add("B_tau_s_unitarity", quote(1-Gamma5-Gamma3-B_tau_VA))
+
 ##
-## B(tau -> Xs nu)
+## fit best value for hadronic strange and non-strange inclusive BRs
+## using both the direct measurements and the result from the unitarity constraint
 ##
-## can use Gamma110 via COMBOFQUANT in alucomb.r
-## same definition as above
-##
-B_tau_s.val = quant.val["Gamma110"]
-B_tau_s.err = quant.err["Gamma110"]
+aeb.meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
+aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
 
 ##
 ## universality Be = B(tau -> e nu nubar)
+## see arXiv:hep-ph/0507078v2 p.7
+##
+## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
+## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
 ##
 ## minimum chisq fit constraining Bmu/Be from Standard Model, using Be, Bmu
-## tau lifetime should also be included, see arXiv:hep-ph/0507078v2 p.89
+## tau lifetime should also be included, see arXiv:hep-ph/0507078v2 p.7
 ##
 
 ##--- from PDG 2009
 aeb.meas.add.single("m_e", 0.510998910, 0.000000013)
 aeb.meas.add.single("m_mu", 105.658367, 0.000004)
-aeb.meas.add.single("tau_tau", 290.6, 1.0)
+aeb.meas.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
-##--- HFAG 2009
+##--- from HFAG 2009
 aeb.meas.add.single("m_tau", 1776.7673082, 0.1507259)
+
+##--- from PDG 2010
+aeb.meas.add.single("m_W", 80.399*1e3, 0.023*1e3)
+aeb.meas.add.single("tau_mu", 2.197034e-6, 0.000021e-6)
 
 ##
 ## compute phase space factors for Bmu/Be universality
 ##
-aeb.meas.expr.add("xe", quote(m_e^2/m_tau^2))
-aeb.meas.expr.add("xmu", quote(m_mu^2/m_tau^2))
-rc = aeb.meas.expr.add("fx_e",
-  quote(1 -8*xe + 8*xe^3 - xe^4 - 12*xe^2*log(xe)));
-rc = aeb.meas.expr.add("fx_mu",
-  quote(1 -8*xmu + 8*xmu^3 - xmu^4 - 12*xmu^2*log(xmu)));
-aeb.meas.expr.add("fx_mu_by_e", quote(fx_mu/fx_e))
+aeb.meas.expr.add("me_by_mtau", quote(m_e^2/m_tau^2))
+aeb.meas.expr.add("mmu_by_mtau", quote(m_mu^2/m_tau^2))
+aeb.meas.expr.add("me_by_mmu", quote(m_e^2/m_mu^2))
+
+##--- phase space factor, function of lepton masses
+phspf = quote(1 -8*x + 8*x^3 - x^4 - 12*x^2*log(x))
+##--- phase space factors for e/tau, mu/tau, e/mu
+rc = aeb.meas.expr.add("phspf_mebymtau",  eval(bquote(substitute(.(phspf), list(x=quote(me_by_mtau))))))
+rc = aeb.meas.expr.add("phspf_mmubymtau", eval(bquote(substitute(.(phspf), list(x=quote(mmu_by_mtau))))))
+rc = aeb.meas.expr.add("phspf_mebymmu", eval(bquote(substitute(.(phspf), list(x=quote(me_by_mmu))))))
+rc = aeb.meas.expr.add("Bmu_by_Be_th", quote(phspf_mmubymtau/phspf_mebymtau))
+
+##--- Be from Bmu
+aeb.meas.expr.add("Be_from_Bmu", quote(phspf_mebymtau/phspf_mmubymtau*Gamma3))
 
 ##
-## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2) = 0.972565 +- 0.000009 -- PDG 2004
-## http://pi.physik.uni-bonn.de/~brock/teaching/vtp_ss06/doc/davier_0507078.pdf
-## updated to HFAG 2009 by Swagato
+## rad. corrections from to get Be from tau lifetime
+## values from arXiv:hep-ph/0507078v2 p.7, could be recomputed
+## - delta^L_gamma = 1 + alpha(mL)/2pi * (25/4 - pi^2)
+## - delta^L_W = 1 + 3/5* m_L^2/M_W^2
 ##
-## B_tau_mu_by_e_th.val = 0.972565
-## B_tau_mu_by_e_th.err = 0.000009
-## B_tau_mu_by_e_th.val = 0.972558
-## B_tau_mu_by_e_th.err = 4.50333e-06
-## aeb.meas.add.single("B_tau_mu_by_e_th", B_tau_mu_by_e_th.val, B_tau_mu_by_e_th.err)
+delta.tau.gamma = 1 - 43.2e-4
+delta.mu.gamma = 1 - 42.4e-4
+delta.tau.W = 1 + 2.9e-4
+delta.mu.W = 1 + 1.0e-6
 
 ##
-## model matrix
-## multiplied by the vector of theory parameters returns the vector of measurement types
+## Be from tau lifetime
+## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
 ##
-## for universality Be = B(tau -> e nu nubar) = Be_univ
-## -          1 * Be_univ = Be
-## - fx_mu_by_e * Be_univ = Bmu
+aeb.meas.expr.add("Be_from_taulife",
+                  bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
+                         *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
 ##
-fx_mu_by_e.val = quant.val["fx_mu_by_e"]
-names(fx_mu_by_e.val) = NULL
-aeb.meas.fit.add("Gamma5univ", c(Gamma5=1, Gamma3=fx_mu_by_e.val))
+## Be from unitarity = 1 - Bmu - B_VA - B_s
+##
+aeb.meas.expr.add("Be_unitarity", quote(1 - Gamma3 - B_tau_VA - Gamma110))
+
+##
+## add Be_univ as covariance weigthed combination of Be, Be_from_Bmu and Be_from_taulife
+##
+aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
 ##
 ## Vud
@@ -176,12 +213,26 @@ aeb.meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
 aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*m_s^2 + deltaR_su3break_remain))
 ## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
+if (FALSE) {
+
 ##--- add R_tau as function of quantities
-aeb.meas.expr.add("R_tau", quote(1/Gamma5univ -1 -fx_mu_by_e))
+aeb.meas.expr.add("R_tau", quote(1/Be_fit -1 -phspf_mmubymtau/phspf_mebymtau))
 ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-aeb.meas.expr.add("R_tau_s", quote(Gamma110/Gamma5univ))
-##--- add R_tay_VA = R_tau - R_tau_s
+aeb.meas.expr.add("R_tau_s", quote(Gamma110/Be_fit))
+##--- add R_tau_VA = R_tau - R_tau_s
 aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
+
+} else {
+
+##--- add R_tau_VA = R - R_tau_s
+aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_fit))
+##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
+aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_fit))
+##--- add R_tau as function of quantities
+aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
+
+}
+
 ##--- add Vus
 aeb.meas.expr.add("Vus", quote(sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break))))
 
@@ -189,10 +240,14 @@ aeb.meas.expr.add("Vus", quote(sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
 Vus.err.th = abs(quant.cov["Vus", "deltaR_su3break"])/quant.err["deltaR_su3break"]
 Vus.err.exp = sqrt(quant.err["Vus"]^2 - Vus.err.th^2)
 
-nsigma = (quant.val["Vus"] - 0.2255)/quadrature(c(quant.err["Vus"], 0.0010))
+Vus.unitarity.val = 0.2255
+Vus.unitarity.err = 0.0010
+nsigma = (quant.val["Vus"] - Vus.unitarity.val)/quadrature(c(quant.err["Vus"], Vus.unitarity.err))
 
 display.names = c(Gamma110.names,
-  "Gamma110", "Gamma110_pdg09", "fx_mu_by_e", "Gamma5univ",
+  "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife", "Be_unitarity", "Be_fit",
+  "B_tau_VA", "B_tau_VA_unitarity", "B_tau_VA_fit",
+  "Gamma110", "B_tau_s_unitarity", "B_tau_s_fit", "Gamma110_pdg09",
   "R_tau", "R_tau_s", "R_tau_VA", "deltaR_su3break", "Vus")
 show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names]),
            Vus_err_perc = c(quant.err["Vus"]/quant.val["Vus"]*100, 0),
