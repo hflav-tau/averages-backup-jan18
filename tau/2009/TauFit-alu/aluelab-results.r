@@ -105,13 +105,6 @@ aeb.meas.expr.add("B_tau_VA_unitarity", quote(1-Gamma5-Gamma3-Gamma110))
 aeb.meas.expr.add("B_tau_s_unitarity", quote(1-Gamma5-Gamma3-B_tau_VA))
 
 ##
-## fit best value for hadronic strange and non-strange inclusive BRs
-## using both the direct measurements and the result from the unitarity constraint
-##
-aeb.meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
-aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
-
-##
 ## universality Be = B(tau -> e nu nubar)
 ## see arXiv:hep-ph/0507078v2 p.7, doi:10.1103/RevModPhys.78.1043 p.1047
 ##
@@ -140,9 +133,22 @@ aeb.meas.add.single("tau_mu", 2.197034e-6, 0.000021e-6)
 ##
 aeb.meas.expr.add("Be_unitarity", quote(1 - Gamma3 - B_tau_VA - Gamma110))
 aeb.meas.expr.add("Bmu_unitarity", quote(1 - Gamma5 - B_tau_VA - Gamma110))
-##--- fit for best Be, Bmu
-aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
-aeb.meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
+
+##
+## fit best values for Be, Bmu, B_tau_VA, B_tau_s
+## using both the direct measurements and the result from the unitarity constraint
+##
+if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
+  aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
+  aeb.meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
+  aeb.meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
+  aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
+} else {
+  rc = aeb.meas.expr.add("Be_fit", quote(Gamma5))
+  rc = aeb.meas.expr.add("Bmu_fit", quote(Gamma3))
+  rc = aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
+  rc = aeb.meas.expr.add("B_tau_s_fit", quote(Gamma110))
+}
 
 ##
 ## compute phase space factors for Bmu/Be universality
@@ -183,7 +189,7 @@ aeb.meas.expr.add("Be_from_taulife",
 ##
 ## add Be_univ as covariance weigthed combination of Be, Be_from_Bmu and Be_from_taulife
 ##
-aeb.meas.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
+aeb.meas.fit.add("Be_univ", c(Be_fit=1, Be_from_Bmu=1, Be_from_taulife=1))
 
 ##
 ## Vud
@@ -218,24 +224,21 @@ aeb.meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
 aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*m_s^2 + deltaR_su3break_remain))
 ## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
-if (FALSE) {
-
-##--- add R_tau as function of quantities
-aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
-##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-aeb.meas.expr.add("R_tau_s", quote(Gamma110/Be_univ))
-##--- add R_tau_VA = R_tau - R_tau_s
-aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
-
+if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
+  ##--- add R_tau_VA = R - R_tau_s
+  aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_univ))
+  ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
+  aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_univ))
+  ##--- add R_tau as function of quantities
+  aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
 } else {
-
-##--- add R_tau_VA = R - R_tau_s
-aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_univ))
-##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_univ))
-##--- add R_tau as function of quantities
-aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
-
+  ##--- add R_tau as function of quantities
+  ## aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
+  aeb.meas.expr.add("R_tau", quote((B_tau_VA+Gamma110)/Be_univ))
+  ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
+  aeb.meas.expr.add("R_tau_s", quote(Gamma110/Be_univ))
+  ##--- add R_tau_VA = R_tau - R_tau_s
+  aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
 }
 
 ##--- add Vus
