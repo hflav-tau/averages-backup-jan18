@@ -113,13 +113,13 @@ aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
 
 ##
 ## universality Be = B(tau -> e nu nubar)
-## see arXiv:hep-ph/0507078v2 p.7
+## see arXiv:hep-ph/0507078v2 p.7, doi:10.1103/RevModPhys.78.1043 p.1047
 ##
 ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
 ## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
 ##
 ## minimum chisq fit constraining Bmu/Be from Standard Model, using Be, Bmu
-## tau lifetime should also be included, see arXiv:hep-ph/0507078v2 p.7
+## tau lifetime should also be included, see same reference
 ##
 
 ##--- from PDG 2009
@@ -164,7 +164,7 @@ aeb.meas.expr.add("Be_from_Bmu", quote(phspf_mebymtau/phspf_mmubymtau *Bmu_fit))
 
 ##
 ## rad. corrections from to get Be from tau lifetime
-## values from arXiv:hep-ph/0507078v2 p.7, could be recomputed
+## values from 10.1103/RevModPhys.78.1043 p.1047, arXiv:hep-ph/0507078v2 p.7, could be recomputed
 ## - delta^L_gamma = 1 + alpha(mL)/2pi * (25/4 - pi^2)
 ## - delta^L_W = 1 + 3/5* m_L^2/M_W^2
 ##
