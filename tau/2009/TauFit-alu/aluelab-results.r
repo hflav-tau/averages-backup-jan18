@@ -58,16 +58,6 @@ if (use.s.factors) {
 ##
 ##+++ aeb.meas.add.single("Km4PiNu", 0.011e-2, 0.007e-2)
 
-##--- measurement names matching a specific PDG Gamma
-meas.match = function(gamma) {
-  return( regexpr(paste("[.]", gamma, "[.]", sep=""), names(meas.val)) != -1 )
-}
-
-##--- sum in quadrature
-quadrature = function(x) {
-  return(sqrt(sum(x^2)))
-}
-
 ##
 ## PDG 2009 definition of Gamma110 = B(tau -> Xs nu)
 ##
