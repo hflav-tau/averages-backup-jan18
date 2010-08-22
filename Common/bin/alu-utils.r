@@ -21,7 +21,17 @@ diag.m <- function(vec) {
 match.nocase = function(pattern, str) {
   return(regexpr(pattern, str, ignore.case=TRUE) != -1)
 }
-  
+
+##--- measurement names matching a specific name
+meas.match = function(gamma) {
+  return( regexpr(paste("[.]", gamma, "[.]", sep=""), meas.names) != -1 )
+}
+
+##--- sum in quadrature
+quadrature = function(x) {
+  return(sqrt(sum(x^2)))
+}
+
 ##
 ## representation of Combos input card files data
 ##
