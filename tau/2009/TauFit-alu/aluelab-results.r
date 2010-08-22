@@ -143,16 +143,12 @@ if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
 ##
 ## compute phase space factors for Bmu/Be universality
 ##
-aeb.meas.expr.add("me_by_mtau", quote(m_e^2/m_tau^2))
-aeb.meas.expr.add("mmu_by_mtau", quote(m_mu^2/m_tau^2))
-aeb.meas.expr.add("me_by_mmu", quote(m_e^2/m_mu^2))
-
 ##--- phase space factor, function of lepton masses
 phspf = quote(1 -8*x + 8*x^3 - x^4 - 12*x^2*log(x))
 ##--- phase space factors for e/tau, mu/tau, e/mu
-rc = aeb.meas.expr.add("phspf_mebymtau",  eval(bquote(substitute(.(phspf), list(x=quote(me_by_mtau))))))
-rc = aeb.meas.expr.add("phspf_mmubymtau", eval(bquote(substitute(.(phspf), list(x=quote(mmu_by_mtau))))))
-rc = aeb.meas.expr.add("phspf_mebymmu", eval(bquote(substitute(.(phspf), list(x=quote(me_by_mmu))))))
+rc = aeb.meas.expr.add("phspf_mebymtau",  eval(bquote(substitute(.(phspf), list(x=quote(m_e^2/m_tau^2))))))
+rc = aeb.meas.expr.add("phspf_mmubymtau", eval(bquote(substitute(.(phspf), list(x=quote(m_mu^2/m_tau^2))))))
+rc = aeb.meas.expr.add("phspf_mebymmu", eval(bquote(substitute(.(phspf), list(x=quote(m_e^2/m_mu^2))))))
 rc = aeb.meas.expr.add("Bmu_by_Be_th", quote(phspf_mmubymtau/phspf_mebymtau))
 
 ##--- Be from Bmu
