@@ -202,7 +202,7 @@ deltaR.su3break.val = 0.218
 deltaR.su3break.err = 0.026
 
 ##--- PhysRevD.74.074009
-aeb.meas.add.single("m_s", 94./1000., 6./1000.)
+aeb.meas.add.single("m_s", 94, 6)
 ##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
 deltaR.su3break.val = 0.240
 deltaR.su3break.err = 0.032
@@ -211,7 +211,7 @@ deltaR.su3break.err = 0.032
 aeb.meas.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
 aeb.meas.add.single("deltaR_su3break_msd2", 9.3, 3.4)
 aeb.meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
-aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*m_s^2 + deltaR_su3break_remain))
+aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*(m_s/1000)^2 + deltaR_su3break_remain))
 ## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
