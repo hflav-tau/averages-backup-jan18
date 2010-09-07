@@ -218,10 +218,6 @@ deltaR.su3break.err = 0.026
 ##--- PhysRevD.74.074009
 aeb.meas.add.single("m_s", 94, 6)
 ##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
-deltaR.su3break.val = 0.240
-deltaR.su3break.err = 0.032
-deltaR.su3break.val = 0.1544 + 9.3*0.094^2 + 0.0034 
-deltaR.su3break.err = 0.032
 aeb.meas.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
 aeb.meas.add.single("deltaR_su3break_msd2", 9.3, 3.4)
 aeb.meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
