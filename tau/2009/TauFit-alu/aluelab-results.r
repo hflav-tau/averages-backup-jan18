@@ -21,8 +21,15 @@ args <- commandArgs(TRUE)
 ##--- option -s, use S-factors
 use.s.factors =  FALSE
 if(any(args == "-s")) {
+  ##--- use S-factors
   use.s.factors =  TRUE
   args = args[args != "-s"]
+}
+use.unitarity =  FALSE
+if(any(args == "-u")) {
+  ##--- use unitarity constraint to compute Be_univ, B_had_VA, B_had_s
+  use.unitarity =  TRUE
+  args = args[args != "-u"]
 }
 
 if (length(args) > 0) {
@@ -129,10 +136,21 @@ aeb.meas.expr.add("Bmu_unitarity", quote(1 - Gamma5 - B_tau_VA - Gamma110))
 ## using both the direct measurements and the result from the unitarity constraint
 ##
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
-  aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
-  aeb.meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
-  aeb.meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
-  aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
+  if (use.unitarity) {
+    ##--- use unitarity constraint to compute Be, Bmu, B_tau_VA/s
+    aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
+    aeb.meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
+    aeb.meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
+    aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
+  } else {
+    aeb.meas.expr.add("Be_fit", quote(Gamma5))
+    aeb.meas.expr.add("Bmu_fit", quote(Gamma3))
+    ##--- direct measurement
+    ## aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
+    ##--- traditional A.Pich et al. calculation
+    aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
+    aeb.meas.expr.add("B_tau_s_fit", quote(Gamma110))
+  }
 } else {
   rc = aeb.meas.expr.add("Be_fit", quote(Gamma5))
   rc = aeb.meas.expr.add("Bmu_fit", quote(Gamma3))
