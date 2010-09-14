@@ -225,6 +225,10 @@ aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3bre
 ## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
+  ##
+  ## if using constrained fit with dummy mode, i.e. unconstrained fit
+  ## then use "fit" values computed here (possibly incorporating unitarity constraint)
+  ##
   ##--- add R_tau_VA = R - R_tau_s
   aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_univ))
   ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
@@ -232,6 +236,10 @@ if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
   ##--- add R_tau as function of quantities
   aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
 } else {
+  ##
+  ## if using constrained fit without dummy mode, i.e. constrained fit
+  ## then use values computed in the alucomb.r fit
+  ##
   ##--- add R_tau as function of quantities
   ## aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
   aeb.meas.expr.add("R_tau", quote((B_tau_VA+Gamma110)/Be_univ))
