@@ -1,4 +1,4 @@
-INCLUDE pdginput.input
+INCLUDE combos_pdginput_measurements_constrained_aleph_kpicorr.input
 INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE cleo.input

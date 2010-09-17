@@ -1,7 +1,0 @@
-* include dummy mode
-
-BEGIN        DUMMY  Gamma998 UNKNOWN
-MEASUREMENT  m_Gamma998 statistical systematic
-DATA         m_Gamma998 statistical systematic
-             0.0        1.0         0.0          
-END
