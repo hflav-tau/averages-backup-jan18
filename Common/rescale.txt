@@ -1,0 +1,127 @@
+                                                             May 28, 2006
+                                                             Orin Dahl
+
+
+Rescaling dependent and correlated matrices, 2006 changes.
+
+I am now processing the scaling for correlations and dependencys differently
+but not changing the processing of the other measurements.
+
+
+Contents
+    A.  BASIC METHOD.
+    B.  PULL VECTORS.
+    C.  RESCALING DEPENDENT ERRORS.
+    D.  RESCALING CORRELATED ERRORS.
+
+
+A.  BASIC METHOD.
+
+For these dependent or correlated measurements the basic idea is twofold:
+1.  I do not eliminate weak measurements.
+2.  To calculate the pull quantity I treat each measurement as a separate
+    node and form it as a vector.
+3.  I then rescale the input correlations in the direction of the pull
+    quantity.
+
+
+B.  PULL VECTORS.
+
+For dependent and correlated errors I wish to determine the direction as well
+as the magnitude of the pull quantities.
+
+Let
+    m = measured values
+    f = fitted values
+    Em = measured error matrix
+    Ef = fitted error matrix
+    Wm = Em**-1
+
+For an uncorrelated measurement I define the pull quantity to be:
+    ( f(i) - m(i) ) / Sqrt( Em(i,i) - Ef(i,i) )
+
+I may expand this to define a pull vector for measurements with correlations.
+Let
+    C = ( Em - Ef )**-1
+I may then form a pull vector
+    p(i) = Q(i,j) * ( f(j) - m(j) )
+where the matrix Q is the square root of the matrix C.  This matrix Q will
+exist since C is a positive semi-definite matrix.
+
+I must be careful when I form C since Em may be infinite.  I may write
+    C = [ Em - Ef ]**-1
+      = [ Wm**-1 - Ef ]**-1
+      = [ ( 1 - Ef * Wm ) * Wm**-1 ]**-1
+      = Wm * ( 1 - Ef * Wm )**-1
+
+I may form the matrix Q by getting the eigenvectors and eigenvalues of C.
+    R = the matrix which diagonalizes C (Rt is its transpose)
+    D = the eigenvalues of C
+Thus
+    D = Rt * C * R
+Since D is a positive seni-definite diagonal matrix I may write
+    D = d**2
+where
+    d(i,i) = Sqrt( D(i,i) ) and d(i,j) = 0 for i != j
+Then I have
+    Q = R * d * Rt
+and the pull vector is
+    p = R * d * Rt * ( f - m )
+
+To summarize
+    C = Wm * ( 1 - Ef * Wm )**-1
+    Get the eigenvectors R and eigenvalues D of C.
+    d = Sqrt( D )
+    p = R * d * Rt * ( f - m )
+
+
+C.  RESCALING DEPENDENT ERRORS.
+
+For dependent measurements there is only one error and the inverse error
+matrix is an expression of the dependence of the measurements.  Thus I will
+rescale the error matrix by the magnitude of the pull vector and make no
+use of its direction.
+
+I did determine the pull vector in order to get its magnitude.  However, I
+could use the simpler
+    p**2 = ( f - m ) * C * ( f - m )
+
+
+D.  RESCALING CORRELATED ERRORS.
+
+For correlated measurements I wish to rescale the errors in the direction of
+the pull vector.  Since the result should not depend upon the units of the
+measurements I will work with the normalized error matrix Cm where
+    Cm(i,j) = Em(i,j) / ( sigma(i) * sigma(j) )  (no sum on i and j)
+    sigma(i) = Sqrt( Em(i,i) )
+
+Now rescale along the direction of the pull vector.  I do this by adding a
+matrix in this direction to the correlation matrix Cm.  Thus
+    Dm(i,j) = Cm(i,j) + u(i) * u(j) * S
+where
+    p(i) is the pull vector
+    p    is the magnitude of the pull vector
+    u(i) = p(i) / p  a unit vector in the direction of the pull vector.
+    Dm(i,j) = Hm(i,j) / ( sigma(i) * sigma(j) )  (no sum on i and j)
+    Hm(i,j) is the rescaled error matrix.
+
+I still need to determine the scale factor S.  Since u(i) is a unit vector I
+may multiply Dm(i,j) by u(i) and u(j) to get
+    Dm = Cm + S
+where
+    Cm = u(i) * Cm(i,j) * u(j)
+    Dm = u(i) * Dm(i,j) * u(j)
+Since I wish to rescale the errors by p I have
+    Dm = Cm * p**2
+and hence
+    S = ( p**2 - 1 ) * Cm
+
+Thus the rescaled error matrix Hm(i,j) is
+    Hm(i,j) = Em(i,j) + ( u(i) * sigma(i) ) * ( u(j) * sigma(j) ) * S
+
+To summarize
+    sigma(i) = Sqrt( Em(i,i) )
+    Cm(i,j) = Em(i,j) / ( sigma(i) * sigma(j) )  (no sum on i and j)
+    Cm = u(i) * Cm(i,j) * u(j)
+    S = ( p**2 - 1 ) * Cm
+    Hm(i,j) = Em(i,j) + ( u(i) * sigma(i) ) * ( u(j) * sigma(j) ) * S
