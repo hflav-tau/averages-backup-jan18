@@ -8,7 +8,7 @@
 ##
 ## ////////////////////////////////////////////////////////////////////////////
 
-source("../../../Common/bin/aluelab.r")
+library(methods)
 
 args <- commandArgs(TRUE)
 
@@ -37,6 +37,6 @@ cat("\nbabar belle measurements\n\n")
 show(rbind(val=meas.val[meas.sel.babar.belle],
           err=meas.err[meas.sel.babar.belle]))
 cat("\nbabar belle correlation\n\n")
-show(meas.cov[meas.sel.babar.belle, meas.sel.babar.belle])
+show(meas.corr[meas.sel.babar.belle, meas.sel.babar.belle])
 
 options(options.save)
