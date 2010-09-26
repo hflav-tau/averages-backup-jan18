@@ -1,4 +1,4 @@
-INCLUDE alucomb_pdginput_measurements_no_babar_belle_before_aleph_hcorr.input
+INCLUDE alucomb_measurements_no_babar_belle_before_aleph_hcorr.input
 INCLUDE babar.input
 INCLUDE belle.input
 INCLUDE cleo.input
