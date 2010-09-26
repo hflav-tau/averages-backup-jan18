@@ -1417,11 +1417,13 @@ int main(int argc, char* argv[]){
       }
     }
   }
+  int ngroup[200];
   for (inode=0;inode<=newnode_all;++inode){
     for (i=0;i<nmeas;++i){
       if (nodegroup_all[i]==inode) {
-	fprintf (measinfofile, "i+1 = %3d nodegroup = %3d icorrj = %2d n_nodegroup = %2d meas = %10.5e +- %10.5e %s %s \n",
-		 i+1,nodegroup_all[i],icorrj[i].size(),n_nodegroup[nodegroup_all[i]], measvalue[i], measerror[i], expname[i].data(), meastitle[i].data());
+	ngroup[i] = n_nodegroup[nodegroup_all[i]];
+	fprintf (measinfofile, "i+1 = %3d nodegroup = %2d ngroup = %2d icorrj = %2d ncycle = %2d meas = %10.5e +- %10.5e %6s %s \n",
+		 i+1,nodegroup_all[i],ngroup[i],icorrj[i].size(), ncycle[i], measvalue[i], measerror[i], expname[i].data(), meastitle[i].data());
       }
     }
   }
@@ -1433,59 +1435,60 @@ int main(int argc, char* argv[]){
   for (int p=0;p<2;++p){
     if (p==0) measfile[0]=fopen(Form("combos_measurements_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
     if (p==1) measfile[1]=fopen(Form("alucomb_measurements_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    FILE *thisfile = measfile[p];
     iimeas=0;
     for (int i=0;i<nmeas;++i){
       ++iimeas;
       //      cout << "i = " << i << endl;
-      fprintf (measfile[p], "* IMEAS = %d \n",     iimeas);
-      fprintf (measfile[p], "* GAMMANAME = %s \n", gammaname[i].data());
-      fprintf (measfile[p], "* DECAYNAME = %s \n", meastitle[i].data());
+      fprintf (thisfile, "* IMEAS = %d \n",     iimeas);
+      fprintf (thisfile, "* GAMMANAME = %s \n", gammaname[i].data());
+      fprintf (thisfile, "* DECAYNAME = %s \n", meastitle[i].data());
       vector<string>::iterator it=find(nodename.begin(),nodename.end(),measnodename[i]);      
       inode=it-nodename.begin();
-      fprintf (measfile[p], "* NODENAME = %s found at inode+1 = %d with NODENAME[inode] = %s has %d, %d, %d base quantities in numerator, denominator and both [excluding overlap] \n", measnodename[i].data(), inode+1, nodename[inode].data(),node_num_npar[inode], node_den_npar[inode],node_parm[inode].size());
+      fprintf (thisfile, "* NODENAME = %s found at inode+1 = %d with NODENAME[inode] = %s has %d, %d, %d base quantities in numerator, denominator and both [excluding overlap] \n", measnodename[i].data(), inode+1, nodename[inode].data(),node_num_npar[inode], node_den_npar[inode],node_parm[inode].size());
       for (ipar=0;ipar<node_num_parm[inode].size();++ipar){
 	int parm=node_num_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	fprintf (measfile[p],"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_num_coef[inode].at(ipar));
+	fprintf (thisfile,"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_num_coef[inode].at(ipar));
       }
       for (ipar=0;ipar<node_den_parm[inode].size();++ipar){
 	int parm=node_den_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	fprintf (measfile[p],"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_den_coef[inode].at(ipar));
+	fprintf (thisfile,"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_den_coef[inode].at(ipar));
       }
-      fprintf (measfile[p], "*  first quantity measured by inode+1 = %d has gamma = %d parm = %d quan = %d title = %s\n",inode+1,basegamma[first_quan[inode]-1],baseparm[first_quan[inode]-1],first_quan[inode],basetitle[first_quan[inode]-1].data());
+      fprintf (thisfile, "*  first quantity measured by inode+1 = %d has gamma = %d parm = %d quan = %d title = %s\n",inode+1,basegamma[first_quan[inode]-1],baseparm[first_quan[inode]-1],first_quan[inode],basetitle[first_quan[inode]-1].data());
       //
-      fprintf (measfile[p], "\nBEGIN %s Gamma%s pub.%s.%s \n\n", expname[i].data(), gammaname[i].data(), author[i].data(), year[i].data());
+      fprintf (thisfile, "\nBEGIN %s Gamma%s pub.%s.%s \n\n", expname[i].data(), gammaname[i].data(), author[i].data(), year[i].data());
       if (p==0) {//COMBOS
 	if (uconstrain &&      // SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint]
 	    ((inode+1)==80 ||  // NODE = 79 NAME = S035R33 GAMMA = 102, because Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104) 
 	     (inode+1)==82)) { // NODE = 81 NAME = S035R38 GAMMA = 103
-	  fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
-	  fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",3);
+	  fprintf (thisfile, "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
+	  fprintf (thisfile, "DATA         m_Gamma%d statistical systematic \n",3);
 	}else{
-	  fprintf (measfile[p], "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
-	  fprintf (measfile[p], "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	  fprintf (thisfile, "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
+	  fprintf (thisfile, "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
 	}
       }else if (p==1) {//ALUCOMB
-	fprintf (measfile[p], "MEASUREMENT  m_Gamma%s statistical systematic \n",gammaname[i].data());
-	fprintf (measfile[p], "DATA         m_Gamma%s statistical systematic \n",gammaname[i].data());
+	fprintf (thisfile, "MEASUREMENT  m_Gamma%s statistical systematic \n",gammaname[i].data());
+	fprintf (thisfile, "DATA         m_Gamma%s statistical systematic \n",gammaname[i].data());
       }
-      fprintf (measfile[p], "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]);
+      fprintf (thisfile, "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]);
       bool firstcorr=true;
       jjmeas=0;
       for (int j=0;j<nmeas;++j) {
 	++jjmeas;
 	if (corrmat[i][j]!=0) {
-	  if (firstcorr) {fprintf (measfile[p], " \n"); firstcorr=false;}
-	  fprintf (measfile[p], "STAT_CORR_WITH %s Gamma%s pub.%s.%s %f ! IMEAS = %d \n", 
+	  if (firstcorr) {fprintf (thisfile, " \n"); firstcorr=false;}
+	  fprintf (thisfile, "STAT_CORR_WITH %s Gamma%s pub.%s.%s %f ! IMEAS = %d \n", 
 		   expname[j].data(), gammaname[j].data(), author[j].data(), year[j].data(), corrmat[i][j], jjmeas);
 	}
       }
-      fprintf (measfile[p], " \nEND \n\n");
+      fprintf (thisfile, " \nEND \n\n");
     }
-    fclose(measfile[p]);
+    fclose(thisfile);
   }
   //
   FILE *avefile[2];

@@ -104,6 +104,7 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
   if (yearversion==2009001) ts2="Spring 2009";
   if (yearversion==2009002) ts2="Summer 2009";
   if (yearversion==2010001) ts2="Winter 2010";
+  if (yearversion==2010002) ts2="Summer 2010";
   tbox2->AddText(ts2);
   tbox2->Draw();
 }
@@ -351,7 +352,7 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
 
-  HFAGTauLabel(2010001,.3,.225,.2,.05,.8);
+  HFAGTauLabel(2010002,.3,.225,.2,.05,.8);
 
   size_t extPos = filename_string.rfind('.');
   std::string outFilename;
