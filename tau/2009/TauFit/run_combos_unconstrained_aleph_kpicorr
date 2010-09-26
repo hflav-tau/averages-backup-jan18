@@ -1,1 +1,1 @@
-../../../combos/combos combos_average_pdginput_with_babar_belle_unconstrained_aleph_kpicorr.input | tee combos_unconstrained_aleph_kpicorr.log
+../../../combos/combos combos_average_with_babar_belle_unconstrained_aleph_kpicorr.input | tee combos_unconstrained_aleph_kpicorr.log

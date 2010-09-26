@@ -1,4 +1,4 @@
-INCLUDE alucomb_pdginput_measurements_no_babar_belle.input
+INCLUDE alucomb_measurements_no_babar_belle.input
 INCLUDE babar.input 
 INCLUDE belle.input 
 INCLUDE cleo.input  
