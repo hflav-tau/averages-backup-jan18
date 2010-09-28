@@ -386,6 +386,21 @@ meas.cov.stat = meas.cov.stat + diag.m(meas.stat^2)
 ##--- total covariance
 meas.cov.syst = meas.cov.syst + diag.m(meas.syst^2)
 meas.cov = meas.cov.stat + meas.cov.syst
+
+##--- scale specific measurements quantities total covariance
+quant.sfact.list = lapply(combination$quantities.options, function(el) { el["scale"] })
+if (length(quant.sfact.list) > 0) {
+  meas.sfact = rep(1, meas.num)
+  names(meas.sfact) = meas.names
+  cat("\n")
+  rc = lapply(names(quant.sfact.list), function(el) {
+    meas.sfact[which(meas.quantities == el)] <<- quant.sfact.list[[el]]
+    cat("applying s-factor = ", quant.sfact.list[[el]], " for quantity ", el, "for measurements:\n")
+    show(names(meas.sfact[which(meas.quantities == el)]))
+  })
+  meas.cov = meas.cov * (meas.sfact %o% meas.sfact)
+}
+
 ##--- total correlation
 meas.corr = meas.cov / (meas.err %o% meas.err)
 
@@ -622,7 +637,7 @@ meas.cov.alu.full = meas.cov * (meas.sfact.alu.full %o% meas.sfact.alu.full)
 alu.full = get.fit.errors(meas.cov.alu.full, (meas.val | TRUE))
 
 ##
-## S-factors, grouping by correlation to fitted quantity
+## S-factors, grouping by relation to fitted quantity
 ##
 meas.sfact.alu.fq = meas.val * 0 + 1
 quant.sfact.alu.fq = quant.val * 0 + 1

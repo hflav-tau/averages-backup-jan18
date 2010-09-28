@@ -110,6 +110,7 @@ repeat {
 ##
 measurements = list()
 combination = list()
+meas.options = list()
 
 flag.in.meas = FALSE
 flag.in.data = FALSE
@@ -118,6 +119,12 @@ flag.in.combine = FALSE
 flag.in.sumofquant = FALSE
 flag.in.combofquant = FALSE
 flag.in.constraint = FALSE
+flag.in.combine.meas = FALSE
+
+data.labels = character()
+data.values = numeric()
+meas.labels = character()
+meas.values = numeric()
 
 for (line in lines) {
   ## cat(line,"\n")
@@ -127,6 +134,11 @@ for (line in lines) {
   }
   line = gsub("\\s*!.*", "", line, perl=TRUE)
   fields = unlist(strsplit(line, "\\s+", perl=TRUE))
+
+  ##--- first field == whitespace means it is a continuation line
+  flag.continuation = match.nocase("^\\s*$", fields[1])
+  
+  ##--- begin of measurement cards
   if (match.nocase("^BEGIN$", fields[1])) {
     if (flag.in.meas) {
       cat("error, BEGIN keyword inside definition of", meas$tag, "\n")
@@ -143,12 +155,7 @@ for (line in lines) {
       meas$corr.terms = list()
       meas$corr.terms.tot = list()
 
-      meas.labels = character()
-      data.labels = character()
-      data.values = numeric()
-
       sumofquant.values = numeric()
-
       combofquant.labels = character()
       combofquant.values = numeric()
       measlincombs.list = list()
@@ -166,17 +173,20 @@ for (line in lines) {
     cat("error, ", fields[1], "outside a measurement definition (BEGIN..END)\n")
     next
   }
-  if (!match.nocase("^\\s*$", fields[1])) {
+  ##
+  ## field[1] != <white space> means end of data for current data card field
+  ##
+  if (!flag.continuation) {
     ##
     ## store collected data of SUMOFQUANT cards
     ##
     if (flag.in.sumofquant) {
-      ##-- vector with one for each quantity whose sum corresponds to the measurement
+      ##--- vector with one for each quantity whose sum corresponds to the measurement
       val = rep(1, length(sumofquant.values)-1)
       names(val) = tail(sumofquant.values, -1)
-      ##-- list of measurements with the coefficients corresponding to the related quantities
+      ##--- list of measurements with the coefficients corresponding to the related quantities
       measlincombs.list[[sumofquant.values[1]]] = val
-      ##-- reset vector of SUMOFQUANT parameter
+      ##--- reset vector of SUMOFQUANT parameter
       sumofquant.values = numeric()
     }
     ##
@@ -188,7 +198,7 @@ for (line in lines) {
       }
       names(combofquant.values) = tail(combofquant.labels, -1)
       measlincombs.list[[combofquant.labels[1]]] = combofquant.values
-      ##-- reset vectors of COMBOFQUANT parameter
+      ##--- reset vectors of COMBOFQUANT parameter
       combofquant.labels = character()
       combofquant.values = numeric()
     }
@@ -211,15 +221,33 @@ for (line in lines) {
       tmp = constraint.values[1]
       names(tmp) = NULL
       constraints.list.val[[constraint.labels[1]]] = tmp
-      ##-- reset vectors of CONSTRAINT parameter
+      ##--- reset vectors of CONSTRAINT parameter
       constraint.labels = character()
       constraint.values = numeric()
+    }
+    ##
+    ## store collected data of MEASUREMENT card in COMBINE section
+    ##
+    if (flag.in.combine.meas) {
+      ##--- add this measurement to the list of measurments to combine
+      meas.label = sub("^m_","", data.labels[1])
+      meas.labels = c(meas.labels, meas.label)
+      if ((length(data.labels) - 3) != length(data.values)) {
+        stop("error: MEASUREMENT ", meas.label, " mismatch between labels and data values")
+      }
+      names(data.values) = data.labels[-(1:3)]
+      if (length(data.values) > 0) {
+        meas.options[[meas.label]] = data.values
+      }
+      data.labels = character()
+      data.values = numeric()
     }
     flag.in.data = FALSE
     flag.in.params = FALSE
     flag.in.sumofquant = FALSE
     flag.in.combofquant = FALSE
     flag.in.constraint = FALSE
+    flag.in.combine.meas = FALSE
   }
   if (match.nocase("^END$", fields[1])) {
     if (!flag.in.combine) {
@@ -245,7 +273,7 @@ for (line in lines) {
       }
       names(data.values) = data.labels
       
-      ##-- get measurement values from following DATA values
+      ##--- get measurement values from following DATA values
       meas.values = numeric(length(meas.labels))
       names(meas.values) = meas.labels
       for (meas.label in meas.labels) {
@@ -255,7 +283,7 @@ for (line in lines) {
         meas.values[meas.label] = data.values[meas.label]
       }
 
-      ##-- edit measurement value, stat, syst labels, preserve meas.labels
+      ##--- edit measurement value, stat, syst labels, preserve meas.labels
       labels = meas.labels
       labels = gsub("^m_", "", labels, ignore.case=TRUE)
       labels = gsub("statistical", "stat", labels, ignore.case=TRUE)
@@ -279,19 +307,25 @@ for (line in lines) {
         labels[1] = meas$bibitem[2]
       }
 
-      ##-- set labels for measurement and stat./syst. errors
+      ##--- set labels for measurement and stat./syst. errors
       names(meas.values) = labels
 
-      #-- store MEASUREMENT DATA
+      ##--- store MEASUREMENT DATA
       meas$value = meas.values[1]
       meas$stat = meas.values[2]
       meas$syst = meas.values[3]
       meas$syst.terms = data.values[!data.labels %in% meas.labels]
       if (!is.null(measurements[[meas$tag]])) {
-        ##-- two measurements have the same tag
+        ##--- two measurements have the same tag
         stop(paste("error: two measurements with tag", meas$tag))
       }
       measurements[[meas$tag]] = meas
+
+      ##--- reset temporary storage for data values and labels
+      data.labels = character()
+      data.values = numeric()
+      meas.labels = character()
+      meas.values = numeric()
     } else {
       ##
       ## combination cards
@@ -299,6 +333,7 @@ for (line in lines) {
       combination$tag = meas$tag
       combination$bibitem = meas$bibitem
       combination$quantities = meas.labels
+      combination$quantities.options = meas.options
       combination$params = meas$params
       combination$meas.lin.combs = measlincombs.list
       combination$constr.comb = constraints.list.comb
@@ -308,14 +343,10 @@ for (line in lines) {
     flag.in.combine = FALSE
     next
   }
-  if (match.nocase("^MEASUREMENT$", fields[1])) {
-    if (!flag.in.combine) {
-      ##-- get labels for value, stat.error, syst.error
-      meas.labels = fields[2:4]
-    } else {
-      ##-- get list of measurements to combine
-      meas.labels = c(meas.labels, sub("^m_","",fields[2]))
-    }
+  ##--- MEASUREMENT in measurement cards
+  if (match.nocase("^MEASUREMENT$", fields[1]) && !flag.in.combine) {
+    ##--- get labels for value, stat.error, syst.error
+    meas.labels = fields[2:4]
     next
   }
   if (match.nocase("^COMBINE$", fields[1])) {
@@ -323,7 +354,7 @@ for (line in lines) {
     next
   }
   if (match.nocase("^DATA$", fields[1]) ||
-      (flag.in.data && match.nocase("^\\s*$", fields[1]))) {
+      (flag.in.data && flag.continuation)) {
     flag.in.data = TRUE
     data.labels = c(data.labels,
       unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
@@ -344,7 +375,7 @@ for (line in lines) {
     next
   }
   if (match.nocase("^PARAMETERS$", fields[1]) ||
-      (flag.in.params && match.nocase("^\\s*$", fields[1]))) {
+      (flag.in.params && flag.continuation)) {
     flag.in.params = TRUE
     params.data = lapply(fields[-1], function(x) type.convert(x, as.is=TRUE))
     if (length(params.data) == 0) next
@@ -359,12 +390,23 @@ for (line in lines) {
     names(meas$params)[length(meas$params)] = params.data[[1]]
     next
   }
+  ##--- MEASUREMENT in COMBINE cards
+  if ((flag.in.combine && match.nocase("^MEASUREMENT$", fields[1])) ||
+      (flag.in.combine.meas && flag.continuation)) {
+    flag.in.combine.meas = TRUE
+    ##--- collect data in the MEASUREMENT line
+    data.labels = c(data.labels,
+      unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
+    data.values = c(data.values,
+      unlist(lapply(fields[-1], function(elem) {if (!is.na(suppressWarnings(as.numeric(elem)))) {as.numeric(elem)}})))
+    next
+  }
   ##
   ## SUMOFQUANT <quant> <quant 1> [<quant 2> ...]
   ## define a measurement as sum of quantities to fit
   ##
   if (match.nocase("^SUMOFQUANT$", fields[1]) ||
-      (flag.in.sumofquant && match.nocase("^\\s*$", fields[1]))) {
+      (flag.in.sumofquant && flag.continuation)) {
     flag.in.sumofquant = TRUE
     sumofquant.values = c(sumofquant.values, as.character(fields[-1]))
   }
@@ -373,7 +415,7 @@ for (line in lines) {
   ## define a measurement as linear combination of quantities to fit
   ##
   if (match.nocase("^COMBOFQUANT$", fields[1]) ||
-      (flag.in.combofquant && match.nocase("^\\s*$", fields[1]))) {
+      (flag.in.combofquant && flag.continuation)) {
     flag.in.combofquant = TRUE
     combofquant.labels = c(combofquant.labels,
       unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
@@ -385,7 +427,7 @@ for (line in lines) {
   ## define a measurement as linear combination of quantities to fit
   ##
   if (match.nocase("^CONSTRAINT$", fields[1]) ||
-      (flag.in.constraint && match.nocase("^\\s*$", fields[1]))) {
+      (flag.in.constraint && flag.continuation)) {
     flag.in.constraint = TRUE
     constraint.labels = c(constraint.labels,
       unlist(lapply(fields[-1], function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}})))
@@ -395,7 +437,7 @@ for (line in lines) {
 }
 
 list(combination=combination, measurements=measurements)
-} ##-- end of alucomb.read
+} ##--- end of alucomb.read
 
 ##
 ## transform the name of a measurement in the HFAG-tau format into a format usable by Root
