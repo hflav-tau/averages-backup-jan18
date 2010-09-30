@@ -103,7 +103,7 @@ get.combos.chi2nsym = function(file) {
   patt2 = paste(".*\\s+([^=\\s]+)\\s*=\\s*([.0-9eE+-]+)",
     "\\s*\\+-\\s*([.0-9eE+-]+)\\s*.*", sep="")
 
-  flag = FALSE  
+  flag = FALSE
   comb.names = character()
   val = numeric()
   err = numeric()
@@ -279,7 +279,7 @@ for (quant in quant.names) {
       rc[[name]] = names(meas.quantities) %in% paste(exp[[1]], combnames, exp[[2]], sep=".")
       return(rc)
     }), recursive=FALSE)
-    
+
     reslist.sorted.names = character(0)
     reslist.which.meas = do.call(rbind, lapply(reslist, function(x) which(x)))
     if (length(reslist.which.meas) >0) {
@@ -302,7 +302,7 @@ for (quant in quant.names) {
       }
     }
   }
-  
+
   ##--- sort all measurements according to their ordering in the Combos cards
   for (meas in names(sort(unlist(lapply(meas.list.tmp, function(x) x$index))))) {
     exp.meas = list()
@@ -353,7 +353,7 @@ for (quant in quant.names) {
     ## conf.lev = pchisq(chisq, df=dof, lower.tail=FALSE)
     conf.lev = pchisq(plot.data$hfag$chisq, df=plot.data$hfag$dof, lower.tail=FALSE)
   }
-  
+
   ##
   ## HFAG does not usually use S-factors but rather quotes CL
   ## however when CL<CL_min we quote S-factors instead
@@ -367,7 +367,7 @@ for (quant in quant.names) {
     }
     conf.lev.plot = -scale.factor
   }
-  
+
   if (is.null(value) || is.na(value)) {
     warning("could not find HFAG average data for ", quant)
   } else {
@@ -378,7 +378,7 @@ for (quant in quant.names) {
     x.mins = c(x.mins, value - error)
     x.maxs = c(x.maxs, value + error)
   }
-  
+
   ##--- get xmin/xmax of PGD average if existing
   tmp = pdg.averages[[quant]]
   if (is.null(tmp)) {
@@ -480,7 +480,7 @@ for (quant in quant.names) {
   xmin.fmt = sprintf("%%-12.%dg ", xmin.prec)
   xmax.prec = round(log(abs(xmax/range.prec))/log(10)+1.51)
   xmax.fmt = sprintf("%%-12.%dg ", xmax.prec)
-  
+
   ## cat("* ", sprintf("%12.2g ", c(quant.data$xmin/x.units, quant.data$xmax/x.units)))
   cat("* ",
       sprintf(paste(xmin.fmt, xmax.fmt, sep=""), xmin, xmax),
@@ -549,7 +549,7 @@ for (quant in quant.names) {
         label.extra = " [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu,#pi,K) modes fit]"
       }
     } ## any(quant == c("HmNu", "HmPizNu", "KmNu", "KmPizNu", "MmNumbarNu", "PimNu", "PimPizNu"))
-    
+
     cat("& ", sprintf("%-12.6g ", c(comb/x.units, plot.data[[quant]]$hfag$CL.plot)),
         "HFAG Average", label.extra, "\n", file=fh, sep="")
     cat("# next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted\n", file=fh)
@@ -563,7 +563,7 @@ for (quant in quant.names) {
     x.outside.plot = 2*quant.data$xmax - quant.data$xmin
     cat("% ", sprintf("%-12.6g ", c(x.outside.plot, 0, 0)/x.units), ">>> NOT FOUND <<< PDG'09 Average\n", file=fh, sep="")
   }
-  
+
   ##--- measurements
   cat("# next lines are measurement, stat pos-error, neg-error[with negative sign],",
       "syst pos-error, neg-error[with negative sign], experiment-name\n", file=fh)
