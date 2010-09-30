@@ -212,7 +212,7 @@ int plot(std::string filename_string = "plot.input"){
   b1.SetFillColor(ci);
   tempstring=Form(sprecision.Data(),meas[0]-stat[0]); Double_t boxl=tempstring.Atof();
   tempstring=Form(sprecision.Data(),meas[0]+stat[0]); Double_t boxh=tempstring.Atof();
-  b1.DrawBox(boxl, fYmin, boxh, fYmax);
+  b1.DrawBox(boxl, fYmin+0.002*(fYmax-fYmin), boxh, fYmax-0.002*(fYmax-fYmin));
 
   Double_t y[99], ey[99], eyl[99], eyh[99];
   int fColor[99], fSymbol[99];
