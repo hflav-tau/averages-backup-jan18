@@ -443,6 +443,10 @@ list(combination=combination, measurements=measurements)
 ## transform the name of a measurement in the HFAG-tau format into a format usable by Root
 ##
 hfag.to.root = function(str) {
+  if (str == "TauMass") {
+    return("m_{#tau}")
+  }
+  
   str.orig = str
 
   str = gsub("Numbar", "#bar{#nu}_{#mu}",str)  
