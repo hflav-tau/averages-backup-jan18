@@ -444,7 +444,7 @@ list(combination=combination, measurements=measurements)
 ##
 hfag.to.root = function(str) {
   if (str == "TauMass") {
-    return("m_{#tau}")
+    return("m_{#tau} [MeV]")
   }
   
   str.orig = str
