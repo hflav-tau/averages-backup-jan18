@@ -23,3 +23,7 @@ KmNu		0.685e-2	0.023e-2	1
 KmPizNu		0.426e-2	0.016e-2	1
 HmNu		11.63e-2	0.12e-2		1.4
 HmPizNu		25.73e-2	0.16e-2		1
+#
+# PDG 2010 averages
+#
+TauMass            1776.82         0.16            0.00
