@@ -194,8 +194,8 @@ if (length(not.matching) > 0) {
 ## scale all measurements of the specified type according to the scale parameter in the cards
 ##
 quant.sfact.list = lapply(combination$quantities.options, function(el) { el["scale"] })
+meas.sfact.cards = rep(1, meas.num)
 if (length(quant.sfact.list) > 0) {
-  meas.sfact.cards = rep(1, meas.num)
   names(meas.sfact.cards) = meas.names
   cat("\n")
   rc = lapply(names(quant.sfact.list), function(el) {
