@@ -191,6 +191,27 @@ if (length(not.matching) > 0) {
 }
 
 ##
+## scale all measurements of the specified type according to the scale parameter in the cards
+##
+quant.sfact.list = lapply(combination$quantities.options, function(el) { el["scale"] })
+if (length(quant.sfact.list) > 0) {
+  meas.sfact.cards = rep(1, meas.num)
+  names(meas.sfact.cards) = meas.names
+  cat("\n")
+  rc = lapply(names(quant.sfact.list), function(el) {
+    sel = which(meas.quantities == el)
+    rc = lapply(sel, function(i) {
+      measurements[[i]]$stat <<- measurements[[i]]$stat * quant.sfact.list[[el]]
+      measurements[[i]]$syst <<- measurements[[i]]$syst * quant.sfact.list[[el]]
+      measurements[[i]]$syst.terms <<- measurements[[i]]$syst.terms * quant.sfact.list[[el]]
+    })
+    meas.sfact.cards[sel] <<- quant.sfact.list[[el]]
+    cat("applying s-factor = ", quant.sfact.list[[el]], " for quantity ", el, "for measurements:\n")
+    show(names(meas.sfact.cards[sel]))
+  })
+}
+
+##
 ## shift measurements according to updated external parameter dependencies
 ## update systematic terms according to updated external parameter errors
 ##
@@ -386,20 +407,6 @@ meas.cov.stat = meas.cov.stat + diag.m(meas.stat^2)
 ##--- total covariance
 meas.cov.syst = meas.cov.syst + diag.m(meas.syst^2)
 meas.cov = meas.cov.stat + meas.cov.syst
-
-##--- scale specific measurements quantities total covariance
-quant.sfact.list = lapply(combination$quantities.options, function(el) { el["scale"] })
-if (length(quant.sfact.list) > 0) {
-  meas.sfact = rep(1, meas.num)
-  names(meas.sfact) = meas.names
-  cat("\n")
-  rc = lapply(names(quant.sfact.list), function(el) {
-    meas.sfact[which(meas.quantities == el)] <<- quant.sfact.list[[el]]
-    cat("applying s-factor = ", quant.sfact.list[[el]], " for quantity ", el, "for measurements:\n")
-    show(names(meas.sfact[which(meas.quantities == el)]))
-  })
-  meas.cov = meas.cov * (meas.sfact %o% meas.sfact)
-}
 
 ##--- total correlation
 meas.corr = meas.cov / (meas.err %o% meas.err)
@@ -938,7 +945,7 @@ if (FALSE && quant.num > 1) {
 rc = save(file=file.name.data,
   measurements, combination, delta,
   chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
+  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
   quant.val,  quant.err,    quant.cov,    quant.corr,    quant.sfact,
               quant.sf.err, quant.sf.cov, quant.sf.corr, quant.sf.sfact,
   alu.full, orin.full,
