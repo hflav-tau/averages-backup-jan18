@@ -1,0 +1,24 @@
+# to run in tcsh, execute : source README
+foreach infile ( alucomb_average_constrained.input \
+                 alucomb_average_constrained_aleph_hcorr.input \
+                 alucomb_average_rescaled_constrained.input \
+                 alucomb_average_rescaled_constrained_aleph_hcorr.input \
+                 alucomb_average_unconstrained.input \
+                 alucomb_average_unconstrained_aleph_hcorr.input \
+                 alucomb_average_rescaled_unconstrained.input \
+                 alucomb_average_rescaled_unconstrained_aleph_hcorr.input )
+ setenv rdatafile `echo $infile  | awk -F. '{print $1".rdata"}'`
+ setenv logfile `echo $infile  | awk -F. '{print $1".log"}'`
+ setenv listfile `echo $infile  | awk -F. '{print $1".list"}'`
+ setenv resfile `echo $infile  | awk -F. '{print $1".res"}'`
+ setenv showfile `echo $infile  | awk -F. '{print $1".show"}'`
+ rm -f average.input
+ ln -s $infile average.input
+ make alucomb
+ cp -p average_alucomb.rdata $rdatafile
+ cp -f average_alucomb.log $logfile
+ make update_alucomb
+ rm -f $listfile ; ../../../Common/bin/aluelab-list.r | tee $listfile
+ rm -f $resfile ; ./aluelab-results.r | tee $resfile
+ rm -f $showfile ; ./aluelab-show.r | tee $showfile
+end
