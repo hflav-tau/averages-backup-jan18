@@ -849,7 +849,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     //*   22    85   260   C21    3.000000E-03   0.003335   0.000223   0.000352   1.58 tau- --> K- pi+ pi- nu(tau) (ex.K0)                 
     //*   23    89   285   C54    6.000000E-04   0.000730   0.000117   0.000122   1.04 tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)         
     //*   28   128   109   B20    3.000000E-04   0.000268   0.000063   0.000063   1.00 tau- --> eta K- nu(tau)                             
-    //*   30   151   295   C61    4.100000E-04   0.000410   0.000092   0.000092   1.00 tau- --> K-  omega nu(tau)                                                 
+    //*   30   151   295   C61    4.100000E-04   0.000410   0.000092   0.000092   1.00 tau- --> K-  omega nu(tau)                                            
     //*   32   130   266   C27    1.770000E-04   0.000177   0.000090   0.000090   1.00 tau- --> eta K- pi0 nu(tau)
     //*   33   132   267   C28    2.200000E-04   0.000220   0.000073   0.000073   1.00 tau- --> eta pi- K0bar nu(tau)
     //*   34    44   238   B98    2.600000E-04   0.000260   0.000240   0.000240   1.00 tau- --> pi- K0bar 2pi0 nu(tau)
@@ -858,7 +858,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_PSUM   1  0 ! print sum of strange decay nodes\n");
     fprintf (thisfile, "\n* Print Gamma(tau -> X-(S=1) nu)");
     fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma85 + Gamma89 + Gamma128\n");
-    fprintf (thisfile, "*             + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53  + Gamma801 ! Gamma801 = Gamma96 * 1.699387\n");
+    fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53  + Gamma801 ! Gamma801 = Gamma96 * 1.699387\n");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     15 0 ");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_01  4   1 ! Gamma10");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_02  6   1 ! Gamma16");
@@ -888,7 +888,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, " 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 ! Gamma801 = Gamma96 * 1.699387\n");    
     fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu)/G(total)\n");
     fprintf (thisfile, "COMBOFQUANT Gamma110\n");
-    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
+    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
     fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 ! Gamma801 = Gamma96 * 1.699387\n");
   }
   fprintf (thisfile, "\nCALL CHI2_N_SYM\n");
