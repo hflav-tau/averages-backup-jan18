@@ -283,3 +283,9 @@ Gamma13 = (1.000000*Gamma14 + 1.000000*Gamma16)
 
 * S035R97 : G(h- >= 3pi0 nu(tau))/G(total) 
 Gamma24 = (0.322000*Gamma128 + 1.000000*Gamma30 + 1.000000*Gamma28 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma27 + 0.098500*Gamma47 + 0.319000*Gamma126)
+
+* S035S01 : G(total) 
+GammaAll = (1.000000*Gamma3 + 1.000000*Gamma5 + 1.000000*Gamma9 + 1.000000*Gamma10 + 1.000000*Gamma14 + 1.000000*Gamma16 + 1.000000*Gamma20 + 1.000000*Gamma23 + 1.000000*Gamma27 + 1.000000*Gamma28 + 1.000000*Gamma30 + 1.000000*Gamma35 + 1.000000*Gamma37 + 1.000000*Gamma40 + 1.000000*Gamma42 + 1.000000*Gamma47 + 1.000000*Gamma48 + 1.000000*Gamma62 + 1.000000*Gamma70 + 1.000000*Gamma77 + 1.000000*Gamma78 + 1.000000*Gamma85 + 1.000000*Gamma89 + 1.000000*Gamma93 + 1.000000*Gamma94 + 1.000000*Gamma104 + 1.000000*Gamma126 + 1.000000*Gamma128 + 1.000000*Gamma150 + 1.000000*Gamma152 + 1.000000*Gamma103)
+
+* S035S02 : G(strange)/G(total) 
+GammaXs = (1.000000*Gamma10 + 1.000000*Gamma16 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma35 + 1.000000*Gamma40 + 1.000000*Gamma85 + 1.000000*Gamma89 + 1.000000*Gamma128)

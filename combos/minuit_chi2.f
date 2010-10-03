@@ -381,6 +381,7 @@
               IQUAN=INT(SPAR1(I))
               COEFF=SPAR2(I)
               CSYS(IMEAS,NCSYS+IQUAN) = -1.D0*COEFF
+C              PRINT *,IMEAS,IQUAN,COEFF,SPAR2(I),CSYS(IMEAS,NCSYS+IQUAN)
             ENDIF
           ENDDO
         ENDDO 
@@ -427,13 +428,13 @@
         CALL FindInv(WCOPY,W,NMEAS,MMEAS,ErrorFlag)
         PRINT *, 'MINUIT_CHI2: FindInv: W->W: ErrorFlag = ',ErrorFlag
         IERR=ErrorFlag
-        ErrorFlag=1 ! <-
-        DO I=1,NMEAS
-          DO J=1,NMEAS
-            if (ErrorFlag.eq.1.and.i.eq.j) print *, 
-     &      'DONE: i,j,w(i,j) = ',i,j,w(i,j),sqrt(max(0,w(i,j)))
-          ENDDO
-        ENDDO
+*        ErrorFlag=1 ! <-
+*        DO I=1,NMEAS
+*          DO J=1,NMEAS
+*            if (ErrorFlag.eq.1.and.i.eq.j) print *, 
+*     &      'DONE: i,j,w(i,j) = ',i,j,w(i,j),sqrt(max(0,w(i,j)))
+*          ENDDO
+*        ENDDO
       ENDIF
 *     
       IF(IERR.NE.0) THEN

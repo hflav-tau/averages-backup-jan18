@@ -1,1 +1,0 @@
-../../../combos/combos combos_average_with_babar_belle_constrained.input | tee combos_constrained.log

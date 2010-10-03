@@ -111,22 +111,22 @@
      &                             W   (1,1),W   (2,1),W   (1,2),
      &                             TEMP(1,1),TEMP(2,1),TEMP(1,2),DUMMY)
 
-      DO I=1,NMEAS
-        DO J=1,NMEAS
-          PRINT *, 'I, J, W(I,J) = ',I,J,W(I,J)
-        ENDDO
-      ENDDO
-      DO I=1, NMEAS
-        DO J = 1, NQUAN
-          PRINT *, 'I, J, CSYS(I,J) = ', I,J,CSYS(I,J)
-        ENDDO
-      ENDDO
-      DO I=1, NMEAS
-        DO J=1,NQUAN
-          PRINT *, 'I,J,TEMP(I,J) = ',I,J,TEMP(I,J)
-        ENDDO
-      ENDDO
-        
+*      DO I=1,NMEAS
+*        DO J=1,NMEAS
+*          PRINT *, 'I, J, W(I,J) = ',I,J,W(I,J)
+*        ENDDO
+*      ENDDO
+*      DO I=1, NMEAS
+*        DO J = 1, NQUAN
+*          PRINT *, 'I, J, CSYS(I,J) = ', I,J,CSYS(I,J)
+*        ENDDO
+*      ENDDO
+*      DO I=1, NMEAS
+*        DO J=1,NQUAN
+*          PRINT *, 'I,J,TEMP(I,J) = ',I,J,TEMP(I,J)
+*        ENDDO
+*      ENDDO
+*        
 *
 *     Compute S = error matrix on V = "Delta*M**(-1)*Delta^T+Q)**(-1)"
 *
@@ -145,11 +145,11 @@
         S(I,I)=S(I,I)+1.D0
       ENDDO
 
-      DO I=1, NQUAN
-        DO J=1,NQUAN
-          PRINT *, 'I,J,SINV(I,J) = ',I,J,S(I,J)
-        ENDDO
-      ENDDO
+*      DO I=1, NQUAN
+*        DO J=1,NQUAN
+*          PRINT *, 'I,J,SINV(I,J) = ',I,J,S(I,J)
+*        ENDDO
+*      ENDDO
 
       INVOPT=0 ! default option for matrix inversion using DSINV
       DO I=1,NSPAR
@@ -170,13 +170,13 @@
         CALL FindInv(SCOPY,S,LCSYS,MCSYS,ErrorFlag)
         PRINT *, 'CHI2_N_SYM: FindInv: S->S: ErrorFlag = ',ErrorFlag
         IERR=ErrorFlag
-        ErrorFlag=1 ! <-
-        DO I=1,LCSYS
-          DO J=1,LCSYS
-            if (ErrorFlag.eq.1.and.i.eq.j) print *, 
-     &      'DONE: i,j,s(i,j) = ',i,j,s(i,j),sqrt(max(0,s(i,j)))
-          ENDDO
-        ENDDO
+*        ErrorFlag=1 ! <-
+*        DO I=1,LCSYS
+*          DO J=1,LCSYS
+*            if (ErrorFlag.eq.1.and.i.eq.j) print *, 
+*     &      'DONE: i,j,s(i,j) = ',i,j,s(i,j),sqrt(max(0,s(i,j)))
+*          ENDDO
+*        ENDDO
       ENDIF
 
       IF(IERR.NE.0) THEN
