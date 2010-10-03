@@ -10,5 +10,7 @@ source run_combos_unconstrained_aleph_hcorr
 
 cp -p *.log log
 
-cp -p *.input log/input_dir
+cp -p combos*.input log/input_dir
+cp -p alucomb*.input log/input_dir
+
 

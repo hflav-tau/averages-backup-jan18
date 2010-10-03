@@ -1,14 +1,15 @@
-WITH UNITARITY CONSTRAINT
-run_combos_constrained
-getresult_combos_constrained.csh combos_constrained.log
+cd ../../../Common/ ; source ./config.csh ; cd -
+./any.com readpdg
 
-run_combos_constrained_aleph_hcorr
-getresult_combos_constrained.csh combos_constrained_aleph_hcorr.log
+source run_readpdg
 
-WITHOUT UNITARITY CONSTRAINT
-run_combos_unconstrained
-getresult_combos_unconstrained.csh combos_unconstrained.log
+source run_combos_constrained
+source run_combos_constrained_aleph_hcorr
+source run_combos_unconstrained
+source run_combos_unconstrained_aleph_hcorr
 
-run_combos_unconstrained_aleph_hcorr
-getresult_combos_unconstrained.csh combos_unconstrained_aleph_hcorr.log
+cp -p *.log log
+
+cp -p combos*.input log/input_dir
+cp -p alucomb*.input log/input_dir
 
