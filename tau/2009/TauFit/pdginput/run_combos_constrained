@@ -1,0 +1,4 @@
+../../../../combos/combos combos_average_constrained.input | tee combos_average_constrained.log
+# ../../../../combos/combos combos_average_scaled_constrained.input | tee combos_average_scaled_constrained.log
+../../../../combos/combos combos_average_rescaled_constrained.input | tee combos_average_rescaled_constrained.log
+# ../../../../combos/combos combos_average_noweak_rescaled_constrained.input | tee combos_average_noweak_rescaled_constrained.log

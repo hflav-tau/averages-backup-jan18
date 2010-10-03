@@ -1,10 +1,5 @@
 nmeas = 124 
-basequan_used_in_measured_basenodes.size() = 23 [IF THIS IS NOT = 31, IT MEANS SOME BASE QUANTITIES ARE NOT MEASURED DIRECTLY BUT ONLY VIA MEASUREMENTS OF DERIVED NODES]
-BASE = 3 GAMMA = 9 PARM = 12 NODE = R6 TITLE = tau- --> pi- nu(tau) not measured directly 
-BASE = 5 GAMMA = 14 PARM = 16 NODE = R8 TITLE = tau- --> pi- pi0 nu(tau) not measured directly 
-BASE = 7 GAMMA = 20 PARM = 201 NODE = B55 TITLE = tau- --> pi- 2pi0 nu(tau) (ex.K0) not measured directly 
-BASE = 9 GAMMA = 27 PARM = 203 NODE = B56 TITLE = tau- --> pi- 3pi0 nu(tau) (ex.K0) not measured directly 
-BASE = 18 GAMMA = 62 PARM = 259 NODE = C20 TITLE = tau- --> pi- pi+ pi- nu(tau) (ex.K0,omega) not measured directly 
+basequan_used_in_measured_basenodes.size() = 28 [IF THIS IS NOT = 31, IT MEANS SOME BASE QUANTITIES ARE NOT MEASURED DIRECTLY BUT ONLY VIA MEASUREMENTS OF DERIVED NODES]
 BASE = 19 GAMMA = 70 PARM = 263 NODE = C24 TITLE = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) not measured directly 
 BASE = 20 GAMMA = 77 PARM = 216 NODE = B72 TITLE = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) not measured directly 
 BASE = 23 GAMMA = 89 PARM = 285 NODE = C54 TITLE = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) not measured directly 
@@ -31,7 +26,7 @@ These 7 measurements are :
  (7) IMEAS = 114 NODE = 89 NAME = S035R5 GAMMA = 3by5 TITLE = G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau)) EXP = ARGUS
 vector_of_measurements_correlated_with_other_measurements has size = 4 : 72(ALEPH) 73(L3) 76(CLEO) 113(CLEO) 
 
-basetitle = tau- --> pi- nu(tau) with quan = 3 gamma = 9 appears in 7 measurements of 2 nodes. 
+basetitle = tau- --> pi- nu(tau) with quan = 3 gamma = 9 appears in 7 measurements of 3 nodes. 
 These 7 measurements are :
  (1) IMEAS = 43 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = DELPHI
  (2) IMEAS = 44 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = OPAL
@@ -39,11 +34,11 @@ These 7 measurements are :
  (4) IMEAS = 106 NODE = 86 NAME = S035R43 GAMMA = 7 TITLE = G(h- >=0K(L)0 nu(tau))/G(total) EXP = L3
  (5) IMEAS = 107 NODE = 86 NAME = S035R43 GAMMA = 7 TITLE = G(h- >=0K(L)0 nu(tau))/G(total) EXP = DELPHI
  (6) IMEAS = 108 NODE = 86 NAME = S035R43 GAMMA = 7 TITLE = G(h- >=0K(L)0 nu(tau))/G(total) EXP = OPAL
- (7) IMEAS = 115 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = ALEPH
+ (7) IMEAS = 115 NODE = 90 NAME = S035R6 GAMMA = 9 TITLE = G(pi- nu(tau))/G(total) EXP = ALEPH
 vector_of_measurements_correlated_with_other_measurements has size = 3 : 43(DELPHI) 45(CLEO) 115(ALEPH) 
 
-basetitle = tau- --> K- nu(tau) with quan = 4 gamma = 10 appears in 14 measurements of 4 nodes. 
-These 14 measurements are :
+basetitle = tau- --> K- nu(tau) with quan = 4 gamma = 10 appears in 13 measurements of 4 nodes. 
+These 13 measurements are :
  (1) IMEAS = 43 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = DELPHI
  (2) IMEAS = 44 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = OPAL
  (3) IMEAS = 45 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = CLEO
@@ -53,26 +48,25 @@ These 14 measurements are :
  (7) IMEAS = 106 NODE = 86 NAME = S035R43 GAMMA = 7 TITLE = G(h- >=0K(L)0 nu(tau))/G(total) EXP = L3
  (8) IMEAS = 107 NODE = 86 NAME = S035R43 GAMMA = 7 TITLE = G(h- >=0K(L)0 nu(tau))/G(total) EXP = DELPHI
  (9) IMEAS = 108 NODE = 86 NAME = S035R43 GAMMA = 7 TITLE = G(h- >=0K(L)0 nu(tau))/G(total) EXP = OPAL
- (10) IMEAS = 115 NODE = 32 NAME = S035B73 GAMMA = 8 TITLE = G(h- nu(tau))/G(total) EXP = ALEPH
- (11) IMEAS = 116 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = OPAL
- (12) IMEAS = 117 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = ALEPH
- (13) IMEAS = 118 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = DELPHI
- (14) IMEAS = 119 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = CLEO
-vector_of_measurements_correlated_with_other_measurements has size = 5 : 43(DELPHI) 45(CLEO) 82(OPAL) 115(ALEPH) 116(OPAL) 
+ (10) IMEAS = 116 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = OPAL
+ (11) IMEAS = 117 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = ALEPH
+ (12) IMEAS = 118 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = DELPHI
+ (13) IMEAS = 119 NODE = 91 NAME = S035R7 GAMMA = 10 TITLE = G(K- nu(tau))/G(total) EXP = CLEO
+vector_of_measurements_correlated_with_other_measurements has size = 4 : 43(DELPHI) 45(CLEO) 82(OPAL) 116(OPAL) 
 
-basetitle = tau- --> pi- pi0 nu(tau) with quan = 5 gamma = 14 appears in 7 measurements of 3 nodes. 
+basetitle = tau- --> pi- pi0 nu(tau) with quan = 5 gamma = 14 appears in 7 measurements of 4 nodes. 
 These 7 measurements are :
  (1) IMEAS = 3 NODE = 1 NAME = S035B21 GAMMA = 19by13 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau)) EXP = CLEO
  (2) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
- (3) IMEAS = 120 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = ALEPH
+ (3) IMEAS = 120 NODE = 92 NAME = S035R8 GAMMA = 14 TITLE = G(pi- pi0 nu(tau))/G(total) EXP = ALEPH
  (4) IMEAS = 121 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = DELPHI
  (5) IMEAS = 122 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = OPAL
  (6) IMEAS = 123 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = L3
  (7) IMEAS = 124 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = CLEO
 vector_of_measurements_correlated_with_other_measurements has size = 2 : 120(ALEPH) 121(DELPHI) 
 
-basetitle = tau- --> K- pi0 nu(tau) with quan = 6 gamma = 16 appears in 13 measurements of 5 nodes. 
-These 13 measurements are :
+basetitle = tau- --> K- pi0 nu(tau) with quan = 6 gamma = 16 appears in 12 measurements of 5 nodes. 
+These 12 measurements are :
  (1) IMEAS = 3 NODE = 1 NAME = S035B21 GAMMA = 19by13 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau)) EXP = CLEO
  (2) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
  (3) IMEAS = 8 NODE = 7 NAME = S035B29 GAMMA = 16 TITLE = G(K- pi0 nu(tau))/G(total) EXP = OPAL
@@ -81,57 +75,54 @@ These 13 measurements are :
  (6) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
  (7) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
  (8) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
- (9) IMEAS = 120 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = ALEPH
- (10) IMEAS = 121 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = DELPHI
- (11) IMEAS = 122 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = OPAL
- (12) IMEAS = 123 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = L3
- (13) IMEAS = 124 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = CLEO
-vector_of_measurements_correlated_with_other_measurements has size = 3 : 82(OPAL) 120(ALEPH) 121(DELPHI) 
+ (9) IMEAS = 121 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = DELPHI
+ (10) IMEAS = 122 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = OPAL
+ (11) IMEAS = 123 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = L3
+ (12) IMEAS = 124 NODE = 93 NAME = S035R84 GAMMA = 13 TITLE = G(h- pi0 nu(tau))/G(total) EXP = CLEO
+vector_of_measurements_correlated_with_other_measurements has size = 2 : 82(OPAL) 121(DELPHI) 
 
-basetitle = tau- --> pi- 2pi0 nu(tau) (ex.K0) with quan = 7 gamma = 20 appears in 5 measurements of 3 nodes. 
+basetitle = tau- --> pi- 2pi0 nu(tau) (ex.K0) with quan = 7 gamma = 20 appears in 5 measurements of 4 nodes. 
 These 5 measurements are :
  (1) IMEAS = 3 NODE = 1 NAME = S035B21 GAMMA = 19by13 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau)) EXP = CLEO
- (2) IMEAS = 29 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (2) IMEAS = 29 NODE = 19 NAME = S035B55 GAMMA = 20 TITLE = G(pi- 2pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
  (3) IMEAS = 77 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = DELPHI
  (4) IMEAS = 78 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = L3
  (5) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
 vector_of_measurements_correlated_with_other_measurements has size = 2 : 29(ALEPH) 77(DELPHI) 
 
-basetitle = tau- --> K- 2pi0 nu(tau) (ex.K0) with quan = 8 gamma = 23 appears in 10 measurements of 5 nodes. 
-These 10 measurements are :
+basetitle = tau- --> K- 2pi0 nu(tau) (ex.K0) with quan = 8 gamma = 23 appears in 9 measurements of 5 nodes. 
+These 9 measurements are :
  (1) IMEAS = 3 NODE = 1 NAME = S035B21 GAMMA = 19by13 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau)) EXP = CLEO
  (2) IMEAS = 11 NODE = 8 NAME = S035B30 GAMMA = 23 TITLE = G(K- 2pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
  (3) IMEAS = 12 NODE = 8 NAME = S035B30 GAMMA = 23 TITLE = G(K- 2pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO
- (4) IMEAS = 29 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (5) IMEAS = 77 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = DELPHI
- (6) IMEAS = 78 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = L3
- (7) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
- (8) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
- (9) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
- (10) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
-vector_of_measurements_correlated_with_other_measurements has size = 3 : 29(ALEPH) 77(DELPHI) 82(OPAL) 
+ (4) IMEAS = 77 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = DELPHI
+ (5) IMEAS = 78 NODE = 69 NAME = S035R20 GAMMA = 19 TITLE = G(h- 2pi0 nu(tau) (ex.K0))/G(total) EXP = L3
+ (6) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
+ (7) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
+ (8) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
+ (9) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
+vector_of_measurements_correlated_with_other_measurements has size = 2 : 77(DELPHI) 82(OPAL) 
 
-basetitle = tau- --> pi- 3pi0 nu(tau) (ex.K0) with quan = 9 gamma = 27 appears in 5 measurements of 4 nodes. 
+basetitle = tau- --> pi- 3pi0 nu(tau) (ex.K0) with quan = 9 gamma = 27 appears in 5 measurements of 5 nodes. 
 These 5 measurements are :
  (1) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
- (2) IMEAS = 30 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau)/G(total) EXP = ALEPH
+ (2) IMEAS = 30 NODE = 20 NAME = S035B56 GAMMA = 27 TITLE = G(pi- 3pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
  (3) IMEAS = 47 NODE = 41 NAME = S035C02 GAMMA = 25 TITLE = G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) EXP = DELPHI
  (4) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
  (5) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
 vector_of_measurements_correlated_with_other_measurements has size = 2 : 30(ALEPH) 47(DELPHI) 
 
-basetitle = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) with quan = 10 gamma = 28 appears in 9 measurements of 6 nodes. 
-These 9 measurements are :
+basetitle = tau- --> K- 3pi0 nu(tau) (ex.K0, eta) with quan = 10 gamma = 28 appears in 8 measurements of 6 nodes. 
+These 8 measurements are :
  (1) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
  (2) IMEAS = 13 NODE = 9 NAME = S035B31 GAMMA = 28 TITLE = G(K- 3pi0 nu(tau) (ex.K0, eta))/G(total) EXP = ALEPH
- (3) IMEAS = 30 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau)/G(total) EXP = ALEPH
- (4) IMEAS = 47 NODE = 41 NAME = S035C02 GAMMA = 25 TITLE = G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) EXP = DELPHI
- (5) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
- (6) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
- (7) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
- (8) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
- (9) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
-vector_of_measurements_correlated_with_other_measurements has size = 3 : 30(ALEPH) 47(DELPHI) 82(OPAL) 
+ (3) IMEAS = 47 NODE = 41 NAME = S035C02 GAMMA = 25 TITLE = G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) EXP = DELPHI
+ (4) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
+ (5) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
+ (6) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
+ (7) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
+ (8) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
+vector_of_measurements_correlated_with_other_measurements has size = 2 : 47(DELPHI) 82(OPAL) 
 
 basetitle = tau- --> h- 4pi0 nu(tau) (ex.K0,eta) with quan = 11 gamma = 30 appears in 4 measurements of 4 nodes. 
 These 4 measurements are :
@@ -182,8 +173,8 @@ These 19 measurements are :
  (19) IMEAS = 112 NODE = 88 NAME = S035R46 GAMMA = 37 TITLE = G(K- K0 nu(tau))/G(total) EXP = CLEO
 vector_of_measurements_correlated_with_other_measurements has size = 1 : 82(OPAL) 
 
-basetitle = tau- --> pi- Kbar0 pi0 nu(tau) with quan = 14 gamma = 40 appears in 14 measurements of 8 nodes. 
-These 14 measurements are :
+basetitle = tau- --> pi- Kbar0 pi0 nu(tau) with quan = 14 gamma = 40 appears in 13 measurements of 8 nodes. 
+These 13 measurements are :
  (1) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
  (2) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (3) IMEAS = 17 NODE = 11 NAME = S035B33 GAMMA = 40 TITLE = G(pi- Kbar0 pi0 nu(tau))/G(total) EXP = ALEPH
@@ -191,17 +182,16 @@ These 14 measurements are :
  (5) IMEAS = 19 NODE = 11 NAME = S035B33 GAMMA = 40 TITLE = G(pi- Kbar0 pi0 nu(tau))/G(total) EXP = L3
  (6) IMEAS = 25 NODE = 14 NAME = S035B43 GAMMA = 33 TITLE = G(K(S)0 (particles)- nu(tau))/G(total) EXP = ALEPH
  (7) IMEAS = 26 NODE = 14 NAME = S035B43 GAMMA = 33 TITLE = G(K(S)0 (particles)- nu(tau))/G(total) EXP = OPAL
- (8) IMEAS = 30 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau)/G(total) EXP = ALEPH
- (9) IMEAS = 40 NODE = 28 NAME = S035B68 GAMMA = 39 TITLE = G(h- Kbar0 pi0 nu(tau))/G(total) EXP = CLEO
- (10) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
- (11) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (12) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (13) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
- (14) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
-vector_of_measurements_correlated_with_other_measurements has size = 1 : 30(ALEPH) 
+ (8) IMEAS = 40 NODE = 28 NAME = S035B68 GAMMA = 39 TITLE = G(h- Kbar0 pi0 nu(tau))/G(total) EXP = CLEO
+ (9) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
+ (10) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (11) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (12) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+ (13) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
+vector_of_measurements_correlated_with_other_measurements has size = 0
 
-basetitle = tau- --> K- K0 pi0 nu(tau) with quan = 15 gamma = 42 appears in 19 measurements of 11 nodes. 
-These 19 measurements are :
+basetitle = tau- --> K- K0 pi0 nu(tau) with quan = 15 gamma = 42 appears in 18 measurements of 11 nodes. 
+These 18 measurements are :
  (1) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
  (2) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (3) IMEAS = 20 NODE = 12 NAME = S035B34 GAMMA = 42 TITLE = G(K- K0 pi0 nu(tau))/G(total) EXP = ALEPH
@@ -209,19 +199,18 @@ These 19 measurements are :
  (5) IMEAS = 22 NODE = 12 NAME = S035B34 GAMMA = 42 TITLE = G(K- K0 pi0 nu(tau))/G(total) EXP = CLEO
  (6) IMEAS = 25 NODE = 14 NAME = S035B43 GAMMA = 33 TITLE = G(K(S)0 (particles)- nu(tau))/G(total) EXP = ALEPH
  (7) IMEAS = 26 NODE = 14 NAME = S035B43 GAMMA = 33 TITLE = G(K(S)0 (particles)- nu(tau))/G(total) EXP = OPAL
- (8) IMEAS = 30 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau)/G(total) EXP = ALEPH
- (9) IMEAS = 40 NODE = 28 NAME = S035B68 GAMMA = 39 TITLE = G(h- Kbar0 pi0 nu(tau))/G(total) EXP = CLEO
- (10) IMEAS = 63 NODE = 58 NAME = S035C38 GAMMA = 38 TITLE = G(K- K0 >=0pi0 nu(tau))/G(total) EXP = OPAL
- (11) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
- (12) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
- (13) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
- (14) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
- (15) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (16) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (17) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
- (18) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
- (19) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
-vector_of_measurements_correlated_with_other_measurements has size = 2 : 30(ALEPH) 82(OPAL) 
+ (8) IMEAS = 40 NODE = 28 NAME = S035B68 GAMMA = 39 TITLE = G(h- Kbar0 pi0 nu(tau))/G(total) EXP = CLEO
+ (9) IMEAS = 63 NODE = 58 NAME = S035C38 GAMMA = 38 TITLE = G(K- K0 >=0pi0 nu(tau))/G(total) EXP = OPAL
+ (10) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
+ (11) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
+ (12) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
+ (13) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
+ (14) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (15) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (16) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+ (17) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
+ (18) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
+vector_of_measurements_correlated_with_other_measurements has size = 1 : 82(OPAL) 
 
 basetitle = tau- --> pi- K(S)0 K(S)0 nu(tau) with quan = 16 gamma = 47 appears in 12 measurements of 6 nodes. 
 These 12 measurements are :
@@ -259,7 +248,7 @@ These 13 measurements are :
  (5) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (6) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
  (7) IMEAS = 50 NODE = 45 NAME = S035C19 GAMMA = 60 TITLE = G(pi- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = CLEO3
- (8) IMEAS = 51 NODE = 30 NAME = S035B71 GAMMA = 58 TITLE = G(h- h+ h- nu(tau) (ex.K0,omega))/G(total) EXP = ALEPH
+ (8) IMEAS = 51 NODE = 46 NAME = S035C20 GAMMA = 62 TITLE = G(pi- pi+ pi- nu(tau) (ex.K0,omega))/G(total) EXP = ALEPH
  (9) IMEAS = 59 NODE = 53 NAME = S035C32 GAMMA = 80by60 TITLE = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
  (10) IMEAS = 61 NODE = 56 NAME = S035C35 GAMMA = 93by60 TITLE = G(K- K+ pi- nu(tau))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
  (11) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
@@ -275,7 +264,7 @@ These 15 measurements are :
  (4) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
  (5) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (6) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
- (7) IMEAS = 55 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (7) IMEAS = 55 NODE = 49 NAME = S035C23 GAMMA = 69 TITLE = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
  (8) IMEAS = 56 NODE = 49 NAME = S035C23 GAMMA = 69 TITLE = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO
  (9) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
  (10) IMEAS = 62 NODE = 57 NAME = S035C36 GAMMA = 94by69 TITLE = G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
@@ -313,47 +302,45 @@ These 9 measurements are :
  (9) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
 vector_of_measurements_correlated_with_other_measurements has size = 2 : 36(L3) 48(DELPHI) 
 
-basetitle = tau- --> K- pi+ pi- nu(tau) (ex.K0) with quan = 22 gamma = 85 appears in 15 measurements of 9 nodes. 
-These 15 measurements are :
+basetitle = tau- --> K- pi+ pi- nu(tau) (ex.K0) with quan = 22 gamma = 85 appears in 14 measurements of 8 nodes. 
+These 14 measurements are :
  (1) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (2) IMEAS = 34 NODE = 24 NAME = S035B62 GAMMA = 57 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(total) EXP = DELPHI
  (3) IMEAS = 35 NODE = 24 NAME = S035B62 GAMMA = 57 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(total) EXP = CLEO
  (4) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
  (5) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (6) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
- (7) IMEAS = 51 NODE = 30 NAME = S035B71 GAMMA = 58 TITLE = G(h- h+ h- nu(tau) (ex.K0,omega))/G(total) EXP = ALEPH
- (8) IMEAS = 52 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = OPAL
- (9) IMEAS = 53 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = CLEO3
- (10) IMEAS = 54 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (11) IMEAS = 59 NODE = 53 NAME = S035C32 GAMMA = 80by60 TITLE = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
- (12) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (13) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (14) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
- (15) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
-vector_of_measurements_correlated_with_other_measurements has size = 4 : 34(DELPHI) 36(L3) 51(ALEPH) 53(CLEO3) 
+ (7) IMEAS = 52 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = OPAL
+ (8) IMEAS = 53 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = CLEO3
+ (9) IMEAS = 54 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (10) IMEAS = 59 NODE = 53 NAME = S035C32 GAMMA = 80by60 TITLE = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
+ (11) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (12) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (13) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+ (14) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
+vector_of_measurements_correlated_with_other_measurements has size = 3 : 34(DELPHI) 36(L3) 53(CLEO3) 
 
-basetitle = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) with quan = 23 gamma = 89 appears in 16 measurements of 9 nodes. 
-These 16 measurements are :
+basetitle = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) with quan = 23 gamma = 89 appears in 15 measurements of 9 nodes. 
+These 15 measurements are :
  (1) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (2) IMEAS = 27 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) EXP = DELPHI
  (3) IMEAS = 28 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO
  (4) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
  (5) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (6) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
- (7) IMEAS = 55 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (8) IMEAS = 57 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO3
- (9) IMEAS = 58 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (10) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
- (11) IMEAS = 70 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = ALEPH
- (12) IMEAS = 71 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = CLEO
- (13) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (14) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (15) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
- (16) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
-vector_of_measurements_correlated_with_other_measurements has size = 3 : 27(DELPHI) 36(L3) 55(ALEPH) 
+ (7) IMEAS = 57 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO3
+ (8) IMEAS = 58 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (9) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (10) IMEAS = 70 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = ALEPH
+ (11) IMEAS = 71 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (12) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (13) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (14) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+ (15) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
+vector_of_measurements_correlated_with_other_measurements has size = 2 : 27(DELPHI) 36(L3) 
 
-basetitle = tau- --> K- K+ pi- nu(tau) with quan = 24 gamma = 93 appears in 16 measurements of 10 nodes. 
-These 16 measurements are :
+basetitle = tau- --> K- K+ pi- nu(tau) with quan = 24 gamma = 93 appears in 15 measurements of 9 nodes. 
+These 15 measurements are :
  (1) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (2) IMEAS = 23 NODE = 13 NAME = S035B37 GAMMA = 92 TITLE = G(K- K+ pi- >=0 neut. nu(tau))/G(total) EXP = OPAL
  (3) IMEAS = 24 NODE = 13 NAME = S035B37 GAMMA = 92 TITLE = G(K- K+ pi- >=0 neut. nu(tau))/G(total) EXP = TPC
@@ -362,18 +349,17 @@ These 16 measurements are :
  (6) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
  (7) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (8) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
- (9) IMEAS = 51 NODE = 30 NAME = S035B71 GAMMA = 58 TITLE = G(h- h+ h- nu(tau) (ex.K0,omega))/G(total) EXP = ALEPH
- (10) IMEAS = 59 NODE = 53 NAME = S035C32 GAMMA = 80by60 TITLE = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
- (11) IMEAS = 61 NODE = 56 NAME = S035C35 GAMMA = 93by60 TITLE = G(K- K+ pi- nu(tau))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
- (12) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (13) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (14) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
- (15) IMEAS = 103 NODE = 83 NAME = S035R40 GAMMA = 93 TITLE = G(K- K+ pi- nu(tau))/G(total) EXP = CLEO3
- (16) IMEAS = 104 NODE = 83 NAME = S035R40 GAMMA = 93 TITLE = G(K- K+ pi- nu(tau))/G(total) EXP = ALEPH
-vector_of_measurements_correlated_with_other_measurements has size = 4 : 34(DELPHI) 36(L3) 51(ALEPH) 103(CLEO3) 
+ (9) IMEAS = 59 NODE = 53 NAME = S035C32 GAMMA = 80by60 TITLE = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
+ (10) IMEAS = 61 NODE = 56 NAME = S035C35 GAMMA = 93by60 TITLE = G(K- K+ pi- nu(tau))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
+ (11) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (12) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (13) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+ (14) IMEAS = 103 NODE = 83 NAME = S035R40 GAMMA = 93 TITLE = G(K- K+ pi- nu(tau))/G(total) EXP = CLEO3
+ (15) IMEAS = 104 NODE = 83 NAME = S035R40 GAMMA = 93 TITLE = G(K- K+ pi- nu(tau))/G(total) EXP = ALEPH
+vector_of_measurements_correlated_with_other_measurements has size = 3 : 34(DELPHI) 36(L3) 103(CLEO3) 
 
-basetitle = tau- --> K- K+ pi- pi0 nu(tau) with quan = 25 gamma = 94 appears in 18 measurements of 10 nodes. 
-These 18 measurements are :
+basetitle = tau- --> K- K+ pi- pi0 nu(tau) with quan = 25 gamma = 94 appears in 17 measurements of 10 nodes. 
+These 17 measurements are :
  (1) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (2) IMEAS = 23 NODE = 13 NAME = S035B37 GAMMA = 92 TITLE = G(K- K+ pi- >=0 neut. nu(tau))/G(total) EXP = OPAL
  (3) IMEAS = 24 NODE = 13 NAME = S035B37 GAMMA = 92 TITLE = G(K- K+ pi- >=0 neut. nu(tau))/G(total) EXP = TPC
@@ -382,17 +368,16 @@ These 18 measurements are :
  (6) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
  (7) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (8) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
- (9) IMEAS = 55 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (10) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
- (11) IMEAS = 62 NODE = 57 NAME = S035C36 GAMMA = 94by69 TITLE = G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
- (12) IMEAS = 64 NODE = 64 NAME = S035C8 GAMMA = 94 TITLE = G(K- K+ pi- pi0 nu(tau))/G(total) EXP = CLEO3
- (13) IMEAS = 65 NODE = 64 NAME = S035C8 GAMMA = 94 TITLE = G(K- K+ pi- pi0 nu(tau))/G(total) EXP = ALEPH
- (14) IMEAS = 70 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = ALEPH
- (15) IMEAS = 71 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = CLEO
- (16) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (17) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (18) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
-vector_of_measurements_correlated_with_other_measurements has size = 3 : 27(DELPHI) 36(L3) 55(ALEPH) 
+ (9) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (10) IMEAS = 62 NODE = 57 NAME = S035C36 GAMMA = 94by69 TITLE = G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (11) IMEAS = 64 NODE = 64 NAME = S035C8 GAMMA = 94 TITLE = G(K- K+ pi- pi0 nu(tau))/G(total) EXP = CLEO3
+ (12) IMEAS = 65 NODE = 64 NAME = S035C8 GAMMA = 94 TITLE = G(K- K+ pi- pi0 nu(tau))/G(total) EXP = ALEPH
+ (13) IMEAS = 70 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = ALEPH
+ (14) IMEAS = 71 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (15) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (16) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (17) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+vector_of_measurements_correlated_with_other_measurements has size = 2 : 27(DELPHI) 36(L3) 
 
 basetitle = tau- --> 3h- 2h+ pi0 nu(tau) (ex.K0) with quan = 26 gamma = 104 appears in 7 measurements of 2 nodes. 
 These 7 measurements are :
@@ -424,35 +409,33 @@ These 15 measurements are :
  (15) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
 vector_of_measurements_correlated_with_other_measurements has size = 4 : 33(ALEPH) 36(L3) 47(DELPHI) 48(DELPHI) 
 
-basetitle = tau- --> eta K- nu(tau) with quan = 28 gamma = 128 appears in 26 measurements of 15 nodes. 
-These 26 measurements are :
+basetitle = tau- --> eta K- nu(tau) with quan = 28 gamma = 128 appears in 24 measurements of 15 nodes. 
+These 24 measurements are :
  (1) IMEAS = 1 NODE = 0 NAME = S035B20 GAMMA = 128 TITLE = G(eta K- nu(tau))/G(total) EXP = ALEPH
  (2) IMEAS = 2 NODE = 0 NAME = S035B20 GAMMA = 128 TITLE = G(eta K- nu(tau))/G(total) EXP = CLEO
  (3) IMEAS = 4 NODE = 2 NAME = S035B22 GAMMA = 26by13 TITLE = G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) EXP = CLEO
  (4) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (5) IMEAS = 27 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) EXP = DELPHI
  (6) IMEAS = 28 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO
- (7) IMEAS = 30 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau)/G(total) EXP = ALEPH
- (8) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
- (9) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
- (10) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
- (11) IMEAS = 47 NODE = 41 NAME = S035C02 GAMMA = 25 TITLE = G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) EXP = DELPHI
- (12) IMEAS = 55 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (13) IMEAS = 57 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO3
- (14) IMEAS = 58 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
- (15) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
- (16) IMEAS = 70 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = ALEPH
- (17) IMEAS = 71 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = CLEO
- (18) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
- (19) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
- (20) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
- (21) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
- (22) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
- (23) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
- (24) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
- (25) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
- (26) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
-vector_of_measurements_correlated_with_other_measurements has size = 6 : 27(DELPHI) 30(ALEPH) 36(L3) 47(DELPHI) 55(ALEPH) 82(OPAL) 
+ (7) IMEAS = 36 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = L3
+ (8) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
+ (9) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
+ (10) IMEAS = 47 NODE = 41 NAME = S035C02 GAMMA = 25 TITLE = G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) EXP = DELPHI
+ (11) IMEAS = 57 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO3
+ (12) IMEAS = 58 NODE = 51 NAME = S035C25 GAMMA = 88 TITLE = G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (13) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (14) IMEAS = 70 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = ALEPH
+ (15) IMEAS = 71 NODE = 66 NAME = S035R14 GAMMA = 150by66 TITLE = G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) EXP = CLEO
+ (16) IMEAS = 79 NODE = 70 NAME = S035R21 GAMMA = 26 TITLE = G(h- 3pi0 nu(tau))/G(total) EXP = L3
+ (17) IMEAS = 82 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = OPAL
+ (18) IMEAS = 83 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = DELPHI
+ (19) IMEAS = 84 NODE = 73 NAME = S035R26 GAMMA = 31 TITLE = G(K- >=0pi0 >=0K0 >=0gamma nu(tau))/G(total) EXP = CLEO
+ (20) IMEAS = 85 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = L3
+ (21) IMEAS = 86 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = CELLO
+ (22) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
+ (23) IMEAS = 105 NODE = 84 NAME = S035R41 GAMMA = 82 TITLE = G(K- pi+ pi- >=0 neutrals nu(tau))/G(total) EXP = TPC
+ (24) IMEAS = 109 NODE = 87 NAME = S035R44 GAMMA = 17 TITLE = G(h- >= 2pi0 nu(tau))/G(total) EXP = OPAL
+vector_of_measurements_correlated_with_other_measurements has size = 4 : 27(DELPHI) 36(L3) 47(DELPHI) 82(OPAL) 
 
 basetitle = tau- --> h- omega nu(tau) with quan = 29 gamma = 150 appears in 22 measurements of 14 nodes. 
 These 22 measurements are :
@@ -465,7 +448,7 @@ These 22 measurements are :
  (7) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (8) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
  (9) IMEAS = 50 NODE = 45 NAME = S035C19 GAMMA = 60 TITLE = G(pi- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = CLEO3
- (10) IMEAS = 55 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (10) IMEAS = 55 NODE = 49 NAME = S035C23 GAMMA = 69 TITLE = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
  (11) IMEAS = 56 NODE = 49 NAME = S035C23 GAMMA = 69 TITLE = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO
  (12) IMEAS = 59 NODE = 53 NAME = S035C32 GAMMA = 80by60 TITLE = G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) EXP = CLEO
  (13) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
@@ -492,7 +475,7 @@ These 19 measurements are :
  (8) IMEAS = 37 NODE = 25 NAME = S035B63 GAMMA = 55 TITLE = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) EXP = OPAL
  (9) IMEAS = 38 NODE = 26 NAME = S035B64 GAMMA = 57by55 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi+ pi-)(``3-prong'')) EXP = OPAL
  (10) IMEAS = 48 NODE = 42 NAME = S035C03 GAMMA = 74 TITLE = G(h- h- h+ >= 2pi0 nu(tau) (ex. K0))/G(total) EXP = DELPHI
- (11) IMEAS = 55 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
+ (11) IMEAS = 55 NODE = 49 NAME = S035C23 GAMMA = 69 TITLE = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = ALEPH
  (12) IMEAS = 56 NODE = 49 NAME = S035C23 GAMMA = 69 TITLE = G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) EXP = CLEO
  (13) IMEAS = 60 NODE = 55 NAME = S035C34 GAMMA = 81by69 TITLE = G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
  (14) IMEAS = 62 NODE = 57 NAME = S035C36 GAMMA = 94by69 TITLE = G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) EXP = CLEO
@@ -517,7 +500,7 @@ These 9 measurements are :
 vector_of_measurements_correlated_with_other_measurements has size = 3 : 90(L3) 93(DELPHI) 94(ALEPH) 
 
 ncorrij = 7 
-i = 0 ifirstj[i]+1 =   5 veccorrij[i].size() = 12 veccorrij[i][j]+1 = 5 29 30 33 51 55 66 72 94 100 115 120 GammaName = 30 19 26 76 58 66 3 5 103 104 8 13 
+i = 0 ifirstj[i]+1 =   5 veccorrij[i].size() = 12 veccorrij[i][j]+1 = 5 29 30 33 51 55 66 72 94 100 115 120 GammaName = 30 20 27 76 62 69 3 5 103 104 9 14 
 i = 1 ifirstj[i]+1 =  27 veccorrij[i].size() =  9 veccorrij[i][j]+1 = 27 34 43 47 48 77 93 99 121 GammaName = 66 57 8 25 74 19 103 104 13 
 i = 2 ifirstj[i]+1 =  36 veccorrij[i].size() =  2 veccorrij[i][j]+1 = 36 90 GammaName = 55 102 
 i = 3 ifirstj[i]+1 =  45 veccorrij[i].size() =  3 veccorrij[i][j]+1 = 45 76 113 GammaName = 8 5 3by5 
@@ -615,18 +598,18 @@ i+1 = 119 nodegroup = 52 ngroup =  3 icorrj =  1 ncycle = -1 meas = 6.60000e-03 
 i+1 = 122 nodegroup = 53 ngroup =  3 icorrj =  1 ncycle = -1 meas = 2.58900e-01 +- 3.36200e-03   OPAL G(h- pi0 nu(tau))/G(total) 
 i+1 = 123 nodegroup = 53 ngroup =  3 icorrj =  1 ncycle = -1 meas = 2.50500e-01 +- 6.10300e-03     L3 G(h- pi0 nu(tau))/G(total) 
 i+1 = 124 nodegroup = 53 ngroup =  3 icorrj =  1 ncycle = -1 meas = 2.58700e-01 +- 4.36800e-03   CLEO G(h- pi0 nu(tau))/G(total) 
-i+1 =   5 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.12000e-03 +- 5.09313e-04  ALEPH G(h- 4pi0 nu(tau) (ex.K0,eta))/G(total) 
-i+1 =  29 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 9.29500e-02 +- 1.21655e-03  ALEPH G(h- 2pi0 nu(tau) (ex.K0))/G(total) 
-i+1 =  30 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.08200e-02 +- 9.25581e-04  ALEPH G(h- 3pi0 nu(tau)/G(total) 
-i+1 =  33 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 4.35000e-03 +- 4.60977e-04  ALEPH G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(total) 
-i+1 =  51 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 9.46900e-02 +- 9.57758e-04  ALEPH G(h- h+ h- nu(tau) (ex.K0,omega))/G(total) 
-i+1 =  55 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 4.73400e-02 +- 7.66942e-04  ALEPH G(h- h+ h- pi0 nu(tau) (ex.K0))/G(total) 
-i+1 =  66 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.73190e-01 +- 7.69675e-04  ALEPH G(mu- nubar(mu) nu(tau))/G(total) 
-i+1 =  72 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.78370e-01 +- 8.04984e-04  ALEPH G(e- nubar(e) nu(tau))/G(total) 
+i+1 =   5 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.12000e-03 +- 5.09300e-04  ALEPH G(h- 4pi0 nu(tau) (ex.K0,eta))/G(total) 
+i+1 =  29 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 9.23900e-02 +- 1.24500e-03  ALEPH G(pi- 2pi0 nu(tau) (ex.K0))/G(total) 
+i+1 =  30 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 9.77000e-03 +- 9.01400e-04  ALEPH G(pi- 3pi0 nu(tau) (ex.K0))/G(total) 
+i+1 =  33 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 4.35000e-03 +- 4.61000e-04  ALEPH G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(total) 
+i+1 =  51 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 9.04100e-02 +- 9.68300e-04  ALEPH G(pi- pi+ pi- nu(tau) (ex.K0,omega))/G(total) 
+i+1 =  55 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 4.59800e-02 +- 8.57000e-04  ALEPH G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
+i+1 =  66 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.73190e-01 +- 7.69700e-04  ALEPH G(mu- nubar(mu) nu(tau))/G(total) 
+i+1 =  72 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.78370e-01 +- 8.05000e-04  ALEPH G(e- nubar(e) nu(tau))/G(total) 
 i+1 =  94 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 7.20000e-04 +- 1.50000e-04  ALEPH G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
-i+1 = 100 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 2.10000e-04 +- 9.21954e-05  ALEPH G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
-i+1 = 115 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.15240e-01 +- 1.04805e-03  ALEPH G(h- nu(tau))/G(total) 
-i+1 = 120 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 2.59240e-01 +- 1.28973e-03  ALEPH G(h- pi0 nu(tau))/G(total) 
+i+1 = 100 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 2.10000e-04 +- 1.14000e-04  ALEPH G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
+i+1 = 115 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 1.08280e-01 +- 1.04800e-03  ALEPH G(pi- nu(tau))/G(total) 
+i+1 = 120 nodegroup = 54 ngroup = 12 icorrj = 12 ncycle =  0 meas = 2.54710e-01 +- 1.29000e-03  ALEPH G(pi- pi0 nu(tau))/G(total) 
 i+1 =  27 nodegroup = 55 ngroup =  9 icorrj =  9 ncycle =  1 meas = 4.54500e-02 +- 1.47800e-03 DELPHI G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) 
 i+1 =  34 nodegroup = 55 ngroup =  9 icorrj =  9 ncycle =  1 meas = 9.31700e-02 +- 1.21800e-03 DELPHI G(h- h- h+ nu(tau) (ex.K0))/G(total) 
 i+1 =  43 nodegroup = 55 ngroup =  9 icorrj =  9 ncycle =  1 meas = 1.15710e-01 +- 1.65500e-03 DELPHI G(h- nu(tau))/G(total) 

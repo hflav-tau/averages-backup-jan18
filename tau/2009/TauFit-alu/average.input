@@ -100,7 +100,7 @@ MEASUREMENT m_Gamma998 statistical systematic
 *--- babar/belle/cleo measurements not in PDG list
 MEASUREMENT m_Gamma130 statistical systematic
 MEASUREMENT m_Gamma132 statistical systematic
-MEASUREMENT m_Gamma96 statistical systematic scale 5.435276
+MEASUREMENT m_Gamma96 statistical systematic scale 1 ! 5.435276
 MEASUREMENT m_Gamma9by5 statistical systematic
 MEASUREMENT m_Gamma10by5 statistical systematic
 
