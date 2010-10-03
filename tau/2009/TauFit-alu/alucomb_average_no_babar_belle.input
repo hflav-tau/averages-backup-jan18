@@ -1,108 +1,81 @@
-INCLUDE alucomb_measurements_no_babar_belle.input
-INCLUDE babar.input
-INCLUDE belle.input
-INCLUDE cleo.input
-INCLUDE opal.input
-INCLUDE aleph.input
+INCLUDE alucomb_pdginput_measurements_no_babar_belle.input 
 
-BEGIN   PDG+BABAR+BELLE all_methods
+BEGIN   PDG-BABAR-BELLE all_methods 
 
-INCLUDE ../Common/Parameters.input
+COMBINE * * * 
 
-COMBINE * * *
-
-MEASUREMENT m_Gamma3 statistical systematic ! NQUAN = 1
-MEASUREMENT m_Gamma5 statistical systematic ! NQUAN = 2
-MEASUREMENT m_Gamma9 statistical systematic   ! NQUAN = 3
-MEASUREMENT m_Gamma10 statistical systematic   ! NQUAN = 4
-MEASUREMENT m_Gamma14 statistical systematic   ! NQUAN = 5
-MEASUREMENT m_Gamma16 statistical systematic   ! NQUAN = 6
-MEASUREMENT m_Gamma20 statistical systematic   ! NQUAN = 7
-MEASUREMENT m_Gamma23 statistical systematic   ! NQUAN = 8
-MEASUREMENT m_Gamma27 statistical systematic   ! NQUAN = 9
-MEASUREMENT m_Gamma28 statistical systematic   ! NQUAN = 10
-MEASUREMENT m_Gamma30 statistical systematic   ! NQUAN = 11
-MEASUREMENT m_Gamma35 statistical systematic   ! NQUAN = 12
-MEASUREMENT m_Gamma37 statistical systematic   ! NQUAN = 13
-MEASUREMENT m_Gamma40 statistical systematic   ! NQUAN = 14
-MEASUREMENT m_Gamma42 statistical systematic   ! NQUAN = 15
-MEASUREMENT m_Gamma47 statistical systematic   ! NQUAN = 16
-MEASUREMENT m_Gamma48 statistical systematic   ! NQUAN = 17
-MEASUREMENT m_Gamma62 statistical systematic   ! NQUAN = 18
-MEASUREMENT m_Gamma70 statistical systematic   ! NQUAN = 19
-MEASUREMENT m_Gamma77 statistical systematic   ! NQUAN = 20
-MEASUREMENT m_Gamma78 statistical systematic   ! NQUAN = 21
-MEASUREMENT m_Gamma85 statistical systematic   ! NQUAN = 22
-MEASUREMENT m_Gamma89 statistical systematic   ! NQUAN = 23
-MEASUREMENT m_Gamma93 statistical systematic   ! NQUAN = 24
-MEASUREMENT m_Gamma94 statistical systematic   ! NQUAN = 25
-MEASUREMENT m_Gamma104 statistical systematic   ! NQUAN = 26
-MEASUREMENT m_Gamma126 statistical systematic   ! NQUAN = 27
-MEASUREMENT m_Gamma128 statistical systematic   ! NQUAN = 28
-MEASUREMENT m_Gamma150 statistical systematic   ! NQUAN = 29
-MEASUREMENT m_Gamma152 statistical systematic   ! NQUAN = 30
-MEASUREMENT m_Gamma103 statistical systematic   ! NQUAN = 31
-MEASUREMENT m_Gamma19by13 statistical systematic   ! NQUAN = 32
-MEASUREMENT m_Gamma26by13 statistical systematic   ! NQUAN = 33
-MEASUREMENT m_Gamma76by54 statistical systematic   ! NQUAN = 34
-MEASUREMENT m_Gamma152by76 statistical systematic   ! NQUAN = 35
-MEASUREMENT m_Gamma92 statistical systematic   ! NQUAN = 36
-MEASUREMENT m_Gamma33 statistical systematic   ! NQUAN = 37
-MEASUREMENT m_Gamma66 statistical systematic   ! NQUAN = 38
-MEASUREMENT m_Gamma19 statistical systematic   ! NQUAN = 39
-MEASUREMENT m_Gamma26 statistical systematic   ! NQUAN = 40
-MEASUREMENT m_Gamma76 statistical systematic   ! NQUAN = 41
-MEASUREMENT m_Gamma57 statistical systematic   ! NQUAN = 42
-MEASUREMENT m_Gamma55 statistical systematic   ! NQUAN = 43
-MEASUREMENT m_Gamma57by55 statistical systematic   ! NQUAN = 44
-MEASUREMENT m_Gamma34 statistical systematic   ! NQUAN = 45
-MEASUREMENT m_Gamma39 statistical systematic   ! NQUAN = 46
-MEASUREMENT m_Gamma8 statistical systematic   ! NQUAN = 47
-MEASUREMENT m_Gamma29 statistical systematic   ! NQUAN = 48
-MEASUREMENT m_Gamma25 statistical systematic   ! NQUAN = 49
-MEASUREMENT m_Gamma74 statistical systematic   ! NQUAN = 50
-MEASUREMENT m_Gamma60 statistical systematic   ! NQUAN = 51
-MEASUREMENT m_Gamma58 statistical systematic   ! NQUAN = 52
-* MEASUREMENT m_Gamma66 statistical systematic   ! NQUAN = 53
-MEASUREMENT m_Gamma69 statistical systematic   ! NQUAN = 54
-MEASUREMENT m_Gamma88 statistical systematic   ! NQUAN = 55
-MEASUREMENT m_Gamma80by60 statistical systematic   ! NQUAN = 56
-MEASUREMENT m_Gamma81by69 statistical systematic   ! NQUAN = 57
-MEASUREMENT m_Gamma93by60 statistical systematic   ! NQUAN = 58
-MEASUREMENT m_Gamma94by69 statistical systematic   ! NQUAN = 59
-MEASUREMENT m_Gamma38 statistical systematic   ! NQUAN = 60
-MEASUREMENT m_Gamma150by66 statistical systematic   ! NQUAN = 61
-* MEASUREMENT m_Gamma19 statistical systematic   ! NQUAN = 62
-* MEASUREMENT m_Gamma26 statistical systematic   ! NQUAN = 63
-MEASUREMENT m_Gamma31 statistical systematic   ! NQUAN = 64
-MEASUREMENT m_Gamma54 statistical systematic   ! NQUAN = 65
-MEASUREMENT m_Gamma102 statistical systematic   ! NQUAN = 66
-MEASUREMENT m_Gamma82 statistical systematic   ! NQUAN = 67
-MEASUREMENT m_Gamma7 statistical systematic   ! NQUAN = 68
-MEASUREMENT m_Gamma17 statistical systematic   ! NQUAN = 69
-MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 70
-* MEASUREMENT m_Gamma8 statistical systematic   ! NQUAN = 71
-MEASUREMENT m_Gamma13 statistical systematic   ! NQUAN = 72
-
-*--- opal.input
-MEASUREMENT m_Gamma43 statistical systematic
-
-*--- aleph.input
-MEASUREMENT m_Gamma44 statistical systematic
-MEASUREMENT m_Gamma53 statistical systematic
-
-*--- Gamma110, only present in constraint
-MEASUREMENT m_Gamma110 statistical systematic
-
-*--- dummy mode to remove unitarity constraint
-MEASUREMENT m_Gamma998 statistical systematic
-
-*--- babar/belle/cleo measurements not in PDG list
-MEASUREMENT m_Gamma130 statistical systematic
-MEASUREMENT m_Gamma132 statistical systematic
-MEASUREMENT m_Gamma96 statistical systematic scale 1 5.435276
-MEASUREMENT m_Gamma9by5 statistical systematic
-MEASUREMENT m_Gamma10by5 statistical systematic
+MEASUREMENT m_Gamma3 statistical systematic   ! NQUAN = 1 
+MEASUREMENT m_Gamma5 statistical systematic   ! NQUAN = 2 
+MEASUREMENT m_Gamma9 statistical systematic   ! NQUAN = 3 
+MEASUREMENT m_Gamma10 statistical systematic   ! NQUAN = 4 
+MEASUREMENT m_Gamma14 statistical systematic   ! NQUAN = 5 
+MEASUREMENT m_Gamma16 statistical systematic   ! NQUAN = 6 
+MEASUREMENT m_Gamma20 statistical systematic   ! NQUAN = 7 
+MEASUREMENT m_Gamma23 statistical systematic   ! NQUAN = 8 
+MEASUREMENT m_Gamma27 statistical systematic   ! NQUAN = 9 
+MEASUREMENT m_Gamma28 statistical systematic   ! NQUAN = 10 
+MEASUREMENT m_Gamma30 statistical systematic   ! NQUAN = 11 
+MEASUREMENT m_Gamma35 statistical systematic   ! NQUAN = 12 
+MEASUREMENT m_Gamma37 statistical systematic   ! NQUAN = 13 
+MEASUREMENT m_Gamma40 statistical systematic   ! NQUAN = 14 
+MEASUREMENT m_Gamma42 statistical systematic   ! NQUAN = 15 
+MEASUREMENT m_Gamma47 statistical systematic   ! NQUAN = 16 
+MEASUREMENT m_Gamma48 statistical systematic   ! NQUAN = 17 
+MEASUREMENT m_Gamma62 statistical systematic   ! NQUAN = 18 
+MEASUREMENT m_Gamma70 statistical systematic   ! NQUAN = 19 
+MEASUREMENT m_Gamma77 statistical systematic   ! NQUAN = 20 
+MEASUREMENT m_Gamma78 statistical systematic   ! NQUAN = 21 
+MEASUREMENT m_Gamma85 statistical systematic   ! NQUAN = 22 
+MEASUREMENT m_Gamma89 statistical systematic   ! NQUAN = 23 
+MEASUREMENT m_Gamma93 statistical systematic   ! NQUAN = 24 
+MEASUREMENT m_Gamma94 statistical systematic   ! NQUAN = 25 
+MEASUREMENT m_Gamma104 statistical systematic   ! NQUAN = 26 
+MEASUREMENT m_Gamma126 statistical systematic   ! NQUAN = 27 
+MEASUREMENT m_Gamma128 statistical systematic   ! NQUAN = 28 
+MEASUREMENT m_Gamma150 statistical systematic   ! NQUAN = 29 
+MEASUREMENT m_Gamma152 statistical systematic   ! NQUAN = 30 
+MEASUREMENT m_Gamma103 statistical systematic   ! NQUAN = 31 
+MEASUREMENT m_Gamma19by13 statistical systematic   ! NQUAN = 32 
+MEASUREMENT m_Gamma26by13 statistical systematic   ! NQUAN = 33 
+MEASUREMENT m_Gamma76by54 statistical systematic   ! NQUAN = 34 
+MEASUREMENT m_Gamma152by76 statistical systematic   ! NQUAN = 35 
+MEASUREMENT m_Gamma92 statistical systematic   ! NQUAN = 36 
+MEASUREMENT m_Gamma33 statistical systematic   ! NQUAN = 37 
+MEASUREMENT m_Gamma66 statistical systematic   ! NQUAN = 38 
+MEASUREMENT m_Gamma19 statistical systematic   ! NQUAN = 39 
+MEASUREMENT m_Gamma26 statistical systematic   ! NQUAN = 40 
+MEASUREMENT m_Gamma76 statistical systematic   ! NQUAN = 41 
+MEASUREMENT m_Gamma57 statistical systematic   ! NQUAN = 42 
+MEASUREMENT m_Gamma55 statistical systematic   ! NQUAN = 43 
+MEASUREMENT m_Gamma57by55 statistical systematic   ! NQUAN = 44 
+MEASUREMENT m_Gamma34 statistical systematic   ! NQUAN = 45 
+MEASUREMENT m_Gamma39 statistical systematic   ! NQUAN = 46 
+MEASUREMENT m_Gamma8 statistical systematic   ! NQUAN = 47 
+MEASUREMENT m_Gamma29 statistical systematic   ! NQUAN = 48 
+MEASUREMENT m_Gamma25 statistical systematic   ! NQUAN = 49 
+MEASUREMENT m_Gamma74 statistical systematic   ! NQUAN = 50 
+MEASUREMENT m_Gamma60 statistical systematic   ! NQUAN = 51 
+MEASUREMENT m_Gamma58 statistical systematic   ! NQUAN = 52 
+MEASUREMENT m_Gamma66 statistical systematic   ! NQUAN = 53 
+MEASUREMENT m_Gamma69 statistical systematic   ! NQUAN = 54 
+MEASUREMENT m_Gamma88 statistical systematic   ! NQUAN = 55 
+MEASUREMENT m_Gamma80by60 statistical systematic   ! NQUAN = 56 
+MEASUREMENT m_Gamma81by69 statistical systematic   ! NQUAN = 57 
+MEASUREMENT m_Gamma93by60 statistical systematic   ! NQUAN = 58 
+MEASUREMENT m_Gamma94by69 statistical systematic   ! NQUAN = 59 
+MEASUREMENT m_Gamma38 statistical systematic   ! NQUAN = 60 
+MEASUREMENT m_Gamma150by66 statistical systematic   ! NQUAN = 61 
+MEASUREMENT m_Gamma19 statistical systematic   ! NQUAN = 62 
+MEASUREMENT m_Gamma26 statistical systematic   ! NQUAN = 63 
+MEASUREMENT m_Gamma31 statistical systematic   ! NQUAN = 64 
+MEASUREMENT m_Gamma54 statistical systematic   ! NQUAN = 65 
+MEASUREMENT m_Gamma102 statistical systematic   ! NQUAN = 66 
+MEASUREMENT m_Gamma82 statistical systematic   ! NQUAN = 67 
+MEASUREMENT m_Gamma7 statistical systematic   ! NQUAN = 68 
+MEASUREMENT m_Gamma17 statistical systematic   ! NQUAN = 69 
+MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 70 
+MEASUREMENT m_Gamma8 statistical systematic   ! NQUAN = 71 
+MEASUREMENT m_Gamma13 statistical systematic   ! NQUAN = 72 
 
 * Gamma19by13 = (1.000000*Gamma23 + 1.000000*Gamma20) / (1.000000*Gamma14 + 1.000000*Gamma16)
 CONSTRAINT Gamma19by13.c -0.360387 Gamma19by13 -1 Gamma14 -1.389168 Gamma23 3.854653 Gamma16 -1.389168 Gamma20 3.854653
@@ -168,7 +141,7 @@ CONSTRAINT Gamma60.c 0.000000 Gamma60 -1 Gamma150 0.017000 Gamma62 1.000000
 CONSTRAINT Gamma58.c 0.000000 Gamma58 -1 Gamma93 1.000000 Gamma62 1.000000 Gamma85 1.000000
 
 * Gamma66 = (0.226000*Gamma128 + 0.017000*Gamma152 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89 + 0.888000*Gamma150)
-* CONSTRAINT Gamma66.c -0.000000 Gamma66 -1 Gamma150 0.888000 Gamma128 0.226000 Gamma152 0.017000 Gamma94 1.000000 Gamma70 1.000000 Gamma89 1.000000
+CONSTRAINT Gamma66.c -0.000000 Gamma66 -1 Gamma150 0.888000 Gamma128 0.226000 Gamma152 0.017000 Gamma94 1.000000 Gamma70 1.000000 Gamma89 1.000000
 
 * Gamma69 = (0.017000*Gamma152 + 1.000000*Gamma70 + 0.888000*Gamma150)
 CONSTRAINT Gamma69.c 0.000000 Gamma69 -1 Gamma150 0.888000 Gamma152 0.017000 Gamma70 1.000000
@@ -195,10 +168,10 @@ CONSTRAINT Gamma38.c 0.000000 Gamma38 -1 Gamma37 1.000000 Gamma42 1.000000
 CONSTRAINT Gamma150by66.c -0.436791 Gamma150by66 -1 Gamma150 13.410205 Gamma128 -2.162589 Gamma152 -0.162673 Gamma94 -9.568979 Gamma70 -9.568979 Gamma89 -9.568979
 
 * Gamma19 = (1.000000*Gamma23 + 1.000000*Gamma20)
-* CONSTRAINT Gamma19.c 0.000000 Gamma19 -1 Gamma23 1.000000 Gamma20 1.000000
+CONSTRAINT Gamma19.c 0.000000 Gamma19 -1 Gamma23 1.000000 Gamma20 1.000000
 
 * Gamma26 = (0.322000*Gamma128 + 1.000000*Gamma28 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma27)
-* CONSTRAINT Gamma26.c 0.000000 Gamma26 -1 Gamma128 0.322000 Gamma28 1.000000 Gamma40 0.157000 Gamma42 0.157000 Gamma27 1.000000
+CONSTRAINT Gamma26.c 0.000000 Gamma26 -1 Gamma128 0.322000 Gamma28 1.000000 Gamma40 0.157000 Gamma42 0.157000 Gamma27 1.000000
 
 * Gamma31 = (0.715000*Gamma128 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma42 + 1.000000*Gamma16 + 1.000000*Gamma37 + 1.000000*Gamma10)
 CONSTRAINT Gamma31.c -0.000000 Gamma31 -1 Gamma10 1.000000 Gamma37 1.000000 Gamma128 0.715000 Gamma23 1.000000 Gamma28 1.000000 Gamma42 1.000000 Gamma16 1.000000
@@ -222,7 +195,7 @@ CONSTRAINT Gamma17.c -0.000000 Gamma17 -1 Gamma126 0.319000 Gamma37 0.157000 Gam
 CONSTRAINT Gamma3by5.c -0.976497 Gamma3by5 -1 Gamma3 5.610265 Gamma5 -5.478406
 
 * Gamma8 = (1.000000*Gamma9 + 1.000000*Gamma10)
-* CONSTRAINT Gamma8.c 0.000000 Gamma8 -1 Gamma10 1.000000 Gamma9 1.000000
+CONSTRAINT Gamma8.c 0.000000 Gamma8 -1 Gamma10 1.000000 Gamma9 1.000000
 
 * Gamma13 = (1.000000*Gamma14 + 1.000000*Gamma16)
 CONSTRAINT Gamma13.c -0.000000 Gamma13 -1 Gamma14 1.000000 Gamma16 1.000000
@@ -234,72 +207,7 @@ CONSTRAINT GammaAll 1
   Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1
   Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1
   Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1
-  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma96  1.699387
-  Gamma998 1
-
-*
-* additional notes on unitarity constraint
-*
-* - above in addition to PDG 2009 we added
-*   - Gamma130,
-*   - Gamma132,
-*   - Gamma44,  tau- --> pi K0 pi0 pi0 nu
-*   - Gamma53,  tau- --> K0 h+ h- h- nu
-*   - Gamma96,  tau --> KKK nu =exp= tau -> K phi nu, phi -> K+K-
-*   - Gamma96 * B(phi -> KS0 KL0)/B(phi -> K+K-) =exp= tau -> K phi nu, phi -> KS0 KL0
-*
-* phi BRs on PDG 2009
-* - K+K-        0.489 +- 0.05
-* - KL0 KS0     0.342 +- 0.04
-*
-* PDG 2009 mentions that it does not include
-* - Gamma50, tau --> pi KL0 KS0 pi0 nu
-* - Gamma96, tau --> KKK nu
-* - Gamma132 tau --> eta K0 pi nu
-*
-
-* --- compute Gamma(tau -> Xs nu)
-COMBOFQUANT Gamma110
-  1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28
-  1 Gamma35  1 Gamma40  1 Gamma44  1 Gamma53
-  1 Gamma85  1 Gamma89  1 Gamma128 1 Gamma130
-  1 Gamma132 1.699387   Gamma96
-
-*
-* R3-5 = B(tau -> mu nu nu)/B(tau -> e nu nu)
-* G5 = B(tau -> e nu nu)
-* G3 = B(tau -> mu nu nu)
-* the R3-5^babar measurement uses G5^pdg
-* by Taylor-expanding at 1st order around the babar measurement
-* R3-5 = R3-5^babar + 1/G5^pdg * G3 + 1/G5^pdg*R3-5^babar * G5
-* the constraint line is obtained moving all quantities on one side
-* and all constant terms on the other one
-* a similar procedure is used for R9-5 and R10-5
-
-* --- PDG tau -> e nu nubar
-* G5^pdg = 0.178326
-
-* --- babar measurements
-* R3-5^babar = 0.9796
-* R9-5^babar = 0.5945
-* R10-5^babar = 0.03882
-
-* --- babar measurements shifted by updated external parameters
-* R3-5^babar = 0.9791458276
-* R9-5^babar = 0.593673115
-* R10-5^babar = 0.0386760149
-
-* 1/G5^pdg = 5.607707 , R3-5^babar/G5^pdg = 5.49331
-* CONSTRAINT Gamma3by5.c -0.976497 Gamma3by5 -1 Gamma3 5.610265 Gamma5 -5.478406
-
-* 1/G5^pdg = 5.607707 , R9-5^babar/G5^pdg = 3.333782
-CONSTRAINT Gamma9by5.c  -0.5945  Gamma9by5  -1 Gamma9  5.610265  Gamma5 -3.3353
-
-* 1/G5^pdg = 5.607707 , R10-5^babar/G5^pdg = 0.2176912
-CONSTRAINT Gamma10by5.c -0.03882 Gamma10by5 -1 Gamma10 5.610265  Gamma5 -0.21779
-
-* Gamma43 = Gamma40 + Gamma44
-CONSTRAINT Gamma43.c 0.0 Gamma43 -1.0 Gamma40 1.0 Gamma44 1.0
+* Gamma998 1
 
 CALL CHI2_N_SYM
 
