@@ -859,7 +859,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, " 1 Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152\n");
     fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu)/G(total)\n");
     fprintf (thisfile, "COMBOFQUANT Gamma110\n");
-    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
+    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
   }
   fprintf (thisfile, "\nCALL CHI2_N_SYM\n");
   fprintf (thisfile, "\nEND\n");

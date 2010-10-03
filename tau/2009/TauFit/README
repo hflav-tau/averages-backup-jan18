@@ -1,4 +1,5 @@
-cd ../../../Common/ ; source ./config.csh ; cd -
+# cd ../../../../Common/ ; source ./config.csh ; cd -
+
 ./any.com readpdg
 
 source run_readpdg
@@ -12,4 +13,3 @@ cp -p *.log log
 
 cp -p combos*.input log/input_dir
 cp -p alucomb*.input log/input_dir
-
