@@ -225,18 +225,18 @@ CONSTRAINT GammaAll 1
   Gamma998 1
 
 * --- compute Gamma(total)
-COMBOFQUANT GammaAll 1
-  Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1
-  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1
-  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1
-  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1
-  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1
-  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 1 ! Gamma801 = Gamma96 * 1.699387
+COMBOFQUANT GammaAll
+ 1 Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16
+ 1 Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35
+ 1 Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62
+ 1 Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93
+ 1 Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152
+ 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 ! Gamma801 = Gamma96 * 1.699387
 
 * --- compute Gamma(tau -> Xs nu)/G(total)
-COMBOFQUANT Gamma110 1
-  Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128  1
-  Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 1 ! Gamma801 = Gamma96 * 1.699387
+COMBOFQUANT Gamma110
+ 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128
+ 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 ! Gamma801 = Gamma96 * 1.699387
 
 CALL CHI2_N_SYM
 

@@ -851,15 +851,15 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
   }
   if (p==1) {
     fprintf (thisfile, "\n* --- compute Gamma(total)\n");
-    fprintf (thisfile, "COMBOFQUANT GammaAll 1\n");
-    fprintf (thisfile, "  Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1\n");
-    fprintf (thisfile, "  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1\n");
-    fprintf (thisfile, "  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1\n");
-    fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
-    fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1\n");
+    fprintf (thisfile, "COMBOFQUANT GammaAll\n");
+    fprintf (thisfile, " 1 Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16\n");
+    fprintf (thisfile, " 1 Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35\n");
+    fprintf (thisfile, " 1 Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62\n");
+    fprintf (thisfile, " 1 Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93\n");
+    fprintf (thisfile, " 1 Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152\n");
     fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu)/G(total)\n");
-    fprintf (thisfile, "COMBOFQUANT Gamma110 1\n");
-    fprintf (thisfile, "  Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128  1\n");
+    fprintf (thisfile, "COMBOFQUANT Gamma110\n");
+    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
   }
   fprintf (thisfile, "\nCALL CHI2_N_SYM\n");
   fprintf (thisfile, "\nEND\n");
@@ -2007,14 +2007,13 @@ int main(int argc, char* argv[]){
     chisquared_temp = chisquared;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Results from original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR   TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
-		 baseerror_fit[ibase],
-		 baseerror_fit[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
   }
   cout << endl;
@@ -2230,12 +2229,14 @@ int main(int argc, char* argv[]){
     chisquared_noweak_temp = chisquared_noweak;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Comparison of Results from fit with [non-weak measurements only] w.r.t original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
 		 basevalue_fit_noweak[ibase],
-		 baseerror_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -2339,6 +2340,19 @@ int main(int argc, char* argv[]){
 	       NodeError_noweak[nnode-1],
 	       NodeValue_noweak[nnode-1]/NodeError_noweak[nnode-1]);
   //
+  cout << "Summary of fit with [non-weak measurements only]:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
+  for (ibase=0;ibase<nbase;++ibase) {
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
+		 baseerror_fit_noweak[ibase],
+		 baseerror_fit_noweak[ibase]/baseerror_fit[ibase],
+		 basetitle[ibase].data());
+  }
+  cout << endl;
+  //
   // PDG-style Scale Factor Calculation
   //
   printf ("ncorrij = %d \n",ncorrij);
@@ -2368,7 +2382,7 @@ int main(int argc, char* argv[]){
 	  jnode=measnode[jm];
 	  ThisMeasErrorMatrix[i][j] = (i==j) ? measerror[im]*measerror[im] : corrmat[im][jm] * measerror[im] * measerror[jm];
 	  ThisFitErrorMatrix[i][j]  = (iweak==0) ? NodeErrorMatrix[inode][jnode] : NodeErrorMatrix_noweak[inode][jnode];
-	  //	  if (iweak==1&&ij==1) {
+	  //	  if (iweak==1&&(ij==1||ij==7)) {
 	  //	    cout << i << " " << j << " " << inode << " " << jnode << " " << nodegammaname[inode] << " " << nodegammaname[jnode] << " "
 	  //		 << "NodeErrorMatrix: " << NodeErrorMatrix[inode][jnode] << " " << NodeErrorMatrix_noweak[inode][jnode] << " "
 	  //		 << NodeErrorMatrix[inode][jnode]/NodeErrorMatrix_noweak[inode][jnode] << " "
@@ -2755,17 +2769,20 @@ int main(int argc, char* argv[]){
     chisquared_noweak_scaled_temp = chisquared_noweak_scaled;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Comparison of Results from fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors] w.r.t original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
 		 basevalue_fit_noweak_scaled[ibase],
-		 baseerror_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
   }
   cout << endl;
+  //
   //
   //  for (ibase=0;ibase<nbase;++ibase) {
   //    cout << "basecorr["<<ibase<<"] = ";
@@ -2864,8 +2881,8 @@ int main(int argc, char* argv[]){
 	       NodeError_noweak_scaled[nnode-1],
 	       NodeValue_noweak_scaled[nnode-1]/NodeError_noweak_scaled[nnode-1]);
   //
-  cout << "Summary of sing PDG-style scale factors:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << "Summary of fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors]:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
@@ -2918,6 +2935,8 @@ int main(int argc, char* argv[]){
   //
   double measerror_rescaled[200];
   for (i=0;i<nmeas;++i){
+    //if (measnode[i]==102) {// NAME = S035C9 GAMMA = 96 TITLE = G(K- K+ K- nu(tau))/G(total)
+    //  double rescale = 5.435276;
     if (measnode[i]==47) {// NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total)
       double rescale = 1.59;
       measerror_rescaled[i] = measerror[i] * rescale;
@@ -3023,12 +3042,14 @@ int main(int argc, char* argv[]){
     chisquared_rescaled_temp = chisquared_rescaled;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Comparison of Results from fit with [errors rescaled in a Ad-Hoc style for kkk only] w.r.t original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
 		 basevalue_fit_rescaled[ibase],
-		 baseerror_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3132,8 +3153,8 @@ int main(int argc, char* argv[]){
 	       NodeError_rescaled[nnode-1],
 	       NodeValue_rescaled[nnode-1]/NodeError_rescaled[nnode-1]);
   //
-  cout << "Summary of using Ad-Hoc scale factors:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << "Summary of fit with [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
@@ -3259,12 +3280,14 @@ int main(int argc, char* argv[]){
     chisquared_noweak_rescaled_temp = chisquared_noweak_rescaled;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Comparison of Results from fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only] w.r.t original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
 		 basevalue_fit_noweak_rescaled[ibase],
-		 baseerror_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3368,9 +3391,8 @@ int main(int argc, char* argv[]){
 	       NodeError_noweak_rescaled[nnode-1],
 	       NodeValue_noweak_rescaled[nnode-1]/NodeError_noweak_rescaled[nnode-1]);
   //
-  cout << "Summary of using Ad-Hoc scale factors for non-weak measurements only :" << endl;
-  //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << "Summary of fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
