@@ -2161,14 +2161,13 @@ int main(int argc, char* argv[]){
     chisquared_temp = chisquared;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Results from original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR   TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
-		 baseerror_fit[ibase],
-		 baseerror_fit[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
   }
   cout << endl;
@@ -2384,12 +2383,14 @@ int main(int argc, char* argv[]){
     chisquared_noweak_temp = chisquared_noweak;
   }
   //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << endl << "Comparison of Results from fit with non-weak measurements only w.r.t original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
 		 basevalue_fit_noweak[ibase],
-		 baseerror_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3019,12 +3020,26 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_scaled[nnode-1]/NodeError_noweak_scaled[nnode-1]);
   //
   cout << "Summary of sing PDG-style scale factors:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
+		 baseerror_fit_noweak_scaled[ibase],
+		 baseerror_fit_noweak_scaled[ibase]/baseerror_fit[ibase],
+		 basetitle[ibase].data());
+  }
+  cout << endl;
+  //
+  cout << "Comparison of Results from fit with PDG-style scale factors w.r.t original fit:" << endl;
+  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
+  for (ibase=0;ibase<nbase;++ibase) {
+    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 basevalue_fit[ibase],
+		 baseerror_fit[ibase],
+		 basevalue_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3523,8 +3538,7 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_rescaled[nnode-1]/NodeError_noweak_rescaled[nnode-1]);
   //
   cout << "Summary of using Ad-Hoc scale factors for non-weak measurements only :" << endl;
-  //
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE                                             \n");
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
