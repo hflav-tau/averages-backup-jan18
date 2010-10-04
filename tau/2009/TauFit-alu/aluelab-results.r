@@ -19,17 +19,23 @@ source("../../../Common/bin/aluelab.r")
 args <- commandArgs(TRUE)
 
 ##--- option -s, use S-factors
-use.s.factors =  FALSE
+flag.s.factors =  FALSE
 if(any(args == "-s")) {
   ##--- use S-factors
-  use.s.factors =  TRUE
+  flag.s.factors =  TRUE
   args = args[args != "-s"]
 }
-use.unitarity =  FALSE
+flag.unitarity =  FALSE
 if(any(args == "-u")) {
   ##--- use unitarity constraint to compute Be_univ, B_had_VA, B_had_s
-  use.unitarity =  TRUE
+  flag.unitarity =  TRUE
   args = args[args != "-u"]
+}
+flag.va.direct =  FALSE
+if(any(args == "-vadirect")) {
+  ##--- determine B_VA from direct measurements rather than 1-Be-Bmu-Bstrange
+  flag.va.direct =  TRUE
+  args = args[args != "-vadirect"]
 }
 
 if (length(args) > 0) {
@@ -41,7 +47,7 @@ if (length(args) > 0) {
 ##--- get alucomb results and data
 load(file.name)
 
-if (use.s.factors) {
+if (flag.s.factors) {
   quant.err = quant.sf.err
   quant.corr = quant.sf.corr
   quant.cov = quant.sf.cov
@@ -136,7 +142,7 @@ aeb.meas.expr.add("Bmu_unitarity", quote(1 - Gamma5 - B_tau_VA - Gamma110))
 ## using both the direct measurements and the result from the unitarity constraint
 ##
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
-  if (use.unitarity) {
+  if (flag.unitarity) {
     ##--- use unitarity constraint to compute Be, Bmu, B_tau_VA/s
     aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
     aeb.meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
@@ -148,7 +154,12 @@ if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
     ##--- direct measurement
     ## aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
     ##--- traditional A.Pich et al. calculation
-    aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
+    if (!flag.va.direct) {
+      aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
+      aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
+    } else {
+      aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
+    }
     aeb.meas.expr.add("B_tau_s_fit", quote(Gamma110))
   }
 } else {
