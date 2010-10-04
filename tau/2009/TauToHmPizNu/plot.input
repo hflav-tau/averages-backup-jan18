@@ -1,13 +1,14 @@
 # first line is xmin, xmax, precision, title
-* 22.5 26.5 5.2 B(#tau^{-} #rightarrow h^{-}#pi^{0}#nu) [%]
+* 23.75 26.75 5.2 B(#tau^{-} #rightarrow h^{-}#pi^{0}#nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 25.828 0.097  0.683 HFAG Average [h^{-}(0,1#pi^{0})#nu(#bar{#nu}) (h=#mu,#pi,K) modes fit]
-& 25.732 0.158  0.810 HFAG Average [h^{-}#pi^{0}#nu mode only]
+& 25.962 0.088965  0.09161 HFAG Fit
+& 25.732 0.158  0.810 HFAG Average
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 25.73  0.16   0.00  PDG'09 Average
 # next lines are measurement, stat-error, syst-error, experiment-name
  25.67  0.01  -0.01  0.39  -0.39  Belle  2008
  25.74  0.201 -0.201 0.138 -0.138 DELPHI 2006
+ 25.924 0.097 -0.097 0.085 -0.085 ALEPH 2005
  25.89  0.17  -0.17  0.29  -0.29  OPAL 1998
  25.05  0.35  -0.35  0.50  -0.50  L3   1995
  25.87  0.12  -0.12  0.42  -0.42  CLEO 1994

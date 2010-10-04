@@ -164,7 +164,8 @@ int plot(std::string filename_string = "plot.input"){
   int nexp=0;
   double num=0,den=0,aver=0,err=0,wt;
   for (int i=0;i<nPoints;i++) {
-    if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
+    if ((expname[i].Contains("Average") && expname[i].Contains("HFAG"))||
+	(expname[i].Contains("Fit") && expname[i].Contains("HFAG"))) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with CL (or -Scale Factor) = " << syst[i] << " from " << expname[i] << endl;
     } else if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with Scale Factor = " << syst[i] << " from " << expname[i] << endl;
@@ -230,10 +231,10 @@ int plot(std::string filename_string = "plot.input"){
   Double_t fTxtY= 0.45;
   Double_t ytext;
   TLatex  tl;
-  tl.SetTextSize(0.028);
+  tl.SetTextSize(0.03);
   for (int i=0;i<nPoints;++i) {
     Double_t totl[1],toth[1];
-    if (expname[i].Contains("Average")) {
+    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
       totl[0] = stat[i];
       toth[0] = stat[i];
     }else{
@@ -256,7 +257,7 @@ int plot(std::string filename_string = "plot.input"){
     GraphA->SetLineColor(fColor[i]);
     GraphA->SetLineWidth(fLineW);
     // -- Change if it's the average
-    if (expname[i].Contains("Average")) {
+    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
       GraphA->SetMarkerColor(2);
       GraphA->SetLineColor(2);
     }
@@ -270,16 +271,16 @@ int plot(std::string filename_string = "plot.input"){
     GraphB->SetMarkerSize(fMarkerSize);
     GraphB->SetLineColor(fColor[i]);
     GraphB->SetLineWidth(fLineW);
-    if (!expname[i].Contains("Average")&&fabs(stat[i])>1e-9) GraphB->Draw("P");
+    if (!expname[i].Contains("Average") && !expname[i].Contains("Fit")  &&fabs(stat[i])>1e-9) GraphB->Draw("P");
     //
     tl.SetTextColor(fColor[i]);
     // -- Change if it's the average
-    if (expname[i].Contains("Average")) {
+    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
       tl.SetTextColor(2);
     }
     ytext=y[i]*1.0+0.05;
     tl.DrawLatex(xtext,ytext,expname[i]);
-    tl.SetTextSize(0.024);
+    tl.SetTextSize(0.03);
     if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       if (syst[i]<1e-9) { // zero means no Scale Factor quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
@@ -291,7 +292,8 @@ int plot(std::string filename_string = "plot.input"){
 					    Form(sprecision.Data(),stat[i]),
 					    Form("%4.2f",syst[i])));
       }
-    } else if (expname[i].Contains("Average") && expname[i].Contains("HFAG")) {
+    } else if ((expname[i].Contains("Average") && expname[i].Contains("HFAG"))||
+               (expname[i].Contains("Fit") && expname[i].Contains("HFAG"))) {
       if (fabs(syst[i])<1e-9) { // zero means no CL quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
 					    Form(sprecision.Data(),meas[i]),
@@ -352,7 +354,7 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
 
-  HFAGTauLabel(2010002,.3,.225,.2,.05,.8);
+  HFAGTauLabel(2010002,.3,.225,.2,.05,.9);
 
   size_t extPos = filename_string.rfind('.');
   std::string outFilename;
