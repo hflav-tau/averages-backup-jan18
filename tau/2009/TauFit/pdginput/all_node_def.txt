@@ -1,291 +1,291 @@
 
 * S035B20 : G(eta K- nu(tau))/G(total) 
-Gamma128 = (1.000000*Gamma128)
+Gamma128 = (        1.0000000000*Gamma128)
 
 * S035B21 : G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau)) 
-Gamma19by13 = (1.000000*Gamma23 + 1.000000*Gamma20) / (1.000000*Gamma14 + 1.000000*Gamma16)
+Gamma19by13 = (        1.0000000000*Gamma23 +         1.0000000000*Gamma20) / (        1.0000000000*Gamma14 +         1.0000000000*Gamma16)
 
 * S035B22 : G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau)) 
-Gamma26by13 = (0.322000*Gamma128 + 1.000000*Gamma28 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma27) / (1.000000*Gamma14 + 1.000000*Gamma16)
+Gamma26by13 = (        0.3220000000*Gamma128 +         1.0000000000*Gamma28 +         0.1570000000*Gamma40 +         0.1570000000*Gamma42 +         1.0000000000*Gamma27) / (        1.0000000000*Gamma14 +         1.0000000000*Gamma16)
 
 * S035B23 : G(h- 4pi0 nu(tau) (ex.K0,eta))/G(total) 
-Gamma30 = (1.000000*Gamma30)
+Gamma30 = (        1.0000000000*Gamma30)
 
 * S035B25 : G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) 
-Gamma76by54 = (0.888000*Gamma152 + 1.000000*Gamma77 + 0.226000*Gamma126) / (0.285000*Gamma128 + 0.910100*Gamma152 + 0.343100*Gamma35 + 0.343100*Gamma40 + 0.343100*Gamma42 + 1.000000*Gamma78 + 0.430700*Gamma47 + 1.000000*Gamma77 + 0.686100*Gamma48 + 1.000000*Gamma94 + 1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma70 + 1.000000*Gamma89 + 1.000000*Gamma93 + 0.285000*Gamma126 + 0.343100*Gamma37 + 0.910100*Gamma150)
+Gamma76by54 = (        0.8880000000*Gamma152 +         1.0000000000*Gamma77 +         0.2260000000*Gamma126) / (        0.2850000000*Gamma128 +         0.9101000000*Gamma152 +         0.3431000000*Gamma35 +         0.3431000000*Gamma40 +         0.3431000000*Gamma42 +         1.0000000000*Gamma78 +         0.4307000000*Gamma47 +         1.0000000000*Gamma77 +         0.6861000000*Gamma48 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         0.2850000000*Gamma126 +         0.3431000000*Gamma37 +         0.9101000000*Gamma150)
 
 * S035B26 : G(h- omega pi0 nu(tau))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) 
-Gamma152by54 = (1.000000*Gamma152) / (0.285000*Gamma128 + 0.910100*Gamma152 + 0.343100*Gamma35 + 0.343100*Gamma40 + 0.343100*Gamma42 + 1.000000*Gamma78 + 0.430700*Gamma47 + 1.000000*Gamma77 + 0.686100*Gamma48 + 1.000000*Gamma94 + 1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma70 + 1.000000*Gamma89 + 1.000000*Gamma93 + 0.285000*Gamma126 + 0.343100*Gamma37 + 0.910100*Gamma150)
+Gamma152by54 = (        1.0000000000*Gamma152) / (        0.2850000000*Gamma128 +         0.9101000000*Gamma152 +         0.3431000000*Gamma35 +         0.3431000000*Gamma40 +         0.3431000000*Gamma42 +         1.0000000000*Gamma78 +         0.4307000000*Gamma47 +         1.0000000000*Gamma77 +         0.6861000000*Gamma48 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         0.2850000000*Gamma126 +         0.3431000000*Gamma37 +         0.9101000000*Gamma150)
 
 * S035B27 : G(h- omega pi0 nu(tau))/G(h- h- h+ 2pi0 nu(tau) (ex.K0)) 
-Gamma152by76 = (1.000000*Gamma152) / (0.888000*Gamma152 + 1.000000*Gamma77 + 0.226000*Gamma126)
+Gamma152by76 = (        1.0000000000*Gamma152) / (        0.8880000000*Gamma152 +         1.0000000000*Gamma77 +         0.2260000000*Gamma126)
 
 * S035B29 : G(K- pi0 nu(tau))/G(total) 
-Gamma16 = (1.000000*Gamma16)
+Gamma16 = (        1.0000000000*Gamma16)
 
 * S035B30 : G(K- 2pi0 nu(tau) (ex.K0))/G(total) 
-Gamma23 = (1.000000*Gamma23)
+Gamma23 = (        1.0000000000*Gamma23)
 
 * S035B31 : G(K- 3pi0 nu(tau) (ex.K0, eta))/G(total) 
-Gamma28 = (1.000000*Gamma28)
+Gamma28 = (        1.0000000000*Gamma28)
 
 * S035B32 : G(pi- Kbar0 nu(tau))/G(total) 
-Gamma35 = (1.000000*Gamma35)
+Gamma35 = (        1.0000000000*Gamma35)
 
 * S035B33 : G(pi- Kbar0 pi0 nu(tau))/G(total) 
-Gamma40 = (1.000000*Gamma40)
+Gamma40 = (        1.0000000000*Gamma40)
 
 * S035B34 : G(K- K0 pi0 nu(tau))/G(total) 
-Gamma42 = (1.000000*Gamma42)
+Gamma42 = (        1.0000000000*Gamma42)
 
 * S035B37 : G(K- K+ pi- >=0 neut.  nu(tau))/G(total) 
-Gamma92 = (1.000000*Gamma94 + 1.000000*Gamma93)
+Gamma92 = (        1.0000000000*Gamma94 +         1.0000000000*Gamma93)
 
 * S035B43 : G(K(S)0 (particles)- nu(tau))/G(total) 
-Gamma33 = (0.500000*Gamma35 + 0.500000*Gamma40 + 0.500000*Gamma42 + 1.000000*Gamma47 + 1.000000*Gamma48 + 0.500000*Gamma37)
+Gamma33 = (        0.5000000000*Gamma35 +         0.5000000000*Gamma40 +         0.5000000000*Gamma42 +         1.0000000000*Gamma47 +         1.0000000000*Gamma48 +         0.5000000000*Gamma37)
 
 * S035B45 : G(( 5pi )- nu(tau))/G(total) 
-Gamma106 = (1.000000*Gamma30 + 0.888000*Gamma152 + 1.000000*Gamma47 + 1.000000*Gamma77 + 1.000000*Gamma103 + 0.553000*Gamma126)
+Gamma106 = (        1.0000000000*Gamma30 +         0.8880000000*Gamma152 +         1.0000000000*Gamma47 +         1.0000000000*Gamma77 +         1.0000000000*Gamma103 +         0.5530000000*Gamma126)
 
 * S035B51 : G(pi- K0 Kbar0 nu(tau))/G(total) 
-Gamma46 = (2.000000*Gamma47 + 1.000000*Gamma48)
+Gamma46 = (        2.0000000000*Gamma47 +         1.0000000000*Gamma48)
 
 * S035B53 : G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) 
-Gamma66 = (0.226000*Gamma128 + 0.017000*Gamma152 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89 + 0.888000*Gamma150)
+Gamma66 = (        0.2260000000*Gamma128 +         0.0170000000*Gamma152 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         0.8880000000*Gamma150)
 
 * S035B54 : G(h- h- h+ pi0 nu(tau) (ex. K0, omega))/G(total) 
-Gamma67 = (0.226000*Gamma128 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89)
+Gamma67 = (        0.2260000000*Gamma128 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89)
 
 * S035B55 : G(pi- 2pi0 nu(tau) (ex.K0))/G(total) 
-Gamma20 = (1.000000*Gamma20)
+Gamma20 = (        1.0000000000*Gamma20)
 
 * S035B56 : G(pi- 3pi0 nu(tau) (ex.K0))/G(total) 
-Gamma27 = (1.000000*Gamma27)
+Gamma27 = (        1.0000000000*Gamma27)
 
 * S035B57 : G(h- h- h+ 3pi0 nu(tau))/G(total) 
-Gamma78 = (1.000000*Gamma78)
+Gamma78 = (        1.0000000000*Gamma78)
 
 * S035B58 : G(h- omega pi0 nu(tau))/G(total) 
-Gamma152 = (1.000000*Gamma152)
+Gamma152 = (        1.0000000000*Gamma152)
 
 * S035B59 : G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(total) 
-Gamma76 = (0.888000*Gamma152 + 1.000000*Gamma77 + 0.226000*Gamma126)
+Gamma76 = (        0.8880000000*Gamma152 +         1.0000000000*Gamma77 +         0.2260000000*Gamma126)
 
 * S035B62 : G(h- h- h+ nu(tau) (ex.K0))/G(total) 
-Gamma57 = (1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma93 + 0.017000*Gamma150)
+Gamma57 = (        1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma93 +         0.0170000000*Gamma150)
 
 * S035B63 : G( h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total) 
-Gamma55 = (0.285000*Gamma128 + 0.910100*Gamma152 + 1.000000*Gamma78 + 1.000000*Gamma77 + 1.000000*Gamma94 + 1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma70 + 1.000000*Gamma89 + 1.000000*Gamma93 + 0.285000*Gamma126 + 0.910100*Gamma150)
+Gamma55 = (        0.2850000000*Gamma128 +         0.9101000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         0.2850000000*Gamma126 +         0.9101000000*Gamma150)
 
 * S035B64 : G(h- h- h+ nu(tau) (ex.K0))/G( h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong'')) 
-Gamma57by55 = (1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma93 + 0.017000*Gamma150) / (0.285000*Gamma128 + 0.910100*Gamma152 + 1.000000*Gamma78 + 1.000000*Gamma77 + 1.000000*Gamma94 + 1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma70 + 1.000000*Gamma89 + 1.000000*Gamma93 + 0.285000*Gamma126 + 0.910100*Gamma150)
+Gamma57by55 = (        1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma93 +         0.0170000000*Gamma150) / (        0.2850000000*Gamma128 +         0.9101000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         0.2850000000*Gamma126 +         0.9101000000*Gamma150)
 
 * S035B67 : G(h- Kbar0 nu(tau))/G(total) 
-Gamma34 = (1.000000*Gamma35 + 1.000000*Gamma37)
+Gamma34 = (        1.0000000000*Gamma35 +         1.0000000000*Gamma37)
 
 * S035B68 : G(h- Kbar0 pi0 nu(tau))/G(total) 
-Gamma39 = (1.000000*Gamma40 + 1.000000*Gamma42)
+Gamma39 = (        1.0000000000*Gamma40 +         1.0000000000*Gamma42)
 
 * S035B69 : G(pi- K(S)0 K(S)0 nu(tau))/G(total) 
-Gamma47 = (1.000000*Gamma47)
+Gamma47 = (        1.0000000000*Gamma47)
 
 * S035B71 : G(h- h- h+ nu(tau) (ex.K0,omega))/G(total) 
-Gamma58 = (1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma93)
+Gamma58 = (        1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma93)
 
 * S035B72 : G(h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta))/G(total) 
-Gamma77 = (1.000000*Gamma77)
+Gamma77 = (        1.0000000000*Gamma77)
 
 * S035B73 : G(h- nu(tau))/G(total) 
-Gamma8 = (1.000000*Gamma9 + 1.000000*Gamma10)
+Gamma8 = (        1.0000000000*Gamma9 +         1.0000000000*Gamma10)
 
 * S035B74 : G(h- 2pi0 nu(tau))/G(total) 
-Gamma18 = (1.000000*Gamma23 + 0.157000*Gamma35 + 1.000000*Gamma20 + 0.157000*Gamma37)
+Gamma18 = (        1.0000000000*Gamma23 +         0.1570000000*Gamma35 +         1.0000000000*Gamma20 +         0.1570000000*Gamma37)
 
 * S035B75 : G(particle->=0 neutrals >=0K0 nu(tau)  (``1-prong''))/G(total) 
-Gamma1 = (1.000000*Gamma3 + 0.715000*Gamma128 + 1.000000*Gamma30 + 0.090000*Gamma152 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma35 + 1.000000*Gamma40 + 1.000000*Gamma42 + 1.000000*Gamma9 + 1.000000*Gamma14 + 1.000000*Gamma16 + 1.000000*Gamma5 + 1.000000*Gamma20 + 1.000000*Gamma27 + 2.000000*Gamma47 + 1.000000*Gamma48 + 0.708000*Gamma126 + 1.000000*Gamma37 + 1.000000*Gamma10 + 0.090000*Gamma150)
+Gamma1 = (        1.0000000000*Gamma3 +         0.7150000000*Gamma128 +         1.0000000000*Gamma30 +         0.0900000000*Gamma152 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma35 +         1.0000000000*Gamma40 +         1.0000000000*Gamma42 +         1.0000000000*Gamma9 +         1.0000000000*Gamma14 +         1.0000000000*Gamma16 +         1.0000000000*Gamma5 +         1.0000000000*Gamma20 +         1.0000000000*Gamma27 +         2.0000000000*Gamma47 +         1.0000000000*Gamma48 +         0.7080000000*Gamma126 +         1.0000000000*Gamma37 +         1.0000000000*Gamma10 +         0.0900000000*Gamma150)
 
 * S035B76 : G(h- h- h+ pi0 nu(tau))/G(total) 
-Gamma65 = (0.226000*Gamma128 + 0.017000*Gamma152 + 0.343100*Gamma40 + 0.343100*Gamma42 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89 + 0.888000*Gamma150)
+Gamma65 = (        0.2260000000*Gamma128 +         0.0170000000*Gamma152 +         0.3431000000*Gamma40 +         0.3431000000*Gamma42 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         0.8880000000*Gamma150)
 
 * S035B77 : G(h- h- h+ 2pi0 nu(tau))/G(total) 
-Gamma75 = (0.888000*Gamma152 + 0.430700*Gamma47 + 1.000000*Gamma77 + 0.226000*Gamma126)
+Gamma75 = (        0.8880000000*Gamma152 +         0.4307000000*Gamma47 +         1.0000000000*Gamma77 +         0.2260000000*Gamma126)
 
 * S035B78 : G(h- h- h+ >=1 pi0 nu(tau) (ex. K0))/G(total) 
-Gamma64 = (0.226000*Gamma128 + 0.910100*Gamma152 + 1.000000*Gamma78 + 1.000000*Gamma77 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89 + 0.226000*Gamma126 + 0.888000*Gamma150)
+Gamma64 = (        0.2260000000*Gamma128 +         0.9101000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         0.2260000000*Gamma126 +         0.8880000000*Gamma150)
 
 * S035B79 : G(h- 4pi0 nu(tau) (ex.K0))/G(total) 
-Gamma29 = (1.000000*Gamma30 + 0.319000*Gamma126)
+Gamma29 = (        1.0000000000*Gamma30 +         0.3190000000*Gamma126)
 
 * S035B97 : G(h- nu(tau))/G(e- nubar(e) nu(tau)) 
-Gamma8by5 = (1.000000*Gamma9 + 1.000000*Gamma10) / (1.000000*Gamma5)
+Gamma8by5 = (        1.0000000000*Gamma9 +         1.0000000000*Gamma10) / (        1.0000000000*Gamma5)
 
 * S035C01 : G(h- >= 1pi0 nu(tau) (ex.K0))/G(total) 
-Gamma12 = (0.325000*Gamma128 + 1.000000*Gamma30 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma14 + 1.000000*Gamma16 + 1.000000*Gamma20 + 1.000000*Gamma27 + 0.325000*Gamma126)
+Gamma12 = (        0.3250000000*Gamma128 +         1.0000000000*Gamma30 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma14 +         1.0000000000*Gamma16 +         1.0000000000*Gamma20 +         1.0000000000*Gamma27 +         0.3250000000*Gamma126)
 
 * S035C02 : G(h- >= 3pi0 nu(tau) (ex. K0))/G(total) 
-Gamma25 = (0.325000*Gamma128 + 1.000000*Gamma30 + 1.000000*Gamma28 + 1.000000*Gamma27 + 0.325000*Gamma126)
+Gamma25 = (        0.3250000000*Gamma128 +         1.0000000000*Gamma30 +         1.0000000000*Gamma28 +         1.0000000000*Gamma27 +         0.3250000000*Gamma126)
 
 * S035C03 : G(h- h- h+ >= 2pi0 nu(tau) (ex. K0))/G(total) 
-Gamma74 = (0.888000*Gamma152 + 1.000000*Gamma78 + 1.000000*Gamma77 + 0.226000*Gamma126)
+Gamma74 = (        0.8880000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         0.2260000000*Gamma126)
 
 * S035C1 : G(pi- K(S)0 K(L)0 nu(tau))/G(total) 
-Gamma48 = (1.000000*Gamma48)
+Gamma48 = (        1.0000000000*Gamma48)
 
 * S035C18 : G(pi- pi+ pi- nu(tau))/G(total) 
-Gamma59 = (0.343100*Gamma35 + 1.000000*Gamma62 + 0.017000*Gamma150)
+Gamma59 = (        0.3431000000*Gamma35 +         1.0000000000*Gamma62 +         0.0170000000*Gamma150)
 
 * S035C19 : G(pi- pi+ pi- nu(tau) (ex.K0))/G(total) 
-Gamma60 = (1.000000*Gamma62 + 0.017000*Gamma150)
+Gamma60 = (        1.0000000000*Gamma62 +         0.0170000000*Gamma150)
 
 * S035C20 : G(pi- pi+ pi- nu(tau) (ex.K0,omega))/G(total) 
-Gamma62 = (1.000000*Gamma62)
+Gamma62 = (        1.0000000000*Gamma62)
 
 * S035C21 : G(K- pi+ pi- nu(tau) (ex.K0))/G(total) 
-Gamma85 = (1.000000*Gamma85)
+Gamma85 = (        1.0000000000*Gamma85)
 
 * S035C22 : G(pi- pi+ pi- pi0 nu(tau))/G(total) 
-Gamma68 = (0.017000*Gamma152 + 0.343100*Gamma40 + 1.000000*Gamma70 + 0.888000*Gamma150)
+Gamma68 = (        0.0170000000*Gamma152 +         0.3431000000*Gamma40 +         1.0000000000*Gamma70 +         0.8880000000*Gamma150)
 
 * S035C23 : G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
-Gamma69 = (0.017000*Gamma152 + 1.000000*Gamma70 + 0.888000*Gamma150)
+Gamma69 = (        0.0170000000*Gamma152 +         1.0000000000*Gamma70 +         0.8880000000*Gamma150)
 
 * S035C24 : G(pi- pi+ pi- pi0 nu(tau) (ex.K0,omega))/G(total) 
-Gamma70 = (1.000000*Gamma70)
+Gamma70 = (        1.0000000000*Gamma70)
 
 * S035C25 : G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total) 
-Gamma88 = (0.226000*Gamma128 + 1.000000*Gamma89)
+Gamma88 = (        0.2260000000*Gamma128 +         1.0000000000*Gamma89)
 
 * S035C31 : G(K- h+ pi- nu(tau) (ex.K0))/G(total) 
-Gamma80 = (1.000000*Gamma85 + 1.000000*Gamma93)
+Gamma80 = (        1.0000000000*Gamma85 +         1.0000000000*Gamma93)
 
 * S035C32 : G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0)) 
-Gamma80by60 = (1.000000*Gamma85 + 1.000000*Gamma93) / (1.000000*Gamma62 + 0.017000*Gamma150)
+Gamma80by60 = (        1.0000000000*Gamma85 +         1.0000000000*Gamma93) / (        1.0000000000*Gamma62 +         0.0170000000*Gamma150)
 
 * S035C33 : G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(total) 
-Gamma81 = (0.226000*Gamma128 + 1.000000*Gamma94 + 1.000000*Gamma89)
+Gamma81 = (        0.2260000000*Gamma128 +         1.0000000000*Gamma94 +         1.0000000000*Gamma89)
 
 * S035C34 : G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) 
-Gamma81by69 = (0.226000*Gamma128 + 1.000000*Gamma94 + 1.000000*Gamma89) / (0.017000*Gamma152 + 1.000000*Gamma70 + 0.888000*Gamma150)
+Gamma81by69 = (        0.2260000000*Gamma128 +         1.0000000000*Gamma94 +         1.0000000000*Gamma89) / (        0.0170000000*Gamma152 +         1.0000000000*Gamma70 +         0.8880000000*Gamma150)
 
 * S035C35 : G(K- K+ pi- nu(tau))/G(pi- pi+ pi- nu(tau) (ex.K0)) 
-Gamma93by60 = (1.000000*Gamma93) / (1.000000*Gamma62 + 0.017000*Gamma150)
+Gamma93by60 = (        1.0000000000*Gamma93) / (        1.0000000000*Gamma62 +         0.0170000000*Gamma150)
 
 * S035C36 : G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0)) 
-Gamma94by69 = (1.000000*Gamma94) / (0.017000*Gamma152 + 1.000000*Gamma70 + 0.888000*Gamma150)
+Gamma94by69 = (        1.0000000000*Gamma94) / (        0.0170000000*Gamma152 +         1.0000000000*Gamma70 +         0.8880000000*Gamma150)
 
 * S035C38 : G(K- K0 >=0pi0 nu(tau))/G(total) 
-Gamma38 = (1.000000*Gamma42 + 1.000000*Gamma37)
+Gamma38 = (        1.0000000000*Gamma42 +         1.0000000000*Gamma37)
 
 * S035C40 : G(K- pi+ pi- >=0pi0 nu(tau) (ex.K0))/G(total) 
-Gamma83 = (0.226000*Gamma128 + 1.000000*Gamma85 + 1.000000*Gamma89)
+Gamma83 = (        0.2260000000*Gamma128 +         1.0000000000*Gamma85 +         1.0000000000*Gamma89)
 
 * S035C47 : G(X- (S=-1) nu(tau))/G(total) 
-Gamma110 = (1.000000*Gamma128 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma35 + 1.000000*Gamma40 + 1.000000*Gamma16 + 1.000000*Gamma85 + 1.000000*Gamma89 + 1.000000*Gamma10)
+Gamma110 = (        1.0000000000*Gamma128 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma35 +         1.0000000000*Gamma40 +         1.0000000000*Gamma16 +         1.0000000000*Gamma85 +         1.0000000000*Gamma89 +         1.0000000000*Gamma10)
 
 * S035C54 : G(K- pi+ pi- pi0 nu(tau) (ex.K0,eta))/G(total) 
-Gamma89 = (1.000000*Gamma89)
+Gamma89 = (        1.0000000000*Gamma89)
 
 * S035C6 : G(K- pi+ pi- nu(tau))/G(total) 
-Gamma84 = (1.000000*Gamma85 + 0.343100*Gamma37)
+Gamma84 = (        1.0000000000*Gamma85 +         0.3431000000*Gamma37)
 
 * S035C7 : G(K- pi+ pi- pi0 nu(tau))/G(total) 
-Gamma87 = (0.226000*Gamma128 + 0.343100*Gamma42 + 1.000000*Gamma89)
+Gamma87 = (        0.2260000000*Gamma128 +         0.3431000000*Gamma42 +         1.0000000000*Gamma89)
 
 * S035C8 : G(K- K+ pi- pi0 nu(tau))/G(total) 
-Gamma94 = (1.000000*Gamma94)
+Gamma94 = (        1.0000000000*Gamma94)
 
 * S035R1 : G(mu- nubar(mu) nu(tau))/G(total) 
-Gamma3 = (1.000000*Gamma3)
+Gamma3 = (        1.0000000000*Gamma3)
 
 * S035R14 : G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0)) 
-Gamma150by66 = (1.000000*Gamma150) / (0.226000*Gamma128 + 0.017000*Gamma152 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89 + 0.888000*Gamma150)
+Gamma150by66 = (        1.0000000000*Gamma150) / (        0.2260000000*Gamma128 +         0.0170000000*Gamma152 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         0.8880000000*Gamma150)
 
 * S035R15 : G(h- omega  >=0 neutrals  nu(tau))/G(total) 
-Gamma149 = (1.000000*Gamma152 + 1.000000*Gamma150)
+Gamma149 = (        1.0000000000*Gamma152 +         1.0000000000*Gamma150)
 
 * S035R2 : G(e- nubar(e) nu(tau))/G(total) 
-Gamma5 = (1.000000*Gamma5)
+Gamma5 = (        1.0000000000*Gamma5)
 
 * S035R20 : G(h- 2pi0 nu(tau) (ex.K0))/G(total) 
-Gamma19 = (1.000000*Gamma23 + 1.000000*Gamma20)
+Gamma19 = (        1.0000000000*Gamma23 +         1.0000000000*Gamma20)
 
 * S035R21 : G(h- 3pi0 nu(tau))/G(total) 
-Gamma26 = (0.322000*Gamma128 + 1.000000*Gamma28 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma27)
+Gamma26 = (        0.3220000000*Gamma128 +         1.0000000000*Gamma28 +         0.1570000000*Gamma40 +         0.1570000000*Gamma42 +         1.0000000000*Gamma27)
 
 * S035R23 : G(h- omega nu(tau))/G(total) 
-Gamma150 = (1.000000*Gamma150)
+Gamma150 = (        1.0000000000*Gamma150)
 
 * S035R24 : G(particle->=0 neutrals >=0K(L)0 nu(tau) )/G(total) 
-Gamma2 = (1.000000*Gamma3 + 0.715000*Gamma128 + 1.000000*Gamma30 + 0.090000*Gamma152 + 1.000000*Gamma23 + 1.000000*Gamma28 + 0.656900*Gamma35 + 0.656900*Gamma40 + 0.656900*Gamma42 + 1.000000*Gamma9 + 1.000000*Gamma14 + 1.000000*Gamma16 + 1.000000*Gamma5 + 1.000000*Gamma20 + 1.000000*Gamma27 + 1.098500*Gamma47 + 0.313900*Gamma48 + 0.708000*Gamma126 + 0.656900*Gamma37 + 1.000000*Gamma10 + 0.090000*Gamma150)
+Gamma2 = (        1.0000000000*Gamma3 +         0.7150000000*Gamma128 +         1.0000000000*Gamma30 +         0.0900000000*Gamma152 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         0.6569000000*Gamma35 +         0.6569000000*Gamma40 +         0.6569000000*Gamma42 +         1.0000000000*Gamma9 +         1.0000000000*Gamma14 +         1.0000000000*Gamma16 +         1.0000000000*Gamma5 +         1.0000000000*Gamma20 +         1.0000000000*Gamma27 +         1.0985000000*Gamma47 +         0.3139000000*Gamma48 +         0.7080000000*Gamma126 +         0.6569000000*Gamma37 +         1.0000000000*Gamma10 +         0.0900000000*Gamma150)
 
 * S035R26 : G(K- >=0pi0 >=0K0  >=0gamma  nu(tau))/G(total) 
-Gamma31 = (0.715000*Gamma128 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma42 + 1.000000*Gamma16 + 1.000000*Gamma37 + 1.000000*Gamma10)
+Gamma31 = (        0.7150000000*Gamma128 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma42 +         1.0000000000*Gamma16 +         1.0000000000*Gamma37 +         1.0000000000*Gamma10)
 
 * S035R27 : G(K- >=1 (pi0 or K0 or gamma)  nu(tau))/G(total) 
-Gamma32 = (0.715000*Gamma128 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma42 + 1.000000*Gamma16 + 1.000000*Gamma37)
+Gamma32 = (        0.7150000000*Gamma128 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma42 +         1.0000000000*Gamma16 +         1.0000000000*Gamma37)
 
 * S035R28 : G(h- h- h+ nu(tau))/G(total) 
-Gamma56 = (0.343100*Gamma35 + 1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma93 + 0.343100*Gamma37 + 0.017000*Gamma150)
+Gamma56 = (        0.3431000000*Gamma35 +         1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma93 +         0.3431000000*Gamma37 +         0.0170000000*Gamma150)
 
 * S035R30 : G(h- h- h+ >=1 neutrals  nu(tau))/G(total) 
-Gamma63 = (0.285000*Gamma128 + 0.910100*Gamma152 + 0.343100*Gamma40 + 0.343100*Gamma42 + 1.000000*Gamma78 + 0.430700*Gamma47 + 1.000000*Gamma77 + 0.686100*Gamma48 + 1.000000*Gamma94 + 1.000000*Gamma70 + 1.000000*Gamma89 + 0.285000*Gamma126 + 0.888000*Gamma150)
+Gamma63 = (        0.2850000000*Gamma128 +         0.9101000000*Gamma152 +         0.3431000000*Gamma40 +         0.3431000000*Gamma42 +         1.0000000000*Gamma78 +         0.4307000000*Gamma47 +         1.0000000000*Gamma77 +         0.6861000000*Gamma48 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         0.2850000000*Gamma126 +         0.8880000000*Gamma150)
 
 * S035R31 : G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) 
-Gamma54 = (0.285000*Gamma128 + 0.910100*Gamma152 + 0.343100*Gamma35 + 0.343100*Gamma40 + 0.343100*Gamma42 + 1.000000*Gamma78 + 0.430700*Gamma47 + 1.000000*Gamma77 + 0.686100*Gamma48 + 1.000000*Gamma94 + 1.000000*Gamma62 + 1.000000*Gamma85 + 1.000000*Gamma70 + 1.000000*Gamma89 + 1.000000*Gamma93 + 0.285000*Gamma126 + 0.343100*Gamma37 + 0.910100*Gamma150)
+Gamma54 = (        0.2850000000*Gamma128 +         0.9101000000*Gamma152 +         0.3431000000*Gamma35 +         0.3431000000*Gamma40 +         0.3431000000*Gamma42 +         1.0000000000*Gamma78 +         0.4307000000*Gamma47 +         1.0000000000*Gamma77 +         0.6861000000*Gamma48 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma85 +         1.0000000000*Gamma70 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         0.2850000000*Gamma126 +         0.3431000000*Gamma37 +         0.9101000000*Gamma150)
 
 * S035R32 : G(eta pi- pi0 nu(tau))/G(total) 
-Gamma126 = (1.000000*Gamma126)
+Gamma126 = (        1.0000000000*Gamma126)
 
 * S035R33 : G( 3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total) 
-Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)
+Gamma102 = (        1.0000000000*Gamma103 +         1.0000000000*Gamma104)
 
 * S035R34 : G(K- h+ h- >=0 neutrals  nu(tau))/G(total) 
-Gamma79 = (0.285000*Gamma128 + 0.343100*Gamma42 + 1.000000*Gamma94 + 1.000000*Gamma85 + 1.000000*Gamma89 + 1.000000*Gamma93 + 0.343100*Gamma37)
+Gamma79 = (        0.2850000000*Gamma128 +         0.3431000000*Gamma42 +         1.0000000000*Gamma94 +         1.0000000000*Gamma85 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         0.3431000000*Gamma37)
 
 * S035R38 : G(3h- 2h+ nu(tau) (ex.K0))/G(total) 
-Gamma103 = (1.000000*Gamma103)
+Gamma103 = (        1.0000000000*Gamma103)
 
 * S035R39 : G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total) 
-Gamma104 = (1.000000*Gamma104)
+Gamma104 = (        1.0000000000*Gamma104)
 
 * S035R40 : G(K- K+ pi- nu(tau))/G(total) 
-Gamma93 = (1.000000*Gamma93)
+Gamma93 = (        1.0000000000*Gamma93)
 
 * S035R41 : G(K- pi+ pi- >=0 neutrals  nu(tau))/G(total) 
-Gamma82 = (0.285000*Gamma128 + 0.343100*Gamma42 + 1.000000*Gamma85 + 1.000000*Gamma89 + 0.343100*Gamma37)
+Gamma82 = (        0.2850000000*Gamma128 +         0.3431000000*Gamma42 +         1.0000000000*Gamma85 +         1.0000000000*Gamma89 +         0.3431000000*Gamma37)
 
 * S035R42 : G(h- >=1 neutrals nu(tau))/G(total) 
-Gamma11 = (0.715000*Gamma128 + 1.000000*Gamma30 + 0.090000*Gamma152 + 1.000000*Gamma23 + 1.000000*Gamma28 + 0.157000*Gamma35 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma14 + 1.000000*Gamma16 + 1.000000*Gamma20 + 1.000000*Gamma27 + 0.098500*Gamma47 + 0.708000*Gamma126 + 0.157000*Gamma37 + 0.090000*Gamma150)
+Gamma11 = (        0.7150000000*Gamma128 +         1.0000000000*Gamma30 +         0.0900000000*Gamma152 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         0.1570000000*Gamma35 +         0.1570000000*Gamma40 +         0.1570000000*Gamma42 +         1.0000000000*Gamma14 +         1.0000000000*Gamma16 +         1.0000000000*Gamma20 +         1.0000000000*Gamma27 +         0.0985000000*Gamma47 +         0.7080000000*Gamma126 +         0.1570000000*Gamma37 +         0.0900000000*Gamma150)
 
 * S035R43 : G(h- >=0K(L)0  nu(tau))/G(total) 
-Gamma7 = (0.500000*Gamma35 + 1.000000*Gamma9 + 1.000000*Gamma47 + 0.500000*Gamma37 + 1.000000*Gamma10)
+Gamma7 = (        0.5000000000*Gamma35 +         1.0000000000*Gamma9 +         1.0000000000*Gamma47 +         0.5000000000*Gamma37 +         1.0000000000*Gamma10)
 
 * S035R44 : G(h- >= 2pi0 nu(tau))/G(total) 
-Gamma17 = (0.322000*Gamma128 + 1.000000*Gamma30 + 1.000000*Gamma23 + 1.000000*Gamma28 + 0.157000*Gamma35 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma20 + 1.000000*Gamma27 + 0.098500*Gamma47 + 0.319000*Gamma126 + 0.157000*Gamma37)
+Gamma17 = (        0.3220000000*Gamma128 +         1.0000000000*Gamma30 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         0.1570000000*Gamma35 +         0.1570000000*Gamma40 +         0.1570000000*Gamma42 +         1.0000000000*Gamma20 +         1.0000000000*Gamma27 +         0.0985000000*Gamma47 +         0.3190000000*Gamma126 +         0.1570000000*Gamma37)
 
 * S035R46 : G(K- K0 nu(tau))/G(total) 
-Gamma37 = (1.000000*Gamma37)
+Gamma37 = (        1.0000000000*Gamma37)
 
 * S035R5 : G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau)) 
-Gamma3by5 = (1.000000*Gamma3) / (1.000000*Gamma5)
+Gamma3by5 = (        1.0000000000*Gamma3) / (        1.0000000000*Gamma5)
 
 * S035R6 : G(pi- nu(tau))/G(total) 
-Gamma9 = (1.000000*Gamma9)
+Gamma9 = (        1.0000000000*Gamma9)
 
 * S035R7 : G(K- nu(tau))/G(total) 
-Gamma10 = (1.000000*Gamma10)
+Gamma10 = (        1.0000000000*Gamma10)
 
 * S035R8 : G(pi- pi0 nu(tau))/G(total) 
-Gamma14 = (1.000000*Gamma14)
+Gamma14 = (        1.0000000000*Gamma14)
 
 * S035R84 : G(h- pi0 nu(tau))/G(total) 
-Gamma13 = (1.000000*Gamma14 + 1.000000*Gamma16)
+Gamma13 = (        1.0000000000*Gamma14 +         1.0000000000*Gamma16)
 
 * S035R97 : G(h- >= 3pi0 nu(tau))/G(total) 
-Gamma24 = (0.322000*Gamma128 + 1.000000*Gamma30 + 1.000000*Gamma28 + 0.157000*Gamma40 + 0.157000*Gamma42 + 1.000000*Gamma27 + 0.098500*Gamma47 + 0.319000*Gamma126)
+Gamma24 = (        0.3220000000*Gamma128 +         1.0000000000*Gamma30 +         1.0000000000*Gamma28 +         0.1570000000*Gamma40 +         0.1570000000*Gamma42 +         1.0000000000*Gamma27 +         0.0985000000*Gamma47 +         0.3190000000*Gamma126)
 
 * S035S01 : G(total) 
-GammaAll = (1.000000*Gamma3 + 1.000000*Gamma5 + 1.000000*Gamma9 + 1.000000*Gamma10 + 1.000000*Gamma14 + 1.000000*Gamma16 + 1.000000*Gamma20 + 1.000000*Gamma23 + 1.000000*Gamma27 + 1.000000*Gamma28 + 1.000000*Gamma30 + 1.000000*Gamma35 + 1.000000*Gamma37 + 1.000000*Gamma40 + 1.000000*Gamma42 + 1.000000*Gamma47 + 1.000000*Gamma48 + 1.000000*Gamma62 + 1.000000*Gamma70 + 1.000000*Gamma77 + 1.000000*Gamma78 + 1.000000*Gamma85 + 1.000000*Gamma89 + 1.000000*Gamma93 + 1.000000*Gamma94 + 1.000000*Gamma104 + 1.000000*Gamma126 + 1.000000*Gamma128 + 1.000000*Gamma150 + 1.000000*Gamma152 + 1.000000*Gamma103)
+GammaAll = (        1.0000000000*Gamma3 +         1.0000000000*Gamma5 +         1.0000000000*Gamma9 +         1.0000000000*Gamma10 +         1.0000000000*Gamma14 +         1.0000000000*Gamma16 +         1.0000000000*Gamma20 +         1.0000000000*Gamma23 +         1.0000000000*Gamma27 +         1.0000000000*Gamma28 +         1.0000000000*Gamma30 +         1.0000000000*Gamma35 +         1.0000000000*Gamma37 +         1.0000000000*Gamma40 +         1.0000000000*Gamma42 +         1.0000000000*Gamma47 +         1.0000000000*Gamma48 +         1.0000000000*Gamma62 +         1.0000000000*Gamma70 +         1.0000000000*Gamma77 +         1.0000000000*Gamma78 +         1.0000000000*Gamma85 +         1.0000000000*Gamma89 +         1.0000000000*Gamma93 +         1.0000000000*Gamma94 +         1.0000000000*Gamma104 +         1.0000000000*Gamma126 +         1.0000000000*Gamma128 +         1.0000000000*Gamma150 +         1.0000000000*Gamma152 +         1.0000000000*Gamma103)
 
 * S035S02 : G(strange)/G(total) 
-GammaXs = (1.000000*Gamma10 + 1.000000*Gamma16 + 1.000000*Gamma23 + 1.000000*Gamma28 + 1.000000*Gamma35 + 1.000000*Gamma40 + 1.000000*Gamma85 + 1.000000*Gamma89 + 1.000000*Gamma128)
+GammaXs = (        1.0000000000*Gamma10 +         1.0000000000*Gamma16 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma35 +         1.0000000000*Gamma40 +         1.0000000000*Gamma85 +         1.0000000000*Gamma89 +         1.0000000000*Gamma128)

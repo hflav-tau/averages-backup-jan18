@@ -63,7 +63,7 @@ void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<str
         int parm=node_num_parm[inode].at(ipar);
         vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
         int quan=ibase-baseparm.begin()+1;
-        fprintf (nodefile[p], "%f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
+        fprintf (nodefile[p], "%20.10f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
         if (ipar==node_num_parm[inode].size()-1) fprintf (nodefile[p], ")");
       }
       if (node_den_parm[inode].size()==0) fprintf (nodefile[p], "\n") ; 
@@ -72,7 +72,7 @@ void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<str
         int parm=node_den_parm[inode].at(ipar);
         vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
         int quan=ibase-baseparm.begin()+1;
-        fprintf (nodefile[p], "%f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
+        fprintf (nodefile[p], "%20.10f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
         if (ipar==node_den_parm[inode].size()-1) fprintf (nodefile[p], ")\n");
       }
     }
@@ -560,14 +560,14 @@ void print_measfile(FILE* thisfile, int p, int uconstrain,
       int parm=node_num_parm[inode].at(ipar);
       vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
       int quan=ibase-baseparm.begin()+1;
-      fprintf (thisfile,"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",
+      fprintf (thisfile,"*                numerator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %20.10f coef = %20.10f\n",
 	       inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_num_coef[inode].at(ipar));
     }
     for (ipar=0;ipar<node_den_parm[inode].size();++ipar){
       int parm=node_den_parm[inode].at(ipar);
       vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
       int quan=ibase-baseparm.begin()+1;
-      fprintf (thisfile,"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %f coef = %f\n",
+      fprintf (thisfile,"*              denominator of inode+1 = %d has gamma = %d parm = %d quan = %d title = %s seed = %20.10f coef = %20.10f\n",
 	       inode+1, basegamma[quan-1], parm, quan, basetitle[quan-1].data(), baseseed[quan-1], node_den_coef[inode].at(ipar));
     }
     fprintf (thisfile, "*  first quantity measured by inode+1 = %d has gamma = %d parm = %d quan = %d title = %s\n",
@@ -588,7 +588,7 @@ void print_measfile(FILE* thisfile, int p, int uconstrain,
       fprintf (thisfile, "MEASUREMENT  m_Gamma%s statistical systematic \n",measgammaname[i].data());
       fprintf (thisfile, "DATA         m_Gamma%s statistical systematic \n",measgammaname[i].data());
     }
-    fprintf (thisfile, "             %10.5g %10.5g  0 \n",measvalue[i],measerror[i]);
+    fprintf (thisfile, "             %20.10f %20.10f  0 \n",measvalue[i],measerror[i]);
     bool firstcorr=true;
     int jjmeas=0;
     for (int j=0;j<nmeas;++j) {
@@ -596,7 +596,7 @@ void print_measfile(FILE* thisfile, int p, int uconstrain,
       ++jjmeas;
       if (corrmat[i][j]!=0) {
 	if (firstcorr) {fprintf (thisfile, " \n"); firstcorr=false;}
-	fprintf (thisfile, "STAT_CORR_WITH %s Gamma%s pub.%s.%s %f ! IMEAS = %d \n", 
+	fprintf (thisfile, "STAT_CORR_WITH %s Gamma%s pub.%s.%s %20.10f ! IMEAS = %d \n", 
 		 expname[j].data(), measgammaname[j].data(), author[j].data(), year[j].data(), corrmat[i][j], jjmeas);
       }
     }
@@ -671,7 +671,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	int parm=node_num_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	fprintf (thisfile, "%f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
+	fprintf (thisfile, "%20.10f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
 	if (ipar==node_num_parm[inode].size()-1) fprintf (thisfile, ")");
       }
       if (node_den_parm[inode].size()==0) fprintf (thisfile, "\n") ; 
@@ -680,7 +680,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	int parm=node_den_parm[inode].at(ipar);
 	vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
 	int quan=ibase-baseparm.begin()+1;
-	fprintf (thisfile, "%f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
+	fprintf (thisfile, "%20.10f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
 	if (ipar==node_den_parm[inode].size()-1) fprintf (thisfile, ")\n");
       }
       //
@@ -694,17 +694,17 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
       }
       if (p==0) { // COMBOS
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d\n",isum,iimeas,node_parm[inode].size()); 
-	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD %f 1.0\n",isum,offset); 
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD %20.10f 1.0\n",isum,offset); 
       } else if (p==1) { // ALUCOMB
-	fprintf (thisfile, "CONSTRAINT Gamma%s.c %f Gamma%s -1", measgammaname[i].data(), offset, measgammaname[i].data());
+	fprintf (thisfile, "CONSTRAINT Gamma%s.c %20.10f Gamma%s -1", measgammaname[i].data(), offset, measgammaname[i].data());
       }
       for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
 	int quan=node_quan[inode].at(ipar);
 	double partial=node_part[inode].at(ipar);
 	if (p==0) { // COMBOS
-	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %20.10f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
 	}else if (p==1) { // ALUCOMB
-	  fprintf (thisfile, " Gamma%d %f", basegamma[quan-1], partial);
+	  fprintf (thisfile, " Gamma%d %20.10f", basegamma[quan-1], partial);
 	}
       }
       if (p==1) fprintf (thisfile, "\n");
@@ -722,11 +722,11 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	if (!uconstrain) {
 	  fprintf (thisfile, "\n*Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)\n");
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d\n",++isum,iimeas,node_parm[inode].size()); 
-	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD %f 1.0\n",isum,0); 
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD %20.10f 1.0\n",isum,0); 
 	  for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
 	    int quan=node_quan[inode].at(ipar);
 	    double partial=node_part[inode].at(ipar);
-	    fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
+	    fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %20.10f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
 	  }
 	}else{
 	  fprintf (thisfile, "\n*Gamma102 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
@@ -850,13 +850,6 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "\n");
   }
   if (p==1) {
-    fprintf (thisfile, "\n* --- compute Gamma(total)\n");
-    fprintf (thisfile, "COMBOFQUANT GammaAll\n");
-    fprintf (thisfile, " 1 Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16\n");
-    fprintf (thisfile, " 1 Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35\n");
-    fprintf (thisfile, " 1 Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62\n");
-    fprintf (thisfile, " 1 Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93\n");
-    fprintf (thisfile, " 1 Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152\n");
     fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu)/G(total)\n");
     fprintf (thisfile, "COMBOFQUANT Gamma110\n");
     fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
@@ -2938,7 +2931,7 @@ int main(int argc, char* argv[]){
     //if (measnode[i]==102) {// NAME = S035C9 GAMMA = 96 TITLE = G(K- K+ K- nu(tau))/G(total)
     //  double rescale = 5.435276;
     if (measnode[i]==47) {// NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total)
-      double rescale = 1.59;
+      double rescale = 1;//1.59;
       measerror_rescaled[i] = measerror[i] * rescale;
       cout << i << " " << measnode[i]  << " " << measgammaname[i] << " " << measnodename[i] << " " << expname[i] << " " << meastitle[i] << " " 
 	   << NodeValue[measnode[i]] << " " << NodeError[measnode[i]] << " " << measvalue[i] << " " << measerror[i]*rescale << " inflated by Scale Factor = " << rescale << endl;
