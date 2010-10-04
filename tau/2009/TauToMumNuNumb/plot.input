@@ -1,6 +1,7 @@
 # first line is xmin, xmax, precision, title
-* 16.24        17.59        5.2 B(#tau^{-} #rightarrow #muu^{-}#nu#bar{#nu_{#mu}}) [%]
+* 16.69        17.59        5.2 B(#tau^{-} #rightarrow #mu^{-}#nu#bar{#nu}_{#mu}) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
+& 17.41        0.04         0.09161      HFAG Fit
 & 17.3635      0.0428673    0.877996     HFAG Average
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 17.33        0.05         0            PDG'09 Average

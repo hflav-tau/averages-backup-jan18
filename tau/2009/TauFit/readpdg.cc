@@ -960,6 +960,89 @@ int main(int argc, char* argv[]){
     }
   }
   //
+  enum e_basegammanames {
+    M_GAMMA3  ,
+    M_GAMMA5  ,
+    M_GAMMA9  ,
+    M_GAMMA10 ,
+    M_GAMMA14 ,
+    M_GAMMA16 ,
+    M_GAMMA20 ,
+    M_GAMMA23 ,
+    M_GAMMA27 ,
+    M_GAMMA28 ,
+    M_GAMMA30 ,
+    M_GAMMA35 ,
+    M_GAMMA37 ,
+    M_GAMMA40 ,
+    M_GAMMA42 ,
+    M_GAMMA47 ,
+    M_GAMMA48 ,
+    M_GAMMA62 ,
+    M_GAMMA70 ,
+    M_GAMMA77 ,
+    M_GAMMA78 ,
+    M_GAMMA85 ,
+    M_GAMMA89 ,
+    M_GAMMA93 ,
+    M_GAMMA94 ,
+    M_GAMMA104,
+    M_GAMMA126,
+    M_GAMMA128,
+    M_GAMMA800,
+    M_GAMMA151,
+    M_GAMMA152,
+    M_GAMMA130,
+    M_GAMMA132,
+    M_GAMMA44 ,
+    M_GAMMA53 ,
+    M_GAMMA801,
+    M_GAMMA103
+  };
+  //
+  int          baseorder[nbase];
+  string       baselatex[nbase];
+  //
+  baseorder[M_GAMMA5  ] =  1; baselatex[M_GAMMA5  ] = "$e^- \\bar{\\nu}_e \\nu_\\tau$";
+  baseorder[M_GAMMA3  ] =  2; baselatex[M_GAMMA3  ] = "$\\mu^- \\bar{\\nu}_\\mu \\nu_\\tau$";
+  //
+  baseorder[M_GAMMA9  ] =  3; baselatex[M_GAMMA9  ] = "$\\pi^- \\nu_\\tau$";
+  baseorder[M_GAMMA14 ] =  4; baselatex[M_GAMMA14 ] = "$\\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA20 ] =  5; baselatex[M_GAMMA20 ] = "$\\pi^- 2\\pi^0 \\nu_\\tau (ex.K^0)$";
+  baseorder[M_GAMMA27 ] =  6; baselatex[M_GAMMA27 ] = "$\\pi^- 3\\pi^0 \\nu_\\tau (ex.K^0)$";
+  baseorder[M_GAMMA30 ] =  7; baselatex[M_GAMMA30 ] = "$h^- 4\\pi^0 \\nu_\\tau (ex.K^0,\\eta)$";
+  baseorder[M_GAMMA37 ] =  8; baselatex[M_GAMMA37 ] = "$K^- K^0 \\nu_\\tau$";
+  baseorder[M_GAMMA42 ] =  9; baselatex[M_GAMMA42 ] = "$K^- K^0 \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA47 ] = 10; baselatex[M_GAMMA47 ] = "$\\pi^- K_S^0 K_S^0 \\nu_\\tau$";
+  baseorder[M_GAMMA48 ] = 11; baselatex[M_GAMMA48 ] = "$\\pi^- K_S^0 K_L^0 \\nu_\\tau$";
+  baseorder[M_GAMMA62 ] = 12; baselatex[M_GAMMA62 ] = "$\\pi^- \\pi^+ \\pi^- \\nu_\\tau (ex.K^0,\\omega)$";
+  baseorder[M_GAMMA70 ] = 13; baselatex[M_GAMMA70 ] = "$\\pi^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau (ex.K^0,\\omega)$";
+  baseorder[M_GAMMA77 ] = 14; baselatex[M_GAMMA77 ] = "$h^- h^- h^+ 2\\pi^0 \\nu_\\tau (ex.K^0,\\omega,\\eta)$";
+  baseorder[M_GAMMA78 ] = 15; baselatex[M_GAMMA78 ] = "$h^- h^- h^+ 3\\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA93 ] = 16; baselatex[M_GAMMA93 ] = "$K^- K^+ \\pi^- \\nu_\\tau$";
+  baseorder[M_GAMMA94 ] = 17; baselatex[M_GAMMA94 ] = "$K^- K^+ \\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA103] = 18; baselatex[M_GAMMA103] = "$3h^- 2h^+ \\nu_\\tau (ex.K^0)$";
+  baseorder[M_GAMMA104] = 19; baselatex[M_GAMMA104] = "$3h^- 2h^+ \\pi^0 \\nu_\\tau (ex.K^0)$";
+  baseorder[M_GAMMA126] = 20; baselatex[M_GAMMA126] = "$\\pi^- \\pi^0 \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA800] = 21; baselatex[M_GAMMA800] = "$\\pi^- \\omega \\nu_\\tau$";
+  baseorder[M_GAMMA152] = 22; baselatex[M_GAMMA152] = "$h^- \\omega \\pi^0 \\nu_\\tau$";
+  //
+  baseorder[M_GAMMA10 ] = 23; baselatex[M_GAMMA10 ] = "$K^- \\nu_\\tau$";
+  baseorder[M_GAMMA16 ] = 24; baselatex[M_GAMMA16 ] = "$K^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA23 ] = 25; baselatex[M_GAMMA23 ] = "$K^- 2\\pi^0 \\nu_\\tau (ex.K^0)$";
+  baseorder[M_GAMMA28 ] = 26; baselatex[M_GAMMA28 ] = "$K^- 3\\pi^0 \\nu_\\tau (ex.K^0,\\eta)$";
+  baseorder[M_GAMMA35 ] = 27; baselatex[M_GAMMA35 ] = "$\\bar{K}^0 \\pi^- \\nu_\\tau$";
+  baseorder[M_GAMMA40 ] = 28; baselatex[M_GAMMA40 ] = "$\\bar{K}^0 \\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA44 ] = 29; baselatex[M_GAMMA44 ] = "$\\bar{K}^0 \\pi^- 2\\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA53 ] = 30; baselatex[M_GAMMA53 ] = "$\\bar{K}^0 h^+ h^- h^- \\nu_\\tau$";
+  baseorder[M_GAMMA85 ] = 31; baselatex[M_GAMMA85 ] = "$K^- \\pi^+ \\pi^- \\nu_\\tau (ex.K^0)$";
+  baseorder[M_GAMMA89 ] = 32; baselatex[M_GAMMA89 ] = "$K^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau (ex.K^0,\\eta)$";
+  baseorder[M_GAMMA801] = 33; baselatex[M_GAMMA801] = "$K^- \\phi \\nu_\\tau (\\phi \\to KK)$";
+  baseorder[M_GAMMA128] = 34; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA130] = 35; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA132] = 36; baselatex[M_GAMMA132] = "$\\bar{K}^0 \\pi^- \\eta  \\nu_\\tau$";
+  baseorder[M_GAMMA151] = 37; baselatex[M_GAMMA151] = "$K^- \\omega \\nu_\\tau$";
+  //
   // READ INPUT NODES
   // 
   const int      nnode=108; 
@@ -3586,6 +3669,22 @@ int main(int argc, char* argv[]){
 		  baseseed, node_num, node_den, node_part);
     fclose(thisfile);
   }
+  //
+  // Print final values used from fit with [errors rescaled in a Ad-Hoc style for kkk only]
+  //
+  cout << endl << "Final Results from fit with [errors rescaled in a Ad-Hoc style for kkk only] w.r.t original fit:" << endl;
+  cout << Form("\\begin{tabular}{l c}\n");
+  for (i=1;i<=nbase;++i) {
+    for (ibase=0;ibase<nbase;++ibase) {
+      if (i!=baseorder[ibase]) continue;
+      if (basevalue_fit_rescaled[ibase]*100>10) {
+	cout << Form("%-55s & %5.2f $\\pm$ %5.2f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
+      }else {
+	cout << Form("%-55s & %5.3f $\\pm$ %5.3f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
+      }
+    }
+  }
+  cout << Form("\\end{tabular}\n");
   //
   delete [] corrmat_scaled_noweak;
   delete [] corrmat_scaled;
