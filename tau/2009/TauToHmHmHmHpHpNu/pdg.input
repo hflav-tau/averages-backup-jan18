@@ -1,0 +1,42 @@
+* B(tau- -> 3h- 2h+ nu [ex.K0]) in 1e-4
+
+BEGIN DELPHI  HmHmHmHpHp pub ABDALLAH 06A
+MESAUREMENT m_HmHmHmHpHp statistical systematic
+DATA        m_HmHmHmHpHp statistical systematic
+            9.7e-4       1.5e-4      0.5e-4
+DATA         DELPHIsyst  0.5e-4
+END
+
+BEGIN ALEPH  HmHmHmHpHp pub SCHAEL 05C
+MESAUREMENT m_HmHmHmHpHp statistical systematic
+DATA        m_HmHmHmHpHp statistical systematic
+            7.2e-4       0.9e-4       1.2e-4
+DATA         ALEPHsyst   1.2e-4
+
+BEGIN  OPAL  HmHmHmHpHp pub ACKERSTAFF 99E
+MESAUREMENT m_HmHmHmHpHp statistical systematic
+DATA        m_HmHmHmHpHp statistical systematic
+            9.1e-4       1.4e-4      0.6e-4
+DATA         OPALsyst    0.6e-4
+END
+
+BEGIN  CLEO  HmHmHmHpHp pub GIBAUT 94B
+MESAUREMENT m_HmHmHmHpHp statistical systematic
+DATA        m_HmHmHmHpHp statistical systematic
+            7.7e-4       0.5e-4      0.9e-4
+DATA         CLEOsyst    0.9 e-4
+END
+
+BEGIN ARGUS HmHmHmHpHp pub ALBRECHT 88B
+MESAUREMENT m_HmHmHmHpHp statistical systematic
+DATA        m_HmHmHmHpHp statistical systematic
+            6.4e-4       2.3e-4      1.0e-4
+DATA        ARGUSsyst    1.0e-4
+END
+
+BEGIN  HRS HmHmHmHpHp pub BYLSMA 87
+MESAUREMENT m_HmHmHmHpHp statistical systematic
+DATA        m_HmHmHmHpHp statistical systematic
+            5.1e-4       2.0e-4      0.0e-4
+DATA        HRSsyst      0.0e-4
+END
