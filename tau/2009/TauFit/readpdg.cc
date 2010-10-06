@@ -3680,20 +3680,30 @@ int main(int argc, char* argv[]){
   }
   cout << Form("\\end{tabular}\n");
   //
-  cout << Form("%s = %10.6f +- %10.6f \n%s = %10.6f +- %10.6f \nCorr between %s and %s = %10.6f\nCorr between %s and %s = %10.6f\n\n",
+  cout << Form("%s = %10.6f +- %10.6f\n",
 	       nodetitle[89].data(),
 	       NodeValue_rescaled[89],
-	       NodeError_rescaled[89],
+	       NodeError_rescaled[89]);
+  //
+  cout << Form("%s = %10.6f +- %10.6f\n",
 	       nodetitle[106].data(),
 	       NodeValue_rescaled[106],
-	       NodeError_rescaled[106],
+	       NodeError_rescaled[106]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA3].data(),
 	       basetitle[M_GAMMA5].data(),
-	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5],
+	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA9].data(),
 	       basetitle[M_GAMMA10].data(),
-	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]
-	       );
+	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
+	       basetitle[M_GAMMA130].data(),
+	       basetitle[M_GAMMA132].data(),
+	       basecorr_fit_rescaled[M_GAMMA130][M_GAMMA132]);
   //
   delete [] corrmat_scaled_noweak;
   delete [] corrmat_scaled;
