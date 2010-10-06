@@ -1,3 +1,10 @@
+#
+# This file is outdated 
+# [SwB Tue Oct  5 04:35:16 PDT 2010]  
+# Now, just input to vus.input this result:
+# G(K- nu(tau))/G(pi- nu(tau)) =   0.064362 +-   0.000940 
+# from TauFit/readpdg_constrained_aleph_hcorr.log
+#
 # From TauTo1Prong/log/average.log
 # BR_TauToPiNu =  (10.7878 +- 0.0556) %
 # BR_TauToKNu = (0.6969439 +- 0.00975197 )%

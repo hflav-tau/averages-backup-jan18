@@ -1,34 +1,35 @@
-# From TauTo1Prong/log/average.log
-# BR_TauToPiNu =  (10.7878 +- 0.0556) %
-# BR_TauToKNu = (0.6969439 +- 0.00975197 )%
-# with Correlation Co-efficient = 0.0846088
+# From TauFit/readpdg_constrained_aleph_hcorr.log
+# BR_TauToPiNu =(10.8302 +- 0.0512) %
+# BR_TauToKNu = (0.6971 +- 0.0096)%
+# Corr between tau- --> pi- nu(tau) and tau- --> K- nu(tau) =  -0.004707
  
 # If the only error contributing to gtaugmu_pi and gtaugmu_K were from BR_TauToPiNu and BR_TauToKNu,
-# then the Correlation co-efficient between gtaugmu_pi and gtaugmu_K would be also 0.0846088. But it is not..
+# then the Correlation co-efficient between gtaugmu_pi and gtaugmu_K would be also -0.004707. But it is not..
 
 # From gtaugmu_pi/log/gtaugmu_pi.log 
 
-# gtaugmu_pi = 0.994612 +- 0.00316036 out of which 0.00256966 is the error-component due to measured BR_TauToPiNu
+# gtaugmu_pi = 0.996564 +- 0.00299738 out of which 0.00236167 is the error-component due to measured BR_TauToPiNu
 
 # From gtaugmu_k/log/gtaugmu_k.log
 
-# gtaugmu_k = 0.985923 +- 0.00733221 out of which 0.00691551 is the error-component due to measured BR_TauToKNu
+# gtaugmu_k = 0.986033 +- 0.007233 out of which 0.00680697 is the error-component due to measured BR_TauToKNu
 
-# So, Correlation Co-efficient between gtaugmu_pi and gtaugmu_k => (0.0846088 * 0.00256966 * 0.00691551) / (0.00316036*0.00733221) = 0.0648849
+# So, Correlation Co-efficient between gtaugmu_pi and gtaugmu_k => (-0.004707 * 0.00236167 * 0.00680697) / (0.00299738 * 0.007233) = -0.00349025
 
 # Inputs to 
 # ../../../combos/swagato_example/Common/average.perl 
 # are
-# 0.994612
-# 0.00316036*0.00316036 = 9.98788e-06
-# 0.985923
-# 0.00733221*0.00733221 = 5.37613e-05
-# 0.0846088 * 0.00256966 * 0.00691551 = 1.50354e-06
+# 0.996564
+# 0.00299738*0.00299738 = 8.98429e-06
+# 0.986033
+# 0.007233*0.007233 = 5.23163e-05
+# -0.004707 * 0.00236167 * 0.00680697 = -7.56689e-08
 
 # So, run it by simply typing | source 00readme.txt |
 
-../../../combos/swagato_example/Common/average.perl 0.994612 9.98788e-06 0.985923 5.37613e-05 1.50354e-06
+../../../combos/swagato_example/Common/average.perl 0.996564 8.98429e-06 0.986033 5.23163e-05 -7.56689e-08
 
-# x1 = 0.994612 +- 0.00316036073890308 x2 = 0.985923 +- 0.00733220976241133 rho = 0.0648848713186181
-# w1 = 0.86032191840585 w2 = 0.13967808159415 w1+w2 = 1
-# <x> = 0.993398337149028 +- 0.00296695191487956
+# x1 = 0.996564 +- 0.00299738052305676 x2 = 0.986033 +- 0.00723300076040367 rho = -0.00349025396370819
+# w1 = 0.8525683534374 w2 = 0.1474316465626 w1+w2 = 1
+# <x> = 0.995011397330049 +- 0.00276560397410467
+

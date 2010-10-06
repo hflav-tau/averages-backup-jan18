@@ -612,7 +612,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 		   int nbase, vector<int> baseparm, vector<int> basegamma, string* basetitle, int* first_quan, 
 		   double* baseseed, double* node_num, double* node_den,  vector<double> * node_part){
   int i,inode,ipar,iimeas,ibase;
-  fprintf (thisfile, "BEGIN   PDG+BABAR+BELLE all_methods \n\n");
+  fprintf (thisfile, "BEGIN   PDG-BABAR-BELLE all_methods \n\n");
   fprintf (thisfile, "COMBINE * * * \n\n");
   for (ibase=0;ibase<nbase;++ibase){
     if (p==0&&uconstrain&&ibase==(nbase-1)){/* skip */}else{
@@ -734,7 +734,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	  fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
 	  fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
-	  fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53 - Gamma801\n");
+	  fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53\n");
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d  %2d \n",++isum,iimeas,nbase-2); 
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma102; thats why the coefficients below have - sign 
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
@@ -771,7 +771,6 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_32 33 -1 ! Gamma132\n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_33 34 -1 ! Gamma44\n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_34 35 -1 ! Gamma53\n",isum);
-	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_35 36 -1 ! Gamma801\n",isum);
 	}
       }
       //
@@ -781,7 +780,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
 	fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
-	fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53 - Gamma801\n");
+	fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53\n");
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d %2d \n",++isum,iimeas,nbase-1); 
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma103; thats why the coefficients below have - sign 
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
@@ -819,7 +818,6 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_33 33 -1 ! Gamma132\n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_34 34 -1 ! Gamma44\n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_35 35 -1 ! Gamma53\n",isum);
-	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_36 36 -1 ! Gamma801\n",isum);
       }
     }
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 \n",isum); 
@@ -836,7 +834,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1\n");
     fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
     fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1\n");
-    fprintf (thisfile, "  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 1\n");
+    fprintf (thisfile, "  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1\n");
     if (!uconstrain) fprintf (thisfile, "  Gamma998 1\n");
   }
   if (p==0){
@@ -854,11 +852,10 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     //*   33   132   267   C28    2.200000E-04   0.000220   0.000073   0.000073   1.00 tau- --> eta pi- K0bar nu(tau)
     //*   34    44   238   B98    2.600000E-04   0.000260   0.000240   0.000240   1.00 tau- --> pi- K0bar 2pi0 nu(tau)
     //*   35    53   244   C5     2.300000E-04   0.000230   0.000203   0.000203   1.00 tau- --> K0bar h+ h- h- nu(tau)
-    //*   36   801   801   Z02    2.000000E-05   0.000020   0.000010   0.000010   1.00 tau- --> K- phi nu(tau) [phi->KK]                           
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_PSUM   1  0 ! print sum of strange decay nodes\n");
     fprintf (thisfile, "\n* Print Gamma(tau -> X-(S=1) nu)");
     fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma85 + Gamma89 + Gamma128\n");
-    fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53  + Gamma801\n");
+    fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53\n");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     15 0 ");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_01  4   1 ! Gamma10");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_02  6   1 ! Gamma16");
@@ -874,14 +871,13 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_12  33  1 ! Gamma132");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_13  34  1 ! Gamma44");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_14  35  1 ! Gamma53");
-    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_15  36  1 ! Gamma801");
     fprintf (thisfile, "\n");
   }
   if (p==1) {
     fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu)/G(total)\n");
     fprintf (thisfile, "COMBOFQUANT Gamma110\n");
     fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
-    fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801\n");
+    fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1\n");
   }
   fprintf (thisfile, "\nCALL CHI2_N_SYM\n");
   fprintf (thisfile, "\nEND\n");
@@ -907,7 +903,7 @@ int main(int argc, char* argv[]){
   //
   // READ BASE PARAMETERS
   //
-  const int nbase=37;
+  const int nbase=36;
   int nbase_u = (uconstrain) ? nbase-1 : nbase;
   vector<int> basequan;
   vector<int> basegamma;
@@ -996,7 +992,6 @@ int main(int argc, char* argv[]){
     M_GAMMA132,
     M_GAMMA44 ,
     M_GAMMA53 ,
-    M_GAMMA801,
     M_GAMMA103
   };
   //
@@ -1037,11 +1032,10 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA53 ] = 30; baselatex[M_GAMMA53 ] = "$\\bar{K}^0 h^+ h^- h^- \\nu_\\tau$";
   baseorder[M_GAMMA85 ] = 31; baselatex[M_GAMMA85 ] = "$K^- \\pi^+ \\pi^- \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA89 ] = 32; baselatex[M_GAMMA89 ] = "$K^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
-  baseorder[M_GAMMA801] = 33; baselatex[M_GAMMA801] = "$K^- \\phi \\nu_\\tau (\\phi \\to KK)$";
-  baseorder[M_GAMMA128] = 34; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
-  baseorder[M_GAMMA130] = 35; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
-  baseorder[M_GAMMA132] = 36; baselatex[M_GAMMA132] = "$\\bar{K}^0 \\pi^- \\eta  \\nu_\\tau$";
-  baseorder[M_GAMMA151] = 37; baselatex[M_GAMMA151] = "$K^- \\omega \\nu_\\tau$";
+  baseorder[M_GAMMA128] = 33; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA130] = 34; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA132] = 35; baselatex[M_GAMMA132] = "$\\bar{K}^0 \\pi^- \\eta  \\nu_\\tau$";
+  baseorder[M_GAMMA151] = 36; baselatex[M_GAMMA151] = "$K^- \\omega \\nu_\\tau$";
   //
   // READ INPUT NODES
   // 
@@ -2009,7 +2003,6 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );               //33
   node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );               //34
   node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );               //35
-  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );               //36
   node_num_parm[inode].push_back(  3);       node_num_coef[inode].push_back(1.        );               //37
   ++inode;//108
   nodegammaname.push_back("GammaXs"); // sum of 15 strange base nodes
@@ -2029,7 +2022,6 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );               //12
   node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );               //13
   node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );               //14
-  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );               //15
   ++inode;//109
   //
   // Count number of parameters in numerator and denominator for each node
@@ -2077,9 +2069,9 @@ int main(int argc, char* argv[]){
   double** corrmat = new double*[200]; for (i=0;i<200;++i) corrmat[i] = new double[200];
   for (imeas1=0;imeas1<200;imeas1++) for (imeas2=0;imeas2<200;imeas2++) corrmat[imeas1][imeas2] = 0;
   //
-  cout << "Read data from : " << Form("s035-fit-with-babar-belle%s.data",salephhcorr.data()) << endl;
-  ifstream ifs(Form("s035-fit-with-babar-belle%s.data",salephhcorr.data())) ;
-  if (!ifs.good()) {cout << "Cannot open input file : " << Form("s035-fit-with-babar-belle%s.data",salephhcorr.data()) << endl ; exit(1) ;}
+  cout << "Read data from : " << Form("s035-fit-no-babar-belle%s.data",salephhcorr.data()) << endl;
+  ifstream ifs(Form("s035-fit-no-babar-belle%s.data",salephhcorr.data())) ;
+  if (!ifs.good()) {cout << "Cannot open input file : " << Form("s035-fit-no-babar-belle%s.data",salephhcorr.data()) << endl ; exit(1) ;}
   while(ifs.good()) {
     if (ifs.eof()) break;
     char firstch(' ') ; ifs.get(firstch) ;
@@ -2145,7 +2137,7 @@ int main(int argc, char* argv[]){
   //
   // PRINT INFORMATION ABOUT INPUT MEASUREMENTS
   //
-  FILE *measinfofile=fopen(Form("s035-fit-with-babar-belle%s.info",salephhcorr.data()),"w");  
+  FILE *measinfofile=fopen(Form("s035-fit-no-babar-belle%s.info",salephhcorr.data()),"w");  
   print_measinfo(measinfofile,
 		 nmeas, measnode, measvalue, measerror, corrmat,
 		 expname, meastitle, measgammaname,

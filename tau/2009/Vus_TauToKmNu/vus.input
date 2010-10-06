@@ -1,4 +1,4 @@
-$a = 0.6969439e-2 +- 0.00975197e-2; # measured average
+$a = 0.6971e-2 +- 0.0096e-2; # measured average
 $b = 1.16637e-5 +- 0.00001e-5; # GMu in GeV-2
 $c = 157e-3 +- 2e-3; # fK in GeV arXiv:0706.1726 [hep-lat]
 $d = 1.77677 +- 0.15e-3; # mtau in GeV

@@ -1,4 +1,4 @@
-# cd ../../../../Common/ ; source ./config.csh ; cd -
+# cd ../../../Common/ ; source ./config.csh ; cd -
 
 ./any.com readpdg
 

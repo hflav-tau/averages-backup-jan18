@@ -21,7 +21,7 @@
  double BR_TauToKNu = (1./(16.*pi*hbar)) * pow(Gmu,2) * pow(fK,2) * pow(Vus,2) * pow(mtau,3) * TauLifeTime*  pow(1 - (pow(mK,2))/(pow(mtau,2)),2) * SEW;
  cout << "Vus = 0.2255 => BR_TauToKNu = " << BR_TauToKNu*100. << " % " << endl;
  //
- BR_TauToKNu = 0.6969439e-2; // +- 0.00975197e-2; # measured average
+ BR_TauToKNu = 0.6971e-2; // +- 0.0096e-2 # measured average
  double Vus = sqrt(
 		   BR_TauToKNu * (16*pi*hbar)* 1./( pow(Gmu,2) * pow(fK,2) * pow(mtau,3) * TauLifeTime*  pow(1 - (pow(mK,2))/(pow(mtau,2)),2) * SEW)
                     );

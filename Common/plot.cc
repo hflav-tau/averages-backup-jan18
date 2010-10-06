@@ -196,8 +196,10 @@ int plot(std::string filename_string = "plot.input"){
   // -- set up frame for plot
   Double_t fXmin = xmin; 
   Double_t fXmax = xmax; 
+  //  Double_t fYmin = 0.0;
+  //  Double_t fYmax = nPoints*1.0 + 1.5;
   Double_t fYmin = 0.0;
-  Double_t fYmax = nPoints*1.0 + 1.5;
+  Double_t fYmax = nPoints*1.0 + 2 ;//- 0.25;
 
   cout << "Drawing frame " << fXmin << "  " << fYmin << "  " << fXmax << "  " << fYmax << endl;
 
@@ -213,7 +215,7 @@ int plot(std::string filename_string = "plot.input"){
   b1.SetFillColor(ci);
   tempstring=Form(sprecision.Data(),meas[0]-stat[0]); Double_t boxl=tempstring.Atof();
   tempstring=Form(sprecision.Data(),meas[0]+stat[0]); Double_t boxh=tempstring.Atof();
-  b1.DrawBox(boxl, fYmin+0.002*(fYmax-fYmin), boxh, fYmax-0.002*(fYmax-fYmin));
+  b1.DrawBox(boxl, fYmin+0.002*(fYmax-fYmin), boxh+0.002*(boxh-boxl), fYmax-0.002*(fYmax-fYmin));
 
   Double_t y[99], ey[99], eyl[99], eyh[99];
   int fColor[99], fSymbol[99];
@@ -221,17 +223,16 @@ int plot(std::string filename_string = "plot.input"){
   int fMarkerStyle = 24;
   int fLineW=1;
   for (int i=0;i<nPoints;++i) {
-    y[i]=i+2.0; ey[i]=0.0; eyl[i]=0.0; eyh[i]=0.0;
+    y[i]=i+2.25; ey[i]=0.0; eyl[i]=0.0; eyh[i]=0.0;
     fColor[i]  = 1;
     fSymbol[i] = 20;
   }
 
-  Double_t fTxtX= 0.015;
+  Double_t fTxtX= 0.025;
   Double_t xtext=fXmin+fTxtX*(fXmax-fXmin);
-  Double_t fTxtY= 0.45;
+  Double_t fTxtY=0.45;
   Double_t ytext;
   TLatex  tl;
-  tl.SetTextSize(0.03);
   for (int i=0;i<nPoints;++i) {
     Double_t totl[1],toth[1];
     if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
@@ -279,8 +280,9 @@ int plot(std::string filename_string = "plot.input"){
       tl.SetTextColor(2);
     }
     ytext=y[i]*1.0+0.05;
+    tl.SetTextSize(0.035);
     tl.DrawLatex(xtext,ytext,expname[i]);
-    tl.SetTextSize(0.03);
+    tl.SetTextSize(0.035);
     if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       if (syst[i]<1e-9) { // zero means no Scale Factor quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
@@ -322,24 +324,24 @@ int plot(std::string filename_string = "plot.input"){
 					    Form(sprecision.Data(),meas[i]),
 					    Form(sprecision.Data(),stat[i])));
       } else if (statasy[i]&&syst[i]<1e-9) { // zero means no syst-error quoted
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #splitline{+%s}{ -%s}",
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s  #scale[0.66]{#splitline{+%s}{ -%s}}",
 					    Form(sprecision.Data(),meas[i]),
 					    Form(sprecision.Data(),stath[i]),
 					    Form(sprecision.Data(),statl[i])));
       } else if ( statasy[i]&&!systasy[i]) {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #splitline{+%s}{ -%s} #pm %s",
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s  #scale[0.66]{#splitline{+%s}{ -%s}} #pm %s",
 					    Form(sprecision.Data(),meas[i]),
 					    Form(sprecision.Data(),stath[i]),
 					    Form(sprecision.Data(),statl[i]),
 					    Form(sprecision.Data(),syst[i])));
       } else if (!statasy[i]&& systasy[i]) {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s #splitline{+%s}{ -%s}",
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s  #scale[0.66]{#splitline{+%s}{ -%s}}",
 					    Form(sprecision.Data(),meas[i]),
 					    Form(sprecision.Data(),stat[i]),
 					    Form(sprecision.Data(),systh[i]),
 					    Form(sprecision.Data(),systl[i])));
       } else if ( systasy[i]&& systasy[i]) {
-	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #splitline{+%s}{ -%s} #splitline{+%s}{ -%s}",
+	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s  #scale[0.66]{#splitline{+%s}{ -%s}}  #scale[0.66]{#splitline{+%s}{ -%s}}",
 					    Form(sprecision.Data(),meas[i]),
 					    Form(sprecision.Data(),stath[i]),
 					    Form(sprecision.Data(),statl[i]),
@@ -354,7 +356,7 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
 
-  HFAGTauLabel(2010002,.3,.225,.2,.05,.9);
+  HFAGTauLabel(2010002,.34,.23,.27,.05,.95);
 
   size_t extPos = filename_string.rfind('.');
   std::string outFilename;

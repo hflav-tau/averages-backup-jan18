@@ -1,13 +1,14 @@
 # first line is xmin, xmax, precision, title
 * 6.75            9.75         5.3 B(#tau^{-} #rightarrow #pi^{-}#pi^{-}#pi^{+}#nu (ex.K^{0})) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 9.0166       0.050253     0.09161      HFAG Fit
+& 9.0155       0.050253     0.0964       HFAG Fit
 & 8.77502      0.110659     0.261334     HFAG Average 
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 8.85         0.13         0            PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
-  8.42         0.0033211    -0.0033211   0.25879      -0.25879     Belle 2009
+# 8.42         0.0033211    -0.0033211   0.25879      -0.25879     Belle 2009
+  8.42         0.003        -0.003       0.26         -0.25        Belle 2009
   8.8337       0.0074       -0.0074      0.12672      -0.12672     BaBar 2008
-# ALEPH quotes 9.041 +- 0.060 +- 0.076 for pi-pi-pi+ (ex.K0,omega). We add .017 * B(tau -> pi omega nu) = 0.017 * 1.9597 % =  0.0333149 % to get this value.
+# ALEPH quotes 9.041 +- 0.060 +- 0.076 for pi-pi-pi+ (ex.K0,omega). We add .017 * B(tau -> pi omega nu) = 0.017 * 1.9596 % = 0.0333132 % to get this value.
   9.07431      0.060        -0.060       0.076        -0.076       ALEPH 2005
   9.13         0.05         -0.05        0.46         -0.46        CLEO3 2003
