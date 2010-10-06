@@ -11,6 +11,7 @@ foreach infile ( alucomb_average_constrained.input \
  setenv logfile `echo $infile  | awk -F. '{print $1".log"}'`
  setenv listfile `echo $infile  | awk -F. '{print $1".list"}'`
  setenv resfile `echo $infile  | awk -F. '{print $1".res"}'`
+ setenv resfile2 `echo $infile  | awk -F. '{print $1".res2"}'`
  setenv showfile `echo $infile  | awk -F. '{print $1".show"}'`
  rm -f average.input
  ln -s $infile average.input
@@ -19,6 +20,10 @@ foreach infile ( alucomb_average_constrained.input \
  cp -f average_alucomb.log $logfile
  make update_alucomb
  rm -f $listfile ; ../../../Common/bin/aluelab-list.r | tee $listfile
- rm -f $resfile ; ./aluelab-results.r | tee $resfile
  rm -f $showfile ; ./aluelab-show.r | tee $showfile
+ rm -f $resfile ; ./aluelab-results.r | tee $resfile
+ echo $infile | grep -q _unconstrained
+ if ( $? == 0 ) then
+   rm -f $resfile2 ; ./aluelab-results.r -vadirect | tee $resfile2
+ endif
 end

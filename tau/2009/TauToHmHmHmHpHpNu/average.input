@@ -7,7 +7,7 @@ INCLUDE ../Common/Parameters.input
 
 COMBINE * * * 
 
-MESAUREMENT m_HmHmHmHpHp statistical systematic
+MEASUREMENT m_Gamma103 statistical systematic
 
 CALL DUMP_MASTER_INC
 CALL CHI2_SYM

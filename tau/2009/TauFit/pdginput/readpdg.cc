@@ -931,6 +931,77 @@ int main(int argc, char* argv[]){
     }
   }
   //
+  enum e_basegammanames {
+    M_GAMMA3  ,
+    M_GAMMA5  ,
+    M_GAMMA9  ,
+    M_GAMMA10 ,
+    M_GAMMA14 ,
+    M_GAMMA16 ,
+    M_GAMMA20 ,
+    M_GAMMA23 ,
+    M_GAMMA27 ,
+    M_GAMMA28 ,
+    M_GAMMA30 ,
+    M_GAMMA35 ,
+    M_GAMMA37 ,
+    M_GAMMA40 ,
+    M_GAMMA42 ,
+    M_GAMMA47 ,
+    M_GAMMA48 ,
+    M_GAMMA62 ,
+    M_GAMMA70 ,
+    M_GAMMA77 ,
+    M_GAMMA78 ,
+    M_GAMMA85 ,
+    M_GAMMA89 ,
+    M_GAMMA93 ,
+    M_GAMMA94 ,
+    M_GAMMA104,
+    M_GAMMA126,
+    M_GAMMA128,
+    M_GAMMA150,
+    M_GAMMA152,
+    M_GAMMA103
+  };
+  //
+  int          baseorder[nbase];
+  string       baselatex[nbase];
+  //
+  baseorder[M_GAMMA5  ] =  1; baselatex[M_GAMMA5  ] = "$e^- \\bar{\\nu}_e \\nu_\\tau$";
+  baseorder[M_GAMMA3  ] =  2; baselatex[M_GAMMA3  ] = "$\\mu^- \\bar{\\nu}_\\mu \\nu_\\tau$";
+  //
+  baseorder[M_GAMMA9  ] =  3; baselatex[M_GAMMA9  ] = "$\\pi^- \\nu_\\tau$";
+  baseorder[M_GAMMA14 ] =  4; baselatex[M_GAMMA14 ] = "$\\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA20 ] =  5; baselatex[M_GAMMA20 ] = "$\\pi^- 2\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA27 ] =  6; baselatex[M_GAMMA27 ] = "$\\pi^- 3\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA30 ] =  7; baselatex[M_GAMMA30 ] = "$h^- 4\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
+  baseorder[M_GAMMA37 ] =  8; baselatex[M_GAMMA37 ] = "$K^- K^0 \\nu_\\tau$";
+  baseorder[M_GAMMA42 ] =  9; baselatex[M_GAMMA42 ] = "$K^- K^0 \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA47 ] = 10; baselatex[M_GAMMA47 ] = "$\\pi^- K_S^0 K_S^0 \\nu_\\tau$";
+  baseorder[M_GAMMA48 ] = 11; baselatex[M_GAMMA48 ] = "$\\pi^- K_S^0 K_L^0 \\nu_\\tau$";
+  baseorder[M_GAMMA62 ] = 12; baselatex[M_GAMMA62 ] = "$\\pi^- \\pi^+ \\pi^- \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA70 ] = 13; baselatex[M_GAMMA70 ] = "$\\pi^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA77 ] = 14; baselatex[M_GAMMA77 ] = "$h^- h^- h^+ 2\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega,\\eta)$";
+  baseorder[M_GAMMA78 ] = 15; baselatex[M_GAMMA78 ] = "$h^- h^- h^+ 3\\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA93 ] = 16; baselatex[M_GAMMA93 ] = "$K^- K^+ \\pi^- \\nu_\\tau$";
+  baseorder[M_GAMMA94 ] = 17; baselatex[M_GAMMA94 ] = "$K^- K^+ \\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA103] = 18; baselatex[M_GAMMA103] = "$3h^- 2h^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA104] = 19; baselatex[M_GAMMA104] = "$3h^- 2h^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA126] = 20; baselatex[M_GAMMA126] = "$\\pi^- \\pi^0 \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA150] = 21; baselatex[M_GAMMA150] = "$h^- \\omega \\nu_\\tau$";
+  baseorder[M_GAMMA152] = 22; baselatex[M_GAMMA152] = "$h^- \\omega \\pi^0 \\nu_\\tau$";
+  //
+  baseorder[M_GAMMA10 ] = 23; baselatex[M_GAMMA10 ] = "$K^- \\nu_\\tau$";
+  baseorder[M_GAMMA16 ] = 24; baselatex[M_GAMMA16 ] = "$K^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA23 ] = 25; baselatex[M_GAMMA23 ] = "$K^- 2\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA28 ] = 26; baselatex[M_GAMMA28 ] = "$K^- 3\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
+  baseorder[M_GAMMA35 ] = 27; baselatex[M_GAMMA35 ] = "$\\bar{K}^0 \\pi^- \\nu_\\tau$";
+  baseorder[M_GAMMA40 ] = 28; baselatex[M_GAMMA40 ] = "$\\bar{K}^0 \\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA85 ] = 29; baselatex[M_GAMMA85 ] = "$K^- \\pi^+ \\pi^- \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA89 ] = 30; baselatex[M_GAMMA89 ] = "$K^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
+  baseorder[M_GAMMA128] = 31; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
+  //
   // READ INPUT NODES
   // 
   const int      nnode=97;
@@ -2049,7 +2120,7 @@ int main(int argc, char* argv[]){
 	for (jpar = 0; jpar < node_parm[jnode].size(); ++jpar) {
 	  int jquan=node_quan[jnode].at(jpar);
 	  double jpartial=NodeValue_part[jnode].at(jpar);
-	  NodeErrorMatrix[inode][jnode] += 
+	  NodeErrorMatrix[inode][jnode] += (iquan>nbase || jquan>nbase) ? 0 :
 	    ipartial*jpartial*baseerror_fit[iquan-1]*baseerror_fit[jquan-1]*basecorr_fit[iquan-1][jquan-1];
 	}
       }
@@ -2274,7 +2345,7 @@ int main(int argc, char* argv[]){
 	for (jpar = 0; jpar < node_parm[jnode].size(); ++jpar) {
 	  int jquan=node_quan[jnode].at(jpar);
 	  double jpartial=NodeValue_part_noweak[jnode].at(jpar);
-	  NodeErrorMatrix_noweak[inode][jnode] += 
+	  NodeErrorMatrix_noweak[inode][jnode] += (iquan>nbase || jquan>nbase) ? 0 :
 	    ipartial*jpartial*baseerror_fit_noweak[iquan-1]*baseerror_fit_noweak[jquan-1]*basecorr_fit_noweak[iquan-1][jquan-1];
 	}
       }
@@ -2334,12 +2405,11 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak[nnode-1]/NodeError_noweak[nnode-1]);
   //
   cout << "Summary of fit with [non-weak measurements only]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
-		 basevalue_fit[ibase],
-		 baseerror_fit[ibase],
+		 basevalue_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -2815,7 +2885,7 @@ int main(int argc, char* argv[]){
 	for (jpar = 0; jpar < node_parm[jnode].size(); ++jpar) {
 	  int jquan=node_quan[jnode].at(jpar);
 	  double jpartial=NodeValue_part_noweak_scaled[jnode].at(jpar);
-	  NodeErrorMatrix_noweak_scaled[inode][jnode] += 
+	  NodeErrorMatrix_noweak_scaled[inode][jnode] += (iquan>nbase || jquan>nbase) ? 0 :
 	    ipartial*jpartial*baseerror_fit_noweak_scaled[iquan-1]*baseerror_fit_noweak_scaled[jquan-1]*basecorr_fit_noweak_scaled[iquan-1][jquan-1];
 	}
       }
@@ -2875,12 +2945,11 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_scaled[nnode-1]/NodeError_noweak_scaled[nnode-1]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
-		 basevalue_fit[ibase],
-		 baseerror_fit[ibase],
+		 basevalue_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3087,7 +3156,7 @@ int main(int argc, char* argv[]){
 	for (jpar = 0; jpar < node_parm[jnode].size(); ++jpar) {
 	  int jquan=node_quan[jnode].at(jpar);
 	  double jpartial=NodeValue_part_rescaled[jnode].at(jpar);
-	  NodeErrorMatrix_rescaled[inode][jnode] += 
+	  NodeErrorMatrix_rescaled[inode][jnode] += (iquan>nbase || jquan>nbase) ? 0 :
 	    ipartial*jpartial*baseerror_fit_rescaled[iquan-1]*baseerror_fit_rescaled[jquan-1]*basecorr_fit_rescaled[iquan-1][jquan-1];
 	}
       }
@@ -3147,12 +3216,11 @@ int main(int argc, char* argv[]){
 	       NodeValue_rescaled[nnode-1]/NodeError_rescaled[nnode-1]);
   //
   cout << "Summary of fit with [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
-		 basevalue_fit[ibase],
-		 baseerror_fit[ibase],
+		 basevalue_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3325,7 +3393,7 @@ int main(int argc, char* argv[]){
 	for (jpar = 0; jpar < node_parm[jnode].size(); ++jpar) {
 	  int jquan=node_quan[jnode].at(jpar);
 	  double jpartial=NodeValue_part_noweak_rescaled[jnode].at(jpar);
-	  NodeErrorMatrix_noweak_rescaled[inode][jnode] += 
+	  NodeErrorMatrix_noweak_rescaled[inode][jnode] += (iquan>nbase || jquan>nbase) ? 0 :
 	    ipartial*jpartial*baseerror_fit_noweak_rescaled[iquan-1]*baseerror_fit_noweak_rescaled[jquan-1]*basecorr_fit_noweak_rescaled[iquan-1][jquan-1];
 	}
       }
@@ -3385,12 +3453,11 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_rescaled[nnode-1]/NodeError_noweak_rescaled[nnode-1]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED    FITVAL     FITERR   RESCALED    SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
-		 basevalue_fit[ibase],
-		 baseerror_fit[ibase],
+		 basevalue_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase]/baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -3433,6 +3500,37 @@ int main(int argc, char* argv[]){
 		  baseseed, node_num, node_den, node_part);
     fclose(thisfile);
   }
+  //
+  // Print final values used from fit with [errors rescaled in a Ad-Hoc style for kkk only]
+  //
+  cout << endl << "Final Results from fit with [errors rescaled in a Ad-Hoc style for kkk only] w.r.t original fit:" << endl;
+  cout << Form("\\begin{tabular}{l c}\n");
+  for (i=1;i<=nbase;++i) {
+    for (ibase=0;ibase<nbase;++ibase) {
+      if (i!=baseorder[ibase]) continue;
+      if (basevalue_fit_rescaled[ibase]*100>10) {
+	cout << Form("%-70s & %5.2f $\\pm$ %5.2f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
+      }else {
+	cout << Form("%-70s & %5.3f $\\pm$ %5.3f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
+      }
+    }
+  }
+  cout << Form("\\end{tabular}\n");
+  //
+  cout << Form("%s = %10.6f +- %10.6f \n%s = %10.6f +- %10.6f \nCorr between %s and %s = %10.6f\nCorr between %s and %s = %10.6f\n\n",
+	       nodetitle[89].data(),
+	       NodeValue_rescaled[89],
+	       NodeError_rescaled[89],
+	       nodetitle[106].data(),
+	       NodeValue_rescaled[106],
+	       NodeError_rescaled[106],
+	       basetitle[M_GAMMA3].data(),
+	       basetitle[M_GAMMA5].data(),
+	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5],
+	       basetitle[M_GAMMA9].data(),
+	       basetitle[M_GAMMA10].data(),
+	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]
+	       );
   //
   delete [] corrmat_scaled_noweak;
   delete [] corrmat_scaled;
