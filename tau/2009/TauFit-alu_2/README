@@ -21,7 +21,7 @@ foreach infile ( alucomb_average_constrained.input \
  make update_alucomb
  rm -f $listfile ; ../../../Common/bin/aluelab-list.r | tee $listfile
  rm -f $showfile ; ./aluelab-show.r | tee $showfile
- rm -f $resfile ; ./aluelab-results.r | tee $resfile
+ rm -f $resfile ; ./aluelab-results.r -lepuniv | tee $resfile
  echo $infile | grep -q _unconstrained
  if ( $? == 0 ) then
    rm -f $resfile2 ; ./aluelab-results.r -vadirect | tee $resfile2

@@ -1,0 +1,10 @@
+# cd ../../../../Common/ ; source ./config.csh ; cd -
+
+./any.com readpdg
+
+source run_readpdg
+
+cp -p *.log log
+
+getresult_readpdg.csh
+
