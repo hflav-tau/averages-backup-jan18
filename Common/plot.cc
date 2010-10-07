@@ -175,7 +175,9 @@ int plot(std::string filename_string = "plot.input"){
   double num=0,den=0,aver=0,err=0,wt;
   for (int i=0;i<nPoints;i++) {
     if ((expname[i].Contains("Average") && expname[i].Contains("HFAG"))||
-	(expname[i].Contains("Fit") && expname[i].Contains("HFAG"))) {
+	(expname[i].Contains("Fit") && expname[i].Contains("HFAG"))||
+	(expname[i].Contains("Unitarity") && expname[i].Contains("CKM"))
+	) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with CL (or -Scale Factor) = " << syst[i] << " from " << expname[i] << endl;
     } else if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       cout << i << " " << meas[i] << " +- " << stat[i] << " (error) with Scale Factor = " << syst[i] << " from " << expname[i] << endl;
@@ -209,7 +211,7 @@ int plot(std::string filename_string = "plot.input"){
   //  Double_t fYmin = 0.0;
   //  Double_t fYmax = nPoints*1.0 + 1.5;
   Double_t fYmin = 0.0;
-  Double_t fYmax = (nLimits+nPoints)*1.0 + 2 ;//- 0.25;
+  Double_t fYmax = (nLimits>-1) ? (nLimits+nPoints)*1.0 + 2 : nPoints*1.0 + 2 ;
 
   cout << "Drawing frame " << fXmin << "  " << fYmin << "  " << fXmax << "  " << fYmax << endl;
 
@@ -272,7 +274,7 @@ int plot(std::string filename_string = "plot.input"){
   }
   for (int i=0;i<nPoints;++i) {
     Double_t totl[1],toth[1];
-    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
+    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit"))|| (expname[i].Contains("Unitarity")) )){
       totl[0] = stat[i];
       toth[0] = stat[i];
     }else{
@@ -295,9 +297,13 @@ int plot(std::string filename_string = "plot.input"){
     GraphA->SetLineColor(fColor[i]);
     GraphA->SetLineWidth(fLineW);
     // -- Change if it's the average
-    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
+    if (expname[i].Contains("Average") || (expname[i].Contains("Fit"))) {
       GraphA->SetMarkerColor(2);
       GraphA->SetLineColor(2);
+    }
+    if (expname[i].Contains("Unitarity")) {
+      GraphA->SetMarkerColor(4);
+      GraphA->SetLineColor(4);
     }
     GraphA->Draw("P");
     //
@@ -309,12 +315,15 @@ int plot(std::string filename_string = "plot.input"){
     GraphB->SetMarkerSize(fMarkerSize);
     GraphB->SetLineColor(fColor[i]);
     GraphB->SetLineWidth(fLineW);
-    if (!expname[i].Contains("Average") && !expname[i].Contains("Fit")  &&fabs(stat[i])>1e-9) GraphB->Draw("P");
+    if (!expname[i].Contains("Average") && !expname[i].Contains("Fit") && !expname[i].Contains("Unitarity") &&fabs(stat[i])>1e-9) GraphB->Draw("P");
     //
     tl.SetTextColor(fColor[i]);
     // -- Change if it's the average
-    if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
+    if (expname[i].Contains("Average") || (expname[i].Contains("Fit"))) {
       tl.SetTextColor(2);
+    }
+    if (expname[i].Contains("Unitarity")){
+      tl.SetTextColor(4);
     }
     ytext=y[i]*1.0+0.05;
     tl.SetTextSize(0.035);
@@ -332,7 +341,8 @@ int plot(std::string filename_string = "plot.input"){
 					    Form("%4.2f",syst[i])));
       }
     } else if ((expname[i].Contains("Average") && expname[i].Contains("HFAG"))||
-               (expname[i].Contains("Fit") && expname[i].Contains("HFAG"))) {
+               (expname[i].Contains("Fit") && expname[i].Contains("HFAG"))||
+               (expname[i].Contains("Unitarity") && expname[i].Contains("CKM"))) {
       if (fabs(syst[i])<1e-9) { // zero means no CL quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
 					    Form(sprecision.Data(),meas[i]),
