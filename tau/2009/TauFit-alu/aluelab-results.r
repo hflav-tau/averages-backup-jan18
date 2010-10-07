@@ -8,12 +8,6 @@
 ##
 ## ////////////////////////////////////////////////////////////////////////////
 
-##
-## Sudan's paper
-## B(tau -> KSKL pi nu) = 0.00087 +- 0.000085 +- 0.000030
-##+++ include if approved in time
-##
-
 source("../../../Common/bin/aluelab.r")
 
 args <- commandArgs(TRUE)
@@ -37,6 +31,12 @@ if(any(args == "-vadirect")) {
   flag.va.direct =  TRUE
   args = args[args != "-vadirect"]
 }
+flag.lepuniv =  FALSE
+if(any(args == "-lepuniv")) {
+  ##--- use R_had = (1 - (1+(f_mu/f_e))Be_univ)/Be_univ
+  flag.lepuniv =  TRUE
+  args = args[args != "-lepuniv"]
+}
 
 if (length(args) > 0) {
   file.name = args[1]
@@ -51,6 +51,12 @@ if (flag.s.factors) {
   quant.err = quant.sf.err
   quant.corr = quant.sf.corr
   quant.cov = quant.sf.cov
+}
+
+quant.names = names(quant.val)
+
+if (!any("Gamma801" == names(quant.val))) {
+   rc = aeb.meas.expr.add("Gamma801", quote(1.699387*Gamma96))
 }
 
 ##
@@ -96,7 +102,31 @@ Gamma110.comb = c(
   Gamma85=1,  Gamma89=1,  Gamma128=1,
   Gamma130=1, Gamma132=1,
   Gamma96=1.699387)
+
+##
+## Oct 2010, Gamma110 updated as follows
+##
+## Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma85 + Gamma89 + Gamma128
+##          + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53  + Gamma801
+## 
+## - replaced Gamma96 with Gamma801 = Gamma96 * [1 + B(phi -> KS0 KL0)/B(phi -> K+ K-)]
+##   because of technical issues with readpdg.cc
+## - added Gamma151 (tau -> K omega nu)
+##
+Gamma110.comb = c(
+  Gamma10=1,  Gamma16=1,  Gamma23=1,  
+  Gamma28=1,  Gamma35=1,  Gamma40=1,  
+  Gamma44=1,  Gamma53=1,  Gamma85=1,  
+  Gamma89=1,  Gamma128=1, Gamma130=1, 
+  Gamma132=1, Gamma151=1, Gamma801=1)
+
+if (!any("Gamma151" == quant.names)) {
+  ##--- remove Gamma151 if not present in fit for backward cmpatibility
+  Gamma110.comb = Gamma110.comb[names(Gamma110.comb) != "Gamma151"]
+}
+
 Gamma110.names = names(Gamma110.comb[Gamma110.comb != 0])
+
 ##--- use Gamma110 defined through COMBOFQUANT rather than here
 ## aeb.meas.comb.add("Gamma110", Gamma110.comb)
 
@@ -155,7 +185,6 @@ if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
     ## aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
     ##--- traditional A.Pich et al. calculation
     if (!flag.va.direct) {
-      aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
       aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
     } else {
       aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
@@ -237,23 +266,36 @@ aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3bre
 
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
   ##
-  ## if using constrained fit with dummy mode, i.e. unconstrained fit
-  ## then use "fit" values computed here (possibly incorporating unitarity constraint)
+  ## if using constrained fit with dummy mode (Gamma998), i.e. unconstrained fit
   ##
-  ##--- add R_tau_VA = R - R_tau_s
-  aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_univ))
-  ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-  aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_univ))
-  ##--- add R_tau as function of quantities
-  aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
+  if (flag.lepuniv) {
+    ##--- determine R_tau using leptonic BRs and universality
+    aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
+    aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_univ))
+    aeb.meas.expr.add("R_tau_VA", quote(R_tau - R_tau_s))
+  } else {
+    ##
+    ## use "fit" values computed in this script (possibly incorporating unitarity constraint)
+    ##
+    ##--- add R_tau_VA = R - R_tau_s
+    aeb.meas.expr.add("R_tau_VA", quote(B_tau_VA_fit/Be_univ))
+    ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
+    aeb.meas.expr.add("R_tau_s", quote(B_tau_s_fit/Be_univ))
+    ##--- add R_tau as function of quantities
+    aeb.meas.expr.add("R_tau", quote(R_tau_VA+R_tau_s))
+  }
 } else {
   ##
-  ## if using constrained fit without dummy mode, i.e. constrained fit
-  ## then use values computed in the alucomb.r fit
+  ## if using constrained fit without dummy mode (Gamma998), i.e. constrained fit
   ##
   ##--- add R_tau as function of quantities
-  ## aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
-  aeb.meas.expr.add("R_tau", quote((B_tau_VA+Gamma110)/Be_univ))
+  if (flag.lepuniv) {
+    ##--- determine R_tau using leptonic BRs and universality
+    aeb.meas.expr.add("R_tau", quote(1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau))
+  } else {
+    ##--- use values computed in the alucomb.r fit, incorporating unitarity constraints
+    aeb.meas.expr.add("R_tau", quote((B_tau_VA+Gamma110)/Be_univ))
+  }
   ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
   aeb.meas.expr.add("R_tau_s", quote(Gamma110/Be_univ))
   ##--- add R_tau_VA = R_tau - R_tau_s
