@@ -980,12 +980,12 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA42 ] =  9; baselatex[M_GAMMA42 ] = "$K^- K^0 \\pi^0 \\nu_\\tau$";
   baseorder[M_GAMMA47 ] = 10; baselatex[M_GAMMA47 ] = "$\\pi^- K_S^0 K_S^0 \\nu_\\tau$";
   baseorder[M_GAMMA48 ] = 11; baselatex[M_GAMMA48 ] = "$\\pi^- K_S^0 K_L^0 \\nu_\\tau$";
-  baseorder[M_GAMMA62 ] = 12; baselatex[M_GAMMA62 ] = "$\\pi^- \\pi^+ \\pi^- \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
-  baseorder[M_GAMMA70 ] = 13; baselatex[M_GAMMA70 ] = "$\\pi^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA62 ] = 12; baselatex[M_GAMMA62 ] = "$\\pi^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA70 ] = 13; baselatex[M_GAMMA70 ] = "$\\pi^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
   baseorder[M_GAMMA77 ] = 14; baselatex[M_GAMMA77 ] = "$h^- h^- h^+ 2\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega,\\eta)$";
   baseorder[M_GAMMA78 ] = 15; baselatex[M_GAMMA78 ] = "$h^- h^- h^+ 3\\pi^0 \\nu_\\tau$";
-  baseorder[M_GAMMA93 ] = 16; baselatex[M_GAMMA93 ] = "$K^- K^+ \\pi^- \\nu_\\tau$";
-  baseorder[M_GAMMA94 ] = 17; baselatex[M_GAMMA94 ] = "$K^- K^+ \\pi^- \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA93 ] = 16; baselatex[M_GAMMA93 ] = "$\\pi^- K^- K^+ \\nu_\\tau$";
+  baseorder[M_GAMMA94 ] = 17; baselatex[M_GAMMA94 ] = "$\\pi^- K^- K^+ \\pi^0 \\nu_\\tau$";
   baseorder[M_GAMMA103] = 18; baselatex[M_GAMMA103] = "$3h^- 2h^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA104] = 19; baselatex[M_GAMMA104] = "$3h^- 2h^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA126] = 20; baselatex[M_GAMMA126] = "$\\pi^- \\pi^0 \\eta \\nu_\\tau$";
@@ -998,8 +998,8 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA28 ] = 26; baselatex[M_GAMMA28 ] = "$K^- 3\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
   baseorder[M_GAMMA35 ] = 27; baselatex[M_GAMMA35 ] = "$\\bar{K}^0 \\pi^- \\nu_\\tau$";
   baseorder[M_GAMMA40 ] = 28; baselatex[M_GAMMA40 ] = "$\\bar{K}^0 \\pi^- \\pi^0 \\nu_\\tau$";
-  baseorder[M_GAMMA85 ] = 29; baselatex[M_GAMMA85 ] = "$K^- \\pi^+ \\pi^- \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
-  baseorder[M_GAMMA89 ] = 30; baselatex[M_GAMMA89 ] = "$K^- \\pi^+ \\pi^- \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
+  baseorder[M_GAMMA85 ] = 29; baselatex[M_GAMMA85 ] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
+  baseorder[M_GAMMA89 ] = 30; baselatex[M_GAMMA89 ] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
   baseorder[M_GAMMA128] = 31; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
   //
   // READ INPUT NODES
@@ -3509,7 +3509,7 @@ int main(int argc, char* argv[]){
     for (ibase=0;ibase<nbase;++ibase) {
       if (i!=baseorder[ibase]) continue;
       if (basevalue_fit_rescaled[ibase]*100>10) {
-	cout << Form("%-70s & %5.2f $\\pm$ %5.2f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
+	cout << Form("%-70s & %6.3f $\\pm$ %6.3f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
       }else {
 	cout << Form("%-70s & %5.3f $\\pm$ %5.3f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
       }
@@ -3517,20 +3517,30 @@ int main(int argc, char* argv[]){
   }
   cout << Form("\\end{tabular}\n");
   //
-  cout << Form("%s = %10.6f +- %10.6f \n%s = %10.6f +- %10.6f \nCorr between %s and %s = %10.6f\nCorr between %s and %s = %10.6f\n\n",
+  cout << Form("%s = %10.6f +- %10.6f\n",
 	       nodetitle[89].data(),
 	       NodeValue_rescaled[89],
-	       NodeError_rescaled[89],
+	       NodeError_rescaled[89]);
+  //
+  cout << Form("%s = %10.6f +- %10.6f\n",
 	       nodetitle[106].data(),
 	       NodeValue_rescaled[106],
-	       NodeError_rescaled[106],
+	       NodeError_rescaled[106]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA3].data(),
 	       basetitle[M_GAMMA5].data(),
-	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5],
+	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA9].data(),
 	       basetitle[M_GAMMA10].data(),
-	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]
-	       );
+	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]);
+//  //
+//  cout << Form("Corr between %s and %s = %10.6f\n",
+//	       basetitle[M_GAMMA130].data(),
+//	       basetitle[M_GAMMA132].data(),
+//	       basecorr_fit_rescaled[M_GAMMA130][M_GAMMA132]);
   //
   delete [] corrmat_scaled_noweak;
   delete [] corrmat_scaled;

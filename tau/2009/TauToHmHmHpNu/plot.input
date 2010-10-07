@@ -6,7 +6,7 @@
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
 % 9.44         0.14         1.4          PDG'09 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
-  8.908        0.003        -0.003       0.263        -0.263       Belle 2009
+  8.908        0.003        -0.003       0.263        -0.263       Belle 2010
   9.242        0.007        -0.007       0.134        -0.134       BaBar 2008
   9.317        0.09         -0.09        0.082        -0.082       DELPHI 2006
 # ALEPH quotes (9.469 +- 0.062 +- 0.073) % for h-h-h+ (ex.K0,omega). We add .017 * B(tau -> h omega nu) = 0.017 * 2.0011 % =  0.0340187 % to get this value.

@@ -117,6 +117,11 @@ int plot(std::string filename_string = "plot.input"){
   TString title,expname[99],tempstring;
   Double_t xmin,xmax,precision,meas[99],stath[99],statl[99],stat[99],systh[99],systl[99],syst[99];
   int statasy[99],systasy[99];
+  //
+  int nLimits=-1;
+  TString expname_limit[99];
+  Double_t upperlimits[99], confidencelevel[99];
+  //
   const char* filename = filename_string.c_str();
   ifstream ifs(filename) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ; 
@@ -144,6 +149,11 @@ int plot(std::string filename_string = "plot.input"){
       systasy[nPoints] = 0; // always false
       ifs.getline(buffer,200,'\n');
       expname[nPoints++]=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
+    } else if (firstch=='?') {
+      ++nLimits;
+      ifs >> upperlimits[nLimits] >> confidencelevel[nLimits];
+      ifs.getline(buffer,200,'\n');
+      expname_limit[nLimits]=TString(buffer).Strip((TString::EStripType)1,' ');//remove kLeading whitespace
     } else { // Actual Inputs of the measurments 
       // Put back first char
       ifs.putback(firstch) ;
@@ -160,7 +170,7 @@ int plot(std::string filename_string = "plot.input"){
       if (expname[nPoints].Length()) nPoints++;
     }
   }
-  cout << "Read " << nPoints << " lines from filename " << filename << endl ;
+  cout << "Read nPoints = " << nPoints << " nLimits = " << nLimits << " from filename " << filename << endl ;
   int nexp=0;
   double num=0,den=0,aver=0,err=0,wt;
   for (int i=0;i<nPoints;i++) {
@@ -199,7 +209,7 @@ int plot(std::string filename_string = "plot.input"){
   //  Double_t fYmin = 0.0;
   //  Double_t fYmax = nPoints*1.0 + 1.5;
   Double_t fYmin = 0.0;
-  Double_t fYmax = nPoints*1.0 + 2 ;//- 0.25;
+  Double_t fYmax = (nLimits+nPoints)*1.0 + 2 ;//- 0.25;
 
   cout << "Drawing frame " << fXmin << "  " << fYmin << "  " << fXmax << "  " << fYmax << endl;
 
@@ -233,6 +243,33 @@ int plot(std::string filename_string = "plot.input"){
   Double_t fTxtY=0.45;
   Double_t ytext;
   TLatex  tl;
+  for (int i=0;i<nLimits;++i) {
+    double y_limit = y[nPoints-1] + i + 1;
+    double x_limit = upperlimits[i];
+    ytext=y[nPoints-1] + i + 1+0.05;
+    tl.SetTextSize(0.035);
+    tl.DrawLatex(xtext,ytext,expname_limit[i]);
+    if (upperlimits[i]<xmax) {
+      tl.DrawLatex(xtext,ytext-fTxtY,Form("%s @ %s%% CL",
+					  Form(sprecision.Data(),upperlimits[i]),
+					  Form("%2.0f",confidencelevel[i])));
+    }else{
+      tl.DrawLatex(xtext,ytext-fTxtY,Form("%s @ %s%% CL",
+					  Form("%2.1f",upperlimits[i]),
+					  Form("%2.0f",confidencelevel[i])));
+    }
+    if (upperlimits[i]<xmax) {
+      cout << "xmax = " << xmax << " " << upperlimits[i]  << " " << x_limit << " " << y_limit << endl;
+      TLine t1_limit;
+      t1_limit.DrawLine(x_limit,y_limit-0.5,x_limit,y_limit+0.5);
+      TBox b1_limit;
+      b1_limit.SetFillColor(1);
+      b1_limit.SetFillStyle(3353);
+      //      b1_limit.SetLineColor(1);
+      //      b1_limit.SetLineStyle(1);
+      b1_limit.DrawBox(x_limit-1, y_limit-0.5, x_limit, y_limit+.5);
+    }
+  }
   for (int i=0;i<nPoints;++i) {
     Double_t totl[1],toth[1];
     if ((expname[i].Contains("Average") || (expname[i].Contains("Fit")))){
