@@ -1,5 +1,5 @@
 # first line is xmin, xmax, units, title
-* 1768 1783 4.2 m_{#tau} [MeV]
+* 1768 1783 4.2 m_{#tau} [MeV/c^{2}]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 1776.77 0.15   0.5695 HFAG Average
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
