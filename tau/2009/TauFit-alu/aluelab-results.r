@@ -231,6 +231,14 @@ aeb.meas.expr.add("Be_from_taulife",
                   bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
                          *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
 ##
+## Bmu from tau lifetime
+## Bmu = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_mu/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
+##
+aeb.meas.expr.add("Bmu_from_taulife",
+                  bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mmubymtau/phspf_mebymmu
+                         *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
+
+##
 ## add Be_univ as covariance weigthed combination of Be, Be_from_Bmu and Be_from_taulife
 ##
 aeb.meas.fit.add("Be_univ", c(Be_fit=1, Be_from_Bmu=1, Be_from_taulife=1))
@@ -316,7 +324,7 @@ nsigma = (quant.val["Vus"] - Vus.unitarity.val)/quadrature(c(quant.err["Vus"], V
 display.names = c(Gamma110.names,
   "Gamma5", "Be_unitarity", "Be_fit",
   "Gamma3", "Bmu_unitarity", "Bmu_fit",
-  "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife", "Be_univ",
+  "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife", "Be_univ", "Bmu_from_taulife",
   "B_tau_VA", "B_tau_VA_unitarity", "B_tau_VA_fit",
   "Gamma110", "B_tau_s_unitarity", "B_tau_s_fit", "Gamma110_pdg09",
   "R_tau", "R_tau_s", "R_tau_VA", "deltaR_su3break", "Vus")

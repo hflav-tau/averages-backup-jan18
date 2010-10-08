@@ -3691,9 +3691,19 @@ int main(int argc, char* argv[]){
 	       NodeError_rescaled[106]);
   //
   cout << Form("Corr between %s and %s = %10.6f\n",
-	       basetitle[M_GAMMA3].data(),
 	       basetitle[M_GAMMA5].data(),
-	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5]);
+	       basetitle[M_GAMMA3].data(),
+	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
+	       basetitle[M_GAMMA5].data(),
+	       basetitle[M_GAMMA9].data(),
+	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA9]);
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
+	       basetitle[M_GAMMA5].data(),
+	       basetitle[M_GAMMA10].data(),
+	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA10]);
   //
   cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA9].data(),
