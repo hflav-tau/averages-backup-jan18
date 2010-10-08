@@ -228,7 +228,7 @@ int plot(std::string filename_string = "plot.input"){
   tempstring=Form(sprecision.Data(),meas[0]-stat[0]); Double_t boxl=tempstring.Atof();
   tempstring=Form(sprecision.Data(),meas[0]+stat[0]); Double_t boxh=tempstring.Atof();
   b1.DrawBox(boxl, fYmin+0.002*(fYmax-fYmin), boxh+0.002*(boxh-boxl), fYmax-0.002*(fYmax-fYmin));
-
+  
   Double_t y[99], ey[99], eyl[99], eyh[99];
   int fColor[99], fSymbol[99];
   double fMarkerSize = 1.2;
@@ -401,6 +401,16 @@ int plot(std::string filename_string = "plot.input"){
 					    Form(sprecision.Data(),syst[i])));
       }
     }
+  }
+  //
+  bool DrawExtraLine=false;
+  double DrawExtraLine_x = 1;
+  if (DrawExtraLine) {
+    cout << "DrawExtraLine is true" << endl;
+    TLine ExtraLine;
+    ExtraLine.SetLineColor(1);
+    ExtraLine.SetLineStyle(7);
+    ExtraLine.DrawLine(DrawExtraLine_x, fYmin+0.002*(fYmax-fYmin), DrawExtraLine_x, fYmax-0.002*(fYmax-fYmin));
   }
 
   HFAGTauLabel(2010002,.34,.23,.27,.05,.95);
