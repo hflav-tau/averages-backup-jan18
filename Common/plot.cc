@@ -270,6 +270,16 @@ int plot(std::string filename_string = "plot.input"){
       //      b1_limit.SetLineColor(1);
       //      b1_limit.SetLineStyle(1);
       b1_limit.DrawBox(x_limit-1, y_limit-0.5, x_limit, y_limit+.5);
+    } else {
+      cout << "xmax = " << xmax << " " << upperlimits[i]  << " " << x_limit << " " << y_limit << endl;
+      //      TLine t1_limit;
+      // t1_limit.DrawLine(x_limit,y_limit-0.5,x_limit,y_limit+0.5);
+      TBox b1_limit;
+      b1_limit.SetFillColor(1);
+      b1_limit.SetFillStyle(3353);
+      //      b1_limit.SetLineColor(1);
+      //      b1_limit.SetLineStyle(1);
+      b1_limit.DrawBox(xmax-0.5, y_limit-0.5, xmax, y_limit+.5);
     }
   }
   for (int i=0;i<nPoints;++i) {
