@@ -1,0 +1,7 @@
+# readpdg_constrained_aleph_hcorr.log fit = 1.7407e-01 +- 3.8506e-04
+$a = 1.7407e-01 +- 3.8506e-04; 
+# alucomb_average_rescaled_constrained_aleph_hcorr.res:  Bmu_from_taulife    1.730530e-01 6.001107e-04
+$b = 1.730530e-01 +- 6.001107e-04;
+calculate sqrt($a/$b);
+$c = 1.730530e-01 +- 0;
+calculate sqrt($a/$c);

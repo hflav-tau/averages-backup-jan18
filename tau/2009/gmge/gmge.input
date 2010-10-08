@@ -1,3 +1,0 @@
-$a = 0.976178 +- 0.002773;    # G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau)) =   0.976178 +-   0.002773 
-$b = 0.972558 +- 4.51298e-06; # f(mu)/f(e)
-calculate sqrt($a/$b);
