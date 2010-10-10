@@ -2,7 +2,7 @@ nmeas = 151
 basequan_used_in_measured_basenodes.size() = 32 [IF THIS IS NOT = 37, IT MEANS SOME BASE QUANTITIES ARE NOT MEASURED DIRECTLY BUT ONLY VIA MEASUREMENTS OF DERIVED NODES]
 BASE = 19 GAMMA = 70 PARM = 263 NODE = C24 TITLE = tau- --> pi- pi+ pi- pi0 nu(tau) (ex.K0,omega) not measured directly 
 BASE = 20 GAMMA = 77 PARM = 216 NODE = B72 TITLE = tau- --> h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta) not measured directly 
-BASE = 23 GAMMA = 89 PARM = 285 NODE = C54 TITLE = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) not measured directly 
+BASE = 23 GAMMA = 89 PARM = 285 NODE = C54 TITLE = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,omega,eta) not measured directly 
 BASE = 29 GAMMA = 800 PARM = 800 NODE = Z01 TITLE = tau- --> pi- omega nu(tau) not measured directly 
 BASE = 36 GAMMA = 801 PARM = 801 NODE = Z02 TITLE = tau- --> K- phi nu(tau) [phi->KK] not measured directly 
 
@@ -319,7 +319,7 @@ These 9 measurements are :
  (9) IMEAS = 87 NODE = 77 NAME = S035R31 GAMMA = 54 TITLE = G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total) EXP = TPC
 vector_of_measurements_correlated_with_other_measurements has size = 2 : 36(L3) 48(DELPHI) 
 
-basetitle = tau- --> K- pi+ pi- nu(tau) (ex.K0) with quan = 22 gamma = 85 appears in 16 measurements of 8 nodes. 
+basetitle = tau- --> K- pi+ pi- nu(tau) (ex.K0,omega) with quan = 22 gamma = 85 appears in 16 measurements of 8 nodes. 
 These 16 measurements are :
  (1) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (2) IMEAS = 34 NODE = 24 NAME = S035B62 GAMMA = 57 TITLE = G(h- h- h+ nu(tau) (ex.K0))/G(total) EXP = DELPHI
@@ -339,7 +339,7 @@ These 16 measurements are :
  (16) IMEAS = 145 NODE = 47 NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total) EXP = BELLE
 vector_of_measurements_correlated_with_other_measurements has size = 5 : 34(DELPHI) 36(L3) 53(CLEO3) 138(BABAR) 145(BELLE) 
 
-basetitle = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta) with quan = 23 gamma = 89 appears in 15 measurements of 9 nodes. 
+basetitle = tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,omega,eta) with quan = 23 gamma = 89 appears in 15 measurements of 9 nodes. 
 These 15 measurements are :
  (1) IMEAS = 6 NODE = 4 NAME = S035B25 GAMMA = 76by54 TITLE = G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) ) EXP = CLEO
  (2) IMEAS = 27 NODE = 17 NAME = S035B53 GAMMA = 66 TITLE = G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total) EXP = DELPHI

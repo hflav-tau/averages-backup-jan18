@@ -1,7 +1,7 @@
 # first line is xmin, xmax, precision, title
 * 0.198         0.232          6.4 |V_{us}|
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 0.2252       0.0010       0            CKM Unitarity
+& 0.2255       0.0010       0            CKM Unitarity
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
   0.2188       0.0023       -0.0023      0         0    HFAG Fit (#tau #rightarrow s inclusive)
   0.2238       0.0021       -0.0021      0         0    HFAG Fit (#tau #rightarrow K #nu_{#tau})/(#tau #rightarrow #pi #nu_{#tau})

@@ -110,7 +110,7 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
 }
 // ----------------------------------------------------------------------
 //int main(std::string filename_string = "plot.input"){
-int plot(std::string filename_string = "plot.input"){
+int plot(std::string filename_string = "plot.input", double DrawExtraLine_x=-999, double UseTextSize=0.035){
   SetUp();
   //
   int nPoints=0;
@@ -249,7 +249,7 @@ int plot(std::string filename_string = "plot.input"){
     double y_limit = y[nPoints-1] + i + 1;
     double x_limit = upperlimits[i];
     ytext=y[nPoints-1] + i + 1+0.05;
-    tl.SetTextSize(0.035);
+    tl.SetTextSize(UseTextSize);
     tl.DrawLatex(xtext,ytext,expname_limit[i]);
     if (upperlimits[i]<xmax) {
       tl.DrawLatex(xtext,ytext-fTxtY,Form("%s @ %s%% CL",
@@ -336,9 +336,9 @@ int plot(std::string filename_string = "plot.input"){
       tl.SetTextColor(4);
     }
     ytext=y[i]*1.0+0.05;
-    tl.SetTextSize(0.035);
+    tl.SetTextSize(UseTextSize);
     tl.DrawLatex(xtext,ytext,expname[i]);
-    tl.SetTextSize(0.035);
+    tl.SetTextSize(UseTextSize);
     if (expname[i].Contains("Average") && expname[i].Contains("PDG")) {
       if (syst[i]<1e-9) { // zero means no Scale Factor quoted
 	tl.DrawLatex(xtext,ytext-fTxtY,Form("%s #pm %s",
@@ -413,10 +413,7 @@ int plot(std::string filename_string = "plot.input"){
     }
   }
   //
-  bool DrawExtraLine=false;
-  double DrawExtraLine_x = 1;
-  if (DrawExtraLine) {
-    cout << "DrawExtraLine is true" << endl;
+  if (DrawExtraLine_x>-999) {
     TLine ExtraLine;
     ExtraLine.SetLineColor(1);
     ExtraLine.SetLineStyle(7);

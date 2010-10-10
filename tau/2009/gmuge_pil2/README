@@ -1,0 +1,45 @@
+# D. I. Britton et al., Phys. Rev. Lett. 68, 3000–3003 (1992).
+# http://prl.aps.org/pdf/PRL/v68/i20/p3000_1
+# R(PimToEmNu/PimToMumNu) = (1.2265 +- .0034 (stat ) +- 0.0044  (syst) +- 0.00556058 (tot)) X 10^{-4}
+# 
+# G. Czapek et al., Phys. Rev. Lett. 70, 17–20 (1993).
+# http://prl.aps.org/pdf/PRL/v70/i1/p17_1
+# R(PimToEmNu/PimToMumNu) = (1.2346 +- 0.0035 (stat) +- 0.0036 (syst) +- 0.00502096 (tot) X 10^{-4}
+#
+# Un-correlated average
+#
+# [yakut14] ~/public/hfag/tau/2009/gtaugmu_pil2 $ ?? 0.0034**2 + 0.0044**2
+# 3.092e-05
+# [yakut14] ~/public/hfag/tau/2009/gtaugmu_pil2 $ ?? 0.0035**2 + 0.0036**2
+# 2.521e-05
+#
+../../../combos/swagato_example/Common/average.perl 1.2265 3.092e-05 1.2346 2.521e-05 0
+# x1 = 1.2265 +- 0.00556057550978314 x2 = 1.2346 +- 0.00502095608425328 rho = 0
+# w1 = 0.449135934437912 w2 = 0.550864065562088 w1+w2 = 1
+# <x> = 1.23096199893105 +- 0.00372656451612209
+#
+# V. Cirigliano and I. Rosell, JHEP 10, 005 (2007), arXiv:0707.4464 [hep-ph].
+# http://iopscience.iop.org/1126-6708/2007/10/005/pdf/1126-6708_2007_10_005.pdf
+# R(PimToEmNu/PimToMumNu) =  (1.2352 +- 0.0001) X 10^{-4}
+#
+rm -f gmuge_pil2.input ; touch gmuge_pil2.input
+echo '$a = 1.23096199893105 +- 0.00372656451612209; ' >> gmuge_pil2.input
+echo '$b = 1.2352 +- 0.0001; ' >> gmuge_pil2.input
+echo 'calculate 1/sqrt($a/$b); ' >> gmuge_pil2.input
+
+# M.J. Ramsey-Musolf, S. Su and S. Tulin, Phys. Rev. D 76, 095017 (2007).
+# http://prd.aps.org/pdf/PRD/v76/i9/e095017
+echo '$c = 1.230 +- 0.004; ' >> gmuge_pil2.input
+echo 'calculate 1/sqrt($c/$b); ' >> gmuge_pil2.input
+
+# An Evaluation of |V_us| and precise tests of the Standard Model from world data on leptonic and semileptonic kaon decays.
+# M. Antonelli et al. ICCUB-10-021, UB-ECM-PF-10-009, IFIC-10-12, 2010. 25pp. 
+# Submitted to Eur. Phys. J. C 
+# http://www.springerlink.com/content/904mq020755g5371/fulltext.pdf
+# e-Print: arXiv:1005.2323 [hep-ph]
+# http://arxiv.org/pdf/1005.2323
+echo '$c = 1.0042 +- 0.0033; ' >> gmuge_pil2.input 
+echo 'calculate sqrt($c);' >> gmuge_pil2.input
+
+../../../Common/epc -s0 gmuge_pil2.input | tee gmuge_pil2.log
+

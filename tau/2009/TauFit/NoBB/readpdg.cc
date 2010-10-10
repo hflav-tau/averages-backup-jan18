@@ -246,9 +246,9 @@ void combine(int uconstrain,
 	 (inode+1)==82)) { // NODE = 81 NAME = S035R38 GAMMA = 103
       Xvector[i][0] = measvalue[imeas] - 1 ;
       for (ibase=0;ibase<nbase_u;++ibase) {
-	if ((inode+1)==80 && basegamma[ibase]==104) {}else{Delta[ibase][i] = 1;}
+	if ((inode+1)==80 && basegamma[ibase]==104) {} else {Delta[ibase][i] = 1;}
       }
-    }else{
+    } else {
       Xvector[i][0] = measvalue[imeas];
       double offset = -node_num[inode]; if (node_den_npar[inode]>0) offset /= node_den[inode];
       if ((node_num_npar[inode]+node_den_npar[inode])>1 || inode==102) { // derived node [inode = 102 is special case : Gamma96 = (1/1.699387) * Gamma801]
@@ -334,7 +334,7 @@ void process_measurements(int nmeas, int* measnode, double* measerror, double** 
     for (j=0;j<nmeas;++j) {
       if (i==j) {
 	MeasErrorMatrix(i,j)=measerror[i]*measerror[i];
-      }else{
+      } else {
 	MeasErrorMatrix(i,j)=corrmat[i][j]*measerror[i]*measerror[j]; // by construction diagonal elements of corrmat has not been filled
       }
     }
@@ -436,7 +436,7 @@ void print_measinfo(FILE* thisfile,
       sort(basequan_used_in_measured_derivednodes.begin(),basequan_used_in_measured_derivednodes.end());
       vector<int>::iterator new_end=unique(basequan_used_in_measured_derivednodes.begin(),basequan_used_in_measured_derivednodes.end());
       basequan_used_in_measured_derivednodes.erase(new_end,basequan_used_in_measured_derivednodes.end());
-    }else{ // base node
+    } else { // base node
       basequan_used_in_measured_basenodes.insert(basequan_used_in_measured_basenodes.end(),node_quan[inode].begin(),node_quan[inode].end());
       sort(basequan_used_in_measured_basenodes.begin(),basequan_used_in_measured_basenodes.end());
       vector<int>::iterator new_end=unique(basequan_used_in_measured_basenodes.begin(),basequan_used_in_measured_basenodes.end());
@@ -501,7 +501,7 @@ void print_measinfo(FILE* thisfile,
 	fprintf (thisfile, "%d(%s) ",imeas+1, expname[imeas].data()); 
       }
       fprintf (thisfile, "\n");
-    }else{
+    } else {
       fprintf (thisfile, "vector_of_measurements_correlated_with_other_measurements has size = 0\n");
     }
     fprintf (thisfile, "\n");
@@ -580,11 +580,11 @@ void print_measfile(FILE* thisfile, int p, int uconstrain,
 	   (inode+1)==82)) { // NODE = 81 NAME = S035R38 GAMMA = 103
 	fprintf (thisfile, "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
 	fprintf (thisfile, "DATA         m_Gamma%d statistical systematic \n",3);
-      }else{
+      } else {
 	fprintf (thisfile, "MEASUREMENT  m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
 	fprintf (thisfile, "DATA         m_Gamma%d statistical systematic \n",basegamma[first_quan[inode]-1]);
       }
-    }else if (p==1) {//ALUCOMB
+    } else if (p==1) {//ALUCOMB
       fprintf (thisfile, "MEASUREMENT  m_Gamma%s statistical systematic \n",measgammaname[i].data());
       fprintf (thisfile, "DATA         m_Gamma%s statistical systematic \n",measgammaname[i].data());
     }
@@ -615,7 +615,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
   fprintf (thisfile, "BEGIN   PDG-BABAR-BELLE all_methods \n\n");
   fprintf (thisfile, "COMBINE * * * \n\n");
   for (ibase=0;ibase<nbase;++ibase){
-    if (p==0&&uconstrain&&ibase==(nbase-1)){/* skip */}else{
+    if (p==0&&uconstrain&&ibase==(nbase-1)){/* skip */} else {
       fprintf (thisfile, "MEASUREMENT m_Gamma%d statistical systematic   ! NQUAN = %d \n",basegamma.at(ibase),ibase+1);  
     }
   }
@@ -703,7 +703,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	double partial=node_part[inode].at(ipar);
 	if (p==0) { // COMBOS
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %20.10f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
-	}else if (p==1) { // ALUCOMB
+	} else if (p==1) { // ALUCOMB
 	  fprintf (thisfile, " Gamma%d %20.10f", basegamma[quan-1], partial);
 	}
       }
@@ -728,7 +728,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	    double partial=node_part[inode].at(ipar);
 	    fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_%2.2d %2d %20.10f ! Gamma%d \n",isum,ipar+1,quan,partial,basegamma.at(quan-1));
 	  }
-	}else{
+	} else {
 	  fprintf (thisfile, "\n*Gamma102 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
 	  fprintf (thisfile, "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
 	  fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
@@ -825,7 +825,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
   if (p==1) {
     if (uconstrain) {
       fprintf (thisfile, "\n* unitarity constraint applied (sum of base nodes without dummy node)\n");
-    }else{
+    } else {
       fprintf (thisfile, "\n* unitarity constraint NOT applied (sum of base nodes with dummy node)\n");
     }
     fprintf (thisfile, "CONSTRAINT GammaAll 1\n");
@@ -1030,8 +1030,8 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA40 ] = 28; baselatex[M_GAMMA40 ] = "$\\bar{K}^0 \\pi^- \\pi^0 \\nu_\\tau$";
   baseorder[M_GAMMA44 ] = 29; baselatex[M_GAMMA44 ] = "$\\bar{K}^0 \\pi^- 2\\pi^0 \\nu_\\tau$";
   baseorder[M_GAMMA53 ] = 30; baselatex[M_GAMMA53 ] = "$\\bar{K}^0 h^- h^- h^+ \\nu_\\tau$";
-  baseorder[M_GAMMA85 ] = 31; baselatex[M_GAMMA85 ] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
-  baseorder[M_GAMMA89 ] = 32; baselatex[M_GAMMA89 ] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
+  baseorder[M_GAMMA85 ] = 31; baselatex[M_GAMMA85 ] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA89 ] = 32; baselatex[M_GAMMA89 ] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega,\\eta)$";
   baseorder[M_GAMMA128] = 33; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
   baseorder[M_GAMMA130] = 34; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
   baseorder[M_GAMMA132] = 35; baselatex[M_GAMMA132] = "$\\bar{K}^0 \\pi^- \\eta  \\nu_\\tau$";
@@ -2227,9 +2227,9 @@ int main(int argc, char* argv[]){
   }
   //
   cout << endl << "Results from original fit:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR   TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR    TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
@@ -2386,7 +2386,7 @@ int main(int argc, char* argv[]){
   for (i=0;i<nmeas;++i){
     if (nchisquare_meas[i] > 0 ) {
       nsig[i] = measerror[i]/((sqrt(nchisquare_meas[i]))*NodeError[measnode[i]]);
-    }else{
+    } else {
       nsig[i] = 999999;
     }
     weak[i] = (icorrj[i].size()==1) && (nsig[i] > 3.); // only for uncorrelated measurements
@@ -2449,9 +2449,9 @@ int main(int argc, char* argv[]){
   }
   //
   cout << endl << "Comparison of Results from fit with [non-weak measurements only] w.r.t original fit:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
@@ -2560,9 +2560,9 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak[nnode-1]/NodeError_noweak[nnode-1]);
   //
   cout << "Summary of fit with [non-weak measurements only]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase],
@@ -2702,7 +2702,7 @@ int main(int argc, char* argv[]){
       if (iweak==0) {
 	VectorOfPullMag.push_back(PullMag);
 	VectorOfMeasScaledErrorMatrix.push_back(ThisMeasScaledErrorMatrix);
-      }else{
+      } else {
 	VectorOfPullMag_noweak.push_back(PullMag);
 	VectorOfMeasScaledErrorMatrix_noweak.push_back(ThisMeasScaledErrorMatrix);
       }
@@ -2754,9 +2754,9 @@ int main(int argc, char* argv[]){
 	}
       }
       measerror_scaled[i] = TMath::Sqrt(temperr2);
-    }else if (icorrj[i].size()==1 && pullav_meas[i]>1 ) { 
+    } else if (icorrj[i].size()==1 && pullav_meas[i]>1 ) { 
       measerror_scaled[i] = measerror[i]*pullav_meas[i];
-    }else{
+    } else {
       measerror_scaled[i] = measerror[i];
     }
   }
@@ -2797,7 +2797,7 @@ int main(int argc, char* argv[]){
     for (j=0;j<nmeas;++j) {
       if (i==j) { // by construction diagonal elements of corrmat has not been filled
 	MeasErrorMatrix_scaled(i,j)=measerror_scaled[i]*measerror_scaled[i];
-      }else{
+      } else {
 	MeasErrorMatrix_scaled(i,j)=corrmat_scaled[i][j]*measerror_scaled[i]*measerror_scaled[j]; 
       }
     }
@@ -2849,9 +2849,9 @@ int main(int argc, char* argv[]){
 	}
       }
       measerror_scaled_noweak[i] = TMath::Sqrt(temperr2);
-    }else if (icorrj[i].size()==1 && pullav_meas_noweak[i]>1 ) { 
+    } else if (icorrj[i].size()==1 && pullav_meas_noweak[i]>1 ) { 
       measerror_scaled_noweak[i] = measerror[i]*pullav_meas_noweak[i];
-    }else{
+    } else {
       measerror_scaled_noweak[i] = measerror[i];
     }
   }
@@ -2892,7 +2892,7 @@ int main(int argc, char* argv[]){
     for (j=0;j<nmeas;++j) {
       if (i==j) { // by construction diagonal elements of corrmat has not been filled
 	MeasErrorMatrix_scaled_noweak(i,j)=measerror_scaled_noweak[i]*measerror_scaled_noweak[i];
-      }else{
+      } else {
 	MeasErrorMatrix_scaled_noweak(i,j)=corrmat_scaled_noweak[i][j]*measerror_scaled_noweak[i]*measerror_scaled_noweak[j]; 
       }
     }
@@ -2918,7 +2918,7 @@ int main(int argc, char* argv[]){
   for (i=0;i<nmeas;++i){
     if (nchisquare_meas_noweak[i] > 0 ) {
       nsig_scaled[i] = measerror[i]/((sqrt(nchisquare_meas_noweak[i]))*NodeError_noweak[measnode[i]]);
-    }else{
+    } else {
       nsig_scaled[i] = 999999;
     }
     weak_scaled[i] = (icorrj[i].size()==1) && (nsig_scaled[i] > 3.); // only for uncorrelated measurements
@@ -2988,9 +2988,9 @@ int main(int argc, char* argv[]){
   }
   //
   cout << endl << "Comparison of Results from fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors] w.r.t original fit:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
@@ -3100,9 +3100,9 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_scaled[nnode-1]/NodeError_noweak_scaled[nnode-1]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase],
@@ -3159,7 +3159,7 @@ int main(int argc, char* argv[]){
       measerror_rescaled[i] = measerror[i] * rescale;
       cout << i << " " << measnode[i]  << " " << measgammaname[i] << " " << measnodename[i] << " " << expname[i] << " " << meastitle[i] << " " 
 	   << NodeValue[measnode[i]] << " " << NodeError[measnode[i]] << " " << measvalue[i] << " " << measerror[i]*rescale << " inflated by Scale Factor = " << rescale << endl;
-    }else{
+    } else {
       measerror_rescaled[i] = measerror[i];
     }
   }
@@ -3170,7 +3170,7 @@ int main(int argc, char* argv[]){
     for (j=0;j<nmeas;++j) {
       if (i==j) {
 	MeasErrorMatrix_rescaled(i,j)=measerror_rescaled[i]*measerror_rescaled[i];
-      }else{
+      } else {
 	MeasErrorMatrix_rescaled(i,j)=corrmat[i][j]*measerror_rescaled[i]*measerror_rescaled[j]; // by construction diagonal elements of corrmat has not been filled
       }
     }
@@ -3260,9 +3260,9 @@ int main(int argc, char* argv[]){
   }
   //
   cout << endl << "Comparison of Results from fit with [errors rescaled in a Ad-Hoc style for kkk only] w.r.t original fit:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
@@ -3371,9 +3371,9 @@ int main(int argc, char* argv[]){
 	       NodeValue_rescaled[nnode-1]/NodeError_rescaled[nnode-1]);
   //
   cout << "Summary of fit with [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase],
@@ -3434,7 +3434,7 @@ int main(int argc, char* argv[]){
   for (i=0;i<nmeas;++i){
     if (nchisquare_meas_rescaled[i] > 0 ) {
       nsig_rescaled[i] = measerror[i]/((sqrt(nchisquare_meas_rescaled[i]))*NodeError_rescaled[measnode[i]]);
-    }else{
+    } else {
       nsig_rescaled[i] = 999999;
     }
     weak_rescaled[i] = (icorrj[i].size()==1) && (nsig_rescaled[i] > 3.); // only for uncorrelated measurements
@@ -3497,9 +3497,9 @@ int main(int argc, char* argv[]){
   }
   //
   cout << endl << "Comparison of Results from fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only] w.r.t original fit:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE  ORIG_FITVAL ORIG_FITERR SCAL_FITVAL SCAL_FITERR   SFAC  TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6f  %10.6f  %10.6f  %10.6f %6.2f  %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
@@ -3608,9 +3608,9 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_rescaled[nnode-1]/NodeError_noweak_rescaled[nnode-1]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
-  cout << Form("# QUAN GAMMA  PARM   NODE           SEED   FITVAL     FITERR     SFAC TITLE\n");
+  cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
-    cout << Form("*%5d %5d %5d   %-5s  %10.6e %10.6f %10.6f %6.2f %-48s\n",
+    cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
 		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
 		 basevalue_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase],
@@ -3665,32 +3665,56 @@ int main(int argc, char* argv[]){
       if (i!=baseorder[ibase]) continue;
       if (basevalue_fit_rescaled[ibase]*100>10) {
 	cout << Form("%-70s & %6.3f $\\pm$ %6.3f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
-      }else {
+      } else {
 	cout << Form("%-70s & %5.3f $\\pm$ %5.3f \\\\ \n",baselatex[ibase].data(),basevalue_fit_rescaled[ibase]*100,baseerror_fit_rescaled[ibase]*100);
       }
     }
   }
   cout << Form("\\end{tabular}\n");
   //
+  // Gamma3by5 : G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau))
+  //
   cout << Form("%s = %10.6f +- %10.6f\n",
 	       nodetitle[89].data(),
 	       NodeValue_rescaled[89],
 	       NodeError_rescaled[89]);
+  //
+  // Gamma10by9 : G(K- nu(tau))/G(pi- nu(tau))
   //
   cout << Form("%s = %10.6f +- %10.6f\n",
 	       nodetitle[106].data(),
 	       NodeValue_rescaled[106],
 	       NodeError_rescaled[106]);
   //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> mu- nubar(mu) nu(tau))
+  //
   cout << Form("Corr between %s and %s = %10.6f\n",
-	       basetitle[M_GAMMA3].data(),
 	       basetitle[M_GAMMA5].data(),
-	       basecorr_fit_rescaled[M_GAMMA3][M_GAMMA5]);
+	       basetitle[M_GAMMA3].data(),
+	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3]);
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> pi- nu(tau))
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
+	       basetitle[M_GAMMA5].data(),
+	       basetitle[M_GAMMA9].data(),
+	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA9]);
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> K- nu(tau))
+  //
+  cout << Form("Corr between %s and %s = %10.6f\n",
+	       basetitle[M_GAMMA5].data(),
+	       basetitle[M_GAMMA10].data(),
+	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA10]);
+  //
+  // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> K- nu(tau))
   //
   cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA9].data(),
 	       basetitle[M_GAMMA10].data(),
 	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]);
+  //
+  // Correlation between G(tau- --> eta K- pi0 nu(tau)) and G(tau- --> eta pi- K0bar nu(tau))
   //
   cout << Form("Corr between %s and %s = %10.6f\n",
 	       basetitle[M_GAMMA130].data(),
