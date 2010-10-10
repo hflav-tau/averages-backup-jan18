@@ -1,0 +1,4 @@
+$a=0.2312 +- 0.0013; # Vus/Vud from Kl2 [http://arXiv.org/pdf/1005.2323v2]
+$b=0.97425+- 0.00022;
+calculate $a*$b;
+

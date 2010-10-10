@@ -1,0 +1,12 @@
+rm -f gmuge_Kl3.input ; touch gmuge_Kl3.input
+
+# An Evaluation of |V_us| and precise tests of the Standard Model from world data on leptonic and semileptonic kaon decays.
+# M. Antonelli et al. ICCUB-10-021, UB-ECM-PF-10-009, IFIC-10-12, 2010. 25pp. 
+# Submitted to Eur. Phys. J. C 
+# http://www.springerlink.com/content/904mq020755g5371/fulltext.pdf
+# e-Print: arXiv:1005.2323 [hep-ph]
+# http://arxiv.org/pdf/1005.2323
+echo '$a = 1.002 +- 0.005; ' >> gmuge_Kl3.input 
+echo 'calculate sqrt($a);'   >> gmuge_Kl3.input
+
+../../../Common/epc -s0 gmuge_Kl3.input | tee gmuge_Kl3.log
