@@ -14,6 +14,17 @@ args <- commandArgs(TRUE)
 
 ##--- option -s, use S-factors
 flag.s.factors =  FALSE
+if(any(args == "-h")) {
+  ##--- help
+  cat("aluelab-results.r [flags] [<.rdata file>]\n")
+  cat("  no option: traditional Vus but without universality improved Be for B_had\n")
+  cat("  -s use error scale factors\n")
+  cat("  -u use unitarity constraint to compute Be_univ, B_had_VA, B_had_s\n")
+  cat("  -vadirect determine B_VA directly rather than from 1-Be-Bmu-Bstrange\n")
+  cat("  -lepuniv use R_had = (1 - (1+(f_mu/f_e))Be_univ)/Be_univ\n")
+  args = args[args != "-s"]
+  stop()
+}
 if(any(args == "-s")) {
   ##--- use S-factors
   flag.s.factors =  TRUE
@@ -25,10 +36,10 @@ if(any(args == "-u")) {
   flag.unitarity =  TRUE
   args = args[args != "-u"]
 }
-flag.va.direct =  FALSE
+flag.vadirect =  FALSE
 if(any(args == "-vadirect")) {
   ##--- determine B_VA from direct measurements rather than 1-Be-Bmu-Bstrange
-  flag.va.direct =  TRUE
+  flag.vadirect =  TRUE
   args = args[args != "-vadirect"]
 }
 flag.lepuniv =  FALSE
@@ -121,10 +132,18 @@ Gamma110.comb = c(
   Gamma132=1, Gamma151=1, Gamma801=1)
 
 if (!any("Gamma151" == quant.names)) {
-  ##--- remove Gamma151 if not present in fit for backward cmpatibility
+  ##--- remove Gamma151 (tau -> K omega nu) if not present in fit for backward compatibility
   Gamma110.comb = Gamma110.comb[names(Gamma110.comb) != "Gamma151"]
 }
 
+##
+## end Oct2010 update
+## define Gamma110 using the alucomb.r Gamma110 constraint
+## this is more robust against changes in the fitting 
+##
+
+Gamma110.comb = combination$constr.comb[["Gamma110.coq"]]
+Gamma110.comb = Gamma110.comb[names(Gamma110.comb) != "Gamma110"]
 Gamma110.names = names(Gamma110.comb[Gamma110.comb != 0])
 
 ##--- use Gamma110 defined through COMBOFQUANT rather than here
@@ -172,6 +191,7 @@ aeb.meas.expr.add("Bmu_unitarity", quote(1 - Gamma5 - B_tau_VA - Gamma110))
 ## using both the direct measurements and the result from the unitarity constraint
 ##
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
+  ##--- here we got results from unconstrained fit
   if (flag.unitarity) {
     ##--- use unitarity constraint to compute Be, Bmu, B_tau_VA/s
     aeb.meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
@@ -179,19 +199,25 @@ if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
     aeb.meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
     aeb.meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
   } else {
+    ##--- direct measurements for leptonic BRs and strange hadronic BR
     aeb.meas.expr.add("Be_fit", quote(Gamma5))
     aeb.meas.expr.add("Bmu_fit", quote(Gamma3))
-    ##--- direct measurement
-    ## aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
-    ##--- traditional A.Pich et al. calculation
-    if (!flag.va.direct) {
-      aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
-    } else {
-      aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
-    }
     aeb.meas.expr.add("B_tau_s_fit", quote(Gamma110))
+    if (flag.vadirect) {
+      ##--- direct measurement for non-strange hadronic BR
+      aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
+    } else {
+      ##
+      ## non-strange hadronic BR by subtraction, however note that
+      ## here we do not use the improved Be from universality
+      ## (a Be fit using Be, Bmu and tau lifetime) as in
+      ## M.Davier et al, RevModPhys.78.1043, arXiv:hep-ph/0507078
+      ##
+      aeb.meas.expr.add("B_tau_VA_fit", quote(1-Gamma5-Gamma3-Gamma110))
+    }
   }
 } else {
+  ##--- here we got results from unitarity constrained fit
   rc = aeb.meas.expr.add("Be_fit", quote(Gamma5))
   rc = aeb.meas.expr.add("Bmu_fit", quote(Gamma3))
   rc = aeb.meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
@@ -254,23 +280,30 @@ Vud.err = 0.00022
 aeb.meas.add.single("Vud", Vud.val, Vud.err)
 
 ##
-## SU3 breaking correction
+## SU3 breaking correction, straight from papers
 ##
+
 ##--- POS(KAON)08, A.Pich, Theoretical progress on the Vus determination from tau decays
 deltaR.su3break.val = 0.216
 deltaR.su3break.err = 0.016
-##--- E. Gamiz, M. Jamin, A. Pich, J. Prades, F. Schwab, V_us and m_s from hadronic tau decays
-deltaR.su3break.val = 0.218
-deltaR.su3break.err = 0.026
+##--- E. Gamiz et al., Nucl.Phys.Proc.Suppl.169:85-89,2007, arXiv:hep-ph/0612154v1
+deltaR.su3break.val = 0.240
+deltaR.su3break.err = 0.032
+## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
-##--- PhysRevD.74.074009
+##
+## SU3 breaking correction, recompute from data following
+## E. Gamiz et al., Nucl.Phys.Proc.Suppl.169:85-89,2007, arXiv:hep-ph/0612154v1
+##
+
+##--- s quark mass, PhysRevD.74.074009
 aeb.meas.add.single("m_s", 94, 6)
+
 ##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
 aeb.meas.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
 aeb.meas.add.single("deltaR_su3break_msd2", 9.3, 3.4)
 aeb.meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
 aeb.meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*(m_s/1000)^2 + deltaR_su3break_remain))
-## aeb.meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
 if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
   ##
@@ -317,6 +350,7 @@ aeb.meas.expr.add("Vus", quote(sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
 Vus.err.th = abs(quant.cov["Vus", "deltaR_su3break"])/quant.err["deltaR_su3break"]
 Vus.err.exp = sqrt(quant.err["Vus"]^2 - Vus.err.th^2)
 
+##-- using Hardy-Towner 2009
 Vus.unitarity.val = 0.2255
 Vus.unitarity.err = 0.0010
 nsigma = (quant.val["Vus"] - Vus.unitarity.val)/quadrature(c(quant.err["Vus"], Vus.unitarity.err))
