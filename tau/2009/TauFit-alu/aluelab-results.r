@@ -157,14 +157,7 @@ aeb.meas.expr.add("B_tau_VA_unitarity", quote(1-Gamma5-Gamma3-Gamma110))
 aeb.meas.expr.add("B_tau_s_unitarity", quote(1-Gamma5-Gamma3-B_tau_VA))
 
 ##
-## universality Be = B(tau -> e nu nubar)
-## see arXiv:hep-ph/0507078v2 p.7, doi:10.1103/RevModPhys.78.1043 p.1047
-##
-## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
-## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
-##
-## minimum chisq fit constraining Bmu/Be from Standard Model, using Be, Bmu
-## tau lifetime should also be included, see same reference
+## add measurements to compute universality improved Be
 ##
 
 ##--- from PDG 2009
@@ -227,6 +220,7 @@ if (any("Gamma998" == names(combination$constr.comb[["GammaAll"]]))) {
 ##
 ## compute phase space factors for Bmu/Be universality
 ##
+
 ##--- phase space factor, function of lepton masses
 phspf = quote(1 -8*x + 8*x^3 - x^4 - 12*x^2*log(x))
 ##--- phase space factors for e/tau, mu/tau, e/mu
@@ -265,7 +259,13 @@ aeb.meas.expr.add("Bmu_from_taulife",
                          *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
 
 ##
-## add Be_univ as covariance weigthed combination of Be, Be_from_Bmu and Be_from_taulife
+## universality improved Be = B(tau -> e nu nubar (gamma))
+## see arXiv:hep-ph/0507078v2 p.7, doi:10.1103/RevModPhys.78.1043 p.1047
+##
+## minimum chisq fit for Be_univ using, Be, Be from Bmu, Be from tau lifetime
+##
+## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
+## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
 ##
 aeb.meas.fit.add("Be_univ", c(Be_fit=1, Be_from_Bmu=1, Be_from_taulife=1))
 
