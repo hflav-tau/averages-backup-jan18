@@ -370,3 +370,15 @@ show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names]),
            nsigma = c(val=nsigma, err=0)
            ))
 
+if (FALSE) {
+  ##--- print couplings ratio
+  aeb.meas.expr.add("B_mu/B_e", quote(Gamma3/Gamma5))
+  aeb.meas.expr.add("g_mu/g_e", quote(sqrt(Gamma3/Gamma5/Bmu_by_Be_th)))
+  display.names = c(
+    "Gamma5", 
+    "Gamma3",
+    "B_mu/B_e",
+    "g_mu/g_e"
+    )
+  show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names])))
+}
