@@ -1,8 +1,8 @@
 * B(tau- --> 3h- 2h+ nu_tau) [ex. K0] 
 
 BEGIN       BaBar Gamma103 published AUBERT,B 05W
-MEASUREMENT m_Gamma3 statistical systematic
-DATA        m_Gamma3 statistical systematic
+MEASUREMENT m_Gamma103 statistical systematic
+DATA        m_Gamma103 statistical systematic
             8.56e-4    0.05e-4     0.42e-4
 
 PARAMETERS           !      value       +err         -err
