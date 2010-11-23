@@ -1,17 +1,1 @@
-* B(tau- --> 3h- 2h+ nu_tau) [ex. K0] 
-
-BEGIN       BaBar Gamma103 published AUBERT,B 05W
-MEASUREMENT m_Gamma103 statistical systematic
-DATA        m_Gamma103 statistical systematic
-            8.56e-4    0.05e-4     0.42e-4
-
-PARAMETERS           !      value       +err         -err
-            sigmataupmy4s   0.89        +0.02        -0.02
-
-DATA
-*  possibly correlated with other BaBar results
-            sigmataupmy4s%   -2.24719 ! .02/.89
-            BaBarLumi%       -0.49    ! sqrt(2.3**2 - ((.02/.89)*100)**2)
-* uncorrelated = sqrt(0.42**2 - (2.3e-2*8.56)**2 ) = 0.370996
-            BaBar3Hm2HpNu 0.370996e-4
-END
+../../TauFit/babar/gamma103.input

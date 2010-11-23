@@ -1,3 +1,6 @@
+#define USING_NBASE31
+//#define USING_NBASE36
+//#define USING_NBASE37
 #include <assert.h>
 #include <math.h>
 #include <stddef.h>
@@ -44,26 +47,1462 @@
 #include "TDecompSVD.h"
 //
 using namespace std;
+//
+enum e_basegammanames {
+  M_GAMMA3  ,
+  M_GAMMA5  ,
+  M_GAMMA9  ,
+  M_GAMMA10 ,
+  M_GAMMA14 ,
+  M_GAMMA16 ,
+  M_GAMMA20 ,
+  M_GAMMA23 ,
+  M_GAMMA27 ,
+  M_GAMMA28 ,
+  M_GAMMA30 ,
+  M_GAMMA35 ,
+  M_GAMMA37 ,
+  M_GAMMA40 ,
+  M_GAMMA42 ,
+  M_GAMMA47 ,
+  M_GAMMA48 ,
+  M_GAMMA62 ,
+  M_GAMMA70 ,
+  M_GAMMA77 ,
+  M_GAMMA78 ,
+  M_GAMMA85 ,
+  M_GAMMA89 ,
+  M_GAMMA93 ,
+  M_GAMMA94 ,
+  M_GAMMA104,
+  M_GAMMA126,
+  M_GAMMA128,
+#if defined USING_NBASE31
+  M_GAMMA150,
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  M_GAMMA800,
+  M_GAMMA151,
+#endif
+  M_GAMMA152,
+#if defined USING_NBASE36 || defined USING_NBASE37
+  M_GAMMA130,
+  M_GAMMA132,
+  M_GAMMA44 ,
+  M_GAMMA53 ,
+#if defined USING_NBASE37
+  M_GAMMA801,
+#endif
+#endif
+  M_GAMMA103
+};
+//
+enum e_nodegammanames {
+  N_GAMMA128    ,
+  N_GAMMA19BY13 ,
+  N_GAMMA26BY13 ,
+  N_GAMMA30     ,
+  N_GAMMA76BY54 ,
+  N_GAMMA152BY54,
+  N_GAMMA152BY76,
+  N_GAMMA16     ,
+  N_GAMMA23     ,
+  N_GAMMA28     ,
+  N_GAMMA35     ,
+  N_GAMMA40     ,
+  N_GAMMA42     ,
+  N_GAMMA92     ,
+  N_GAMMA33     ,
+  N_GAMMA106    ,
+  N_GAMMA46     ,
+  N_GAMMA66     ,
+  N_GAMMA67     ,
+  N_GAMMA20     ,
+  N_GAMMA27     ,
+  N_GAMMA78     ,
+  N_GAMMA152    ,
+  N_GAMMA76     ,
+  N_GAMMA57     ,
+  N_GAMMA55     ,
+  N_GAMMA57BY55 ,
+  N_GAMMA34     ,
+  N_GAMMA39     ,
+  N_GAMMA47     ,
+  N_GAMMA58     ,
+  N_GAMMA77     ,
+  N_GAMMA8      ,
+  N_GAMMA18     ,
+  N_GAMMA1      ,
+  N_GAMMA65     ,
+  N_GAMMA75     ,
+  N_GAMMA64     ,
+  N_GAMMA29     ,
+  N_GAMMA8BY5   ,
+  N_GAMMA12     ,
+  N_GAMMA25     ,
+  N_GAMMA74     ,
+  N_GAMMA48     ,
+  N_GAMMA59     ,
+  N_GAMMA60     ,
+  N_GAMMA62     ,
+  N_GAMMA85     ,
+  N_GAMMA68     ,
+  N_GAMMA69     ,
+  N_GAMMA70     ,
+  N_GAMMA88     ,
+  N_GAMMA80     ,
+  N_GAMMA80BY60 ,
+  N_GAMMA81     ,
+  N_GAMMA81BY69 ,
+  N_GAMMA93BY60 ,
+  N_GAMMA94BY69 ,
+  N_GAMMA38     ,
+  N_GAMMA83     ,
+  N_GAMMA110    ,
+  N_GAMMA89     ,
+  N_GAMMA84     ,
+  N_GAMMA87     ,
+  N_GAMMA94     ,
+  N_GAMMA3      ,
+  N_GAMMA150BY66,
+  N_GAMMA149    ,
+  N_GAMMA5      ,
+  N_GAMMA19     ,
+  N_GAMMA26     ,
+  N_GAMMA150    ,
+  N_GAMMA2      ,
+  N_GAMMA31     ,
+  N_GAMMA32     ,
+  N_GAMMA56     ,
+  N_GAMMA63     ,
+  N_GAMMA54     ,
+  N_GAMMA126    ,
+  N_GAMMA102    ,
+  N_GAMMA79     ,
+  N_GAMMA103    ,
+  N_GAMMA104    ,
+  N_GAMMA93     ,
+  N_GAMMA82     ,
+  N_GAMMA11     ,
+  N_GAMMA7      ,
+  N_GAMMA17     ,
+  N_GAMMA37     ,
+  N_GAMMA3BY5   ,
+  N_GAMMA9      ,
+  N_GAMMA10     ,
+  N_GAMMA14     ,
+  N_GAMMA13     ,
+  N_GAMMA24     ,
+  N_GAMMA9BY5   ,
+  N_GAMMA10BY5  ,
+  N_GAMMA10BY9  ,
+#if defined USING_NBASE36 || defined USING_NBASE37
+  N_GAMMA130    ,
+  N_GAMMA132    ,
+  N_GAMMA43     ,
+  N_GAMMA44     ,
+  N_GAMMA53     ,
+  N_GAMMA800    ,
+  N_GAMMA151    ,
+#if defined USING_NBASE37
+  N_GAMMA96     ,
+  N_GAMMA801    ,
+#endif
+#endif
+  N_GAMMAALL    ,
+  N_GAMMAXS     
+};
+
+//--- from PDG 2010 
+//            MOHR     08 RVUE                2006 CODATA value
+//  MOHR 2008         Reviews of Modern Physics 80 (2008) 633 
+// Published in Rev.Mod.Phys.80:633-730,2008.  e-Print: arXiv:0801.0028 [physics.atom-ph]
+// CODATA Recomended Values of the Fundamental Physical Constants: 2006
+// http://www.slac.stanford.edu/spires/find/hep/www?eprint=arXiv:0801.0028                     
+const double m_e =  0.510998910; const double e_m_e = 0.000000013 ; // MeV 
+const double m_mu = 105.6583668 ; const double e_m_mu = 0.0000038 ; // MeV 
+//--- from HFAG 2009
+const double m_tau =  1776.7673082; const double e_m_tau = 0.1507259; // MeV 
+//--- from PDG 2010 
+const double tau_mu  = 2.197034e-6;const double e_tau_mu  = 0.000021e-6; // s
+const double tau_tau = 290.6e-15 ; const double e_tau_tau = 1.0e-15; // s
+//--- from PDG 2010 
+const double m_pim = 139.57018;   const double e_m_pim   = 0.00035; // MeV
+const double tau_pim = 2.6033e-8; const double e_tau_pim = 0.0005e-8; // s
+const double BR_PimToMumNu = 99.98770e-2 ; const double e_BR_PimToMumNu = 0.00004e-2;
+//--- from PDG 2010  [Average]
+const double m_km   = 493.677; const double e_m_km = 0.013; // MeV
+const double tau_km = 1.2379e-8; const double e_tau_km = 0.0021e-8; // s
+const double BR_KmToMumNu = 63.60e-2; const double e_BR_KmToMumNu = 0.16e-2;
+//--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd
+const double Delta_TauToPim_over_PimToMu = 1.0016 ; const double e_Delta_TauToPim_over_PimToMu = 0.0014; 
+const double Delta_TauToKm_over_KmToMu = 1.0090 ;   const double e_Delta_TauToKm_over_KmToMu = 0.0022; 
+//
+// rad. corrections from to get Be from tau lifetime
+// values from M. Davier, et. al., 10.1103/RevModPhys.78.1043 p.1047, arXiv:hep-ph/0507078v2 p.7, 
+// Delta^L_gamma = 1 + alpha(mL)/2pi * (25/4 - pi^2)
+// Delta^L_W = 1 + 3/5* m_L^2/M_W^2
+//
+//--- from PDG 2010
+const double m_W = 80.399*1e3 ; const double e_m_W =  0.023*1e3; // MeV
+//--- from PDG 2010
+const double alpha_val = 7.2973525376e-3;  // at Q^2 = 0
+const double alpha_err = 0.0000000050e-3;
+const double Delta_mu_gamma = 1 - 42.4e-4;  const double e_Delta_mu_gamma  = alpha_err * TMath::Abs( ( 1./TMath::TwoPi()) * ( (25./4.) - TMath::Power(TMath::Pi(),2) ) );  
+const double Delta_tau_gamma = 1 - 43.2e-4; const double e_Delta_tau_gamma = alpha_err * TMath::Abs( ( 1./TMath::TwoPi()) * ( (25./4.) - TMath::Power(TMath::Pi(),2) ) );  
+//const double Delta_mu_W = 1 + 1.0e-6;  // recomputed later using ([m_mu,  m_W], [e_m_mu,  e_m_W])
+//const double Delta_tau_W = 1 + 2.9e-4; // recomputed later using ([m_tau, m_W], [e_m_tau, e_m_W])
+//
+const double GMu = 1.16637e-5*1e-6 ; const double e_GMu = 0.00001e-5*1e-6; // GMu in MeV-2
+const double fK  = 157;              const double e_fK  = 2; // fK in MeV arXiv:0706.1726 [hep-lat]
+const double hbar=6.58211899e-25*1e3;const double e_hbar= 0.00000016e-25*1e3; // MeV s
+const double SEW = 1.0201;           const double e_SEW = 0.0003;
+//
+const double Vud = 0.97425;          const double e_Vud = 0.00022;
+const double fKfpi= 1.189;           const double e_fKfpi=0.007;
+const double Delta_Kpi=1.00034;      const double e_Delta_Kpi=0.00437;
+//
+const double Delta_Rth = 0.240;      const double e_Delta_Rth = 0.032;
 // ----------------------------------------------------------------------
-void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<string> nodegammaname,
+double MyGradientPar(TF1* func, int ipar, const int npar, const double *x, const double *par, const double *epar, double eps){
+   if(eps< 1e-10 || eps > 1) {
+      Warning("Derivative","parameter esp=%g out of allowed range[1e-10,1], reset to 0.01",eps);
+      eps = 0.01;
+   }
+   //save original parameters
+   double par0 = par[ipar];
+   // new array
+   double parv[npar];
+   for (int i=0;i<npar;++i) parv[i] = par[i];
+   //
+   func->InitArgs(x, parv);
+   double f=func->EvalPar(x,parv) ; 
+   //
+   double f1, f2, g1, g2, h2, d0, d2;
+   double h = eps*epar[ipar];
+   parv[ipar] = par0 + h;     f1 = func->EvalPar(x,parv);
+   parv[ipar] = par0 - h;     f2 = func->EvalPar(x,parv);
+   parv[ipar] = par0 + h/2;   g1 = func->EvalPar(x,parv);
+   parv[ipar] = par0 - h/2;   g2 = func->EvalPar(x,parv);
+   //compute the central differences
+   h2    = 1/(2.*h);
+   d0    = f1 - f2;
+   d2    = 2*(g1 - g2);
+   double  grad = h2*(4*d2 - d0)/3.;
+//   //
+//   cout << "eps = " << eps  << " epar = " << epar[ipar] << " h = " << h << endl;   
+//   cout << "par0     = " << par0   << " f  = " << f  << endl;
+//   cout << "par0+h   = " << par0+h << " f1 = " << f1 << endl;
+//   cout << "par0-h   = " << par0-h << " f2 = " << f2 << endl;
+//   cout << "par0+h/2 = " << par0+h << " g1 = " << g1 << endl;
+//   cout << "par0-h/2 = " << par0-h << " g2 = " << g2 << endl;
+//   //
+   return grad;
+}
+// ----------------------------------------------------------------------
+double func_Vus_Kpi(double *x, double * par){
+  double dummy = x[0];
+  double value = TMath::Sqrt( 
+			     par[0] * par[1]*par[1] * (1./(par[2]*par[2])) *
+			     (TMath::Power(1 - TMath::Power(par[5]/par[3],2),2) / TMath::Power(1 - TMath::Power(par[4]/par[3],2),2)) *
+			     (1./par[6])); 
+  return value;
+}
+// ----------------------------------------------------------------------
+void calc_Vus_Kpi(const double BKBpi, const double e_BKBpi,
+		  double& func1_val, double& func1_err, double& func1_err_exp, 
+		  double& func1_err_comth_0, 
+		  double& func1_err_comth_1, 
+		  double& func1_err_comth_2, 
+		  double& func1_err_comth_3, 
+		  double& func1_err_comth_4, 
+		  double& func1_err_comth_5){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=7;
+  const double par[npar] =  {  BKBpi,   Vud,   fKfpi,   m_tau,   m_km,   m_pim,   Delta_Kpi};
+  const double epar[npar] = {e_BKBpi, e_Vud, e_fKfpi, e_m_tau, e_m_km, e_m_pim, e_Delta_Kpi};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Vus_Kpi, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_exp = deriv[0] * epar[0];
+  func1_err_comth_0 = deriv[3] * epar[3]; // m_tau
+  func1_err_comth_1 = deriv[4] * epar[4]; // m_K
+  func1_err_comth_2 = deriv[5] * epar[5]; // m_pi
+  func1_err_comth_3 = deriv[2] * epar[2]; // fKfpi
+  func1_err_comth_4 = deriv[1] * epar[1]; // Vud
+  func1_err_comth_5 = deriv[6] * epar[6]; // Delta_Kpi
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Vus_K(double *x, double * par){
+  double dummy = x[0];
+  double value = TMath::Sqrt( 
+			     par[0] * 16.0 * TMath::Pi() * par[6] * 1./ 
+			     (TMath::Power(par[1],2) * TMath::Power(par[2],2) * TMath::Power(par[3],3) * par[4] * TMath::Power(1 - TMath::Power(par[5]/par[3],2),2) * par[7]) );
+  return value;
+}
+// ----------------------------------------------------------------------
+void calc_Vus_K(const double BK, const double e_BK,
+		double& func1_val, double& func1_err, double& func1_err_exp, 
+		double& func1_err_comth_0, double& func1_err_comth_1, double& func1_err_comth_2, double& func1_err_comth_3){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=8;
+  const double par[npar] =  {  BK,   GMu,   fK,   m_tau,   tau_tau,   m_km,   hbar,   SEW};
+  const double epar[npar] = {e_BK, e_GMu, e_fK, e_m_tau, e_tau_tau, e_m_km, e_hbar, e_SEW};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Vus_K, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_exp = deriv[0] * epar[0];
+  func1_err_comth_0 = deriv[3] * epar[3]; // m_tau
+  func1_err_comth_1 = deriv[4] * epar[4]; // tau_tau
+  func1_err_comth_2 = deriv[5] * epar[5]; // m_K
+  func1_err_comth_3 = deriv[2] * epar[2]; // fK
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_fmufe(double *x, double * par){
+  double dummy = x[0];
+  double ratio1 = (par[0]*par[0]) / (par[2]*par[2]);
+  double value1 = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
+  double ratio2 = (par[1]*par[1]) / (par[2]*par[2]);
+  double value2 = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
+  return value2/value1;
+}
+// ----------------------------------------------------------------------
+void calc_gmuge(const double BmuBe, const double e_BmuBe,
+		double& func1_val, double& func1_err,
+		double& func1_err_0, double& func1_err_1, double& func1_err_2, 
+		double& func2_val, double& func2_err, double& func2_err_exp, 
+		double& func2_err_0, double& func2_err_1, double& func2_err_2){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=3;
+  const double par[npar] = {m_e, m_mu, m_tau};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_fmufe, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  const int npar2=2;
+  const double par2[npar2] =  {  BmuBe,func1_val};
+  const double epar2[npar2] = {e_BmuBe,func1_err};
+  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
+  //
+  func2_val = TMath::Sqrt(par2[0]/par2[1]);
+  //
+  double deriv2[2];
+  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
+  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
+  //
+  double func2_err2=0;
+  for (ipar=0;ipar<npar2;++ipar) {
+    for (jpar=0;jpar<npar2;++jpar) {
+      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
+    }
+  }
+  func2_err = TMath::Sqrt(func2_err2);
+  //
+  func2_err_exp = deriv2[0] * epar2[0];
+  //
+  func1_err_0 = deriv[2] * epar[2]; // m(tau)
+  func1_err_1 = deriv[1] * epar[1]; // m(mu)
+  func1_err_2 = deriv[0] * epar[0]; // m(e)
+  //
+  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
+  func2_err_1 = deriv2[1] * func1_err_1; // m(mu)
+  func2_err_2 = deriv2[1] * func1_err_2; // m(e)
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+void calc_Be_from_Bmu(const double Bmu, const double e_Bmu,
+		      double& func2_val, double& func2_err, double& func2_err_exp, 
+		      double& func2_err_0, double& func2_err_1, double& func2_err_2){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=3;
+  const double par[npar] = {m_e, m_mu, m_tau};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_fmufe, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  double func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  double func1_err = TMath::Sqrt(func1_err2);
+  //
+  const int npar2=2;
+  const double par2[npar2] =  {  Bmu,func1_val};
+  const double epar2[npar2] = {e_Bmu,func1_err};
+  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
+  //
+  func2_val = par2[0]/par2[1];
+  //
+  double deriv2[2];
+  deriv2[0] = (1/par2[1]);
+  deriv2[1] = (par2[0]/(par2[1]*par2[1])) * -1;
+  //
+  double func2_err2=0;
+  for (ipar=0;ipar<npar2;++ipar) {
+    for (jpar=0;jpar<npar2;++jpar) {
+      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
+    }
+  }
+  func2_err = TMath::Sqrt(func2_err2);
+  //
+  func2_err_exp = deriv2[0] * epar2[0];
+  //
+  double func1_err_0 = deriv[2]*epar[2]; // m(tau)
+  double func1_err_1 = deriv[1]*epar[1]; // m(mu)
+  double func1_err_2 = deriv[0]*epar[0]; // m(e)
+  //
+  func2_err_0 = deriv2[1] * func1_err_0; 
+  func2_err_1 = deriv2[1] * func1_err_1; 
+  func2_err_2 = deriv2[1] * func1_err_2;
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_gtaugmu_h(double *x, double * par){
+  double dummy = x[0];
+  // E. Gamiz, et. al., http://arxiv.org/pdf/0709.0282v1 Eqn 4.1
+  // BR_TauToPiNu = BR_PimToMumNu * pow(M_Tau,3) * Tau_Tau * 1./(2 * pow(M_Mu,2) * M_Pi * Tau_Pi) * pow((1-pow(M_Pi/M_Tau,2))/(1-pow(M_Mu/M_Pi,2)),2) * Delta_Pi ;
+  return 
+    par[0] * 
+    TMath::Power(par[1],3) * 
+    par[2] * 
+    1/(2 * TMath::Power(par[3],2) * par[4] * par[5]) * 
+    TMath::Power((1-TMath::Power(par[4]/par[1],2))/(1-TMath::Power(par[3]/par[4],2)),2) * 
+    par[6];
+}
+// ----------------------------------------------------------------------
+void calc_gtaugmu_h(const double BR_TauToHmNu, const double e_BR_TauToHmNu,
+		    const double BR_HmToMumNu, const double e_BR_HmToMumNu,
+		    const double m_h, const double e_m_h,
+		    const double tau_h, const double e_tau_h,
+		    const double Delta_TauToHm_over_HmToMu, const double e_Delta_TauToHm_over_HmToMu,
+		    double& func1_val, double& func1_err, 
+		    double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, 
+		    double& func1_err_4, double& func1_err_5, double& func1_err_6, 
+		    double& func2_val, double& func2_err, double& func2_err_exp, 
+		    double& func2_err_0, double& func2_err_1, double& func2_err_2, double& func2_err_3,
+		    double& func2_err_4, double& func2_err_5, double& func2_err_6){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=7;
+  const double par[npar]  = {  BR_HmToMumNu,   m_tau,   tau_tau,   m_mu,   m_h,   tau_h,   Delta_TauToHm_over_HmToMu};
+  const double epar[npar] = {e_BR_HmToMumNu, e_m_tau, e_tau_tau, e_m_mu, e_m_h, e_tau_h, e_Delta_TauToHm_over_HmToMu};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_gtaugmu_h, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+ double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  const int npar2=2;
+  const double par2[npar2]  = {  BR_TauToHmNu,func1_val};
+  const double epar2[npar2] = {e_BR_TauToHmNu,func1_err};
+  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
+  //
+  func2_val = TMath::Sqrt(par2[0]/par2[1]);
+  //
+  double deriv2[2];
+  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
+  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
+  //
+  double func2_err2=0;
+  for (ipar=0;ipar<npar2;++ipar) {
+    for (jpar=0;jpar<npar2;++jpar) {
+      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
+    }
+  }
+  func2_err     = TMath::Sqrt(func2_err2);
+  //
+  func2_err_exp = deriv2[0] * epar2[0];
+  //
+  func1_err_0 = deriv[1] * epar[1]; // m(tau)
+  func1_err_1 = deriv[3] * epar[3]; // m(mu) 
+  func1_err_2 = deriv[4] * epar[4]; // m(h)
+  func1_err_3 = deriv[2] * epar[2]; // tau(tau)
+  func1_err_4 = deriv[5] * epar[5]; // tau(h)
+  func1_err_5 = deriv[0] * epar[0]; // BR(h)
+  func1_err_6 = deriv[6] * epar[6]; // Delta
+  //
+  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
+  func2_err_1 = deriv2[1] * func1_err_1; // m(mu) 
+  func2_err_2 = deriv2[1] * func1_err_2; // m(h)
+  func2_err_3 = deriv2[1] * func1_err_3; // tau(tau)
+  func2_err_4 = deriv2[1] * func1_err_4; // tau(h)
+  func2_err_5 = deriv2[1] * func1_err_5; // BR(h)
+  func2_err_6 = deriv2[1] * func1_err_6; // Delta
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Be_from_tautau(double *x, double * par){
+  // double Be_from_tautau = (phspf_mebymtau/phspf_mebymmu) * TMath::Power((m_tau/m_mu),5) * (tau_tau/tau_mu) * (Delta_tau_W/Delta_mu_W) * (Delta_tau_gamma/Delta_mu_gamma);
+  double dummy = x[0];
+  double ratio1 = (par[0]*par[0]) / (par[2]*par[2]);
+  double value1 = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
+  double ratio2 = (par[0]*par[0]) / (par[1]*par[1]);
+  double value2 = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
+  // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
+  double Delta_1 = 1 + 0.6 * (par[1]*par[1]) / (par[5] * par[5]);
+  double Delta_2 = 1 + 0.6 * (par[2]*par[2]) / (par[5] * par[5]);
+  return (value1/value2) * TMath::Power(par[2]/par[1],5) * (par[4]/par[3]) * (Delta_2/Delta_1) * (par[7]/par[6]) ;
+}
+// ----------------------------------------------------------------------
+void calc_gtaugmu_e(const double Be, const double e_Be,
+		    double& func1_val, double& func1_err, 
+		    double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, double& func1_err_4, double& func1_err_5, double& func1_err_6,
+		    double& func2_val, double& func2_err, double& func2_err_exp, 
+		    double& func2_err_0, double& func2_err_1, double& func2_err_2, double& func2_err_3, double& func2_err_4, double& func2_err_5, double& func2_err_6){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=8;
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Be_from_tautau, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  const int npar2=2;
+  const double par2[npar2] =  {  Be,func1_val};
+  const double epar2[npar2] = {e_Be,func1_err};
+  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
+  //
+  func2_val = TMath::Sqrt(par2[0]/par2[1]);
+  //
+  double deriv2[2];
+  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
+  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
+  //
+  double func2_err2=0;
+  for (ipar=0;ipar<npar2;++ipar) {
+    for (jpar=0;jpar<npar2;++jpar) {
+      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
+    }
+  }
+  func2_err = TMath::Sqrt(func2_err2);
+  //
+  func2_err_exp = deriv2[0] * epar2[0];
+  //
+  func1_err_0 = deriv[2] * epar[2]; // m(tau)
+  func1_err_1 = deriv[1] * epar[1]; // m(mu)
+  func1_err_2 = deriv[0] * epar[0]; // m(e)
+  func1_err_3 = deriv[4] * epar[4]; // tau(tau)
+  func1_err_4 = deriv[3] * epar[3]; // tau(mu)
+  func1_err_5 = deriv[5] * epar[5]; // m(W)
+  func1_err_6 = TMath::Sqrt(deriv[6] * CovarianceMatrix[6][6] * deriv[6] + deriv[7] * CovarianceMatrix[7][7] * deriv[7] + 2 * deriv[6] * CovarianceMatrix[6][7] * deriv[7]); // alpha
+  //
+  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
+  func2_err_1 = deriv2[1] * func1_err_1; // m(mu)
+  func2_err_2 = deriv2[1] * func1_err_2; // m(e)
+  func2_err_3 = deriv2[1] * func1_err_3; // tau(tau)
+  func2_err_4 = deriv2[1] * func1_err_4; // tau(mu)
+  func2_err_5 = deriv2[1] * func1_err_5; // m(W)
+  func2_err_6 = deriv2[1] * func1_err_6; // alpha
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Bmu_from_tautau(double* x, double* par){
+  // double Bmu_from_tautau = (phspf_mmubymtau/phspf_mebymmu) * TMath::Power((m_tau/m_mu),5) * (tau_tau/tau_mu) * (Delta_tau_W/Delta_mu_W) * (Delta_tau_gamma/Delta_mu_gamma);
+  double dummy = x[0];
+  double ratio1 = (par[1]*par[1]) / (par[2]*par[2]);
+  double value1 = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
+  double ratio2 = (par[0]*par[0]) / (par[1]*par[1]);
+  double value2 = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
+  // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
+  double Delta_1 = 1 + 0.6 * (par[1]*par[1]) / (par[5] * par[5]);
+  double Delta_2 = 1 + 0.6 * (par[2]*par[2]) / (par[5] * par[5]);
+  return (value1/value2) * TMath::Power(par[2]/par[1],5) * (par[4]/par[3]) * (Delta_2/Delta_1) * (par[7]/par[6]) ;
+}
+// ----------------------------------------------------------------------
+void calc_gtauge_mu(const double Bmu, const double e_Bmu,
+		    double& func1_val, double& func1_err, 
+		    double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, double& func1_err_4, double& func1_err_5, double& func1_err_6,
+		    double& func2_val, double& func2_err, double& func2_err_exp, 
+		    double& func2_err_0, double& func2_err_1, double& func2_err_2, double& func2_err_3, double& func2_err_4, double& func2_err_5, double& func2_err_6){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=8;
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Bmu_from_tautau, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  const int npar2=2;
+  const double par2[npar2] =  {  Bmu,func1_val};
+  const double epar2[npar2] = {e_Bmu,func1_err};
+  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
+  //
+  func2_val = TMath::Sqrt(par2[0]/par2[1]);
+  //
+  double deriv2[2];
+  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
+  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
+  //
+  double func2_err2=0;
+  for (ipar=0;ipar<npar2;++ipar) {
+    for (jpar=0;jpar<npar2;++jpar) {
+      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
+    }
+  }
+  func2_err = TMath::Sqrt(func2_err2);
+  //
+  func2_err_exp = deriv2[0] * epar2[0];
+  //
+  func1_err_0 = deriv[2] * epar[2]; // m(tau)
+  func1_err_1 = deriv[1] * epar[1]; // m(mu)
+  func1_err_2 = deriv[0] * epar[0]; // m(e)
+  func1_err_3 = deriv[4] * epar[4]; // tau(tau)
+  func1_err_4 = deriv[3] * epar[3]; // tau(mu)
+  func1_err_5 = deriv[5] * epar[5]; // m(W)
+  func1_err_6 = TMath::Sqrt(deriv[6] * CovarianceMatrix[6][6] * deriv[6] + deriv[7] * CovarianceMatrix[7][7] * deriv[7] + 2 * deriv[6] * CovarianceMatrix[6][7] * deriv[7]); // alpha
+  //
+  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
+  func2_err_1 = deriv2[1] * func1_err_1; // m(mu)
+  func2_err_2 = deriv2[1] * func1_err_2; // m(e)
+  func2_err_3 = deriv2[1] * func1_err_3; // tau(tau)
+  func2_err_4 = deriv2[1] * func1_err_4; // tau(mu)
+  func2_err_5 = deriv2[1] * func1_err_5; // m(W)
+  func2_err_6 = deriv2[1] * func1_err_6; // alpha
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+void calc_average(const int n, const double* value, double** covmat, double& average, double& error, double* wt){
+  //
+  int i,j;
+  //
+  TMatrixD covmatrix(n,n);
+  for (i=0;i<n;++i) {
+    for (j=0;j<n;++j) {
+      covmatrix[i][j] = covmat[i][j];
+    }
+  }
+  //
+  TMatrixD inverse = covmatrix;
+  double determinant;
+  inverse.Invert(&determinant);
+  //
+  for (i=0;i<n;++i) {
+    wt[i] = 0;
+    for (j=0;j<n;++j) {
+      wt[i] += inverse[i][j];
+    }
+  }
+  //
+  double sumwt=0;
+  for (i=0;i<n;++i) {
+    sumwt += wt[i];
+  }
+  //
+  for (i=0;i<n;++i) {
+    wt[i] /= sumwt;
+  }
+  //
+  average = 0;
+  for (i=0;i<n;++i) {
+    average += wt[i] * value[i];
+  }
+  error = sqrt(1/sumwt);
+  //
+  double pull[n];
+  for (i=0;i<n;++i) {
+    pull[i] = value[i] - average;
+  }
+  //
+  double chi2 = 0;
+  for (i=0;i<n;++i) {
+    for (j=0;j<n;++j) {
+      chi2 += pull[i] * inverse[i][j] * pull[j];
+    }
+  }
+  //  cout << "chi2 = " << chi2 << " n = " << n << " Prob = " << TMath::Prob(chi2,n-1) << endl;
+}
+// ----------------------------------------------------------------------
+double func_Bhadrons(double* x, double* par) {
+  //
+  double dummy=x[0];
+  //
+  double Be = par[8];
+  double Bmu = par[9];
+  //
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = Bmu/fmufe;
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  //
+  double Be_univ_wt[3] = {par[10], par[11], par[12]};
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  //
+  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  return Bhadrons;
+}
+// ----------------------------------------------------------------------
+void calc_Bhadrons(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
+		   double& func1_val, double& func1_err, double* func1_err_comp){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=13;
+  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2]};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Bhadrons, xdummy[0], xdummy[0]+1, npar+1);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
+  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
+  func1_err_comp[2] = deriv[8] * epar[8]; // Be
+  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
+  func1_err_comp[4] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][9]*deriv[9]); // Be,Bmu
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Rhadrons(double* x, double* par){
+  //
+  double dummy=x[0];
+  //
+  double Be = par[8];
+  double Bmu = par[9];
+  //
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = Bmu/fmufe;
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  //
+  double Be_univ_wt[3] = { par[10], par[11], par[12] };
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  //
+  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Rhadrons = Bhadrons/Be_univ;
+  return Rhadrons;
+}
+// ----------------------------------------------------------------------
+void calc_Rhadrons(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
+		   double& func1_val, double& func1_err, double* func1_err_comp){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=13;
+  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2]};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Rhadrons, xdummy[0], xdummy[0]+1, npar+1);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
+  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
+  func1_err_comp[2] = deriv[8] * epar[8]; // Be
+  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
+  func1_err_comp[4] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][9]*deriv[9]); // Be,Bmu
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Rstrange(double* x, double* par){
+  double dummy=x[0];
+  //
+  double Be = par[8];
+  double Bmu = par[9];
+  //
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = Bmu/fmufe;
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  //
+  double Be_univ_wt[3] = { par[10], par[11], par[12] };
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  //
+  double Bstrange = par[13];
+  double Rstrange = Bstrange/Be_univ;
+  return Rstrange;
+}
+// ----------------------------------------------------------------------
+void calc_Rstrange(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
+		   const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
+		   double& func1_val, double& func1_err, double* func1_err_comp){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=14;
+  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
+  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
+  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Rstrange, xdummy[0], xdummy[0]+1, npar+1);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
+  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
+  func1_err_comp[2] = deriv[8] * epar[8]; // Be
+  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
+  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
+  func1_err_comp[5] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + deriv[13]*CovarianceMatrix[13][13]*deriv[13] +
+				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][13]*deriv[13]);// Be,Bmu,Bstrange
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Rnonstrange(double* x, double* par){
+  double dummy=x[0];
+  //
+  double Be = par[8];
+  double Bmu = par[9];
+  //
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = Bmu/fmufe;
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  //
+  double Be_univ_wt[3] = { par[10], par[11], par[12] };
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  //
+  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Rhadrons = Bhadrons/Be_univ;
+  //
+  double Bstrange = par[13];
+  double Rstrange = Bstrange/Be_univ;
+  //
+  double Rnonstrange = Rhadrons - Rstrange;
+  return Rnonstrange;
+}
+// ----------------------------------------------------------------------
+void calc_Rnonstrange(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
+		      const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
+		      double& func1_val, double& func1_err, double* func1_err_comp){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=14;
+  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
+  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
+  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Rnonstrange, xdummy[0], xdummy[0]+1, npar+1);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
+  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
+  func1_err_comp[2] = deriv[8] * epar[8]; // Be
+  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
+  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
+  func1_err_comp[5] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + deriv[13]*CovarianceMatrix[13][13]*deriv[13] +
+				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][13]*deriv[13]);// Be,Bmu,Bstrange
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Vus_strange(double* x, double* par){
+  double dummy=x[0];
+  //
+  double Be = par[8];
+  double Bmu = par[9];
+  //
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = Bmu/fmufe;
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  //
+  double Be_univ_wt[3] = { par[10], par[11], par[12] };
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  //
+  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Rhadrons = Bhadrons/Be_univ;
+  //
+  double Bstrange = par[13];
+  double Rstrange = Bstrange/Be_univ;
+  //
+  double Rnonstrange = Rhadrons - Rstrange;
+  //
+  double Vud = par[14];
+  double Delta_Rth = par[15];
+  //
+  double Vus_strange = TMath::Sqrt(Rstrange / ( Rnonstrange/(Vud*Vud) - Delta_Rth));
+  return Vus_strange;
+}
+// ----------------------------------------------------------------------
+void calc_Vus_strange(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
+		      const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
+		      double& func1_val, double& func1_err, double* func1_err_comp){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=16;
+  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13          14     15
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange,   Vud,   Delta_Rth};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange, e_Vud, e_Delta_Rth};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
+  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
+  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Vus_strange, xdummy[0], xdummy[0]+1, npar+1);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
+  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
+  func1_err_comp[2] = deriv[8] * epar[8]; // Be
+  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
+  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
+  func1_err_comp[5] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + deriv[13]*CovarianceMatrix[13][13]*deriv[13] +
+				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][13]*deriv[13]);// Be,Bmu,Bstrange
+  func1_err_comp[6] = deriv[14]* epar[14]; // Vud
+  func1_err_comp[7] = deriv[15]* epar[15]; // ms
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Vus_uncons(double* x, double* par){
+  double dummy=x[0];
+  //
+  double Be = par[8];
+  double Bmu = par[9];
+  double Btotal = par[16];
+  //
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = Bmu/fmufe;
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  //
+  double Be_univ_wt[3] = { par[10], par[11], par[12] };
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  //
+  double Bhadrons = Btotal - (1. + fmufe) * Be_univ;
+  double Rhadrons = Bhadrons/Be_univ;
+  //
+  double Bstrange = par[13];
+  double Rstrange = Bstrange/Be_univ;
+  //
+  double Rnonstrange = Rhadrons - Rstrange;
+  //
+  double Vud = par[14];
+  double Delta_Rth = par[15];
+  //
+  double Vus_strange = TMath::Sqrt(Rstrange / ( Rnonstrange/(Vud*Vud) - Delta_Rth));
+  return Vus_strange;
+}
+// ----------------------------------------------------------------------
+void calc_Vus_uncons(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
+			     const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
+			     const double Btotal, const double e_Btotal, const double cov_Be_Btotal, const double cov_Bmu_Btotal, const double cov_Bstrange_Btotal,
+			     double& func1_val, double& func1_err, double* func1_err_comp){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=17;
+  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13          14     15           16 
+  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange,   Vud,   Delta_Rth,   Btotal};
+  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange, e_Vud, e_Delta_Rth, e_Btotal};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
+  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
+  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
+  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
+  CovarianceMatrix[8][16]= CovarianceMatrix[16][8]= cov_Be_Btotal;
+  CovarianceMatrix[9][16]= CovarianceMatrix[16][9]= cov_Bmu_Btotal;
+  CovarianceMatrix[13][16]=CovarianceMatrix[16][13]=cov_Bstrange_Btotal;
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Vus_uncons, xdummy[0], xdummy[0]+1, npar+1);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+  double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
+  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
+  func1_err_comp[2] = deriv[8] * epar[8]; // Be
+  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
+  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
+  func1_err_comp[5] = deriv[16]* epar[16];// Btotal
+  func1_err_comp[6] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + 
+				  deriv[13]*CovarianceMatrix[13][13]*deriv[13] + deriv[16]*CovarianceMatrix[16][16]*deriv[16] +
+				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[8]*CovarianceMatrix[8][16]*deriv[16] +
+				  2*deriv[9]*CovarianceMatrix[9][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][16]*deriv[16] +
+				  2*deriv[13]*CovarianceMatrix[13][16]*deriv[16]);// Be,Bmu,Bstrange,Btotal
+  func1_err_comp[7] = deriv[14]* epar[14]; // Vud
+  func1_err_comp[8] = deriv[15]* epar[15]; // ms
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
+void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<string> nodegammaname, bool* node_is_base,
 		    int* node_num_npar, vector<int> * node_num_parm, vector<double> * node_num_coef,
 		    int* node_den_npar, vector<int> * node_den_parm, vector<double> * node_den_coef, 
-		    vector<int> baseparm, vector<int> basegamma){
+		    vector<int> baseparm, vector<int> basegamma, string* basetitle){
   //
   int p, inode, ipar;
-  FILE *nodefile[2];
+  FILE *nodefile[3];
   nodefile[0]=fopen("all_node_def.txt","w");
   nodefile[1]=fopen("derived_node_def.txt","w");
-  for (p=0;p<2;++p) {
+  nodefile[2]=fopen("base_node_def.txt","w");
+  for (p=0;p<3;++p) {
     for (inode=0;inode<nnode;++inode) {
-      if (p==1&&(node_num_npar[inode]+node_den_npar[inode])==1) continue;
-      fprintf (nodefile[p], "\n* %s : %s \n%s = ",a_nodename[inode],nodetitle[inode].data(), nodegammaname[inode].data());
+      if (node_is_base[inode]) {
+	if (p==1) continue;
+      } else {
+	if (p==2) continue;
+      }
+      // Print a commented line about this node
+      fprintf (nodefile[p], "\n* %-7s : %s : %s\n",a_nodename[inode],nodetitle[inode].data(), nodegammaname[inode].data());
+      //
+      // Print node expressed in terms of base decay mode names
+      //
+      fprintf (nodefile[p], "\n  %s =\n", nodetitle[inode].data());
+      for (ipar=0; ipar < node_num_parm[inode].size(); ++ipar) {
+        if (ipar==0) fprintf (nodefile[p], "("); else fprintf (nodefile[p], " ");
+        int parm=node_num_parm[inode].at(ipar);
+        vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+        int quan=ibase-baseparm.begin()+1;
+        fprintf (nodefile[p], " G(%s) * %12.10f", basetitle[quan-1].data(), node_num_coef[inode].at(ipar));
+        if (ipar==node_num_parm[inode].size()-1) fprintf (nodefile[p], " )"); else fprintf (nodefile[p], " +\n");
+      }
+      if (node_den_parm[inode].size()==0) fprintf (nodefile[p], "\n"); else fprintf (nodefile[p], " /\n"); 
+      for (ipar=0; ipar < node_den_parm[inode].size(); ++ipar) {
+        if (ipar==0) fprintf (nodefile[p], "("); else fprintf (nodefile[p], " ");
+        int parm=node_den_parm[inode].at(ipar);
+        vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+        int quan=ibase-baseparm.begin()+1;
+        fprintf (nodefile[p], " G(%s) * %12.10f", basetitle[quan-1].data(), node_den_coef[inode].at(ipar));
+        if (ipar==node_den_parm[inode].size()-1) fprintf (nodefile[p], " )\n"); else fprintf (nodefile[p], " +\n");
+      }
+      //
+      // Print node expressed in terms of base gamma numbers
+      //
+      fprintf (nodefile[p], "\n%s = ", nodegammaname[inode].data());
       for (ipar=0; ipar < node_num_parm[inode].size(); ++ipar) {
         if (ipar==0) { fprintf (nodefile[p], "(") ; } else {fprintf (nodefile[p], " + ") ;}
         int parm=node_num_parm[inode].at(ipar);
         vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
         int quan=ibase-baseparm.begin()+1;
-        fprintf (nodefile[p], "%20.10f*Gamma%d",node_num_coef[inode].at(ipar), basegamma[quan-1]);
+        fprintf (nodefile[p], "Gamma%d*%12.10f", basegamma[quan-1], node_num_coef[inode].at(ipar));
         if (ipar==node_num_parm[inode].size()-1) fprintf (nodefile[p], ")");
       }
       if (node_den_parm[inode].size()==0) fprintf (nodefile[p], "\n") ; 
@@ -72,9 +1511,31 @@ void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<str
         int parm=node_den_parm[inode].at(ipar);
         vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
         int quan=ibase-baseparm.begin()+1;
-        fprintf (nodefile[p], "%20.10f*Gamma%d",node_den_coef[inode].at(ipar), basegamma[quan-1]);
+        fprintf (nodefile[p], "Gamma%d*%12.10f", basegamma[quan-1], node_den_coef[inode].at(ipar));
         if (ipar==node_den_parm[inode].size()-1) fprintf (nodefile[p], ")\n");
       }
+      //
+      // Print node expressed in terms of base parameter numbers
+      //
+      fprintf (nodefile[p], "\n%s = ", a_nodename[inode]);
+      for (ipar=0; ipar < node_num_parm[inode].size(); ++ipar) {
+        if (ipar==0) { fprintf (nodefile[p], "(") ; } else {fprintf (nodefile[p], " + ") ;}
+        int parm=node_num_parm[inode].at(ipar);
+        vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+        int quan=ibase-baseparm.begin()+1;
+        fprintf (nodefile[p], "Parm%d*%12.10f", baseparm[quan-1], node_num_coef[inode].at(ipar));
+        if (ipar==node_num_parm[inode].size()-1) fprintf (nodefile[p], ")");
+      }
+      if (node_den_parm[inode].size()==0) fprintf (nodefile[p], "\n") ; 
+      for (ipar=0; ipar < node_den_parm[inode].size(); ++ipar) {
+        if (ipar==0) { fprintf (nodefile[p], " / (") ; } else {fprintf (nodefile[p], " + ") ;}
+        int parm=node_den_parm[inode].at(ipar);
+        vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
+        int quan=ibase-baseparm.begin()+1;
+        fprintf (nodefile[p], "Parm%d*%12.10f", baseparm[quan-1], node_den_coef[inode].at(ipar));
+        if (ipar==node_den_parm[inode].size()-1) fprintf (nodefile[p], ")\n");
+      }
+      //
     }
     fclose(nodefile[p]);
   }
@@ -107,9 +1568,9 @@ void get_num_den_part(int nnode, vector<int> * node_parm,
 		      int* node_num_npar, vector<int> * node_num_parm, vector<double> * node_num_coef,
 		      int* node_den_npar, vector<int> * node_den_parm, vector<double> * node_den_coef,
 		      vector<int> baseparm, double* baseseed,
-		      double * node_num, // output
-		      double * node_den, // output
-		      double * node_val, // output
+		      double* node_num, // output
+		      double* node_den, // output
+		      double* node_val, // output
 		      vector<double> * node_part// output
 		      ){
   int ipar;
@@ -181,7 +1642,7 @@ void get_num_den_part(int nnode, vector<int> * node_parm,
 void combine(int uconstrain, 
 	     int nmeas, int* weak, int weakcompare, int& nmeas_noweak,
 	     int* measnode, double* measvalue, TMatrixD InvMeasErrorMatrix,
-	     int* node_num_npar, int* node_den_npar, vector<int> * node_quan, vector<int> * node_parm, 
+	     int* node_num_npar, int* node_den_npar, vector<int> * node_quan, vector<int> * node_parm, bool* node_is_base,
 	     int nbase, vector<int> basegamma,  
 	     double* baseseed, double* node_num, double* node_den, vector<double> * node_part,
 	     double* basevalue_fit, // output
@@ -241,23 +1702,23 @@ void combine(int uconstrain,
     for (ibase=0;ibase<nbase_u;++ibase) Delta[ibase][i] = 0;
     //
     inode=measnode[imeas];
-    if (uconstrain &&      // SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint]
-	((inode+1)==80 ||  // NODE = 79 NAME = S035R33 GAMMA = 102, because Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104) 
-	 (inode+1)==82)) { // NODE = 81 NAME = S035R38 GAMMA = 103
+    if (uconstrain &&  // SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint] [N.B. Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)] 
+	(inode==N_GAMMA102 || inode==N_GAMMA103)) { 
       Xvector[i][0] = measvalue[imeas] - 1 ;
       for (ibase=0;ibase<nbase_u;++ibase) {
-	if ((inode+1)==80 && basegamma[ibase]==104) {} else {Delta[ibase][i] = 1;}
+	Delta[ibase][i] = 1;
+	if (inode==N_GAMMA102 && ibase==M_GAMMA104) Delta[ibase][i] = 0; // remove dependence on ibase=Gamma104 for inode=Gamma102
       }
     } else {
       Xvector[i][0] = measvalue[imeas];
       double offset = -node_num[inode]; if (node_den_npar[inode]>0) offset /= node_den[inode];
-      if ((node_num_npar[inode]+node_den_npar[inode])>1)  { // derived node
+      if (!node_is_base[inode]) {
 	Xvector[i][0]+=offset;
       }
       for (ipar = 0; ipar < node_parm[inode].size(); ++ipar) {
 	int quan=node_quan[inode].at(ipar);
 	double partial=node_part[inode].at(ipar);
-	if ((node_num_npar[inode]+node_den_npar[inode])>1) { // derived node
+	if (!node_is_base[inode]) {
 	  Xvector[i][0] += partial*baseseed[quan-1]; 
 	}
 	Delta[quan-1][i] = -partial;
@@ -419,8 +1880,8 @@ void process_measurements(int nmeas, int* measnode, double* measerror, double** 
 void print_measinfo(FILE* thisfile,
 		    int nmeas, int* measnode, double* measvalue, double* measerror, double** corrmat,
 		    string* expname, string* meastitle, string* measgammaname,
-		    char** a_nodename, int* node_num_npar, int* node_den_npar, vector<int> * node_quan,
-		    int nbase, vector<int> baseparm, vector<int> basegamma, string* basenode, string* basetitle,
+		    char** a_nodename, int* node_num_npar, int* node_den_npar, vector<int> * node_quan, bool* node_is_base,
+		    int nbase, vector<int> baseparm, vector<int> basegamma, string* basenodename, string* basetitle,
 		    int newnode_all, int* nodegroup_all, int* ncycle, int ncorrij, int* ifirstj, vector<int> *icorrj, vector<int> *veccorrij, int* ngroup){
   //
   int i, inode, ibase, j;
@@ -431,7 +1892,7 @@ void print_measinfo(FILE* thisfile,
   vector<int> basequan_used_in_measured_derivednodes;
   for (i=0;i<nmeas;++i){
     inode=measnode[i];
-    if ((node_num_npar[inode]+node_den_npar[inode])>1) { // derived node
+    if (!node_is_base[inode]) {
       basequan_used_in_measured_derivednodes.insert(basequan_used_in_measured_derivednodes.end(),node_quan[inode].begin(),node_quan[inode].end());
       sort(basequan_used_in_measured_derivednodes.begin(),basequan_used_in_measured_derivednodes.end());
       vector<int>::iterator new_end=unique(basequan_used_in_measured_derivednodes.begin(),basequan_used_in_measured_derivednodes.end());
@@ -449,7 +1910,7 @@ void print_measinfo(FILE* thisfile,
     vector<int>::iterator it=find(basequan_used_in_measured_basenodes.begin(),basequan_used_in_measured_basenodes.end(),ibase+1); 
     bool not_present = it == basequan_used_in_measured_basenodes.end();
     if (not_present) fprintf (thisfile, "BASE = %d GAMMA = %d PARM = %d NODE = %s TITLE = %s not measured directly \n",
-			      ibase+1, basegamma[ibase], baseparm[ibase], basenode[ibase].data(), basetitle[ibase].data());
+			      ibase+1, basegamma[ibase], baseparm[ibase], basenodename[ibase].data(), basetitle[ibase].data());
   }
   fprintf (thisfile, "\n");
   fprintf (thisfile, "basequan_used_in_measured_derivednodes.size() = %d \n", basequan_used_in_measured_derivednodes.size());
@@ -530,7 +1991,7 @@ void print_measinfo(FILE* thisfile,
 void print_measfile(FILE* thisfile, int p, int uconstrain,
 		    int nmeas, int* weak, int weakcompare, string* measgammaname, int* measnode, 
 		    string* expname, string* author, string* year, string* meastitle,
-		    double* measvalue, double* measerror, double**corrmat,
+		    double* measvalue, double* measerror, double** corrmat,
 		    char** a_nodename, vector<int> * node_parm,
 		    int* node_num_npar, vector<int> * node_num_parm, vector<double> * node_num_coef,
 		    int* node_den_npar, vector<int> * node_den_parm, vector<double> * node_den_coef, 
@@ -575,9 +2036,8 @@ void print_measfile(FILE* thisfile, int p, int uconstrain,
     //
     fprintf (thisfile, "\nBEGIN %s Gamma%s pub.%s.%s \n\n", expname[i].data(), measgammaname[i].data(), author[i].data(), year[i].data());
     if (p==0) {//COMBOS
-      if (uconstrain &&      // SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint]
-	  ((inode+1)==80 ||  // NODE = 79 NAME = S035R33 GAMMA = 102, because Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104) 
-	   (inode+1)==82)) { // NODE = 81 NAME = S035R38 GAMMA = 103
+      if (uconstrain &&  // SPECIAL CASE [because these nodes contain Gamma103 [used to express unitarity constraint] [N.B. Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)] 
+	  (inode==N_GAMMA102 || inode==N_GAMMA103)) { 
 	fprintf (thisfile, "MEASUREMENT  m_Gamma%d statistical systematic \n",3);
 	fprintf (thisfile, "DATA         m_Gamma%d statistical systematic \n",3);
       } else {
@@ -606,13 +2066,17 @@ void print_measfile(FILE* thisfile, int p, int uconstrain,
 // ----------------------------------------------------------------------
 void print_avefile(FILE* thisfile, int p, int uconstrain,
 		   int nmeas, int* weak, int weakcompare, string* measgammaname, int* measnode,
-		   vector<int> * node_parm, vector<int> * node_quan, 
+		   vector<int> * node_parm, vector<int> * node_quan, bool* node_is_base,
 		   int* node_num_npar, vector<int> * node_num_parm, vector<double> * node_num_coef,
 		   int* node_den_npar, vector<int> * node_den_parm, vector<double> * node_den_coef, 
 		   int nbase, vector<int> baseparm, vector<int> basegamma, string* basetitle, int* first_quan, 
 		   double* baseseed, double* node_num, double* node_den,  vector<double> * node_part){
   int i,inode,ipar,iimeas,ibase;
+#if defined USING_NBASE31 || defined USING_NBASE36
   fprintf (thisfile, "BEGIN   PDG-BABAR-BELLE all_methods \n\n");
+#elif defined USING_NBASE37
+  fprintf (thisfile, "BEGIN   PDG+BABAR+BELLE all_methods \n\n");
+#endif
   fprintf (thisfile, "COMBINE * * * \n\n");
   for (ibase=0;ibase<nbase;++ibase){
     if (p==0&&uconstrain&&ibase==(nbase-1)){/* skip */} else {
@@ -632,7 +2096,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     inode=measnode[i];
     vector<int>::iterator itt=find(vector_measnodes.begin(),vector_measnodes.end(),inode);
     bool is_newnode = itt == vector_measnodes.end();
-    if ((node_num_npar[inode]+node_den_npar[inode])>1) { // derived node
+    if (!node_is_base[inode]) {
       if (p==1&&is_newnode){//new node
 	++usum;
 	fprintf (thisfile, "MEASUREMENT m_Gamma%s statistical systematic   ! NQUAN = %d \n",measgammaname[i].data(),ibase+usum);  
@@ -658,9 +2122,9 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     vector<int>::iterator itt=find(vector_measnodes.begin(),vector_measnodes.end(),inode);
     bool is_newnode = itt == vector_measnodes.end();
     if (p==1 && !is_newnode) continue; // ALUCOMB needs it only once
-    if ((node_num_npar[inode]+node_den_npar[inode])>1) { // derived node
+    if (!node_is_base[inode]) {
       //
-      if (p==0&&(((inode+1)==80)||((inode+1)==82))) continue; // SPECIAL CASE [because these are derived nodes containing Gamma103 ]
+      if (p==0 && (inode==N_GAMMA102 || inode==N_GAMMA103)) continue; // SPECIAL CASE [because these are derived nodes containing Gamma103]
       ++isum; // translate C index to Fortran index
       //
       // PRINT NODE DEFINITION
@@ -718,7 +2182,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
       ++iimeas;
       inode=measnode[i];
       //
-      if ((inode+1)==80) { // SPECIAL CASE : NODE = 79 NAME = S035R33 GAMMA = 102 :: Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)
+      if (inode==N_GAMMA102) { // SPECIAL CASE [because these are derived nodes containing Gamma103]
 	if (!uconstrain) {
 	  fprintf (thisfile, "\n*Gamma102 = (1.000000*Gamma103 + 1.000000*Gamma104)\n");
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d %d\n",++isum,iimeas,node_parm[inode].size()); 
@@ -733,7 +2197,15 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	  fprintf (thisfile, "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
 	  fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
 	  fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+#if defined USING_NBASE31
 	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+#elif defined USING_NBASE36
+	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
+	  fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53\n");
+#elif defined USING_NBASE37
+	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
+	  fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53 - Gamma801\n");
+#endif
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d %2d \n",++isum,iimeas,nbase-2); 
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma102; thats why the coefficients below have - sign 
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
@@ -763,17 +2235,38 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_26 27 -1 ! Gamma126\n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_27 28 -1 ! Gamma128\n",isum);
+#if defined USING_NBASE31
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_28 29 -1 ! Gamma150\n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_29 30 -1 ! Gamma152\n",isum);
+#elif defined USING_NBASE36 || defined USING_NBASE37
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_28 29 -1 ! Gamma800\n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_29 30 -1 ! Gamma151\n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_30 31 -1 ! Gamma152\n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_31 32 -1 ! Gamma130\n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_32 33 -1 ! Gamma132\n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_33 34 -1 ! Gamma44\n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_34 35 -1 ! Gamma53\n",isum);
+#if defined USING_NBASE37
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_35 36 -1 ! Gamma801\n",isum);
+#endif
+#endif
 	}
       }
       //
-      if (uconstrain && (inode+1)==82) { // SPECIAL CASE : NODE = 81 NAME = S035R38 GAMMA = 103 
+      if (inode==N_GAMMA103) { // SPECIAL CASE [because these are derived nodes containing Gamma103]
 	fprintf (thisfile, "\n*Gamma103 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
 	fprintf (thisfile, "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
 	fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
 	fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
+#if defined USING_NBASE31
 	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
+#elif defined USING_NBASE36
+	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
+	fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53\n");
+#elif defined USING_NBASE37
+	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
+	fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53 - Gamma801\n");
+#endif
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d    %2d %2d \n",++isum,iimeas,nbase-1); 
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_AD -1 +1 \n",isum); // becomes a measurement of -1+Gamma103; thats why the coefficients below have - sign 
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_01  1 -1 ! Gamma3  \n",isum);
@@ -804,8 +2297,21 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_26 26 -1 ! Gamma104\n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_27 27 -1 ! Gamma126\n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_28 28 -1 ! Gamma128\n",isum);
+#if defined USING_NBASE31
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_29 29 -1 ! Gamma150\n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_30 30 -1 ! Gamma152\n",isum);
+#elif defined USING_NBASE36 || defined USING_NBASE37
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_29 29 -1 ! Gamma800\n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_30 30 -1 ! Gamma151\n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_31 31 -1 ! Gamma152\n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_32 32 -1 ! Gamma130\n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_33 33 -1 ! Gamma132\n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_34 34 -1 ! Gamma44\n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_35 35 -1 ! Gamma53\n",isum);
+#if defined USING_NBASE37
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_36 36 -1 ! Gamma801\n",isum);
+#endif
+#endif
       }
     }
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_NSUM  %d 0 \n",isum); 
@@ -821,38 +2327,60 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1\n");
     fprintf (thisfile, "  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1\n");
     fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
+#if defined USING_NBASE31
     fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1\n");
+#elif defined USING_NBASE36
+    fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1\n");
+    fprintf (thisfile, "  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1\n");
+#elif defined USING_NBASE37
+    fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1\n");
+    fprintf (thisfile, "  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 1\n");
+#endif
     if (!uconstrain) fprintf (thisfile, "  Gamma998 1\n");
   }
   if (p==0){
-    //*    4    10     7   R7     7.000000E-03   0.006910   0.000219   0.000228   1.04 tau- --> K- nu(tau)                                 
-    //*    6    16   182   B29    4.500000E-03   0.004525   0.000265   0.000267   1.01 tau- --> K- pi0 nu(tau)                             
-    //*    8    23   115   B30    6.000000E-04   0.000581   0.000225   0.000232   1.03 tau- --> K- 2pi0 nu(tau) (ex.K0)                    
-    //*   10    28   116   B31    4.000000E-03   0.000417   0.000219   0.000220   1.01 tau- --> K- 3pi0 nu(tau) (ex.K0, eta)               
-    //*   12    35   117   B32    9.600000E-03   0.008963   0.000367   0.000409   1.11 tau- --> pi- Kbar0 nu(tau)                          
-    //*   14    40   118   B33    4.000000E-03   0.003778   0.000368   0.000374   1.02 tau- --> pi- Kbar0 pi0 nu(tau)                      
-    //*   22    85   260   C21    3.000000E-03   0.003335   0.000223   0.000352   1.58 tau- --> K- pi+ pi- nu(tau) (ex.K0)                 
-    //*   23    89   285   C54    6.000000E-04   0.000730   0.000117   0.000122   1.04 tau- --> K- pi+ pi- pi0 nu(tau) (ex.K0,eta)         
-    //*   28   128   109   B20    3.000000E-04   0.000268   0.000063   0.000063   1.00 tau- --> eta K- nu(tau)                             
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_PSUM   1  0 ! print sum of strange decay nodes\n");
     fprintf (thisfile, "\n* Print Gamma(tau -> X-(S=1) nu)");
     fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma85 + Gamma89 + Gamma128\n");
+#if defined USING_NBASE31
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     9  0");
-    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_01  4  1 ! Gamma10");
-    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_02  6  1 ! Gamma16");
-    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_03  8  1 ! Gamma23");
+#elif defined USING_NBASE36
+    fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53\n");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     14 0");
+#elif defined USING_NBASE37
+    fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53  + Gamma801\n");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     15 0");
+#endif
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_01  4   1 ! Gamma10");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_02  6   1 ! Gamma16");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_03  8   1 ! Gamma23");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_04  10  1 ! Gamma28");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_05  12  1 ! Gamma35");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_06  14  1 ! Gamma40");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_07  22  1 ! Gamma85");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_08  23  1 ! Gamma89");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_09  28  1 ! Gamma128");
+#if defined USING_NBASE36 || defined USING_NBASE37
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_10  30  1 ! Gamma151");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_11  32  1 ! Gamma130");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_12  33  1 ! Gamma132");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_13  34  1 ! Gamma44");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_14  35  1 ! Gamma53");
+#if defined USING_NBASE37
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_15  36  1 ! Gamma801");
+#endif
+#endif
     fprintf (thisfile, "\n");
   }
   if (p==1) {
-    fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu)/G(total)\n");
+    fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu) / G(total)\n");
     fprintf (thisfile, "COMBOFQUANT Gamma110\n");
     fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
+#if defined USING_NBASE36
+    fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53\n");
+#elif defined USING_NBASE37
+    fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801\n");
+#endif
   }
   fprintf (thisfile, "\nCALL CHI2_N_SYM\n");
   fprintf (thisfile, "\nEND\n");
@@ -861,7 +2389,7 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 int main(int argc, char* argv[]){
   //Argument variables
   Int_t uconstrain   = (argc>1) ? atoi(argv[1]) : 1; // 1: unitarity constrained; 0 : not constrained
-  Int_t doalephhcorr = (argc>2) ? atoi(argv[2]) : 0; // 1: do aleph hcorr; 0: dont
+  Int_t doalephhcorr = (argc>2) ? atoi(argv[2]) : 1; // 1: do aleph hcorr; 0: dont
   //
   string sconstrain = (uconstrain) ? "constrained" : "unconstrained";
   string salephhcorr = (doalephhcorr) ? "_aleph_hcorr" : "";
@@ -878,7 +2406,13 @@ int main(int argc, char* argv[]){
   //
   // READ BASE PARAMETERS
   //
+#if defined USING_NBASE31
   const int nbase=31;
+#elif defined USING_NBASE36
+  const int nbase=36;
+#elif defined USING_NBASE37
+  const int nbase=37;
+#endif
   int nbase_u = (uconstrain) ? nbase-1 : nbase;
   vector<int> basequan;
   vector<int> basegamma;
@@ -889,12 +2423,19 @@ int main(int argc, char* argv[]){
   double      basefiterr_orig[nbase];
   double      basescalerr_orig[nbase];
   double      basescalfac_orig[nbase];
-  string      basenode[nbase];
+  string      basenodename[nbase];
   string      basetitle[nbase];
   //
+  string basefilename = "base_def.txt";
+  ifstream ifsbase(basefilename.data());
+  if (!ifsbase.good()) {
+    cout << Form("Cannot open input file : %s\n", basefilename.data()); 
+    exit(1);
+  } else {
+    cout << Form("Read base definitions from : %s\n", basefilename.data());
+  }
+  //
   ibase=0;
-  ifstream ifsbase("base_def.txt") ;
-  if (!ifsbase.good()) {cout << "Cannot open input file : base_def.txt" << endl ; exit(1) ;}
   char buffer[256]; 
   while(ifsbase.good()) {
     if (ifsbase.eof()) break;
@@ -906,7 +2447,7 @@ int main(int argc, char* argv[]){
       ifsbase >> dummy_int ; basequan.push_back(dummy_int);
       ifsbase >> dummy_int ; basegamma.push_back(dummy_int);
       ifsbase >> dummy_int ; baseparm.push_back(dummy_int);
-      ifsbase >> basenode[ibase];
+      ifsbase >> basenodename[ibase];
       ifsbase >> baseseed_orig[ibase];
       ifsbase >> basefitval_orig[ibase];
       ifsbase >> basefiterr_orig[ibase];
@@ -926,44 +2467,10 @@ int main(int argc, char* argv[]){
       }
       baseseed[ibase] = baseseed_orig[ibase];
       //      baseseed[ibase] = basefitval_orig[ibase];
-      // cout << basequan[ibase] << " " << basegamma[ibase] << " " << baseparm[ibase] << " " << basenode[ibase] << " " << baseseed[ibase] << " " << basetitle[ibase] << endl;
+      // cout << basequan[ibase] << " " << basegamma[ibase] << " " << baseparm[ibase] << " " << basenodename[ibase] << " " << baseseed[ibase] << " " << basetitle[ibase] << endl;
       ++ibase;
     }
   }
-  //
-  enum e_basegammanames {
-    M_GAMMA3  ,
-    M_GAMMA5  ,
-    M_GAMMA9  ,
-    M_GAMMA10 ,
-    M_GAMMA14 ,
-    M_GAMMA16 ,
-    M_GAMMA20 ,
-    M_GAMMA23 ,
-    M_GAMMA27 ,
-    M_GAMMA28 ,
-    M_GAMMA30 ,
-    M_GAMMA35 ,
-    M_GAMMA37 ,
-    M_GAMMA40 ,
-    M_GAMMA42 ,
-    M_GAMMA47 ,
-    M_GAMMA48 ,
-    M_GAMMA62 ,
-    M_GAMMA70 ,
-    M_GAMMA77 ,
-    M_GAMMA78 ,
-    M_GAMMA85 ,
-    M_GAMMA89 ,
-    M_GAMMA93 ,
-    M_GAMMA94 ,
-    M_GAMMA104,
-    M_GAMMA126,
-    M_GAMMA128,
-    M_GAMMA150,
-    M_GAMMA152,
-    M_GAMMA103
-  };
   //
   int          baseorder[nbase];
   string       baselatex[nbase];
@@ -977,7 +2484,7 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA27 ] =  6; baselatex[M_GAMMA27 ] = "$\\pi^- 3\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA30 ] =  7; baselatex[M_GAMMA30 ] = "$h^- 4\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
   baseorder[M_GAMMA37 ] =  8; baselatex[M_GAMMA37 ] = "$K^- K^0 \\nu_\\tau$";
-  baseorder[M_GAMMA42 ] =  9; baselatex[M_GAMMA42 ] = "$K^- K^0 \\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA42 ] =  9; baselatex[M_GAMMA42 ] = "$K^- \\pi^0 K^0 \\nu_\\tau$";
   baseorder[M_GAMMA47 ] = 10; baselatex[M_GAMMA47 ] = "$\\pi^- K_S^0 K_S^0 \\nu_\\tau$";
   baseorder[M_GAMMA48 ] = 11; baselatex[M_GAMMA48 ] = "$\\pi^- K_S^0 K_L^0 \\nu_\\tau$";
   baseorder[M_GAMMA62 ] = 12; baselatex[M_GAMMA62 ] = "$\\pi^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
@@ -989,8 +2496,12 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA103] = 18; baselatex[M_GAMMA103] = "$3h^- 2h^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA104] = 19; baselatex[M_GAMMA104] = "$3h^- 2h^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA126] = 20; baselatex[M_GAMMA126] = "$\\pi^- \\pi^0 \\eta \\nu_\\tau$";
+#if defined USING_NBASE31
   baseorder[M_GAMMA150] = 21; baselatex[M_GAMMA150] = "$h^- \\omega \\nu_\\tau$";
-  baseorder[M_GAMMA152] = 22; baselatex[M_GAMMA152] = "$h^- \\omega \\pi^0 \\nu_\\tau$";
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  baseorder[M_GAMMA800] = 21; baselatex[M_GAMMA800] = "$\\pi^- \\omega \\nu_\\tau$";
+#endif
+  baseorder[M_GAMMA152] = 22; baselatex[M_GAMMA152] = "$h^- \\pi^0 \\omega \\nu_\\tau$";
   //
   baseorder[M_GAMMA10 ] = 23; baselatex[M_GAMMA10 ] = "$K^- \\nu_\\tau$";
   baseorder[M_GAMMA16 ] = 24; baselatex[M_GAMMA16 ] = "$K^- \\pi^0 \\nu_\\tau$";
@@ -998,13 +2509,48 @@ int main(int argc, char* argv[]){
   baseorder[M_GAMMA28 ] = 26; baselatex[M_GAMMA28 ] = "$K^- 3\\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
   baseorder[M_GAMMA35 ] = 27; baselatex[M_GAMMA35 ] = "$\\bar{K}^0 \\pi^- \\nu_\\tau$";
   baseorder[M_GAMMA40 ] = 28; baselatex[M_GAMMA40 ] = "$\\bar{K}^0 \\pi^- \\pi^0 \\nu_\\tau$";
+#if defined USING_NBASE31
   baseorder[M_GAMMA85 ] = 29; baselatex[M_GAMMA85 ] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0)$";
   baseorder[M_GAMMA89 ] = 30; baselatex[M_GAMMA89 ] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\eta)$";
   baseorder[M_GAMMA128] = 31; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  baseorder[M_GAMMA44 ] = 29; baselatex[M_GAMMA44 ] = "$\\bar{K}^0 \\pi^- 2\\pi^0 \\nu_\\tau$";
+  baseorder[M_GAMMA53 ] = 30; baselatex[M_GAMMA53 ] = "$\\bar{K}^0 h^- h^- h^+ \\nu_\\tau$";
+  baseorder[M_GAMMA85 ] = 31; baselatex[M_GAMMA85 ] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA89 ] = 32; baselatex[M_GAMMA89 ] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega,\\eta)$";
+#if defined USING_NBASE36
+  baseorder[M_GAMMA128] = 33; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA130] = 34; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA132] = 35; baselatex[M_GAMMA132] = "$\\bar{K}^0 \\pi^- \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA151] = 36; baselatex[M_GAMMA151] = "$K^- \\omega \\nu_\\tau$";
+#elif defined USING_NBASE37
+  baseorder[M_GAMMA801] = 33; baselatex[M_GAMMA801] = "$K^- \\phi \\nu_\\tau (\\phi \\to KK)$";
+  baseorder[M_GAMMA128] = 34; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA130] = 35; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA132] = 36; baselatex[M_GAMMA132] = "$\\bar{K}^0 \\pi^- \\eta \\nu_\\tau$";
+  baseorder[M_GAMMA151] = 37; baselatex[M_GAMMA151] = "$K^- \\omega \\nu_\\tau$";
+#endif
+#endif
+  //
+  for (i=0;i<nbase;++i) {
+    for (ibase=0;ibase<nbase;++ibase) {
+      if (baseorder[ibase]==i) {
+	cout << "ibase = " << ibase << endl;
+	cout << "title = " << basetitle[ibase] << endl;
+	cout << "latex = " << baselatex[ibase] << endl << endl;
+      }
+    }
+  }
   //
   // READ INPUT NODES
   // 
-  const int      nnode=98;
+#if defined USING_NBASE31
+  const int nnode=100;
+#elif defined USING_NBASE36 
+  const int nnode=107; 
+#elif defined USING_NBASE37
+  const int nnode=109; 
+#endif
   vector<string> nodegammaname;
   vector<string> nodename;
   vector<int>    node_num_parm[nnode];
@@ -1013,23 +2559,23 @@ int main(int argc, char* argv[]){
   vector<double> node_den_coef[nnode];
   string         nodetitle[nnode];
   //
-  inode=0;
+  inode=0;//0
   nodegammaname.push_back("Gamma128");     
   nodename.push_back("S035B20");    
-  nodetitle[inode]="G(eta K- nu(tau))/G(total)";
+  nodetitle[inode]="G(K- eta nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );              
-  ++inode;  //1
+  ++inode;//1
   nodegammaname.push_back("Gamma19by13");  
   nodename.push_back("S035B21"); 
-  nodetitle[inode]="G(h- 2pi0 nu(tau) (ex.K0))/G(h- pi0 nu(tau))";
+  nodetitle[inode]="G(h- 2pi0 nu(tau) (ex. K0)) / G(h- pi0 nu(tau))";
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(16 );       node_den_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(182);       node_den_coef[inode].push_back(1.        );               
-  ++inode;  //2
+  ++inode;//2
   nodegammaname.push_back("Gamma26by13"); 
   nodename.push_back("S035B22"); 
-  nodetitle[inode]="G(h- 3pi0 nu(tau))/G(h- pi0 nu(tau))";
+  nodetitle[inode]="G(h- 3pi0 nu(tau)) / G(h- pi0 nu(tau))";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
@@ -1037,63 +2583,73 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(16 );       node_den_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(182);       node_den_coef[inode].push_back(1.        );               
-  ++inode; //3
+  ++inode;//3
   nodegammaname.push_back("Gamma30"); 
   nodename.push_back("S035B23"); 
-  nodetitle[inode]="G(h- 4pi0 nu(tau) (ex.K0,eta))/G(total)";
+  nodetitle[inode]="G(h- 4pi0 nu(tau) (ex. K0, eta)) / G(total)";
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );              
-  ++inode; //4
+  ++inode;//4
   nodegammaname.push_back("Gamma76by54"); 
   nodename.push_back("S035B25"); 
-  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )";
+  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);               
-  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);               
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);               
-  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(4.3070E-01);               
-  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(6.8610E-01);               
-  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);              
+  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);              
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);              
+  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(3.4310E-01);              
+  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(3.4310E-01);              
+  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(3.4310E-01);              
+  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(4.3070E-01);              
+  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(6.8610E-01);              
+  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );              
   node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);               
+  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);              
   node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);               
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(9.1010E-01);      // pi- omega
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(9.1010E-01);      // K-  omega
+#endif
   ++inode;//5
   nodegammaname.push_back("Gamma152by54"); 
   nodename.push_back("S035B26"); 
-  nodetitle[inode]="G(h- omega pi0 nu(tau))/G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )";
+  nodetitle[inode]="G(h- omega pi0 nu(tau)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);               
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);               
-  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(4.3070E-01);               
-  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(6.8610E-01);               
-  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);               
-  node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(3.4310E-01);               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);               
+  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);              
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);              
+  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(3.4310E-01);              
+  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(3.4310E-01);              
+  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(3.4310E-01);              
+  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(4.3070E-01);              
+  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(6.8610E-01);              
+  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );              
+  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);              
+  node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(3.4310E-01);              
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(9.1010E-01);      // pi- omega
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(9.1010E-01);      // K-  omega
+#endif
   ++inode;//6
   nodegammaname.push_back("Gamma152by76"); 
   nodename.push_back("S035B27"); 
-  nodetitle[inode]="G(h- omega pi0 nu(tau))/G(h- h- h+ 2pi0 nu(tau) (ex.K0))";
+  nodetitle[inode]="G(h- omega pi0 nu(tau)) / G(h- h- h+ 2pi0 nu(tau) (ex. K0))";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
   node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(8.8800E-01);               
   node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );               
@@ -1101,43 +2657,43 @@ int main(int argc, char* argv[]){
   ++inode;//7
   nodegammaname.push_back("Gamma16"); 
   nodename.push_back("S035B29"); 
-  nodetitle[inode]="G(K- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(K- pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );              
   ++inode;//8
   nodegammaname.push_back("Gamma23"); 
   nodename.push_back("S035B30"); 
-  nodetitle[inode]="G(K- 2pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(K- 2pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
   ++inode;//9
   nodegammaname.push_back("Gamma28"); 
   nodename.push_back("S035B31"); 
-  nodetitle[inode]="G(K- 3pi0 nu(tau) (ex.K0, eta))/G(total)";
+  nodetitle[inode]="G(K- 3pi0 nu(tau) (ex. K0, eta)) / G(total)";
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );              
   ++inode;//10
   nodegammaname.push_back("Gamma35"); 
   nodename.push_back("S035B32"); 
-  nodetitle[inode]="G(pi- Kbar0 nu(tau))/G(total)";
+  nodetitle[inode]="G(Kbar0 pi- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );              
   ++inode;//11
   nodegammaname.push_back("Gamma40"); 
   nodename.push_back("S035B33"); 
-  nodetitle[inode]="G(pi- Kbar0 pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(Kbar0 pi- pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );              
   ++inode;//12
   nodegammaname.push_back("Gamma42"); 
   nodename.push_back("S035B34"); 
-  nodetitle[inode]="G(K- K0 pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(K- pi0 K0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );              
   ++inode;//13
   nodegammaname.push_back("Gamma92"); 
   nodename.push_back("S035B37"); 
-  nodetitle[inode]="G(K- K+ pi- >=0 neut.  nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- K- K+ >=0 neutrals nu(tau)) / G(total)";
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
   ++inode;//14
   nodegammaname.push_back("Gamma33"); 
   nodename.push_back("S035B43"); 
-  nodetitle[inode]="G(K(S)0 (particles)- nu(tau))/G(total)";
+  nodetitle[inode]="G(K(S)0 (particles)- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(5.0000E-01);              
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(5.0000E-01);               
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(5.0000E-01);               
@@ -1147,7 +2703,7 @@ int main(int argc, char* argv[]){
   ++inode;//15
   nodegammaname.push_back("Gamma106"); 
   nodename.push_back("S035B45"); 
-  nodetitle[inode]="G(( 5pi )- nu(tau))/G(total)";
+  nodetitle[inode]="G((5pi)- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);               
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );               
@@ -1157,23 +2713,28 @@ int main(int argc, char* argv[]){
   ++inode;//16
   nodegammaname.push_back("Gamma46"); 
   nodename.push_back("S035B51"); 
-  nodetitle[inode]="G(pi- K0 Kbar0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- K0 Kbar0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(2.0000E+00);              
   node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );               
   ++inode;//17
   nodegammaname.push_back("Gamma66"); 
   nodename.push_back("S035B53"); 
-  nodetitle[inode]="G(h- h- h+ pi0 nu(tau) (ex.K0))/G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);               
+  nodetitle[inode]="G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)";
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);      
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);           
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );           
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );           
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );           
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega             
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+#endif
   ++inode;//18
   nodegammaname.push_back("Gamma67"); 
   nodename.push_back("S035B54"); 
-  nodetitle[inode]="G(h- h- h+ pi0 nu(tau) (ex. K0, omega))/G(total)";
+  nodetitle[inode]="G(h- h- h+ pi0 nu(tau) (ex. K0, omega)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
@@ -1181,62 +2742,77 @@ int main(int argc, char* argv[]){
   ++inode;//19
   nodegammaname.push_back("Gamma20"); 
   nodename.push_back("S035B55"); 
-  nodetitle[inode]="G(pi- 2pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(pi- 2pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );              
   ++inode;//20
   nodegammaname.push_back("Gamma27"); 
   nodename.push_back("S035B56"); 
-  nodetitle[inode]="G(pi- 3pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(pi- 3pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );              
   ++inode;//21
   nodegammaname.push_back("Gamma78"); 
   nodename.push_back("S035B57"); 
-  nodetitle[inode]="G(h- h- h+ 3pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- h- h+ 3pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );              
   ++inode;//22
   nodegammaname.push_back("Gamma152"); 
   nodename.push_back("S035B58"); 
-  nodetitle[inode]="G(h- omega pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- pi0 omega nu(tau)) / G(total)";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
   ++inode;//23
   nodegammaname.push_back("Gamma76"); 
   nodename.push_back("S035B59"); 
-  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
   node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);               
   ++inode;//24
   nodegammaname.push_back("Gamma57"); 
   nodename.push_back("S035B62"); 
-  nodetitle[inode]="G(h- h- h+ nu(tau) (ex.K0))/G(total)";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );              
+  nodetitle[inode]="G(h- h- h+ nu(tau) (ex. K0)) / G(total)";
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );        
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);               
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );            
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);       // h-  omega            
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);       // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.7000E-02);       // K-  omega
+#endif
   ++inode;//25
   nodegammaname.push_back("Gamma55"); 
   nodename.push_back("S035B63"); 
-  nodetitle[inode]="G( h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong''))/G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.1010E-01);               
+  nodetitle[inode]="G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)";
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);      
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);         
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );         
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );          
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);         
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.1010E-01);      // h-  omega             
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.1010E-01);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.1010E-01);      // K-  omega
+#endif
   ++inode;//26
   nodegammaname.push_back("Gamma57by55"); 
   nodename.push_back("S035B64"); 
-  nodetitle[inode]="G(h- h- h+ nu(tau) (ex.K0))/G( h- h- h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi+ pi-)(``3-prong''))";
+  nodetitle[inode]="G(h- h- h+ nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong''))";
   node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );            
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega             
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.7000E-02);      // K-  omega
+#endif
   node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);               
   node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);               
   node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );               
@@ -1248,46 +2824,51 @@ int main(int argc, char* argv[]){
   node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);               
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(9.1010E-01);      // pi- omega         
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(9.1010E-01);      // K-  omega
+#endif
   ++inode;//27
   nodegammaname.push_back("Gamma34"); 
   nodename.push_back("S035B67"); 
-  nodetitle[inode]="G(h- Kbar0 nu(tau))/G(total)";
+  nodetitle[inode]="G(Kbar0 h- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
   ++inode;//28
   nodegammaname.push_back("Gamma39"); 
   nodename.push_back("S035B68"); 
-  nodetitle[inode]="G(h- Kbar0 pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(Kbar0 h- pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );               
   ++inode;//29
   nodegammaname.push_back("Gamma47"); 
   nodename.push_back("S035B69"); 
-  nodetitle[inode]="G(pi- K(S)0 K(S)0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- K(S)0 K(S)0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );              
   ++inode;//30
   nodegammaname.push_back("Gamma58"); 
   nodename.push_back("S035B71"); 
-  nodetitle[inode]="G(h- h- h+ nu(tau) (ex.K0,omega))/G(total)";
+  nodetitle[inode]="G(h- h- h+ nu(tau) (ex. K0, omega)) / G(total)";
   node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
   ++inode;//31
   nodegammaname.push_back("Gamma77");
   nodename.push_back("S035B72"); 
-  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex.K0,omega,eta))/G(total)";
+  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)";
   node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );              
   ++inode;//32
   nodegammaname.push_back("Gamma8"); 
   nodename.push_back("S035B73"); 
-  nodetitle[inode]="G(h- nu(tau))/G(total)";
+  nodetitle[inode]="G(h- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
   ++inode;//33
   nodegammaname.push_back("Gamma18");
   nodename.push_back("S035B74"); 
-  nodetitle[inode]="G(h- 2pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- 2pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.5700E-01);               
   node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
@@ -1295,7 +2876,7 @@ int main(int argc, char* argv[]){
   ++inode;//34
   nodegammaname.push_back("Gamma1");
   nodename.push_back("S035B75"); 
-  nodetitle[inode]="G(particle->=0 neutrals >=0K0 nu(tau)  (``1-prong''))/G(total)";
+  nodetitle[inode]="G((particles)- >=0 neutrals >=0 K0 nu(tau) (``1-prong'')) / G(total)";
   node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);               
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
@@ -1316,23 +2897,33 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(7.0800E-01);               
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);      // h-  omega        
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.0000E-02);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.0000E-02);      // K-  omega
+#endif
   ++inode;//35
   nodegammaname.push_back("Gamma65");
   nodename.push_back("S035B76"); 
-  nodetitle[inode]="G(h- h- h+ pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- h- h+ pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);               
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);               
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );  
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+#endif
   ++inode;//36
   nodegammaname.push_back("Gamma75");
   nodename.push_back("S035B77");
-  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(4.3070E-01);               
   node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
@@ -1340,7 +2931,7 @@ int main(int argc, char* argv[]){
   ++inode;//37
   nodegammaname.push_back("Gamma64");
   nodename.push_back("S035B78"); 
-  nodetitle[inode]="G(h- h- h+ >=1 pi0 nu(tau) (ex. K0))/G(total)";
+  nodetitle[inode]="G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
   node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
@@ -1348,25 +2939,30 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);               
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);        
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega              
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+#endif
   ++inode;//38
   nodegammaname.push_back("Gamma29"); 
   nodename.push_back("S035B79"); 
-  nodetitle[inode]="G(h- 4pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(h- 4pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.1900E-01);               
   ++inode;//39
   nodegammaname.push_back("Gamma8by5");
   nodename.push_back("S035B97"); 
-  nodetitle[inode]="G(h- nu(tau))/G(e- nubar(e) nu(tau))";
+  nodetitle[inode]="G(h- nu(tau)) / G(e- nubar(e) nu(tau))";
   node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
   ++inode;//40
   nodegammaname.push_back("Gamma12");
   nodename.push_back("S035C01"); 
-  nodetitle[inode]="G(h- >= 1pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(h- >= 1pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2500E-01);              
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
@@ -1379,7 +2975,7 @@ int main(int argc, char* argv[]){
   ++inode;//41
   nodegammaname.push_back("Gamma25"); 
   nodename.push_back("S035C02"); 
-  nodetitle[inode]="G(h- >= 3pi0 nu(tau) (ex. K0))/G(total)";
+  nodetitle[inode]="G(h- >= 3pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2500E-01);              
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
@@ -1388,7 +2984,7 @@ int main(int argc, char* argv[]){
   ++inode;//42
   nodegammaname.push_back("Gamma74");
   nodename.push_back("S035C03");
-  nodetitle[inode]="G(h- h- h+ >= 2pi0 nu(tau) (ex. K0))/G(total)";
+  nodetitle[inode]="G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
   node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
@@ -1396,120 +2992,152 @@ int main(int argc, char* argv[]){
   ++inode;//43
   nodegammaname.push_back("Gamma48");
   nodename.push_back("S035C1");
-  nodetitle[inode]="G(pi- K(S)0 K(L)0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- K(S)0 K(L)0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );              
   ++inode;//44
   nodegammaname.push_back("Gamma59");
   nodename.push_back("S035C18"); 
-  nodetitle[inode]="G(pi- pi+ pi- nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- pi- pi+ nu(tau)) / G(total)";
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(3.4310E-01);              
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);               
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega             
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
+#endif
   ++inode;//45
   nodegammaname.push_back("Gamma60");
   nodename.push_back("S035C19");
-  nodetitle[inode]="G(pi- pi+ pi- nu(tau) (ex.K0))/G(total)";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);               
+  nodetitle[inode]="G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)";
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );      
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega             
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
+#endif
   ++inode;//46
   nodegammaname.push_back("Gamma62");
   nodename.push_back("S035C20");
-  nodetitle[inode]="G(pi- pi+ pi- nu(tau) (ex.K0,omega))/G(total)";
+  nodetitle[inode]="G(pi- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)";
   node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );              
   ++inode;//47
   nodegammaname.push_back("Gamma85");
   nodename.push_back("S035C21");
-  nodetitle[inode]="G(K- pi+ pi- nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
   ++inode;//48
   nodegammaname.push_back("Gamma68");
   nodename.push_back("S035C22");
-  nodetitle[inode]="G(pi- pi+ pi- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- pi- pi+ pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);              
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+#endif
   ++inode;//49
   nodegammaname.push_back("Gamma69");
   nodename.push_back("S035C23");
-  nodetitle[inode]="G(pi- pi+ pi- pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(pi- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);              
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega    
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+#endif
   ++inode;//50
   nodegammaname.push_back("Gamma70");
   nodename.push_back("S035C24");
-  nodetitle[inode]="G(pi- pi+ pi- pi0 nu(tau) (ex.K0,omega))/G(total)";
+  nodetitle[inode]="G(pi- pi- pi+ pi0 nu(tau) (ex. K0, omega)) / G(total)";
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );              
   ++inode;//51
   nodegammaname.push_back("Gamma88"); 
   nodename.push_back("S035C25");
-  nodetitle[inode]="G(K- pi+ pi- pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
   ++inode;//52
   nodegammaname.push_back("Gamma80"); 
   nodename.push_back("S035C31"); 
-  nodetitle[inode]="G(K- h+ pi- nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(K- pi- h+ nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
   ++inode;//53
   nodegammaname.push_back("Gamma80by60"); 
   nodename.push_back("S035C32"); 
-  nodetitle[inode]="G(K- h+ pi- nu(tau) (ex.K0))/G(pi- pi+ pi- nu(tau) (ex.K0))";
+  nodetitle[inode]="G(K- pi- h+ nu(tau) (ex. K0)) / G(pi- pi- pi+ nu(tau) (ex. K0))";
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(1.7000E-02);               
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );      
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(1.7000E-02);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(1.7000E-02);      // pi- omega
+#endif
   ++inode;//54
   nodegammaname.push_back("Gamma81"); 
   nodename.push_back("S035C33"); 
-  nodetitle[inode]="G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
   ++inode;//55
   nodegammaname.push_back("Gamma81by69");
   nodename.push_back("S035C34");
-  nodetitle[inode]="G(K- h+ pi- pi0 nu(tau) (ex.K0))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0))";
+  nodetitle[inode]="G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(1.7000E-02);               
   node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);               
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(8.8800E-01);      // pi- omega
+#endif
   ++inode;//56
   nodegammaname.push_back("Gamma93by60");
   nodename.push_back("S035C35");
-  nodetitle[inode]="G(K- K+ pi- nu(tau))/G(pi- pi+ pi- nu(tau) (ex.K0))";
+  nodetitle[inode]="G(pi- K- K+ nu(tau)) / G(pi- pi- pi+ nu(tau) (ex. K0))";
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(1.7000E-02);               
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );      
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(1.7000E-02);      // h-  omega     
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(1.7000E-02);      // pi- omega
+#endif
   ++inode;//57
   nodegammaname.push_back("Gamma94by69");
   nodename.push_back("S035C36");
-  nodetitle[inode]="G(K- K+ pi- pi0 nu(tau))/G(pi- pi+ pi- pi0 nu(tau) (ex.K0))";
+  nodetitle[inode]="G(pi- K- K+ pi0 nu(tau)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))";
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );              
   node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(1.7000E-02);               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);               
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );      
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);      // h-  omega    
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(8.8800E-01);      // pi- omega
+#endif
   ++inode;//58
   nodegammaname.push_back("Gamma38");
   nodename.push_back("S035C38");
-  nodetitle[inode]="G(K- K0 >=0pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(K- K0 >=0 pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
   ++inode;//59
   nodegammaname.push_back("Gamma83");
   nodename.push_back("S035C40"); 
-  nodetitle[inode]="G(K- pi+ pi- >=0pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ >=0 pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
   ++inode;//60
   nodegammaname.push_back("Gamma110");
   nodename.push_back("S035C47"); 
-  nodetitle[inode]="G(X- (S=-1) nu(tau))/G(total)";
+  nodetitle[inode]="G(X- (S=-1) nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
@@ -1522,63 +3150,78 @@ int main(int argc, char* argv[]){
   ++inode;//61
   nodegammaname.push_back("Gamma89");
   nodename.push_back("S035C54"); 
-  nodetitle[inode]="G(K- pi+ pi- pi0 nu(tau) (ex.K0,eta))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau) (ex. K0, eta)) / G(total)";
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );              
   ++inode;//62
   nodegammaname.push_back("Gamma84");
   nodename.push_back("S035C6"); 
-  nodetitle[inode]="G(K- pi+ pi- nu(tau))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ nu(tau)) / G(total)";
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
   ++inode;//63
   nodegammaname.push_back("Gamma87");
   nodename.push_back("S035C7");
-  nodetitle[inode]="G(K- pi+ pi- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
   ++inode;//64
   nodegammaname.push_back("Gamma94"); 
   nodename.push_back("S035C8");
-  nodetitle[inode]="G(K- K+ pi- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- K- K+ pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );             
   ++inode;//65
   nodegammaname.push_back("Gamma3"); 
   nodename.push_back("S035R1");
-  nodetitle[inode]="G(mu- nubar(mu) nu(tau))/G(total)";
+  nodetitle[inode]="G(mu- nubar(mu) nu(tau)) / G(total)";
   node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
   ++inode;//66
   nodegammaname.push_back("Gamma150by66"); 
   nodename.push_back("S035R14");
-  nodetitle[inode]="G(h- omega nu(tau))/G(h- h- h+ pi0 nu(tau) (ex.K0))";
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );              
+  nodetitle[inode]="G(h- omega nu(tau)) / G(h- h- h+ pi0 nu(tau) (ex. K0))";
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );      // h- omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      // K- omega
+#endif
   node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.2600E-01);               
   node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(1.7000E-02);               
   node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );               
   node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);               
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );      
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);      // h- omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(8.8800E-01);      // K- omega
+#endif
   ++inode;//67
   nodegammaname.push_back("Gamma149"); 
   nodename.push_back("S035R15"); 
-  nodetitle[inode]="G(h- omega  >=0 neutrals  nu(tau))/G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );               
+  nodetitle[inode]="G(h- omega >=0 neutrals nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        ); 
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );      // h- omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      // K- omega
+#endif
   ++inode;//68
   nodegammaname.push_back("Gamma5"); 
   nodename.push_back("S035R2");
-  nodetitle[inode]="G(e- nubar(e) nu(tau))/G(total)";
+  nodetitle[inode]="G(e- nubar(e) nu(tau)) / G(total)";
   node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(1.        );              
   ++inode;//69
   nodegammaname.push_back("Gamma19"); 
   nodename.push_back("S035R20");
-  nodetitle[inode]="G(h- 2pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(h- 2pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
   ++inode;//70
   nodegammaname.push_back("Gamma26");
   nodename.push_back("S035R21");
-  nodetitle[inode]="G(h- 3pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- 3pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
@@ -1587,12 +3230,17 @@ int main(int argc, char* argv[]){
   ++inode;//71
   nodegammaname.push_back("Gamma150");
   nodename.push_back("S035R23");
-  nodetitle[inode]="G(h- omega nu(tau))/G(total)";
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );              
+  nodetitle[inode]="G(h- omega nu(tau)) / G(total)";
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      // K-  omega
+#endif
   ++inode;//72
   nodegammaname.push_back("Gamma2");
   nodename.push_back("S035R24");
-  nodetitle[inode]="G(particle->=0 neutrals >=0K(L)0 nu(tau) )/G(total)";
+  nodetitle[inode]="G((particles)- >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);               
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
@@ -1612,12 +3260,17 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(3.1390E-01);               
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(7.0800E-01);               
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(6.5690E-01);               
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);               
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.0000E-02);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.0000E-02);      // K-  omega
+#endif
   ++inode;//73
   nodegammaname.push_back("Gamma31");
   nodename.push_back("S035R26");
-  nodetitle[inode]="G(K- >=0pi0 >=0K0  >=0gamma  nu(tau))/G(total)";
+  nodetitle[inode]="G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);              
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
@@ -1628,7 +3281,7 @@ int main(int argc, char* argv[]){
   ++inode;//74
   nodegammaname.push_back("Gamma32");
   nodename.push_back("S035R27");
-  nodetitle[inode]="G(K- >=1 (pi0 or K0 or gamma)  nu(tau))/G(total)";
+  nodetitle[inode]="G(K- >=1 (pi0 or K0 or gamma) nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);              
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
@@ -1638,17 +3291,22 @@ int main(int argc, char* argv[]){
   ++inode;//75
   nodegammaname.push_back("Gamma56");
   nodename.push_back("S035R28");
-  nodetitle[inode]="G(h- h- h+ nu(tau))/G(total)";
+  nodetitle[inode]="G(h- h- h+ nu(tau)) / G(total)";
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(3.4310E-01);              
   node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);               
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.7000E-02);      // K-  omega
+#endif
   ++inode;//76
   nodegammaname.push_back("Gamma63");
   nodename.push_back("S035R30");
-  nodetitle[inode]="G(h- h- h+ >=1 neutrals  nu(tau))/G(total)";
+  nodetitle[inode]="G(h- h- h+ >=1 neutrals nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
   node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
@@ -1661,11 +3319,16 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+#endif
   ++inode;//77
   nodegammaname.push_back("Gamma54");
   nodename.push_back("S035R31");
-  nodetitle[inode]="G(h- h- h+ >=0 neutrals >=0K(L)0 nu(tau) )/G(total)";
+  nodetitle[inode]="G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(3.4310E-01);               
@@ -1683,22 +3346,27 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);               
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.1010E-01);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.1010E-01);      // h-  omega         
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.1010E-01);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.1010E-01);      // K-  omega
+#endif
   ++inode;//78
   nodegammaname.push_back("Gamma126");
   nodename.push_back("S035R32");
-  nodetitle[inode]="G(eta pi- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- pi0 eta nu(tau)) / G(total)";
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(1.        );              
   ++inode;//79
   nodegammaname.push_back("Gamma102");
   nodename.push_back("S035R33");
-  nodetitle[inode]="G( 3h- 2h+ >=0 neutrals  nu(tau)  (ex. K(S)0 --> pi- pi+)(``5-prong''))/G(total)";
+  nodetitle[inode]="G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)";
   node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(1.        );               
   ++inode;//80
   nodegammaname.push_back("Gamma79");
   nodename.push_back("S035R34");
-  nodetitle[inode]="G(K- h+ h- >=0 neutrals  nu(tau))/G(total)";
+  nodetitle[inode]="G(K- h- h+ >=0 neutrals nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
   node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
@@ -1709,22 +3377,22 @@ int main(int argc, char* argv[]){
   ++inode;//81
   nodegammaname.push_back("Gamma103");
   nodename.push_back("S035R38");
-  nodetitle[inode]="G(3h- 2h+ nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(3h- 2h+ nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(1.        );              
   ++inode;//82
   nodegammaname.push_back("Gamma104");
   nodename.push_back("S035R39");
-  nodetitle[inode]="G(3h- 2h+ pi0 nu(tau) (ex.K0))/G(total)";
+  nodetitle[inode]="G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)";
   node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(1.        );              
   ++inode;//83
   nodegammaname.push_back("Gamma93");
   nodename.push_back("S035R40");
-  nodetitle[inode]="G(K- K+ pi- nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- K- K+ nu(tau)) / G(total)";
   node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );              
   ++inode;//84
   nodegammaname.push_back("Gamma82");
   nodename.push_back("S035R41");
-  nodetitle[inode]="G(K- pi+ pi- >=0 neutrals  nu(tau))/G(total)";
+  nodetitle[inode]="G(K- pi- pi+ >=0 neutrals nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
   node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
   node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
@@ -1733,7 +3401,7 @@ int main(int argc, char* argv[]){
   ++inode;//85
   nodegammaname.push_back("Gamma11");
   nodename.push_back("S035R42");
-  nodetitle[inode]="G(h- >=1 neutrals nu(tau))/G(total)";
+  nodetitle[inode]="G(h- >=1 neutrals nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);              
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.0000E-02);               
@@ -1749,11 +3417,16 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(9.8500E-02);               
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(7.0800E-01);               
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);               
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);      // h-  omega
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.0000E-02);      // pi- omega
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.0000E-02);      // K-  omega
+#endif
   ++inode;//86
   nodegammaname.push_back("Gamma7");
   nodename.push_back("S035R43");
-  nodetitle[inode]="G(h- >=0K(L)0  nu(tau))/G(total)";
+  nodetitle[inode]="G(h- >=0 K(L)0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(5.0000E-01);              
   node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );               
@@ -1762,7 +3435,7 @@ int main(int argc, char* argv[]){
   ++inode;//87
   nodegammaname.push_back("Gamma17");
   nodename.push_back("S035R44");
-  nodetitle[inode]="G(h- >= 2pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- >=2 pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
@@ -1778,39 +3451,39 @@ int main(int argc, char* argv[]){
   ++inode;//88
   nodegammaname.push_back("Gamma37");
   nodename.push_back("S035R46");
-  nodetitle[inode]="G(K- K0 nu(tau))/G(total)";
+  nodetitle[inode]="G(K- K0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );              
   ++inode;//89
   nodegammaname.push_back("Gamma3by5");
   nodename.push_back("S035R5");
-  nodetitle[inode]="G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau))";
+  nodetitle[inode]="G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))";
   node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
   node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
   ++inode;//90
   nodegammaname.push_back("Gamma9");
   nodename.push_back("S035R6");
-  nodetitle[inode]="G(pi- nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );              
   ++inode;//91
   nodegammaname.push_back("Gamma10");
   nodename.push_back("S035R7");
-  nodetitle[inode]="G(K- nu(tau))/G(total)";
+  nodetitle[inode]="G(K- nu(tau)) / G(total)";
   node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );              
   ++inode;//92
   nodegammaname.push_back("Gamma14");
   nodename.push_back("S035R8");
-  nodetitle[inode]="G(pi- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(pi- pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );              
   ++inode;//93
   nodegammaname.push_back("Gamma13"); 
   nodename.push_back("S035R84"); 
-  nodetitle[inode]="G(h- pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );              
   node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
   ++inode;//94
   nodegammaname.push_back("Gamma24");
   nodename.push_back("S035R97");
-  nodetitle[inode]="G(h- >= 3pi0 nu(tau))/G(total)";
+  nodetitle[inode]="G(h- >= 3pi0 nu(tau)) / G(total)";
   node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
   node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
   node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
@@ -1820,60 +3493,145 @@ int main(int argc, char* argv[]){
   node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(9.8500E-02);               
   node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.1900E-01);               
   ++inode;//95
+  nodegammaname.push_back("Gamma9by5");
+  nodename.push_back("S035Y01");
+  nodetitle[inode]="G(pi- nu(tau)) / G(e- nubar(e) nu(tau))";
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );
+  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
+  ++inode;//96
+  nodegammaname.push_back("Gamma10by5");
+  nodename.push_back("S035Y02");
+  nodetitle[inode]="G(K- nu(tau)) / G(e- nubar(e) nu(tau))";
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );
+  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
+  ++inode;//97
   nodegammaname.push_back("Gamma10by9");
-  nodename.push_back("S035Z05");
-  nodetitle[inode]="G(K- nu(tau))/G(pi- nu(tau))";
+  nodename.push_back("S035Y03");
+  nodetitle[inode]="G(K- nu(tau)) / G(pi- nu(tau))";
   node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );
   node_den_parm[inode].push_back(12 );       node_den_coef[inode].push_back(1.        );               
-  ++inode;//96
-  nodegammaname.push_back("GammaAll");
+#if defined USING_NBASE36 || defined USING_NBASE37
+  ++inode;//98
+  nodegammaname.push_back("Gamma130");
+  nodename.push_back("S035C27");
+  nodetitle[inode]="G(K- pi0 eta nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(1.        );
+  ++inode;//99
+  nodegammaname.push_back("Gamma132");
+  nodename.push_back("S035C28");
+  nodetitle[inode]="G(Kbar0 pi- eta nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );
+  ++inode;//100
+  nodegammaname.push_back("Gamma43");
+  nodename.push_back("S035C37");
+  nodetitle[inode]="G(Kbar0 pi- >=1 pi0 nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );
+  ++inode;//101
+  nodegammaname.push_back("Gamma44");
+  nodename.push_back("S035B98");
+  nodetitle[inode]="G(Kbar0 pi- 2pi0 nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );
+  ++inode;//102
+  nodegammaname.push_back("Gamma53");
+  nodename.push_back("S035C5");
+  nodetitle[inode]="G(Kbar0 h- h- h+ nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );
+  ++inode;//103
+  nodegammaname.push_back("Gamma800");
+  nodename.push_back("S035Z01");
+  nodetitle[inode]="G(pi- omega nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );
+  ++inode;//104
+  nodegammaname.push_back("Gamma151");
+  nodename.push_back("S035C61");
+  nodetitle[inode]="G(K- omega nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );
+#if defined USING_NBASE37
+  ++inode;//105
+  nodegammaname.push_back("Gamma96");
+  nodename.push_back("S035C9");
+  nodetitle[inode]="G(K- K- K+ nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(0.588447); // 1/1.699387
+  ++inode;//106
+  nodegammaname.push_back("Gamma801");
+  nodename.push_back("S035Z02");
+  nodetitle[inode]="G(K- phi nu(tau) (phi->KK)) / G(total)";
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );
+#endif
+#endif
+  ++inode;//"nnode"-2
+  nodegammaname.push_back("GammaAll"); // sum of all base nodes  
   nodename.push_back("S035S01");
   nodetitle[inode]="G(total)";
-  node_num_parm[inode].push_back(  1);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(  2);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back( 12);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(  7);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back( 16);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back( 62);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(  5);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(  4);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back( 58);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(  8);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(  3);       node_num_coef[inode].push_back(1.        );               
-  ++inode;//97
-  nodegammaname.push_back("GammaXs");
+  node_num_parm[inode].push_back(  1);       node_num_coef[inode].push_back(1.        );      //1
+  node_num_parm[inode].push_back(  2);       node_num_coef[inode].push_back(1.        );      //2
+  node_num_parm[inode].push_back( 12);       node_num_coef[inode].push_back(1.        );      //3
+  node_num_parm[inode].push_back(  7);       node_num_coef[inode].push_back(1.        );      //4
+  node_num_parm[inode].push_back( 16);       node_num_coef[inode].push_back(1.        );      //5
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );      //6
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );      //7
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );      //8
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );      //9
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );      //10
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );      //11
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );      //12
+  node_num_parm[inode].push_back( 62);       node_num_coef[inode].push_back(1.        );      //13
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );      //14
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );      //15
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );      //16
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );      //17
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );      //18
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );      //19
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );      //20
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );      //21
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );      //22
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );      //23
+  node_num_parm[inode].push_back(  5);       node_num_coef[inode].push_back(1.        );      //24
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );      //25
+  node_num_parm[inode].push_back(  4);       node_num_coef[inode].push_back(1.        );      //26
+  node_num_parm[inode].push_back( 58);       node_num_coef[inode].push_back(1.        );      //27
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );      //28
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(  8);       node_num_coef[inode].push_back(1.        );      //29
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );      //30
+  node_num_parm[inode].push_back(  3);       node_num_coef[inode].push_back(1.        );      //31
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      //29
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      //30
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );      //31
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(1.        );      //32
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );      //33
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );      //34
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );      //35
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );      //36
+#endif
+  node_num_parm[inode].push_back(  3);       node_num_coef[inode].push_back(1.        );      //37
+#endif
+  ++inode;//"nnode"-1
+  nodegammaname.push_back("GammaXs"); // sum of strange base nodes
   nodename.push_back("S035S02");
-  nodetitle[inode]="G(strange)/G(total)";
-  node_num_parm[inode].push_back(  7);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );               
-  ++inode;//98
+  nodetitle[inode]="G(strange) / G(total)";
+  node_num_parm[inode].push_back(  7);       node_num_coef[inode].push_back(1.        );      //1       
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );      //2    
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );      //3 
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );      //4
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );      //5
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );      //6
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );      //7
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );      //8
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );      //9
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      //10
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(1.        );      //11
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );      //12
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );      //13
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );      //14
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );      //15
+#endif
+#endif
   //
   // Count number of parameters in numerator and denominator for each node
   //
@@ -1892,12 +3650,21 @@ int main(int argc, char* argv[]){
     a_nodename[inode] = (char*)(nodename[inode].data()); 
     //    cout << "inode = " << inode << " nodename = " << nodename[inode] << " a_nodename = " << a_nodename[inode] << endl;
   }
+  // DEFINE node_is_base
+  bool node_is_base[nnode];
+  for (inode=0;inode<nnode;++inode) {
+    node_is_base[inode] = (node_num_npar[inode]+node_den_npar[inode])==1;
+#if defined USING_NBASE37
+    if (inode==N_GAMMA96) node_is_base[inode] = false; // derived node [SPECIAL CASE : Gamma96 = (1/1.699387) * Gamma801]
+#endif
+  }
+  //
   // PRINT NODE DEFINITION 
   //
-  print_node_def(nnode, a_nodename, nodetitle, nodegammaname, 
+  print_node_def(nnode, a_nodename, nodetitle, nodegammaname, node_is_base,
 		 node_num_npar, node_num_parm, node_num_coef, 
 		 node_den_npar, node_den_parm, node_den_coef, 
-		 baseparm, basegamma);
+		 baseparm, basegamma, basetitle);
   //
   // DEFINE NODE DEPENDENCE ON BASE
   //
@@ -1920,9 +3687,19 @@ int main(int argc, char* argv[]){
   double** corrmat = new double*[200]; for (i=0;i<200;++i) corrmat[i] = new double[200];
   for (imeas1=0;imeas1<200;imeas1++) for (imeas2=0;imeas2<200;imeas2++) corrmat[imeas1][imeas2] = 0;
   //
-  cout << "Read data from : " << Form("s035-fit-no-babar-belle%s.data",salephhcorr.data()) << endl;
-  ifstream ifs(Form("s035-fit-no-babar-belle%s.data",salephhcorr.data())) ;
-  if (!ifs.good()) {cout << "Cannot open input file : " << Form("s035-fit-no-babar-belle%s.data",salephhcorr.data()) << endl ; exit(1) ;}
+#if defined USING_NBASE31 || defined USING_NBASE36
+  string measfilename = Form("s035-fit-no-babar-belle%s.data",salephhcorr.data());
+#elif defined USING_NBASE37
+  string measfilename = Form("s035-fit-with-babar-belle%s.data",salephhcorr.data());
+#endif
+  ifstream ifs(measfilename.data());
+  if (!ifs.good()) {
+    cout << Form("Cannot open input file : %s\n", measfilename.data());
+    exit(1);
+  } else {
+    cout << Form("Read input measurements from : %s\n", measfilename.data());
+  }
+  //
   while(ifs.good()) {
     if (ifs.eof()) break;
     char firstch(' ') ; ifs.get(firstch) ;
@@ -1988,12 +3765,16 @@ int main(int argc, char* argv[]){
   //
   // PRINT INFORMATION ABOUT INPUT MEASUREMENTS
   //
+#if defined USING_NBASE31 || defined USING_NBASE36
   FILE *measinfofile=fopen(Form("s035-fit-no-babar-belle%s.info",salephhcorr.data()),"w");  
+#elif defined USING_NBASE37
+  FILE *measinfofile=fopen(Form("s035-fit-with-babar-belle%s.info",salephhcorr.data()),"w");  
+#endif
   print_measinfo(measinfofile,
 		 nmeas, measnode, measvalue, measerror, corrmat,
 		 expname, meastitle, measgammaname,
-		 a_nodename, node_num_npar, node_den_npar, node_quan,
-		 nbase, baseparm, basegamma, basenode, basetitle,
+		 a_nodename, node_num_npar, node_den_npar, node_quan, node_is_base,
+		 nbase, baseparm, basegamma, basenodename, basetitle,
 		 newnode_all, nodegroup_all, ncycle, ncorrij, ifirstj, icorrj, veccorrij, ngroup);
   fclose(measinfofile);
   //
@@ -2028,7 +3809,7 @@ int main(int argc, char* argv[]){
   combine(uconstrain,
 	  nmeas, weak_none, weakcompare, nmeas_noweak,
 	  measnode, measvalue, InvMeasErrorMatrix,
-	  node_num_npar, node_den_npar, node_quan, node_parm, 
+	  node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	  nbase, basegamma, 
 	  baseseed, node_num, node_den, node_part, // <-- input may change
 	  basevalue_fit, // output
@@ -2060,7 +3841,7 @@ int main(int argc, char* argv[]){
     combine(uconstrain,
 	    nmeas, weak_none, weakcompare, nmeas_noweak,
 	    measnode, measvalue, InvMeasErrorMatrix,
-	    node_num_npar, node_den_npar, node_quan, node_parm, 
+	    node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	    nbase, basegamma, 
 	    baseseed, node_num, node_den, node_part, // <-- input may change
 	    basevalue_fit, // output
@@ -2081,7 +3862,7 @@ int main(int argc, char* argv[]){
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR    TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),baseseed[ibase],
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
 		 basetitle[ibase].data());
@@ -2132,7 +3913,7 @@ int main(int argc, char* argv[]){
       }
     }
     //
-    NodeError[inode] = TMath::Sqrt(NodeErrorMatrix[inode][inode]);
+    NodeError[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix[inode][inode]));
   }
   //
   int   nchisquare_tot=0; 
@@ -2175,15 +3956,15 @@ int main(int argc, char* argv[]){
   //
   cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot, nchisquare_tot);
   //
-  cout << Form("%s = %10.6f +- %10.6f (%10.6f sigma); %s = %10.6f +- %10.6f (%10.6f sigma)\n\n",
-	       nodetitle[nnode-2].data(),
-	       NodeValue[nnode-2],
-	       uconstrain?0:NodeError[nnode-2],
-	       uconstrain?0:(1-NodeValue[nnode-2])/NodeError[nnode-2],
-	       nodetitle[nnode-1].data(),
-	       NodeValue[nnode-1],
-	       NodeError[nnode-1],
-	       NodeValue[nnode-1]/NodeError[nnode-1]);
+  cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
+	       nodetitle[N_GAMMAALL].data(),
+	       NodeValue[N_GAMMAALL]*100.,
+	       uconstrain?0:NodeError[N_GAMMAALL]*100.,
+	       uconstrain?0:(1-NodeValue[N_GAMMAALL])/NodeError[N_GAMMAALL],
+	       nodetitle[N_GAMMAXS].data(),
+	       NodeValue[N_GAMMAXS]*100.,
+	       NodeError[N_GAMMAXS]*100.,
+	       NodeValue[N_GAMMAXS]/NodeError[N_GAMMAXS]);
   //
   // WRITE OUT MEASUREMENT FILE
   //
@@ -2214,7 +3995,7 @@ int main(int argc, char* argv[]){
     FILE *thisfile = avefile[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_none, weakcompare, measgammaname, measnode,
-		  node_parm, node_quan, 
+		  node_parm, node_quan, node_is_base,
 		  node_num_npar, node_num_parm, node_num_coef,
 		  node_den_npar, node_den_parm, node_den_coef,
 		  nbase, baseparm, basegamma, basetitle, first_quan, 
@@ -2248,7 +4029,7 @@ int main(int argc, char* argv[]){
   combine(uconstrain,
 	  nmeas, weak, weakcompare, nmeas_noweak,
 	  measnode, measvalue, InvMeasErrorMatrix,
-	  node_num_npar, node_den_npar, node_quan, node_parm, 
+	  node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	  nbase, basegamma, 
 	  baseseed, node_num, node_den, node_part, // <-- input may change
 	  basevalue_fit_noweak, // output
@@ -2282,7 +4063,7 @@ int main(int argc, char* argv[]){
     combine(uconstrain,
 	    nmeas, weak, weakcompare, nmeas_noweak,
 	    measnode, measvalue, InvMeasErrorMatrix,
-	    node_num_npar, node_den_npar, node_quan, node_parm, 
+	    node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	    nbase, basegamma, 
 	    baseseed, node_num, node_den, node_part, // <-- input may change
 	    basevalue_fit_noweak, // output
@@ -2303,7 +4084,7 @@ int main(int argc, char* argv[]){
   cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
 		 basevalue_fit_noweak[ibase],
@@ -2357,7 +4138,7 @@ int main(int argc, char* argv[]){
       }
     }
     //
-    NodeError_noweak[inode] = TMath::Sqrt(NodeErrorMatrix_noweak[inode][inode]);
+    NodeError_noweak[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_noweak[inode][inode]));
   }
   //
   int   nchisquare_tot_noweak=0; 
@@ -2400,21 +4181,21 @@ int main(int argc, char* argv[]){
   //
   cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_noweak, nchisquare_tot_noweak);
   //
-  cout << Form("%s = %10.6f +- %10.6f (%10.6f sigma); %s = %10.6f +- %10.6f (%10.6f sigma)\n\n",
-	       nodetitle[nnode-2].data(),
-	       NodeValue_noweak[nnode-2],
-	       uconstrain?0:NodeError_noweak[nnode-2],
-	       uconstrain?0:(1-NodeValue_noweak[nnode-2])/NodeError_noweak[nnode-2],
-	       nodetitle[nnode-1].data(),
-	       NodeValue_noweak[nnode-1],
-	       NodeError_noweak[nnode-1],
-	       NodeValue_noweak[nnode-1]/NodeError_noweak[nnode-1]);
+  cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
+	       nodetitle[N_GAMMAALL].data(),
+	       NodeValue_noweak[N_GAMMAALL]*100.,
+	       uconstrain?0:NodeError_noweak[N_GAMMAALL]*100.,
+	       uconstrain?0:(1-NodeValue_noweak[N_GAMMAALL])/NodeError_noweak[N_GAMMAALL],
+	       nodetitle[N_GAMMAXS].data(),
+	       NodeValue_noweak[N_GAMMAXS]*100.,
+	       NodeError_noweak[N_GAMMAXS]*100.,
+	       NodeValue_noweak[N_GAMMAXS]/NodeError_noweak[N_GAMMAXS]);
   //
   cout << "Summary of fit with [non-weak measurements only]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),baseseed[ibase],
 		 basevalue_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase],
 		 baseerror_fit_noweak[ibase]/baseerror_fit[ibase],
@@ -2768,7 +4549,7 @@ int main(int argc, char* argv[]){
   int weak_scaled[200];
   for (i=0;i<nmeas;++i){
     if (nchisquare_meas_noweak[i] > 0 ) {
-      nsig_scaled[i] = measerror[i]/((sqrt(nchisquare_meas_noweak[i]))*NodeError_noweak[measnode[i]]);
+      nsig_scaled[i] = measerror[i]/(TMath::Sqrt(nchisquare_meas_noweak[i])*NodeError_noweak[measnode[i]]);
     } else {
       nsig_scaled[i] = 999999;
     }
@@ -2787,7 +4568,7 @@ int main(int argc, char* argv[]){
   combine(uconstrain,
 	  nmeas, weak_scaled, weakcompare, nmeas_noweak,
 	  measnode, measvalue, InvMeasErrorMatrix_scaled_noweak,
-	  node_num_npar, node_den_npar, node_quan, node_parm, 
+	  node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	  nbase, basegamma, 
 	  baseseed, node_num, node_den, node_part, // <-- input may change
 	  basevalue_fit_noweak_scaled, // output
@@ -2821,7 +4602,7 @@ int main(int argc, char* argv[]){
     combine(uconstrain,
 	    nmeas, weak_scaled, weakcompare, nmeas_noweak,
 	    measnode, measvalue, InvMeasErrorMatrix_scaled_noweak,
-	    node_num_npar, node_den_npar, node_quan, node_parm, 
+	    node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	    nbase, basegamma, 
 	    baseseed, node_num, node_den, node_part, // <-- input may change
 	    basevalue_fit_noweak_scaled, // output
@@ -2842,7 +4623,7 @@ int main(int argc, char* argv[]){
   cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
 		 basevalue_fit_noweak_scaled[ibase],
@@ -2897,7 +4678,7 @@ int main(int argc, char* argv[]){
       }
     }
     //
-    NodeError_noweak_scaled[inode] = TMath::Sqrt(NodeErrorMatrix_noweak_scaled[inode][inode]);
+    NodeError_noweak_scaled[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_noweak_scaled[inode][inode]));
   }
   //
   int   nchisquare_tot_noweak_scaled=0; 
@@ -2940,21 +4721,21 @@ int main(int argc, char* argv[]){
   //
   cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_noweak_scaled, nchisquare_tot_noweak_scaled);
   //
-  cout << Form("%s = %10.6f +- %10.6f (%10.6f sigma); %s = %10.6f +- %10.6f (%10.6f sigma)\n\n",
-	       nodetitle[nnode-2].data(),
-	       NodeValue_noweak_scaled[nnode-2],
-	       uconstrain?0:NodeError_noweak_scaled[nnode-2],
-	       uconstrain?0:(1-NodeValue_noweak_scaled[nnode-2])/NodeError_noweak_scaled[nnode-2],
-	       nodetitle[nnode-1].data(),
-	       NodeValue_noweak_scaled[nnode-1],
-	       NodeError_noweak_scaled[nnode-1],
-	       NodeValue_noweak_scaled[nnode-1]/NodeError_noweak_scaled[nnode-1]);
+  cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
+	       nodetitle[N_GAMMAALL].data(),
+	       NodeValue_noweak_scaled[N_GAMMAALL]*100.,
+	       uconstrain?0:NodeError_noweak_scaled[N_GAMMAALL]*100.,
+	       uconstrain?0:(1-NodeValue_noweak_scaled[N_GAMMAALL])/NodeError_noweak_scaled[N_GAMMAALL],
+	       nodetitle[N_GAMMAXS].data(),
+	       NodeValue_noweak_scaled[N_GAMMAXS]*100.,
+	       NodeError_noweak_scaled[N_GAMMAXS]*100.,
+	       NodeValue_noweak_scaled[N_GAMMAXS]/NodeError_noweak_scaled[N_GAMMAXS]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),baseseed[ibase],
 		 basevalue_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase],
 		 baseerror_fit_noweak_scaled[ibase]/baseerror_fit[ibase],
@@ -2991,7 +4772,7 @@ int main(int argc, char* argv[]){
     FILE *thisfile = avefile_scaled[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_scaled, weakcompare, measgammaname, measnode,
-		  node_parm, node_quan, 
+		  node_parm, node_quan, node_is_base,
 		  node_num_npar, node_num_parm, node_num_coef,
 		  node_den_npar, node_den_parm, node_den_coef,
 		  nbase, baseparm, basegamma, basetitle, first_quan, 
@@ -3003,16 +4784,22 @@ int main(int argc, char* argv[]){
   //
   double measerror_rescaled[200];
   for (i=0;i<nmeas;++i){
-    //if (measnode[i]==102) {// NAME = S035C9 GAMMA = 96 TITLE = G(K- K+ K- nu(tau))/G(total)
-    //  double rescale = 5.435276;
-    if (measnode[i]==47) {// NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex.K0))/G(total)
+    measerror_rescaled[i] = measerror[i];
+#if defined USING_NBASE31 
+    if (measnode[i]==N_GAMMA85) {// NAME = S035C21 GAMMA = 85 TITLE = G(K- pi+ pi- nu(tau) (ex. K0)) / G(total)
       double rescale = 1;//1.59;
       measerror_rescaled[i] = measerror[i] * rescale;
       cout << i << " " << measnode[i]  << " " << measgammaname[i] << " " << measnodename[i] << " " << expname[i] << " " << meastitle[i] << " " 
 	   << NodeValue[measnode[i]] << " " << NodeError[measnode[i]] << " " << measvalue[i] << " " << measerror[i]*rescale << " inflated by Scale Factor = " << rescale << endl;
-    } else {
-      measerror_rescaled[i] = measerror[i];
     }
+#elif defined USING_NBASE37
+    if (measnode[i]==N_GAMMA96) {// NAME = S035C9 GAMMA = 96 TITLE = G(K- K+ K- nu(tau)) / G(total)
+      double rescale = 5.435276;	
+      measerror_rescaled[i] = measerror[i] * rescale;
+      cout << i << " " << measnode[i]  << " " << measgammaname[i] << " " << measnodename[i] << " " << expname[i] << " " << meastitle[i] << " " 
+	   << NodeValue[measnode[i]] << " " << NodeError[measnode[i]] << " " << measvalue[i] << " " << measerror[i]*rescale << " inflated by Scale Factor = " << rescale << endl;
+    }
+#endif
   }
   //
   TMatrixD MeasErrorMatrix_rescaled(nmeas,nmeas);
@@ -3059,7 +4846,7 @@ int main(int argc, char* argv[]){
   combine(uconstrain,
 	  nmeas, weak_none_rescaled, weakcompare, nmeas_noweak,
 	  measnode, measvalue, InvMeasErrorMatrix_rescaled,
-	  node_num_npar, node_den_npar, node_quan, node_parm, 
+	  node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	  nbase, basegamma, 
 	  baseseed, node_num, node_den, node_part, // <-- input may change
 	  basevalue_fit_rescaled, // output
@@ -3093,7 +4880,7 @@ int main(int argc, char* argv[]){
     combine(uconstrain,
 	    nmeas, weak_none_rescaled, weakcompare, nmeas_noweak,
 	    measnode, measvalue, InvMeasErrorMatrix_rescaled,
-	    node_num_npar, node_den_npar, node_quan, node_parm, 
+	    node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	    nbase, basegamma, 
 	    baseseed, node_num, node_den, node_part, // <-- input may change
 	    basevalue_fit_rescaled, // output
@@ -3114,7 +4901,7 @@ int main(int argc, char* argv[]){
   cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
 		 basevalue_fit_rescaled[ibase],
@@ -3168,7 +4955,7 @@ int main(int argc, char* argv[]){
       }
     }
     //
-    NodeError_rescaled[inode] = TMath::Sqrt(NodeErrorMatrix_rescaled[inode][inode]);
+    NodeError_rescaled[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_rescaled[inode][inode]));
   }
   //
   int   nchisquare_tot_rescaled=0; 
@@ -3211,21 +4998,21 @@ int main(int argc, char* argv[]){
   //
   cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_rescaled, nchisquare_tot_rescaled);
   //
-  cout << Form("%s = %10.6f +- %10.6f (%10.6f sigma); %s = %10.6f +- %10.6f (%10.6f sigma)\n\n",
-	       nodetitle[nnode-2].data(),
-	       NodeValue_rescaled[nnode-2],
-	       uconstrain?0:NodeError_rescaled[nnode-2],
-	       uconstrain?0:(1-NodeValue_rescaled[nnode-2])/NodeError_rescaled[nnode-2],
-	       nodetitle[nnode-1].data(),
-	       NodeValue_rescaled[nnode-1],
-	       NodeError_rescaled[nnode-1],
-	       NodeValue_rescaled[nnode-1]/NodeError_rescaled[nnode-1]);
+  cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
+	       nodetitle[N_GAMMAALL].data(),
+	       NodeValue_rescaled[N_GAMMAALL]*100.,
+	       uconstrain?0:NodeError_rescaled[N_GAMMAALL]*100.,
+	       uconstrain?0:(1-NodeValue_rescaled[N_GAMMAALL])/NodeError_rescaled[N_GAMMAALL],
+	       nodetitle[N_GAMMAXS].data(),
+	       NodeValue_rescaled[N_GAMMAXS]*100.,
+	       NodeError_rescaled[N_GAMMAXS]*100.,
+	       NodeValue_rescaled[N_GAMMAXS]/NodeError_rescaled[N_GAMMAXS]);
   //
   cout << "Summary of fit with [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),baseseed[ibase],
 		 basevalue_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase],
 		 baseerror_fit_rescaled[ibase]/baseerror_fit[ibase],
@@ -3262,7 +5049,7 @@ int main(int argc, char* argv[]){
     FILE *thisfile = avefile_rescaled[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_none_rescaled, weakcompare, measgammaname, measnode,
-		  node_parm, node_quan, 
+		  node_parm, node_quan, node_is_base,
 		  node_num_npar, node_num_parm, node_num_coef,
 		  node_den_npar, node_den_parm, node_den_coef,
 		  nbase, baseparm, basegamma, basetitle, first_quan, 
@@ -3284,7 +5071,7 @@ int main(int argc, char* argv[]){
   int weak_rescaled[200];
   for (i=0;i<nmeas;++i){
     if (nchisquare_meas_rescaled[i] > 0 ) {
-      nsig_rescaled[i] = measerror[i]/((sqrt(nchisquare_meas_rescaled[i]))*NodeError_rescaled[measnode[i]]);
+      nsig_rescaled[i] = measerror[i]/(TMath::Sqrt(nchisquare_meas_rescaled[i])*NodeError_rescaled[measnode[i]]);
     } else {
       nsig_rescaled[i] = 999999;
     }
@@ -3296,7 +5083,7 @@ int main(int argc, char* argv[]){
   combine(uconstrain,
 	  nmeas, weak_rescaled, weakcompare, nmeas_noweak,
 	  measnode, measvalue, InvMeasErrorMatrix_rescaled,
-	  node_num_npar, node_den_npar, node_quan, node_parm, 
+	  node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	  nbase, basegamma, 
 	  baseseed, node_num, node_den, node_part, // <-- input may change
 	  basevalue_fit_noweak_rescaled, // output
@@ -3330,7 +5117,7 @@ int main(int argc, char* argv[]){
     combine(uconstrain,
 	    nmeas, weak_rescaled, weakcompare, nmeas_noweak,
 	    measnode, measvalue, InvMeasErrorMatrix_rescaled,
-	    node_num_npar, node_den_npar, node_quan, node_parm, 
+	    node_num_npar, node_den_npar, node_quan, node_parm, node_is_base,
 	    nbase, basegamma, 
 	    baseseed, node_num, node_den, node_part, // <-- input may change
 	    basevalue_fit_noweak_rescaled, // output
@@ -3351,7 +5138,7 @@ int main(int argc, char* argv[]){
   cout << Form("# QUAN GAMMA  PARM   NODE      ORIG_FITVAL    ORIG_FITERR    SCAL_FITVAL    SCAL_FITERR   SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %14.7f %6.3f  %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),
 		 basevalue_fit[ibase],
 		 baseerror_fit[ibase],
 		 basevalue_fit_noweak_rescaled[ibase],
@@ -3405,7 +5192,7 @@ int main(int argc, char* argv[]){
       }
     }
     //
-    NodeError_noweak_rescaled[inode] = TMath::Sqrt(NodeErrorMatrix_noweak_rescaled[inode][inode]);
+    NodeError_noweak_rescaled[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_noweak_rescaled[inode][inode]));
   }
   //
   int   nchisquare_tot_noweak_rescaled=0; 
@@ -3448,21 +5235,21 @@ int main(int argc, char* argv[]){
   //
   cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_noweak_rescaled, nchisquare_tot_noweak_rescaled);
   //
-  cout << Form("%s = %10.6f +- %10.6f (%10.6f sigma); %s = %10.6f +- %10.6f (%10.6f sigma)\n\n",
-	       nodetitle[nnode-2].data(),
-	       NodeValue_noweak_rescaled[nnode-2],
-	       uconstrain?0:NodeError_noweak_rescaled[nnode-2],
-	       uconstrain?0:(1-NodeValue_noweak_rescaled[nnode-2])/NodeError_noweak_rescaled[nnode-2],
-	       nodetitle[nnode-1].data(),
-	       NodeValue_noweak_rescaled[nnode-1],
-	       NodeError_noweak_rescaled[nnode-1],
-	       NodeValue_noweak_rescaled[nnode-1]/NodeError_noweak_rescaled[nnode-1]);
+  cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
+	       nodetitle[N_GAMMAALL].data(),
+	       NodeValue_noweak_rescaled[N_GAMMAALL]*100.,
+	       uconstrain?0:NodeError_noweak_rescaled[N_GAMMAALL]*100.,
+	       uconstrain?0:(1-NodeValue_noweak_rescaled[N_GAMMAALL])/NodeError_noweak_rescaled[N_GAMMAALL],
+	       nodetitle[N_GAMMAXS].data(),
+	       NodeValue_noweak_rescaled[N_GAMMAXS]*100.,
+	       NodeError_noweak_rescaled[N_GAMMAXS]*100.,
+	       NodeValue_noweak_rescaled[N_GAMMAXS]/NodeError_noweak_rescaled[N_GAMMAXS]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
   for (ibase=0;ibase<nbase;++ibase) {
     cout << Form("*%5d %5d %5d   %-5s  %14.7f %14.7f %14.7f %6.3f %-60s\n",
-		 ibase+1,basegamma[ibase],baseparm[ibase],basenode[ibase].data(),baseseed[ibase],
+		 ibase+1,basegamma[ibase],baseparm[ibase],basenodename[ibase].data(),baseseed[ibase],
 		 basevalue_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase],
 		 baseerror_fit_noweak_rescaled[ibase]/baseerror_fit[ibase],
@@ -3499,7 +5286,7 @@ int main(int argc, char* argv[]){
     FILE *thisfile = avefile_noweak_rescaled[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_rescaled, weakcompare, measgammaname, measnode,
-		  node_parm, node_quan, 
+		  node_parm, node_quan, node_is_base,
 		  node_num_npar, node_num_parm, node_num_coef,
 		  node_den_npar, node_den_parm, node_den_coef,
 		  nbase, baseparm, basegamma, basetitle, first_quan, 
@@ -3522,49 +5309,476 @@ int main(int argc, char* argv[]){
     }
   }
   cout << Form("\\end{tabular}\n");
-  //
-  // Gamma3by5 : G(mu- nubar(mu) nu(tau))/G(e- nubar(e) nu(tau))
-  //
-  cout << Form("%s = %10.6f +- %10.6f\n",
-	       nodetitle[89].data(),
-	       NodeValue_rescaled[89],
-	       NodeError_rescaled[89]);
-  //
-  // Gamma10by9 : G(K- nu(tau))/G(pi- nu(tau))
-  //
-  cout << Form("%s = %10.6f +- %10.6f\n",
-	       nodetitle[95].data(),
-	       NodeValue_rescaled[95],
-	       NodeError_rescaled[95]);
+  cout << endl;
   //
   // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> mu- nubar(mu) nu(tau))
   //
-  cout << Form("Corr between %s and %s = %10.6f\n",
-	       basetitle[M_GAMMA5].data(),
-	       basetitle[M_GAMMA3].data(),
-	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3]);
+  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA3].data(),100.*basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3]);
   //
   // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> pi- nu(tau))
   //
-  cout << Form("Corr between %s and %s = %10.6f\n",
-	       basetitle[M_GAMMA5].data(),
-	       basetitle[M_GAMMA9].data(),
-	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA9]);
+  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA9].data(),100.*basecorr_fit_rescaled[M_GAMMA5][M_GAMMA9]);
   //
   // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> K- nu(tau))
   //
-  cout << Form("Corr between %s and %s = %10.6f\n",
-	       basetitle[M_GAMMA5].data(),
-	       basetitle[M_GAMMA10].data(),
-	       basecorr_fit_rescaled[M_GAMMA5][M_GAMMA10]);
+  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit_rescaled[M_GAMMA5][M_GAMMA10]);
   //
   // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> K- nu(tau))
   //
-  cout << Form("Corr between %s and %s = %10.6f\n",
-	       basetitle[M_GAMMA9].data(),
-	       basetitle[M_GAMMA10].data(),
-	       basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]);
+  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA9].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]);
   //
+  // Correlation between G(tau- --> eta K- pi0 nu(tau)) and G(tau- --> eta pi- Kbar0 nu(tau))
+  //
+#if defined USING_NBASE36 || defined USING_NBASE37
+  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA130].data(),basetitle[M_GAMMA132].data(),100.*basecorr_fit_rescaled[M_GAMMA130][M_GAMMA132]);
+#endif
+  //
+  // Gamma3by5 : G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+  //
+  cout << endl;
+  const double   BmuBe = NodeValue_rescaled[N_GAMMA3BY5];
+  const double e_BmuBe = NodeError_rescaled[N_GAMMA3BY5];
+  double   fmufe = 0;
+  double e_fmufe = 0;
+  double e0_fmufe = 0;
+  double e1_fmufe = 0;
+  double e2_fmufe = 0;
+  double   gmuge = 0;
+  double e_gmuge = 0;
+  double e0_gmuge = 0;
+  double e1_gmuge = 0;
+  double e2_gmuge = 0;
+  double experr_gmuge = 0;
+  calc_gmuge(BmuBe,e_BmuBe,
+	     fmufe,e_fmufe,e0_fmufe,e1_fmufe,e2_fmufe,
+	     gmuge,e_gmuge,experr_gmuge,e0_gmuge,e1_gmuge,e2_gmuge);
+  cout << Form("%s = %6.4f +- %6.4f\n","B(tau- -> mu- nub nu)/B(tau- -> e- nub nu)", BmuBe, e_BmuBe);
+  cout << Form("%s = %8.6f +- %8.6f [Total] +- %8.6f [mtau)] +- %8.6f [mmu] +- %8.6f [me]\n",
+	       "f(m_mu^2/m_tau^2)/f(m_e^2/m_tau^2)", fmufe, e_fmufe, e0_fmufe, e1_fmufe, e2_fmufe);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me]\n",
+	       "gmu/ge", gmuge, e_gmuge, experr_gmuge, e0_gmuge, e1_gmuge, e2_gmuge);
+  //
+  // Gamma9: G(tau- --> pi- nu(tau))
+  //
+  cout << endl;
+  const double Bpi = basevalue_fit_rescaled[M_GAMMA9];
+  const double e_Bpi = baseerror_fit_rescaled[M_GAMMA9];
+  double Bpi_exp = 0;
+  double e_Bpi_exp = 0;
+  double e0_Bpi_exp = 0;
+  double e1_Bpi_exp = 0;
+  double e2_Bpi_exp = 0;
+  double e3_Bpi_exp = 0;
+  double e4_Bpi_exp = 0;
+  double e5_Bpi_exp = 0;
+  double e6_Bpi_exp = 0;
+  double gtaugmu_pi = 0;
+  double e_gtaugmu_pi = 0;
+  double e0_gtaugmu_pi = 0;
+  double e1_gtaugmu_pi = 0;
+  double e2_gtaugmu_pi = 0;
+  double e3_gtaugmu_pi = 0;
+  double e4_gtaugmu_pi = 0;
+  double e5_gtaugmu_pi = 0;
+  double e6_gtaugmu_pi = 0;
+  double experr_gtaugmu_pi = 0;
+  //
+  calc_gtaugmu_h(Bpi, e_Bpi, 
+		 BR_PimToMumNu, e_BR_PimToMumNu,
+		 m_pim, e_m_pim,
+		 tau_pim, e_tau_pim,
+		 Delta_TauToPim_over_PimToMu, e_Delta_TauToPim_over_PimToMu,
+		 Bpi_exp, e_Bpi_exp, e0_Bpi_exp, e1_Bpi_exp, e2_Bpi_exp, e3_Bpi_exp, e4_Bpi_exp, e5_Bpi_exp, e6_Bpi_exp,
+		 gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
+		 e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
+  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> pi- nu)", 100.*Bpi, 100.*e_Bpi);
+  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
+	       "B(tau- -> pi- nu)_univ", 
+	       100.*Bpi_exp, 100.*e_Bpi_exp,
+	       100.*e0_Bpi_exp, 100.*e1_Bpi_exp, 100.*e2_Bpi_exp, 100.*e3_Bpi_exp, 100.*e4_Bpi_exp, 100.*e5_Bpi_exp, 100.*e6_Bpi_exp);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
+	       "(gtau/gmu)_pi", gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
+	       e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
+  //
+  // Gamma10: G(tau- --> K- nu(tau))
+  //
+  cout << endl;
+  const double BK = basevalue_fit_rescaled[M_GAMMA10];
+  const double e_BK = baseerror_fit_rescaled[M_GAMMA10];
+  double BK_exp = 0;
+  double e_BK_exp = 0;
+  double e0_BK_exp = 0;
+  double e1_BK_exp = 0;
+  double e2_BK_exp = 0;
+  double e3_BK_exp = 0;
+  double e4_BK_exp = 0;
+  double e5_BK_exp = 0;
+  double e6_BK_exp = 0;
+  double gtaugmu_K = 0;
+  double e_gtaugmu_K = 0;
+  double e0_gtaugmu_K = 0;
+  double e1_gtaugmu_K = 0;
+  double e2_gtaugmu_K = 0;
+  double e3_gtaugmu_K = 0;
+  double e4_gtaugmu_K = 0;
+  double e5_gtaugmu_K = 0;
+  double e6_gtaugmu_K = 0;
+  double experr_gtaugmu_K = 0;
+  //
+  calc_gtaugmu_h(BK, e_BK,
+		 BR_KmToMumNu, e_BR_KmToMumNu,
+		 m_km, e_m_km,
+		 tau_km, e_tau_km,
+		 Delta_TauToKm_over_KmToMu, e_Delta_TauToKm_over_KmToMu,
+		 BK_exp, e_BK_exp, e0_BK_exp, e1_BK_exp, e2_BK_exp, e3_BK_exp, e4_BK_exp, e5_BK_exp, e6_BK_exp,
+		 gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
+		 e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
+  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> K- nu)", 100.*BK, 100.*e_BK);
+  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
+	       "B(tau- -> K- nu)_univ", 
+	       100.*BK_exp, 100.*e_BK_exp,
+	       100.*e0_BK_exp, 100.*e1_BK_exp, 100.*e2_BK_exp, 100.*e3_BK_exp, 100.*e4_BK_exp, 100.*e5_BK_exp, 100.*e6_BK_exp);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
+	       "(gtau/gmu)_K", gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
+	       e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
+  //
+  // Average of (gtau/gmu)_pi and (gtau/gmu)_K
+  //
+  cout << endl;
+  double gtaugmu_pik[2] = {gtaugmu_pi,gtaugmu_K};
+  double** cov_gtaumu_pik = new double*[2]; for (i=0;i<2;++i) cov_gtaumu_pik[i] = new double[2];
+  cov_gtaumu_pik[0][0] = e_gtaugmu_pi * e_gtaugmu_pi;
+  cov_gtaumu_pik[1][1] = e_gtaugmu_K  * e_gtaugmu_K;
+  cov_gtaumu_pik[0][1] = cov_gtaumu_pik[1][0]
+    = basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10] * experr_gtaugmu_pi * experr_gtaugmu_K 
+    + e0_gtaugmu_pi * e0_gtaugmu_K + e1_gtaugmu_pi * e1_gtaugmu_K + e3_gtaugmu_pi * e3_gtaugmu_K;
+  cout << Form("Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_K ",100.*cov_gtaumu_pik[0][1]/TMath::Sqrt(cov_gtaumu_pik[0][0]*cov_gtaumu_pik[1][1]));
+  double gtaugmu_pik_ave = 0;
+  double gtaugmu_pik_err = 0;
+  double gtaugmu_pik_wt[2] = {0,0};
+  calc_average(2,gtaugmu_pik,cov_gtaumu_pik,gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt);
+  cout << Form("%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K]\n",
+	       "<(gtau/gmu)_pik>",gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt[0],gtaugmu_pik_wt[1]);
+  //
+  // gtau/gmu = sqrt(Be/Be_from_tautau)
+  //
+  cout << endl;
+  double Be = basevalue_fit_rescaled[M_GAMMA5];
+  double e_Be = baseerror_fit_rescaled[M_GAMMA5];
+  double Be_from_tautau = 0;
+  double e_Be_from_tautau = 0;
+  double e0_Be_from_tautau = 0;
+  double e1_Be_from_tautau = 0;
+  double e2_Be_from_tautau = 0;
+  double e3_Be_from_tautau = 0;
+  double e4_Be_from_tautau = 0;
+  double e5_Be_from_tautau = 0;
+  double e6_Be_from_tautau = 0;
+  double gtaugmu_e = 0;
+  double e_gtaugmu_e = 0;
+  double e0_gtaugmu_e = 0;
+  double e1_gtaugmu_e = 0;
+  double e2_gtaugmu_e = 0;
+  double e3_gtaugmu_e = 0;
+  double e4_gtaugmu_e = 0;
+  double e5_gtaugmu_e = 0;
+  double e6_gtaugmu_e = 0;
+  double experr_gtaugmu_e = 0;
+  calc_gtaugmu_e(Be, e_Be,
+		 Be_from_tautau, e_Be_from_tautau,
+		 e0_Be_from_tautau, e1_Be_from_tautau, e2_Be_from_tautau, e3_Be_from_tautau, e4_Be_from_tautau, e5_Be_from_tautau, e6_Be_from_tautau, 
+		 gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
+		 e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
+  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> e- nub nu)", 100.*Be, 100.*e_Be);
+  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
+	       "B(tau- -> e- nub nu)_tautau ",
+	       100.*Be_from_tautau, 100.*e_Be_from_tautau,
+	       100.*e0_Be_from_tautau, 100.*e1_Be_from_tautau, 100.*e2_Be_from_tautau, 
+	       100.*e3_Be_from_tautau, 100.*e4_Be_from_tautau, 100.*e5_Be_from_tautau, 100.*e6_Be_from_tautau);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mumu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
+	       "(gtau/gmu)_e", gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
+	       e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
+  //
+  // Average of (gtau/gmu)_pi and (gtau/gmu)_K and (gtau/gmu)_e
+  //
+  cout << endl;
+  double gtaugmu_pike[3] = {gtaugmu_pi,gtaugmu_K,gtaugmu_e};
+  double** cov_gtaumu_pike = new double*[3]; for (i=0;i<3;++i) cov_gtaumu_pike[i] = new double[3];
+  //
+  cov_gtaumu_pike[0][0] = cov_gtaumu_pik[0][0];
+  cov_gtaumu_pike[1][1] = cov_gtaumu_pik[1][1];
+  cov_gtaumu_pike[2][2] = e_gtaugmu_e * e_gtaugmu_e;
+  //
+  cov_gtaumu_pike[0][1] = cov_gtaumu_pik[0][1];
+  cov_gtaumu_pike[1][0] = cov_gtaumu_pik[1][0];
+  //
+  cov_gtaumu_pike[0][2] = cov_gtaumu_pike[2][0]
+    = basecorr_fit_rescaled[M_GAMMA9][M_GAMMA5] * experr_gtaugmu_pi * experr_gtaugmu_e 
+    + e0_gtaugmu_pi * e0_gtaugmu_e + e1_gtaugmu_pi * e1_gtaugmu_e + e3_gtaugmu_pi * e3_gtaugmu_e;
+  cout << Form("Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_e ",100.*cov_gtaumu_pike[0][2]/TMath::Sqrt(cov_gtaumu_pike[0][0]*cov_gtaumu_pike[2][2]));
+  //
+  cov_gtaumu_pike[1][2] = cov_gtaumu_pike[2][1]
+    = basecorr_fit_rescaled[M_GAMMA10][M_GAMMA5] * experr_gtaugmu_K * experr_gtaugmu_e 
+    + e0_gtaugmu_K * e0_gtaugmu_e + e1_gtaugmu_K * e1_gtaugmu_e + e3_gtaugmu_K * e3_gtaugmu_e;
+  cout << Form("Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_K ","(gtau/gmu)_e ",100.*cov_gtaumu_pike[1][2]/TMath::Sqrt(cov_gtaumu_pike[1][1]*cov_gtaumu_pike[2][2]));
+  //
+  double gtaugmu_pike_ave = 0;
+  double gtaugmu_pike_err = 0;
+  double gtaugmu_pike_wt[3] = {0,0,0};
+  calc_average(3,gtaugmu_pike,cov_gtaumu_pike,gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt);
+  cout << Form("%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K], %6.4f [e]\n",
+	       "<(gtau/gmu)_pike>",gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt[0],gtaugmu_pike_wt[1],gtaugmu_pike_wt[2]);
+  //
+  // gtau/ge = sqrt(Bmu/Bmu_from_tautau)
+  //
+  cout << endl;
+  double Bmu = basevalue_fit_rescaled[M_GAMMA3];
+  double e_Bmu = baseerror_fit_rescaled[M_GAMMA3];
+  double Bmu_from_tautau = 0;
+  double e_Bmu_from_tautau = 0;
+  double e0_Bmu_from_tautau = 0;
+  double e1_Bmu_from_tautau = 0;
+  double e2_Bmu_from_tautau = 0;
+  double e3_Bmu_from_tautau = 0;
+  double e4_Bmu_from_tautau = 0;
+  double e5_Bmu_from_tautau = 0;
+  double e6_Bmu_from_tautau = 0;
+  double gtauge_mu = 0;
+  double e_gtauge_mu = 0;
+  double e0_gtauge_mu = 0;
+  double e1_gtauge_mu = 0;
+  double e2_gtauge_mu = 0;
+  double e3_gtauge_mu = 0;
+  double e4_gtauge_mu = 0;
+  double e5_gtauge_mu = 0;
+  double e6_gtauge_mu = 0;
+  double experr_gtauge_mu = 0;
+  calc_gtauge_mu(Bmu, e_Bmu, 
+		 Bmu_from_tautau, e_Bmu_from_tautau,
+		 e0_Bmu_from_tautau, e1_Bmu_from_tautau, e2_Bmu_from_tautau, e3_Bmu_from_tautau, e4_Bmu_from_tautau, e5_Bmu_from_tautau, e6_Bmu_from_tautau, 
+		 gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
+		 e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
+  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> mu- nub nu)", 100.*Bmu, 100.*e_Bmu);
+  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
+	       "B(tau- -> mu- nub nu)_tautau ",
+	       100.*Bmu_from_tautau,100.*e_Bmu_from_tautau,
+	       100.*e0_Bmu_from_tautau, 100.*e1_Bmu_from_tautau, 100.*e2_Bmu_from_tautau, 
+	       100.*e3_Bmu_from_tautau, 100.*e4_Bmu_from_tautau, 100.*e5_Bmu_from_tautau, 100.*e6_Bmu_from_tautau);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
+	       "(gtau/ge)_mu",gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
+	       e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
+  //
+  // Gamma10: G(tau- --> K- nu(tau))
+  //
+  cout << endl;
+  double   Vus_TauToKmNu = 0;
+  double e_Vus_TauToKmNu = 0;
+  double experr_Vus_TauToKmNu = 0;
+  double therr0_Vus_TauToKmNu = 0;
+  double therr1_Vus_TauToKmNu = 0;
+  double therr2_Vus_TauToKmNu = 0;
+  double therr3_Vus_TauToKmNu = 0;
+  calc_Vus_K(BK,e_BK,Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [tautau] +- %6.4f [mK] +- %6.4f [fK]\n",
+	       "|Vus|_TauToKmNu",Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
+  //
+  // Gamma10by9 : G(K- nu(tau)) / G(pi- nu(tau))
+  //
+  cout << endl;
+  double   BKBpi = NodeValue_rescaled[N_GAMMA10BY9];
+  double e_BKBpi = NodeError_rescaled[N_GAMMA10BY9];
+  cout << Form("%s = %6.4f +- %6.4f\n","G(K- nu(tau)) / G(pi- nu(tau))", BKBpi, e_BKBpi);
+  double   Vus_TauToKmOverPimNu = 0;
+  double e_Vus_TauToKmOverPimNu = 0;
+  double experr_Vus_TauToKmOverPimNu = 0;
+  double therr0_Vus_TauToKmOverPimNu = 0;
+  double therr1_Vus_TauToKmOverPimNu = 0;
+  double therr2_Vus_TauToKmOverPimNu = 0;
+  double therr3_Vus_TauToKmOverPimNu = 0;
+  double therr4_Vus_TauToKmOverPimNu = 0;
+  double therr5_Vus_TauToKmOverPimNu = 0;
+  calc_Vus_Kpi(BKBpi,e_BKBpi,Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
+	       therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
+	       therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mK] +- %6.4f [mpi] +- %6.4f [fK/fpi] +- %6.4f [Vud] +- %6.4f [Delta]\n",
+	       "|Vus|_TauToK/Pi",Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
+	       therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
+	       therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
+
+  //
+  // Be from Bmu
+  //
+  cout << endl;
+  double   Be_from_Bmu = 0;
+  double e_Be_from_Bmu = 0;
+  double e0_Be_from_Bmu = 0;
+  double e1_Be_from_Bmu = 0;
+  double e2_Be_from_Bmu = 0;
+  double experr_Be_from_Bmu = 0;
+  calc_Be_from_Bmu(Bmu, e_Bmu, 
+		   Be_from_Bmu, e_Be_from_Bmu, experr_Be_from_Bmu, e0_Be_from_Bmu, e1_Be_from_Bmu, e2_Be_from_Bmu);
+  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [Btau] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me]) %%\n",
+	       "B(tau- -> e- nub nu)_Bmu ",
+	       100.*Be_from_Bmu, 100.*e_Be_from_Bmu, 100.*experr_Be_from_Bmu, 100.*e0_Be_from_Bmu, 100.*e1_Be_from_Bmu, 100.*e2_Be_from_Bmu);
+  //
+  // Average of Be and Be_from_Bmu and Be_from_tautau
+  //
+  cout << endl;
+  double Be_univ_val[3] = {Be, Be_from_Bmu, Be_from_tautau};
+  double** Be_univ_cov = new double*[3]; for (i=0;i<3;++i) Be_univ_cov[i] = new double[3];
+  Be_univ_cov[0][0] = e_Be * e_Be; 
+  Be_univ_cov[1][1] = e_Be_from_Bmu * e_Be_from_Bmu;
+  Be_univ_cov[2][2] = e_Be_from_tautau * e_Be_from_tautau;
+  Be_univ_cov[0][1] = Be_univ_cov[1][0] = basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3] * e_Be * experr_Be_from_Bmu;
+  Be_univ_cov[0][2] = Be_univ_cov[2][0] = 0;
+  Be_univ_cov[1][2] = Be_univ_cov[2][1] = e0_Be_from_Bmu * e0_Be_from_tautau + e1_Be_from_Bmu * e1_Be_from_tautau + e2_Be_from_Bmu * e2_Be_from_tautau;
+  cout << Form("Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be",            100.*Be_univ_cov[0][1]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[1][1]));
+  cout << Form("Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be_from_tautau",100.*Be_univ_cov[2][1]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[1][1]));
+  //
+  double Be_univ = 0;
+  double Be_univ_err = 0;
+  double Be_univ_wt[3] = {0,0,0};
+  calc_average(3,Be_univ_val,Be_univ_cov,Be_univ,Be_univ_err,Be_univ_wt);
+  //
+  // Cross-check the error on Be_univ assuming the weights have no errors
+  //    f = a A + b B + c C => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
+  // N.B.:  The weights are function of errors, eg. e[mtau], e[tautau], e[Be], e[Bmu], etc.; so it is reasonable assumption that error on these errors = 0.
+  //                                             
+  double Be_univ_err_re = TMath::Sqrt( TMath::Power(Be_univ_wt[0],2) * Be_univ_cov[0][0] + 
+				       TMath::Power(Be_univ_wt[1],2) * Be_univ_cov[1][1] + 
+				       TMath::Power(Be_univ_wt[2],2) * Be_univ_cov[2][2] + 
+				       2 * Be_univ_wt[0] * Be_univ_wt[1] * Be_univ_cov[0][1] + 
+				       2 * Be_univ_wt[2] * Be_univ_wt[1] * Be_univ_cov[2][1]);
+  //
+  cout << Form("%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",
+	       "<B(tau- -> e- nub nu)_univ>",100.*Be_univ,100.*Be_univ_err, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2], Be_univ_err - Be_univ_err_re);
+  //
+  // Bhadrons
+  //
+  cout << endl;
+  double   Bhadrons = 0;
+  double e_Bhadrons = 0;
+  double ecomp_Bhadrons[5] = { 0, 0, 0, 0, 0};
+  calc_Bhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit_rescaled[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
+		Bhadrons, e_Bhadrons, ecomp_Bhadrons); 
+  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Be,mu]) %% \n",
+	       "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
+	       100.*ecomp_Bhadrons[0], 100.*ecomp_Bhadrons[1], 100.*ecomp_Bhadrons[2], 100.*ecomp_Bhadrons[3], 100.*ecomp_Bhadrons[5]);
+  //
+  // Rhadrons
+  //
+  double   Rhadrons = 0;
+  double e_Rhadrons = 0;
+  double ecomp_Rhadrons[5] = { 0, 0, 0, 0, 0};
+  calc_Rhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit_rescaled[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
+		Rhadrons, e_Rhadrons, ecomp_Rhadrons); 
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Be,Bmu]\n",
+	       "R(tau -> hadrons)", Rhadrons, e_Rhadrons,
+	       ecomp_Rhadrons[0], ecomp_Rhadrons[1], ecomp_Rhadrons[2], ecomp_Rhadrons[3], ecomp_Rhadrons[4]);
+  //
+  // Rstrange
+  //
+  double Bstrange = NodeValue_rescaled[N_GAMMAXS];
+  double e_Bstrange = NodeError_rescaled[N_GAMMAXS];
+  cout << Form("%s = (%6.3f +- %6.3f) %% \n","B(tau -> strange)", 100.*Bstrange, 100.*e_Bstrange);
+  double Rstrange = 0;
+  double e_Rstrange = 0;
+  double ecomp_Rstrange[6] = { 0, 0, 0, 0, 0, 0};
+  calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+		Rstrange, e_Rstrange, ecomp_Rstrange);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
+	       "R(tau -> strange)", Rstrange, e_Rstrange,
+	       ecomp_Rstrange[0], ecomp_Rstrange[1], ecomp_Rstrange[2], ecomp_Rstrange[3], ecomp_Rstrange[4], ecomp_Rstrange[5]);
+  //
+  // Rnonstrange
+  //
+  double Rnonstrange = 0;
+  double e_Rnonstrange = 0;
+  double ecomp_Rnonstrange[6] = { 0, 0, 0, 0, 0, 0};
+  calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+		   Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
+	       "R(tau -> nonstrange)", Rnonstrange, e_Rnonstrange,
+	       ecomp_Rnonstrange[0], ecomp_Rnonstrange[1], ecomp_Rnonstrange[2], ecomp_Rnonstrange[3], ecomp_Rnonstrange[4], ecomp_Rnonstrange[5]);
+  //
+  // Vus_strange
+  //
+  double Vus_strange = 0;
+  double e_Vus_strange = 0;
+  double ecomp_Vus_strange[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
+  calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+		   Vus_strange, e_Vus_strange, ecomp_Vus_strange);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Be,mu,s] +- %6.4f [Vud] +- %6.4f [ms]\n",
+	       "|Vus|_strange", Vus_strange, e_Vus_strange,
+	       ecomp_Vus_strange[0], ecomp_Vus_strange[1], ecomp_Vus_strange[2], ecomp_Vus_strange[3], 
+	       ecomp_Vus_strange[4], ecomp_Vus_strange[5], ecomp_Vus_strange[6], ecomp_Vus_strange[7]);
+  cout << Form("Relative Error (in %%): +- %5.2f [Total] +- %5.2f [tautau] +- %5.2f [mtau] +- %5.2f [Be] +- %5.2f [Bmu] +- %5.2f [Bs] +- %5.2f [Be,mu,s] +- %5.2f [Vud] +- %5.2f [ms]\n", 
+	       e_Vus_strange*100./Vus_strange,
+	       ecomp_Vus_strange[0]*100./Vus_strange, ecomp_Vus_strange[1]*100./Vus_strange, ecomp_Vus_strange[2]*100./Vus_strange, ecomp_Vus_strange[3]*100./Vus_strange, 
+	       ecomp_Vus_strange[4]*100./Vus_strange, ecomp_Vus_strange[5]*100./Vus_strange, ecomp_Vus_strange[6]*100./Vus_strange, ecomp_Vus_strange[7]*100./Vus_strange);
+  //
+  // Vus_unconstrained_fit
+  //
+  cout << endl;
+  double Btotal = NodeValue_rescaled[N_GAMMAALL];
+  double e_Btotal = NodeError_rescaled[N_GAMMAALL];
+  cout << Form("%s = (%6.3f +- %6.3f) %% \n","B(tau -> total)", 100.*Btotal, 100.*e_Btotal);
+  double Vus_uncons = 0;
+  double e_Vus_uncons = 0;
+  double ecomp_Vus_uncons[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+			  Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+			  Btotal, e_Btotal, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMAALL][N_GAMMAXS],
+			  Vus_uncons, e_Vus_uncons, ecomp_Vus_uncons);
+  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Btot] +- %6.4f [Be,mu,s,tot] +- %6.4f [Vud] +- %6.4f [ms]\n",
+	       "|Vus|_uncons", Vus_uncons, e_Vus_uncons,
+	       ecomp_Vus_uncons[0], ecomp_Vus_uncons[1], ecomp_Vus_uncons[2], ecomp_Vus_uncons[3], 
+	       ecomp_Vus_uncons[4], ecomp_Vus_uncons[5], ecomp_Vus_uncons[6], ecomp_Vus_uncons[7], ecomp_Vus_uncons[8]);
+  cout << Form("Relative Error (in %%): +- %4.2f [Total] +- %4.2f [tautau] +- %4.2f [mtau] +- %4.2f [Be] +- %4.2f [Bmu] +- %4.2f [Bs] +- %4.2f [Btot]+- %4.2f [Be,mu,s,tot] +- %4.2f [Vud] +- %4.2f [ms]\n", 
+	       e_Vus_uncons*100./Vus_uncons,
+	       ecomp_Vus_uncons[0]*100./Vus_uncons, ecomp_Vus_uncons[1]*100./Vus_uncons, ecomp_Vus_uncons[2]*100./Vus_uncons, ecomp_Vus_uncons[3]*100./Vus_uncons, 
+	       ecomp_Vus_uncons[4]*100./Vus_uncons, ecomp_Vus_uncons[5]*100./Vus_uncons, ecomp_Vus_uncons[6]*100./Vus_uncons, ecomp_Vus_uncons[7]*100./Vus_uncons,
+	       ecomp_Vus_uncons[8]*100./Vus_uncons);
+  //
+  // Vus_unitarity
+  //
+  cout << endl;
+  double Vus_unitarity = TMath::Sqrt(1-Vud*Vud);
+  double e_Vus_unitarity = -e_Vud*Vud/TMath::Sqrt(1-Vud*Vud);
+  //
+  double diff_Vus_TauToKmNu = Vus_TauToKmNu - Vus_unitarity;
+  double e_diff_Vus_TauToKmNu = TMath::Sqrt(e_Vus_TauToKmNu * e_Vus_TauToKmNu + e_Vus_unitarity * e_Vus_unitarity);
+  //
+  double diff_Vus_TauToKmOverPimNu = Vus_TauToKmOverPimNu - Vus_unitarity;
+  double e_diff_Vus_TauToKmOverPimNu = TMath::Sqrt(e_Vus_TauToKmOverPimNu * e_Vus_TauToKmOverPimNu + e_Vus_unitarity * e_Vus_unitarity - 2 * therr4_Vus_TauToKmOverPimNu * e_Vus_unitarity);
+  //
+  double diff_Vus_strange = Vus_strange - Vus_unitarity;
+  double e_diff_Vus_strange = TMath::Sqrt(e_Vus_strange * e_Vus_strange + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_strange[6] * e_Vus_unitarity);
+  //
+  double diff_Vus_uncons = Vus_uncons - Vus_unitarity;
+  double e_diff_Vus_uncons = TMath::Sqrt(e_Vus_uncons*e_Vus_uncons + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_uncons[7] * e_Vus_unitarity);
+  //
+  cout << Form("|Vus_unitarity| = %6.4f +- %6.4f [Vud]; Difference w.r.t unitarity: |Vus|_TauToKmNu = %3.1f |Vus|_TauToK/Pi = %3.1f |Vus|_strange = %3.1f |Vus|_uncons = %3.1f\n",
+	       Vus_unitarity, e_Vus_unitarity, 
+	       diff_Vus_TauToKmNu/e_diff_Vus_TauToKmNu, 
+	       diff_Vus_TauToKmOverPimNu/e_diff_Vus_TauToKmOverPimNu,
+	       diff_Vus_strange/e_diff_Vus_strange,
+	       diff_Vus_uncons/e_diff_Vus_uncons);
+  //
+  // Clean Up
+  //
+  delete [] Be_univ_cov;
+  delete [] cov_gtaumu_pike;
+  delete [] cov_gtaumu_pik;
+  delete [] basecorr_fit_noweak_rescaled;
+  delete [] basecov_fit_noweak_rescaled;
+  delete [] basecorr_fit_rescaled;
+  delete [] basecov_fit_rescaled;
+  delete [] basecorr_fit_noweak_scaled;
+  delete [] basecov_fit_noweak_scaled;
   delete [] corrmat_scaled_noweak;
   delete [] corrmat_scaled;
   delete [] basecorr_fit_noweak;
