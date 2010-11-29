@@ -5097,10 +5097,14 @@ int main(int argc, char* argv[]){
     printf ("\n");
   }
   //
+  vector<bool> VectorOfEigenVal_AllPositive;
   vector<double> VectorOfPullMag;
   vector<TMatrixD> VectorOfMeasScaledErrorMatrix;
+  //
+  vector<bool> VectorOfEigenVal_AllPositive_noweak;
   vector<double> VectorOfPullMag_noweak;
   vector<TMatrixD> VectorOfMeasScaledErrorMatrix_noweak;
+  //
   for (int iweak=0;iweak<2;++iweak) {
     for (int ij=0;ij<ncorrij;++ij) {
       int nij=veccorrij[ij].size();
@@ -5213,15 +5217,39 @@ int main(int argc, char* argv[]){
 	}
       }
       //
+      cout << "iweak = " << iweak << " ij = " << ij << " PullMag = " << PullMag << " PullVector : "; for (i=0;i<nij;++i) cout << PullVector[i] << " "; cout << endl;
+      //
       if (iweak==0) {
+	VectorOfEigenVal_AllPositive.push_back(EigenVal_AllPositive);
+	if (ij==ncorrij-1) {
+	  bool status = true;
+	  for (i=0;i<nij;++i){
+	    if (!VectorOfEigenVal_AllPositive.at(i)) status = false;
+	  }
+	  if (status) {
+	    cout << "iweak = " << iweak << " VectorOfEigenVal_AllPositive has status = TRUE " << endl << endl;
+	  } else {
+	    cout << "iweak = " << iweak << " VectorOfEigenVal_AllPositive has status = FALSE" << endl << endl;
+	  }
+	}
 	VectorOfPullMag.push_back(PullMag);
 	VectorOfMeasScaledErrorMatrix.push_back(ThisMeasScaledErrorMatrix);
       } else {
+	VectorOfEigenVal_AllPositive_noweak.push_back(EigenVal_AllPositive);
+	if (ij==ncorrij-1) {
+	  bool status = true;
+	  for (i=0;i<nij;++i){
+	    if (!VectorOfEigenVal_AllPositive_noweak.at(i)) status = false;
+	  }
+	  if (status) {
+	    cout << "iweak = " << iweak << " VectorOfEigenVal_AllPositive has status = TRUE " << endl << endl;
+	  } else {
+	    cout << "iweak = " << iweak << " VectorOfEigenVal_AllPositive has status = FALSE" << endl << endl;
+	  }
+	}
 	VectorOfPullMag_noweak.push_back(PullMag);
 	VectorOfMeasScaledErrorMatrix_noweak.push_back(ThisMeasScaledErrorMatrix);
       }
-      //
-      cout << "iweak = " << iweak << " ij = " << ij << " PullMag = " << PullMag << " PullVector : "; for (i=0;i<nij;++i) cout << PullVector[i] << " "; cout << endl;
       //
     } //end of loop over ij
   } // end of loop over iweak
