@@ -1495,6 +1495,475 @@ void calc_Vus_uncons(const double Be, const double e_Be, const double Bmu, const
   delete func1;
 }
 // ----------------------------------------------------------------------
+void calc_results(FILE* thisfile, 
+		  string* basetitle, double* basevalue_fit, double* baseerror_fit, double** basecov_fit, double** basecorr_fit, 
+		  double* NodeValue, double* NodeError, double** NodeErrorMatrix) {
+  int i;
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> mu- nubar(mu) nu(tau))
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA3].data(),100.*basecorr_fit[M_GAMMA5][M_GAMMA3]);
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> pi- nu(tau))
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA9].data(),100.*basecorr_fit[M_GAMMA5][M_GAMMA9]);
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> K- nu(tau))
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit[M_GAMMA5][M_GAMMA10]);
+  //
+  // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> K- nu(tau))
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA9].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit[M_GAMMA9][M_GAMMA10]);
+  //
+  // Correlation between G(tau- --> eta K- pi0 nu(tau)) and G(tau- --> eta pi- Kbar0 nu(tau))
+  //
+#if defined USING_NBASE36 || defined USING_NBASE37
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA130].data(),basetitle[M_GAMMA132].data(),100.*basecorr_fit[M_GAMMA130][M_GAMMA132]);
+#endif
+  //
+  // Gamma3by5 : G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+  //
+  fprintf(thisfile,"\n");
+  const double   BmuBe = NodeValue[N_GAMMA3BY5];
+  const double e_BmuBe = NodeError[N_GAMMA3BY5];
+  double   fmufe = 0;
+  double e_fmufe = 0;
+  double e0_fmufe = 0;
+  double e1_fmufe = 0;
+  double e2_fmufe = 0;
+  double   gmuge = 0;
+  double e_gmuge = 0;
+  double e0_gmuge = 0;
+  double e1_gmuge = 0;
+  double e2_gmuge = 0;
+  double experr_gmuge = 0;
+  calc_gmuge(BmuBe,e_BmuBe,
+	     fmufe,e_fmufe,e0_fmufe,e1_fmufe,e2_fmufe,
+	     gmuge,e_gmuge,experr_gmuge,e0_gmuge,e1_gmuge,e2_gmuge);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f\n","B(tau- -> mu- nub nu)/B(tau- -> e- nub nu)", BmuBe, e_BmuBe);
+  fprintf(thisfile,"%s = %8.6f +- %8.6f [Total] +- %8.6f [mtau)] +- %8.6f [mmu] +- %8.6f [me]\n",
+	  "f(m_mu^2/m_tau^2)/f(m_e^2/m_tau^2)", fmufe, e_fmufe, e0_fmufe, e1_fmufe, e2_fmufe);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me]\n",
+	  "gmu/ge", gmuge, e_gmuge, experr_gmuge, e0_gmuge, e1_gmuge, e2_gmuge);
+  //
+  // Gamma9: G(tau- --> pi- nu(tau))
+  //
+  fprintf(thisfile,"\n");
+  const double Bpi = basevalue_fit[M_GAMMA9];
+  const double e_Bpi = baseerror_fit[M_GAMMA9];
+  double Bpi_exp = 0;
+  double e_Bpi_exp = 0;
+  double e0_Bpi_exp = 0;
+  double e1_Bpi_exp = 0;
+  double e2_Bpi_exp = 0;
+  double e3_Bpi_exp = 0;
+  double e4_Bpi_exp = 0;
+  double e5_Bpi_exp = 0;
+  double e6_Bpi_exp = 0;
+  double gtaugmu_pi = 0;
+  double e_gtaugmu_pi = 0;
+  double e0_gtaugmu_pi = 0;
+  double e1_gtaugmu_pi = 0;
+  double e2_gtaugmu_pi = 0;
+  double e3_gtaugmu_pi = 0;
+  double e4_gtaugmu_pi = 0;
+  double e5_gtaugmu_pi = 0;
+  double e6_gtaugmu_pi = 0;
+  double experr_gtaugmu_pi = 0;
+  //
+  calc_gtaugmu_h(Bpi, e_Bpi, 
+		 BR_PimToMumNu, e_BR_PimToMumNu,
+		 m_pim, e_m_pim,
+		 tau_pim, e_tau_pim,
+		 Delta_TauToPim_over_PimToMu, e_Delta_TauToPim_over_PimToMu,
+		 Bpi_exp, e_Bpi_exp, e0_Bpi_exp, e1_Bpi_exp, e2_Bpi_exp, e3_Bpi_exp, e4_Bpi_exp, e5_Bpi_exp, e6_Bpi_exp,
+		 gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
+		 e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> pi- nu)", 100.*Bpi, 100.*e_Bpi);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
+	  "B(tau- -> pi- nu)_univ", 
+	  100.*Bpi_exp, 100.*e_Bpi_exp,
+	  100.*e0_Bpi_exp, 100.*e1_Bpi_exp, 100.*e2_Bpi_exp, 100.*e3_Bpi_exp, 100.*e4_Bpi_exp, 100.*e5_Bpi_exp, 100.*e6_Bpi_exp);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
+	  "(gtau/gmu)_pi", gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
+	  e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
+  //
+  // Gamma10: G(tau- --> K- nu(tau))
+  //
+  fprintf(thisfile,"\n");
+  const double BK = basevalue_fit[M_GAMMA10];
+  const double e_BK = baseerror_fit[M_GAMMA10];
+  double BK_exp = 0;
+  double e_BK_exp = 0;
+  double e0_BK_exp = 0;
+  double e1_BK_exp = 0;
+  double e2_BK_exp = 0;
+  double e3_BK_exp = 0;
+  double e4_BK_exp = 0;
+  double e5_BK_exp = 0;
+  double e6_BK_exp = 0;
+  double gtaugmu_K = 0;
+  double e_gtaugmu_K = 0;
+  double e0_gtaugmu_K = 0;
+  double e1_gtaugmu_K = 0;
+  double e2_gtaugmu_K = 0;
+  double e3_gtaugmu_K = 0;
+  double e4_gtaugmu_K = 0;
+  double e5_gtaugmu_K = 0;
+  double e6_gtaugmu_K = 0;
+  double experr_gtaugmu_K = 0;
+  //
+  calc_gtaugmu_h(BK, e_BK,
+		 BR_KmToMumNu, e_BR_KmToMumNu,
+		 m_km, e_m_km,
+		 tau_km, e_tau_km,
+		 Delta_TauToKm_over_KmToMu, e_Delta_TauToKm_over_KmToMu,
+		 BK_exp, e_BK_exp, e0_BK_exp, e1_BK_exp, e2_BK_exp, e3_BK_exp, e4_BK_exp, e5_BK_exp, e6_BK_exp,
+		 gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
+		 e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> K- nu)", 100.*BK, 100.*e_BK);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
+	  "B(tau- -> K- nu)_univ", 
+	  100.*BK_exp, 100.*e_BK_exp,
+	  100.*e0_BK_exp, 100.*e1_BK_exp, 100.*e2_BK_exp, 100.*e3_BK_exp, 100.*e4_BK_exp, 100.*e5_BK_exp, 100.*e6_BK_exp);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
+	  "(gtau/gmu)_K", gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
+	  e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
+  //
+  // Average of (gtau/gmu)_pi and (gtau/gmu)_K
+  //
+  fprintf(thisfile,"\n");
+  double gtaugmu_pik[2] = {gtaugmu_pi,gtaugmu_K};
+  double** cov_gtaumu_pik = new double*[2]; for (i=0;i<2;++i) cov_gtaumu_pik[i] = new double[2];
+  cov_gtaumu_pik[0][0] = e_gtaugmu_pi * e_gtaugmu_pi;
+  cov_gtaumu_pik[1][1] = e_gtaugmu_K  * e_gtaugmu_K;
+  cov_gtaumu_pik[0][1] = cov_gtaumu_pik[1][0]
+    = basecorr_fit[M_GAMMA9][M_GAMMA10] * experr_gtaugmu_pi * experr_gtaugmu_K 
+    + e0_gtaugmu_pi * e0_gtaugmu_K + e1_gtaugmu_pi * e1_gtaugmu_K + e3_gtaugmu_pi * e3_gtaugmu_K;
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_K ",100.*cov_gtaumu_pik[0][1]/TMath::Sqrt(cov_gtaumu_pik[0][0]*cov_gtaumu_pik[1][1]));
+  double gtaugmu_pik_ave = 0;
+  double gtaugmu_pik_err = 0;
+  double gtaugmu_pik_wt[2] = {0,0};
+  calc_average(2,gtaugmu_pik,cov_gtaumu_pik,gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K]\n",
+	       "<(gtau/gmu)_pik>",gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt[0],gtaugmu_pik_wt[1]);
+  //
+  // gtau/gmu = sqrt(Be/Be_from_tautau)
+  //
+  fprintf(thisfile,"\n");
+  double Be = basevalue_fit[M_GAMMA5];
+  double e_Be = baseerror_fit[M_GAMMA5];
+  double Be_from_tautau = 0;
+  double e_Be_from_tautau = 0;
+  double e0_Be_from_tautau = 0;
+  double e1_Be_from_tautau = 0;
+  double e2_Be_from_tautau = 0;
+  double e3_Be_from_tautau = 0;
+  double e4_Be_from_tautau = 0;
+  double e5_Be_from_tautau = 0;
+  double e6_Be_from_tautau = 0;
+  double gtaugmu_e = 0;
+  double e_gtaugmu_e = 0;
+  double e0_gtaugmu_e = 0;
+  double e1_gtaugmu_e = 0;
+  double e2_gtaugmu_e = 0;
+  double e3_gtaugmu_e = 0;
+  double e4_gtaugmu_e = 0;
+  double e5_gtaugmu_e = 0;
+  double e6_gtaugmu_e = 0;
+  double experr_gtaugmu_e = 0;
+  calc_gtaugmu_e(Be, e_Be,
+		 Be_from_tautau, e_Be_from_tautau,
+		 e0_Be_from_tautau, e1_Be_from_tautau, e2_Be_from_tautau, e3_Be_from_tautau, e4_Be_from_tautau, e5_Be_from_tautau, e6_Be_from_tautau, 
+		 gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
+		 e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> e- nub nu)", 100.*Be, 100.*e_Be);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
+	       "B(tau- -> e- nub nu)_tautau ",
+	       100.*Be_from_tautau, 100.*e_Be_from_tautau,
+	       100.*e0_Be_from_tautau, 100.*e1_Be_from_tautau, 100.*e2_Be_from_tautau, 
+	       100.*e3_Be_from_tautau, 100.*e4_Be_from_tautau, 100.*e5_Be_from_tautau, 100.*e6_Be_from_tautau);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mumu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
+	  "(gtau/gmu)_e", gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
+	  e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
+  //
+  // Average of (gtau/gmu)_pi and (gtau/gmu)_K and (gtau/gmu)_e
+  //
+  fprintf(thisfile,"\n");
+  double gtaugmu_pike[3] = {gtaugmu_pi,gtaugmu_K,gtaugmu_e};
+  double** cov_gtaumu_pike = new double*[3]; for (i=0;i<3;++i) cov_gtaumu_pike[i] = new double[3];
+  //
+  cov_gtaumu_pike[0][0] = cov_gtaumu_pik[0][0];
+  cov_gtaumu_pike[1][1] = cov_gtaumu_pik[1][1];
+  cov_gtaumu_pike[2][2] = e_gtaugmu_e * e_gtaugmu_e;
+  //
+  cov_gtaumu_pike[0][1] = cov_gtaumu_pik[0][1];
+  cov_gtaumu_pike[1][0] = cov_gtaumu_pik[1][0];
+  //
+  cov_gtaumu_pike[0][2] = cov_gtaumu_pike[2][0]
+    = basecorr_fit[M_GAMMA9][M_GAMMA5] * experr_gtaugmu_pi * experr_gtaugmu_e 
+    + e0_gtaugmu_pi * e0_gtaugmu_e + e1_gtaugmu_pi * e1_gtaugmu_e + e3_gtaugmu_pi * e3_gtaugmu_e;
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_e ",100.*cov_gtaumu_pike[0][2]/TMath::Sqrt(cov_gtaumu_pike[0][0]*cov_gtaumu_pike[2][2]));
+  //
+  cov_gtaumu_pike[1][2] = cov_gtaumu_pike[2][1]
+    = basecorr_fit[M_GAMMA10][M_GAMMA5] * experr_gtaugmu_K * experr_gtaugmu_e 
+    + e0_gtaugmu_K * e0_gtaugmu_e + e1_gtaugmu_K * e1_gtaugmu_e + e3_gtaugmu_K * e3_gtaugmu_e;
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_K ","(gtau/gmu)_e ",100.*cov_gtaumu_pike[1][2]/TMath::Sqrt(cov_gtaumu_pike[1][1]*cov_gtaumu_pike[2][2]));
+  //
+  double gtaugmu_pike_ave = 0;
+  double gtaugmu_pike_err = 0;
+  double gtaugmu_pike_wt[3] = {0,0,0};
+  calc_average(3,gtaugmu_pike,cov_gtaumu_pike,gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K], %6.4f [e]\n",
+	       "<(gtau/gmu)_pike>",gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt[0],gtaugmu_pike_wt[1],gtaugmu_pike_wt[2]);
+  //
+  // gtau/ge = sqrt(Bmu/Bmu_from_tautau)
+  //
+  fprintf(thisfile,"\n");
+  double Bmu = basevalue_fit[M_GAMMA3];
+  double e_Bmu = baseerror_fit[M_GAMMA3];
+  double Bmu_from_tautau = 0;
+  double e_Bmu_from_tautau = 0;
+  double e0_Bmu_from_tautau = 0;
+  double e1_Bmu_from_tautau = 0;
+  double e2_Bmu_from_tautau = 0;
+  double e3_Bmu_from_tautau = 0;
+  double e4_Bmu_from_tautau = 0;
+  double e5_Bmu_from_tautau = 0;
+  double e6_Bmu_from_tautau = 0;
+  double gtauge_mu = 0;
+  double e_gtauge_mu = 0;
+  double e0_gtauge_mu = 0;
+  double e1_gtauge_mu = 0;
+  double e2_gtauge_mu = 0;
+  double e3_gtauge_mu = 0;
+  double e4_gtauge_mu = 0;
+  double e5_gtauge_mu = 0;
+  double e6_gtauge_mu = 0;
+  double experr_gtauge_mu = 0;
+  calc_gtauge_mu(Bmu, e_Bmu, 
+		 Bmu_from_tautau, e_Bmu_from_tautau,
+		 e0_Bmu_from_tautau, e1_Bmu_from_tautau, e2_Bmu_from_tautau, e3_Bmu_from_tautau, e4_Bmu_from_tautau, e5_Bmu_from_tautau, e6_Bmu_from_tautau, 
+		 gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
+		 e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> mu- nub nu)", 100.*Bmu, 100.*e_Bmu);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
+	  "B(tau- -> mu- nub nu)_tautau ",
+	  100.*Bmu_from_tautau,100.*e_Bmu_from_tautau,
+	  100.*e0_Bmu_from_tautau, 100.*e1_Bmu_from_tautau, 100.*e2_Bmu_from_tautau, 
+	  100.*e3_Bmu_from_tautau, 100.*e4_Bmu_from_tautau, 100.*e5_Bmu_from_tautau, 100.*e6_Bmu_from_tautau);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
+	  "(gtau/ge)_mu",gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
+	  e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
+  //
+  // Gamma10: G(tau- --> K- nu(tau))
+  //
+  fprintf(thisfile,"\n");
+  double   Vus_TauToKmNu = 0;
+  double e_Vus_TauToKmNu = 0;
+  double experr_Vus_TauToKmNu = 0;
+  double therr0_Vus_TauToKmNu = 0;
+  double therr1_Vus_TauToKmNu = 0;
+  double therr2_Vus_TauToKmNu = 0;
+  double therr3_Vus_TauToKmNu = 0;
+  calc_Vus_K(BK,e_BK,Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [tautau] +- %6.4f [mK] +- %6.4f [fK]\n",
+	  "|Vus|_TauToKmNu",Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
+  //
+  // Gamma10by9 : G(K- nu(tau)) / G(pi- nu(tau))
+  //
+  fprintf(thisfile,"\n");
+  double   BKBpi = NodeValue[N_GAMMA10BY9];
+  double e_BKBpi = NodeError[N_GAMMA10BY9];
+  fprintf(thisfile, "%s = %6.4f +- %6.4f\n","G(K- nu(tau)) / G(pi- nu(tau))", BKBpi, e_BKBpi);
+  double   Vus_TauToKmOverPimNu = 0;
+  double e_Vus_TauToKmOverPimNu = 0;
+  double experr_Vus_TauToKmOverPimNu = 0;
+  double therr0_Vus_TauToKmOverPimNu = 0;
+  double therr1_Vus_TauToKmOverPimNu = 0;
+  double therr2_Vus_TauToKmOverPimNu = 0;
+  double therr3_Vus_TauToKmOverPimNu = 0;
+  double therr4_Vus_TauToKmOverPimNu = 0;
+  double therr5_Vus_TauToKmOverPimNu = 0;
+  calc_Vus_Kpi(BKBpi,e_BKBpi,Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
+	       therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
+	       therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mK] +- %6.4f [mpi] +- %6.4f [fK/fpi] +- %6.4f [Vud] +- %6.4f [Delta]\n",
+	  "|Vus|_TauToK/Pi",Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
+	  therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
+	  therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
+  
+  //
+  // Be from Bmu
+  //
+  fprintf(thisfile,"\n");
+  double   Be_from_Bmu = 0;
+  double e_Be_from_Bmu = 0;
+  double e0_Be_from_Bmu = 0;
+  double e1_Be_from_Bmu = 0;
+  double e2_Be_from_Bmu = 0;
+  double experr_Be_from_Bmu = 0;
+  calc_Be_from_Bmu(Bmu, e_Bmu, 
+		   Be_from_Bmu, e_Be_from_Bmu, experr_Be_from_Bmu, e0_Be_from_Bmu, e1_Be_from_Bmu, e2_Be_from_Bmu);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [Btau] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me]) %%\n",
+	  "B(tau- -> e- nub nu)_Bmu ",
+	  100.*Be_from_Bmu, 100.*e_Be_from_Bmu, 100.*experr_Be_from_Bmu, 100.*e0_Be_from_Bmu, 100.*e1_Be_from_Bmu, 100.*e2_Be_from_Bmu);
+  //
+  // Average of Be and Be_from_Bmu and Be_from_tautau
+  //
+  fprintf(thisfile,"\n");
+  double Be_univ_val[3] = {Be, Be_from_Bmu, Be_from_tautau};
+  double** Be_univ_cov = new double*[3]; for (i=0;i<3;++i) Be_univ_cov[i] = new double[3];
+  Be_univ_cov[0][0] = e_Be * e_Be; 
+  Be_univ_cov[1][1] = e_Be_from_Bmu * e_Be_from_Bmu;
+  Be_univ_cov[2][2] = e_Be_from_tautau * e_Be_from_tautau;
+  Be_univ_cov[0][1] = Be_univ_cov[1][0] = basecorr_fit[M_GAMMA5][M_GAMMA3] * e_Be * experr_Be_from_Bmu;
+  Be_univ_cov[0][2] = Be_univ_cov[2][0] = 0;
+  Be_univ_cov[1][2] = Be_univ_cov[2][1] = e0_Be_from_Bmu * e0_Be_from_tautau + e1_Be_from_Bmu * e1_Be_from_tautau + e2_Be_from_Bmu * e2_Be_from_tautau;
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be",            100.*Be_univ_cov[0][1]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[1][1]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be_from_tautau",100.*Be_univ_cov[2][1]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[1][1]));
+  //
+  double Be_univ = 0;
+  double Be_univ_err = 0;
+  double Be_univ_wt[3] = {0,0,0};
+  calc_average(3,Be_univ_val,Be_univ_cov,Be_univ,Be_univ_err,Be_univ_wt);
+  //
+  // Cross-check the error on Be_univ assuming the weights have no errors
+  //    f = a A + b B + c C => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
+  // N.B.:  The weights are function of errors, eg. e[mtau], e[tautau], e[Be], e[Bmu], etc.; so it is reasonable assumption that error on these errors = 0.
+  //                                             
+  double Be_univ_err_re = TMath::Sqrt( TMath::Power(Be_univ_wt[0],2) * Be_univ_cov[0][0] + 
+				       TMath::Power(Be_univ_wt[1],2) * Be_univ_cov[1][1] + 
+				       TMath::Power(Be_univ_wt[2],2) * Be_univ_cov[2][2] + 
+				       2 * Be_univ_wt[0] * Be_univ_wt[1] * Be_univ_cov[0][1] + 
+				       2 * Be_univ_wt[2] * Be_univ_wt[1] * Be_univ_cov[2][1]);
+  //
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",
+	  "<B(tau- -> e- nub nu)_univ>",100.*Be_univ,100.*Be_univ_err, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2], Be_univ_err - Be_univ_err_re);
+  //
+  // Bhadrons
+  //
+  fprintf(thisfile,"\n");
+  double   Bhadrons = 0;
+  double e_Bhadrons = 0;
+  double ecomp_Bhadrons[5] = { 0, 0, 0, 0, 0};
+  calc_Bhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
+		Bhadrons, e_Bhadrons, ecomp_Bhadrons); 
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Be,mu]) %% \n",
+	  "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
+	  100.*ecomp_Bhadrons[0], 100.*ecomp_Bhadrons[1], 100.*ecomp_Bhadrons[2], 100.*ecomp_Bhadrons[3], 100.*ecomp_Bhadrons[4]);
+  //
+  // Rhadrons
+  //
+  double   Rhadrons = 0;
+  double e_Rhadrons = 0;
+  double ecomp_Rhadrons[5] = { 0, 0, 0, 0, 0};
+  calc_Rhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
+		Rhadrons, e_Rhadrons, ecomp_Rhadrons); 
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Be,Bmu]\n",
+	  "R(tau -> hadrons)", Rhadrons, e_Rhadrons,
+	  ecomp_Rhadrons[0], ecomp_Rhadrons[1], ecomp_Rhadrons[2], ecomp_Rhadrons[3], ecomp_Rhadrons[4]);
+  //
+  // Rstrange
+  //
+  double Bstrange = NodeValue[N_GAMMA110];
+  double e_Bstrange = NodeError[N_GAMMA110];
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% \n","B(tau -> strange)", 100.*Bstrange, 100.*e_Bstrange);
+  double Rstrange = 0;
+  double e_Rstrange = 0;
+  double ecomp_Rstrange[6] = { 0, 0, 0, 0, 0, 0};
+  calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
+		Rstrange, e_Rstrange, ecomp_Rstrange);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
+	  "R(tau -> strange)", Rstrange, e_Rstrange,
+	  ecomp_Rstrange[0], ecomp_Rstrange[1], ecomp_Rstrange[2], ecomp_Rstrange[3], ecomp_Rstrange[4], ecomp_Rstrange[5]);
+  //
+  // Rnonstrange
+  //
+  double Rnonstrange = 0;
+  double e_Rnonstrange = 0;
+  double ecomp_Rnonstrange[6] = { 0, 0, 0, 0, 0, 0};
+  calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		   Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
+		   Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
+	  "R(tau -> nonstrange)", Rnonstrange, e_Rnonstrange,
+	  ecomp_Rnonstrange[0], ecomp_Rnonstrange[1], ecomp_Rnonstrange[2], ecomp_Rnonstrange[3], ecomp_Rnonstrange[4], ecomp_Rnonstrange[5]);
+  //
+  // Vus_strange
+  //
+  double Vus_strange = 0;
+  double e_Vus_strange = 0;
+  double ecomp_Vus_strange[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
+  calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		   Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
+		   Vus_strange, e_Vus_strange, ecomp_Vus_strange);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Be,mu,s] +- %6.4f [Vud] +- %6.4f [ms]\n",
+	  "|Vus|_strange", Vus_strange, e_Vus_strange,
+	  ecomp_Vus_strange[0], ecomp_Vus_strange[1], ecomp_Vus_strange[2], ecomp_Vus_strange[3], 
+	  ecomp_Vus_strange[4], ecomp_Vus_strange[5], ecomp_Vus_strange[6], ecomp_Vus_strange[7]);
+  fprintf(thisfile,"Relative Error (in %%): +- %5.2f [Total] +- %5.2f [tautau] +- %5.2f [mtau] +- %5.2f [Be] +- %5.2f [Bmu] +- %5.2f [Bs] +- %5.2f [Be,mu,s] +- %5.2f [Vud] +- %5.2f [ms]\n", 
+	  e_Vus_strange*100./Vus_strange,
+	  ecomp_Vus_strange[0]*100./Vus_strange, ecomp_Vus_strange[1]*100./Vus_strange, ecomp_Vus_strange[2]*100./Vus_strange, ecomp_Vus_strange[3]*100./Vus_strange, 
+	  ecomp_Vus_strange[4]*100./Vus_strange, ecomp_Vus_strange[5]*100./Vus_strange, ecomp_Vus_strange[6]*100./Vus_strange, ecomp_Vus_strange[7]*100./Vus_strange);
+  //
+  // Vus_unconstrained_fit
+  //
+  fprintf(thisfile,"\n");
+  double Btotal = NodeValue[N_GAMMAALL];
+  double e_Btotal = NodeError[N_GAMMAALL];
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% \n","B(tau -> total)", 100.*Btotal, 100.*e_Btotal);
+  double Vus_uncons = 0;
+  double e_Vus_uncons = 0;
+  double ecomp_Vus_uncons[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+		  Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
+		  Btotal, e_Btotal, NodeErrorMatrix[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix[N_GAMMAALL][N_GAMMA110],
+		  Vus_uncons, e_Vus_uncons, ecomp_Vus_uncons);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Btot] +- %6.4f [Be,mu,s,tot] +- %6.4f [Vud] +- %6.4f [ms]\n",
+	  "|Vus|_uncons", Vus_uncons, e_Vus_uncons,
+	  ecomp_Vus_uncons[0], ecomp_Vus_uncons[1], ecomp_Vus_uncons[2], ecomp_Vus_uncons[3], 
+	  ecomp_Vus_uncons[4], ecomp_Vus_uncons[5], ecomp_Vus_uncons[6], ecomp_Vus_uncons[7], ecomp_Vus_uncons[8]);
+  fprintf(thisfile,"Relative Error (in %%): +- %4.2f [Total] +- %4.2f [tautau] +- %4.2f [mtau] +- %4.2f [Be] +- %4.2f [Bmu] +- %4.2f [Bs] +- %4.2f [Btot]+- %4.2f [Be,mu,s,tot] +- %4.2f [Vud] +- %4.2f [ms]\n", 
+	  e_Vus_uncons*100./Vus_uncons,
+	  ecomp_Vus_uncons[0]*100./Vus_uncons, ecomp_Vus_uncons[1]*100./Vus_uncons, ecomp_Vus_uncons[2]*100./Vus_uncons, ecomp_Vus_uncons[3]*100./Vus_uncons, 
+	  ecomp_Vus_uncons[4]*100./Vus_uncons, ecomp_Vus_uncons[5]*100./Vus_uncons, ecomp_Vus_uncons[6]*100./Vus_uncons, ecomp_Vus_uncons[7]*100./Vus_uncons,
+	  ecomp_Vus_uncons[8]*100./Vus_uncons);
+  //
+  // Vus_unitarity
+  //
+  fprintf(thisfile,"\n");
+  double Vus_unitarity = TMath::Sqrt(1-Vud*Vud);
+  double e_Vus_unitarity = -e_Vud*Vud/TMath::Sqrt(1-Vud*Vud);
+  //
+  double diff_Vus_TauToKmNu = Vus_TauToKmNu - Vus_unitarity;
+  double e_diff_Vus_TauToKmNu = TMath::Sqrt(e_Vus_TauToKmNu * e_Vus_TauToKmNu + e_Vus_unitarity * e_Vus_unitarity);
+  //
+  double diff_Vus_TauToKmOverPimNu = Vus_TauToKmOverPimNu - Vus_unitarity;
+  double e_diff_Vus_TauToKmOverPimNu = TMath::Sqrt(e_Vus_TauToKmOverPimNu * e_Vus_TauToKmOverPimNu + e_Vus_unitarity * e_Vus_unitarity - 2 * therr4_Vus_TauToKmOverPimNu * e_Vus_unitarity);
+  //
+  double diff_Vus_strange = Vus_strange - Vus_unitarity;
+  double e_diff_Vus_strange = TMath::Sqrt(e_Vus_strange * e_Vus_strange + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_strange[6] * e_Vus_unitarity);
+  //
+  double diff_Vus_uncons = Vus_uncons - Vus_unitarity;
+  double e_diff_Vus_uncons = TMath::Sqrt(e_Vus_uncons*e_Vus_uncons + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_uncons[7] * e_Vus_unitarity);
+  //
+  fprintf(thisfile,"|Vus_unitarity| = %6.4f +- %6.4f [Vud]; Difference w.r.t unitarity: |Vus|_TauToKmNu = %3.1f |Vus|_TauToK/Pi = %3.1f |Vus|_strange = %3.1f |Vus|_uncons = %3.1f\n",
+	  Vus_unitarity, e_Vus_unitarity, 
+	  diff_Vus_TauToKmNu/e_diff_Vus_TauToKmNu, 
+	  diff_Vus_TauToKmOverPimNu/e_diff_Vus_TauToKmOverPimNu,
+	  diff_Vus_strange/e_diff_Vus_strange,
+	  diff_Vus_uncons/e_diff_Vus_uncons);
+  //
+  // Clean Up
+  //
+  delete [] Be_univ_cov;
+  delete [] cov_gtaumu_pike;
+  delete [] cov_gtaumu_pik;
+}
+// ----------------------------------------------------------------------
 void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<string> nodegammaname, bool* node_is_base, 
 		    int ncoef, double* coef, string* coefnames,
 		    int* node_num_npar, vector<int> * node_num_parm, vector<double> * node_num_coef,
@@ -1875,7 +2344,7 @@ void process_measurements(int nmeas, int* measnode, double* measerror, double** 
 	ifirstj[ncorrij] = i;
 	++ncorrij;
       }
-      //      cout << "i,isnew,ncorrij = " << i << " " << isnew << " " << ncorrij << endl;
+      //      cout << "i+1,isnew,ncorrij = " << i+1 << " " << isnew << " " << ncorrij << endl;
     }
   }
   //
@@ -1896,6 +2365,7 @@ void process_measurements(int nmeas, int* measnode, double* measerror, double** 
       nodegroup_all[i] = newnode_all; // node-group number for new uncorrelated measurements
     } else {
       for (j=0;j<i;++j) {
+	if (icorrj[j].size()>1) continue;
 	if (measnode[j]==inode) {
 	  nodegroup_all[i] = nodegroup_all[j]; // node-group number for old uncorrelated measurements
 	  break;
@@ -1903,6 +2373,7 @@ void process_measurements(int nmeas, int* measnode, double* measerror, double** 
       }
     }
     vector_measnodes_all.push_back(inode);
+    //    cout << " i+1 = " << i+1 << " inode = " << inode << " is_newnode_all = " << is_newnode_all << " newnode_all = " << newnode_all << " nodegroup = " << nodegroup_all[i] << endl;
   }
   for (i=0;i<ncorrij;++i) {
     ++newnode_all;
@@ -4308,7 +4779,7 @@ int main(int argc, char* argv[]){
 		   );
   //
   double NodeError[nnode];
-  TMatrixD NodeErrorMatrix(nnode,nnode);
+  double** NodeErrorMatrix = new double*[nnode]; for (i=0;i<nnode;++i) NodeErrorMatrix[i]= new double[nnode];
   for (inode=0;inode<nnode;++inode) {
     for (jnode=0;jnode<nnode;++jnode) {
       NodeErrorMatrix[inode][jnode] = 0; 
@@ -4533,7 +5004,7 @@ int main(int argc, char* argv[]){
 		   );
   //
   double NodeError_noweak[nnode];
-  TMatrixD NodeErrorMatrix_noweak(nnode,nnode);
+  double** NodeErrorMatrix_noweak = new double*[nnode]; for (i=0;i<nnode;++i) NodeErrorMatrix_noweak[i]= new double[nnode];
   for (inode=0;inode<nnode;++inode) {
     for (jnode=0;jnode<nnode;++jnode) {
       NodeErrorMatrix_noweak[inode][jnode] = 0; 
@@ -5075,7 +5546,7 @@ int main(int argc, char* argv[]){
 		   );
   //
   double NodeError_noweak_scaled[nnode];
-  TMatrixD NodeErrorMatrix_noweak_scaled(nnode,nnode);
+  double** NodeErrorMatrix_noweak_scaled = new double*[nnode]; for (i=0;i<nnode;++i) NodeErrorMatrix_noweak_scaled[i]= new double[nnode];
   for (inode=0;inode<nnode;++inode) {
     for (jnode=0;jnode<nnode;++jnode) {
       NodeErrorMatrix_noweak_scaled[inode][jnode] = 0; 
@@ -5352,7 +5823,7 @@ int main(int argc, char* argv[]){
 		   );
   //
   double NodeError_rescaled[nnode];
-  TMatrixD NodeErrorMatrix_rescaled(nnode,nnode);
+  double** NodeErrorMatrix_rescaled = new double*[nnode]; for (i=0;i<nnode;++i) NodeErrorMatrix_rescaled[i]= new double[nnode];
   for (inode=0;inode<nnode;++inode) {
     for (jnode=0;jnode<nnode;++jnode) {
       NodeErrorMatrix_rescaled[inode][jnode] = 0; 
@@ -5589,7 +6060,7 @@ int main(int argc, char* argv[]){
 		   );
   //
   double NodeError_noweak_rescaled[nnode];
-  TMatrixD NodeErrorMatrix_noweak_rescaled(nnode,nnode);
+  double** NodeErrorMatrix_noweak_rescaled = new double*[nnode]; for (i=0;i<nnode;++i) NodeErrorMatrix_noweak_rescaled[i]= new double[nnode];
   for (inode=0;inode<nnode;++inode) {
     for (jnode=0;jnode<nnode;++jnode) {
       NodeErrorMatrix_noweak_rescaled[inode][jnode] = 0; 
@@ -5724,478 +6195,48 @@ int main(int argc, char* argv[]){
   cout << Form("\\end{tabular}\n");
   cout << endl;
   //
-  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> mu- nubar(mu) nu(tau))
+  // Print Results 
   //
-  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA3].data(),100.*basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3]);
-  //
-  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> pi- nu(tau))
-  //
-  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA9].data(),100.*basecorr_fit_rescaled[M_GAMMA5][M_GAMMA9]);
-  //
-  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> K- nu(tau))
-  //
-  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit_rescaled[M_GAMMA5][M_GAMMA10]);
-  //
-  // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> K- nu(tau))
-  //
-  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA9].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10]);
-  //
-  // Correlation between G(tau- --> eta K- pi0 nu(tau)) and G(tau- --> eta pi- Kbar0 nu(tau))
-  //
-#if defined USING_NBASE36 || defined USING_NBASE37
-  cout << Form("Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA130].data(),basetitle[M_GAMMA132].data(),100.*basecorr_fit_rescaled[M_GAMMA130][M_GAMMA132]);
-#endif
-  //
-  // Gamma3by5 : G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
-  //
-  cout << endl;
-  const double   BmuBe = NodeValue_rescaled[N_GAMMA3BY5];
-  const double e_BmuBe = NodeError_rescaled[N_GAMMA3BY5];
-  double   fmufe = 0;
-  double e_fmufe = 0;
-  double e0_fmufe = 0;
-  double e1_fmufe = 0;
-  double e2_fmufe = 0;
-  double   gmuge = 0;
-  double e_gmuge = 0;
-  double e0_gmuge = 0;
-  double e1_gmuge = 0;
-  double e2_gmuge = 0;
-  double experr_gmuge = 0;
-  calc_gmuge(BmuBe,e_BmuBe,
-	     fmufe,e_fmufe,e0_fmufe,e1_fmufe,e2_fmufe,
-	     gmuge,e_gmuge,experr_gmuge,e0_gmuge,e1_gmuge,e2_gmuge);
-  cout << Form("%s = %6.4f +- %6.4f\n","B(tau- -> mu- nub nu)/B(tau- -> e- nub nu)", BmuBe, e_BmuBe);
-  cout << Form("%s = %8.6f +- %8.6f [Total] +- %8.6f [mtau)] +- %8.6f [mmu] +- %8.6f [me]\n",
-	       "f(m_mu^2/m_tau^2)/f(m_e^2/m_tau^2)", fmufe, e_fmufe, e0_fmufe, e1_fmufe, e2_fmufe);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me]\n",
-	       "gmu/ge", gmuge, e_gmuge, experr_gmuge, e0_gmuge, e1_gmuge, e2_gmuge);
-  //
-  // Gamma9: G(tau- --> pi- nu(tau))
-  //
-  cout << endl;
-  const double Bpi = basevalue_fit_rescaled[M_GAMMA9];
-  const double e_Bpi = baseerror_fit_rescaled[M_GAMMA9];
-  double Bpi_exp = 0;
-  double e_Bpi_exp = 0;
-  double e0_Bpi_exp = 0;
-  double e1_Bpi_exp = 0;
-  double e2_Bpi_exp = 0;
-  double e3_Bpi_exp = 0;
-  double e4_Bpi_exp = 0;
-  double e5_Bpi_exp = 0;
-  double e6_Bpi_exp = 0;
-  double gtaugmu_pi = 0;
-  double e_gtaugmu_pi = 0;
-  double e0_gtaugmu_pi = 0;
-  double e1_gtaugmu_pi = 0;
-  double e2_gtaugmu_pi = 0;
-  double e3_gtaugmu_pi = 0;
-  double e4_gtaugmu_pi = 0;
-  double e5_gtaugmu_pi = 0;
-  double e6_gtaugmu_pi = 0;
-  double experr_gtaugmu_pi = 0;
-  //
-  calc_gtaugmu_h(Bpi, e_Bpi, 
-		 BR_PimToMumNu, e_BR_PimToMumNu,
-		 m_pim, e_m_pim,
-		 tau_pim, e_tau_pim,
-		 Delta_TauToPim_over_PimToMu, e_Delta_TauToPim_over_PimToMu,
-		 Bpi_exp, e_Bpi_exp, e0_Bpi_exp, e1_Bpi_exp, e2_Bpi_exp, e3_Bpi_exp, e4_Bpi_exp, e5_Bpi_exp, e6_Bpi_exp,
-		 gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
-		 e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
-  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> pi- nu)", 100.*Bpi, 100.*e_Bpi);
-  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
-	       "B(tau- -> pi- nu)_univ", 
-	       100.*Bpi_exp, 100.*e_Bpi_exp,
-	       100.*e0_Bpi_exp, 100.*e1_Bpi_exp, 100.*e2_Bpi_exp, 100.*e3_Bpi_exp, 100.*e4_Bpi_exp, 100.*e5_Bpi_exp, 100.*e6_Bpi_exp);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
-	       "(gtau/gmu)_pi", gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
-	       e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
-  //
-  // Gamma10: G(tau- --> K- nu(tau))
-  //
-  cout << endl;
-  const double BK = basevalue_fit_rescaled[M_GAMMA10];
-  const double e_BK = baseerror_fit_rescaled[M_GAMMA10];
-  double BK_exp = 0;
-  double e_BK_exp = 0;
-  double e0_BK_exp = 0;
-  double e1_BK_exp = 0;
-  double e2_BK_exp = 0;
-  double e3_BK_exp = 0;
-  double e4_BK_exp = 0;
-  double e5_BK_exp = 0;
-  double e6_BK_exp = 0;
-  double gtaugmu_K = 0;
-  double e_gtaugmu_K = 0;
-  double e0_gtaugmu_K = 0;
-  double e1_gtaugmu_K = 0;
-  double e2_gtaugmu_K = 0;
-  double e3_gtaugmu_K = 0;
-  double e4_gtaugmu_K = 0;
-  double e5_gtaugmu_K = 0;
-  double e6_gtaugmu_K = 0;
-  double experr_gtaugmu_K = 0;
-  //
-  calc_gtaugmu_h(BK, e_BK,
-		 BR_KmToMumNu, e_BR_KmToMumNu,
-		 m_km, e_m_km,
-		 tau_km, e_tau_km,
-		 Delta_TauToKm_over_KmToMu, e_Delta_TauToKm_over_KmToMu,
-		 BK_exp, e_BK_exp, e0_BK_exp, e1_BK_exp, e2_BK_exp, e3_BK_exp, e4_BK_exp, e5_BK_exp, e6_BK_exp,
-		 gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
-		 e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
-  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> K- nu)", 100.*BK, 100.*e_BK);
-  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
-	       "B(tau- -> K- nu)_univ", 
-	       100.*BK_exp, 100.*e_BK_exp,
-	       100.*e0_BK_exp, 100.*e1_BK_exp, 100.*e2_BK_exp, 100.*e3_BK_exp, 100.*e4_BK_exp, 100.*e5_BK_exp, 100.*e6_BK_exp);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
-	       "(gtau/gmu)_K", gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
-	       e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
-  //
-  // Average of (gtau/gmu)_pi and (gtau/gmu)_K
-  //
-  cout << endl;
-  double gtaugmu_pik[2] = {gtaugmu_pi,gtaugmu_K};
-  double** cov_gtaumu_pik = new double*[2]; for (i=0;i<2;++i) cov_gtaumu_pik[i] = new double[2];
-  cov_gtaumu_pik[0][0] = e_gtaugmu_pi * e_gtaugmu_pi;
-  cov_gtaumu_pik[1][1] = e_gtaugmu_K  * e_gtaugmu_K;
-  cov_gtaumu_pik[0][1] = cov_gtaumu_pik[1][0]
-    = basecorr_fit_rescaled[M_GAMMA9][M_GAMMA10] * experr_gtaugmu_pi * experr_gtaugmu_K 
-    + e0_gtaugmu_pi * e0_gtaugmu_K + e1_gtaugmu_pi * e1_gtaugmu_K + e3_gtaugmu_pi * e3_gtaugmu_K;
-  cout << Form("Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_K ",100.*cov_gtaumu_pik[0][1]/TMath::Sqrt(cov_gtaumu_pik[0][0]*cov_gtaumu_pik[1][1]));
-  double gtaugmu_pik_ave = 0;
-  double gtaugmu_pik_err = 0;
-  double gtaugmu_pik_wt[2] = {0,0};
-  calc_average(2,gtaugmu_pik,cov_gtaumu_pik,gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt);
-  cout << Form("%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K]\n",
-	       "<(gtau/gmu)_pik>",gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt[0],gtaugmu_pik_wt[1]);
-  //
-  // gtau/gmu = sqrt(Be/Be_from_tautau)
-  //
-  cout << endl;
-  double Be = basevalue_fit_rescaled[M_GAMMA5];
-  double e_Be = baseerror_fit_rescaled[M_GAMMA5];
-  double Be_from_tautau = 0;
-  double e_Be_from_tautau = 0;
-  double e0_Be_from_tautau = 0;
-  double e1_Be_from_tautau = 0;
-  double e2_Be_from_tautau = 0;
-  double e3_Be_from_tautau = 0;
-  double e4_Be_from_tautau = 0;
-  double e5_Be_from_tautau = 0;
-  double e6_Be_from_tautau = 0;
-  double gtaugmu_e = 0;
-  double e_gtaugmu_e = 0;
-  double e0_gtaugmu_e = 0;
-  double e1_gtaugmu_e = 0;
-  double e2_gtaugmu_e = 0;
-  double e3_gtaugmu_e = 0;
-  double e4_gtaugmu_e = 0;
-  double e5_gtaugmu_e = 0;
-  double e6_gtaugmu_e = 0;
-  double experr_gtaugmu_e = 0;
-  calc_gtaugmu_e(Be, e_Be,
-		 Be_from_tautau, e_Be_from_tautau,
-		 e0_Be_from_tautau, e1_Be_from_tautau, e2_Be_from_tautau, e3_Be_from_tautau, e4_Be_from_tautau, e5_Be_from_tautau, e6_Be_from_tautau, 
-		 gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
-		 e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
-  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> e- nub nu)", 100.*Be, 100.*e_Be);
-  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
-	       "B(tau- -> e- nub nu)_tautau ",
-	       100.*Be_from_tautau, 100.*e_Be_from_tautau,
-	       100.*e0_Be_from_tautau, 100.*e1_Be_from_tautau, 100.*e2_Be_from_tautau, 
-	       100.*e3_Be_from_tautau, 100.*e4_Be_from_tautau, 100.*e5_Be_from_tautau, 100.*e6_Be_from_tautau);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mumu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
-	       "(gtau/gmu)_e", gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
-	       e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
-  //
-  // Average of (gtau/gmu)_pi and (gtau/gmu)_K and (gtau/gmu)_e
-  //
-  cout << endl;
-  double gtaugmu_pike[3] = {gtaugmu_pi,gtaugmu_K,gtaugmu_e};
-  double** cov_gtaumu_pike = new double*[3]; for (i=0;i<3;++i) cov_gtaumu_pike[i] = new double[3];
-  //
-  cov_gtaumu_pike[0][0] = cov_gtaumu_pik[0][0];
-  cov_gtaumu_pike[1][1] = cov_gtaumu_pik[1][1];
-  cov_gtaumu_pike[2][2] = e_gtaugmu_e * e_gtaugmu_e;
-  //
-  cov_gtaumu_pike[0][1] = cov_gtaumu_pik[0][1];
-  cov_gtaumu_pike[1][0] = cov_gtaumu_pik[1][0];
-  //
-  cov_gtaumu_pike[0][2] = cov_gtaumu_pike[2][0]
-    = basecorr_fit_rescaled[M_GAMMA9][M_GAMMA5] * experr_gtaugmu_pi * experr_gtaugmu_e 
-    + e0_gtaugmu_pi * e0_gtaugmu_e + e1_gtaugmu_pi * e1_gtaugmu_e + e3_gtaugmu_pi * e3_gtaugmu_e;
-  cout << Form("Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_e ",100.*cov_gtaumu_pike[0][2]/TMath::Sqrt(cov_gtaumu_pike[0][0]*cov_gtaumu_pike[2][2]));
-  //
-  cov_gtaumu_pike[1][2] = cov_gtaumu_pike[2][1]
-    = basecorr_fit_rescaled[M_GAMMA10][M_GAMMA5] * experr_gtaugmu_K * experr_gtaugmu_e 
-    + e0_gtaugmu_K * e0_gtaugmu_e + e1_gtaugmu_K * e1_gtaugmu_e + e3_gtaugmu_K * e3_gtaugmu_e;
-  cout << Form("Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_K ","(gtau/gmu)_e ",100.*cov_gtaumu_pike[1][2]/TMath::Sqrt(cov_gtaumu_pike[1][1]*cov_gtaumu_pike[2][2]));
-  //
-  double gtaugmu_pike_ave = 0;
-  double gtaugmu_pike_err = 0;
-  double gtaugmu_pike_wt[3] = {0,0,0};
-  calc_average(3,gtaugmu_pike,cov_gtaumu_pike,gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt);
-  cout << Form("%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K], %6.4f [e]\n",
-	       "<(gtau/gmu)_pike>",gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt[0],gtaugmu_pike_wt[1],gtaugmu_pike_wt[2]);
-  //
-  // gtau/ge = sqrt(Bmu/Bmu_from_tautau)
-  //
-  cout << endl;
-  double Bmu = basevalue_fit_rescaled[M_GAMMA3];
-  double e_Bmu = baseerror_fit_rescaled[M_GAMMA3];
-  double Bmu_from_tautau = 0;
-  double e_Bmu_from_tautau = 0;
-  double e0_Bmu_from_tautau = 0;
-  double e1_Bmu_from_tautau = 0;
-  double e2_Bmu_from_tautau = 0;
-  double e3_Bmu_from_tautau = 0;
-  double e4_Bmu_from_tautau = 0;
-  double e5_Bmu_from_tautau = 0;
-  double e6_Bmu_from_tautau = 0;
-  double gtauge_mu = 0;
-  double e_gtauge_mu = 0;
-  double e0_gtauge_mu = 0;
-  double e1_gtauge_mu = 0;
-  double e2_gtauge_mu = 0;
-  double e3_gtauge_mu = 0;
-  double e4_gtauge_mu = 0;
-  double e5_gtauge_mu = 0;
-  double e6_gtauge_mu = 0;
-  double experr_gtauge_mu = 0;
-  calc_gtauge_mu(Bmu, e_Bmu, 
-		 Bmu_from_tautau, e_Bmu_from_tautau,
-		 e0_Bmu_from_tautau, e1_Bmu_from_tautau, e2_Bmu_from_tautau, e3_Bmu_from_tautau, e4_Bmu_from_tautau, e5_Bmu_from_tautau, e6_Bmu_from_tautau, 
-		 gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
-		 e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
-  cout << Form("%s = (%6.3f +- %6.3f) %%\n","B(tau- -> mu- nub nu)", 100.*Bmu, 100.*e_Bmu);
-  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
-	       "B(tau- -> mu- nub nu)_tautau ",
-	       100.*Bmu_from_tautau,100.*e_Bmu_from_tautau,
-	       100.*e0_Bmu_from_tautau, 100.*e1_Bmu_from_tautau, 100.*e2_Bmu_from_tautau, 
-	       100.*e3_Bmu_from_tautau, 100.*e4_Bmu_from_tautau, 100.*e5_Bmu_from_tautau, 100.*e6_Bmu_from_tautau);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
-	       "(gtau/ge)_mu",gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
-	       e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
-  //
-  // Gamma10: G(tau- --> K- nu(tau))
-  //
-  cout << endl;
-  double   Vus_TauToKmNu = 0;
-  double e_Vus_TauToKmNu = 0;
-  double experr_Vus_TauToKmNu = 0;
-  double therr0_Vus_TauToKmNu = 0;
-  double therr1_Vus_TauToKmNu = 0;
-  double therr2_Vus_TauToKmNu = 0;
-  double therr3_Vus_TauToKmNu = 0;
-  calc_Vus_K(BK,e_BK,Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [tautau] +- %6.4f [mK] +- %6.4f [fK]\n",
-	       "|Vus|_TauToKmNu",Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
-  //
-  // Gamma10by9 : G(K- nu(tau)) / G(pi- nu(tau))
-  //
-  cout << endl;
-  double   BKBpi = NodeValue_rescaled[N_GAMMA10BY9];
-  double e_BKBpi = NodeError_rescaled[N_GAMMA10BY9];
-  cout << Form("%s = %6.4f +- %6.4f\n","G(K- nu(tau)) / G(pi- nu(tau))", BKBpi, e_BKBpi);
-  double   Vus_TauToKmOverPimNu = 0;
-  double e_Vus_TauToKmOverPimNu = 0;
-  double experr_Vus_TauToKmOverPimNu = 0;
-  double therr0_Vus_TauToKmOverPimNu = 0;
-  double therr1_Vus_TauToKmOverPimNu = 0;
-  double therr2_Vus_TauToKmOverPimNu = 0;
-  double therr3_Vus_TauToKmOverPimNu = 0;
-  double therr4_Vus_TauToKmOverPimNu = 0;
-  double therr5_Vus_TauToKmOverPimNu = 0;
-  calc_Vus_Kpi(BKBpi,e_BKBpi,Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
-	       therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
-	       therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mK] +- %6.4f [mpi] +- %6.4f [fK/fpi] +- %6.4f [Vud] +- %6.4f [Delta]\n",
-	       "|Vus|_TauToK/Pi",Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
-	       therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
-	       therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
-
-  //
-  // Be from Bmu
-  //
-  cout << endl;
-  double   Be_from_Bmu = 0;
-  double e_Be_from_Bmu = 0;
-  double e0_Be_from_Bmu = 0;
-  double e1_Be_from_Bmu = 0;
-  double e2_Be_from_Bmu = 0;
-  double experr_Be_from_Bmu = 0;
-  calc_Be_from_Bmu(Bmu, e_Bmu, 
-		   Be_from_Bmu, e_Be_from_Bmu, experr_Be_from_Bmu, e0_Be_from_Bmu, e1_Be_from_Bmu, e2_Be_from_Bmu);
-  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [Btau] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me]) %%\n",
-	       "B(tau- -> e- nub nu)_Bmu ",
-	       100.*Be_from_Bmu, 100.*e_Be_from_Bmu, 100.*experr_Be_from_Bmu, 100.*e0_Be_from_Bmu, 100.*e1_Be_from_Bmu, 100.*e2_Be_from_Bmu);
-  //
-  // Average of Be and Be_from_Bmu and Be_from_tautau
-  //
-  cout << endl;
-  double Be_univ_val[3] = {Be, Be_from_Bmu, Be_from_tautau};
-  double** Be_univ_cov = new double*[3]; for (i=0;i<3;++i) Be_univ_cov[i] = new double[3];
-  Be_univ_cov[0][0] = e_Be * e_Be; 
-  Be_univ_cov[1][1] = e_Be_from_Bmu * e_Be_from_Bmu;
-  Be_univ_cov[2][2] = e_Be_from_tautau * e_Be_from_tautau;
-  Be_univ_cov[0][1] = Be_univ_cov[1][0] = basecorr_fit_rescaled[M_GAMMA5][M_GAMMA3] * e_Be * experr_Be_from_Bmu;
-  Be_univ_cov[0][2] = Be_univ_cov[2][0] = 0;
-  Be_univ_cov[1][2] = Be_univ_cov[2][1] = e0_Be_from_Bmu * e0_Be_from_tautau + e1_Be_from_Bmu * e1_Be_from_tautau + e2_Be_from_Bmu * e2_Be_from_tautau;
-  cout << Form("Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be",            100.*Be_univ_cov[0][1]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[1][1]));
-  cout << Form("Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be_from_tautau",100.*Be_univ_cov[2][1]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[1][1]));
-  //
-  double Be_univ = 0;
-  double Be_univ_err = 0;
-  double Be_univ_wt[3] = {0,0,0};
-  calc_average(3,Be_univ_val,Be_univ_cov,Be_univ,Be_univ_err,Be_univ_wt);
-  //
-  // Cross-check the error on Be_univ assuming the weights have no errors
-  //    f = a A + b B + c C => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
-  // N.B.:  The weights are function of errors, eg. e[mtau], e[tautau], e[Be], e[Bmu], etc.; so it is reasonable assumption that error on these errors = 0.
-  //                                             
-  double Be_univ_err_re = TMath::Sqrt( TMath::Power(Be_univ_wt[0],2) * Be_univ_cov[0][0] + 
-				       TMath::Power(Be_univ_wt[1],2) * Be_univ_cov[1][1] + 
-				       TMath::Power(Be_univ_wt[2],2) * Be_univ_cov[2][2] + 
-				       2 * Be_univ_wt[0] * Be_univ_wt[1] * Be_univ_cov[0][1] + 
-				       2 * Be_univ_wt[2] * Be_univ_wt[1] * Be_univ_cov[2][1]);
-  //
-  cout << Form("%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",
-	       "<B(tau- -> e- nub nu)_univ>",100.*Be_univ,100.*Be_univ_err, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2], Be_univ_err - Be_univ_err_re);
-  //
-  // Bhadrons
-  //
-  cout << endl;
-  double   Bhadrons = 0;
-  double e_Bhadrons = 0;
-  double ecomp_Bhadrons[5] = { 0, 0, 0, 0, 0};
-  calc_Bhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit_rescaled[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
-		Bhadrons, e_Bhadrons, ecomp_Bhadrons); 
-  cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Be,mu]) %% \n",
-	       "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
-	       100.*ecomp_Bhadrons[0], 100.*ecomp_Bhadrons[1], 100.*ecomp_Bhadrons[2], 100.*ecomp_Bhadrons[3], 100.*ecomp_Bhadrons[4]);
-  //
-  // Rhadrons
-  //
-  double   Rhadrons = 0;
-  double e_Rhadrons = 0;
-  double ecomp_Rhadrons[5] = { 0, 0, 0, 0, 0};
-  calc_Rhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit_rescaled[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
-		Rhadrons, e_Rhadrons, ecomp_Rhadrons); 
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Be,Bmu]\n",
-	       "R(tau -> hadrons)", Rhadrons, e_Rhadrons,
-	       ecomp_Rhadrons[0], ecomp_Rhadrons[1], ecomp_Rhadrons[2], ecomp_Rhadrons[3], ecomp_Rhadrons[4]);
-  //
-  // Rstrange
-  //
-  double Bstrange = NodeValue_rescaled[N_GAMMA110];
-  double e_Bstrange = NodeError_rescaled[N_GAMMA110];
-  cout << Form("%s = (%6.3f +- %6.3f) %% \n","B(tau -> strange)", 100.*Bstrange, 100.*e_Bstrange);
-  double Rstrange = 0;
-  double e_Rstrange = 0;
-  double ecomp_Rstrange[6] = { 0, 0, 0, 0, 0, 0};
-  calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-		Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
-		Rstrange, e_Rstrange, ecomp_Rstrange);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
-	       "R(tau -> strange)", Rstrange, e_Rstrange,
-	       ecomp_Rstrange[0], ecomp_Rstrange[1], ecomp_Rstrange[2], ecomp_Rstrange[3], ecomp_Rstrange[4], ecomp_Rstrange[5]);
-  //
-  // Rnonstrange
-  //
-  double Rnonstrange = 0;
-  double e_Rnonstrange = 0;
-  double ecomp_Rnonstrange[6] = { 0, 0, 0, 0, 0, 0};
-  calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
-		   Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
-	       "R(tau -> nonstrange)", Rnonstrange, e_Rnonstrange,
-	       ecomp_Rnonstrange[0], ecomp_Rnonstrange[1], ecomp_Rnonstrange[2], ecomp_Rnonstrange[3], ecomp_Rnonstrange[4], ecomp_Rnonstrange[5]);
-  //
-  // Vus_strange
-  //
-  double Vus_strange = 0;
-  double e_Vus_strange = 0;
-  double ecomp_Vus_strange[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
-  calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
-		   Vus_strange, e_Vus_strange, ecomp_Vus_strange);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Be,mu,s] +- %6.4f [Vud] +- %6.4f [ms]\n",
-	       "|Vus|_strange", Vus_strange, e_Vus_strange,
-	       ecomp_Vus_strange[0], ecomp_Vus_strange[1], ecomp_Vus_strange[2], ecomp_Vus_strange[3], 
-	       ecomp_Vus_strange[4], ecomp_Vus_strange[5], ecomp_Vus_strange[6], ecomp_Vus_strange[7]);
-  cout << Form("Relative Error (in %%): +- %5.2f [Total] +- %5.2f [tautau] +- %5.2f [mtau] +- %5.2f [Be] +- %5.2f [Bmu] +- %5.2f [Bs] +- %5.2f [Be,mu,s] +- %5.2f [Vud] +- %5.2f [ms]\n", 
-	       e_Vus_strange*100./Vus_strange,
-	       ecomp_Vus_strange[0]*100./Vus_strange, ecomp_Vus_strange[1]*100./Vus_strange, ecomp_Vus_strange[2]*100./Vus_strange, ecomp_Vus_strange[3]*100./Vus_strange, 
-	       ecomp_Vus_strange[4]*100./Vus_strange, ecomp_Vus_strange[5]*100./Vus_strange, ecomp_Vus_strange[6]*100./Vus_strange, ecomp_Vus_strange[7]*100./Vus_strange);
-  //
-  // Vus_unconstrained_fit
-  //
-  cout << endl;
-  double Btotal = NodeValue_rescaled[N_GAMMAALL];
-  double e_Btotal = NodeError_rescaled[N_GAMMAALL];
-  cout << Form("%s = (%6.3f +- %6.3f) %% \n","B(tau -> total)", 100.*Btotal, 100.*e_Btotal);
-  double Vus_uncons = 0;
-  double e_Vus_uncons = 0;
-  double ecomp_Vus_uncons[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-			  Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
-			  Btotal, e_Btotal, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMAALL][N_GAMMA110],
-			  Vus_uncons, e_Vus_uncons, ecomp_Vus_uncons);
-  cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Btot] +- %6.4f [Be,mu,s,tot] +- %6.4f [Vud] +- %6.4f [ms]\n",
-	       "|Vus|_uncons", Vus_uncons, e_Vus_uncons,
-	       ecomp_Vus_uncons[0], ecomp_Vus_uncons[1], ecomp_Vus_uncons[2], ecomp_Vus_uncons[3], 
-	       ecomp_Vus_uncons[4], ecomp_Vus_uncons[5], ecomp_Vus_uncons[6], ecomp_Vus_uncons[7], ecomp_Vus_uncons[8]);
-  cout << Form("Relative Error (in %%): +- %4.2f [Total] +- %4.2f [tautau] +- %4.2f [mtau] +- %4.2f [Be] +- %4.2f [Bmu] +- %4.2f [Bs] +- %4.2f [Btot]+- %4.2f [Be,mu,s,tot] +- %4.2f [Vud] +- %4.2f [ms]\n", 
-	       e_Vus_uncons*100./Vus_uncons,
-	       ecomp_Vus_uncons[0]*100./Vus_uncons, ecomp_Vus_uncons[1]*100./Vus_uncons, ecomp_Vus_uncons[2]*100./Vus_uncons, ecomp_Vus_uncons[3]*100./Vus_uncons, 
-	       ecomp_Vus_uncons[4]*100./Vus_uncons, ecomp_Vus_uncons[5]*100./Vus_uncons, ecomp_Vus_uncons[6]*100./Vus_uncons, ecomp_Vus_uncons[7]*100./Vus_uncons,
-	       ecomp_Vus_uncons[8]*100./Vus_uncons);
-  //
-  // Vus_unitarity
-  //
-  cout << endl;
-  double Vus_unitarity = TMath::Sqrt(1-Vud*Vud);
-  double e_Vus_unitarity = -e_Vud*Vud/TMath::Sqrt(1-Vud*Vud);
-  //
-  double diff_Vus_TauToKmNu = Vus_TauToKmNu - Vus_unitarity;
-  double e_diff_Vus_TauToKmNu = TMath::Sqrt(e_Vus_TauToKmNu * e_Vus_TauToKmNu + e_Vus_unitarity * e_Vus_unitarity);
-  //
-  double diff_Vus_TauToKmOverPimNu = Vus_TauToKmOverPimNu - Vus_unitarity;
-  double e_diff_Vus_TauToKmOverPimNu = TMath::Sqrt(e_Vus_TauToKmOverPimNu * e_Vus_TauToKmOverPimNu + e_Vus_unitarity * e_Vus_unitarity - 2 * therr4_Vus_TauToKmOverPimNu * e_Vus_unitarity);
-  //
-  double diff_Vus_strange = Vus_strange - Vus_unitarity;
-  double e_diff_Vus_strange = TMath::Sqrt(e_Vus_strange * e_Vus_strange + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_strange[6] * e_Vus_unitarity);
-  //
-  double diff_Vus_uncons = Vus_uncons - Vus_unitarity;
-  double e_diff_Vus_uncons = TMath::Sqrt(e_Vus_uncons*e_Vus_uncons + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_uncons[7] * e_Vus_unitarity);
-  //
-  cout << Form("|Vus_unitarity| = %6.4f +- %6.4f [Vud]; Difference w.r.t unitarity: |Vus|_TauToKmNu = %3.1f |Vus|_TauToK/Pi = %3.1f |Vus|_strange = %3.1f |Vus|_uncons = %3.1f\n",
-	       Vus_unitarity, e_Vus_unitarity, 
-	       diff_Vus_TauToKmNu/e_diff_Vus_TauToKmNu, 
-	       diff_Vus_TauToKmOverPimNu/e_diff_Vus_TauToKmOverPimNu,
-	       diff_Vus_strange/e_diff_Vus_strange,
-	       diff_Vus_uncons/e_diff_Vus_uncons);
-  //
+  FILE *resfile=fopen(Form("readpdg_%s%s.results",sconstrain.data(),salephhcorr.data()),"w");
+  for (i=0;i<3;++i) {
+    if (i==0) {
+      fprintf (resfile, "Results from original fit :\n\n");
+      calc_results(resfile,
+		   basetitle, basevalue_fit, baseerror_fit, basecov_fit, basecorr_fit, 
+		   NodeValue, NodeError, NodeErrorMatrix);
+      fprintf (resfile, "\n==============================================\n");
+    } else if (i==1) {
+      fprintf (resfile, "Results from fit [errors inflated with PDG-style scale factors] :\n\n");
+      calc_results(resfile,
+		   basetitle, basevalue_fit, baseerror_fit_noweak_scaled, basecov_fit_noweak_scaled, basecorr_fit_noweak_scaled, 
+		   NodeValue, NodeError_noweak_scaled, NodeErrorMatrix_noweak_scaled);
+      fprintf (resfile, "\n==============================================\n");
+    } else if (i==2) {
+      fprintf (resfile, "Results from fit [errors rescaled in a Ad-Hoc style for kkk only] :\n\n");
+      calc_results(resfile,
+		   basetitle, basevalue_fit_rescaled, baseerror_fit_rescaled, basecov_fit_rescaled, basecorr_fit_rescaled, 
+		   NodeValue_rescaled, NodeError_rescaled, NodeErrorMatrix_rescaled);
+      fprintf (resfile, "\n==============================================\n");
+    }
+  }
+  fclose(resfile);
   // Clean Up
   //
-  delete [] Be_univ_cov;
-  delete [] cov_gtaumu_pike;
-  delete [] cov_gtaumu_pik;
+  delete [] NodeErrorMatrix_noweak_rescaled;
   delete [] basecorr_fit_noweak_rescaled;
   delete [] basecov_fit_noweak_rescaled;
+  delete [] NodeErrorMatrix_rescaled;
   delete [] basecorr_fit_rescaled;
   delete [] basecov_fit_rescaled;
+  delete [] NodeErrorMatrix_noweak_scaled;
   delete [] basecorr_fit_noweak_scaled;
   delete [] basecov_fit_noweak_scaled;
   delete [] corrmat_scaled_noweak;
   delete [] corrmat_scaled;
+  delete [] NodeErrorMatrix_noweak;
   delete [] basecorr_fit_noweak;
   delete [] basecov_fit_noweak;
+  delete [] NodeErrorMatrix;
   delete [] basecorr_fit;
   delete [] basecov_fit;
   delete [] corrmat;
