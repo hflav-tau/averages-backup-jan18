@@ -131,6 +131,7 @@
 *  128 44      S035B98  2.6E-04      2.4E-04     ALEPH  BARATE      99R  G(Kbar0 pi- 2pi0 nu(tau)) / G(total)
 *  129 53      S035C5   2.3E-04      2.02485E-04 ALEPH  BARATE      98E  G(Kbar0 h- h- h+ nu(tau)) / G(total)
 *  130 151     S035C61  4.1E-04      9.21954E-05 CLEO3  ARMS        05   G(K- omega nu(tau)) / G(total)
+*  131 136     S035B89  2.3E-04      5.0e-05     CLEO   ANASTASSOV  01   G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
 #
 # INPUT CORRELATIONS BETWEEN MEASUREMENTS (PERCENT)
 #

@@ -100,9 +100,12 @@ MEASUREMENT m_Gamma998 statistical systematic
 *--- babar/belle/cleo measurements not in PDG list
 MEASUREMENT m_Gamma130 statistical systematic
 MEASUREMENT m_Gamma132 statistical systematic
-MEASUREMENT m_Gamma96 statistical systematic scale 5.435276
+* MEASUREMENT m_Gamma96 statistical systematic scale 5.435276
+MEASUREMENT m_Gamma96 statistical systematic 
 MEASUREMENT m_Gamma9by5 statistical systematic
 MEASUREMENT m_Gamma10by5 statistical systematic
+MEASUREMENT m_Gamma136 statistical systematic
+* MEASUREMENT m_Gamma115 statistical systematic
 
 * Gamma19by13 = (1.000000*Gamma23 + 1.000000*Gamma20) / (1.000000*Gamma14 + 1.000000*Gamma16)
 CONSTRAINT Gamma19by13.c -0.360387 Gamma19by13 -1 Gamma14 -1.389168 Gamma23 3.854653 Gamma16 -1.389168 Gamma20 3.854653
@@ -300,6 +303,12 @@ CONSTRAINT Gamma10by5.c -0.03882 Gamma10by5 -1 Gamma10 5.610265  Gamma5 -0.21779
 
 * Gamma43 = Gamma40 + Gamma44
 CONSTRAINT Gamma43.c 0.0 Gamma43 -1.0 Gamma40 1.0 Gamma44 1.0
+
+* Gamma136 = (Gamma104*0.2274000000 + Gamma78*0.3257000000)
+CONSTRAINT Gamma136.c 0.0 Gamma136 -1 Gamma104 0.2274000000 Gamma78 0.3257000000
+
+* Gamma115 = (Gamma93*0.6666666667 + Gamma40*0.3333333333)
+* CONSTRAINT Gamma115.c 0.0 Gamma115 -1 Gamma93 0.6666666667 Gamma40 0.3333333333
 
 CALL CHI2_N_SYM
 
