@@ -48,52 +48,92 @@
 //
 using namespace std;
 //
+enum e_coefnames {
+  C_ETA3PIZUSAGE1    , // 0
+  C_ETA3PIZUSAGE2    , // 1
+  C_ETA3PIZUSAGE3    , // 2
+  C_ETAPIMPIPPIZ     , // 3
+  C_ETA3PIALL        , // 4
+  C_ETANEUTRALMODES1 , // 5
+  C_ETANEUTRALMODES2 , // 6
+  C_ETACHARGEDMODES  , // 7
+  C_KS2PIZ           , // 8
+  C_KS2PIZby2        , // 9
+  C_KS2PIZby2PlusHalf, //10
+  C_KS2PIZSQUARED    , //11
+  C_KS2PIZSQUAREPlus1, //12
+  C_KS2PIby2         , //13
+  C_KS2PI            , //14
+  C_KS2PI_X_2PIZ_X_2 , //15
+  C_OMPIMPIPPIZ      , //16
+  C_OMPIMPIP         , //17
+  C_OM3PIPlus2PI     , //18
+  C_OM2PIZGAMMA      , //19
+  C_PHI2KMKP         , //20
+  C_PHI2KSKL         , //21
+  C_PHI2KK_KS2PI     , //22
+  C_PHI2KSKL_KS2PI   , //23
+  C_PHI2KSKL_KS2PIZ  , //24
+  C_Gam132_3PI3PIZ_KL, //25
+  C_Gam132_ETANeuby2 , //26
+  C_ONE              , //27
+  C_HALF             , //28
+  C_TWO              , //29
+  C_ONETHIRD         , //30
+  C_TWOTHIRD           //31
+};
+//
 enum e_basegammanames {
-  M_GAMMA3  ,
-  M_GAMMA5  ,
-  M_GAMMA9  ,
-  M_GAMMA10 ,
-  M_GAMMA14 ,
-  M_GAMMA16 ,
-  M_GAMMA20 ,
-  M_GAMMA23 ,
-  M_GAMMA27 ,
-  M_GAMMA28 ,
-  M_GAMMA30 ,
-  M_GAMMA35 ,
-  M_GAMMA37 ,
-  M_GAMMA40 ,
-  M_GAMMA42 ,
-  M_GAMMA47 ,
-  M_GAMMA48 ,
-  M_GAMMA62 ,
-  M_GAMMA70 ,
-  M_GAMMA77 ,
-  M_GAMMA78 ,
-  M_GAMMA85 ,
-  M_GAMMA89 ,
-  M_GAMMA93 ,
-  M_GAMMA94 ,
-  M_GAMMA104,
-  M_GAMMA126,
-  M_GAMMA128,
+  M_GAMMA3  , // 0
+  M_GAMMA5  , // 1
+  M_GAMMA9  , // 2
+  M_GAMMA10 , // 3
+  M_GAMMA14 , // 4
+  M_GAMMA16 , // 5
+  M_GAMMA20 , // 6
+  M_GAMMA23 , // 7
+  M_GAMMA27 , // 8
+  M_GAMMA28 , // 9
+  M_GAMMA30 , // 10
+  M_GAMMA35 , // 11
+  M_GAMMA37 , // 12
+  M_GAMMA40 , // 13
+  M_GAMMA42 , // 14
+  M_GAMMA47 , // 15
+  M_GAMMA48 , // 16
+  M_GAMMA62 , // 17
+  M_GAMMA70 , // 18
+  M_GAMMA77 , // 19
+  M_GAMMA78 , // 20
 #if defined USING_NBASE31
-  M_GAMMA150,
+  M_GAMMA85 , // 21
+  M_GAMMA89 , // 22
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  M_GAMMA800,
-  M_GAMMA151,
+  M_GAMMA802, // 21
+  M_GAMMA803, // 22
 #endif
-  M_GAMMA152,
+  M_GAMMA93 , // 23
+  M_GAMMA94 , // 24
+  M_GAMMA104, // 25
+  M_GAMMA126, // 26
+  M_GAMMA128, // 27
+#if defined USING_NBASE31
+  M_GAMMA150, // 28
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  M_GAMMA800, //    // 28
+  M_GAMMA151, //    // 29
+#endif
+  M_GAMMA152, // 29 // 30
 #if defined USING_NBASE36 || defined USING_NBASE37
-  M_GAMMA130,
-  M_GAMMA132,
-  M_GAMMA44 ,
-  M_GAMMA53 ,
+  M_GAMMA130, //    // 31
+  M_GAMMA132, //    // 32
+  M_GAMMA44 , //    // 33
+  M_GAMMA53 , //    // 34
 #if defined USING_NBASE37
-  M_GAMMA801,
+  M_GAMMA801, //    // 35
 #endif
 #endif
-  M_GAMMA103
+  M_GAMMA103 //     // 36
 };
 //
 enum e_nodegammanames {
@@ -203,15 +243,17 @@ enum e_nodegammanames {
   N_GAMMA53     ,
   N_GAMMA800    ,
   N_GAMMA151    ,
+  N_GAMMA802    ,
+  N_GAMMA803    ,
+  N_GAMMA136    ,
+  N_GAMMA115    ,
 #if defined USING_NBASE37
   N_GAMMA96     ,
   N_GAMMA801    ,
 #endif
 #endif
-  N_GAMMAALL    ,
-  N_GAMMAXS     
+  N_GAMMAALL    
 };
-
 //--- from PDG 2010 
 //            MOHR     08 RVUE                2006 CODATA value
 //  MOHR 2008         Reviews of Modern Physics 80 (2008) 633 
@@ -1453,12 +1495,13 @@ void calc_Vus_uncons(const double Be, const double e_Be, const double Bmu, const
   delete func1;
 }
 // ----------------------------------------------------------------------
-void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<string> nodegammaname, bool* node_is_base,
+void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<string> nodegammaname, bool* node_is_base, 
+		    int ncoef, double* coef, string* coefnames,
 		    int* node_num_npar, vector<int> * node_num_parm, vector<double> * node_num_coef,
 		    int* node_den_npar, vector<int> * node_den_parm, vector<double> * node_den_coef, 
 		    vector<int> baseparm, vector<int> basegamma, string* basetitle){
   //
-  int p, inode, ipar;
+  int p, inode, ipar, icoef;
   FILE *nodefile[3];
   nodefile[0]=fopen("all_node_def.txt","w");
   nodefile[1]=fopen("derived_node_def.txt","w");
@@ -1481,7 +1524,8 @@ void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<str
         int parm=node_num_parm[inode].at(ipar);
         vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
         int quan=ibase-baseparm.begin()+1;
-        fprintf (nodefile[p], " G(%s) * %12.10f", basetitle[quan-1].data(), node_num_coef[inode].at(ipar));
+	for (icoef=0;icoef<ncoef;++icoef) if (coef[icoef] == node_num_coef[inode].at(ipar) ) break;
+	fprintf (nodefile[p], " G(%s) * %s ", basetitle[quan-1].data(), coefnames[icoef].data());
         if (ipar==node_num_parm[inode].size()-1) fprintf (nodefile[p], " )"); else fprintf (nodefile[p], " +\n");
       }
       if (node_den_parm[inode].size()==0) fprintf (nodefile[p], "\n"); else fprintf (nodefile[p], " /\n"); 
@@ -1490,7 +1534,8 @@ void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<str
         int parm=node_den_parm[inode].at(ipar);
         vector<int>::iterator ibase=find(baseparm.begin(),baseparm.end(),parm);
         int quan=ibase-baseparm.begin()+1;
-        fprintf (nodefile[p], " G(%s) * %12.10f", basetitle[quan-1].data(), node_den_coef[inode].at(ipar));
+	for (icoef=0;icoef<ncoef;++icoef) if (coef[icoef] == node_den_coef[inode].at(ipar) ) break;
+        fprintf (nodefile[p], " G(%s) * %s", basetitle[quan-1].data(), coefnames[icoef].data());
         if (ipar==node_den_parm[inode].size()-1) fprintf (nodefile[p], " )\n"); else fprintf (nodefile[p], " +\n");
       }
       //
@@ -1848,8 +1893,15 @@ void process_measurements(int nmeas, int* measnode, double* measerror, double** 
     bool is_newnode_all = itt == vector_measnodes_all.end();
     if (is_newnode_all) {
       ++newnode_all;
+      nodegroup_all[i] = newnode_all; // node-group number for new uncorrelated measurements
+    } else {
+      for (j=0;j<i;++j) {
+	if (measnode[j]==inode) {
+	  nodegroup_all[i] = nodegroup_all[j]; // node-group number for old uncorrelated measurements
+	  break;
+	} 
+      }
     }
-    nodegroup_all[i] = newnode_all; // node-group number for uncorrelated measurements
     vector_measnodes_all.push_back(inode);
   }
   for (i=0;i<ncorrij;++i) {
@@ -2196,13 +2248,15 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	  fprintf (thisfile, "\n*Gamma102 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
 	  fprintf (thisfile, "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
 	  fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
-	  fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 #if defined USING_NBASE31
+	  fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
 #elif defined USING_NBASE36
+	  fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma802 - Gamma803 - Gamma93\n");
 	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
 	  fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53\n");
 #elif defined USING_NBASE37
+	  fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma802 - Gamma803 - Gamma93\n");
 	  fprintf (thisfile, "*             - Gamma94 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
 	  fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53 - Gamma801\n");
 #endif
@@ -2229,8 +2283,13 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_19 19 -1 ! Gamma70 \n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_20 20 -1 ! Gamma77 \n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_21 21 -1 ! Gamma78 \n",isum);
+#if defined USING_NBASE31
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma85 \n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma89 \n",isum);
+#elif defined USING_NBASE36 || defined USING_NBASE37
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma802 \n",isum);
+	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma803 \n",isum);
+#endif
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_24 24 -1 ! Gamma93 \n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
 	  fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_26 27 -1 ! Gamma126\n",isum);
@@ -2253,17 +2312,19 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	}
       }
       //
-      if (inode==N_GAMMA103) { // SPECIAL CASE [because these are derived nodes containing Gamma103]
+      if (uconstrain && inode==N_GAMMA103) { // SPECIAL CASE [because Gamma103 is used to express unitarity constraint]
 	fprintf (thisfile, "\n*Gamma103 = 1 - Gamma3   - Gamma5   - Gamma9   - Gamma10  - Gamma14  - Gamma16\n");
 	fprintf (thisfile, "*             - Gamma20  - Gamma23  - Gamma27  - Gamma28  - Gamma30 - Gamma35\n");
 	fprintf (thisfile, "*             - Gamma37 - Gamma40  - Gamma42  - Gamma47  - Gamma48  - Gamma62\n");
-	fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 #if defined USING_NBASE31
+	fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma85  - Gamma89  - Gamma93\n");
 	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma150 - Gamma152\n");
 #elif defined USING_NBASE36
+	fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma802 - Gamma803 - Gamma93\n");
 	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
 	fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53\n");
 #elif defined USING_NBASE37
+	fprintf (thisfile, "*             - Gamma70 - Gamma77  - Gamma78  - Gamma802 - Gamma803 - Gamma93\n");
 	fprintf (thisfile, "*             - Gamma94 - Gamma104 - Gamma126 - Gamma128 - Gamma800 - Gamma151 - Gamma152\n");
 	fprintf (thisfile, "*             - Gamma130 - Gamma132 - Gamma44 - Gamma53 - Gamma801\n");
 #endif
@@ -2290,8 +2351,13 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_19 19 -1 ! Gamma70 \n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_20 20 -1 ! Gamma77 \n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_21 21 -1 ! Gamma78 \n",isum);
+#if defined USING_NBASE31
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma85 \n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma89 \n",isum);
+#elif defined USING_NBASE36 || defined USING_NBASE37
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_22 22 -1 ! Gamma802 \n",isum);
+	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_23 23 -1 ! Gamma803 \n",isum);
+#endif
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_24 24 -1 ! Gamma93 \n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_25 25 -1 ! Gamma94 \n",isum);
 	fprintf (thisfile, "SPARAMETER CHI2_N_SYM_%2.2d_26 26 -1 ! Gamma104\n",isum);
@@ -2326,13 +2392,15 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "  Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1\n");
     fprintf (thisfile, "  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1\n");
     fprintf (thisfile, "  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1\n");
-    fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
 #if defined USING_NBASE31
+    fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma85  1 Gamma89  1 Gamma93  1\n");
     fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma150 1 Gamma152 1\n");
 #elif defined USING_NBASE36
+    fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma802 1 Gamma803   Gamma93  1\n");
     fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1\n");
     fprintf (thisfile, "  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1\n");
 #elif defined USING_NBASE37
+    fprintf (thisfile, "  Gamma70  1 Gamma77  1 Gamma78  1 Gamma802 1 Gamma803 1 Gamma93  1\n");
     fprintf (thisfile, "  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1\n");
     fprintf (thisfile, "  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801 1\n");
 #endif
@@ -2341,13 +2409,15 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
   if (p==0){
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_PSUM   1  0 ! print sum of strange decay nodes\n");
     fprintf (thisfile, "\n* Print Gamma(tau -> X-(S=1) nu)");
-    fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma85 + Gamma89 + Gamma128\n");
 #if defined USING_NBASE31
+    fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma85 + Gamma89 + Gamma128\n");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     9  0");
 #elif defined USING_NBASE36
+    fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma802 + Gamma803 + Gamma128\n");
     fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53\n");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     14 0");
 #elif defined USING_NBASE37
+    fprintf (thisfile, "\n*Gamma110 = Gamma10  + Gamma16   + Gamma23   + Gamma28  + Gamma35  + Gamma40 + Gamma802 + Gamma803 + Gamma128\n");
     fprintf (thisfile, "*         + Gamma151 + Gamma130  + Gamma132  + Gamma44  + Gamma53  + Gamma801\n");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1     15 0");
 #endif
@@ -2357,8 +2427,13 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_04  10  1 ! Gamma28");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_05  12  1 ! Gamma35");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_06  14  1 ! Gamma40");
+#if defined USING_NBASE31
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_07  22  1 ! Gamma85");
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_08  23  1 ! Gamma89");
+#elif defined USING_NBASE36 || defined USING_NBASE37
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_07  22  1 ! Gamma802");
+    fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_08  23  1 ! Gamma803");
+#endif
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_09  28  1 ! Gamma128");
 #if defined USING_NBASE36 || defined USING_NBASE37
     fprintf (thisfile, "\nSPARAMETER CHI2_N_SYM_P1_10  30  1 ! Gamma151");
@@ -2375,10 +2450,13 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
   if (p==1) {
     fprintf (thisfile, "\n* --- compute Gamma(tau -> Xs nu) / G(total)\n");
     fprintf (thisfile, "COMBOFQUANT Gamma110\n");
+#if defined USING_NBASE31
     fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma85  1 Gamma89  1 Gamma128\n");
-#if defined USING_NBASE36
+#elif defined USING_NBASE36
+    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma802 1 Gamma803 1 Gamma128\n");
     fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53\n");
 #elif defined USING_NBASE37
+    fprintf (thisfile, " 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma802 1 Gamma803 1 Gamma128\n");
     fprintf (thisfile, " 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801\n");
 #endif
   }
@@ -2516,8 +2594,8 @@ int main(int argc, char* argv[]){
 #elif defined USING_NBASE36 || defined USING_NBASE37
   baseorder[M_GAMMA44 ] = 29; baselatex[M_GAMMA44 ] = "$\\bar{K}^0 \\pi^- 2\\pi^0 \\nu_\\tau$";
   baseorder[M_GAMMA53 ] = 30; baselatex[M_GAMMA53 ] = "$\\bar{K}^0 h^- h^- h^+ \\nu_\\tau$";
-  baseorder[M_GAMMA85 ] = 31; baselatex[M_GAMMA85 ] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
-  baseorder[M_GAMMA89 ] = 32; baselatex[M_GAMMA89 ] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega,\\eta)$";
+  baseorder[M_GAMMA802] = 31; baselatex[M_GAMMA802] = "$K^- \\pi^- \\pi^+ \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega)$";
+  baseorder[M_GAMMA803] = 32; baselatex[M_GAMMA803] = "$K^- \\pi^- \\pi^+ \\pi^0 \\nu_\\tau ~(\\mathrm{ex.~}K^0,\\omega,\\eta)$";
 #if defined USING_NBASE36
   baseorder[M_GAMMA128] = 33; baselatex[M_GAMMA128] = "$K^- \\eta \\nu_\\tau$";
   baseorder[M_GAMMA130] = 34; baselatex[M_GAMMA130] = "$K^- \\pi^0 \\eta \\nu_\\tau$";
@@ -2542,14 +2620,135 @@ int main(int argc, char* argv[]){
     }
   }
   //
+  // DEFINE COEFFICIENTS
+  //
+  const int ncoef=32;
+  string coefnames[ncoef];
+  coefnames[C_ETA3PIZUSAGE1    ] = "B(eta -> pi0 pi0 pi0)";
+  coefnames[C_ETA3PIZUSAGE2    ] = "B(eta -> pi0 pi0 pi0)"; // [used for some older usage of pi- pi0 eta nu(tau)]
+  coefnames[C_ETA3PIZUSAGE3    ] = "B(eta -> pi0 pi0 pi0)";//  [used for some older usage of K- eta nu(tau) and pi- pi0 eta nu(tau)]
+  coefnames[C_ETAPIMPIPPIZ     ] = "B(eta -> pi- pi+ pi0)";
+  coefnames[C_ETA3PIALL        ] = "B(eta -> 3pi0, pi-pi+pi0)"; // B(eta -> pi0 pi0 pi0) + B(eta -> pi- pi+ pi0) 
+  coefnames[C_ETANEUTRALMODES1 ] = "B(eta -> neutrals)"; // sum of neutral modes, mostly = B(eta -> pi0 pi0 pi0) + B(eta -> gamma gamma) [used for K- eta nu(tau)]
+  coefnames[C_ETANEUTRALMODES2 ] = "B(eta -> neutrals)"; // sum of neutral modes, mostly = B(eta -> pi0 pi0 pi0) + B(eta -> gamma gamma) [used for pi- pi0 eta nu(tau)]
+  coefnames[C_ETACHARGEDMODES  ] = "B(eta -> charged)"; // sum of charged modes, mostly = B(eta -> pi- pi+ pi0) + B(eta -> pi- pi+ gamma)
+  coefnames[C_KS2PIZ           ] = "B(KS -> pi0 pi0)"; // 
+  coefnames[C_KS2PIZby2        ] = "0.5 * B(KS -> pi0 pi0)";
+  coefnames[C_KS2PIZby2PlusHalf] = "(0.5 * B(KS -> pi0 pi0) + 0.5)";
+  coefnames[C_KS2PIZSQUARED    ] = "B(KS -> pi0 pi0) * B(KS -> pi0 pi0)";
+  coefnames[C_KS2PIZSQUAREPlus1] = "(B(KS -> pi0 pi0) * B(KS -> pi0 pi0) + 1)";
+  coefnames[C_KS2PI            ] = "B(KS -> pi- pi+)";
+  coefnames[C_KS2PIby2         ] = "0.5 * B(KS -> pi- pi+)";
+  coefnames[C_KS2PI_X_2PIZ_X_2 ] = "2 * B(KS -> pi- pi+) * B(KS -> pi- pi0)";
+  coefnames[C_OMPIMPIPPIZ      ] = "B(omega -> pi- pi+ pi0)";
+  coefnames[C_OMPIMPIP         ] = "B(omega -> pi- pi+)";
+  coefnames[C_OM3PIPlus2PI     ] = "B(omega -> pi- pi+ pi0) + B(omega -> pi- pi+)";
+  coefnames[C_OM2PIZGAMMA      ] = "B(omega -> pi0 gamma)";
+  coefnames[C_PHI2KMKP         ] = "B(phi->K-K+)/(B(phi->K-K+)+B(phi->KSKL))";
+  coefnames[C_PHI2KSKL         ] = "B(phi->KSKL)/(B(phi->K-K+)+B(phi->KSKL))"; 
+  coefnames[C_PHI2KK_KS2PI     ] = "(B(phi->K-K+)+B(phi->KSKL)*B(KS->pi-pi+))/(B(phi->K-K+)+B(phi->KSKL))"; 
+  coefnames[C_PHI2KSKL_KS2PI   ] = "(B(phi->KSKL)*B(KS->pi-pi+))/(B(phi->K-K+)+B(phi->KSKL))"; 
+  coefnames[C_PHI2KSKL_KS2PIZ  ] = "(B(phi->KSKL)*B(KS->pi0pi0))/(B(phi->K-K+)+B(phi->KSKL))"; 
+  coefnames[C_Gam132_3PI3PIZ_KL] = "(0.5*(B(eta->pi-pi+pi0) + B(KS->2pi0)*B(eta->pi-pi+pi0) + B(KS->pi-pi+)*B(eta->3pi0)))";
+  coefnames[C_Gam132_ETANeuby2 ] = "0.5 * B(eta -> neutrals)";
+  coefnames[C_ONE              ] = "ONE";
+  coefnames[C_HALF             ] = "HALF";
+  coefnames[C_TWO              ] = "TWO";
+  coefnames[C_ONETHIRD         ] = "ONETHIRD";
+  coefnames[C_TWOTHIRD         ] = "TWOTHIRD";
+  //
+  double coef[ncoef];
+#if defined USING_NBASE31
+  // original values used in pdgfit/s035-fit-no-babar-belle.fit
+  coef[C_ETA3PIZUSAGE1    ] = 3.2200E-01; // B(eta -> pi0 pi0 pi0)
+  coef[C_ETA3PIZUSAGE2    ] = 3.1900E-01; // B(eta -> pi0 pi0 pi0) [used for some older usage of pi- pi0 eta nu(tau)]
+  coef[C_ETA3PIZUSAGE3    ] = 3.2500E-01; // B(eta -> pi0 pi0 pi0) [used for some older usage of K- eta nu(tau) and pi- pi0 eta nu(tau)]
+  coef[C_ETAPIMPIPPIZ     ] = 2.2600E-01; // B(eta -> pi- pi+ pi0)
+  coef[C_ETA3PIALL        ] = 5.5300E-01; // B(eta -> pi0 pi0 pi0) + B(eta -> pi- pi+ pi0)
+  coef[C_ETANEUTRALMODES1 ] = 7.1500E-01; // sum of neutral modes, mostly = B(eta -> pi0 pi0 pi0) + B(eta -> gamma gamma) [used for K- eta nu(tau)]
+  coef[C_ETANEUTRALMODES2 ] = 7.0800E-01; // sum of neutral modes, mostly = B(eta -> pi0 pi0 pi0) + B(eta -> gamma gamma) [used for pi- pi0 eta nu(tau)]
+  coef[C_ETACHARGEDMODES  ] = 2.8500E-01; // sum of charged modes, mostly = B(eta -> pi- pi+ pi0) + B(eta -> pi- pi+ gamma)
+  coef[C_KS2PIZ           ] = 3.1390E-01; // B(KS -> pi0 pi0)
+  coef[C_KS2PIZby2        ] = 1.5700E-01; // 0.5 x B(KS -> pi0 pi0)
+  coef[C_KS2PIZby2PlusHalf] = 6.5690E-01; // 0.5 x B(KS -> pi0 pi0) + 0.5
+  coef[C_KS2PIZSQUARED    ] = 9.8500E-02; // B(KS -> pi0 pi0) * B(KS -> pi0 pi0)
+  coef[C_KS2PIZSQUAREPlus1] = 1.0985E+00; // B(KS -> pi0 pi0) * B(KS -> pi0 pi0) + 1
+  coef[C_KS2PIby2         ] = 3.4310E-01; // 0.5 x B(KS -> pi- pi+)
+  coef[C_KS2PI            ] = 6.8610E-01; //       B(KS -> pi- pi+)
+  coef[C_KS2PI_X_2PIZ_X_2 ] = 4.3070E-01; //   2 x B(KS -> pi- pi+) + B(KS -> pi0 pi0)
+  coef[C_OMPIMPIPPIZ      ] = 8.8800E-01; // B(omega -> pi- pi+ pi0)
+  coef[C_OMPIMPIP         ] = 1.7000E-02; // B(omega -> pi- pi+)
+  coef[C_OM3PIPlus2PI     ] = 9.1010E-01; // B(omega -> pi- pi+ pi0) + B(omega -> pi- pi+)
+  coef[C_OM2PIZGAMMA      ] = 9.0000E-02; // B(omega -> pi0 gamma)
+  coef[C_PHI2KMKP         ] = 0.588448;   // B(phi->K-K+)/(B(phi->K-K+)+B(phi->KSKL)) using B(K-K+)=0.489+-0.005, B(KSKL)=0.342+-0.004 [PDG09]
+  coef[C_PHI2KSKL         ] = 0.411552;   // B(phi->KSKL)/(B(phi->K-K+)+B(phi->KSKL)) using B(K-K+)=0.489+-0.005, B(KSKL)=0.342+-0.004 [PDG09]
+  coef[C_PHI2KK_KS2PI     ] = 0.870814;   // ( .489 + .342*6.8610E-01 ) / ( .489+.342 ) = 0.870814
+  coef[C_PHI2KSKL_KS2PI   ] = 0.282366;   // ( .342*6.8610E-01 ) / ( .489+.342 ) = 0.282366
+  coef[C_PHI2KSKL_KS2PIZ  ] = 0.129186;   // ( .342*3.1390E-01 ) / ( .489+.342 ) = 0.129186
+  coef[C_Gam132_3PI3PIZ_KL] = 0.261287;   // 0.5 * ( 22.74e-2 + 30.69e-2 * 22.74e-2 + 69.20e-2 * 32.57e-2) = 0.261287 //Kbar0 pi- eta nu(tau) -> 3pi- 3pi0, 3pi- pi0 KL0
+  coef[C_Gam132_ETANeuby2 ] = 0.3595;     // 0.5 * BR_eta_neutral
+  coef[C_ONE              ] = 1.0000E+00;
+  coef[C_HALF             ] = 5.0000E-01;
+  coef[C_TWO              ] = 2.0000E+00;
+  coef[C_ONETHIRD         ] = 1.0E+00/3.0E+00;
+  coef[C_TWOTHIRD         ] = 2.0E+00/3.0E+00;
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  // PDG2010
+  double BR_eta_2gamgam     = 39.31e-2; // ( 39.31 +- 0.20 ) %
+  double BR_eta_neutral     = 71.90e-2; // ( 71.90 +- 0.34 ) %
+  double BR_eta_3piz        = 32.57e-2; // ( 32.57 +- 0.23 ) %
+  double BR_eta_pimpippiz   = 22.74e-2; // ( 22.74 +- 0.28 ) %
+  double BR_eta_charged     = 28.10e-2; // ( 28.10 +- 0.34 ) %
+  double BR_KS_2piz         = 30.69e-2; // ( 30.69 +- 0.05 ) %
+  double BR_KS_pimpip       = 69.20e-2; // ( 69.20 +- 0.05 ) %
+  double BR_om_pimpippiz    = 89.2e-2;  // ( 89.2  +- 0.7 ) %
+  double BR_om_pimpip       = 1.53e-2;  // ( 1.53  +  0.11 - 0.13 ) %
+  double BR_om_pizgamma     = 8.28e-2;  // ( 8.28  +- 0.28 ) %
+  double BR_phi_KmKp        = 48.9e-2;  // ( 48.9  +- 0.5 ) %
+  double BR_phi_KSKL        = 34.2e-2;  // ( 34.2  +- 0.4 ) %
+  //
+  coef[C_ETA3PIZUSAGE1    ] = BR_eta_3piz; // B(eta -> pi0 pi0 pi0)
+  coef[C_ETA3PIZUSAGE2    ] = BR_eta_3piz; // B(eta -> pi0 pi0 pi0) [used for some older usage of pi- pi0 eta nu(tau)]
+  coef[C_ETA3PIZUSAGE3    ] = BR_eta_3piz; // B(eta -> pi0 pi0 pi0) [used for some older usage of K- eta nu(tau) and pi- pi0 eta nu(tau)]
+  coef[C_ETAPIMPIPPIZ     ] = BR_eta_pimpippiz; // B(eta -> pi- pi+ pi0)
+  coef[C_ETA3PIALL        ] = BR_eta_3piz + BR_eta_pimpippiz; //B(eta -> pi0 pi0 pi0) + B(eta -> pi- pi+ pi0)
+  coef[C_ETANEUTRALMODES1 ] = BR_eta_neutral; // sum of neutral modes, mostly = B(eta -> pi0 pi0 pi0) + B(eta -> gamma gamma) [used for K- eta nu(tau)]
+  coef[C_ETANEUTRALMODES2 ] = BR_eta_neutral; // sum of neutral modes, mostly = B(eta -> pi0 pi0 pi0) + B(eta -> gamma gamma) [used for pi- pi0 eta nu(tau)]
+  coef[C_ETACHARGEDMODES  ] = BR_eta_charged; // sum of charged modes, mostly = B(eta -> pi- pi+ pi0) + B(eta -> pi- pi+ gamma)
+  coef[C_KS2PIZ           ] = BR_KS_2piz;  // B(KS -> pi0 pi0)
+  coef[C_KS2PIZby2        ] = 0.5*BR_KS_2piz; // 0.5 x B(KS -> pi0 pi0)
+  coef[C_KS2PIZby2PlusHalf] = (0.5*BR_KS_2piz) + 0.5; // 0.5 x B(KS -> pi0 pi0) + 0.5
+  coef[C_KS2PIZSQUARED    ] = BR_KS_2piz*BR_KS_2piz; // B(KS -> pi0 pi0) * B(KS -> pi0 pi0)
+  coef[C_KS2PIZSQUAREPlus1] = (BR_KS_2piz*BR_KS_2piz)+1; // B(KS -> pi0 pi0) * B(KS -> pi0 pi0) + 1
+  coef[C_KS2PI            ] = BR_KS_pimpip; // B(KS -> pi- pi+)
+  coef[C_KS2PIby2         ] = 0.5*BR_KS_pimpip; // 0.5 x B(KS -> pi- pi+)
+  coef[C_KS2PI_X_2PIZ_X_2 ] = 2*BR_KS_pimpip*BR_KS_2piz; // 2 * B(KS -> pi- pi+) + B(KS -> pi0 pi0)
+  coef[C_OMPIMPIPPIZ      ] = BR_om_pimpippiz; // B(omega -> pi- pi+ pi0)
+  coef[C_OMPIMPIP         ] = BR_om_pimpip; // B(omega -> pi- pi+)
+  coef[C_OM3PIPlus2PI     ] = BR_om_pimpippiz + BR_om_pimpip; // B(omega -> pi- pi+ pi0) + B(omega -> pi- pi+)
+  coef[C_OM2PIZGAMMA      ] = BR_om_pizgamma; // B(omega -> pi0 gamma)
+  coef[C_PHI2KMKP         ] = BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL);// B(phi->K-K+)/(B(phi->K-K+)+B(phi->KSKL))
+  coef[C_PHI2KSKL         ] = BR_phi_KSKL/(BR_phi_KmKp+BR_phi_KSKL);// B(phi->KSKL)/(B(phi->K-K+)+B(phi->KSKL))
+  coef[C_PHI2KK_KS2PI     ] = (BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL);// (B(phi->K-K+) + B(phi->KSKL)*B(KS->pi-pi+))/(B(phi->K-K+)+B(phi->KSKL))
+  coef[C_PHI2KSKL_KS2PI   ] = (BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL);// (B(phi->KSKL)*B(KS->pi-pi+))/(B(phi->K-K+)+B(phi->KSKL))
+  coef[C_PHI2KSKL_KS2PIZ  ] = (BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL);// (B(phi->KSKL)*B(KS->pi0pi0))/(B(phi->K-K+)+B(phi->KSKL))
+  coef[C_Gam132_3PI3PIZ_KL] = 0.5 * BR_eta_pimpippiz + 0.5 * BR_KS_2piz * BR_eta_pimpippiz + 0.5 * BR_KS_pimpip * BR_eta_3piz;//Kbar0 pi- eta nu(tau) -> 3pi- 3pi0, 3pi- pi0 KL0
+  coef[C_Gam132_ETANeuby2 ] = 0.5 * BR_eta_neutral;
+  coef[C_ONE              ] = 1.0000E+00;
+  coef[C_HALF             ] = 5.0000E-01;
+  coef[C_TWO              ] = 2.0000E+00;
+  coef[C_ONETHIRD         ] = 1.0E+00/3.0E+00;
+  coef[C_TWOTHIRD         ] = 2.0E+00/3.0E+00;
+#endif
+  //
   // READ INPUT NODES
   // 
 #if defined USING_NBASE31
-  const int nnode=100;
+  const int nnode=99;
 #elif defined USING_NBASE36 
-  const int nnode=107; 
+  const int nnode=110; 
 #elif defined USING_NBASE37
-  const int nnode=109; 
+  const int nnode=112; 
 #endif
   vector<string> nodegammaname;
   vector<string> nodename;
@@ -2563,1075 +2762,1286 @@ int main(int argc, char* argv[]){
   nodegammaname.push_back("Gamma128");     
   nodename.push_back("S035B20");    
   nodetitle[inode]="G(K- eta nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- eta nu(tau) :: Gamma128
   ++inode;//1
   nodegammaname.push_back("Gamma19by13");  
   nodename.push_back("S035B21"); 
   nodetitle[inode]="G(h- 2pi0 nu(tau) (ex. K0)) / G(h- pi0 nu(tau))";
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(16 );       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(182);       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_den_parm[inode].push_back(16 );       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_den_parm[inode].push_back(182);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
   ++inode;//2
   nodegammaname.push_back("Gamma26by13"); 
   nodename.push_back("S035B22"); 
   nodetitle[inode]="G(h- 3pi0 nu(tau)) / G(h- pi0 nu(tau))";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(16 );       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(182);       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE1    ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_den_parm[inode].push_back(16 );       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_den_parm[inode].push_back(182);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
   ++inode;//3
   nodegammaname.push_back("Gamma30"); 
   nodename.push_back("S035B23"); 
   nodetitle[inode]="G(h- 4pi0 nu(tau) (ex. K0, eta)) / G(total)";
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
   ++inode;//4
   nodegammaname.push_back("Gamma76by54"); 
   nodename.push_back("S035B25"); 
   nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);              
-  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);              
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);              
-  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(3.4310E-01);              
-  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(3.4310E-01);              
-  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(3.4310E-01);              
-  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(4.3070E-01);              
-  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(6.8610E-01);              
-  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);              
-  node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(3.4310E-01);               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
+  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(coef[C_KS2PI_X_2PIZ_X_2 ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(coef[C_KS2PI            ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);      // h-  omega
+  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(9.1010E-01);      // pi- omega
-  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(9.1010E-01);      // K-  omega
+  node_den_parm[inode].push_back(802);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_den_parm[inode].push_back(803);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// pi- omega nu(tau) :: Gamma800
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+  node_den_parm[inode].push_back(266);       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_den_parm[inode].push_back(267);       node_den_coef[inode].push_back(coef[C_Gam132_3PI3PIZ_KL]);// Kbar0 pi- eta nu(tau) -> 3pi- 3pi0, 3pi- pi0 KL0 :: Gamma132 
+  node_den_parm[inode].push_back(244);       node_den_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
+#if defined USING_NBASE37
+  node_den_parm[inode].push_back(801);       node_den_coef[inode].push_back(coef[C_PHI2KK_KS2PI     ]);// K- phi nu(tau) (phi->K-K+, KS(->pi-pi+)KL) :: Gamma801
+#endif
 #endif
   ++inode;//5
   nodegammaname.push_back("Gamma152by54"); 
   nodename.push_back("S035B26"); 
   nodetitle[inode]="G(h- omega pi0 nu(tau)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);              
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);              
-  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(3.4310E-01);              
-  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(3.4310E-01);              
-  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(3.4310E-01);              
-  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(4.3070E-01);              
-  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(6.8610E-01);              
-  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);              
-  node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(3.4310E-01);              
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(117);       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_den_parm[inode].push_back(118);       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_den_parm[inode].push_back(119);       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_den_parm[inode].push_back(214);       node_den_coef[inode].push_back(coef[C_KS2PI_X_2PIZ_X_2 ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_den_parm[inode].push_back(240);       node_den_coef[inode].push_back(coef[C_KS2PI            ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_den_parm[inode].push_back(62 );       node_den_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);      // h-  omega
+  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(9.1010E-01);      // pi- omega
-  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(9.1010E-01);      // K-  omega
+  node_den_parm[inode].push_back(802);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_den_parm[inode].push_back(803);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// pi- omega nu(tau) :: Gamma800
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+  node_den_parm[inode].push_back(266);       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_den_parm[inode].push_back(267);       node_den_coef[inode].push_back(coef[C_Gam132_3PI3PIZ_KL]);// Kbar0 pi- eta nu(tau) -> 3pi- 3pi0, 3pi- pi0 KL0 :: Gamma132 
+  node_den_parm[inode].push_back(244);       node_den_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
+#if defined USING_NBASE37
+  node_den_parm[inode].push_back(801);       node_den_coef[inode].push_back(coef[C_PHI2KK_KS2PI     ]);// K- phi nu(tau) (phi->K-K+, KS(->pi-pi+)KL) :: Gamma801
+#endif
 #endif
   ++inode;//6
   nodegammaname.push_back("Gamma152by76"); 
   nodename.push_back("S035B27"); 
   nodetitle[inode]="G(h- omega pi0 nu(tau)) / G(h- h- h+ 2pi0 nu(tau) (ex. K0))";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(8.8800E-01);               
-  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.2600E-01);               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(266);       node_den_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//7
   nodegammaname.push_back("Gamma16"); 
   nodename.push_back("S035B29"); 
   nodetitle[inode]="G(K- pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
   ++inode;//8
   nodegammaname.push_back("Gamma23"); 
   nodename.push_back("S035B30"); 
   nodetitle[inode]="G(K- 2pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
   ++inode;//9
   nodegammaname.push_back("Gamma28"); 
   nodename.push_back("S035B31"); 
   nodetitle[inode]="G(K- 3pi0 nu(tau) (ex. K0, eta)) / G(total)";
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
   ++inode;//10
   nodegammaname.push_back("Gamma35"); 
   nodename.push_back("S035B32"); 
   nodetitle[inode]="G(Kbar0 pi- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- nu(tau) :: Gamma35
   ++inode;//11
   nodegammaname.push_back("Gamma40"); 
   nodename.push_back("S035B33"); 
   nodetitle[inode]="G(Kbar0 pi- pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
   ++inode;//12
   nodegammaname.push_back("Gamma42"); 
   nodename.push_back("S035B34"); 
   nodetitle[inode]="G(K- pi0 K0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
   ++inode;//13
   nodegammaname.push_back("Gamma92"); 
   nodename.push_back("S035B37"); 
   nodetitle[inode]="G(pi- K- K+ >=0 neutrals nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
   ++inode;//14
   nodegammaname.push_back("Gamma33"); 
   nodename.push_back("S035B43"); 
   nodetitle[inode]="G(K(S)0 (particles)- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(5.0000E-01);              
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(5.0000E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(5.0000E-01);               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(5.0000E-01);               
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_HALF             ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_HALF             ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_HALF             ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_HALF             ]);// K- K0 nu(tau) :: Gamma37
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_Gam132_ETANeuby2 ]);// Kbar0 pi- eta nu(tau) :: Gamma132
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_HALF             ]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KSKL         ]);// K- phi nu(tau) (phi->K(S)0 K(L)0) :: Gamma801
+#endif
+#endif
   ++inode;//15
   nodegammaname.push_back("Gamma106"); 
   nodename.push_back("S035B45"); 
   nodetitle[inode]="G((5pi)- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(5.5300E-01);               
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ nu(tau) (ex. K0) :: Gamma103
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETA3PIALL        ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETA3PIALL        ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
+#endif
   ++inode;//16
   nodegammaname.push_back("Gamma46"); 
   nodename.push_back("S035B51"); 
   nodetitle[inode]="G(pi- K0 Kbar0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(2.0000E+00);              
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_TWO              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
   ++inode;//17
   nodegammaname.push_back("Gamma66"); 
   nodename.push_back("S035B53"); 
   nodetitle[inode]="G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);      
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);           
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );           
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );           
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );           
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega             
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
 #endif
   ++inode;//18
   nodegammaname.push_back("Gamma67"); 
   nodename.push_back("S035B54"); 
   nodetitle[inode]="G(h- h- h+ pi0 nu(tau) (ex. K0, omega)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//19
   nodegammaname.push_back("Gamma20"); 
   nodename.push_back("S035B55"); 
   nodetitle[inode]="G(pi- 2pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
   ++inode;//20
   nodegammaname.push_back("Gamma27"); 
   nodename.push_back("S035B56"); 
   nodetitle[inode]="G(pi- 3pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
   ++inode;//21
   nodegammaname.push_back("Gamma78"); 
   nodename.push_back("S035B57"); 
   nodetitle[inode]="G(h- h- h+ 3pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
   ++inode;//22
   nodegammaname.push_back("Gamma152"); 
   nodename.push_back("S035B58"); 
   nodetitle[inode]="G(h- pi0 omega nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- pi0 omega nu(tau) :: Gamma152
   ++inode;//23
   nodegammaname.push_back("Gamma76"); 
   nodename.push_back("S035B59"); 
   nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//24
   nodegammaname.push_back("Gamma57"); 
   nodename.push_back("S035B62"); 
   nodetitle[inode]="G(h- h- h+ nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );        
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );            
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);       // h-  omega            
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);       // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.7000E-02);       // K-  omega
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
+#endif
 #endif
   ++inode;//25
   nodegammaname.push_back("Gamma55"); 
   nodename.push_back("S035B63"); 
   nodetitle[inode]="G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);      
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);         
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );         
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );          
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);         
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// pi- pi0 eta nu(tau) :: Gamma126
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.1010E-01);      // h-  omega             
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.1010E-01);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.1010E-01);      // K-  omega
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- pi0 eta nu(tau) :: Gamma130
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
+#endif
 #endif
   ++inode;//26
   nodegammaname.push_back("Gamma57by55"); 
   nodename.push_back("S035B64"); 
   nodetitle[inode]="G(h- h- h+ nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong''))";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );            
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega             
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.7000E-02);      // K-  omega
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
 #endif
-  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.8500E-01);               
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(9.1010E-01);               
-  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(2.8500E-01);               
+#endif
+  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(204);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_den_parm[inode].push_back(216);       node_den_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_den_parm[inode].push_back(5  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_den_parm[inode].push_back(58 );       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// pi- pi0 eta nu(tau) :: Gamma126
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(9.1010E-01);      // h-  omega
+  node_den_parm[inode].push_back(260);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(9.1010E-01);      // pi- omega         
-  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(9.1010E-01);      // K-  omega
+  node_den_parm[inode].push_back(802);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_den_parm[inode].push_back(803);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// pi- omega nu(tau) :: Gamma800
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+  node_den_parm[inode].push_back(266);       node_den_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- pi0 eta nu(tau) :: Gamma130
+#if defined USING_NBASE37
+  node_den_parm[inode].push_back(801);       node_den_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
+#endif
 #endif
   ++inode;//27
   nodegammaname.push_back("Gamma34"); 
   nodename.push_back("S035B67"); 
   nodetitle[inode]="G(Kbar0 h- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//28
   nodegammaname.push_back("Gamma39"); 
   nodename.push_back("S035B68"); 
   nodetitle[inode]="G(Kbar0 h- pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
   ++inode;//29
   nodegammaname.push_back("Gamma47"); 
   nodename.push_back("S035B69"); 
   nodetitle[inode]="G(pi- K(S)0 K(S)0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
   ++inode;//30
   nodegammaname.push_back("Gamma58"); 
   nodename.push_back("S035B71"); 
   nodetitle[inode]="G(h- h- h+ nu(tau) (ex. K0, omega)) / G(total)";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
+#endif
+#endif
   ++inode;//31
   nodegammaname.push_back("Gamma77");
   nodename.push_back("S035B72"); 
   nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)";
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
   ++inode;//32
   nodegammaname.push_back("Gamma8"); 
   nodename.push_back("S035B73"); 
   nodetitle[inode]="G(h- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
   ++inode;//33
   nodegammaname.push_back("Gamma18");
   nodename.push_back("S035B74"); 
   nodetitle[inode]="G(h- 2pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.5700E-01);               
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//34
   nodegammaname.push_back("Gamma1");
   nodename.push_back("S035B75"); 
   nodetitle[inode]="G((particles)- >=0 neutrals >=0 K0 nu(tau) (``1-prong'')) / G(total)";
-  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);               
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.0000E-02);               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(2.0000E+00);               
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(7.0800E-01);               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// mu- nubar(mu) nu(tau) :: Gamma3
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES1 ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_TWO              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES2 ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);      // h-  omega        
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.0000E-02);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.0000E-02);      // K-  omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES2 ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_Gam132_ETANeuby2 ]);// Kbar0 pi- eta nu(tau) :: Gamma132 
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_HALF             ]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KSKL_KS2PIZ  ]);// K- phi nu(tau) (phi->KS(->pi0pi0)KL) :: Gamma801
+#endif
 #endif
   ++inode;//35
   nodegammaname.push_back("Gamma65");
   nodename.push_back("S035B76"); 
   nodetitle[inode]="G(h- h- h+ pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );  
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
 #endif
   ++inode;//36
   nodegammaname.push_back("Gamma75");
   nodename.push_back("S035B77");
   nodetitle[inode]="G(h- h- h+ 2pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(4.3070E-01);               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PI_X_2PIZ_X_2 ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//37
   nodegammaname.push_back("Gamma64");
   nodename.push_back("S035B78"); 
   nodetitle[inode]="G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);        
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// pi- pi0 eta nu(tau) :: Gamma126
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega              
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- pi0 eta nu(tau) :: Gamma130
 #endif
   ++inode;//38
   nodegammaname.push_back("Gamma29"); 
   nodename.push_back("S035B79"); 
   nodetitle[inode]="G(h- 4pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.1900E-01);               
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE2    ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE2    ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//39
   nodegammaname.push_back("Gamma8by5");
   nodename.push_back("S035B97"); 
   nodetitle[inode]="G(h- nu(tau)) / G(e- nubar(e) nu(tau))";
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
+  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
   ++inode;//40
   nodegammaname.push_back("Gamma12");
   nodename.push_back("S035C01"); 
   nodetitle[inode]="G(h- >= 1pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2500E-01);              
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.2500E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE3    ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE3    ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE3    ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//41
   nodegammaname.push_back("Gamma25"); 
   nodename.push_back("S035C02"); 
   nodetitle[inode]="G(h- >= 3pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2500E-01);              
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.2500E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE3    ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE3    ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE3    ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//42
   nodegammaname.push_back("Gamma74");
   nodename.push_back("S035C03");
   nodetitle[inode]="G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(8.8800E-01);              
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.2600E-01);               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//43
   nodegammaname.push_back("Gamma48");
   nodename.push_back("S035C1");
   nodetitle[inode]="G(pi- K(S)0 K(L)0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
   ++inode;//44
   nodegammaname.push_back("Gamma59");
   nodename.push_back("S035C18"); 
   nodetitle[inode]="G(pi- pi- pi+ nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(3.4310E-01);              
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega             
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//45
   nodegammaname.push_back("Gamma60");
   nodename.push_back("S035C19");
   nodetitle[inode]="G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );      
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega             
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//46
   nodegammaname.push_back("Gamma62");
   nodename.push_back("S035C20");
   nodetitle[inode]="G(pi- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)";
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
   ++inode;//47
   nodegammaname.push_back("Gamma85");
   nodename.push_back("S035C21");
   nodetitle[inode]="G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//48
   nodegammaname.push_back("Gamma68");
   nodename.push_back("S035C22");
   nodetitle[inode]="G(pi- pi- pi+ pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);              
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//49
   nodegammaname.push_back("Gamma69");
   nodename.push_back("S035C23");
   nodetitle[inode]="G(pi- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.7000E-02);              
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega    
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//50
   nodegammaname.push_back("Gamma70");
   nodename.push_back("S035C24");
   nodetitle[inode]="G(pi- pi- pi+ pi0 nu(tau) (ex. K0, omega)) / G(total)";
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
   ++inode;//51
   nodegammaname.push_back("Gamma88"); 
   nodename.push_back("S035C25");
   nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//52
   nodegammaname.push_back("Gamma80"); 
   nodename.push_back("S035C31"); 
   nodetitle[inode]="G(K- pi- h+ nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//53
   nodegammaname.push_back("Gamma80by60"); 
   nodename.push_back("S035C32"); 
   nodetitle[inode]="G(K- pi- h+ nu(tau) (ex. K0)) / G(pi- pi- pi+ nu(tau) (ex. K0))";
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );      
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(1.7000E-02);      // h-  omega
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(1.7000E-02);      // pi- omega
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#endif
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//54
   nodegammaname.push_back("Gamma81"); 
   nodename.push_back("S035C33"); 
   nodetitle[inode]="G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//55
   nodegammaname.push_back("Gamma81by69");
   nodename.push_back("S035C34");
   nodetitle[inode]="G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(1.7000E-02);               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);      // h-  omega
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+#endif
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+#if defined USING_NBASE31
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//56
   nodegammaname.push_back("Gamma93by60");
   nodename.push_back("S035C35");
   nodetitle[inode]="G(pi- K- K+ nu(tau)) / G(pi- pi- pi+ nu(tau) (ex. K0))";
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(1.        );      
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_den_parm[inode].push_back(259);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(1.7000E-02);      // h-  omega     
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(1.7000E-02);      // pi- omega
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//57
   nodegammaname.push_back("Gamma94by69");
   nodename.push_back("S035C36");
   nodetitle[inode]="G(pi- K- K+ pi0 nu(tau)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))";
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(1.7000E-02);               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );      
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);      // h-  omega    
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(8.8800E-01);      // pi- omega
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
 #endif
   ++inode;//58
   nodegammaname.push_back("Gamma38");
   nodename.push_back("S035C38");
   nodetitle[inode]="G(K- K0 >=0 pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//59
   nodegammaname.push_back("Gamma83");
   nodename.push_back("S035C40"); 
   nodetitle[inode]="G(K- pi- pi+ >=0 pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+#if defined USING_NBASE31
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//60
   nodegammaname.push_back("Gamma110");
   nodename.push_back("S035C47"); 
-  nodetitle[inode]="G(X- (S=-1) nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
+  nodetitle[inode]="G(strange) / G(total)";
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- eta nu(tau) :: Gamma128
+#if defined USING_NBASE31 
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- eta nu(tau) :: Gamma132
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- phi nu(tau) (phi->KK) :: Gamma801
+#endif
+#endif
   ++inode;//61
   nodegammaname.push_back("Gamma89");
-  nodename.push_back("S035C54"); 
+  nodename.push_back("S035C54");
   nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau) (ex. K0, eta)) / G(total)";
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );              
+#if defined USING_NBASE31 
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//62
   nodegammaname.push_back("Gamma84");
   nodename.push_back("S035C6"); 
   nodetitle[inode]="G(K- pi- pi+ nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
+#if defined USING_NBASE31 
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#endif
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//63
   nodegammaname.push_back("Gamma87");
   nodename.push_back("S035C7");
   nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.2600E-01);              
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+#if defined USING_NBASE31 
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+#endif
   ++inode;//64
   nodegammaname.push_back("Gamma94"); 
   nodename.push_back("S035C8");
   nodetitle[inode]="G(pi- K- K+ pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );             
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
   ++inode;//65
   nodegammaname.push_back("Gamma3"); 
   nodename.push_back("S035R1");
   nodetitle[inode]="G(mu- nubar(mu) nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// mu- nubar(mu) nu(tau) :: Gamma3
   ++inode;//66
   nodegammaname.push_back("Gamma150by66"); 
   nodename.push_back("S035R14");
   nodetitle[inode]="G(h- omega nu(tau)) / G(h- h- h+ pi0 nu(tau) (ex. K0))";
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );      // h- omega
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      // K- omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- omega nu(tau) :: Gamma151
 #endif
-  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(2.2600E-01);               
-  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(1.7000E-02);               
-  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(1.        );               
-  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(1.        );      
+  node_den_parm[inode].push_back(109);       node_den_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// K- eta nu(tau) :: Gamma128
+  node_den_parm[inode].push_back(113);       node_den_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_den_parm[inode].push_back(247);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_den_parm[inode].push_back(263);       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
 #if defined USING_NBASE31
-  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(8.8800E-01);      // h- omega
+  node_den_parm[inode].push_back(285);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_den_parm[inode].push_back(8  );       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(8.8800E-01);      // pi- omega
-  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(8.8800E-01);      // K- omega
+  node_den_parm[inode].push_back(803);       node_den_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_den_parm[inode].push_back(800);       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
+  node_den_parm[inode].push_back(295);       node_den_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
 #endif
   ++inode;//67
   nodegammaname.push_back("Gamma149"); 
   nodename.push_back("S035R15"); 
   nodetitle[inode]="G(h- omega >=0 neutrals nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        ); 
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- pi0 omega nu(tau) :: Gamma152
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );      // h- omega
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      // K- omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- omega nu(tau) :: Gamma151
 #endif
   ++inode;//68
   nodegammaname.push_back("Gamma5"); 
   nodename.push_back("S035R2");
   nodetitle[inode]="G(e- nubar(e) nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
   ++inode;//69
   nodegammaname.push_back("Gamma19"); 
   nodename.push_back("S035R20");
   nodetitle[inode]="G(h- 2pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
   ++inode;//70
   nodegammaname.push_back("Gamma26");
   nodename.push_back("S035R21");
   nodetitle[inode]="G(h- 3pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE1    ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
   ++inode;//71
   nodegammaname.push_back("Gamma150");
   nodename.push_back("S035R23");
   nodetitle[inode]="G(h- omega nu(tau)) / G(total)";
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.        );      // h-  omega
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      // K-  omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- omega nu(tau) :: Gamma151
 #endif
   ++inode;//72
   nodegammaname.push_back("Gamma2");
   nodename.push_back("S035R24");
   nodetitle[inode]="G((particles)- >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);               
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.0000E-02);               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(6.5690E-01);               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(6.5690E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(6.5690E-01);               
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.0985E+00);               
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(3.1390E-01);               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(7.0800E-01);               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(6.5690E-01);               
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// mu- nubar(mu) nu(tau) :: Gamma3
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES1 ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PIZSQUAREPlus1]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_KS2PIZ           ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES2 ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// K- K0 nu(tau) :: Gamma37
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);      // h-  omega
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.0000E-02);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.0000E-02);      // K-  omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES2 ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 pi- eta nu(tau) :: Gamma132 
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KSKL_KS2PIZ  ]);// K- phi nu(tau) (phi->KS(->pi0pi0)KL) :: Gamma801
+#endif
 #endif
   ++inode;//73
   nodegammaname.push_back("Gamma31");
   nodename.push_back("S035R26");
   nodetitle[inode]="G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);              
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES1 ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KSKL_KS2PIZ  ]);// K- phi nu(tau) (phi->KS(->pi0pi0)KL) :: Gamma801
+#endif
   ++inode;//74
   nodegammaname.push_back("Gamma32");
   nodename.push_back("S035R27");
   nodetitle[inode]="G(K- >=1 (pi0 or K0 or gamma) nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);              
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES1 ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KSKL_KS2PIZ  ]);// K- phi nu(tau) (phi->KS(->pi0pi0)KL) :: Gamma801
+#endif
   ++inode;//75
   nodegammaname.push_back("Gamma56");
   nodename.push_back("S035R28");
   nodetitle[inode]="G(h- h- h+ nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(3.4310E-01);              
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(1.7000E-02);      // h-  omega
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.7000E-02);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.7000E-02);      // K-  omega
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIP         ]);// K- omega nu(tau) :: Gamma151
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
+#endif
 #endif
   ++inode;//76
   nodegammaname.push_back("Gamma63");
   nodename.push_back("S035R30");
   nodetitle[inode]="G(h- h- h+ >=1 neutrals nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(4.3070E-01);               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(6.8610E-01);               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PI_X_2PIZ_X_2 ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_KS2PI            ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// pi- pi0 eta nu(tau) :: Gamma126
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(8.8800E-01);      // h-  omega
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(8.8800E-01);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(8.8800E-01);      // K-  omega
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OMPIMPIPPIZ      ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_Gam132_3PI3PIZ_KL]);// Kbar0 pi- eta nu(tau) -> 3pi- 3pi0, 3pi- pi0 KL0 :: Gamma132 
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KSKL_KS2PI   ]);// K- phi nu(tau) (phi->KS(->pi-pi+)KL) :: Gamma801
+#endif
 #endif
   ++inode;//77
   nodegammaname.push_back("Gamma54");
   nodename.push_back("S035R31");
   nodetitle[inode]="G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.1010E-01);               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(4.3070E-01);               
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(6.8610E-01);               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(2.8500E-01);               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PI_X_2PIZ_X_2 ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_KS2PI            ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.1010E-01);      // h-  omega         
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.1010E-01);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.1010E-01);      // K-  omega
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_Gam132_3PI3PIZ_KL]);// Kbar0 pi- eta nu(tau) -> 3pi- 3pi0, 3pi- pi0 KL0 :: Gamma132 
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(coef[C_KS2PIZby2PlusHalf]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KK_KS2PI     ]);// K- phi nu(tau) (phi->K-K+, KS(->pi-pi+)KL) :: Gamma801
+#endif
 #endif
   ++inode;//78
   nodegammaname.push_back("Gamma126");
   nodename.push_back("S035R32");
   nodetitle[inode]="G(pi- pi0 eta nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 eta nu(tau) :: Gamma126
   ++inode;//79
   nodegammaname.push_back("Gamma102");
   nodename.push_back("S035R33");
   nodetitle[inode]="G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)";
-  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ nu(tau) (ex. K0) :: Gamma103
+  node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ pi0 nu(tau) (ex. K0) :: Gamma104
   ++inode;//80
   nodegammaname.push_back("Gamma79");
   nodename.push_back("S035R34");
   nodetitle[inode]="G(K- h- h+ >=0 neutrals nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+#if defined USING_NBASE31 
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+#if defined USING_NBASE37
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KK_KS2PI     ]);// K- phi nu(tau) (phi->K-K+, KS(->pi-pi+)KL) :: Gamma801
+#endif
+#endif
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//81
   nodegammaname.push_back("Gamma103");
   nodename.push_back("S035R38");
   nodetitle[inode]="G(3h- 2h+ nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ nu(tau) (ex. K0) :: Gamma103
   ++inode;//82
   nodegammaname.push_back("Gamma104");
   nodename.push_back("S035R39");
   nodetitle[inode]="G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)";
-  node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ pi0 nu(tau) (ex. K0) :: Gamma104
   ++inode;//83
   nodegammaname.push_back("Gamma93");
   nodename.push_back("S035R40");
   nodetitle[inode]="G(pi- K- K+ nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
   ++inode;//84
   nodegammaname.push_back("Gamma82");
   nodename.push_back("S035R41");
   nodetitle[inode]="G(K- pi- pi+ >=0 neutrals nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(2.8500E-01);              
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(3.4310E-01);               
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(3.4310E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETACHARGEDMODES  ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- pi0 K0 nu(tau) :: Gamma42
+#if defined USING_NBASE31 
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+#elif defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM3PIPlus2PI     ]);// K- omega nu(tau) :: Gamma151
+#endif
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIby2         ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//85
   nodegammaname.push_back("Gamma11");
   nodename.push_back("S035R42");
   nodetitle[inode]="G(h- >=1 neutrals nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(7.1500E-01);              
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(9.0000E-02);               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(9.8500E-02);               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(7.0800E-01);               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.5700E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES1 ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PIZSQUARED    ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES2 ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- K0 nu(tau) :: Gamma37
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(9.0000E-02);      // h-  omega
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(9.0000E-02);      // pi- omega
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(9.0000E-02);      // K-  omega
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_OM2PIZGAMMA      ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETANEUTRALMODES2 ]);// K- pi0 eta nu(tau) :: Gamma130
 #endif
   ++inode;//86
   nodegammaname.push_back("Gamma7");
   nodename.push_back("S035R43");
   nodetitle[inode]="G(h- >=0 K(L)0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(5.0000E-01);              
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(5.0000E-01);               
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_HALF             ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_HALF             ]);// K- K0 nu(tau) :: Gamma37
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
   ++inode;//87
   nodegammaname.push_back("Gamma17");
   nodename.push_back("S035R44");
   nodetitle[inode]="G(h- >=2 pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(9.8500E-02);               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.1900E-01);               
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.5700E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE1    ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PIZSQUARED    ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE2    ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- K0 nu(tau) :: Gamma37
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE2    ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//88
   nodegammaname.push_back("Gamma37");
   nodename.push_back("S035R46");
   nodetitle[inode]="G(K- K0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
   ++inode;//89
   nodegammaname.push_back("Gamma3by5");
   nodename.push_back("S035R5");
   nodetitle[inode]="G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))";
-  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(1.        );              
-  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// mu- nubar(mu) nu(tau) :: Gamma3
+  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
   ++inode;//90
   nodegammaname.push_back("Gamma9");
   nodename.push_back("S035R6");
   nodetitle[inode]="G(pi- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
   ++inode;//91
   nodegammaname.push_back("Gamma10");
   nodename.push_back("S035R7");
   nodetitle[inode]="G(K- nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
   ++inode;//92
   nodegammaname.push_back("Gamma14");
   nodename.push_back("S035R8");
   nodetitle[inode]="G(pi- pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );              
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
   ++inode;//93
   nodegammaname.push_back("Gamma13"); 
   nodename.push_back("S035R84"); 
   nodetitle[inode]="G(h- pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(1.        );              
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
   ++inode;//94
   nodegammaname.push_back("Gamma24");
   nodename.push_back("S035R97");
   nodetitle[inode]="G(h- >= 3pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(3.2200E-01);              
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.5700E-01);               
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );               
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(9.8500E-02);               
-  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(3.1900E-01);               
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE1    ]);// K- eta nu(tau) :: Gamma128
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_KS2PIZby2        ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_KS2PIZSQUARED    ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE2    ]);// pi- pi0 eta nu(tau) :: Gamma126
+#if defined USING_NBASE36 || defined USING_NBASE37
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE2    ]);// K- pi0 eta nu(tau) :: Gamma130
+#endif
   ++inode;//95
   nodegammaname.push_back("Gamma9by5");
   nodename.push_back("S035Y01");
   nodetitle[inode]="G(pi- nu(tau)) / G(e- nubar(e) nu(tau))";
-  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(1.        );
-  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
   ++inode;//96
   nodegammaname.push_back("Gamma10by5");
   nodename.push_back("S035Y02");
   nodetitle[inode]="G(K- nu(tau)) / G(e- nubar(e) nu(tau))";
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );
-  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
+  node_den_parm[inode].push_back(2  );       node_den_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
   ++inode;//97
   nodegammaname.push_back("Gamma10by9");
   nodename.push_back("S035Y03");
   nodetitle[inode]="G(K- nu(tau)) / G(pi- nu(tau))";
-  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(1.        );
-  node_den_parm[inode].push_back(12 );       node_den_coef[inode].push_back(1.        );               
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
+  node_den_parm[inode].push_back(12 );       node_den_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
 #if defined USING_NBASE36 || defined USING_NBASE37
   ++inode;//98
   nodegammaname.push_back("Gamma130");
   nodename.push_back("S035C27");
   nodetitle[inode]="G(K- pi0 eta nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 eta nu(tau) :: Gamma130
   ++inode;//99
   nodegammaname.push_back("Gamma132");
   nodename.push_back("S035C28");
   nodetitle[inode]="G(Kbar0 pi- eta nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- eta nu(tau) :: Gamma132
   ++inode;//100
   nodegammaname.push_back("Gamma43");
   nodename.push_back("S035C37");
   nodetitle[inode]="G(Kbar0 pi- >=1 pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );
-  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
   ++inode;//101
   nodegammaname.push_back("Gamma44");
   nodename.push_back("S035B98");
   nodetitle[inode]="G(Kbar0 pi- 2pi0 nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
   ++inode;//102
   nodegammaname.push_back("Gamma53");
   nodename.push_back("S035C5");
   nodetitle[inode]="G(Kbar0 h- h- h+ nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
   ++inode;//103
   nodegammaname.push_back("Gamma800");
   nodename.push_back("S035Z01");
   nodetitle[inode]="G(pi- omega nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- omega nu(tau) :: Gamma800
   ++inode;//104
   nodegammaname.push_back("Gamma151");
   nodename.push_back("S035C61");
   nodetitle[inode]="G(K- omega nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );
-#if defined USING_NBASE37
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- omega nu(tau) :: Gamma151
   ++inode;//105
+  nodegammaname.push_back("Gamma802");
+  nodename.push_back("S035Z03");
+  nodetitle[inode]="G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)";
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  ++inode;//106
+  nodegammaname.push_back("Gamma803");
+  nodename.push_back("S035Z04");
+  nodetitle[inode]="G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)";
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  ++inode;//107
+  nodegammaname.push_back("Gamma136");
+  nodename.push_back("S035B89");
+  nodetitle[inode]="G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)";
+  node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(coef[C_ETAPIMPIPPIZ     ]);// 3h- 2h+ pi0 nu(tau) (ex. K0) :: Gamma104
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ETA3PIZUSAGE1    ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  ++inode;//108
+  nodegammaname.push_back("Gamma115");
+  nodename.push_back("S035B60");
+  nodetitle[inode]="G(K- Kstar(892)0 nu(tau)) / G(total)";
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_TWOTHIRD         ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONETHIRD         ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+#if defined USING_NBASE37
+  ++inode;//109
   nodegammaname.push_back("Gamma96");
   nodename.push_back("S035C9");
   nodetitle[inode]="G(K- K- K+ nu(tau)) / G(total)";
-  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(0.588447); // 1/1.699387
-  ++inode;//106
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_PHI2KMKP         ]);// K- K- K+ nu(tau) :: Gamma96
+  ++inode;//110
   nodegammaname.push_back("Gamma801");
   nodename.push_back("S035Z02");
   nodetitle[inode]="G(K- phi nu(tau) (phi->KK)) / G(total)";
-  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- phi nu(tau) (phi->KK) :: Gamma801
 #endif
 #endif
-  ++inode;//"nnode"-2
+  ++inode;//nnode-1
   nodegammaname.push_back("GammaAll"); // sum of all base nodes  
   nodename.push_back("S035S01");
   nodetitle[inode]="G(total)";
-  node_num_parm[inode].push_back(  1);       node_num_coef[inode].push_back(1.        );      //1
-  node_num_parm[inode].push_back(  2);       node_num_coef[inode].push_back(1.        );      //2
-  node_num_parm[inode].push_back( 12);       node_num_coef[inode].push_back(1.        );      //3
-  node_num_parm[inode].push_back(  7);       node_num_coef[inode].push_back(1.        );      //4
-  node_num_parm[inode].push_back( 16);       node_num_coef[inode].push_back(1.        );      //5
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );      //6
-  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(1.        );      //7
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );      //8
-  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(1.        );      //9
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );      //10
-  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(1.        );      //11
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );      //12
-  node_num_parm[inode].push_back( 62);       node_num_coef[inode].push_back(1.        );      //13
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );      //14
-  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(1.        );      //15
-  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(1.        );      //16
-  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(1.        );      //17
-  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(1.        );      //18
-  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(1.        );      //19
-  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(1.        );      //20
-  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(1.        );      //21
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );      //22
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );      //23
-  node_num_parm[inode].push_back(  5);       node_num_coef[inode].push_back(1.        );      //24
-  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(1.        );      //25
-  node_num_parm[inode].push_back(  4);       node_num_coef[inode].push_back(1.        );      //26
-  node_num_parm[inode].push_back( 58);       node_num_coef[inode].push_back(1.        );      //27
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );      //28
+  node_num_parm[inode].push_back(1  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// mu- nubar(mu) nu(tau) :: Gamma3
+  node_num_parm[inode].push_back(2  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// e- nubar(e) nu(tau) :: Gamma5
+  node_num_parm[inode].push_back(12 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- nu(tau) :: Gamma9
+  node_num_parm[inode].push_back(7  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- nu(tau) :: Gamma10
+  node_num_parm[inode].push_back(16 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 nu(tau) :: Gamma14
+  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 nu(tau) :: Gamma16
+  node_num_parm[inode].push_back(201);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 2pi0 nu(tau) (ex. K0) :: Gamma20
+  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 2pi0 nu(tau) (ex. K0) :: Gamma23
+  node_num_parm[inode].push_back(203);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- 3pi0 nu(tau) (ex. K0) :: Gamma27
+  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- 3pi0 nu(tau) (ex. K0, eta) :: Gamma28
+  node_num_parm[inode].push_back(110);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- 4pi0 nu(tau) (ex. K0, eta) :: Gamma30
+  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- nu(tau) :: Gamma35
+  node_num_parm[inode].push_back(62 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- K0 nu(tau) :: Gamma37
+  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- pi0 nu(tau) :: Gamma40
+  node_num_parm[inode].push_back(119);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 K0 nu(tau) :: Gamma42
+  node_num_parm[inode].push_back(214);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(S)0 nu(tau) :: Gamma47
+  node_num_parm[inode].push_back(240);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K(S)0 K(L)0 nu(tau) :: Gamma48
+  node_num_parm[inode].push_back(259);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma62
+  node_num_parm[inode].push_back(263);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi- pi+ pi0 nu(tau) (ex. K0, omega) :: Gamma70
+  node_num_parm[inode].push_back(216);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta) :: Gamma77
+  node_num_parm[inode].push_back(204);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- h- h+ 3pi0 nu(tau) :: Gamma78
+  node_num_parm[inode].push_back(5  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ nu(tau) :: Gamma93
+  node_num_parm[inode].push_back(247);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- K- K+ pi0 nu(tau) :: Gamma94
+  node_num_parm[inode].push_back(4  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ pi0 nu(tau) (ex. K0) :: Gamma104
+  node_num_parm[inode].push_back(58 );       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- pi0 eta nu(tau) :: Gamma126
+  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- eta nu(tau) :: Gamma128
 #if defined USING_NBASE31
-  node_num_parm[inode].push_back(  8);       node_num_coef[inode].push_back(1.        );      //29
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );      //30
-  node_num_parm[inode].push_back(  3);       node_num_coef[inode].push_back(1.        );      //31
+  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0) :: Gamma85
+  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, eta) :: Gamma89
+  node_num_parm[inode].push_back(8  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- omega nu(tau) :: Gamma150
 #elif defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(1.        );      //29
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      //30
-  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(1.        );      //31
-  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(1.        );      //32
-  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );      //33
-  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );      //34
-  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );      //35
+  node_num_parm[inode].push_back(802);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ nu(tau) (ex. K0, omega) :: Gamma802
+  node_num_parm[inode].push_back(803);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta) :: Gamma803
+  node_num_parm[inode].push_back(800);       node_num_coef[inode].push_back(coef[C_ONE              ]);// pi- omega nu(tau) :: Gamma800
+  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- omega nu(tau) :: Gamma151
+  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- pi0 eta nu(tau) :: Gamma130
+  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- eta nu(tau) :: Gamma132
+  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 pi- 2pi0 nu(tau) :: Gamma44
+  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(coef[C_ONE              ]);// Kbar0 h- h- h+ nu(tau) :: Gamma53
 #if defined USING_NBASE37
-  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );      //36
-#endif
-  node_num_parm[inode].push_back(  3);       node_num_coef[inode].push_back(1.        );      //37
-#endif
-  ++inode;//"nnode"-1
-  nodegammaname.push_back("GammaXs"); // sum of strange base nodes
-  nodename.push_back("S035S02");
-  nodetitle[inode]="G(strange) / G(total)";
-  node_num_parm[inode].push_back(  7);       node_num_coef[inode].push_back(1.        );      //1       
-  node_num_parm[inode].push_back(182);       node_num_coef[inode].push_back(1.        );      //2    
-  node_num_parm[inode].push_back(115);       node_num_coef[inode].push_back(1.        );      //3 
-  node_num_parm[inode].push_back(116);       node_num_coef[inode].push_back(1.        );      //4
-  node_num_parm[inode].push_back(117);       node_num_coef[inode].push_back(1.        );      //5
-  node_num_parm[inode].push_back(118);       node_num_coef[inode].push_back(1.        );      //6
-  node_num_parm[inode].push_back(260);       node_num_coef[inode].push_back(1.        );      //7
-  node_num_parm[inode].push_back(285);       node_num_coef[inode].push_back(1.        );      //8
-  node_num_parm[inode].push_back(109);       node_num_coef[inode].push_back(1.        );      //9
-#if defined USING_NBASE36 || defined USING_NBASE37
-  node_num_parm[inode].push_back(295);       node_num_coef[inode].push_back(1.        );      //10
-  node_num_parm[inode].push_back(266);       node_num_coef[inode].push_back(1.        );      //11
-  node_num_parm[inode].push_back(267);       node_num_coef[inode].push_back(1.        );      //12
-  node_num_parm[inode].push_back(238);       node_num_coef[inode].push_back(1.        );      //13
-  node_num_parm[inode].push_back(244);       node_num_coef[inode].push_back(1.        );      //14
-#if defined USING_NBASE37
-  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(1.        );      //15
+  node_num_parm[inode].push_back(801);       node_num_coef[inode].push_back(coef[C_ONE              ]);// K- phi nu(tau) (phi->KK) :: Gamma801
 #endif
 #endif
+  node_num_parm[inode].push_back(113);       node_num_coef[inode].push_back(coef[C_ONE              ]);// h- pi0 omega nu(tau) :: Gamma152
+  node_num_parm[inode].push_back(3  );       node_num_coef[inode].push_back(coef[C_ONE              ]);// 3h- 2h+ nu(tau) (ex. K0) :: Gamma103
+  //
+  cout << "Read definitions of "<< inode+1 << " nodes out of nnode = " << nnode << endl;
   //
   // Count number of parameters in numerator and denominator for each node
   //
@@ -3661,7 +4071,8 @@ int main(int argc, char* argv[]){
   //
   // PRINT NODE DEFINITION 
   //
-  print_node_def(nnode, a_nodename, nodetitle, nodegammaname, node_is_base,
+  print_node_def(nnode, a_nodename, nodetitle, nodegammaname, node_is_base, 
+		 ncoef, coef, coefnames,
 		 node_num_npar, node_num_parm, node_num_coef, 
 		 node_den_npar, node_den_parm, node_den_coef, 
 		 baseparm, basegamma, basetitle);
@@ -3961,10 +4372,10 @@ int main(int argc, char* argv[]){
 	       NodeValue[N_GAMMAALL]*100.,
 	       uconstrain?0:NodeError[N_GAMMAALL]*100.,
 	       uconstrain?0:(1-NodeValue[N_GAMMAALL])/NodeError[N_GAMMAALL],
-	       nodetitle[N_GAMMAXS].data(),
-	       NodeValue[N_GAMMAXS]*100.,
-	       NodeError[N_GAMMAXS]*100.,
-	       NodeValue[N_GAMMAXS]/NodeError[N_GAMMAXS]);
+	       nodetitle[N_GAMMA110].data(),
+	       NodeValue[N_GAMMA110]*100.,
+	       NodeError[N_GAMMA110]*100.,
+	       NodeValue[N_GAMMA110]/NodeError[N_GAMMA110]);
   //
   // WRITE OUT MEASUREMENT FILE
   //
@@ -4186,10 +4597,10 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak[N_GAMMAALL]*100.,
 	       uconstrain?0:NodeError_noweak[N_GAMMAALL]*100.,
 	       uconstrain?0:(1-NodeValue_noweak[N_GAMMAALL])/NodeError_noweak[N_GAMMAALL],
-	       nodetitle[N_GAMMAXS].data(),
-	       NodeValue_noweak[N_GAMMAXS]*100.,
-	       NodeError_noweak[N_GAMMAXS]*100.,
-	       NodeValue_noweak[N_GAMMAXS]/NodeError_noweak[N_GAMMAXS]);
+	       nodetitle[N_GAMMA110].data(),
+	       NodeValue_noweak[N_GAMMA110]*100.,
+	       NodeError_noweak[N_GAMMA110]*100.,
+	       NodeValue_noweak[N_GAMMA110]/NodeError_noweak[N_GAMMA110]);
   //
   cout << "Summary of fit with [non-weak measurements only]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
@@ -4357,14 +4768,15 @@ int main(int argc, char* argv[]){
 	if ( icorrj[im].size() > 1 ) { // first find which cycle this correlated measurement belongs to, then just fetch the result
 	  pullsquare = TMath::Power(VectorOfPullMag[ncycle[im]],2);
 	} else {
-	  pullsquare = TMath::Power((measvalue[im]-NodeValue[measnode[im]]),2)/
+	  bool singular_measurement = TMath::Abs(measvalue[im] - NodeValue[measnode[im]]) < 1e-6 && TMath::Abs(measerror[im] - NodeError[measnode[im]]) < 1e-6;
+	  pullsquare = singular_measurement ? 0 : TMath::Power((measvalue[im]-NodeValue[measnode[im]]),2)/
 	    (TMath::Power(measerror[im],2) - TMath::Power(NodeError[measnode[im]],2));
 	}
 	pullsq_node+=pullsquare;
 	npullsq_node+=1;
       }
     }
-    pullsq_node/=npullsq_node;
+    if (npullsq_node>0) pullsq_node/=npullsq_node;
     //
     for (im=0;im<nmeas;++im){
       if (weak_none[im]==weakcompare) continue;
@@ -4452,14 +4864,15 @@ int main(int argc, char* argv[]){
 	if ( icorrj[im].size() > 1 ) { // first find which cycle this correlated measurement belongs to, then just fetch the result
 	  pullsquare = TMath::Power(VectorOfPullMag_noweak[ncycle[im]],2);
 	} else {
-	  pullsquare = TMath::Power((measvalue[im]-NodeValue_noweak[measnode[im]]),2)/
+	  bool singular_measurement = TMath::Abs(measvalue[im] - NodeValue[measnode[im]]) < 1e-6 && TMath::Abs(measerror[im] - NodeError[measnode[im]]) < 1e-6;
+	  pullsquare = singular_measurement ? 0 : TMath::Power((measvalue[im]-NodeValue_noweak[measnode[im]]),2)/
 	    (TMath::Power(measerror[im],2) - TMath::Power(NodeError_noweak[measnode[im]],2));
 	}
 	pullsq_node_noweak+=pullsquare;
 	npullsq_node_noweak+=1;
       }
     }
-    pullsq_node_noweak/=npullsq_node_noweak;
+    if (npullsq_node_noweak>0) pullsq_node_noweak/=npullsq_node_noweak;
     //
     for (im=0;im<nmeas;++im){
       if (weak[im]==weakcompare) continue;
@@ -4726,10 +5139,10 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_scaled[N_GAMMAALL]*100.,
 	       uconstrain?0:NodeError_noweak_scaled[N_GAMMAALL]*100.,
 	       uconstrain?0:(1-NodeValue_noweak_scaled[N_GAMMAALL])/NodeError_noweak_scaled[N_GAMMAALL],
-	       nodetitle[N_GAMMAXS].data(),
-	       NodeValue_noweak_scaled[N_GAMMAXS]*100.,
-	       NodeError_noweak_scaled[N_GAMMAXS]*100.,
-	       NodeValue_noweak_scaled[N_GAMMAXS]/NodeError_noweak_scaled[N_GAMMAXS]);
+	       nodetitle[N_GAMMA110].data(),
+	       NodeValue_noweak_scaled[N_GAMMA110]*100.,
+	       NodeError_noweak_scaled[N_GAMMA110]*100.,
+	       NodeValue_noweak_scaled[N_GAMMA110]/NodeError_noweak_scaled[N_GAMMA110]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors inflated with PDG-style scale factors]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
@@ -5003,10 +5416,10 @@ int main(int argc, char* argv[]){
 	       NodeValue_rescaled[N_GAMMAALL]*100.,
 	       uconstrain?0:NodeError_rescaled[N_GAMMAALL]*100.,
 	       uconstrain?0:(1-NodeValue_rescaled[N_GAMMAALL])/NodeError_rescaled[N_GAMMAALL],
-	       nodetitle[N_GAMMAXS].data(),
-	       NodeValue_rescaled[N_GAMMAXS]*100.,
-	       NodeError_rescaled[N_GAMMAXS]*100.,
-	       NodeValue_rescaled[N_GAMMAXS]/NodeError_rescaled[N_GAMMAXS]);
+	       nodetitle[N_GAMMA110].data(),
+	       NodeValue_rescaled[N_GAMMA110]*100.,
+	       NodeError_rescaled[N_GAMMA110]*100.,
+	       NodeValue_rescaled[N_GAMMA110]/NodeError_rescaled[N_GAMMA110]);
   //
   cout << "Summary of fit with [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
@@ -5240,10 +5653,10 @@ int main(int argc, char* argv[]){
 	       NodeValue_noweak_rescaled[N_GAMMAALL]*100.,
 	       uconstrain?0:NodeError_noweak_rescaled[N_GAMMAALL]*100.,
 	       uconstrain?0:(1-NodeValue_noweak_rescaled[N_GAMMAALL])/NodeError_noweak_rescaled[N_GAMMAALL],
-	       nodetitle[N_GAMMAXS].data(),
-	       NodeValue_noweak_rescaled[N_GAMMAXS]*100.,
-	       NodeError_noweak_rescaled[N_GAMMAXS]*100.,
-	       NodeValue_noweak_rescaled[N_GAMMAXS]/NodeError_noweak_rescaled[N_GAMMAXS]);
+	       nodetitle[N_GAMMA110].data(),
+	       NodeValue_noweak_rescaled[N_GAMMA110]*100.,
+	       NodeError_noweak_rescaled[N_GAMMA110]*100.,
+	       NodeValue_noweak_rescaled[N_GAMMA110]/NodeError_noweak_rescaled[N_GAMMA110]);
   //
   cout << "Summary of fit with [non-weak measurements only] and [errors rescaled in a Ad-Hoc style for kkk only]:" << endl;
   cout << Form("# QUAN GAMMA  PARM   NODE             SEED      FITVAL         FITERR     SFAC  TITLE\n");
@@ -5663,7 +6076,7 @@ int main(int argc, char* argv[]){
 		Bhadrons, e_Bhadrons, ecomp_Bhadrons); 
   cout << Form("%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Be,mu]) %% \n",
 	       "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
-	       100.*ecomp_Bhadrons[0], 100.*ecomp_Bhadrons[1], 100.*ecomp_Bhadrons[2], 100.*ecomp_Bhadrons[3], 100.*ecomp_Bhadrons[5]);
+	       100.*ecomp_Bhadrons[0], 100.*ecomp_Bhadrons[1], 100.*ecomp_Bhadrons[2], 100.*ecomp_Bhadrons[3], 100.*ecomp_Bhadrons[4]);
   //
   // Rhadrons
   //
@@ -5678,14 +6091,14 @@ int main(int argc, char* argv[]){
   //
   // Rstrange
   //
-  double Bstrange = NodeValue_rescaled[N_GAMMAXS];
-  double e_Bstrange = NodeError_rescaled[N_GAMMAXS];
+  double Bstrange = NodeValue_rescaled[N_GAMMA110];
+  double e_Bstrange = NodeError_rescaled[N_GAMMA110];
   cout << Form("%s = (%6.3f +- %6.3f) %% \n","B(tau -> strange)", 100.*Bstrange, 100.*e_Bstrange);
   double Rstrange = 0;
   double e_Rstrange = 0;
   double ecomp_Rstrange[6] = { 0, 0, 0, 0, 0, 0};
   calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-		Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+		Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
 		Rstrange, e_Rstrange, ecomp_Rstrange);
   cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
 	       "R(tau -> strange)", Rstrange, e_Rstrange,
@@ -5697,7 +6110,7 @@ int main(int argc, char* argv[]){
   double e_Rnonstrange = 0;
   double ecomp_Rnonstrange[6] = { 0, 0, 0, 0, 0, 0};
   calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
 		   Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
   cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
 	       "R(tau -> nonstrange)", Rnonstrange, e_Rnonstrange,
@@ -5709,7 +6122,7 @@ int main(int argc, char* argv[]){
   double e_Vus_strange = 0;
   double ecomp_Vus_strange[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
   calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
+		   Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
 		   Vus_strange, e_Vus_strange, ecomp_Vus_strange);
   cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Be,mu,s] +- %6.4f [Vud] +- %6.4f [ms]\n",
 	       "|Vus|_strange", Vus_strange, e_Vus_strange,
@@ -5730,8 +6143,8 @@ int main(int argc, char* argv[]){
   double e_Vus_uncons = 0;
   double ecomp_Vus_uncons[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
   calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit_rescaled[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
-			  Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAXS], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAXS],
-			  Btotal, e_Btotal, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMAALL][N_GAMMAXS],
+			  Bstrange, e_Bstrange, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMA110], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMA110],
+			  Btotal, e_Btotal, NodeErrorMatrix_rescaled[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix_rescaled[N_GAMMAALL][N_GAMMA110],
 			  Vus_uncons, e_Vus_uncons, ecomp_Vus_uncons);
   cout << Form("%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Btot] +- %6.4f [Be,mu,s,tot] +- %6.4f [Vud] +- %6.4f [ms]\n",
 	       "|Vus|_uncons", Vus_uncons, e_Vus_uncons,
