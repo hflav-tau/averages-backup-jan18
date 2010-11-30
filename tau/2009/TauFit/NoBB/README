@@ -5,6 +5,7 @@
 source run_readpdg
 
 cp -p *.log log
+cp -p *.results log
 
-getresult_readpdg.csh
+# getresult_readpdg.csh
 

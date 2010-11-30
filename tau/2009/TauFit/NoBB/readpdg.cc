@@ -5223,7 +5223,7 @@ int main(int argc, char* argv[]){
 	VectorOfEigenVal_AllPositive.push_back(EigenVal_AllPositive);
 	if (ij==ncorrij-1) {
 	  bool status = true;
-	  for (i=0;i<nij;++i){
+	  for (i=0;i<ncorrij;++i){
 	    if (!VectorOfEigenVal_AllPositive.at(i)) status = false;
 	  }
 	  if (status) {
@@ -5238,7 +5238,7 @@ int main(int argc, char* argv[]){
 	VectorOfEigenVal_AllPositive_noweak.push_back(EigenVal_AllPositive);
 	if (ij==ncorrij-1) {
 	  bool status = true;
-	  for (i=0;i<nij;++i){
+	  for (i=0;i<ncorrij;++i){
 	    if (!VectorOfEigenVal_AllPositive_noweak.at(i)) status = false;
 	  }
 	  if (status) {
