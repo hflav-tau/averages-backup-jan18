@@ -1,3 +1,6 @@
+#
+# THE FOLLOWING WRITEUP IS HISTORIC: NOW USE gtaugmu.cc for quick and approximate tests; otherwise it is all integrated into readpdg.cc 
+#
 # From TauFit/readpdg_constrained_aleph_hcorr.log
 # BR_TauToPiNu =(10.8302 +- 0.0512) %
 # BR_TauToKNu = (0.6971 +- 0.0096)%
