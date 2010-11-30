@@ -1,6 +1,6 @@
 # first line is xmin, xmax, precision, title
 * 0.86         1.04          6.4 g_{#tau}/g_{e}
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 1.00293      0.00207548    0            HFAG Fit (#tau #rightarrow #mu \bar{#nu}_{#mu} #nu_{#tau}) #times #tau_{#mu}/#tau_{#tau} 
+& 1.0030       0.0021        0           HFAG Fit (#tau #rightarrow #mu \bar{#nu}_{#mu} #nu_{#tau}) #times #tau_{#mu}/#tau_{#tau} 
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
   1.036        0.014        -0.014       0         0   LEP EW WG (W #rightarrow #tau #bar{#nu}_{#tau})/(W #rightarrow e #bar{#nu}_{e})

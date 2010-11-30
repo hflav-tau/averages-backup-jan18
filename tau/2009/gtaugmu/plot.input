@@ -1,10 +1,10 @@
 # first line is xmin, xmax, precision, title
 * 0.86         1.04          6.4 g_{#tau}/g_{#mu}
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 0.998914     0.00166738   0            HFAG Average (#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau},   #pi #nu_{#tau},  K #nu_{#tau})
-& 0.995011     0.0027656    0            HFAG Average (#tau #rightarrow #pi #nu_{#tau},  K #nu_{#tau})
-& 0.9860       0.0072       0            HFAG Fit (#tau #rightarrow K #nu_{#tau})/(K #rightarrow #mu #bar{#nu}_{#mu})
+& 1.0001       0.0020       0            HFAG Average (#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau},   #pi #nu_{#tau},  K #nu_{#tau})
+& 0.9954       0.0029       0            HFAG Average (#tau #rightarrow #pi #nu_{#tau},  K #nu_{#tau})
+& 0.9860       0.0073       0            HFAG Fit (#tau #rightarrow K #nu_{#tau})/(K #rightarrow #mu #bar{#nu}_{#mu})
 & 0.9966       0.0030       0            HFAG Fit (#tau #rightarrow #pi #nu_{#tau})/(#pi #rightarrow #mu #bar{#nu}_{#mu}) 
-& 1.00105      0.00207702   0            HFAG Fit (#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau}) #times #tau_{#mu}/#tau_{#tau}
+& 1.0011       0.0021       0            HFAG Fit (#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau}) #times #tau_{#mu}/#tau_{#tau}
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
   1.039        0.013        -0.013       0         0   LEP EW WG (W #rightarrow #tau #bar{#nu}_{#tau})/(W #rightarrow #mu #bar{#nu}_{#mu})
