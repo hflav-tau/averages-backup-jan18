@@ -1,16 +1,129 @@
-# cd ../../../Common/ ; source ./config.csh ; cd -
+# Setup
+ cd ../../../Common/ ; source ./config.csh ; cd -
 
+# Compile
 ./any.com readpdg
 
+# Run
 source run_readpdg
+##########################################################################
+# Note: run_readpdg produces logfiles in the following convention (see readpdg.cc inputs below)
+# readpdg_constrained.log                      if inputs = 1 0
+# readpdg_constrained_aleph_hcorr.log          if inputs = 1 1
+# readpdg_unconstrained.log                    if inputs = 0 0
+# readpdg_unconstrained_aleph_hcorr.log        if inputs = 0 1
+##########################################################################
 
+# Run COMBOS
 source run_combos_constrained
 source run_combos_constrained_aleph_hcorr
 source run_combos_unconstrained
 source run_combos_unconstrained_aleph_hcorr
 
+# Save
 cp -p *.log log
 cp -p *.results log
 
 # cp -p combos*.input log/input_dir
 # cp -p alucomb*.input log/input_dir
+
+#######################################################################
+# some information about readpdg.cc
+########################################################################
+# Arguments : uconstrain doalephhcorr
+#             uconstrain =  1: unitarity constrained; 0 : not constrained
+#             doalephhcorr = 1: do aleph hcorr; 0: dont
+# 
+#########################################################################
+# Reads base definitions from : base_def.txt
+# Read input measurements from : s035-fit-with-babar-belle.data if doalephhcorr = 0
+# Read input measurements from : s035-fit-with-babar-belle_aleph_hcorr.data if doalephhcorr = 1
+#########################################################################
+# 
+# Outputs :
+#
+# all_node_def.txt     : definitions of all nodes 
+# derived_node_def.txt : definitions of derived nodes
+# base_node_def.txt    : definitions of base nodes
+#
+# Note: The above outputs do not depend upon inputs
+#
+# Print some information about measurements and nodes
+#
+# s035-fit-with-babar-belle.info             if doalephhcorr = 0
+# s035-fit-with-babar-belle_aleph_hcorr.info if doalephhcorr = 1
+# 
+# Output results to:
+#
+#  readpdg_unconstrained.results             for inputs =  0 0
+#  readpdg_constrained.results               for inputs =  1 0
+#  readpdg_unconstrained_aleph_hcorr.results for inputs =  0 1
+#  readpdg_constrained_aleph_hcorr.results   for inputs =  1 1
+
+# The following ouputs are also produced when readpdg.exe is run
+##############################################################################################
+# COMBOS files for original fits for inputs = 1 1
+# combos_measurements_constrained_aleph_hcorr.input
+# combos_average_constrained_aleph_hcorr.input
+#
+# COMBOS files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 1 1
+# combos_measurements_rescaled_constrained_aleph_hcorr.input
+# combos_average_rescaled_constrained_aleph_hcorr.input
+#
+# ALUCOMB files for original fits for inputs = 1 1
+# alucomb_measurements_constrained_aleph_hcorr.input
+# alucomb_average_constrained_aleph_hcorr.input
+#
+# ALUCOMB files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 1 1
+# alucomb_measurements_rescaled_constrained_aleph_hcorr.input
+# alucomb_average_rescaled_constrained_aleph_hcorr.input
+##############################################################################################
+# COMBOS files for original fits for inputs = 0 1
+# combos_measurements_unconstrained_aleph_hcorr.input
+# combos_average_unconstrained_aleph_hcorr.input
+#
+# COMBOS files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 0 1
+# combos_measurements_rescaled_unconstrained_aleph_hcorr.input
+# combos_average_rescaled_unconstrained_aleph_hcorr.input
+#
+# ALUCOMB files for original fits for inputs = 0 1
+# alucomb_measurements_unconstrained_aleph_hcorr.input
+# alucomb_average_unconstrained_aleph_hcorr.input
+#
+# ALUCOMB files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 0 1
+# alucomb_measurements_rescaled_unconstrained_aleph_hcorr.input
+# alucomb_average_rescaled_unconstrained_aleph_hcorr.input
+##############################################################################################
+# COMBOS files for original fits for inputs = 1 0
+# combos_measurements_constrained.input
+# combos_average_constrained.input
+#
+# COMBOS files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 1 0
+# combos_measurements_rescaled_constrained.input
+# combos_average_rescaled_constrained.input
+#
+# ALUCOMB files for original fits for inputs = 1 0
+# alucomb_measurements_constrained.input
+# alucomb_average_constrained.input
+#
+# ALUCOMB files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 1 0
+# alucomb_measurements_rescaled_constrained.input
+# alucomb_average_rescaled_constrained.input
+##############################################################################################
+# COMBOS files for original fits for inputs = 0 1
+# combos_measurements_unconstrained.input
+# combos_average_unconstrained.input
+#
+# COMBOS files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 0 1
+# combos_measurements_rescaled_unconstrained.input
+# combos_average_rescaled_unconstrained.input
+#
+# ALUCOMB files for original fits for inputs = 0 1
+# alucomb_measurements_unconstrained.input
+# alucomb_average_unconstrained.input
+#
+# ALUCOMB files for fits with rescaled errors [only error on KKK is rescaled] for inputs = 0 1
+# alucomb_measurements_rescaled_unconstrained.input
+# alucomb_average_rescaled_unconstrained.input
+##############################################################################################
+
