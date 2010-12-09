@@ -22,15 +22,15 @@ foreach infile ( alucomb_average_constrained.input \
  cp -p average_alucomb.rdata $rdatafile
  cp -p average_alucomb.log $logfile
  rm -f $listfile ; ../../../Common/bin/aluelab-list.r | tee $listfile
- rm -f $showfile ; ./aluelab-show.r | tee $showfile
- rm -f $resfile ; ./aluelab-results.r -lepuniv | tee $resfile
- echo $infile | grep -q _unconstrained
- if ( $? == 0 ) then
-   rm -f $resfile2 ; ./aluelab-results.r -vadirect | tee $resfile2
-   if ( $1 == 1 ) then
-     cp -p $resfile2 log 
-   endif
- endif
+# rm -f $showfile ; ./aluelab-show.r | tee $showfile
+# rm -f $resfile ; ./aluelab-results.r -lepuniv | tee $resfile
+# echo $infile | grep -q _unconstrained
+# if ( $? == 0 ) then
+#   rm -f $resfile2 ; ./aluelab-results.r -vadirect | tee $resfile2
+#   if ( $1 == 1 ) then
+#     cp -p $resfile2 log 
+#   endif
+# endif
  if ( $1 == 1 ) then 
    cp -p $logfile  log 
    cp -p $listfile log 
