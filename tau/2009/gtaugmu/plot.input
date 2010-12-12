@@ -1,5 +1,5 @@
 # first line is xmin, xmax, precision, title
-* 0.86         1.04          6.4 g_{#tau}/g_{#mu}
+* 0.86         1.04          6.4 |g_{#tau}/g_{#mu}|
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
 & 1.0001       0.0020       0            HFAG Average (#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau},   #pi #nu_{#tau},  K #nu_{#tau})
 & 0.9954       0.0029       0            HFAG Average (#tau #rightarrow #pi #nu_{#tau},  K #nu_{#tau})

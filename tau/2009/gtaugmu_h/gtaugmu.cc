@@ -335,19 +335,6 @@ void calc_results(const double Bpi, const double e_Bpi, const double BK, const d
   delete [] cov_gtaumu_pik;
 }
 int main(int argc, char* argv[]){
-//  //
-//  const double Bpi = 10.59e-2;
-//  const double Bpi_staterr = 0.03e-2;
-//  const double Bpi_systerr = 0.11e-2;
-//  const double e_Bpi = TMath::Sqrt(TMath::Power(Bpi_staterr,2) + TMath::Power(Bpi_systerr,2));
-//  //
-//  const double BK = 0.692e-2;
-//  const double BK_staterr = 0.006e-2;
-//  const double BK_systerr = 0.010e-2;
-//  const double e_BK =  TMath::Sqrt(TMath::Power(BK_staterr,2) + TMath::Power(BK_systerr,2));
-//  //
-//  const double corr_Bpi_BK = 0.36;
-//  //
   const double Bpi = 10.831e-2;
   const double e_Bpi = 0.051e-2;
   const double BK = 0.697e-2;
