@@ -6222,6 +6222,11 @@ int main(int argc, char* argv[]){
   }
   cout << Form("\\end{tabular}\n");
   cout << endl;
+  for (inode=0;inode<nnode;++inode) {
+    cout << Form("inode=%4d %-8s %-12s %-108s Fit = %8.4e +- %8.4e\n",
+		 inode, a_nodename[inode], nodegammaname[inode].data(), nodetitle[inode].data(), NodeValue_rescaled[inode], NodeError_rescaled[inode]);
+  }
+  cout << endl;
   //
   // Print Results 
   //
