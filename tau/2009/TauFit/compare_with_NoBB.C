@@ -9,45 +9,55 @@ compare_with_NoBB(){
   gStyle->SetPadTickY(1);
   //
   gStyle->SetNdivisions(7,"X");
-  gStyle->SetNdivisions(6,"Y");
+  gStyle->SetNdivisions(5,"Y");
   gStyle->SetHatchesSpacing(1);
   //
   gStyle->SetTitleFont(12,"Y"); gStyle->SetTitleSize(.05,"Y"); gStyle->SetTitleOffset(1,"Y");
   gStyle->SetTitleFont(12,"X"); gStyle->SetTitleSize(.05,"X"); gStyle->SetTitleOffset(1,"X");
   //
-  ifstream inFile;
-  inFile.open("compare_with_NoBB.txt");
   TH1D *h0 = new TH1D("h0","BaBar;Sigma Difference;Number per 0.5",12,-3,3);
   TH1D *h1 = new TH1D("h1","Belle;Sigma Difference;Number per 0.5",12,-3,3);
   TH1D *h01= new TH1D("h01","Belle;Sigma Difference;Number per 0.5",12,-3,3);
-  h0->GetXaxis()->CenterTitle(1);  h0->GetYaxis()->CenterTitle(1);  h0->SetFillColor(19);  h0->SetFillStyle(4000);
+  h0->GetXaxis()->CenterTitle(1);  h0->GetYaxis()->CenterTitle(1);  h0->SetFillColor(10);  h0->SetFillStyle(4000);
   h1->GetXaxis()->CenterTitle(1);  h1->GetYaxis()->CenterTitle(1);  h1->SetFillColor(10);  h1->SetFillStyle(4000);
   h01->GetXaxis()->CenterTitle(1); h01->GetYaxis()->CenterTitle(1); h01->SetFillColor(19); h01->SetFillStyle(4000);
   int ibb;
   double x;
   char buffer[256]; 
-  while (inFile.good()) { 
-    inFile >> ibb >> x;
-    inFile.getline(buffer,256,'\n'); // ignore the first line
-    if (ibb==0) {
-      if (x<0){
-	cout << "BaBar : " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
-      } else {
-	cout << "BaBar :  " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+  ifstream inFile;
+  inFile.open("compare_with_NoBB.txt");
+  if (inFile.is_open()) {
+    while (inFile.good()) {
+      char firstch ;
+      inFile.get(firstch) ;
+      if (inFile.eof()) {
+	break ;
+      }else{
+	// Put back first char
+	inFile.putback(firstch) ;
       }
-      h0->Fill(x);
-      h01->Fill(x);
-    } else {
-      if (x<0) {
-	cout << "Belle : " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+      inFile >> ibb >> x;
+      inFile.getline(buffer,256,'\n'); // ignore the first line
+      if (ibb==0) {
+	if (x<0){
+	  cout << "BaBar : " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+	} else {
+	  cout << "BaBar :  " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+	}
+	h0->Fill(x);
+	h01->Fill(x);
       } else {
-	cout << "Belle :  " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+	if (x<0) {
+	  cout << "Belle : " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+	} else {
+	  cout << "Belle :  " << x << " " << h0->FindBin(x) << " " << h0->GetBinLowEdge(h0->FindBin(x)) << " : " <<  h0->GetBinLowEdge(h0->FindBin(x))+0.5 << endl;
+	}
+	h1->Fill(x);
+	h01->Fill(x);
       }
-      h1->Fill(x);
-      h01->Fill(x);
     }
+    inFile.close();
   }
-  inFile.close();
   //
   TCanvas *c1 = new TCanvas("c1","c1",400,400);
   c1->cd();
@@ -55,7 +65,7 @@ compare_with_NoBB(){
   gPad->SetBottomMargin(0.1);
   gPad->SetLeftMargin(0.1);
   gPad->SetRightMargin(0.025);
-  h01->SetMaximum(6);
+  h01->SetMaximum(5);
   h01->Draw();
   h1->Draw("same");
   gPad->RedrawAxis();
