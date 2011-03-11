@@ -1,0 +1,4 @@
+  ../../../combos/combos combos_average_unconstrained_aleph_hcorr.input | tee combos_average_unconstrained_aleph_hcorr.log
+# ../../../combos/combos combos_average_scaled_unconstrained_aleph_hcorr.input | tee combos_average_scaled_unconstrained_aleph_hcorr.log
+  ../../../combos/combos combos_average_rescaled_unconstrained_aleph_hcorr.input | tee combos_average_rescaled_unconstrained_aleph_hcorr.log
+# ../../../combos/combos combos_average_noweak_rescaled_unconstrained_aleph_hcorr.input | tee combos_average_noweak_rescaled_unconstrained_aleph_hcorr.log
