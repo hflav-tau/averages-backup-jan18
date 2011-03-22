@@ -124,8 +124,11 @@ alucomb:
 	@if [ -f average.input ] ; then \
 	  /bin/rm -f average_alucomb.log ; \
 	  echo "../../../Common/bin/alucomb.r average.input > average_alucomb.log 2>&1" ; \
-	  ../../../Common/bin/alucomb.r average.input > average_alucomb.log ; \
-	  echo "file $(CURDIR)/average_alucomb.log created" ; \
+	  if ../../../Common/bin/alucomb.r average.input > average_alucomb.log ; then \
+	    echo "file $(CURDIR)/average_alucomb.log created" ; \
+	  else \
+	    /bin/false ; \
+	  fi ; \
 	fi
 
 alucomb_sum:
