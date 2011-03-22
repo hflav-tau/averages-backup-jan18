@@ -2,15 +2,20 @@
 #
 # HFAG - Tau repository
 #
+#//////////////////////////////////////////////////////////////////////////////
 
 #//////////////////////////////////////////////////////////////////////////////
+#
 # how to create your private working area
+#
 
 svn --username <google username> co https://hfag.googlecode.com/svn/trunk hfag
 cd hfag
 
 #//////////////////////////////////////////////////////////////////////////////
+#
 # organization of the working space
+#
 
 - the subversion repository contains code and cards
 - log files and plots are stored in a data directory
@@ -30,7 +35,9 @@ ls -l Data
 ... Data -> /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data
 
 #//////////////////////////////////////////////////////////////////////////////
+#
 # shell environment configuration
+#
 
 please do "source Common/config.csh" to configure your C shell
 this script will add to your PATH
@@ -38,7 +45,9 @@ this script will add to your PATH
 - the R path in flora, iris, and other SLAC nodes
 
 #//////////////////////////////////////////////////////////////////////////////
+#
 # examples
+#
 
 # --- To compile combos
 cd combos ; gmake clean ; gmake ; cd -
@@ -159,3 +168,6 @@ shell> ln -s ~/local/mounts/slac/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-da
 
 # --- search for tabs in Combos input files
 grep -l MEASUREMENT ../*/*input | xargs grep -Pl '\t'
+
+# --- find out the meaning of "Gamma<num> tau BRs"
+grep "^[*].*Gamma<num>\s*$" ../TauFit_Mar2011/all_node_def.txt
