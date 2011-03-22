@@ -1,0 +1,42 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	TauFit-alu-Mar2011
+
+///////////////////////////////////////////////////////////////////////////////
+
+Area used for testing modifications adopted in March 2011, triggered
+by an email by Michel Davier.
+
+The HFAGtau list of tau decay channels (on which unitarity is applied)
+is incomplete:
+- KL KL pi is forgotten (only KS KS pi and KS KL pi used): (0.024+-0.015)%
+- pi pi0 K0 K0bar not included: (0.031+-0.023)%
+- a1 --> pi gamma: (0.04+-0.02)%
+summing up to (0.095+-0.024)%, of the magnitude of the shift of 0.068% for
+Be+Bmu.
+
+3 modes are added as additional base modes [ see base_def.txt ]
+
+Gamma = 49 Param = 278 Node = S035C44 Title = pi- pi0 K0 Kbar0 nu(tau)
+Gamma = 804 Param = 804 Node = S035Z05 Title = pi- K(L)0 K(L)0 nu(tau)
+Gamma = 805 Param = 805 Node = S035Z06 Title = a1- (-> pi- gamma) nu(tau)
+
+3 new measurements are included [ in s035-fit-with-babar-belle.data
+and s035-fit-with-babar-belle_aleph_hcorr.data ]
+
+*  132 46      S035B51  0.153E-02    0.034E-02   ALEPH  BARATE 98E  G(pi- K0 Kbar0 nu(tau)) / G(total)
+*  133 49      S035C44  0.31E-03     0.23E-03    ALEPH  BARATE 99R  G(pi- pi0 K0 Kbar0 nu(tau)) / G(total)
+*  134 805     S035Z06  0.04E-02     0.02E-02    ALEPH  SCHAEL 05C  G(a1- (-> pi- gamma) nu(tau)) / G(total)
+
+Gamma49, Gamma804, Gamma805 are added to the unitarity constraint.
+
+Gamma46 = (        1.0000000000*Gamma48 +         1.0000000000*Gamma47 +         1.0000000000*Gamma804)
+
+///////////////////////////////////////////////////////////////////////////////
+
+./alucomb.sh <average.input>
+
+executes alucomb.r and show results with aluelab-results.r
+
+///////////////////////////////////////////////////////////////////////////////
+

@@ -1,0 +1,29 @@
+INCLUDE ../TauFit-alu_Mar2011/alucomb_measurements_unconstrained_aleph_hcorr.input
+
+BEGIN   BaBar+PDG all_methods
+
+INCLUDE ../Common/Parameters.input
+
+COMBINE * * * 
+
+MEASUREMENT m_Gamma3 statistical systematic
+MEASUREMENT m_Gamma5 statistical systematic
+# MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 78 
+# MEASUREMENT m_Gamma9by5 statistical systematic   ! NQUAN = 83 
+# MEASUREMENT m_Gamma10by5 statistical systematic   ! NQUAN = 84 
+# MEASUREMENT m_Gamma9 statistical systematic   ! NQUAN = 3 
+# MEASUREMENT m_Gamma10 statistical systematic   ! NQUAN = 4 
+
+* Gamma3by5 = (        1.0000000000*Gamma3) / (        1.0000000000*Gamma5)
+CONSTRAINT Gamma3by5.c        -0.9775294896 Gamma3by5 -1 Gamma3         5.6179775281 Gamma5        -5.4917308421
+
+* Gamma9by5 = (        1.0000000000*Gamma9) / (        1.0000000000*Gamma5)
+CONSTRAINT Gamma9by5.c        -0.6404834655 Gamma9by5 -1 Gamma5        -3.5980305517 Gamma9         5.6179775281
+
+* Gamma10by5 = (        1.0000000000*Gamma10) / (        1.0000000000*Gamma5)
+CONSTRAINT Gamma10by5.c        -0.0393260904 Gamma10by5 -1 Gamma5        -0.2209317005 Gamma10         5.6179775281
+
+CALL DUMP_MASTER_INC
+CALL CHI2_SYM
+
+END
