@@ -66,8 +66,14 @@ if (flag.s.factors) {
 
 quant.names = names(quant.val)
 
+##
+## recover some BRs as function of others
+##
 if (!any("Gamma801" == names(quant.val))) {
    rc = aeb.meas.expr.add("Gamma801", quote(1.699387*Gamma96))
+}
+if (!any("Gamma89" == names(quant.val))) {
+  rc = aeb.meas.expr.add("Gamma89", quote(Gamma803 + 0.892*Gamma151))
 }
 
 ##
