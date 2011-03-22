@@ -1,0 +1,249 @@
+INCLUDE alucomb_measurements_unconstrained_aleph_hcorr.input 
+
+BEGIN   PDG+BABAR+BELLE all_methods 
+
+COMBINE * * * 
+
+MEASUREMENT m_Gamma3 statistical systematic   ! NQUAN = 1 
+MEASUREMENT m_Gamma5 statistical systematic   ! NQUAN = 2 
+MEASUREMENT m_Gamma9 statistical systematic   ! NQUAN = 3 
+MEASUREMENT m_Gamma10 statistical systematic   ! NQUAN = 4 
+MEASUREMENT m_Gamma14 statistical systematic   ! NQUAN = 5 
+MEASUREMENT m_Gamma16 statistical systematic   ! NQUAN = 6 
+MEASUREMENT m_Gamma20 statistical systematic   ! NQUAN = 7 
+MEASUREMENT m_Gamma23 statistical systematic   ! NQUAN = 8 
+MEASUREMENT m_Gamma27 statistical systematic   ! NQUAN = 9 
+MEASUREMENT m_Gamma28 statistical systematic   ! NQUAN = 10 
+MEASUREMENT m_Gamma30 statistical systematic   ! NQUAN = 11 
+MEASUREMENT m_Gamma35 statistical systematic   ! NQUAN = 12 
+MEASUREMENT m_Gamma37 statistical systematic   ! NQUAN = 13 
+MEASUREMENT m_Gamma40 statistical systematic   ! NQUAN = 14 
+MEASUREMENT m_Gamma42 statistical systematic   ! NQUAN = 15 
+MEASUREMENT m_Gamma47 statistical systematic   ! NQUAN = 16 
+MEASUREMENT m_Gamma48 statistical systematic   ! NQUAN = 17 
+MEASUREMENT m_Gamma62 statistical systematic   ! NQUAN = 18 
+MEASUREMENT m_Gamma70 statistical systematic   ! NQUAN = 19 
+MEASUREMENT m_Gamma77 statistical systematic   ! NQUAN = 20 
+MEASUREMENT m_Gamma78 statistical systematic   ! NQUAN = 21 
+MEASUREMENT m_Gamma802 statistical systematic   ! NQUAN = 22 
+MEASUREMENT m_Gamma803 statistical systematic   ! NQUAN = 23 
+MEASUREMENT m_Gamma93 statistical systematic   ! NQUAN = 24 
+MEASUREMENT m_Gamma94 statistical systematic   ! NQUAN = 25 
+MEASUREMENT m_Gamma104 statistical systematic   ! NQUAN = 26 
+MEASUREMENT m_Gamma126 statistical systematic   ! NQUAN = 27 
+MEASUREMENT m_Gamma128 statistical systematic   ! NQUAN = 28 
+MEASUREMENT m_Gamma800 statistical systematic   ! NQUAN = 29 
+MEASUREMENT m_Gamma151 statistical systematic   ! NQUAN = 30 
+MEASUREMENT m_Gamma152 statistical systematic   ! NQUAN = 31 
+MEASUREMENT m_Gamma130 statistical systematic   ! NQUAN = 32 
+MEASUREMENT m_Gamma132 statistical systematic   ! NQUAN = 33 
+MEASUREMENT m_Gamma44 statistical systematic   ! NQUAN = 34 
+MEASUREMENT m_Gamma53 statistical systematic   ! NQUAN = 35 
+MEASUREMENT m_Gamma49 statistical systematic   ! NQUAN = 36 
+MEASUREMENT m_Gamma804 statistical systematic   ! NQUAN = 37 
+MEASUREMENT m_Gamma805 statistical systematic   ! NQUAN = 38 
+MEASUREMENT m_Gamma801 statistical systematic   ! NQUAN = 39 
+MEASUREMENT m_Gamma103 statistical systematic   ! NQUAN = 40 
+MEASUREMENT m_Gamma19by13 statistical systematic   ! NQUAN = 41 
+MEASUREMENT m_Gamma26by13 statistical systematic   ! NQUAN = 42 
+MEASUREMENT m_Gamma76by54 statistical systematic   ! NQUAN = 43 
+MEASUREMENT m_Gamma152by76 statistical systematic   ! NQUAN = 44 
+MEASUREMENT m_Gamma92 statistical systematic   ! NQUAN = 45 
+MEASUREMENT m_Gamma33 statistical systematic   ! NQUAN = 46 
+MEASUREMENT m_Gamma66 statistical systematic   ! NQUAN = 47 
+MEASUREMENT m_Gamma19 statistical systematic   ! NQUAN = 48 
+MEASUREMENT m_Gamma26 statistical systematic   ! NQUAN = 49 
+MEASUREMENT m_Gamma76 statistical systematic   ! NQUAN = 50 
+MEASUREMENT m_Gamma57 statistical systematic   ! NQUAN = 51 
+MEASUREMENT m_Gamma55 statistical systematic   ! NQUAN = 52 
+MEASUREMENT m_Gamma57by55 statistical systematic   ! NQUAN = 53 
+MEASUREMENT m_Gamma34 statistical systematic   ! NQUAN = 54 
+MEASUREMENT m_Gamma39 statistical systematic   ! NQUAN = 55 
+MEASUREMENT m_Gamma8 statistical systematic   ! NQUAN = 56 
+MEASUREMENT m_Gamma29 statistical systematic   ! NQUAN = 57 
+MEASUREMENT m_Gamma25 statistical systematic   ! NQUAN = 58 
+MEASUREMENT m_Gamma74 statistical systematic   ! NQUAN = 59 
+MEASUREMENT m_Gamma60 statistical systematic   ! NQUAN = 60 
+MEASUREMENT m_Gamma58 statistical systematic   ! NQUAN = 61 
+MEASUREMENT m_Gamma85 statistical systematic   ! NQUAN = 62 
+MEASUREMENT m_Gamma69 statistical systematic   ! NQUAN = 63 
+MEASUREMENT m_Gamma88 statistical systematic   ! NQUAN = 64 
+MEASUREMENT m_Gamma80by60 statistical systematic   ! NQUAN = 65 
+MEASUREMENT m_Gamma81by69 statistical systematic   ! NQUAN = 66 
+MEASUREMENT m_Gamma93by60 statistical systematic   ! NQUAN = 67 
+MEASUREMENT m_Gamma94by69 statistical systematic   ! NQUAN = 68 
+MEASUREMENT m_Gamma38 statistical systematic   ! NQUAN = 69 
+MEASUREMENT m_Gamma150by66 statistical systematic   ! NQUAN = 70 
+MEASUREMENT m_Gamma150 statistical systematic   ! NQUAN = 71 
+MEASUREMENT m_Gamma31 statistical systematic   ! NQUAN = 72 
+MEASUREMENT m_Gamma54 statistical systematic   ! NQUAN = 73 
+MEASUREMENT m_Gamma102 statistical systematic   ! NQUAN = 74 
+MEASUREMENT m_Gamma82 statistical systematic   ! NQUAN = 75 
+MEASUREMENT m_Gamma7 statistical systematic   ! NQUAN = 76 
+MEASUREMENT m_Gamma17 statistical systematic   ! NQUAN = 77 
+MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 78 
+MEASUREMENT m_Gamma13 statistical systematic   ! NQUAN = 79 
+MEASUREMENT m_Gamma43 statistical systematic   ! NQUAN = 80 
+MEASUREMENT m_Gamma136 statistical systematic   ! NQUAN = 81 
+MEASUREMENT m_Gamma46 statistical systematic   ! NQUAN = 82 
+MEASUREMENT m_Gamma9by5 statistical systematic   ! NQUAN = 83 
+MEASUREMENT m_Gamma10by5 statistical systematic   ! NQUAN = 84 
+MEASUREMENT m_Gamma96 statistical systematic   ! NQUAN = 85 
+*--- dummy node to remove unitarity constraint
+MEASUREMENT m_Gamma998 statistical systematic
+*--- Gamma110, only present in constraint
+MEASUREMENT m_Gamma110 statistical systematic
+
+* Gamma19by13 = (        1.0000000000*Gamma23 +         1.0000000000*Gamma20) / (        1.0000000000*Gamma14 +         1.0000000000*Gamma16)
+CONSTRAINT Gamma19by13.c        -0.3559388784 Gamma19by13 -1 Gamma14        -1.3987903397 Gamma23         3.9292730845 Gamma16        -1.3987903397 Gamma20         3.9292730845
+
+* Gamma26by13 = (        0.3257000000*Gamma128 +         1.0000000000*Gamma28 +         0.1534500000*Gamma40 +         0.1534500000*Gamma42 +         1.0000000000*Gamma27) / (        1.0000000000*Gamma14 +         1.0000000000*Gamma16)
+CONSTRAINT Gamma26by13.c        -0.0592863648 Gamma26by13 -1 Gamma14        -0.2318720400 Gamma128         1.2797642436 Gamma28         3.9292730845 Gamma40         0.6029469548 Gamma42         0.6029469548 Gamma16        -0.2318720400 Gamma27         3.9292730845
+
+* Gamma76by54 = (        0.8920000000*Gamma152 +         1.0000000000*Gamma77 +         0.2274000000*Gamma126 +         0.2274000000*Gamma130) / (        0.2810000000*Gamma128 +         0.9073000000*Gamma152 +         0.3460000000*Gamma35 +         0.3460000000*Gamma40 +         0.3460000000*Gamma42 +         1.0000000000*Gamma78 +         0.4247496000*Gamma47 +         1.0000000000*Gamma77 +         0.6920000000*Gamma48 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma70 +         1.0000000000*Gamma93 +         0.2810000000*Gamma126 +         0.3460000000*Gamma37 +         1.0000000000*Gamma802 +         1.0000000000*Gamma803 +         0.9073000000*Gamma800 +         0.9073000000*Gamma151 +         0.2810000000*Gamma130 +         0.2612867300*Gamma132 +         0.6534500000*Gamma53 +         0.8732418773*Gamma801)
+CONSTRAINT Gamma76by54.c        -0.0324431823 Gamma76by54 -1 Gamma93        -0.2107411477 Gamma126         1.4178643428 Gamma37        -0.0729164371 Gamma128        -0.0592182625 Gamma152         5.6028037207 Gamma35        -0.0729164371 Gamma40        -0.0729164371 Gamma42        -0.0729164371 Gamma78        -0.2107411477 Gamma47        -0.0895122182 Gamma77         6.2847848209 Gamma48        -0.1458328742 Gamma53        -0.1377088030 Gamma94        -0.2107411477 Gamma62        -0.2107411477 Gamma70        -0.2107411477 Gamma130         1.4178643428 Gamma132        -0.0550638654 Gamma151        -0.1912054433 Gamma800        -0.1912054433 Gamma801        -0.1840279954 Gamma802        -0.2107411477 Gamma803        -0.2107411477
+
+* Gamma152by76 = (        1.0000000000*Gamma152) / (        0.8920000000*Gamma152 +         1.0000000000*Gamma77 +         0.2274000000*Gamma126 +         0.2274000000*Gamma130)
+CONSTRAINT Gamma152by76.c        -0.8011898483 Gamma152by76 -1 Gamma126       -36.4593618934 Gamma152        57.1914072542 Gamma77      -160.3314067431 Gamma130       -36.4593618934
+
+* Gamma92 = (        1.0000000000*Gamma94 +         1.0000000000*Gamma93)
+CONSTRAINT Gamma92.c         0.0000000000 Gamma92 -1 Gamma93         1.0000000000 Gamma94         1.0000000000
+
+* Gamma33 = (        0.5000000000*Gamma35 +         0.5000000000*Gamma40 +         0.5000000000*Gamma42 +         1.0000000000*Gamma47 +         1.0000000000*Gamma48 +         0.5000000000*Gamma37 +         0.3595000000*Gamma132 +         0.5000000000*Gamma44 +         0.4115523466*Gamma801)
+CONSTRAINT Gamma33.c         0.0000000000 Gamma33 -1 Gamma37         0.5000000000 Gamma35         0.5000000000 Gamma40         0.5000000000 Gamma42         0.5000000000 Gamma47         1.0000000000 Gamma44         0.5000000000 Gamma48         1.0000000000 Gamma132         0.3595000000 Gamma801         0.4115523466
+
+* Gamma66 = (        0.2274000000*Gamma128 +         0.0153000000*Gamma152 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma803 +         0.8920000000*Gamma800 +         0.8920000000*Gamma151)
+CONSTRAINT Gamma66.c         0.0000000000 Gamma66 -1 Gamma128         0.2274000000 Gamma152         0.0153000000 Gamma94         1.0000000000 Gamma70         1.0000000000 Gamma151         0.8920000000 Gamma800         0.8920000000 Gamma803         1.0000000000
+
+* Gamma19 = (        1.0000000000*Gamma23 +         1.0000000000*Gamma20)
+CONSTRAINT Gamma19.c         0.0000000000 Gamma19 -1 Gamma23         1.0000000000 Gamma20         1.0000000000
+
+* Gamma26 = (        0.3257000000*Gamma128 +         1.0000000000*Gamma28 +         0.1534500000*Gamma40 +         0.1534500000*Gamma42 +         1.0000000000*Gamma27)
+CONSTRAINT Gamma26.c         0.0000000000 Gamma26 -1 Gamma128         0.3257000000 Gamma28         1.0000000000 Gamma40         0.1534500000 Gamma42         0.1534500000 Gamma27         1.0000000000
+
+* Gamma76 = (        0.8920000000*Gamma152 +         1.0000000000*Gamma77 +         0.2274000000*Gamma126 +         0.2274000000*Gamma130)
+CONSTRAINT Gamma76.c         0.0000000000 Gamma76 -1 Gamma126         0.2274000000 Gamma152         0.8920000000 Gamma77         1.0000000000 Gamma130         0.2274000000
+
+* Gamma57 = (        1.0000000000*Gamma62 +         1.0000000000*Gamma93 +         1.0000000000*Gamma802 +         0.0153000000*Gamma800 +         0.0153000000*Gamma151 +         0.5884476534*Gamma801)
+CONSTRAINT Gamma57.c         0.0000000000 Gamma57 -1 Gamma93         1.0000000000 Gamma62         1.0000000000 Gamma151         0.0153000000 Gamma800         0.0153000000 Gamma801         0.5884476534 Gamma802         1.0000000000
+
+* Gamma55 = (        0.2810000000*Gamma128 +         0.9073000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma70 +         1.0000000000*Gamma93 +         0.2810000000*Gamma126 +         1.0000000000*Gamma802 +         1.0000000000*Gamma803 +         0.9073000000*Gamma800 +         0.9073000000*Gamma151 +         0.2810000000*Gamma130 +         0.5884476534*Gamma801)
+CONSTRAINT Gamma55.c         0.0000000000 Gamma55 -1 Gamma93         1.0000000000 Gamma126         0.2810000000 Gamma128         0.2810000000 Gamma152         0.9073000000 Gamma78         1.0000000000 Gamma77         1.0000000000 Gamma94         1.0000000000 Gamma62         1.0000000000 Gamma70         1.0000000000 Gamma130         0.2810000000 Gamma151         0.9073000000 Gamma800         0.9073000000 Gamma801         0.5884476534 Gamma802         1.0000000000 Gamma803         1.0000000000
+
+* Gamma57by55 = (        1.0000000000*Gamma62 +         1.0000000000*Gamma93 +         1.0000000000*Gamma802 +         0.0153000000*Gamma800 +         0.0153000000*Gamma151 +         0.5884476534*Gamma801) / (        0.2810000000*Gamma128 +         0.9073000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma70 +         1.0000000000*Gamma93 +         0.2810000000*Gamma126 +         1.0000000000*Gamma802 +         1.0000000000*Gamma803 +         0.9073000000*Gamma800 +         0.9073000000*Gamma151 +         0.2810000000*Gamma130 +         0.5884476534*Gamma801)
+CONSTRAINT Gamma57by55.c        -0.6539683526 Gamma57by55 -1 Gamma93         2.3589607488 Gamma126        -1.2529884481 Gamma128        -1.2529884481 Gamma152        -4.0456812064 Gamma78        -4.4590336232 Gamma77        -4.4590336232 Gamma94        -4.4590336232 Gamma62         2.3589607488 Gamma70        -4.4590336232 Gamma130        -1.2529884481 Gamma151        -3.9413658925 Gamma800        -3.9413658925 Gamma801         1.3881249171 Gamma802         2.3589607488 Gamma803        -4.4590336232
+
+* Gamma34 = (        1.0000000000*Gamma35 +         1.0000000000*Gamma37)
+CONSTRAINT Gamma34.c         0.0000000000 Gamma34 -1 Gamma37         1.0000000000 Gamma35         1.0000000000
+
+* Gamma39 = (        1.0000000000*Gamma40 +         1.0000000000*Gamma42)
+CONSTRAINT Gamma39.c        -0.0000000000 Gamma39 -1 Gamma40         1.0000000000 Gamma42         1.0000000000
+
+* Gamma8 = (        1.0000000000*Gamma9 +         1.0000000000*Gamma10)
+CONSTRAINT Gamma8.c         0.0000000000 Gamma8 -1 Gamma10         1.0000000000 Gamma9         1.0000000000
+
+* Gamma29 = (        1.0000000000*Gamma30 +         0.3257000000*Gamma126 +         0.3257000000*Gamma130)
+CONSTRAINT Gamma29.c         0.0000000000 Gamma29 -1 Gamma126         0.3257000000 Gamma30         1.0000000000 Gamma130         0.3257000000
+
+* Gamma25 = (        0.3257000000*Gamma128 +         1.0000000000*Gamma30 +         1.0000000000*Gamma28 +         1.0000000000*Gamma27 +         0.3257000000*Gamma126 +         0.3257000000*Gamma130)
+CONSTRAINT Gamma25.c         0.0000000000 Gamma25 -1 Gamma126         0.3257000000 Gamma128         0.3257000000 Gamma30         1.0000000000 Gamma28         1.0000000000 Gamma27         1.0000000000 Gamma130         0.3257000000
+
+* Gamma74 = (        0.8920000000*Gamma152 +         1.0000000000*Gamma78 +         1.0000000000*Gamma77 +         0.2274000000*Gamma126 +         0.2274000000*Gamma130)
+CONSTRAINT Gamma74.c        -0.0000000000 Gamma74 -1 Gamma126         0.2274000000 Gamma152         0.8920000000 Gamma78         1.0000000000 Gamma77         1.0000000000 Gamma130         0.2274000000
+
+* Gamma60 = (        1.0000000000*Gamma62 +         0.0153000000*Gamma800)
+CONSTRAINT Gamma60.c         0.0000000000 Gamma60 -1 Gamma62         1.0000000000 Gamma800         0.0153000000
+
+* Gamma58 = (        1.0000000000*Gamma62 +         1.0000000000*Gamma93 +         1.0000000000*Gamma802 +         0.5884476534*Gamma801)
+CONSTRAINT Gamma58.c        -0.0000000000 Gamma58 -1 Gamma93         1.0000000000 Gamma62         1.0000000000 Gamma801         0.5884476534 Gamma802         1.0000000000
+
+* Gamma85 = (        1.0000000000*Gamma802 +         0.0153000000*Gamma151)
+CONSTRAINT Gamma85.c         0.0000000000 Gamma85 -1 Gamma151         0.0153000000 Gamma802         1.0000000000
+
+* Gamma69 = (        0.0153000000*Gamma152 +         1.0000000000*Gamma70 +         0.8920000000*Gamma800)
+CONSTRAINT Gamma69.c        -0.0000000000 Gamma69 -1 Gamma152         0.0153000000 Gamma70         1.0000000000 Gamma800         0.8920000000
+
+* Gamma88 = (        0.2274000000*Gamma128 +         1.0000000000*Gamma803 +         0.8920000000*Gamma151)
+CONSTRAINT Gamma88.c         0.0000000000 Gamma88 -1 Gamma128         0.2274000000 Gamma151         0.8920000000 Gamma803         1.0000000000
+
+* Gamma80by60 = (        1.0000000000*Gamma93 +         1.0000000000*Gamma802 +         0.0153000000*Gamma151) / (        1.0000000000*Gamma62 +         0.0153000000*Gamma800)
+CONSTRAINT Gamma80by60.c        -0.0504231737 Gamma80by60 -1 Gamma93        10.9521827700 Gamma62        -0.5525238624 Gamma151         0.1675683964 Gamma800        -0.0084536151 Gamma802        10.9521827700
+
+* Gamma81by69 = (        0.2274000000*Gamma128 +         1.0000000000*Gamma94 +         1.0000000000*Gamma803 +         0.8920000000*Gamma151) / (        0.0153000000*Gamma152 +         1.0000000000*Gamma70 +         0.8920000000*Gamma800)
+CONSTRAINT Gamma81by69.c        -0.0341453187 Gamma81by69 -1 Gamma128         5.3005510335 Gamma152        -0.0119201997 Gamma94        23.3093712996 Gamma70        -0.7790980178 Gamma151        20.7919591993 Gamma800        -0.6949554319 Gamma803        23.3093712996
+
+* Gamma93by60 = (        1.0000000000*Gamma93) / (        1.0000000000*Gamma62 +         0.0153000000*Gamma800)
+CONSTRAINT Gamma93by60.c        -0.0175013178 Gamma93by60 -1 Gamma93        10.9521827700 Gamma62        -0.1919204919 Gamma800        -0.0029363835
+
+* Gamma94by69 = (        1.0000000000*Gamma94) / (        0.0153000000*Gamma152 +         1.0000000000*Gamma70 +         0.8920000000*Gamma800)
+CONSTRAINT Gamma94by69.c        -0.0097341217 Gamma94by69 -1 Gamma152        -0.0033251600 Gamma94        23.3093712996 Gamma70        -0.2173307162 Gamma800        -0.1938589988
+
+* Gamma38 = (        1.0000000000*Gamma42 +         1.0000000000*Gamma37)
+CONSTRAINT Gamma38.c         0.0000000000 Gamma38 -1 Gamma37         1.0000000000 Gamma42         1.0000000000
+
+* Gamma150by66 = (        1.0000000000*Gamma800 +         1.0000000000*Gamma151) / (        0.2274000000*Gamma128 +         0.0153000000*Gamma152 +         1.0000000000*Gamma94 +         1.0000000000*Gamma70 +         1.0000000000*Gamma803 +         0.8920000000*Gamma800 +         0.8920000000*Gamma151)
+CONSTRAINT Gamma150by66.c        -0.4613432157 Gamma150by66 -1 Gamma128        -2.3612245862 Gamma152        -0.1588686727 Gamma94       -10.3835733783 Gamma70       -10.3835733783 Gamma151        13.2933243461 Gamma800        13.2933243461 Gamma803       -10.3835733783
+
+* Gamma150 = (        1.0000000000*Gamma800 +         1.0000000000*Gamma151)
+CONSTRAINT Gamma150.c         0.0000000000 Gamma150 -1 Gamma151         1.0000000000 Gamma800         1.0000000000
+
+* Gamma31 = (        0.7190000000*Gamma128 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         1.0000000000*Gamma42 +         1.0000000000*Gamma16 +         1.0000000000*Gamma37 +         1.0000000000*Gamma10 +         0.1263054152*Gamma801)
+CONSTRAINT Gamma31.c         0.0000000000 Gamma31 -1 Gamma10         1.0000000000 Gamma37         1.0000000000 Gamma128         0.7190000000 Gamma23         1.0000000000 Gamma28         1.0000000000 Gamma42         1.0000000000 Gamma16         1.0000000000 Gamma801         0.1263054152
+
+* Gamma54 = (        0.2810000000*Gamma128 +         0.9073000000*Gamma152 +         0.3460000000*Gamma35 +         0.3460000000*Gamma40 +         0.3460000000*Gamma42 +         1.0000000000*Gamma78 +         0.4247496000*Gamma47 +         1.0000000000*Gamma77 +         0.6920000000*Gamma48 +         1.0000000000*Gamma94 +         1.0000000000*Gamma62 +         1.0000000000*Gamma70 +         1.0000000000*Gamma93 +         0.2810000000*Gamma126 +         0.3460000000*Gamma37 +         1.0000000000*Gamma802 +         1.0000000000*Gamma803 +         0.9073000000*Gamma800 +         0.9073000000*Gamma151 +         0.2810000000*Gamma130 +         0.2612867300*Gamma132 +         0.6534500000*Gamma53 +         0.8732418773*Gamma801)
+CONSTRAINT Gamma54.c         0.0000000000 Gamma54 -1 Gamma93         1.0000000000 Gamma126         0.2810000000 Gamma37         0.3460000000 Gamma128         0.2810000000 Gamma152         0.9073000000 Gamma35         0.3460000000 Gamma40         0.3460000000 Gamma42         0.3460000000 Gamma78         1.0000000000 Gamma47         0.4247496000 Gamma77         1.0000000000 Gamma48         0.6920000000 Gamma53         0.6534500000 Gamma94         1.0000000000 Gamma62         1.0000000000 Gamma70         1.0000000000 Gamma130         0.2810000000 Gamma132         0.2612867300 Gamma151         0.9073000000 Gamma800         0.9073000000 Gamma801         0.8732418773 Gamma802         1.0000000000 Gamma803         1.0000000000
+
+* Gamma102 = (        1.0000000000*Gamma103 +         1.0000000000*Gamma104)
+CONSTRAINT Gamma102.c        -0.0000000000 Gamma102 -1 Gamma103         1.0000000000 Gamma104         1.0000000000
+
+* Gamma82 = (        0.2810000000*Gamma128 +         0.3460000000*Gamma42 +         1.0000000000*Gamma802 +         1.0000000000*Gamma803 +         0.9073000000*Gamma151 +         0.3460000000*Gamma37)
+CONSTRAINT Gamma82.c        -0.0000000000 Gamma82 -1 Gamma37         0.3460000000 Gamma128         0.2810000000 Gamma42         0.3460000000 Gamma151         0.9073000000 Gamma802         1.0000000000 Gamma803         1.0000000000
+
+* Gamma7 = (        0.5000000000*Gamma35 +         1.0000000000*Gamma9 +         1.0000000000*Gamma47 +         0.5000000000*Gamma37 +         1.0000000000*Gamma10)
+CONSTRAINT Gamma7.c        -0.0000000000 Gamma7 -1 Gamma10         1.0000000000 Gamma9         1.0000000000 Gamma37         0.5000000000 Gamma35         0.5000000000 Gamma47         1.0000000000
+
+* Gamma17 = (        0.3257000000*Gamma128 +         1.0000000000*Gamma30 +         1.0000000000*Gamma23 +         1.0000000000*Gamma28 +         0.1534500000*Gamma35 +         0.1534500000*Gamma40 +         0.1534500000*Gamma42 +         1.0000000000*Gamma20 +         1.0000000000*Gamma27 +         0.0941876100*Gamma47 +         0.3257000000*Gamma126 +         0.1534500000*Gamma37 +         0.3257000000*Gamma130)
+CONSTRAINT Gamma17.c        -0.0000000000 Gamma17 -1 Gamma126         0.3257000000 Gamma37         0.1534500000 Gamma128         0.3257000000 Gamma30         1.0000000000 Gamma23         1.0000000000 Gamma28         1.0000000000 Gamma35         0.1534500000 Gamma40         0.1534500000 Gamma42         0.1534500000 Gamma20         1.0000000000 Gamma27         1.0000000000 Gamma47         0.0941876100 Gamma130         0.3257000000
+
+* Gamma3by5 = (        1.0000000000*Gamma3) / (        1.0000000000*Gamma5)
+CONSTRAINT Gamma3by5.c        -0.9775294896 Gamma3by5 -1 Gamma3         5.6179775281 Gamma5        -5.4917308421
+
+* Gamma13 = (        1.0000000000*Gamma14 +         1.0000000000*Gamma16)
+CONSTRAINT Gamma13.c         0.0000000000 Gamma13 -1 Gamma14         1.0000000000 Gamma16         1.0000000000
+
+* Gamma43 = (        1.0000000000*Gamma40 +         1.0000000000*Gamma44)
+CONSTRAINT Gamma43.c        -0.0000000000 Gamma43 -1 Gamma40         1.0000000000 Gamma44         1.0000000000
+
+* Gamma136 = (        0.2274000000*Gamma104 +         0.3257000000*Gamma78)
+CONSTRAINT Gamma136.c         0.0000000000 Gamma136 -1 Gamma104         0.2274000000 Gamma78         0.3257000000
+
+* Gamma46 = (        1.0000000000*Gamma48 +         1.0000000000*Gamma47 +         1.0000000000*Gamma804)
+CONSTRAINT Gamma46.c         0.0000000000 Gamma46 -1 Gamma47         1.0000000000 Gamma48         1.0000000000 Gamma804         1.0000000000
+
+* Gamma9by5 = (        1.0000000000*Gamma9) / (        1.0000000000*Gamma5)
+CONSTRAINT Gamma9by5.c        -0.6404834655 Gamma9by5 -1 Gamma5        -3.5980305517 Gamma9         5.6179775281
+
+* Gamma10by5 = (        1.0000000000*Gamma10) / (        1.0000000000*Gamma5)
+CONSTRAINT Gamma10by5.c        -0.0393260904 Gamma10by5 -1 Gamma5        -0.2209317005 Gamma10         5.6179775281
+
+* Gamma96 = (        0.5884476534*Gamma801)
+CONSTRAINT Gamma96.c        -0.0000000000 Gamma96 -1 Gamma801         0.5884476534
+
+* unitarity constraint NOT applied (sum of base nodes with dummy node)
+CONSTRAINT GammaAll 1
+  Gamma3   1 Gamma5   1 Gamma9   1 Gamma10  1 Gamma14  1 Gamma16  1
+  Gamma20  1 Gamma23  1 Gamma27  1 Gamma28  1 Gamma30  1 Gamma35  1
+  Gamma37  1 Gamma40  1 Gamma42  1 Gamma47  1 Gamma48  1 Gamma62  1
+  Gamma70  1 Gamma77  1 Gamma78  1 Gamma802 1 Gamma803 1 Gamma93  1
+  Gamma94  1 Gamma103 1 Gamma104 1 Gamma126 1 Gamma128 1 Gamma800 1 Gamma151 1 Gamma152 1
+  Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma49  1 Gamma804 1 Gamma805 1 Gamma801 1
+  Gamma998 1
+
+* --- compute Gamma(tau -> Xs nu) / G(total)
+COMBOFQUANT Gamma110
+ 1 Gamma10  1 Gamma16  1 Gamma23  1 Gamma28  1 Gamma35  1 Gamma40  1 Gamma802 1 Gamma803 1 Gamma128
+ 1 Gamma151 1 Gamma130 1 Gamma132 1 Gamma44  1 Gamma53  1 Gamma801
+
+CALL CHI2_N_SYM
+
+END
