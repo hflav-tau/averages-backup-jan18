@@ -8,7 +8,7 @@
 ##
 ## ////////////////////////////////////////////////////////////////////////////
 
-require(methods)
+require(methods, quietly=TRUE)
 
 args <- commandArgs(TRUE)
 if (length(args) > 0) {
