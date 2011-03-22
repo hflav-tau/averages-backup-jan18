@@ -1,4 +1,6 @@
-readpdg.exe 0 0 | tee readpdg_unconstrained.log
-readpdg.exe 0 1 | tee readpdg_unconstrained_aleph_hcorr.log
-readpdg.exe 1 0 | tee readpdg_constrained.log
-readpdg.exe 1 1 | tee readpdg_constrained_aleph_hcorr.log
+#!/bin/sh
+
+./readpdg.exe 0 0 | tee readpdg_unconstrained.log
+./readpdg.exe 0 1 | tee readpdg_unconstrained_aleph_hcorr.log
+./readpdg.exe 1 0 | tee readpdg_constrained.log
+./readpdg.exe 1 1 | tee readpdg_constrained_aleph_hcorr.log
