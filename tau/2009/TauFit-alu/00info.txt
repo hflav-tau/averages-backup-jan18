@@ -15,11 +15,11 @@ make alucomb
 
 ///////////////////////////////////////////////////////////////////////////////
 
-This directory can be used to compute with 
-alucomb.r the calculations done with Swagato's code in
-tau/2009/TauFit.
+This directory can be used to do the tau 2009 global fit.
 
-In March 2011 was superseeded by tau/2009/TauFit-alu_Mar2011.
+It was superseeded by:
+- ../TauFit-alu_2, which checks Swagato's ../TauFit
+- ../TauFit-alu_Mar2011, to check ../TauFit_Mar2011.
 
 ## aluelab-taufit.r does not work any more, use aluelab-results.r now
 it used to print the sum of all tau BRs
