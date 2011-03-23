@@ -1,0 +1,6 @@
+BEGIN       BaBar Gamma136 published AUBERT 08AE
+MEASUREMENT m_Gamma136 statistical systematic
+DATA        m_Gamma136 statistical systematic
+            1.60e-4 0.05e-4 0.11e-4
+DATA        Babar3PiEtaNu 0.11e-4
+END
