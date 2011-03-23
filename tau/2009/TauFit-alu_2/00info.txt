@@ -1,0 +1,15 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	tau/2009/TauFit-alu_2
+
+///////////////////////////////////////////////////////////////////////////////
+
+to process all the input files with alucomb.r do:
+shell> ./update.sh
+use the -l option to store the result into the log/ directory
+
+old:
+
+to produce results please type for a shell prompt
+shell> ./update-results
+
