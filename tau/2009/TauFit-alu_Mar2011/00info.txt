@@ -34,7 +34,7 @@ Gamma46 = (        1.0000000000*Gamma48 +         1.0000000000*Gamma47 +        
 
 ///////////////////////////////////////////////////////////////////////////////
 
-./alucomb.sh <average.input>
+./aluelab-results.sh <average.input>
 
 executes alucomb.r and show results with aluelab-results.r
 
