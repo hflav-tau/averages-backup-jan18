@@ -12,3 +12,26 @@ you can see the results in a compact form with:
 
 make alucomb
  ../../../Common/bin/aluelab-list.r
+
+///////////////////////////////////////////////////////////////////////////////
+
+This directory can be used to compute with 
+alucomb.r the calculations done with Swagato's code in
+tau/2009/TauFit.
+
+In March 2011 was superseeded by tau/2009/TauFit-alu_Mar2011.
+
+## aluelab-taufit.r does not work any more, use aluelab-results.r now
+it used to print the sum of all tau BRs
+
+## aluelab-taufit.sh was adding the output of aluelab-taufit.r to the log
+file, it is kept for reference but not used any more
+
+## aluelab-results.r can use the alucomb.r results in the .rdata file to
+do calculations.  It computes:
+- Be_univ
+- Vus
+
+## aluelab-show.r prints all the babar&belle measurements and correlations
+
+///////////////////////////////////////////////////////////////////////////////
