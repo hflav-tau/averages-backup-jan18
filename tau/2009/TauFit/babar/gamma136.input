@@ -1,6 +1,18 @@
-BEGIN       BaBar Gamma136 published AUBERT 08AE
-MEASUREMENT m_Gamma136 statistical systematic
-DATA        m_Gamma136 statistical systematic
-            1.60e-4 0.05e-4 0.11e-4
-DATA        Babar3PiEtaNu 0.11e-4
-END
+* B(tau- --> pi- pi- pi+ eta nu_tau) [ex. K0] 
+
+BEGIN       BaBar Gamma136 published AUBERT,B 08AE 
+MEASUREMENT m_Gamma136 statistical systematic 
+DATA        m_Gamma136 statistical systematic 
+            1.60e-4    0.05e-4     0.11e-4 
+
+PARAMETERS           !      value       +err         -err 
+            sigmataupmy4s   0.919        +0.003        -0.003 
+
+DATA 
+*  possibly correlated with other BaBar results 
+            sigmataupmy4s%   -0.3 
+            BaBarLumi%       -0.9 
+* uncorrelated = sqrt(0.11**2 - (0.3e-2*1.6)**2  - (0.9e-2*1.6)**2) = 0.108948 
+            BaBar2PimPipEtaNu 0.108948e-4 
+END 
+
