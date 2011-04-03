@@ -10,8 +10,10 @@ source run_readpdg
 # Note: run_readpdg produces logfiles in the following convention (see readpdg.cc inputs below)
 # readpdg_constrained.log                      if inputs = 1 0
 # readpdg_constrained_aleph_hcorr.log          if inputs = 1 1
+# readpdg_constrained_only_lepcorr.log         if inputs = 1 2
 # readpdg_unconstrained.log                    if inputs = 0 0
 # readpdg_unconstrained_aleph_hcorr.log        if inputs = 0 1
+# readpdg_unconstrained_only_lepcorr.log       if inputs = 0 2
 ##########################################################################
 
 # Run COMBOS

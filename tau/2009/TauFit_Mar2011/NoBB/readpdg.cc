@@ -1,6 +1,6 @@
 //#define USING_NBASE31
-//#define USING_NBASE39
-#define USING_NBASE40
+#define USING_NBASE39
+//#define USING_NBASE40
 #include <assert.h>
 #include <math.h>
 #include <stddef.h>
