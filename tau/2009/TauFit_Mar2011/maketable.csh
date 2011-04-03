@@ -32,11 +32,11 @@ head -25 maketable.temp/table.body | tail -23 > maketable.temp/table_ns.body
 
 tail -15 maketable.temp/table.body > maketable.temp/table_s.body
 
-setenv GammaStrVal `grep Gamma110 $LOGFILE | awk '{printf "%8.4f\n", $(NF-2)}'`
-setenv GammaStrErr `grep Gamma110 $LOGFILE | awk '{printf "%8.4f\n", $(NF-0)}'`
+setenv GammaStrVal `grep Gamma110 $LOGFILE | awk '{printf "%8.4f\n", 100.*$(NF-2)}'`
+setenv GammaStrErr `grep Gamma110 $LOGFILE | awk '{printf "%8.4f\n", 100.*$(NF-0)}'`
 #
-setenv GammaStrValNoBB `grep Gamma110 NoBB/$LOGFILE | awk '{printf "%8.4f\n", $(NF-2)}'`
-setenv GammaStrErrNoBB `grep Gamma110 NoBB/$LOGFILE | awk '{printf "%8.4f\n", $(NF-0)}'`
+setenv GammaStrValNoBB `grep Gamma110 NoBB/$LOGFILE | awk '{printf "%8.4f\n", 100.*$(NF-2)}'`
+setenv GammaStrErrNoBB `grep Gamma110 NoBB/$LOGFILE | awk '{printf "%8.4f\n", 100.*$(NF-0)}'`
 #
 setenv GammaAllVal `grep GammaAll $LOGFILE | awk '{printf "%8.4f\n", 100.*$(NF-2)}'`
 setenv GammaAllErr `grep GammaAll $LOGFILE | awk '{printf "%8.4f\n", 100.*$(NF-0)}'`
