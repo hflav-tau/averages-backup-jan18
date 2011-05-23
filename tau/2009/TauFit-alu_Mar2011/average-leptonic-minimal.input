@@ -8,7 +8,7 @@ COMBINE * * *
 
 MEASUREMENT m_Gamma3 statistical systematic
 MEASUREMENT m_Gamma5 statistical systematic
-# MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 78 
+MEASUREMENT m_Gamma3by5 statistical systematic   ! NQUAN = 78 
 # MEASUREMENT m_Gamma9by5 statistical systematic   ! NQUAN = 83 
 # MEASUREMENT m_Gamma10by5 statistical systematic   ! NQUAN = 84 
 # MEASUREMENT m_Gamma9 statistical systematic   ! NQUAN = 3 

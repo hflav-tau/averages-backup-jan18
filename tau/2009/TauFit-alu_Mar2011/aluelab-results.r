@@ -151,6 +151,7 @@ display.names = c(
   "Gamma9", "Gamma10", "Gamma66"
   )
 show(rbind(cbind(val=quant.val[display.names], err=quant.err[display.names])))
+show( quant.corr[c("Be", "Be_from_Bmu", "Be_from_taulife"), c("Be", "Be_from_Bmu", "Be_from_taulife")] )
 
 if (FALSE) {
   ##--- print couplings ratio
