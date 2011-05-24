@@ -640,6 +640,103 @@ void calc_Be_from_Bmu(const double Bmu, const double e_Bmu,
   delete func1;
 }
 // ----------------------------------------------------------------------
+double func_Be_from_Bh(double *x, double * par){
+  double dummy = x[0];
+/*
+(gtau/gmu)^2 = (tau_mu/tau_tau) * (m_mu/m_tau)^5 * Be * [f(m_e^2/m_mu^2) / f(m_e^2/m_tau^2)] * (Delta_mu_W/Delta_tau_W) * (Delta_mu_gamma/Delta_tau_gamma)
+(gtau/gmu)^2 = (BR_TauToPiNu / BR_PimToMumNu) * (tau_pi/tau_tau) * (2*m_pi*m_mu^2/m_tau^3) * (1/.pow((1-pow(M_Pi/M_Tau,2))/(1-pow(M_Mu/M_Pi,2)),2)) *  (1/Delta_Pi)
+=>
+ Be = (BR_TauToPiNu / BR_PimToMumNu) * (tau_pi/tau_mu) * (2*m_pi *m_tau^2/m_mu^3) * (1/.pow((1-pow(m_pim/m_tau,2))/(1-pow(m_mu/m_pim,2)),2)) *  (1/Delta_TauToPim_over_PimToMu)
+      * 1/[f(m_e^2/m_mu^2) / f(m_e^2/m_tau^2)] * 1/[(Delta_mu_W/Delta_tau_W)] * 1/[(Delta_mu_gamma/Delta_tau_gamma)]
+*/
+  double ratio1 = (par[4]*par[4]) / (par[2]*par[2]);
+  double value_etau = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
+  double ratio2 = (par[4]*par[4]) / (par[3]*par[3]);
+  double value_emu  = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
+  // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
+  double Delta_tau = 1 + 0.6 * (par[2]*par[2]) / (par[9]*par[9]);
+  double Delta_mu  = 1 + 0.6 * (par[3]*par[3]) / (par[9]*par[9]);
+  return 
+    ( par[0] / par[1] ) * 
+    ( par[7] / par[6] ) *
+    (( 2 * par[5] * TMath::Power(par[2],2)) / TMath::Power(par[3],3)) *
+    TMath::Power((1-TMath::Power(par[3]/par[5],2))/(1-TMath::Power(par[5]/par[2],2)),2) *
+    (1/par[8]) *
+    (value_etau/value_emu) *
+    (Delta_tau/Delta_mu) *
+    (par[11]/par[10]);
+}
+// ----------------------------------------------------------------------
+void calc_Be_from_Bh(const double BR_TauToHmNu, const double e_BR_TauToHmNu,
+		     const double BR_HmToMumNu, const double e_BR_HmToMumNu,
+		     const double m_h, const double e_m_h,
+		     const double tau_h, const double e_tau_h,
+		     const double Delta_TauToHm_over_HmToMu, const double e_Delta_TauToHm_over_HmToMu,
+		     double& func1_val, double& func1_err, 
+		     double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, 
+		     double& func1_err_4, double& func1_err_5, double& func1_err_6, double& func1_err_7,
+		     double& func1_err_8, double& func1_err_9, double& func1_err_10){
+  //
+  int ipar,jpar;
+  //
+  const double eps=1e-2;
+  //
+  const int npar=12;
+  //                           0               1               2        3       4      5      6         7        8                            9      10                11
+  const double par[npar]  = {  BR_TauToHmNu,   BR_HmToMumNu,   m_tau,   m_mu,   m_e,   m_h,   tau_mu,   tau_h,   Delta_TauToHm_over_HmToMu,   m_W,   Delta_mu_gamma,   Delta_tau_gamma};
+  const double epar[npar] = {e_BR_TauToHmNu, e_BR_HmToMumNu, e_m_tau, e_m_mu, e_m_e, e_m_h, e_tau_mu, e_tau_h, e_Delta_TauToHm_over_HmToMu, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma};
+  //
+  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
+  //
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[10][11] = CovarianceMatrix[11][10] = epar[10]*epar[11];
+  //
+  const double xdummy[1]={0};
+  TF1* func1 = new TF1 ("func1", func_Be_from_Bh, xdummy[0], xdummy[0]+1, npar);
+  func1->InitArgs(xdummy,par);
+  func1_val = func1->EvalPar(xdummy,par);
+  //
+  double* deriv = new double[npar];
+  for (ipar=0;ipar<npar;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  }
+  //
+ double func1_err2=0;
+  for (ipar=0;ipar<npar;++ipar) {
+    for (jpar=0;jpar<npar;++jpar) {
+      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
+    }
+  }
+  func1_err = TMath::Sqrt(func1_err2);
+  //
+  func1_err_0 = deriv[2] * epar[2]; // m(tau)
+  func1_err_1 = deriv[3] * epar[3]; // m(mu) 
+  func1_err_2 = deriv[4] * epar[4]; // m(e) 
+  func1_err_3 = deriv[5] * epar[5]; // m(h)
+  func1_err_4 = deriv[6] * epar[6]; // tau(mu)
+  func1_err_5 = deriv[7] * epar[7]; // tau(h)
+  func1_err_6 = deriv[0] * epar[0]; // BR(tau)
+  func1_err_7 = deriv[1] * epar[1]; // BR(h)
+  func1_err_8 = deriv[8] * epar[8]; // Delta
+  func1_err_9 = deriv[9] * epar[9]; // m(W)
+  func1_err_10= TMath::Sqrt(deriv[10] * CovarianceMatrix[10][10] * deriv[10] +
+			    deriv[11] * CovarianceMatrix[11][11] * deriv[11] +
+			    2*deriv[10]*CovarianceMatrix[10][11] * deriv[11]); // alpha
+  //
+  delete [] CovarianceMatrix;
+  delete [] deriv;
+  delete func1;
+}
+// ----------------------------------------------------------------------
 double func_gtaugmu_h(double *x, double * par){
   double dummy = x[0];
   // E. Gamiz, et. al., http://arxiv.org/pdf/0709.0282v1 Eqn 4.1
@@ -1816,37 +1913,169 @@ void calc_results(FILE* thisfile,
 	  "B(tau- -> e- nub nu)_Bmu ",
 	  100.*Be_from_Bmu, 100.*e_Be_from_Bmu, 100.*experr_Be_from_Bmu, 100.*e0_Be_from_Bmu, 100.*e1_Be_from_Bmu, 100.*e2_Be_from_Bmu);
   //
-  // Average of Be and Be_from_Bmu and Be_from_tautau
+  // Be from Bpi
   //
   fprintf(thisfile,"\n");
-  double Be_univ_val[3] = {Be, Be_from_Bmu, Be_from_tautau};
-  double** Be_univ_cov = new double*[3]; for (i=0;i<3;++i) Be_univ_cov[i] = new double[3];
+  double   Be_from_Bpi = 0;
+  double e_Be_from_Bpi = 0;
+  double e0_Be_from_Bpi = 0; //m(tau)
+  double e1_Be_from_Bpi = 0; //m(mu)
+  double e2_Be_from_Bpi = 0; //m(e)
+  double e3_Be_from_Bpi = 0; //m(h)
+  double e4_Be_from_Bpi = 0; //tau(mu)
+  double e5_Be_from_Bpi = 0; //tau(h)
+  double e6_Be_from_Bpi = 0; //BR(tau)
+  double e7_Be_from_Bpi = 0; //BR(h)
+  double e8_Be_from_Bpi = 0; //Delta
+  double e9_Be_from_Bpi = 0;//m(W)
+  double e10_Be_from_Bpi = 0;//alpha
+  calc_Be_from_Bh(Bpi, e_Bpi, 
+		  BR_PimToMumNu, e_BR_PimToMumNu, 
+		  m_pim, e_m_pim, 
+		  tau_pim, e_tau_pim, 
+		  Delta_TauToPim_over_PimToMu, e_Delta_TauToPim_over_PimToMu,
+		  Be_from_Bpi, e_Be_from_Bpi,
+		  e0_Be_from_Bpi, e1_Be_from_Bpi, e2_Be_from_Bpi, e3_Be_from_Bpi,
+		  e4_Be_from_Bpi, e5_Be_from_Bpi, e6_Be_from_Bpi, e7_Be_from_Bpi,
+		  e8_Be_from_Bpi, e9_Be_from_Bpi, e10_Be_from_Bpi
+		  );
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mh] +- %6.3f [tauh] +- %6.3f [Btau] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
+	  "B(tau- -> e- nub nu)_Bpi ",
+	  100.*Be_from_Bpi, 100.*e_Be_from_Bpi, 
+	  100.*e0_Be_from_Bpi, 100.*e3_Be_from_Bpi, 100.*e5_Be_from_Bpi, 100.*e6_Be_from_Bpi, 100.*e7_Be_from_Bpi, 100.*e8_Be_from_Bpi);
+  //
+  // Be from BK
+  //
+  fprintf(thisfile,"\n");
+  double   Be_from_BK = 0;
+  double e_Be_from_BK = 0;
+  double e0_Be_from_BK = 0; //m(tau)
+  double e1_Be_from_BK = 0; //m(mu)
+  double e2_Be_from_BK = 0; //m(e)
+  double e3_Be_from_BK = 0; //m(h)
+  double e4_Be_from_BK = 0; //tau(mu)
+  double e5_Be_from_BK = 0; //tau(h)
+  double e6_Be_from_BK = 0; //BR(tau)
+  double e7_Be_from_BK = 0; //BR(h)
+  double e8_Be_from_BK = 0; //Delta
+  double e9_Be_from_BK = 0; //m(W)
+  double e10_Be_from_BK= 0; //alpha
+  calc_Be_from_Bh(BK, e_BK, 
+		  BR_KmToMumNu, e_BR_KmToMumNu, 
+		  m_km, e_m_km, 
+		  tau_km, e_tau_km, 
+		  Delta_TauToKm_over_KmToMu, e_Delta_TauToKm_over_KmToMu,
+		  Be_from_BK, e_Be_from_BK,
+		  e0_Be_from_BK, e1_Be_from_BK, e2_Be_from_BK, e3_Be_from_BK,
+		  e4_Be_from_BK, e5_Be_from_BK, e6_Be_from_BK, e7_Be_from_BK,
+		  e8_Be_from_BK, e9_Be_from_BK, e10_Be_from_BK
+		  );
+  //
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mh] +- %6.3f [tauh] +- %6.3f [Btau] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
+	  "B(tau- -> e- nub nu)_BK  ",
+	  100.*Be_from_BK, 100.*e_Be_from_BK, 
+	  100.*e0_Be_from_BK, 100.*e3_Be_from_BK, 100.*e5_Be_from_BK, 100.*e6_Be_from_BK, 100.*e7_Be_from_BK, 100.*e8_Be_from_BK);
+  //
+  // Average of Be and Be_from_Bmu and Be_from_tautau and Bpi and BK
+  //
+  fprintf(thisfile,"\n");
+  double Be_univ_val[5] = {Be, Be_from_Bmu, Be_from_tautau, Be_from_Bpi,  Be_from_BK };
+  double** Be_univ_cov = new double*[5]; for (i=0;i<5;++i) Be_univ_cov[i] = new double[5];
   Be_univ_cov[0][0] = e_Be * e_Be; 
   Be_univ_cov[1][1] = e_Be_from_Bmu * e_Be_from_Bmu;
   Be_univ_cov[2][2] = e_Be_from_tautau * e_Be_from_tautau;
   Be_univ_cov[0][1] = Be_univ_cov[1][0] = basecorr_fit[M_GAMMA5][M_GAMMA3] * e_Be * experr_Be_from_Bmu;
   Be_univ_cov[0][2] = Be_univ_cov[2][0] = 0;
-  Be_univ_cov[1][2] = Be_univ_cov[2][1] = e0_Be_from_Bmu * e0_Be_from_tautau + e1_Be_from_Bmu * e1_Be_from_tautau + e2_Be_from_Bmu * e2_Be_from_tautau;
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be",            100.*Be_univ_cov[0][1]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[1][1]));
+  Be_univ_cov[1][2] = Be_univ_cov[2][1] = e0_Be_from_Bmu * e0_Be_from_tautau /*mtau*/+ e1_Be_from_Bmu * e1_Be_from_tautau /*mmu*/ + e2_Be_from_Bmu * e2_Be_from_tautau /*me*/;
+  Be_univ_cov[3][3] = e_Be_from_Bpi * e_Be_from_Bpi;
+  Be_univ_cov[0][3] = Be_univ_cov[3][0] = basecorr_fit[M_GAMMA5][M_GAMMA9] * e_Be * e6_Be_from_Bpi;
+  Be_univ_cov[1][3] = Be_univ_cov[3][1] = basecorr_fit[M_GAMMA3][M_GAMMA9] * experr_Be_from_Bmu * e6_Be_from_Bpi;
+  Be_univ_cov[2][3] = Be_univ_cov[3][2] = e0_Be_from_tautau * e0_Be_from_Bpi /*mtau*/+ e5_Be_from_tautau * e9_Be_from_Bpi /*mW*/+ e6_Be_from_tautau * e10_Be_from_Bpi /*alpha*/;
+  Be_univ_cov[4][4] = e_Be_from_BK * e_Be_from_BK;
+  Be_univ_cov[0][4] = Be_univ_cov[4][0] = basecorr_fit[M_GAMMA5][M_GAMMA10] * e_Be * e6_Be_from_BK;
+  Be_univ_cov[1][4] = Be_univ_cov[4][1] = basecorr_fit[M_GAMMA3][M_GAMMA10] * experr_Be_from_Bmu * e6_Be_from_BK;
+  Be_univ_cov[2][4] = Be_univ_cov[4][2] = e0_Be_from_tautau * e0_Be_from_BK /*mtau*/+ e5_Be_from_tautau * e9_Be_from_BK /*mW*/ + e6_Be_from_tautau * e10_Be_from_BK /*alpha*/;
+  Be_univ_cov[3][4] = Be_univ_cov[4][3] = e0_Be_from_Bpi    * e0_Be_from_BK /*mtau*/+ e9_Be_from_Bpi    * e9_Be_from_BK /*mW*/ + e10_Be_from_Bpi   * e10_Be_from_BK /*alpha*/;
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be            ",100.*Be_univ_cov[0][1]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[1][1]));
   fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be_from_tautau",100.*Be_univ_cov[2][1]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[1][1]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bpi","Be            ",100.*Be_univ_cov[0][3]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[3][3]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bpi","Be_from_Bmu   ",100.*Be_univ_cov[1][3]/TMath::Sqrt(Be_univ_cov[1][1]*Be_univ_cov[3][3]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bpi","Be_from_tautau",100.*Be_univ_cov[2][3]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[3][3]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_BK ","Be            ",100.*Be_univ_cov[0][4]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[4][4]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_BK ","Be_from_Bmu   ",100.*Be_univ_cov[1][4]/TMath::Sqrt(Be_univ_cov[1][1]*Be_univ_cov[4][4]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_BK ","Be_from_tautau",100.*Be_univ_cov[2][4]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[4][4]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_BK ","Be_from_Bpi   ",100.*Be_univ_cov[3][4]/TMath::Sqrt(Be_univ_cov[3][3]*Be_univ_cov[4][4]));
   //
-  double Be_univ = 0;
-  double Be_univ_err = 0;
-  double Be_univ_wt[3] = {0,0,0};
-  calc_average(3,Be_univ_val,Be_univ_cov,Be_univ,Be_univ_err,Be_univ_wt);
+  double Be_univ3 = 0;
+  double Be_univ3_err = 0;
+  double Be_univ3_wt[3] = {0,0,0};
+  calc_average(3,Be_univ_val,Be_univ_cov,Be_univ3,Be_univ3_err,Be_univ3_wt);
   //
-  // Cross-check the error on Be_univ assuming the weights have no errors
-  //    f = a A + b B + c C => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
+  // Cross-check the error on Be_univ3 assuming the weights have no errors
+  //    f = a A + b B + c C => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 
+  //                                 + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
   // N.B.:  The weights are function of errors, eg. e[mtau], e[tautau], e[Be], e[Bmu], etc.; so it is reasonable assumption that error on these errors = 0.
   //                                             
-  double Be_univ_err_re = TMath::Sqrt( TMath::Power(Be_univ_wt[0],2) * Be_univ_cov[0][0] + 
-				       TMath::Power(Be_univ_wt[1],2) * Be_univ_cov[1][1] + 
-				       TMath::Power(Be_univ_wt[2],2) * Be_univ_cov[2][2] + 
-				       2 * Be_univ_wt[0] * Be_univ_wt[1] * Be_univ_cov[0][1] + 
-				       2 * Be_univ_wt[2] * Be_univ_wt[1] * Be_univ_cov[2][1]);
+  double Be_univ3_err_re = TMath::Sqrt( TMath::Power(Be_univ3_wt[0],2) * Be_univ_cov[0][0] + 
+					TMath::Power(Be_univ3_wt[1],2) * Be_univ_cov[1][1] + 
+					TMath::Power(Be_univ3_wt[2],2) * Be_univ_cov[2][2] + 
+					2 * Be_univ3_wt[0] * Be_univ3_wt[1] * Be_univ_cov[0][1] + 
+					2 * Be_univ3_wt[2] * Be_univ3_wt[1] * Be_univ_cov[2][1]);
   //
   fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",
-	  "<B(tau- -> e- nub nu)_univ>",100.*Be_univ,100.*Be_univ_err, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2], Be_univ_err - Be_univ_err_re);
+	  "<B(tau- -> e- nub nu)_univ3>",100.*Be_univ3,100.*Be_univ3_err, Be_univ3_wt[0], Be_univ3_wt[1], Be_univ3_wt[2], Be_univ3_err - Be_univ3_err_re);
+  //
+  double Be_univ4 = 0;
+  double Be_univ4_err = 0;
+  double Be_univ4_wt[4] = {0,0,0,0};
+  calc_average(4,Be_univ_val,Be_univ_cov,Be_univ4,Be_univ4_err,Be_univ4_wt);
+  //
+  // Cross-check the error on Be_univ4 assuming the weights have no errors
+  //    f = a A + b B + c C + d D => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 + d^2 e_D^2 
+  //                                       + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
+  //                                       + 2 ad Corr(A,D) e_A e_D + 2 bd Corr(B,D) e_B e_D + 2 cd Corr(C,D) e_C e_D
+  // N.B.:  The weights are function of errors, eg. e[mtau], e[tautau], e[Be], e[Bmu], etc.; so it is reasonable assumption that error on these errors = 0.
+  //                                             
+  double Be_univ4_err_re = TMath::Sqrt( TMath::Power(Be_univ4_wt[0],2) * Be_univ_cov[0][0] + 
+					TMath::Power(Be_univ4_wt[1],2) * Be_univ_cov[1][1] + 
+					TMath::Power(Be_univ4_wt[2],2) * Be_univ_cov[2][2] + 
+					TMath::Power(Be_univ4_wt[3],2) * Be_univ_cov[3][3] + 
+					2 * Be_univ4_wt[0] * Be_univ4_wt[1] * Be_univ_cov[0][1] + 
+					2 * Be_univ4_wt[2] * Be_univ4_wt[1] * Be_univ_cov[2][1] +
+					2 * Be_univ4_wt[0] * Be_univ4_wt[3] * Be_univ_cov[0][3] + 
+					2 * Be_univ4_wt[1] * Be_univ4_wt[3] * Be_univ_cov[1][3] + 
+					2 * Be_univ4_wt[2] * Be_univ4_wt[3] * Be_univ_cov[2][3] );
+  //
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau], %6.4f [Bpi]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",  "<B(tau- -> e- nub nu)_univ4>",100.*Be_univ4,100.*Be_univ4_err, Be_univ4_wt[0], Be_univ4_wt[1], Be_univ4_wt[2], Be_univ4_wt[3], Be_univ4_err - Be_univ4_err_re);
+  //
+  double Be_univ5 = 0;
+  double Be_univ5_err = 0;
+  double Be_univ5_wt[5] = {0,0,0,0,0};
+  calc_average(5,Be_univ_val,Be_univ_cov,Be_univ5,Be_univ5_err,Be_univ5_wt);
+  //
+  // Cross-check the error on Be_univ5 assuming the weights have no errors
+  //    f = a A + b B + c C + d D + e E => e_f^2 = a^2 e_A^2 + b^2 e_B^2 + c^2 e_C^2 + d^2 e_D^2 + e^2 e_E^2 
+  //                                       + 2 ab Corr(A,B) e_A e_B + 2 bc Corr(B,C) e_B e_C + 2 ca Corr(C,A) e_C e_A
+  //                                       + 2 ad Corr(A,D) e_A e_D + 2 bd Corr(B,D) e_B e_D + 2 cd Corr(C,D) e_C e_D
+  //                                       + 2 ae Corr(A,E) e_A e_E + 2 be Corr(B,E) e_B e_E + 2 ce Corr(C,E) e_C e_E + 2 de Corr(D,E) e_D e_E
+  // N.B.:  The weights are function of errors, eg. e[mtau], e[tautau], e[Be], e[Bmu], etc.; so it is reasonable assumption that error on these errors = 0.
+  //                                             
+  double Be_univ5_err_re = TMath::Sqrt( TMath::Power(Be_univ5_wt[0],2) * Be_univ_cov[0][0] + 
+					TMath::Power(Be_univ5_wt[1],2) * Be_univ_cov[1][1] + 
+					TMath::Power(Be_univ5_wt[2],2) * Be_univ_cov[2][2] + 
+					TMath::Power(Be_univ5_wt[3],2) * Be_univ_cov[3][3] + 
+					TMath::Power(Be_univ5_wt[4],2) * Be_univ_cov[4][4] + 
+					2 * Be_univ5_wt[0] * Be_univ5_wt[1] * Be_univ_cov[0][1] + 
+					2 * Be_univ5_wt[2] * Be_univ5_wt[1] * Be_univ_cov[2][1] +
+					2 * Be_univ5_wt[0] * Be_univ5_wt[3] * Be_univ_cov[0][3] + 
+					2 * Be_univ5_wt[1] * Be_univ5_wt[3] * Be_univ_cov[1][3] + 
+					2 * Be_univ5_wt[2] * Be_univ5_wt[3] * Be_univ_cov[2][3] +
+					2 * Be_univ5_wt[0] * Be_univ5_wt[4] * Be_univ_cov[0][4] +
+					2 * Be_univ5_wt[1] * Be_univ5_wt[4] * Be_univ_cov[1][4] +
+					2 * Be_univ5_wt[2] * Be_univ5_wt[4] * Be_univ_cov[2][4] +
+					2 * Be_univ5_wt[3] * Be_univ5_wt[4] * Be_univ_cov[3][4] );
+  //
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau], %6.4f [Bpi], %6.4f [BK]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n", "<B(tau- -> e- nub nu)_univ5>", 100.*Be_univ5,100.*Be_univ5_err, Be_univ5_wt[0], Be_univ5_wt[1], Be_univ5_wt[2], Be_univ5_wt[3], Be_univ5_wt[4], Be_univ5_err - Be_univ5_err_re);
   //
   // Bhadrons
   //
@@ -1854,7 +2083,7 @@ void calc_results(FILE* thisfile,
   double   Bhadrons = 0;
   double e_Bhadrons = 0;
   double ecomp_Bhadrons[5] = { 0, 0, 0, 0, 0};
-  calc_Bhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
+  calc_Bhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ3_wt, 
 		Bhadrons, e_Bhadrons, ecomp_Bhadrons); 
   fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Be,mu]) %% \n",
 	  "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
@@ -1865,7 +2094,7 @@ void calc_results(FILE* thisfile,
   double   Rhadrons = 0;
   double e_Rhadrons = 0;
   double ecomp_Rhadrons[5] = { 0, 0, 0, 0, 0};
-  calc_Rhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ_wt, 
+  calc_Rhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ3_wt, 
 		Rhadrons, e_Rhadrons, ecomp_Rhadrons); 
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Be,Bmu]\n",
 	  "R(tau -> hadrons)", Rhadrons, e_Rhadrons,
@@ -1879,7 +2108,7 @@ void calc_results(FILE* thisfile,
   double Rstrange = 0;
   double e_Rstrange = 0;
   double ecomp_Rstrange[6] = { 0, 0, 0, 0, 0, 0};
-  calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+  calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
 		Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
 		Rstrange, e_Rstrange, ecomp_Rstrange);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
@@ -1891,7 +2120,7 @@ void calc_results(FILE* thisfile,
   double Rnonstrange = 0;
   double e_Rnonstrange = 0;
   double ecomp_Rnonstrange[6] = { 0, 0, 0, 0, 0, 0};
-  calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+  calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
 		   Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
 		   Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
@@ -1903,7 +2132,7 @@ void calc_results(FILE* thisfile,
   double Vus_strange = 0;
   double e_Vus_strange = 0;
   double ecomp_Vus_strange[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
-  calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+  calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
 		   Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
 		   Vus_strange, e_Vus_strange, ecomp_Vus_strange);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Be,mu,s] +- %6.4f [Vud] +- %6.4f [ms]\n",
@@ -1924,7 +2153,7 @@ void calc_results(FILE* thisfile,
   double Vus_uncons = 0;
   double e_Vus_uncons = 0;
   double ecomp_Vus_uncons[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ_wt,
+  calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
 		  Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
 		  Btotal, e_Btotal, NodeErrorMatrix[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix[N_GAMMAALL][N_GAMMA110],
 		  Vus_uncons, e_Vus_uncons, ecomp_Vus_uncons);
@@ -2443,8 +2672,10 @@ void print_measinfo(FILE* thisfile,
   }
   fprintf (thisfile, "\n");
   fprintf (thisfile, "basequan_used_in_measured_derivednodes.size() = %d \n", basequan_used_in_measured_derivednodes.size());
-  for (ibase=0;ibase<basequan_used_in_measured_derivednodes.size();++ibase) {
-    int quan = basequan_used_in_measured_derivednodes.at(ibase) ;
+  fprintf (thisfile, "\n");
+  //  for (ibase=0;ibase<basequan_used_in_measured_derivednodes.size();++ibase) {
+  //    int quan = basequan_used_in_measured_derivednodes.at(ibase) ;
+  for (int quan=1;quan<nbase+1;++quan) {
     fprintf (thisfile, "basetitle = %s with quan = %d gamma = %d appears in ",basetitle[quan-1].data(), quan, basegamma[quan-1]);
     int iquan_occurance=0;
     int inode_occurance=0;
@@ -2953,12 +3184,11 @@ void print_avefile(FILE* thisfile, int p, int uconstrain,
 // ----------------------------------------------------------------------
 int main(int argc, char* argv[]){
   //Argument variables
-  Int_t uconstrain   = (argc>1) ? atoi(argv[1]) : 0; // 1: unitarity constrained; 0 : not constrained
-  Int_t doalephhcorr = (argc>2) ? atoi(argv[2]) : 0; // 1: do aleph hcorr; 0: dont ; 2: keep on leptonic correlations
+  int uconstrain   = (argc>1) ? atoi(argv[1]) : 0; // 1: unitarity constrained; 0 : not constrained
+  int doalephhcorr = (argc>2) ? atoi(argv[2]) : 1; // 1: do aleph hcorr; 0: dont
   //
   string sconstrain = (uconstrain == 1) ? "constrained" : "unconstrained";
   string salephhcorr = (doalephhcorr == 1) ? "_aleph_hcorr" : "";
-  string sonlylepcorr= (doalephhcorr == 2) ? "_only_lepcorr" : "";
   //
   gSystem->Load("libMatrix");
   //
@@ -4690,20 +4920,11 @@ int main(int argc, char* argv[]){
       if (corrmat[imeas1-1][imeas2-1] != 0) {cout << "WATCH OUT" << endl; exit(1);}
       corrmat[imeas1-1][imeas2-1] = corrmat[imeas2-1][imeas1-1] = corrtemp*1e-2;
       //
-      double corrtemp = corrmat[imeas1-1][imeas2-1];
-      if (
-	  (measnode[imeas1-1] == 65 && measnode[imeas2-1] == 68)||
-	  (measnode[imeas1-1] == 68 && measnode[imeas2-1] == 65)
-	  ){
-      }else{
-	if (doalephhcorr == 2) corrmat[imeas1-1][imeas2-1] = 0;
-      }
-      //
       cout << "Correlation between imeas1 = " << Form("%4d",measnum[imeas1-1])  
 	   << " [Gamma=" << Form("%8s",measgammaname[imeas1-1].data()) << ", Node=" << Form("%4d",measnode[imeas1-1]) << "] "
 	   << " and imeas2 = " << Form("%4d",measnum[imeas2-1]) 
 	   << " [Gamma=" << Form("%8s",measgammaname[imeas2-1].data()) << ", Node=" << Form("%4d",measnode[imeas2-1]) << "] " 
-	   << " is = " <<  Form("% 8.2f",corrtemp*100.) << " % " << " ---> " << Form("% 8.2f",corrmat[imeas1-1][imeas2-1]*100.) << " % " << endl;
+	   << " is = " <<  Form("% 10.6f",corrmat[imeas1-1][imeas2-1]*100.) << " % " << endl;
       //
     }
   }
@@ -4739,9 +4960,9 @@ int main(int argc, char* argv[]){
   // PRINT INFORMATION ABOUT INPUT MEASUREMENTS
   //
 #if defined USING_NBASE31 || defined USING_NBASE39
-  FILE *measinfofile=fopen(Form("s035-fit-no-babar-belle%s%s.info",salephhcorr.data(),sonlylepcorr.data()),"w");  
+  FILE *measinfofile=fopen(Form("s035-fit-no-babar-belle%s.info",salephhcorr.data()),"w");  
 #elif defined USING_NBASE40
-  FILE *measinfofile=fopen(Form("s035-fit-with-babar-belle%s%s.info",salephhcorr.data(),sonlylepcorr.data()),"w");  
+  FILE *measinfofile=fopen(Form("s035-fit-with-babar-belle%s.info",salephhcorr.data()),"w");  
 #endif
   print_measinfo(measinfofile,
 		 nmeas, measnode, measvalue, measerror, corrmat,
@@ -4943,8 +5164,8 @@ int main(int argc, char* argv[]){
   //
   FILE *measfile[2];
   for (int p=0;p<2;++p){
-    if (p==0) measfile[0]=fopen(Form("combos_measurements_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) measfile[1]=fopen(Form("alucomb_measurements_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
+    if (p==0) measfile[0]=fopen(Form("combos_measurements_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) measfile[1]=fopen(Form("alucomb_measurements_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
     FILE *thisfile = measfile[p];
     print_measfile(thisfile, p, uconstrain,
 		   nmeas, weak_none, weakcompare, measgammaname, measnode, 
@@ -4961,10 +5182,10 @@ int main(int argc, char* argv[]){
   //
   FILE *avefile[2];
   for (int p=0;p<2;++p){
-    if (p==0) avefile[0]=fopen(Form("combos_average_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) avefile[1]=fopen(Form("alucomb_average_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==0) fprintf (avefile[p], "INCLUDE combos_measurements_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
-    if (p==1) fprintf (avefile[p], "INCLUDE alucomb_measurements_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
+    if (p==0) avefile[0]=fopen(Form("combos_average_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) avefile[1]=fopen(Form("alucomb_average_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==0) fprintf (avefile[p], "INCLUDE combos_measurements_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
+    if (p==1) fprintf (avefile[p], "INCLUDE alucomb_measurements_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
     FILE *thisfile = avefile[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_none, weakcompare, measgammaname, measnode,
@@ -5750,8 +5971,8 @@ int main(int argc, char* argv[]){
   //
   FILE *measfile_scaled[2];
   for (int p=2;p<2;++p){
-    if (p==0) measfile_scaled[0]=fopen(Form("combos_measurements_scaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) measfile_scaled[1]=fopen(Form("alucomb_measurements_scaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
+    if (p==0) measfile_scaled[0]=fopen(Form("combos_measurements_scaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) measfile_scaled[1]=fopen(Form("alucomb_measurements_scaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
     FILE *thisfile = measfile_scaled[p];
     print_measfile(thisfile, p, uconstrain,
 		   nmeas, weak_scaled, weakcompare, measgammaname, measnode, 
@@ -5768,10 +5989,10 @@ int main(int argc, char* argv[]){
   //
   FILE *avefile_scaled[2];
   for (int p=2;p<2;++p){
-    if (p==0) avefile_scaled[0]=fopen(Form("combos_average_scaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) avefile_scaled[1]=fopen(Form("alucomb_average_scaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==0) fprintf (avefile_scaled[p], "INCLUDE combos_measurements_scaled_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
-    if (p==1) fprintf (avefile_scaled[p], "INCLUDE alucomb_measurements_scaled_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
+    if (p==0) avefile_scaled[0]=fopen(Form("combos_average_scaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) avefile_scaled[1]=fopen(Form("alucomb_average_scaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==0) fprintf (avefile_scaled[p], "INCLUDE combos_measurements_scaled_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
+    if (p==1) fprintf (avefile_scaled[p], "INCLUDE alucomb_measurements_scaled_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
     FILE *thisfile = avefile_scaled[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_scaled, weakcompare, measgammaname, measnode,
@@ -6027,8 +6248,8 @@ int main(int argc, char* argv[]){
   //
   FILE *measfile_rescaled[2];
   for (int p=0;p<2;++p){
-    if (p==0) measfile_rescaled[0]=fopen(Form("combos_measurements_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) measfile_rescaled[1]=fopen(Form("alucomb_measurements_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
+    if (p==0) measfile_rescaled[0]=fopen(Form("combos_measurements_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) measfile_rescaled[1]=fopen(Form("alucomb_measurements_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
     FILE *thisfile = measfile_rescaled[p];
     print_measfile(thisfile, p, uconstrain,
 		   nmeas, weak_none_rescaled, weakcompare, measgammaname, measnode, 
@@ -6045,10 +6266,10 @@ int main(int argc, char* argv[]){
   //
   FILE *avefile_rescaled[2];
   for (int p=0;p<2;++p){
-    if (p==0) avefile_rescaled[0]=fopen(Form("combos_average_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) avefile_rescaled[1]=fopen(Form("alucomb_average_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==0) fprintf (avefile_rescaled[p], "INCLUDE combos_measurements_rescaled_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
-    if (p==1) fprintf (avefile_rescaled[p], "INCLUDE alucomb_measurements_rescaled_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
+    if (p==0) avefile_rescaled[0]=fopen(Form("combos_average_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) avefile_rescaled[1]=fopen(Form("alucomb_average_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==0) fprintf (avefile_rescaled[p], "INCLUDE combos_measurements_rescaled_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
+    if (p==1) fprintf (avefile_rescaled[p], "INCLUDE alucomb_measurements_rescaled_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
     FILE *thisfile = avefile_rescaled[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_none_rescaled, weakcompare, measgammaname, measnode,
@@ -6264,8 +6485,8 @@ int main(int argc, char* argv[]){
   //
   FILE *measfile_noweak_rescaled[2];
   for (int p=2;p<2;++p){
-    if (p==0) measfile_noweak_rescaled[0]=fopen(Form("combos_measurements_noweak_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) measfile_noweak_rescaled[1]=fopen(Form("alucomb_measurements_noweak_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
+    if (p==0) measfile_noweak_rescaled[0]=fopen(Form("combos_measurements_noweak_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) measfile_noweak_rescaled[1]=fopen(Form("alucomb_measurements_noweak_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
     FILE *thisfile = measfile_noweak_rescaled[p];
     print_measfile(thisfile, p, uconstrain,
 		   nmeas, weak_rescaled, weakcompare, measgammaname, measnode, 
@@ -6282,10 +6503,10 @@ int main(int argc, char* argv[]){
   //
   FILE *avefile_noweak_rescaled[2];
   for (int p=2;p<2;++p){
-    if (p==0) avefile_noweak_rescaled[0]=fopen(Form("combos_average_noweak_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==1) avefile_noweak_rescaled[1]=fopen(Form("alucomb_average_noweak_rescaled_%s%s%s.input",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
-    if (p==0) fprintf (avefile_noweak_rescaled[p], "INCLUDE combos_measurements_noweak_rescaled_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
-    if (p==1) fprintf (avefile_noweak_rescaled[p], "INCLUDE alucomb_measurements_noweak_rescaled_%s%s%s.input \n\n",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()); 
+    if (p==0) avefile_noweak_rescaled[0]=fopen(Form("combos_average_noweak_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==1) avefile_noweak_rescaled[1]=fopen(Form("alucomb_average_noweak_rescaled_%s%s.input",sconstrain.data(),salephhcorr.data()),"w");
+    if (p==0) fprintf (avefile_noweak_rescaled[p], "INCLUDE combos_measurements_noweak_rescaled_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
+    if (p==1) fprintf (avefile_noweak_rescaled[p], "INCLUDE alucomb_measurements_noweak_rescaled_%s%s.input \n\n",sconstrain.data(),salephhcorr.data()); 
     FILE *thisfile = avefile_noweak_rescaled[p];
     print_avefile(thisfile, p, uconstrain,
 		  nmeas, weak_rescaled, weakcompare, measgammaname, measnode,
@@ -6324,7 +6545,7 @@ int main(int argc, char* argv[]){
   //
   // Print Results 
   //
-  FILE *resfile=fopen(Form("readpdg_%s%s%s.results",sconstrain.data(),salephhcorr.data(),sonlylepcorr.data()),"w");
+  FILE *resfile=fopen(Form("readpdg_%s%s.results",sconstrain.data(),salephhcorr.data()),"w");
   for (i=0;i<3;++i) {
     if (i==0) {
       fprintf (resfile, "Results from original fit :\n\n");
