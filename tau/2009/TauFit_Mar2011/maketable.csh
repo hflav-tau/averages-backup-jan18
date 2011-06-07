@@ -1,4 +1,7 @@
 #!/bin/csh
+#
+# prints numbers from this *.results AND *.log file and corresponding file in NoBB directory
+#
 setenv INPUT $1
 if ( $INPUT == 0 ) then
   setenv LINPUT unconstrained
