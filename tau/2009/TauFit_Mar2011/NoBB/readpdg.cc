@@ -260,6 +260,50 @@ enum e_nodegammanames {
 #endif
   N_GAMMAALL    
 };
+enum P_ParNames{
+  P_m_e, //0
+  P_m_mu,//1
+  P_tau_mu,//2
+  P_m_tau,//3
+  P_tau_tau,//4
+  P_m_pim,//5
+  P_tau_pim,//6
+  P_BR_PimToMumNu,//7
+  P_Delta_TauToPim_over_PimToMu,//8
+  P_m_km,//9
+  P_tau_km,//10
+  P_BR_KmToMumNu,//11
+  P_Delta_TauToKm_over_KmToMu,//12
+  P_m_W,//13
+  P_alpha_val,//14
+  P_Delta_mu_gamma,//15
+  P_Delta_tau_gamma,//16
+  P_GMu,//17
+  P_hbar,//18
+  P_SEW,//19
+  P_fpi,//20
+  P_fK,//21
+  P_fKfpi,//22
+  P_Vud,//23
+  P_Delta_Kpi,//24
+  P_Delta_Rth,//25
+  P_Be,//26
+  P_Bmu,//27
+  P_Bpi,//28
+  P_BK,//29
+  P_BmuBe,//30
+  P_BKBpi,//31
+  P_Bs,//32
+  P_Ball,//33
+  P_wt_Be,//34
+  P_wt_Be_from_Bmu,//35
+  P_wt_Be_from_tautau,//36
+  P_wt_Be_from_Bpi,//37
+  P_wt_Be_from_BK//38
+};
+const int N_ParNames = 39;
+const int N_GlobalPar= 26;
+//
 //--- from PDG 2010 
 //            MOHR     08 RVUE                2006 CODATA value
 //  MOHR 2008         Reviews of Modern Physics 80 (2008) 633 
@@ -301,15 +345,20 @@ const double Delta_tau_gamma = 1 - 43.2e-4; const double e_Delta_tau_gamma = alp
 //const double Delta_tau_W = 1 + 2.9e-4; // recomputed later using ([m_tau, m_W], [e_m_tau, e_m_W])
 //
 const double GMu = 1.16637e-5*1e-6 ; const double e_GMu = 0.00001e-5*1e-6; // GMu in MeV-2
-const double fK  = 157;              const double e_fK  = 2; // fK in MeV arXiv:0706.1726 [hep-lat]
 const double hbar=6.58211899e-25*1e3;const double e_hbar= 0.00000016e-25*1e3; // MeV s
 const double SEW = 1.0201;           const double e_SEW = 0.0003;
 //
-const double Vud = 0.97425;          const double e_Vud = 0.00022;
+const double fpi = 132;              const double e_fpi = 2; // fpi in MeV arXiv:0706.1726 [hep-lat]
+const double fK  = 157;              const double e_fK  = 2; // fK  in MeV arXiv:0706.1726 [hep-lat]
 const double fKfpi= 1.189;           const double e_fKfpi=0.007;
-const double Delta_Kpi=1.00034;      const double e_Delta_Kpi=0.00437;
 //
+const double Vud = 0.97425;          const double e_Vud = 0.00022;
+//
+const double Delta_Kpi=1.00034;      const double e_Delta_Kpi=0.00437;
 const double Delta_Rth = 0.240;      const double e_Delta_Rth = 0.032;
+//
+double GlobalPar[N_GlobalPar];
+double e_GlobalPar[N_GlobalPar];
 // ----------------------------------------------------------------------
 double MyGradientPar(TF1* func, int ipar, const int npar, const double *x, const double *par, const double *epar, double eps){
    if(eps< 1e-10 || eps > 1) {
@@ -347,300 +396,78 @@ double MyGradientPar(TF1* func, int ipar, const int npar, const double *x, const
    return grad;
 }
 // ----------------------------------------------------------------------
-double func_Vus_Kpi(double *x, double * par){
-  double dummy = x[0];
-  double value = TMath::Sqrt( 
-			     par[0] * par[1]*par[1] * (1./(par[2]*par[2])) *
-			     (TMath::Power(1 - TMath::Power(par[5]/par[3],2),2) / TMath::Power(1 - TMath::Power(par[4]/par[3],2),2)) *
-			     (1./par[6])); 
-  return value;
-}
-// ----------------------------------------------------------------------
-void calc_Vus_Kpi(const double BKBpi, const double e_BKBpi,
-		  double& func1_val, double& func1_err, double& func1_err_exp, 
-		  double& func1_err_comth_0, 
-		  double& func1_err_comth_1, 
-		  double& func1_err_comth_2, 
-		  double& func1_err_comth_3, 
-		  double& func1_err_comth_4, 
-		  double& func1_err_comth_5){
+void calc_generic(double *par, double *epar, double** CovarianceMatrix, double (*fcn)(double*, double*), double& func1_val, double& func1_err, double* func1_evec){ 
   //
   int ipar,jpar;
   //
   const double eps=1e-2;
   //
-  const int npar=7;
-  const double par[npar] =  {  BKBpi,   Vud,   fKfpi,   m_tau,   m_km,   m_pim,   Delta_Kpi};
-  const double epar[npar] = {e_BKBpi, e_Vud, e_fKfpi, e_m_tau, e_m_km, e_m_pim, e_Delta_Kpi};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
   const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Vus_Kpi, xdummy[0], xdummy[0]+1, npar);
+  TF1* func1 = new TF1 ("func1", fcn, xdummy[0], xdummy[0]+1, N_ParNames);
   func1->InitArgs(xdummy,par);
   func1_val = func1->EvalPar(xdummy,par);
   //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
+  double* deriv = new double[N_ParNames];
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,N_ParNames,xdummy,par,epar,eps) : 0;
   }
   //
   double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    func1_evec[ipar] = deriv[ipar] * epar[ipar]; 
+    for (jpar=0;jpar<N_ParNames;++jpar) {
       func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
     }
   }
   func1_err = TMath::Sqrt(func1_err2);
   //
-  func1_err_exp = deriv[0] * epar[0];
-  func1_err_comth_0 = deriv[3] * epar[3]; // m_tau
-  func1_err_comth_1 = deriv[4] * epar[4]; // m_K
-  func1_err_comth_2 = deriv[5] * epar[5]; // m_pi
-  func1_err_comth_3 = deriv[2] * epar[2]; // fKfpi
-  func1_err_comth_4 = deriv[1] * epar[1]; // Vud
-  func1_err_comth_5 = deriv[6] * epar[6]; // Delta_Kpi
-  //
-  delete [] CovarianceMatrix;
   delete [] deriv;
   delete func1;
+}
+// ----------------------------------------------------------------------
+double func_Vus_Kpi(double *x, double * par){
+  double dummy = x[0];
+  double value = TMath::Sqrt( 
+			     par[P_BKBpi] * par[P_Vud]*par[P_Vud] * (1./(par[P_fKfpi]*par[P_fKfpi])) *
+			     (TMath::Power(1 - TMath::Power(par[P_m_pim]/par[P_m_tau],2),2) / TMath::Power(1 - TMath::Power(par[P_m_km]/par[P_m_tau],2),2)) *
+			     (1./par[P_Delta_Kpi])); 
+  return value;
 }
 // ----------------------------------------------------------------------
 double func_Vus_K(double *x, double * par){
   double dummy = x[0];
   double value = TMath::Sqrt( 
-			     par[0] * 16.0 * TMath::Pi() * par[6] * 1./ 
-			     (TMath::Power(par[1],2) * TMath::Power(par[2],2) * TMath::Power(par[3],3) * par[4] * TMath::Power(1 - TMath::Power(par[5]/par[3],2),2) * par[7]) );
+			     par[P_BK] * 16.0 * TMath::Pi() * par[P_hbar] * 1./ 
+			     (TMath::Power(par[P_GMu],2) * TMath::Power(par[P_fK],2) * TMath::Power(par[P_m_tau],3) * par[P_tau_tau] * 
+			      TMath::Power(1 - TMath::Power(par[P_m_km]/par[P_m_tau],2),2) * par[P_SEW]) );
   return value;
-}
-// ----------------------------------------------------------------------
-void calc_Vus_K(const double BK, const double e_BK,
-		double& func1_val, double& func1_err, double& func1_err_exp, 
-		double& func1_err_comth_0, double& func1_err_comth_1, double& func1_err_comth_2, double& func1_err_comth_3){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=8;
-  const double par[npar] =  {  BK,   GMu,   fK,   m_tau,   tau_tau,   m_km,   hbar,   SEW};
-  const double epar[npar] = {e_BK, e_GMu, e_fK, e_m_tau, e_tau_tau, e_m_km, e_hbar, e_SEW};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Vus_K, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_exp = deriv[0] * epar[0];
-  func1_err_comth_0 = deriv[3] * epar[3]; // m_tau
-  func1_err_comth_1 = deriv[4] * epar[4]; // tau_tau
-  func1_err_comth_2 = deriv[5] * epar[5]; // m_K
-  func1_err_comth_3 = deriv[2] * epar[2]; // fK
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
 }
 // ----------------------------------------------------------------------
 double func_fmufe(double *x, double * par){
   double dummy = x[0];
-  double ratio1 = (par[0]*par[0]) / (par[2]*par[2]);
+  double ratio1 = (par[P_m_e]*par[P_m_e]) / (par[P_m_tau]*par[P_m_tau]);
   double value1 = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
-  double ratio2 = (par[1]*par[1]) / (par[2]*par[2]);
+  double ratio2 = (par[P_m_mu]*par[P_m_mu]) / (par[P_m_tau]*par[P_m_tau]);
   double value2 = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
-  return value2/value1;
+  double fmufe = value2/value1;
+  return fmufe;
 }
 // ----------------------------------------------------------------------
-void calc_gmuge(const double BmuBe, const double e_BmuBe,
-		double& func1_val, double& func1_err,
-		double& func1_err_0, double& func1_err_1, double& func1_err_2, 
-		double& func2_val, double& func2_err, double& func2_err_exp, 
-		double& func2_err_0, double& func2_err_1, double& func2_err_2){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=3;
-  const double par[npar] = {m_e, m_mu, m_tau};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_fmufe, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  const int npar2=2;
-  const double par2[npar2] =  {  BmuBe,func1_val};
-  const double epar2[npar2] = {e_BmuBe,func1_err};
-  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
-  //
-  func2_val = TMath::Sqrt(par2[0]/par2[1]);
-  //
-  double deriv2[2];
-  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
-  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
-  //
-  double func2_err2=0;
-  for (ipar=0;ipar<npar2;++ipar) {
-    for (jpar=0;jpar<npar2;++jpar) {
-      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
-    }
-  }
-  func2_err = TMath::Sqrt(func2_err2);
-  //
-  func2_err_exp = deriv2[0] * epar2[0];
-  //
-  func1_err_0 = deriv[2] * epar[2]; // m(tau)
-  func1_err_1 = deriv[1] * epar[1]; // m(mu)
-  func1_err_2 = deriv[0] * epar[0]; // m(e)
-  //
-  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
-  func2_err_1 = deriv2[1] * func1_err_1; // m(mu)
-  func2_err_2 = deriv2[1] * func1_err_2; // m(e)
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
+double func_gmuge(double *x, double * par){
+  double dummy = x[0];
+  double fmufe = func_fmufe(x,par);
+  double gmuge = TMath::Sqrt(par[P_BmuBe]/fmufe);
+  return gmuge;
 }
 // ----------------------------------------------------------------------
-void calc_Be_from_Bmu(const double Bmu, const double e_Bmu,
-		      double& func2_val, double& func2_err, double& func2_err_exp, 
-		      double& func2_err_0, double& func2_err_1, double& func2_err_2){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=3;
-  const double par[npar] = {m_e, m_mu, m_tau};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_fmufe, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  double func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  double func1_err = TMath::Sqrt(func1_err2);
-  //
-  const int npar2=2;
-  const double par2[npar2] =  {  Bmu,func1_val};
-  const double epar2[npar2] = {e_Bmu,func1_err};
-  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
-  //
-  func2_val = par2[0]/par2[1];
-  //
-  double deriv2[2];
-  deriv2[0] = (1/par2[1]);
-  deriv2[1] = (par2[0]/(par2[1]*par2[1])) * -1;
-  //
-  double func2_err2=0;
-  for (ipar=0;ipar<npar2;++ipar) {
-    for (jpar=0;jpar<npar2;++jpar) {
-      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
-    }
-  }
-  func2_err = TMath::Sqrt(func2_err2);
-  //
-  func2_err_exp = deriv2[0] * epar2[0];
-  //
-  double func1_err_0 = deriv[2]*epar[2]; // m(tau)
-  double func1_err_1 = deriv[1]*epar[1]; // m(mu)
-  double func1_err_2 = deriv[0]*epar[0]; // m(e)
-  //
-  func2_err_0 = deriv2[1] * func1_err_0; 
-  func2_err_1 = deriv2[1] * func1_err_1; 
-  func2_err_2 = deriv2[1] * func1_err_2;
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
+double func_Be_from_Bmu(double *x, double * par){
+  double dummy = x[0];
+  double fmufe = func_fmufe(x,par);
+  double Be_from_Bmu = par[P_Bmu]/fmufe;
+  return Be_from_Bmu;
 }
 // ----------------------------------------------------------------------
-double func_Be_from_Bh(double *x, double * par){
+double func_Be_from_Bpi(double *x, double * par){
   double dummy = x[0];
 /*
 (gtau/gmu)^2 = (tau_mu/tau_tau) * (m_mu/m_tau)^5 * Be * [f(m_e^2/m_mu^2) / f(m_e^2/m_tau^2)] * (Delta_mu_W/Delta_tau_W) * (Delta_mu_gamma/Delta_tau_gamma)
@@ -649,399 +476,139 @@ double func_Be_from_Bh(double *x, double * par){
  Be = (BR_TauToPiNu / BR_PimToMumNu) * (tau_pi/tau_mu) * (2*m_pi *m_tau^2/m_mu^3) * (1/.pow((1-pow(m_pim/m_tau,2))/(1-pow(m_mu/m_pim,2)),2)) *  (1/Delta_TauToPim_over_PimToMu)
       * 1/[f(m_e^2/m_mu^2) / f(m_e^2/m_tau^2)] * 1/[(Delta_mu_W/Delta_tau_W)] * 1/[(Delta_mu_gamma/Delta_tau_gamma)]
 */
-  double ratio1 = (par[4]*par[4]) / (par[2]*par[2]);
+  double ratio1 = (par[P_m_e]*par[P_m_e]) / (par[P_m_tau]*par[P_m_tau]);
   double value_etau = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
-  double ratio2 = (par[4]*par[4]) / (par[3]*par[3]);
+  double ratio2 = (par[P_m_e]*par[P_m_e]) / (par[P_m_mu]*par[P_m_mu]);
   double value_emu  = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
   // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
-  double Delta_tau = 1 + 0.6 * (par[2]*par[2]) / (par[9]*par[9]);
-  double Delta_mu  = 1 + 0.6 * (par[3]*par[3]) / (par[9]*par[9]);
+  double Delta_tau = 1 + 0.6 * (par[P_m_tau]*par[P_m_tau]) / (par[P_m_W]*par[P_m_W]);
+  double Delta_mu  = 1 + 0.6 * (par[P_m_mu]*par[P_m_mu]) / (par[P_m_W]*par[P_m_W]);
   return 
-    ( par[0] / par[1] ) * 
-    ( par[7] / par[6] ) *
-    (( 2 * par[5] * TMath::Power(par[2],2)) / TMath::Power(par[3],3)) *
-    TMath::Power((1-TMath::Power(par[3]/par[5],2))/(1-TMath::Power(par[5]/par[2],2)),2) *
-    (1/par[8]) *
+    ( par[P_Bpi] / par[P_BR_PimToMumNu] ) * 
+    ( par[P_tau_pim] / par[P_tau_mu] ) *
+    (( 2 * par[P_m_pim] * TMath::Power(par[P_m_tau],2)) / TMath::Power(par[P_m_mu],3)) *
+    TMath::Power((1-TMath::Power(par[P_m_mu]/par[P_m_pim],2))/(1-TMath::Power(par[P_m_pim]/par[P_m_tau],2)),2) *
+    (1/par[P_Delta_TauToPim_over_PimToMu]) *
     (value_etau/value_emu) *
     (Delta_tau/Delta_mu) *
-    (par[11]/par[10]);
+    (par[P_Delta_tau_gamma]/par[P_Delta_mu_gamma]);
 }
 // ----------------------------------------------------------------------
-void calc_Be_from_Bh(const double BR_TauToHmNu, const double e_BR_TauToHmNu,
-		     const double BR_HmToMumNu, const double e_BR_HmToMumNu,
-		     const double m_h, const double e_m_h,
-		     const double tau_h, const double e_tau_h,
-		     const double Delta_TauToHm_over_HmToMu, const double e_Delta_TauToHm_over_HmToMu,
-		     double& func1_val, double& func1_err, 
-		     double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, 
-		     double& func1_err_4, double& func1_err_5, double& func1_err_6, double& func1_err_7,
-		     double& func1_err_8, double& func1_err_9, double& func1_err_10){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=12;
-  //                           0               1               2        3       4      5      6         7        8                            9      10                11
-  const double par[npar]  = {  BR_TauToHmNu,   BR_HmToMumNu,   m_tau,   m_mu,   m_e,   m_h,   tau_mu,   tau_h,   Delta_TauToHm_over_HmToMu,   m_W,   Delta_mu_gamma,   Delta_tau_gamma};
-  const double epar[npar] = {e_BR_TauToHmNu, e_BR_HmToMumNu, e_m_tau, e_m_mu, e_m_e, e_m_h, e_tau_mu, e_tau_h, e_Delta_TauToHm_over_HmToMu, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[10][11] = CovarianceMatrix[11][10] = epar[10]*epar[11];
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Be_from_Bh, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
- double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_0 = deriv[2] * epar[2]; // m(tau)
-  func1_err_1 = deriv[3] * epar[3]; // m(mu) 
-  func1_err_2 = deriv[4] * epar[4]; // m(e) 
-  func1_err_3 = deriv[5] * epar[5]; // m(h)
-  func1_err_4 = deriv[6] * epar[6]; // tau(mu)
-  func1_err_5 = deriv[7] * epar[7]; // tau(h)
-  func1_err_6 = deriv[0] * epar[0]; // BR(tau)
-  func1_err_7 = deriv[1] * epar[1]; // BR(h)
-  func1_err_8 = deriv[8] * epar[8]; // Delta
-  func1_err_9 = deriv[9] * epar[9]; // m(W)
-  func1_err_10= TMath::Sqrt(deriv[10] * CovarianceMatrix[10][10] * deriv[10] +
-			    deriv[11] * CovarianceMatrix[11][11] * deriv[11] +
-			    2*deriv[10]*CovarianceMatrix[10][11] * deriv[11]); // alpha
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
+double func_Be_from_BK(double *x, double * par){
+  double dummy = x[0];
+/*
+(gtau/gmu)^2 = (tau_mu/tau_tau) * (m_mu/m_tau)^5 * Be * [f(m_e^2/m_mu^2) / f(m_e^2/m_tau^2)] * (Delta_mu_W/Delta_tau_W) * (Delta_mu_gamma/Delta_tau_gamma)
+(gtau/gmu)^2 = (BR_TauToKNu / BR_KmToMumNu) * (tau_K/tau_tau) * (2*m_K*m_mu^2/m_tau^3) * (1/.pow((1-pow(M_K/M_Tau,2))/(1-pow(M_Mu/M_K,2)),2)) *  (1/Delta_K)
+=>
+ Be = (BR_TauToKNu / BR_KmToMumNu) * (tau_K/tau_mu) * (2*m_K *m_tau^2/m_mu^3) * (1/.pow((1-pow(m_km/m_tau,2))/(1-pow(m_mu/m_km,2)),2)) *  (1/Delta_TauToKm_over_KmToMu)
+      * 1/[f(m_e^2/m_mu^2) / f(m_e^2/m_tau^2)] * 1/[(Delta_mu_W/Delta_tau_W)] * 1/[(Delta_mu_gamma/Delta_tau_gamma)]
+*/
+  double ratio1 = (par[P_m_e]*par[P_m_e]) / (par[P_m_tau]*par[P_m_tau]);
+  double value_etau = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
+  double ratio2 = (par[P_m_e]*par[P_m_e]) / (par[P_m_mu]*par[P_m_mu]);
+  double value_emu  = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
+  // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
+  double Delta_tau = 1 + 0.6 * (par[P_m_tau]*par[P_m_tau]) / (par[P_m_W]*par[P_m_W]);
+  double Delta_mu  = 1 + 0.6 * (par[P_m_mu]*par[P_m_mu]) / (par[P_m_W]*par[P_m_W]);
+  return 
+    ( par[P_BK] / par[P_BR_KmToMumNu] ) * 
+    ( par[P_tau_km] / par[P_tau_mu] ) *
+    (( 2 * par[P_m_km] * TMath::Power(par[P_m_tau],2)) / TMath::Power(par[P_m_mu],3)) *
+    TMath::Power((1-TMath::Power(par[P_m_mu]/par[P_m_km],2))/(1-TMath::Power(par[P_m_km]/par[P_m_tau],2)),2) *
+    (1/par[P_Delta_TauToKm_over_KmToMu]) *
+    (value_etau/value_emu) *
+    (Delta_tau/Delta_mu) *
+    (par[P_Delta_tau_gamma]/par[P_Delta_mu_gamma]);
 }
 // ----------------------------------------------------------------------
-double func_gtaugmu_h(double *x, double * par){
+double func_Bpi_univ(double *x, double * par){
   double dummy = x[0];
   // E. Gamiz, et. al., http://arxiv.org/pdf/0709.0282v1 Eqn 4.1
   // BR_TauToPiNu = BR_PimToMumNu * pow(M_Tau,3) * Tau_Tau * 1./(2 * pow(M_Mu,2) * M_Pi * Tau_Pi) * pow((1-pow(M_Pi/M_Tau,2))/(1-pow(M_Mu/M_Pi,2)),2) * Delta_Pi ;
   return 
-    par[0] * 
-    TMath::Power(par[1],3) * 
-    par[2] * 
-    1/(2 * TMath::Power(par[3],2) * par[4] * par[5]) * 
-    TMath::Power((1-TMath::Power(par[4]/par[1],2))/(1-TMath::Power(par[3]/par[4],2)),2) * 
-    par[6];
+    par[P_BR_PimToMumNu] * 
+    TMath::Power(par[P_m_tau],3) * 
+    par[P_tau_tau] * 
+    1/(2 * TMath::Power(par[P_m_mu],2) * par[P_m_pim] * par[P_tau_pim]) * 
+    TMath::Power((1-TMath::Power(par[P_m_pim]/par[P_m_tau],2))/(1-TMath::Power(par[P_m_mu]/par[P_m_pim],2)),2) * 
+    par[P_Delta_TauToPim_over_PimToMu];
 }
 // ----------------------------------------------------------------------
-void calc_gtaugmu_h(const double BR_TauToHmNu, const double e_BR_TauToHmNu,
-		    const double BR_HmToMumNu, const double e_BR_HmToMumNu,
-		    const double m_h, const double e_m_h,
-		    const double tau_h, const double e_tau_h,
-		    const double Delta_TauToHm_over_HmToMu, const double e_Delta_TauToHm_over_HmToMu,
-		    double& func1_val, double& func1_err, 
-		    double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, 
-		    double& func1_err_4, double& func1_err_5, double& func1_err_6, 
-		    double& func2_val, double& func2_err, double& func2_err_exp, 
-		    double& func2_err_0, double& func2_err_1, double& func2_err_2, double& func2_err_3,
-		    double& func2_err_4, double& func2_err_5, double& func2_err_6){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=7;
-  const double par[npar]  = {  BR_HmToMumNu,   m_tau,   tau_tau,   m_mu,   m_h,   tau_h,   Delta_TauToHm_over_HmToMu};
-  const double epar[npar] = {e_BR_HmToMumNu, e_m_tau, e_tau_tau, e_m_mu, e_m_h, e_tau_h, e_Delta_TauToHm_over_HmToMu};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_gtaugmu_h, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
- double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  const int npar2=2;
-  const double par2[npar2]  = {  BR_TauToHmNu,func1_val};
-  const double epar2[npar2] = {e_BR_TauToHmNu,func1_err};
-  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
-  //
-  func2_val = TMath::Sqrt(par2[0]/par2[1]);
-  //
-  double deriv2[2];
-  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
-  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
-  //
-  double func2_err2=0;
-  for (ipar=0;ipar<npar2;++ipar) {
-    for (jpar=0;jpar<npar2;++jpar) {
-      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
-    }
-  }
-  func2_err     = TMath::Sqrt(func2_err2);
-  //
-  func2_err_exp = deriv2[0] * epar2[0];
-  //
-  func1_err_0 = deriv[1] * epar[1]; // m(tau)
-  func1_err_1 = deriv[3] * epar[3]; // m(mu) 
-  func1_err_2 = deriv[4] * epar[4]; // m(h)
-  func1_err_3 = deriv[2] * epar[2]; // tau(tau)
-  func1_err_4 = deriv[5] * epar[5]; // tau(h)
-  func1_err_5 = deriv[0] * epar[0]; // BR(h)
-  func1_err_6 = deriv[6] * epar[6]; // Delta
-  //
-  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
-  func2_err_1 = deriv2[1] * func1_err_1; // m(mu) 
-  func2_err_2 = deriv2[1] * func1_err_2; // m(h)
-  func2_err_3 = deriv2[1] * func1_err_3; // tau(tau)
-  func2_err_4 = deriv2[1] * func1_err_4; // tau(h)
-  func2_err_5 = deriv2[1] * func1_err_5; // BR(h)
-  func2_err_6 = deriv2[1] * func1_err_6; // Delta
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
+double func_gtaugmu_pi(double *x, double * par){
+  double dummy = x[0];
+  double Bpi_univ = func_Bpi_univ(x,par);
+  double gtaugmu_pi = sqrt(par[P_Bpi]/Bpi_univ);
+  return gtaugmu_pi;
+}
+// ----------------------------------------------------------------------
+double func_BK_univ(double *x, double * par){
+  double dummy = x[0];
+  // E. Gamiz, et. al., http://arxiv.org/pdf/0709.0282v1 Eqn 4.1
+  // BR_TauToPiNu = BR_PimToMumNu * pow(M_Tau,3) * Tau_Tau * 1./(2 * pow(M_Mu,2) * M_Pi * Tau_Pi) * pow((1-pow(M_Pi/M_Tau,2))/(1-pow(M_Mu/M_Pi,2)),2) * Delta_Pi ;
+  return 
+    par[P_BR_KmToMumNu] * 
+    TMath::Power(par[P_m_tau],3) * 
+    par[P_tau_tau] * 
+    1/(2 * TMath::Power(par[P_m_mu],2) * par[P_m_km] * par[P_tau_km]) * 
+    TMath::Power((1-TMath::Power(par[P_m_km]/par[P_m_tau],2))/(1-TMath::Power(par[P_m_mu]/par[P_m_km],2)),2) * 
+    par[P_Delta_TauToKm_over_KmToMu];
+}
+// ----------------------------------------------------------------------
+double func_gtaugmu_K(double *x, double * par){
+  double dummy = x[0];
+  double BK_univ = func_BK_univ(x,par);
+  double gtaugmu_K = sqrt(par[P_BK]/BK_univ);
+  return gtaugmu_K;
 }
 // ----------------------------------------------------------------------
 double func_Be_from_tautau(double *x, double * par){
   // double Be_from_tautau = (phspf_mebymtau/phspf_mebymmu) * TMath::Power((m_tau/m_mu),5) * (tau_tau/tau_mu) * (Delta_tau_W/Delta_mu_W) * (Delta_tau_gamma/Delta_mu_gamma);
   double dummy = x[0];
-  double ratio1 = (par[0]*par[0]) / (par[2]*par[2]);
+  double ratio1 = (par[P_m_e]*par[P_m_e]) / (par[P_m_tau]*par[P_m_tau]);
   double value1 = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
-  double ratio2 = (par[0]*par[0]) / (par[1]*par[1]);
+  double ratio2 = (par[P_m_e]*par[P_m_e]) / (par[P_m_mu]*par[P_m_mu]);
   double value2 = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
   // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
-  double Delta_1 = 1 + 0.6 * (par[1]*par[1]) / (par[5] * par[5]);
-  double Delta_2 = 1 + 0.6 * (par[2]*par[2]) / (par[5] * par[5]);
-  return (value1/value2) * TMath::Power(par[2]/par[1],5) * (par[4]/par[3]) * (Delta_2/Delta_1) * (par[7]/par[6]) ;
+  double Delta_mu_gamma = 1 + 0.6 * (par[P_m_mu]*par[P_m_mu]) / (par[P_m_W] * par[P_m_W]);
+  double Delta_tau_gamma = 1 + 0.6 * (par[P_m_tau]*par[P_m_tau]) / (par[P_m_W] * par[P_m_W]);
+  return 
+    (value1/value2) * 
+    TMath::Power(par[P_m_tau]/par[P_m_mu],5) * 
+    (par[P_tau_tau]/par[P_tau_mu]) * 
+    (Delta_tau_gamma/Delta_mu_gamma) * 
+    (par[P_Delta_tau_gamma]/par[P_Delta_mu_gamma]) ;
 }
 // ----------------------------------------------------------------------
-void calc_gtaugmu_e(const double Be, const double e_Be,
-		    double& func1_val, double& func1_err, 
-		    double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, double& func1_err_4, double& func1_err_5, double& func1_err_6,
-		    double& func2_val, double& func2_err, double& func2_err_exp, 
-		    double& func2_err_0, double& func2_err_1, double& func2_err_2, double& func2_err_3, double& func2_err_4, double& func2_err_5, double& func2_err_6){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=8;
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Be_from_tautau, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  const int npar2=2;
-  const double par2[npar2] =  {  Be,func1_val};
-  const double epar2[npar2] = {e_Be,func1_err};
-  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
-  //
-  func2_val = TMath::Sqrt(par2[0]/par2[1]);
-  //
-  double deriv2[2];
-  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
-  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
-  //
-  double func2_err2=0;
-  for (ipar=0;ipar<npar2;++ipar) {
-    for (jpar=0;jpar<npar2;++jpar) {
-      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
-    }
-  }
-  func2_err = TMath::Sqrt(func2_err2);
-  //
-  func2_err_exp = deriv2[0] * epar2[0];
-  //
-  func1_err_0 = deriv[2] * epar[2]; // m(tau)
-  func1_err_1 = deriv[1] * epar[1]; // m(mu)
-  func1_err_2 = deriv[0] * epar[0]; // m(e)
-  func1_err_3 = deriv[4] * epar[4]; // tau(tau)
-  func1_err_4 = deriv[3] * epar[3]; // tau(mu)
-  func1_err_5 = deriv[5] * epar[5]; // m(W)
-  func1_err_6 = TMath::Sqrt(deriv[6] * CovarianceMatrix[6][6] * deriv[6] + deriv[7] * CovarianceMatrix[7][7] * deriv[7] + 2 * deriv[6] * CovarianceMatrix[6][7] * deriv[7]); // alpha
-  //
-  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
-  func2_err_1 = deriv2[1] * func1_err_1; // m(mu)
-  func2_err_2 = deriv2[1] * func1_err_2; // m(e)
-  func2_err_3 = deriv2[1] * func1_err_3; // tau(tau)
-  func2_err_4 = deriv2[1] * func1_err_4; // tau(mu)
-  func2_err_5 = deriv2[1] * func1_err_5; // m(W)
-  func2_err_6 = deriv2[1] * func1_err_6; // alpha
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
+double func_gtaugmu_e(double *x, double * par){
+  double dummy = x[0];
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  double gtaugmu_e = sqrt(par[P_Be]/Be_from_tautau);
+  return gtaugmu_e;
 }
 // ----------------------------------------------------------------------
-double func_Bmu_from_tautau(double* x, double* par){
+double func_Bmu_from_tautau(double *x, double * par){
   // double Bmu_from_tautau = (phspf_mmubymtau/phspf_mebymmu) * TMath::Power((m_tau/m_mu),5) * (tau_tau/tau_mu) * (Delta_tau_W/Delta_mu_W) * (Delta_tau_gamma/Delta_mu_gamma);
   double dummy = x[0];
-  double ratio1 = (par[1]*par[1]) / (par[2]*par[2]);
+  double ratio1 = (par[P_m_mu]*par[P_m_mu]) / (par[P_m_tau]*par[P_m_tau]);
   double value1 = 1 - (8 * ratio1) + (8 * ratio1 * ratio1 * ratio1) - (ratio1 * ratio1 * ratio1 * ratio1) - (12 * ratio1 * ratio1 * log(ratio1));
-  double ratio2 = (par[0]*par[0]) / (par[1]*par[1]);
+  double ratio2 = (par[P_m_e]*par[P_m_e]) / (par[P_m_mu]*par[P_m_mu]);
   double value2 = 1 - (8 * ratio2) + (8 * ratio2 * ratio2 * ratio2) - (ratio2 * ratio2 * ratio2 * ratio2) - (12 * ratio2 * ratio2 * log(ratio2));
   // Delta^L_W = 1 + 3/5* m_L^2/M_W^2
-  double Delta_1 = 1 + 0.6 * (par[1]*par[1]) / (par[5] * par[5]);
-  double Delta_2 = 1 + 0.6 * (par[2]*par[2]) / (par[5] * par[5]);
-  return (value1/value2) * TMath::Power(par[2]/par[1],5) * (par[4]/par[3]) * (Delta_2/Delta_1) * (par[7]/par[6]) ;
+  double Delta_mu_gamma = 1 + 0.6 * (par[P_m_mu]*par[P_m_mu]) / (par[P_m_W] * par[P_m_W]);
+  double Delta_tau_gamma = 1 + 0.6 * (par[P_m_tau]*par[P_m_tau]) / (par[P_m_W] * par[P_m_W]);
+  return 
+    (value1/value2) * 
+    TMath::Power(par[P_m_tau]/par[P_m_mu],5) * 
+    (par[P_tau_tau]/par[P_tau_mu]) * 
+    (Delta_tau_gamma/Delta_mu_gamma) * 
+    (par[P_Delta_tau_gamma]/par[P_Delta_mu_gamma]) ;
 }
 // ----------------------------------------------------------------------
-void calc_gtauge_mu(const double Bmu, const double e_Bmu,
-		    double& func1_val, double& func1_err, 
-		    double& func1_err_0, double& func1_err_1, double& func1_err_2, double& func1_err_3, double& func1_err_4, double& func1_err_5, double& func1_err_6,
-		    double& func2_val, double& func2_err, double& func2_err_exp, 
-		    double& func2_err_0, double& func2_err_1, double& func2_err_2, double& func2_err_3, double& func2_err_4, double& func2_err_5, double& func2_err_6){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=8;
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Bmu_from_tautau, xdummy[0], xdummy[0]+1, npar);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  const int npar2=2;
-  const double par2[npar2] =  {  Bmu,func1_val};
-  const double epar2[npar2] = {e_Bmu,func1_err};
-  double CovarianceMatrix2[npar2][npar2] = {{epar2[0]*epar2[0],0},{0,epar2[1]*epar2[1]}};
-  //
-  func2_val = TMath::Sqrt(par2[0]/par2[1]);
-  //
-  double deriv2[2];
-  deriv2[0] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (1/par2[1]);
-  deriv2[1] = (1/(2*TMath::Sqrt(par2[0]/par2[1]))) * (par2[0]/(par2[1]*par2[1])) * -1;
-  //
-  double func2_err2=0;
-  for (ipar=0;ipar<npar2;++ipar) {
-    for (jpar=0;jpar<npar2;++jpar) {
-      func2_err2 += deriv2[ipar] * CovarianceMatrix2[ipar][jpar] * deriv2[jpar]; 
-    }
-  }
-  func2_err = TMath::Sqrt(func2_err2);
-  //
-  func2_err_exp = deriv2[0] * epar2[0];
-  //
-  func1_err_0 = deriv[2] * epar[2]; // m(tau)
-  func1_err_1 = deriv[1] * epar[1]; // m(mu)
-  func1_err_2 = deriv[0] * epar[0]; // m(e)
-  func1_err_3 = deriv[4] * epar[4]; // tau(tau)
-  func1_err_4 = deriv[3] * epar[3]; // tau(mu)
-  func1_err_5 = deriv[5] * epar[5]; // m(W)
-  func1_err_6 = TMath::Sqrt(deriv[6] * CovarianceMatrix[6][6] * deriv[6] + deriv[7] * CovarianceMatrix[7][7] * deriv[7] + 2 * deriv[6] * CovarianceMatrix[6][7] * deriv[7]); // alpha
-  //
-  func2_err_0 = deriv2[1] * func1_err_0; // m(tau)
-  func2_err_1 = deriv2[1] * func1_err_1; // m(mu)
-  func2_err_2 = deriv2[1] * func1_err_2; // m(e)
-  func2_err_3 = deriv2[1] * func1_err_3; // tau(tau)
-  func2_err_4 = deriv2[1] * func1_err_4; // tau(mu)
-  func2_err_5 = deriv2[1] * func1_err_5; // m(W)
-  func2_err_6 = deriv2[1] * func1_err_6; // alpha
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
+double func_gtauge_mu(double *x, double * par){
+  double dummy = x[0];
+  double Bmu_from_tautau = func_Bmu_from_tautau(x,par);
+  double gtauge_mu = sqrt(par[P_Bmu]/Bmu_from_tautau);
+  return gtauge_mu;
 }
 // ----------------------------------------------------------------------
 void calc_average(const int n, const double* value, double** covmat, double& average, double& error, double* wt){
@@ -1099,503 +666,111 @@ double func_Bhadrons(double* x, double* par) {
   //
   double dummy=x[0];
   //
-  double Be = par[8];
-  double Bmu = par[9];
+  double Be = par[P_Be];
+  double Be_from_Bmu = func_Be_from_Bmu(x,par);
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  double Be_from_Bpi = func_Be_from_Bpi(x,par);
+  double Be_from_BK = func_Be_from_BK(x,par);
+  //
+  //  cout << "Be = " << Be << " Be_from_Bmu = " << Be_from_Bmu << " Be_from_tautau = " << Be_from_tautau << " Be_from_Bpi = " << Be_from_Bpi << " Be_from_BK  = " << Be_from_BK  << endl;
+  double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
+  //cout << Be_univ_wt[0] << " " << Be_univ_wt[0]  << " " << Be_univ_wt[2] << " " << Be_univ_wt[3] << " " << Be_univ_wt[4]  << endl;
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
   double fmufe = func_fmufe(x,par);
-  double Be_from_Bmu = Bmu/fmufe;
-  double Be_from_tautau = func_Be_from_tautau(x,par);
-  //
-  double Be_univ_wt[3] = {par[10], par[11], par[12]};
-  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
-  //
   double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  //cout << "fmufe = " << fmufe << " Be_univ = " << Be_univ << " Bhadrons = " << Bhadrons << endl;
   return Bhadrons;
-}
-// ----------------------------------------------------------------------
-void calc_Bhadrons(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
-		   double& func1_val, double& func1_err, double* func1_err_comp){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=13;
-  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2]};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Bhadrons, xdummy[0], xdummy[0]+1, npar+1);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
-  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
-  func1_err_comp[2] = deriv[8] * epar[8]; // Be
-  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
-  func1_err_comp[4] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][9]*deriv[9]); // Be,Bmu
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
 }
 // ----------------------------------------------------------------------
 double func_Rhadrons(double* x, double* par){
   //
   double dummy=x[0];
   //
-  double Be = par[8];
-  double Bmu = par[9];
+  double Be = par[P_Be];
+  double Be_from_Bmu = func_Be_from_Bmu(x,par);
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  double Be_from_Bpi = func_Be_from_Bpi(x,par);
+  double Be_from_BK = func_Be_from_BK(x,par);
+  //
+  double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
   double fmufe = func_fmufe(x,par);
-  double Be_from_Bmu = Bmu/fmufe;
-  double Be_from_tautau = func_Be_from_tautau(x,par);
-  //
-  double Be_univ_wt[3] = { par[10], par[11], par[12] };
-  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
-  //
   double Bhadrons = 1. - (1. + fmufe) * Be_univ;
   double Rhadrons = Bhadrons/Be_univ;
   return Rhadrons;
 }
 // ----------------------------------------------------------------------
-void calc_Rhadrons(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
-		   double& func1_val, double& func1_err, double* func1_err_comp){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=13;
-  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2]};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Rhadrons, xdummy[0], xdummy[0]+1, npar+1);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
-  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
-  func1_err_comp[2] = deriv[8] * epar[8]; // Be
-  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
-  func1_err_comp[4] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][9]*deriv[9]); // Be,Bmu
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
-}
-// ----------------------------------------------------------------------
 double func_Rstrange(double* x, double* par){
   double dummy=x[0];
   //
-  double Be = par[8];
-  double Bmu = par[9];
-  //
-  double fmufe = func_fmufe(x,par);
-  double Be_from_Bmu = Bmu/fmufe;
+  double Be = par[P_Be];
+  double Be_from_Bmu = func_Be_from_Bmu(x,par);
   double Be_from_tautau = func_Be_from_tautau(x,par);
+  double Be_from_Bpi = func_Be_from_Bpi(x,par);
+  double Be_from_BK = func_Be_from_BK(x,par);
   //
-  double Be_univ_wt[3] = { par[10], par[11], par[12] };
-  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
-  double Bstrange = par[13];
+  double Bstrange = par[P_Bs];
   double Rstrange = Bstrange/Be_univ;
   return Rstrange;
-}
-// ----------------------------------------------------------------------
-void calc_Rstrange(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
-		   const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
-		   double& func1_val, double& func1_err, double* func1_err_comp){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=14;
-  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
-  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
-  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Rstrange, xdummy[0], xdummy[0]+1, npar+1);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
-  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
-  func1_err_comp[2] = deriv[8] * epar[8]; // Be
-  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
-  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
-  func1_err_comp[5] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + deriv[13]*CovarianceMatrix[13][13]*deriv[13] +
-				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][13]*deriv[13]);// Be,Bmu,Bstrange
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
 }
 // ----------------------------------------------------------------------
 double func_Rnonstrange(double* x, double* par){
   double dummy=x[0];
   //
-  double Be = par[8];
-  double Bmu = par[9];
+  double Be = par[P_Be];
+  double Be_from_Bmu = func_Be_from_Bmu(x,par);
+  double Be_from_tautau = func_Be_from_tautau(x,par);
+  double Be_from_Bpi = func_Be_from_Bpi(x,par);
+  double Be_from_BK = func_Be_from_BK(x,par);
+  //
+  double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
   double fmufe = func_fmufe(x,par);
-  double Be_from_Bmu = Bmu/fmufe;
-  double Be_from_tautau = func_Be_from_tautau(x,par);
-  //
-  double Be_univ_wt[3] = { par[10], par[11], par[12] };
-  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
-  //
   double Bhadrons = 1. - (1. + fmufe) * Be_univ;
   double Rhadrons = Bhadrons/Be_univ;
   //
-  double Bstrange = par[13];
+  double Bstrange = par[P_Bs];
   double Rstrange = Bstrange/Be_univ;
   //
   double Rnonstrange = Rhadrons - Rstrange;
   return Rnonstrange;
 }
 // ----------------------------------------------------------------------
-void calc_Rnonstrange(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
-		      const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
-		      double& func1_val, double& func1_err, double* func1_err_comp){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=14;
-  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
-  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
-  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Rnonstrange, xdummy[0], xdummy[0]+1, npar+1);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
-  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
-  func1_err_comp[2] = deriv[8] * epar[8]; // Be
-  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
-  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
-  func1_err_comp[5] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + deriv[13]*CovarianceMatrix[13][13]*deriv[13] +
-				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][13]*deriv[13]);// Be,Bmu,Bstrange
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
-}
-// ----------------------------------------------------------------------
 double func_Vus_strange(double* x, double* par){
   double dummy=x[0];
   //
-  double Be = par[8];
-  double Bmu = par[9];
+  double Be = par[P_Be];
+  double Bmu = par[P_Bmu];
+  double Btotal = par[P_Ball];
   //
   double fmufe = func_fmufe(x,par);
   double Be_from_Bmu = Bmu/fmufe;
   double Be_from_tautau = func_Be_from_tautau(x,par);
+  double Be_from_Bpi = func_Be_from_Bpi(x,par);
+  double Be_from_BK = func_Be_from_BK(x,par);
   //
-  double Be_univ_wt[3] = { par[10], par[11], par[12] };
-  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
+  double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
+  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
-  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Bhadrons = Btotal - (1. + fmufe) * Be_univ; 
   double Rhadrons = Bhadrons/Be_univ;
   //
-  double Bstrange = par[13];
+  double Bstrange = par[P_Bs];
   double Rstrange = Bstrange/Be_univ;
   //
   double Rnonstrange = Rhadrons - Rstrange;
   //
-  double Vud = par[14];
-  double Delta_Rth = par[15];
+  double Vud = par[P_Vud];
+  double Delta_Rth = par[P_Delta_Rth];
   //
   double Vus_strange = TMath::Sqrt(Rstrange / ( Rnonstrange/(Vud*Vud) - Delta_Rth));
   return Vus_strange;
-}
-// ----------------------------------------------------------------------
-void calc_Vus_strange(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
-		      const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
-		      double& func1_val, double& func1_err, double* func1_err_comp){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=16;
-  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13          14     15
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange,   Vud,   Delta_Rth};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange, e_Vud, e_Delta_Rth};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
-  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
-  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Vus_strange, xdummy[0], xdummy[0]+1, npar+1);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
-  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
-  func1_err_comp[2] = deriv[8] * epar[8]; // Be
-  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
-  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
-  func1_err_comp[5] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + deriv[13]*CovarianceMatrix[13][13]*deriv[13] +
-				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][13]*deriv[13]);// Be,Bmu,Bstrange
-  func1_err_comp[6] = deriv[14]* epar[14]; // Vud
-  func1_err_comp[7] = deriv[15]* epar[15]; // ms
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
-}
-// ----------------------------------------------------------------------
-double func_Vus_uncons(double* x, double* par){
-  double dummy=x[0];
-  //
-  double Be = par[8];
-  double Bmu = par[9];
-  double Btotal = par[16];
-  //
-  double fmufe = func_fmufe(x,par);
-  double Be_from_Bmu = Bmu/fmufe;
-  double Be_from_tautau = func_Be_from_tautau(x,par);
-  //
-  double Be_univ_wt[3] = { par[10], par[11], par[12] };
-  double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau;
-  //
-  double Bhadrons = Btotal - (1. + fmufe) * Be_univ;
-  double Rhadrons = Bhadrons/Be_univ;
-  //
-  double Bstrange = par[13];
-  double Rstrange = Bstrange/Be_univ;
-  //
-  double Rnonstrange = Rhadrons - Rstrange;
-  //
-  double Vud = par[14];
-  double Delta_Rth = par[15];
-  //
-  double Vus_strange = TMath::Sqrt(Rstrange / ( Rnonstrange/(Vud*Vud) - Delta_Rth));
-  return Vus_strange;
-}
-// ----------------------------------------------------------------------
-void calc_Vus_uncons(const double Be, const double e_Be, const double Bmu, const double e_Bmu, const double cov_Be_Bmu, double* Be_univ_wt,
-			     const double Bstrange, const double e_Bstrange, const double cov_Be_Bstrange, const double cov_Bmu_Bstrange,
-			     const double Btotal, const double e_Btotal, const double cov_Be_Btotal, const double cov_Bmu_Btotal, const double cov_Bstrange_Btotal,
-			     double& func1_val, double& func1_err, double* func1_err_comp){
-  //
-  int ipar,jpar;
-  //
-  const double eps=1e-2;
-  //
-  const int npar=17;
-  //                           0      1       2        3         4          5      6                 7                  8     9    10             11             12              13          14     15           16 
-  const double par[npar]  = {  m_e,   m_mu,   m_tau,   tau_mu,   tau_tau,   m_W,   Delta_mu_gamma,   Delta_tau_gamma,   Be,   Bmu, Be_univ_wt[0], Be_univ_wt[1], Be_univ_wt[2],  Bstrange,   Vud,   Delta_Rth,   Btotal};
-  const double epar[npar] = {e_m_e, e_m_mu, e_m_tau, e_tau_mu, e_tau_tau, e_m_W, e_Delta_mu_gamma, e_Delta_tau_gamma, e_Be, e_Bmu, 0,             0,             0,            e_Bstrange, e_Vud, e_Delta_Rth, e_Btotal};
-  //
-  double** CovarianceMatrix = new double*[npar]; for (ipar=0;ipar<npar;++ipar) CovarianceMatrix[ipar] = new double[npar];
-  //
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      if (ipar==jpar) {
-	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
-      } else {
-	CovarianceMatrix[ipar][jpar] = 0;
-      }
-    }
-  }
-  //
-  CovarianceMatrix[6][7] = CovarianceMatrix[7][6] = epar[6]*epar[7];
-  CovarianceMatrix[8][9] = CovarianceMatrix[9][8] = cov_Be_Bmu;
-  CovarianceMatrix[8][13]= CovarianceMatrix[13][8]= cov_Be_Bstrange;
-  CovarianceMatrix[9][13]= CovarianceMatrix[13][9]= cov_Bmu_Bstrange;
-  CovarianceMatrix[8][16]= CovarianceMatrix[16][8]= cov_Be_Btotal;
-  CovarianceMatrix[9][16]= CovarianceMatrix[16][9]= cov_Bmu_Btotal;
-  CovarianceMatrix[13][16]=CovarianceMatrix[16][13]=cov_Bstrange_Btotal;
-  //
-  const double xdummy[1]={0};
-  TF1* func1 = new TF1 ("func1", func_Vus_uncons, xdummy[0], xdummy[0]+1, npar+1);
-  func1->InitArgs(xdummy,par);
-  func1_val = func1->EvalPar(xdummy,par);
-  //
-  double* deriv = new double[npar];
-  for (ipar=0;ipar<npar;++ipar) {
-    deriv[ipar] = (epar[ipar]) ? MyGradientPar(func1,ipar,npar,xdummy,par,epar,eps) : 0;
-  }
-  //
-  double func1_err2=0;
-  for (ipar=0;ipar<npar;++ipar) {
-    for (jpar=0;jpar<npar;++jpar) {
-      func1_err2 += deriv[ipar] * CovarianceMatrix[ipar][jpar] * deriv[jpar]; 
-    }
-  }
-  func1_err = TMath::Sqrt(func1_err2);
-  //
-  func1_err_comp[0] = deriv[4] * epar[4]; // tautau
-  func1_err_comp[1] = deriv[2] * epar[2]; // mtau
-  func1_err_comp[2] = deriv[8] * epar[8]; // Be
-  func1_err_comp[3] = deriv[9] * epar[9]; // Bmu
-  func1_err_comp[4] = deriv[13]* epar[13];// Bstrange
-  func1_err_comp[5] = deriv[16]* epar[16];// Btotal
-  func1_err_comp[6] = TMath::Sqrt(deriv[8]*CovarianceMatrix[8][8]*deriv[8] + deriv[9]*CovarianceMatrix[9][9]*deriv[9] + 
-				  deriv[13]*CovarianceMatrix[13][13]*deriv[13] + deriv[16]*CovarianceMatrix[16][16]*deriv[16] +
-				  2*deriv[8]*CovarianceMatrix[8][9]*deriv[9] + 2*deriv[8]*CovarianceMatrix[8][13]*deriv[13] + 2*deriv[8]*CovarianceMatrix[8][16]*deriv[16] +
-				  2*deriv[9]*CovarianceMatrix[9][13]*deriv[13] + 2*deriv[9]*CovarianceMatrix[9][16]*deriv[16] +
-				  2*deriv[13]*CovarianceMatrix[13][16]*deriv[16]);// Be,Bmu,Bstrange,Btotal
-  func1_err_comp[7] = deriv[14]* epar[14]; // Vud
-  func1_err_comp[8] = deriv[15]* epar[15]; // ms
-  //
-  delete [] CovarianceMatrix;
-  delete [] deriv;
-  delete func1;
 }
 // ----------------------------------------------------------------------
 void calc_results(FILE* thisfile, 
@@ -1605,397 +780,571 @@ void calc_results(FILE* thisfile,
   //
   // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> mu- nubar(mu) nu(tau))
   //
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA3].data(),100.*basecorr_fit[M_GAMMA5][M_GAMMA3]);
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA5].data(),basetitle[M_GAMMA3].data(),
+	  100.*NodeErrorMatrix[N_GAMMA5][N_GAMMA3]/sqrt(NodeErrorMatrix[N_GAMMA5][N_GAMMA5]*NodeErrorMatrix[N_GAMMA3][N_GAMMA3]));
   //
   // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> pi- nu(tau))
   //
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA9].data(),100.*basecorr_fit[M_GAMMA5][M_GAMMA9]);
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA5].data(),basetitle[M_GAMMA9].data(),
+	  100.*NodeErrorMatrix[N_GAMMA5][N_GAMMA9]/sqrt(NodeErrorMatrix[N_GAMMA5][N_GAMMA5]*NodeErrorMatrix[N_GAMMA9][N_GAMMA9]));
   //
   // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> K- nu(tau))
   //
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA5].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit[M_GAMMA5][M_GAMMA10]);
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA5].data(),basetitle[M_GAMMA10].data(),
+	  100.*NodeErrorMatrix[N_GAMMA5][N_GAMMA10]/sqrt(NodeErrorMatrix[N_GAMMA5][N_GAMMA5]*NodeErrorMatrix[N_GAMMA10][N_GAMMA10]));
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> strange)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA5].data(),"strange nu(tau)",
+	  100.*NodeErrorMatrix[N_GAMMA5][N_GAMMA110]/sqrt(NodeErrorMatrix[N_GAMMA5][N_GAMMA5]*NodeErrorMatrix[N_GAMMA110][N_GAMMA110]));
+  //
+  // Correlation between G(tau- --> e- nubar(e) nu(tau)) and G(tau- --> all)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA5].data(),"sum_of_all_decays",
+	  (NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]==0) ? 0 : 
+	  100.*NodeErrorMatrix[N_GAMMA5][N_GAMMAALL]/sqrt(NodeErrorMatrix[N_GAMMA5][N_GAMMA5]*NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]));
+  //
+  // Correlation between G(tau- --> mu- nubar(mu) nu(tau)) and G(tau- --> pi- nu(tau))
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA3].data(),basetitle[M_GAMMA9].data(),
+	  100.*NodeErrorMatrix[N_GAMMA3][N_GAMMA9]/sqrt(NodeErrorMatrix[N_GAMMA3][N_GAMMA3]*NodeErrorMatrix[N_GAMMA9][N_GAMMA9]));
+  //
+  // Correlation between G(tau- --> mu- nubar(mu) nu(tau)) and G(tau- --> K- nu(tau))
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA3].data(),basetitle[M_GAMMA10].data(),
+	  100.*NodeErrorMatrix[N_GAMMA3][N_GAMMA10]/sqrt(NodeErrorMatrix[N_GAMMA3][N_GAMMA3]*NodeErrorMatrix[N_GAMMA10][N_GAMMA10]));
+  //
+  // Correlation between G(tau- --> mu- nubar(mu) nu(tau)) and G(tau- --> strange)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA3].data(),"strange nu(tau)",
+	  100.*NodeErrorMatrix[N_GAMMA3][N_GAMMA110]/sqrt(NodeErrorMatrix[N_GAMMA3][N_GAMMA3]*NodeErrorMatrix[N_GAMMA110][N_GAMMA110]));
+  //
+  // Correlation between G(tau- --> mu- nubar(mu) nu(tau)) and G(tau- --> all)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA3].data(),"sum_of_all_decays",
+	  (NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]==0) ? 0 : 
+	  100.*NodeErrorMatrix[N_GAMMA3][N_GAMMAALL]/sqrt(NodeErrorMatrix[N_GAMMA3][N_GAMMA3]*NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]));
   //
   // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> K- nu(tau))
   //
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA9].data(),basetitle[M_GAMMA10].data(),100.*basecorr_fit[M_GAMMA9][M_GAMMA10]);
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA9].data(),basetitle[M_GAMMA10].data(),
+	  100.*NodeErrorMatrix[N_GAMMA9][N_GAMMA10]/sqrt(NodeErrorMatrix[N_GAMMA9][N_GAMMA9]*NodeErrorMatrix[N_GAMMA10][N_GAMMA10]));
+  //
+  // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> strange)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA9].data(),"strange nu(tau)",
+	  100.*NodeErrorMatrix[N_GAMMA9][N_GAMMA110]/sqrt(NodeErrorMatrix[N_GAMMA9][N_GAMMA9]*NodeErrorMatrix[N_GAMMA110][N_GAMMA110]));
+  //
+  // Correlation between G(tau- --> pi- nu(tau)) and G(tau- --> all)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA9].data(),"sum_of_all_decays",
+	  (NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]==0) ? 0 : 
+	  100.*NodeErrorMatrix[N_GAMMA9][N_GAMMAALL]/sqrt(NodeErrorMatrix[N_GAMMA9][N_GAMMA9]*NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]));
+  //
+  // Correlation between G(tau- --> K- nu(tau)) and G(tau- --> strange)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA10].data(),"strange nu(tau)",
+	  100.*NodeErrorMatrix[N_GAMMA10][N_GAMMA110]/sqrt(NodeErrorMatrix[N_GAMMA10][N_GAMMA10]*NodeErrorMatrix[N_GAMMA110][N_GAMMA110]));
+  //
+  // Correlation between G(tau- --> K- nu(tau)) and G(tau- --> all)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA10].data(),"sum_of_all_decays",
+	  (NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]==0) ? 0 : 
+	  100.*NodeErrorMatrix[N_GAMMA10][N_GAMMAALL]/sqrt(NodeErrorMatrix[N_GAMMA10][N_GAMMA10]*NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]));
+  //
+  // Correlation between G(tau- --> strange) and G(tau- --> all)
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  "strange nu(tau)","sum_of_all_decays",
+	  (NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]==0) ? 0 : 
+	  100.*NodeErrorMatrix[N_GAMMA110][N_GAMMAALL]/sqrt(NodeErrorMatrix[N_GAMMA110][N_GAMMA110]*NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]));
   //
   // Correlation between G(tau- --> eta K- pi0 nu(tau)) and G(tau- --> eta pi- Kbar0 nu(tau))
   //
 #if defined USING_NBASE39 || defined USING_NBASE40
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",basetitle[M_GAMMA130].data(),basetitle[M_GAMMA132].data(),100.*basecorr_fit[M_GAMMA130][M_GAMMA132]);
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n",
+	  basetitle[M_GAMMA130].data(),basetitle[M_GAMMA132].data(),
+	  100.*NodeErrorMatrix[N_GAMMA130][N_GAMMA132]/sqrt(NodeErrorMatrix[N_GAMMA130][N_GAMMA130]*NodeErrorMatrix[N_GAMMA132][N_GAMMA132]));
 #endif
+  //
+  const double   Be = basevalue_fit[M_GAMMA5];
+  const double e_Be = baseerror_fit[M_GAMMA5];
+  const double   Bmu = basevalue_fit[M_GAMMA3];
+  const double e_Bmu = baseerror_fit[M_GAMMA3];
+  const double   BmuBe = NodeValue[N_GAMMA3BY5];
+  const double e_BmuBe = NodeError[N_GAMMA3BY5];
+  const double   Bpi = basevalue_fit[M_GAMMA9];
+  const double e_Bpi = baseerror_fit[M_GAMMA9];
+  const double   BK  = basevalue_fit[M_GAMMA10];
+  const double e_BK  = baseerror_fit[M_GAMMA10];
+  const double   BKBpi = NodeValue[N_GAMMA10BY9];
+  const double e_BKBpi = NodeError[N_GAMMA10BY9];
+  double Bstrange = NodeValue[N_GAMMA110];
+  double e_Bstrange = NodeError[N_GAMMA110];
+  double Btotal = NodeValue[N_GAMMAALL];
+  double e_Btotal = NodeError[N_GAMMAALL];
+  //
+  int ipar,jpar;
+  //
+  double *par  = new double [N_ParNames];
+  double *epar = new double [N_ParNames];
+  //
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    if (ipar<N_GlobalPar) { 
+      par[ipar] = GlobalPar[ipar]; 
+      epar[ipar] = e_GlobalPar[ipar];
+    } else {
+      par[ipar] = 0;
+      epar[ipar] = 0;
+    }
+  }
+  //
+  par[P_Be]    = NodeValue[N_GAMMA5];     epar[P_Be]    = sqrt(NodeErrorMatrix[N_GAMMA5][N_GAMMA5]);
+  par[P_Bmu]   = NodeValue[N_GAMMA3];     epar[P_Bmu]   = sqrt(NodeErrorMatrix[N_GAMMA3][N_GAMMA3]);
+  par[P_Bpi]   = NodeValue[N_GAMMA9];     epar[P_Bpi]   = sqrt(NodeErrorMatrix[N_GAMMA9][N_GAMMA9]);
+  par[P_BK]    = NodeValue[N_GAMMA10];    epar[P_BK]    = sqrt(NodeErrorMatrix[N_GAMMA10][N_GAMMA10]);
+  par[P_BmuBe] = NodeValue[N_GAMMA3BY5];  epar[P_BmuBe] = sqrt(NodeErrorMatrix[N_GAMMA3BY5][N_GAMMA3BY5]);
+  par[P_BKBpi] = NodeValue[N_GAMMA10BY9]; epar[P_BKBpi] = sqrt(NodeErrorMatrix[N_GAMMA10BY9][N_GAMMA10BY9]);
+  par[P_Bs]    = NodeValue[N_GAMMA110];   epar[P_Bs]    = sqrt(NodeErrorMatrix[N_GAMMA110][N_GAMMA110]);
+  par[P_Ball]  = NodeValue[N_GAMMAALL];   epar[P_Ball]  = sqrt(NodeErrorMatrix[N_GAMMAALL][N_GAMMAALL]);
+  //  cout << par[P_Ball] << " " <<  epar[P_Ball]  << endl;
+  //
+  double** CovarianceMatrix = new double*[N_ParNames]; for (ipar=0;ipar<N_ParNames;++ipar) CovarianceMatrix[ipar] = new double[N_ParNames];
+  //
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    for (jpar=0;jpar<N_ParNames;++jpar) {
+      if (ipar==jpar) {
+	CovarianceMatrix[ipar][ipar] = epar[ipar]*epar[ipar];
+      } else {
+	CovarianceMatrix[ipar][jpar] = 0;
+      }
+    }
+  }
+  //
+  CovarianceMatrix[P_Delta_mu_gamma][P_Delta_tau_gamma] = CovarianceMatrix[P_Delta_tau_gamma][P_Delta_mu_gamma] = epar[P_Delta_mu_gamma]*epar[P_Delta_tau_gamma];
+  //
+  CovarianceMatrix[P_Be][P_Bmu]   = CovarianceMatrix[P_Bmu]  [P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMA3];
+  CovarianceMatrix[P_Be][P_Bpi]   = CovarianceMatrix[P_Bpi]  [P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMA9];
+  CovarianceMatrix[P_Be][P_BK]    = CovarianceMatrix[P_BK]   [P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMA10];
+  CovarianceMatrix[P_Be][P_BmuBe] = CovarianceMatrix[P_BmuBe][P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMA3BY5];
+  CovarianceMatrix[P_Be][P_BKBpi] = CovarianceMatrix[P_BKBpi][P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMA10BY9];
+  CovarianceMatrix[P_Be][P_Bs]    = CovarianceMatrix[P_Bs]   [P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMA110];
+  CovarianceMatrix[P_Be][P_Ball]  = CovarianceMatrix[P_Ball] [P_Be] = NodeErrorMatrix[N_GAMMA5][N_GAMMAALL];
+  //
+  CovarianceMatrix[P_Bmu][P_Bpi]   = CovarianceMatrix[P_Bpi]  [P_Bmu] = NodeErrorMatrix[N_GAMMA3][N_GAMMA9];
+  CovarianceMatrix[P_Bmu][P_BK]    = CovarianceMatrix[P_BK]   [P_Bmu] = NodeErrorMatrix[N_GAMMA3][N_GAMMA10];
+  CovarianceMatrix[P_Bmu][P_BmuBe] = CovarianceMatrix[P_BmuBe][P_Bmu] = NodeErrorMatrix[N_GAMMA3][N_GAMMA3BY5];
+  CovarianceMatrix[P_Bmu][P_BKBpi] = CovarianceMatrix[P_BKBpi][P_Bmu] = NodeErrorMatrix[N_GAMMA3][N_GAMMA10BY9];
+  CovarianceMatrix[P_Bmu][P_Bs]    = CovarianceMatrix[P_Bs]   [P_Bmu] = NodeErrorMatrix[N_GAMMA3][N_GAMMA110];
+  CovarianceMatrix[P_Bmu][P_Ball]  = CovarianceMatrix[P_Ball] [P_Bmu] = NodeErrorMatrix[N_GAMMA3][N_GAMMAALL];
+  //
+  CovarianceMatrix[P_Bpi][P_BK]    = CovarianceMatrix[P_BK]   [P_Bpi] = NodeErrorMatrix[N_GAMMA9][N_GAMMA10];
+  CovarianceMatrix[P_Bpi][P_BmuBe] = CovarianceMatrix[P_BmuBe][P_Bpi] = NodeErrorMatrix[N_GAMMA9][N_GAMMA3BY5];
+  CovarianceMatrix[P_Bpi][P_BKBpi] = CovarianceMatrix[P_BKBpi][P_Bpi] = NodeErrorMatrix[N_GAMMA9][N_GAMMA10BY9];
+  CovarianceMatrix[P_Bpi][P_Bs]    = CovarianceMatrix[P_Bs]   [P_Bpi] = NodeErrorMatrix[N_GAMMA9][N_GAMMA110];
+  CovarianceMatrix[P_Bpi][P_Ball]  = CovarianceMatrix[P_Ball] [P_Bpi] = NodeErrorMatrix[N_GAMMA9][N_GAMMAALL];
+  //
+  CovarianceMatrix[P_BK][P_BmuBe]  = CovarianceMatrix[P_BmuBe][P_BK] = NodeErrorMatrix[N_GAMMA10][N_GAMMA3BY5];
+  CovarianceMatrix[P_BK][P_BKBpi]  = CovarianceMatrix[P_BKBpi][P_BK] = NodeErrorMatrix[N_GAMMA10][N_GAMMA10BY9];
+  CovarianceMatrix[P_BK][P_Bs]     = CovarianceMatrix[P_Bs]   [P_BK] = NodeErrorMatrix[N_GAMMA10][N_GAMMA110];
+  CovarianceMatrix[P_BK][P_Ball]   = CovarianceMatrix[P_Ball] [P_BK] = NodeErrorMatrix[N_GAMMA10][N_GAMMAALL];
+  //
+  CovarianceMatrix[P_BmuBe][P_BKBpi] = CovarianceMatrix[P_BKBpi][P_BmuBe] = NodeErrorMatrix[N_GAMMA3BY5][N_GAMMA10BY9];
+  CovarianceMatrix[P_BmuBe][P_Bs]    = CovarianceMatrix[P_Bs]   [P_BmuBe] = NodeErrorMatrix[N_GAMMA3BY5][N_GAMMA110];
+  CovarianceMatrix[P_BmuBe][P_Ball]  = CovarianceMatrix[P_Ball] [P_BmuBe] = NodeErrorMatrix[N_GAMMA3BY5][N_GAMMAALL];
+  //
+  CovarianceMatrix[P_BKBpi][P_Bs]   = CovarianceMatrix[P_Bs]  [P_BKBpi] = NodeErrorMatrix[N_GAMMA10BY9][N_GAMMA110];
+  CovarianceMatrix[P_BKBpi][P_Ball] = CovarianceMatrix[P_Ball][P_BKBpi] = NodeErrorMatrix[N_GAMMA10BY9][N_GAMMAALL];
+  //
+  CovarianceMatrix[P_Bs][P_Ball] = CovarianceMatrix[P_Ball][P_Bs] = NodeErrorMatrix[N_GAMMA110][N_GAMMAALL];
+  //
+  double** CorrelationMatrix = new double*[N_ParNames]; for (ipar=0;ipar<N_ParNames;++ipar) CorrelationMatrix[ipar] = new double[N_ParNames];
+  //
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    for (jpar=0;jpar<N_ParNames;++jpar) {
+      if (ipar==jpar) {
+	CorrelationMatrix[ipar][jpar] = 1;
+      } else if (CovarianceMatrix[ipar][ipar] == 0 || CovarianceMatrix[jpar][jpar] == 0) { 
+	CorrelationMatrix[ipar][jpar] = 0;
+      } else {
+	CorrelationMatrix[ipar][jpar] = CovarianceMatrix[ipar][jpar]/sqrt(CovarianceMatrix[ipar][ipar]*CovarianceMatrix[jpar][jpar]);
+      }
+    }
+  }
   //
   // Gamma3by5 : G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
   //
   fprintf(thisfile,"\n");
-  const double   BmuBe = NodeValue[N_GAMMA3BY5];
-  const double e_BmuBe = NodeError[N_GAMMA3BY5];
-  double   fmufe = 0;
-  double e_fmufe = 0;
-  double e0_fmufe = 0;
-  double e1_fmufe = 0;
-  double e2_fmufe = 0;
-  double   gmuge = 0;
-  double e_gmuge = 0;
-  double e0_gmuge = 0;
-  double e1_gmuge = 0;
-  double e2_gmuge = 0;
-  double experr_gmuge = 0;
-  calc_gmuge(BmuBe,e_BmuBe,
-	     fmufe,e_fmufe,e0_fmufe,e1_fmufe,e2_fmufe,
-	     gmuge,e_gmuge,experr_gmuge,e0_gmuge,e1_gmuge,e2_gmuge);
   fprintf(thisfile,"%s = %6.4f +- %6.4f\n","B(tau- -> mu- nub nu)/B(tau- -> e- nub nu)", BmuBe, e_BmuBe);
-  fprintf(thisfile,"%s = %8.6f +- %8.6f [Total] +- %8.6f [mtau)] +- %8.6f [mmu] +- %8.6f [me]\n",
-	  "f(m_mu^2/m_tau^2)/f(m_e^2/m_tau^2)", fmufe, e_fmufe, e0_fmufe, e1_fmufe, e2_fmufe);
+  //
+  double fmufe=0;
+  double e_fmufe=0;
+  double*ecomp_fmufe = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_fmufe, fmufe, e_fmufe, ecomp_fmufe);
+  //
+  double gmuge=0;
+  double e_gmuge=0;
+  double*ecomp_gmuge = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_gmuge, gmuge, e_gmuge, ecomp_gmuge);
+  fprintf(thisfile,"%s = %8.6f +- %8.6f [Total] +- %8.6f [mtau] +- %8.6f [mmu] +- %8.6f [me]\n",
+	  "f(m_mu^2/m_tau^2)/f(m_e^2/m_tau^2)", fmufe, e_fmufe, ecomp_fmufe[P_m_tau], ecomp_fmufe[P_m_mu], ecomp_fmufe[P_m_e]);
+  //  for (ipar=0;ipar<N_ParNames;++ipar) {
+  //    cout << ipar << " " << CovarianceMatrix[ipar][ipar] << " " << CorrelationMatrix[ipar][ipar]  << " " << ecomp_fmufe[ipar] << " " << endl;
+  //  }
+  //
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me]\n",
-	  "gmu/ge", gmuge, e_gmuge, experr_gmuge, e0_gmuge, e1_gmuge, e2_gmuge);
+	  "gmu/ge", gmuge, e_gmuge, ecomp_gmuge[P_BmuBe], ecomp_gmuge[P_m_tau],  ecomp_gmuge[P_m_mu], ecomp_gmuge[P_m_e]);
   //
   // Gamma9: G(tau- --> pi- nu(tau))
   //
   fprintf(thisfile,"\n");
-  const double Bpi = basevalue_fit[M_GAMMA9];
-  const double e_Bpi = baseerror_fit[M_GAMMA9];
-  double Bpi_exp = 0;
-  double e_Bpi_exp = 0;
-  double e0_Bpi_exp = 0;
-  double e1_Bpi_exp = 0;
-  double e2_Bpi_exp = 0;
-  double e3_Bpi_exp = 0;
-  double e4_Bpi_exp = 0;
-  double e5_Bpi_exp = 0;
-  double e6_Bpi_exp = 0;
-  double gtaugmu_pi = 0;
-  double e_gtaugmu_pi = 0;
-  double e0_gtaugmu_pi = 0;
-  double e1_gtaugmu_pi = 0;
-  double e2_gtaugmu_pi = 0;
-  double e3_gtaugmu_pi = 0;
-  double e4_gtaugmu_pi = 0;
-  double e5_gtaugmu_pi = 0;
-  double e6_gtaugmu_pi = 0;
-  double experr_gtaugmu_pi = 0;
-  //
-  calc_gtaugmu_h(Bpi, e_Bpi, 
-		 BR_PimToMumNu, e_BR_PimToMumNu,
-		 m_pim, e_m_pim,
-		 tau_pim, e_tau_pim,
-		 Delta_TauToPim_over_PimToMu, e_Delta_TauToPim_over_PimToMu,
-		 Bpi_exp, e_Bpi_exp, e0_Bpi_exp, e1_Bpi_exp, e2_Bpi_exp, e3_Bpi_exp, e4_Bpi_exp, e5_Bpi_exp, e6_Bpi_exp,
-		 gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
-		 e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> pi- nu)", 100.*Bpi, 100.*e_Bpi);
+  //
+  double Bpi_univ = 0;
+  double e_Bpi_univ = 0;
+  double*ecomp_Bpi_univ = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Bpi_univ, Bpi_univ, e_Bpi_univ, ecomp_Bpi_univ);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
 	  "B(tau- -> pi- nu)_univ", 
-	  100.*Bpi_exp, 100.*e_Bpi_exp,
-	  100.*e0_Bpi_exp, 100.*e1_Bpi_exp, 100.*e2_Bpi_exp, 100.*e3_Bpi_exp, 100.*e4_Bpi_exp, 100.*e5_Bpi_exp, 100.*e6_Bpi_exp);
+	  100.*Bpi_univ, 100.*e_Bpi_univ,
+	  100.*ecomp_Bpi_univ[P_m_tau], 
+	  100.*ecomp_Bpi_univ[P_m_mu], 
+	  100.*ecomp_Bpi_univ[P_m_pim], 
+	  100.*ecomp_Bpi_univ[P_tau_tau], 
+	  100.*ecomp_Bpi_univ[P_tau_pim], 
+	  100.*ecomp_Bpi_univ[P_BR_PimToMumNu], 
+	  100.*ecomp_Bpi_univ[P_Delta_TauToPim_over_PimToMu]); 
+  //
+  double gtaugmu_pi = 0;
+  double e_gtaugmu_pi = 0;
+  double*ecomp_gtaugmu_pi = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_gtaugmu_pi, gtaugmu_pi, e_gtaugmu_pi, ecomp_gtaugmu_pi);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
-	  "(gtau/gmu)_pi", gtaugmu_pi, e_gtaugmu_pi, experr_gtaugmu_pi,
-	  e0_gtaugmu_pi, e1_gtaugmu_pi, e2_gtaugmu_pi, e3_gtaugmu_pi, e4_gtaugmu_pi, e5_gtaugmu_pi, e6_gtaugmu_pi);
+	  "(gtau/gmu)_pi", 
+	  gtaugmu_pi, 
+	  e_gtaugmu_pi, 
+	  ecomp_gtaugmu_pi[P_Bpi],
+	  ecomp_gtaugmu_pi[P_m_tau],
+	  ecomp_gtaugmu_pi[P_m_mu],
+	  ecomp_gtaugmu_pi[P_m_pim],
+	  ecomp_gtaugmu_pi[P_tau_tau],
+	  ecomp_gtaugmu_pi[P_tau_pim],
+	  ecomp_gtaugmu_pi[P_BR_PimToMumNu],
+	  ecomp_gtaugmu_pi[P_Delta_TauToPim_over_PimToMu]);
   //
   // Gamma10: G(tau- --> K- nu(tau))
   //
   fprintf(thisfile,"\n");
-  const double BK = basevalue_fit[M_GAMMA10];
-  const double e_BK = baseerror_fit[M_GAMMA10];
-  double BK_exp = 0;
-  double e_BK_exp = 0;
-  double e0_BK_exp = 0;
-  double e1_BK_exp = 0;
-  double e2_BK_exp = 0;
-  double e3_BK_exp = 0;
-  double e4_BK_exp = 0;
-  double e5_BK_exp = 0;
-  double e6_BK_exp = 0;
-  double gtaugmu_K = 0;
-  double e_gtaugmu_K = 0;
-  double e0_gtaugmu_K = 0;
-  double e1_gtaugmu_K = 0;
-  double e2_gtaugmu_K = 0;
-  double e3_gtaugmu_K = 0;
-  double e4_gtaugmu_K = 0;
-  double e5_gtaugmu_K = 0;
-  double e6_gtaugmu_K = 0;
-  double experr_gtaugmu_K = 0;
-  //
-  calc_gtaugmu_h(BK, e_BK,
-		 BR_KmToMumNu, e_BR_KmToMumNu,
-		 m_km, e_m_km,
-		 tau_km, e_tau_km,
-		 Delta_TauToKm_over_KmToMu, e_Delta_TauToKm_over_KmToMu,
-		 BK_exp, e_BK_exp, e0_BK_exp, e1_BK_exp, e2_BK_exp, e3_BK_exp, e4_BK_exp, e5_BK_exp, e6_BK_exp,
-		 gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
-		 e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> K- nu)", 100.*BK, 100.*e_BK);
+  //
+  double BK_univ = 0;
+  double e_BK_univ = 0;
+  double*ecomp_BK_univ = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_BK_univ, BK_univ, e_BK_univ, ecomp_BK_univ);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [mh] +- %6.3f [tautau] +- %6.3f [tauh] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
 	  "B(tau- -> K- nu)_univ", 
-	  100.*BK_exp, 100.*e_BK_exp,
-	  100.*e0_BK_exp, 100.*e1_BK_exp, 100.*e2_BK_exp, 100.*e3_BK_exp, 100.*e4_BK_exp, 100.*e5_BK_exp, 100.*e6_BK_exp);
+	  100.*BK_univ, 100.*e_BK_univ,
+	  100.*ecomp_BK_univ[P_m_tau], 
+	  100.*ecomp_BK_univ[P_m_mu], 
+	  100.*ecomp_BK_univ[P_m_km], 
+	  100.*ecomp_BK_univ[P_tau_tau], 
+	  100.*ecomp_BK_univ[P_tau_km], 
+	  100.*ecomp_BK_univ[P_BR_KmToMumNu], 
+	  100.*ecomp_BK_univ[P_Delta_TauToKm_over_KmToMu]); 
+  //
+  double gtaugmu_K = 0;
+  double e_gtaugmu_K = 0;
+  double*ecomp_gtaugmu_K = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_gtaugmu_K, gtaugmu_K, e_gtaugmu_K, ecomp_gtaugmu_K);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [mh] +- %6.4f [tautau] +- %6.4f [tauh] +- %6.4f [Bh] +- %6.4f [Delta]\n",
-	  "(gtau/gmu)_K", gtaugmu_K, e_gtaugmu_K, experr_gtaugmu_K,
-	  e0_gtaugmu_K, e1_gtaugmu_K, e2_gtaugmu_K, e3_gtaugmu_K, e4_gtaugmu_K, e5_gtaugmu_K, e6_gtaugmu_K);
+	  "(gtau/gmu)_K",
+	  gtaugmu_K,
+	  e_gtaugmu_K, 
+	  ecomp_gtaugmu_K[P_BK],
+	  ecomp_gtaugmu_K[P_m_tau],
+	  ecomp_gtaugmu_K[P_m_mu],
+	  ecomp_gtaugmu_K[P_m_km],
+	  ecomp_gtaugmu_K[P_tau_tau],
+	  ecomp_gtaugmu_K[P_tau_km],
+	  ecomp_gtaugmu_K[P_BR_KmToMumNu],
+	  ecomp_gtaugmu_K[P_Delta_TauToKm_over_KmToMu]);
   //
   // Average of (gtau/gmu)_pi and (gtau/gmu)_K
   //
   fprintf(thisfile,"\n");
+  //
   double gtaugmu_pik[2] = {gtaugmu_pi,gtaugmu_K};
-  double** cov_gtaumu_pik = new double*[2]; for (i=0;i<2;++i) cov_gtaumu_pik[i] = new double[2];
-  cov_gtaumu_pik[0][0] = e_gtaugmu_pi * e_gtaugmu_pi;
-  cov_gtaumu_pik[1][1] = e_gtaugmu_K  * e_gtaugmu_K;
-  cov_gtaumu_pik[0][1] = cov_gtaumu_pik[1][0]
-    = basecorr_fit[M_GAMMA9][M_GAMMA10] * experr_gtaugmu_pi * experr_gtaugmu_K 
-    + e0_gtaugmu_pi * e0_gtaugmu_K + e1_gtaugmu_pi * e1_gtaugmu_K + e3_gtaugmu_pi * e3_gtaugmu_K;
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_K ",100.*cov_gtaumu_pik[0][1]/TMath::Sqrt(cov_gtaumu_pik[0][0]*cov_gtaumu_pik[1][1]));
+  double** cov_gtaugmu_pik = new double*[2]; for (i=0;i<2;++i) cov_gtaugmu_pik[i] = new double[2];
+  cov_gtaugmu_pik[0][0] = cov_gtaugmu_pik[1][1] = cov_gtaugmu_pik[0][1] = cov_gtaugmu_pik[1][0] = 0;
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    for (jpar=0;jpar<N_ParNames;++jpar) {
+      cov_gtaugmu_pik[0][0]+= ecomp_gtaugmu_pi[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_pi[jpar];
+      cov_gtaugmu_pik[0][1]+= ecomp_gtaugmu_pi[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_K [jpar];
+      cov_gtaugmu_pik[1][0]+= ecomp_gtaugmu_K [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_pi[jpar];
+      cov_gtaugmu_pik[1][1]+= ecomp_gtaugmu_K [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_K [jpar];
+    }
+  }
+  //
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_K",100.*cov_gtaugmu_pik[0][1]/TMath::Sqrt(cov_gtaugmu_pik[0][0]*cov_gtaugmu_pik[1][1]));
   double gtaugmu_pik_ave = 0;
   double gtaugmu_pik_err = 0;
   double gtaugmu_pik_wt[2] = {0,0};
-  calc_average(2,gtaugmu_pik,cov_gtaumu_pik,gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt);
+  calc_average(2,gtaugmu_pik,cov_gtaugmu_pik,gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt);
   fprintf(thisfile,"%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K]\n",
 	       "<(gtau/gmu)_pik>",gtaugmu_pik_ave,gtaugmu_pik_err,gtaugmu_pik_wt[0],gtaugmu_pik_wt[1]);
+  
   //
   // gtau/gmu = sqrt(Be/Be_from_tautau)
   //
   fprintf(thisfile,"\n");
-  double Be = basevalue_fit[M_GAMMA5];
-  double e_Be = baseerror_fit[M_GAMMA5];
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> e- nub nu)", 100.*Be, 100.*e_Be);
+  //
   double Be_from_tautau = 0;
   double e_Be_from_tautau = 0;
-  double e0_Be_from_tautau = 0;
-  double e1_Be_from_tautau = 0;
-  double e2_Be_from_tautau = 0;
-  double e3_Be_from_tautau = 0;
-  double e4_Be_from_tautau = 0;
-  double e5_Be_from_tautau = 0;
-  double e6_Be_from_tautau = 0;
+  double*ecomp_Be_from_tautau = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Be_from_tautau, Be_from_tautau, e_Be_from_tautau, ecomp_Be_from_tautau);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu]) %%\n",
+	  "B(tau- -> e- nub nu)_tautau ",
+	  100.*Be_from_tautau, 
+	  100.*e_Be_from_tautau,
+	  100.*ecomp_Be_from_tautau[P_m_tau],
+	  100.*ecomp_Be_from_tautau[P_m_mu],
+	  100.*ecomp_Be_from_tautau[P_m_e],
+	  100.*ecomp_Be_from_tautau[P_tau_tau],
+	  100.*ecomp_Be_from_tautau[P_tau_mu]);
+  //
   double gtaugmu_e = 0;
   double e_gtaugmu_e = 0;
-  double e0_gtaugmu_e = 0;
-  double e1_gtaugmu_e = 0;
-  double e2_gtaugmu_e = 0;
-  double e3_gtaugmu_e = 0;
-  double e4_gtaugmu_e = 0;
-  double e5_gtaugmu_e = 0;
-  double e6_gtaugmu_e = 0;
-  double experr_gtaugmu_e = 0;
-  calc_gtaugmu_e(Be, e_Be,
-		 Be_from_tautau, e_Be_from_tautau,
-		 e0_Be_from_tautau, e1_Be_from_tautau, e2_Be_from_tautau, e3_Be_from_tautau, e4_Be_from_tautau, e5_Be_from_tautau, e6_Be_from_tautau, 
-		 gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
-		 e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> e- nub nu)", 100.*Be, 100.*e_Be);
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
-	       "B(tau- -> e- nub nu)_tautau ",
-	       100.*Be_from_tautau, 100.*e_Be_from_tautau,
-	       100.*e0_Be_from_tautau, 100.*e1_Be_from_tautau, 100.*e2_Be_from_tautau, 
-	       100.*e3_Be_from_tautau, 100.*e4_Be_from_tautau, 100.*e5_Be_from_tautau, 100.*e6_Be_from_tautau);
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mumu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
-	  "(gtau/gmu)_e", gtaugmu_e, e_gtaugmu_e, experr_gtaugmu_e,
-	  e0_gtaugmu_e, e1_gtaugmu_e, e2_gtaugmu_e, e3_gtaugmu_e, e4_gtaugmu_e, e5_gtaugmu_e, e6_gtaugmu_e);
+  double*ecomp_gtaugmu_e = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_gtaugmu_e, gtaugmu_e, e_gtaugmu_e, ecomp_gtaugmu_e);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] \n",
+	  "(gtau/gmu)_e", gtaugmu_e, e_gtaugmu_e, 
+	  ecomp_gtaugmu_e[P_Be], 
+	  ecomp_gtaugmu_e[P_m_tau], ecomp_gtaugmu_e[P_m_mu], ecomp_gtaugmu_e[P_m_e],
+	  ecomp_gtaugmu_e[P_tau_tau], ecomp_gtaugmu_e[P_tau_mu]);
   //
   // Average of (gtau/gmu)_pi and (gtau/gmu)_K and (gtau/gmu)_e
   //
   fprintf(thisfile,"\n");
+  //
   double gtaugmu_pike[3] = {gtaugmu_pi,gtaugmu_K,gtaugmu_e};
-  double** cov_gtaumu_pike = new double*[3]; for (i=0;i<3;++i) cov_gtaumu_pike[i] = new double[3];
-  //
-  cov_gtaumu_pike[0][0] = cov_gtaumu_pik[0][0];
-  cov_gtaumu_pike[1][1] = cov_gtaumu_pik[1][1];
-  cov_gtaumu_pike[2][2] = e_gtaugmu_e * e_gtaugmu_e;
-  //
-  cov_gtaumu_pike[0][1] = cov_gtaumu_pik[0][1];
-  cov_gtaumu_pike[1][0] = cov_gtaumu_pik[1][0];
-  //
-  cov_gtaumu_pike[0][2] = cov_gtaumu_pike[2][0]
-    = basecorr_fit[M_GAMMA9][M_GAMMA5] * experr_gtaugmu_pi * experr_gtaugmu_e 
-    + e0_gtaugmu_pi * e0_gtaugmu_e + e1_gtaugmu_pi * e1_gtaugmu_e + e3_gtaugmu_pi * e3_gtaugmu_e;
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_e ",100.*cov_gtaumu_pike[0][2]/TMath::Sqrt(cov_gtaumu_pike[0][0]*cov_gtaumu_pike[2][2]));
-  //
-  cov_gtaumu_pike[1][2] = cov_gtaumu_pike[2][1]
-    = basecorr_fit[M_GAMMA10][M_GAMMA5] * experr_gtaugmu_K * experr_gtaugmu_e 
-    + e0_gtaugmu_K * e0_gtaugmu_e + e1_gtaugmu_K * e1_gtaugmu_e + e3_gtaugmu_K * e3_gtaugmu_e;
-  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_K ","(gtau/gmu)_e ",100.*cov_gtaumu_pike[1][2]/TMath::Sqrt(cov_gtaumu_pike[1][1]*cov_gtaumu_pike[2][2]));
+  double** cov_gtaugmu_pike = new double*[3]; for (i=0;i<3;++i) cov_gtaugmu_pike[i] = new double[3];
+  cov_gtaugmu_pike[0][0] = cov_gtaugmu_pike[1][1] = cov_gtaugmu_pike[2][2] = 0;
+  cov_gtaugmu_pike[0][1] = cov_gtaugmu_pike[1][0] = 0;
+  cov_gtaugmu_pike[0][2] = cov_gtaugmu_pike[2][0] = 0;
+  cov_gtaugmu_pike[1][2] = cov_gtaugmu_pike[2][1] = 0;
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    for (jpar=0;jpar<N_ParNames;++jpar) {
+      cov_gtaugmu_pike[0][0]+= ecomp_gtaugmu_pi[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_pi[jpar];
+      cov_gtaugmu_pike[1][1]+= ecomp_gtaugmu_K [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_K [jpar];
+      cov_gtaugmu_pike[2][2]+= ecomp_gtaugmu_e [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_e [jpar];
+      //
+      cov_gtaugmu_pike[0][1]+= ecomp_gtaugmu_pi[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_K [jpar];
+      cov_gtaugmu_pike[1][0]+= ecomp_gtaugmu_K [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_pi[jpar];
+      //
+      cov_gtaugmu_pike[0][2]+= ecomp_gtaugmu_pi[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_e [jpar];
+      cov_gtaugmu_pike[2][0]+= ecomp_gtaugmu_e [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_pi[jpar];
+      //
+      cov_gtaugmu_pike[1][2]+= ecomp_gtaugmu_K [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_e [jpar];
+      cov_gtaugmu_pike[2][1]+= ecomp_gtaugmu_e [ipar] * CorrelationMatrix[ipar][jpar] * ecomp_gtaugmu_K [jpar];
+    }
+  }
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_pi","(gtau/gmu)_e",100.*cov_gtaugmu_pike[0][2]/TMath::Sqrt(cov_gtaugmu_pike[0][0]*cov_gtaugmu_pike[2][2]));
+  fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","(gtau/gmu)_K ","(gtau/gmu)_e",100.*cov_gtaugmu_pike[1][2]/TMath::Sqrt(cov_gtaugmu_pike[1][1]*cov_gtaugmu_pike[2][2]));
   //
   double gtaugmu_pike_ave = 0;
   double gtaugmu_pike_err = 0;
   double gtaugmu_pike_wt[3] = {0,0,0};
-  calc_average(3,gtaugmu_pike,cov_gtaumu_pike,gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt);
+  calc_average(3,gtaugmu_pike,cov_gtaugmu_pike,gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt);
   fprintf(thisfile,"%s = %6.4f +- %6.4f has weights = %6.4f [pi], %6.4f [K], %6.4f [e]\n",
 	       "<(gtau/gmu)_pike>",gtaugmu_pike_ave,gtaugmu_pike_err,gtaugmu_pike_wt[0],gtaugmu_pike_wt[1],gtaugmu_pike_wt[2]);
+
   //
   // gtau/ge = sqrt(Bmu/Bmu_from_tautau)
   //
   fprintf(thisfile,"\n");
-  double Bmu = basevalue_fit[M_GAMMA3];
-  double e_Bmu = baseerror_fit[M_GAMMA3];
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> mu- nub nu)", 100.*Bmu, 100.*e_Bmu);
+  //
   double Bmu_from_tautau = 0;
   double e_Bmu_from_tautau = 0;
-  double e0_Bmu_from_tautau = 0;
-  double e1_Bmu_from_tautau = 0;
-  double e2_Bmu_from_tautau = 0;
-  double e3_Bmu_from_tautau = 0;
-  double e4_Bmu_from_tautau = 0;
-  double e5_Bmu_from_tautau = 0;
-  double e6_Bmu_from_tautau = 0;
+  double*ecomp_Bmu_from_tautau = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Bmu_from_tautau, Bmu_from_tautau, e_Bmu_from_tautau, ecomp_Bmu_from_tautau);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu]) %%\n",
+	  "B(tau- -> mu- nub nu)_tautau ",
+	  100.*Bmu_from_tautau, 
+	  100.*e_Bmu_from_tautau,
+	  100.*ecomp_Bmu_from_tautau[P_m_tau],
+	  100.*ecomp_Bmu_from_tautau[P_m_mu],
+	  100.*ecomp_Bmu_from_tautau[P_m_e],
+	  100.*ecomp_Bmu_from_tautau[P_tau_tau],
+	  100.*ecomp_Bmu_from_tautau[P_tau_mu]);
+  //
   double gtauge_mu = 0;
   double e_gtauge_mu = 0;
-  double e0_gtauge_mu = 0;
-  double e1_gtauge_mu = 0;
-  double e2_gtauge_mu = 0;
-  double e3_gtauge_mu = 0;
-  double e4_gtauge_mu = 0;
-  double e5_gtauge_mu = 0;
-  double e6_gtauge_mu = 0;
-  double experr_gtauge_mu = 0;
-  calc_gtauge_mu(Bmu, e_Bmu, 
-		 Bmu_from_tautau, e_Bmu_from_tautau,
-		 e0_Bmu_from_tautau, e1_Bmu_from_tautau, e2_Bmu_from_tautau, e3_Bmu_from_tautau, e4_Bmu_from_tautau, e5_Bmu_from_tautau, e6_Bmu_from_tautau, 
-		 gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
-		 e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %%\n","B(tau- -> mu- nub nu)", 100.*Bmu, 100.*e_Bmu);
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me] +- %6.3f [tautau] +- %6.3f [taumu] +- %6.3f [mW] +- %6.3f [alpha]) %%\n",
-	  "B(tau- -> mu- nub nu)_tautau ",
-	  100.*Bmu_from_tautau,100.*e_Bmu_from_tautau,
-	  100.*e0_Bmu_from_tautau, 100.*e1_Bmu_from_tautau, 100.*e2_Bmu_from_tautau, 
-	  100.*e3_Bmu_from_tautau, 100.*e4_Bmu_from_tautau, 100.*e5_Bmu_from_tautau, 100.*e6_Bmu_from_tautau);
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] +- %6.4f [mW] +- %6.4f [alpha]\n",
-	  "(gtau/ge)_mu",gtauge_mu, e_gtauge_mu, experr_gtauge_mu,
-	  e0_gtauge_mu, e1_gtauge_mu, e2_gtauge_mu, e3_gtauge_mu, e4_gtauge_mu, e5_gtauge_mu, e6_gtauge_mu);
+  double*ecomp_gtauge_mu = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_gtauge_mu, gtauge_mu, e_gtauge_mu, ecomp_gtauge_mu);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mmu] +- %6.4f [me] +- %6.4f [tautau] +- %6.4f [taumu] \n",
+	  "(gtau/ge)_mu", gtauge_mu, e_gtauge_mu, 
+	  ecomp_gtauge_mu[P_Bmu], 
+	  ecomp_gtauge_mu[P_m_tau], ecomp_gtauge_mu[P_m_mu], ecomp_gtauge_mu[P_m_e],
+	  ecomp_gtauge_mu[P_tau_tau], ecomp_gtauge_mu[P_tau_mu]);
   //
   // Gamma10: G(tau- --> K- nu(tau))
   //
   fprintf(thisfile,"\n");
+  //
   double   Vus_TauToKmNu = 0;
   double e_Vus_TauToKmNu = 0;
-  double experr_Vus_TauToKmNu = 0;
-  double therr0_Vus_TauToKmNu = 0;
-  double therr1_Vus_TauToKmNu = 0;
-  double therr2_Vus_TauToKmNu = 0;
-  double therr3_Vus_TauToKmNu = 0;
-  calc_Vus_K(BK,e_BK,Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
+  double *ecomp_Vus_TauToKmNu = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Vus_K, Vus_TauToKmNu, e_Vus_TauToKmNu, ecomp_Vus_TauToKmNu);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [tautau] +- %6.4f [mK] +- %6.4f [fK]\n",
-	  "|Vus|_TauToKmNu",Vus_TauToKmNu,e_Vus_TauToKmNu,experr_Vus_TauToKmNu,therr0_Vus_TauToKmNu,therr1_Vus_TauToKmNu,therr2_Vus_TauToKmNu,therr3_Vus_TauToKmNu);
+	  "|Vus|_TauToKmNu",
+	  Vus_TauToKmNu,
+	  e_Vus_TauToKmNu,
+	  ecomp_Vus_TauToKmNu[P_BK],
+	  ecomp_Vus_TauToKmNu[P_m_tau],
+	  ecomp_Vus_TauToKmNu[P_tau_tau],
+	  ecomp_Vus_TauToKmNu[P_m_km],
+	  ecomp_Vus_TauToKmNu[P_fK]);
   //
   // Gamma10by9 : G(K- nu(tau)) / G(pi- nu(tau))
   //
   fprintf(thisfile,"\n");
-  double   BKBpi = NodeValue[N_GAMMA10BY9];
-  double e_BKBpi = NodeError[N_GAMMA10BY9];
   fprintf(thisfile, "%s = %6.4f +- %6.4f\n","G(K- nu(tau)) / G(pi- nu(tau))", BKBpi, e_BKBpi);
+  //
   double   Vus_TauToKmOverPimNu = 0;
   double e_Vus_TauToKmOverPimNu = 0;
-  double experr_Vus_TauToKmOverPimNu = 0;
-  double therr0_Vus_TauToKmOverPimNu = 0;
-  double therr1_Vus_TauToKmOverPimNu = 0;
-  double therr2_Vus_TauToKmOverPimNu = 0;
-  double therr3_Vus_TauToKmOverPimNu = 0;
-  double therr4_Vus_TauToKmOverPimNu = 0;
-  double therr5_Vus_TauToKmOverPimNu = 0;
-  calc_Vus_Kpi(BKBpi,e_BKBpi,Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
-	       therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
-	       therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
+  double *ecomp_Vus_TauToKmOverPimNu = new double[N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Vus_Kpi, Vus_TauToKmOverPimNu, e_Vus_TauToKmOverPimNu, ecomp_Vus_TauToKmOverPimNu);
   fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [Btau] +- %6.4f [mtau] +- %6.4f [mK] +- %6.4f [mpi] +- %6.4f [fK/fpi] +- %6.4f [Vud] +- %6.4f [Delta]\n",
-	  "|Vus|_TauToK/Pi",Vus_TauToKmOverPimNu,e_Vus_TauToKmOverPimNu,experr_Vus_TauToKmOverPimNu,
-	  therr0_Vus_TauToKmOverPimNu,therr1_Vus_TauToKmOverPimNu,therr2_Vus_TauToKmOverPimNu,
-	  therr3_Vus_TauToKmOverPimNu,therr4_Vus_TauToKmOverPimNu,therr5_Vus_TauToKmOverPimNu);
-  
+	  "|Vus|_TauToK/Pi",
+	  Vus_TauToKmOverPimNu,
+	  e_Vus_TauToKmOverPimNu,
+	  ecomp_Vus_TauToKmOverPimNu[P_BKBpi],
+	  ecomp_Vus_TauToKmOverPimNu[P_m_tau],
+          ecomp_Vus_TauToKmOverPimNu[P_m_km],
+          ecomp_Vus_TauToKmOverPimNu[P_m_pim],
+	  ecomp_Vus_TauToKmOverPimNu[P_fKfpi],
+	  ecomp_Vus_TauToKmOverPimNu[P_Vud],
+	  ecomp_Vus_TauToKmOverPimNu[P_Delta_Kpi]);
   //
   // Be from Bmu
   //
   fprintf(thisfile,"\n");
-  double   Be_from_Bmu = 0;
+  //
+  double Be_from_Bmu = 0;
   double e_Be_from_Bmu = 0;
-  double e0_Be_from_Bmu = 0;
-  double e1_Be_from_Bmu = 0;
-  double e2_Be_from_Bmu = 0;
-  double experr_Be_from_Bmu = 0;
-  calc_Be_from_Bmu(Bmu, e_Bmu, 
-		   Be_from_Bmu, e_Be_from_Bmu, experr_Be_from_Bmu, e0_Be_from_Bmu, e1_Be_from_Bmu, e2_Be_from_Bmu);
+  double*ecomp_Be_from_Bmu = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Be_from_Bmu, Be_from_Bmu, e_Be_from_Bmu, ecomp_Be_from_Bmu);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [Btau] +- %6.3f [mtau] +- %6.3f [mmu] +- %6.3f [me]) %%\n",
 	  "B(tau- -> e- nub nu)_Bmu ",
-	  100.*Be_from_Bmu, 100.*e_Be_from_Bmu, 100.*experr_Be_from_Bmu, 100.*e0_Be_from_Bmu, 100.*e1_Be_from_Bmu, 100.*e2_Be_from_Bmu);
+	  100.*Be_from_Bmu, 100.*e_Be_from_Bmu, 100.*ecomp_Be_from_Bmu[P_Bmu], 100.*ecomp_Be_from_Bmu[P_m_tau], 100.*ecomp_Be_from_Bmu[P_m_mu], 100.*ecomp_Be_from_Bmu[P_m_e]);
   //
   // Be from Bpi
   //
   fprintf(thisfile,"\n");
-  double   Be_from_Bpi = 0;
-  double e_Be_from_Bpi = 0;
-  double e0_Be_from_Bpi = 0; //m(tau)
-  double e1_Be_from_Bpi = 0; //m(mu)
-  double e2_Be_from_Bpi = 0; //m(e)
-  double e3_Be_from_Bpi = 0; //m(h)
-  double e4_Be_from_Bpi = 0; //tau(mu)
-  double e5_Be_from_Bpi = 0; //tau(h)
-  double e6_Be_from_Bpi = 0; //BR(tau)
-  double e7_Be_from_Bpi = 0; //BR(h)
-  double e8_Be_from_Bpi = 0; //Delta
-  double e9_Be_from_Bpi = 0;//m(W)
-  double e10_Be_from_Bpi = 0;//alpha
-  calc_Be_from_Bh(Bpi, e_Bpi, 
-		  BR_PimToMumNu, e_BR_PimToMumNu, 
-		  m_pim, e_m_pim, 
-		  tau_pim, e_tau_pim, 
-		  Delta_TauToPim_over_PimToMu, e_Delta_TauToPim_over_PimToMu,
-		  Be_from_Bpi, e_Be_from_Bpi,
-		  e0_Be_from_Bpi, e1_Be_from_Bpi, e2_Be_from_Bpi, e3_Be_from_Bpi,
-		  e4_Be_from_Bpi, e5_Be_from_Bpi, e6_Be_from_Bpi, e7_Be_from_Bpi,
-		  e8_Be_from_Bpi, e9_Be_from_Bpi, e10_Be_from_Bpi
-		  );
+  double Be_from_Bpi=0;
+  double e_Be_from_Bpi=0;
+  double *ecomp_Be_from_Bpi = new double[N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Be_from_Bpi, Be_from_Bpi, e_Be_from_Bpi, ecomp_Be_from_Bpi);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mh] +- %6.3f [tauh] +- %6.3f [Btau] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
 	  "B(tau- -> e- nub nu)_Bpi ",
 	  100.*Be_from_Bpi, 100.*e_Be_from_Bpi, 
-	  100.*e0_Be_from_Bpi, 100.*e3_Be_from_Bpi, 100.*e5_Be_from_Bpi, 100.*e6_Be_from_Bpi, 100.*e7_Be_from_Bpi, 100.*e8_Be_from_Bpi);
+	  100.*ecomp_Be_from_Bpi[P_m_tau], 100.*ecomp_Be_from_Bpi[P_m_pim], 100.*ecomp_Be_from_Bpi[P_tau_pim], 
+	  100.*ecomp_Be_from_Bpi[P_Bpi], 100.*ecomp_Be_from_Bpi[P_BR_PimToMumNu], 100.*ecomp_Be_from_Bpi[P_Delta_TauToPim_over_PimToMu]);
   //
   // Be from BK
   //
   fprintf(thisfile,"\n");
-  double   Be_from_BK = 0;
-  double e_Be_from_BK = 0;
-  double e0_Be_from_BK = 0; //m(tau)
-  double e1_Be_from_BK = 0; //m(mu)
-  double e2_Be_from_BK = 0; //m(e)
-  double e3_Be_from_BK = 0; //m(h)
-  double e4_Be_from_BK = 0; //tau(mu)
-  double e5_Be_from_BK = 0; //tau(h)
-  double e6_Be_from_BK = 0; //BR(tau)
-  double e7_Be_from_BK = 0; //BR(h)
-  double e8_Be_from_BK = 0; //Delta
-  double e9_Be_from_BK = 0; //m(W)
-  double e10_Be_from_BK= 0; //alpha
-  calc_Be_from_Bh(BK, e_BK, 
-		  BR_KmToMumNu, e_BR_KmToMumNu, 
-		  m_km, e_m_km, 
-		  tau_km, e_tau_km, 
-		  Delta_TauToKm_over_KmToMu, e_Delta_TauToKm_over_KmToMu,
-		  Be_from_BK, e_Be_from_BK,
-		  e0_Be_from_BK, e1_Be_from_BK, e2_Be_from_BK, e3_Be_from_BK,
-		  e4_Be_from_BK, e5_Be_from_BK, e6_Be_from_BK, e7_Be_from_BK,
-		  e8_Be_from_BK, e9_Be_from_BK, e10_Be_from_BK
-		  );
   //
+  double Be_from_BK=0;
+  double e_Be_from_BK=0;
+  double *ecomp_Be_from_BK = new double[N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Be_from_BK, Be_from_BK, e_Be_from_BK, ecomp_Be_from_BK);
   fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [mtau] +- %6.3f [mh] +- %6.3f [tauh] +- %6.3f [Btau] +- %6.3f [Bh] +- %6.3f [Delta]) %%\n",
 	  "B(tau- -> e- nub nu)_BK  ",
 	  100.*Be_from_BK, 100.*e_Be_from_BK, 
-	  100.*e0_Be_from_BK, 100.*e3_Be_from_BK, 100.*e5_Be_from_BK, 100.*e6_Be_from_BK, 100.*e7_Be_from_BK, 100.*e8_Be_from_BK);
+	  100.*ecomp_Be_from_BK[P_m_tau], 100.*ecomp_Be_from_BK[P_m_km], 100.*ecomp_Be_from_BK[P_tau_km], 
+	  100.*ecomp_Be_from_BK[P_BK], 100.*ecomp_Be_from_BK[P_BR_KmToMumNu], 100.*ecomp_Be_from_BK[P_Delta_TauToKm_over_KmToMu]);
+
   //
   // Average of Be and Be_from_Bmu and Be_from_tautau and Bpi and BK
   //
   fprintf(thisfile,"\n");
-  double Be_univ_val[5] = {Be, Be_from_Bmu, Be_from_tautau, Be_from_Bpi,  Be_from_BK };
+  double*ecomp_Be = new double [N_ParNames];
+  for (ipar=0;ipar<N_ParNames;++ipar) {ecomp_Be[ipar] = 0;} ; ecomp_Be[P_Be] = e_Be;
+  //
+  double Be_univ_val[5] = {Be, Be_from_Bmu, Be_from_tautau, Be_from_Bpi,  Be_from_BK};
   double** Be_univ_cov = new double*[5]; for (i=0;i<5;++i) Be_univ_cov[i] = new double[5];
-  Be_univ_cov[0][0] = e_Be * e_Be; 
-  Be_univ_cov[1][1] = e_Be_from_Bmu * e_Be_from_Bmu;
-  Be_univ_cov[2][2] = e_Be_from_tautau * e_Be_from_tautau;
-  Be_univ_cov[0][1] = Be_univ_cov[1][0] = basecorr_fit[M_GAMMA5][M_GAMMA3] * e_Be * experr_Be_from_Bmu;
+  Be_univ_cov[0][0] = Be_univ_cov[1][1] = Be_univ_cov[2][2] = Be_univ_cov[3][3] = Be_univ_cov[4][4] = 0;
+  Be_univ_cov[0][1] = Be_univ_cov[1][0] = 0;
   Be_univ_cov[0][2] = Be_univ_cov[2][0] = 0;
-  Be_univ_cov[1][2] = Be_univ_cov[2][1] = e0_Be_from_Bmu * e0_Be_from_tautau /*mtau*/+ e1_Be_from_Bmu * e1_Be_from_tautau /*mmu*/ + e2_Be_from_Bmu * e2_Be_from_tautau /*me*/;
-  Be_univ_cov[3][3] = e_Be_from_Bpi * e_Be_from_Bpi;
-  Be_univ_cov[0][3] = Be_univ_cov[3][0] = basecorr_fit[M_GAMMA5][M_GAMMA9] * e_Be * e6_Be_from_Bpi;
-  Be_univ_cov[1][3] = Be_univ_cov[3][1] = basecorr_fit[M_GAMMA3][M_GAMMA9] * experr_Be_from_Bmu * e6_Be_from_Bpi;
-  Be_univ_cov[2][3] = Be_univ_cov[3][2] = e0_Be_from_tautau * e0_Be_from_Bpi /*mtau*/+ e5_Be_from_tautau * e9_Be_from_Bpi /*mW*/+ e6_Be_from_tautau * e10_Be_from_Bpi /*alpha*/;
-  Be_univ_cov[4][4] = e_Be_from_BK * e_Be_from_BK;
-  Be_univ_cov[0][4] = Be_univ_cov[4][0] = basecorr_fit[M_GAMMA5][M_GAMMA10] * e_Be * e6_Be_from_BK;
-  Be_univ_cov[1][4] = Be_univ_cov[4][1] = basecorr_fit[M_GAMMA3][M_GAMMA10] * experr_Be_from_Bmu * e6_Be_from_BK;
-  Be_univ_cov[2][4] = Be_univ_cov[4][2] = e0_Be_from_tautau * e0_Be_from_BK /*mtau*/+ e5_Be_from_tautau * e9_Be_from_BK /*mW*/ + e6_Be_from_tautau * e10_Be_from_BK /*alpha*/;
-  Be_univ_cov[3][4] = Be_univ_cov[4][3] = e0_Be_from_Bpi    * e0_Be_from_BK /*mtau*/+ e9_Be_from_Bpi    * e9_Be_from_BK /*mW*/ + e10_Be_from_Bpi   * e10_Be_from_BK /*alpha*/;
+  Be_univ_cov[0][3] = Be_univ_cov[3][0] = 0;
+  Be_univ_cov[0][4] = Be_univ_cov[4][0] = 0;
+  Be_univ_cov[1][2] = Be_univ_cov[2][1] = 0;
+  Be_univ_cov[1][3] = Be_univ_cov[3][1] = 0;
+  Be_univ_cov[1][4] = Be_univ_cov[4][1] = 0;
+  Be_univ_cov[2][3] = Be_univ_cov[3][2] = 0;
+  Be_univ_cov[2][4] = Be_univ_cov[4][2] = 0;
+  Be_univ_cov[3][4] = Be_univ_cov[4][3] = 0;
+  //
+  for (ipar=0;ipar<N_ParNames;++ipar) {
+    for (jpar=0;jpar<N_ParNames;++jpar) {
+      Be_univ_cov[0][0] += ecomp_Be[ipar]             * CorrelationMatrix[ipar][jpar] * ecomp_Be[jpar]; 
+      Be_univ_cov[1][1] += ecomp_Be_from_Bmu[ipar]    * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_Bmu[jpar] ;
+      Be_univ_cov[2][2] += ecomp_Be_from_tautau[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_tautau[jpar] ;
+      Be_univ_cov[3][3] += ecomp_Be_from_Bpi[ipar]    * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_Bpi[jpar] ;
+      Be_univ_cov[4][4] += ecomp_Be_from_BK[ipar]     * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_BK[jpar] ;
+      //
+      Be_univ_cov[0][1] += ecomp_Be[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_Bmu[jpar] ;
+      Be_univ_cov[0][2] += ecomp_Be[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_tautau[jpar] ;
+      Be_univ_cov[0][3] += ecomp_Be[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_Bpi[jpar] ;
+      Be_univ_cov[0][4] += ecomp_Be[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_BK[jpar] ;
+      //
+      Be_univ_cov[1][2] += ecomp_Be_from_Bmu[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_tautau[jpar] ;
+      Be_univ_cov[1][3] += ecomp_Be_from_Bmu[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_Bpi[jpar] ;
+      Be_univ_cov[1][4] += ecomp_Be_from_Bmu[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_BK[jpar] ;
+      //
+      Be_univ_cov[2][3] += ecomp_Be_from_tautau[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_Bpi[jpar] ;
+      Be_univ_cov[2][4] += ecomp_Be_from_tautau[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_BK[jpar] ;
+      //
+      Be_univ_cov[3][4] += ecomp_Be_from_Bpi[ipar] * CorrelationMatrix[ipar][jpar] * ecomp_Be_from_BK[jpar] ;
+    }
+    /*
+    cout << " ipar = " << ipar 
+	 << " Be_univ_cov[1][3] = " << 100.*Be_univ_cov[1][3] / (e_Be_from_Bpi * e_Be_from_Bmu) << " % "
+	 << " Be_univ_cov[3][4] = " << 100.*Be_univ_cov[3][4] / (e_Be_from_Bpi * e_Be_from_BK)  << " % "
+	 << endl;
+    */
+  }
+  Be_univ_cov[1][0] = Be_univ_cov[0][1] ;
+  Be_univ_cov[2][0] = Be_univ_cov[0][2] ;
+  Be_univ_cov[3][0] = Be_univ_cov[0][3] ;
+  Be_univ_cov[4][0] = Be_univ_cov[0][4] ;
+  //
+  Be_univ_cov[2][1] = Be_univ_cov[1][2] ;
+  Be_univ_cov[3][1] = Be_univ_cov[1][3] ;
+  Be_univ_cov[4][1] = Be_univ_cov[1][4] ;
+  //
+  Be_univ_cov[3][2] = Be_univ_cov[2][3] ;
+  Be_univ_cov[4][2] = Be_univ_cov[2][4] ;
+  //
+  Be_univ_cov[4][3] = Be_univ_cov[3][4] ;
+  //
   fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be            ",100.*Be_univ_cov[0][1]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[1][1]));
   fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bmu","Be_from_tautau",100.*Be_univ_cov[2][1]/TMath::Sqrt(Be_univ_cov[2][2]*Be_univ_cov[1][1]));
   fprintf(thisfile,"Corr between %s and %s = %6.2f %%\n","Be_from_Bpi","Be            ",100.*Be_univ_cov[0][3]/TMath::Sqrt(Be_univ_cov[0][0]*Be_univ_cov[3][3]));
@@ -2020,10 +1369,15 @@ void calc_results(FILE* thisfile,
 					TMath::Power(Be_univ3_wt[1],2) * Be_univ_cov[1][1] + 
 					TMath::Power(Be_univ3_wt[2],2) * Be_univ_cov[2][2] + 
 					2 * Be_univ3_wt[0] * Be_univ3_wt[1] * Be_univ_cov[0][1] + 
-					2 * Be_univ3_wt[2] * Be_univ3_wt[1] * Be_univ_cov[2][1]);
+					2 * Be_univ3_wt[0] * Be_univ3_wt[2] * Be_univ_cov[0][2] + 
+					2 * Be_univ3_wt[2] * Be_univ3_wt[1] * Be_univ_cov[2][1] );
+  if (fabs(Be_univ3_err - Be_univ3_err_re)>.001) {
+    cout << " Be_univ3_err =  " << Be_univ3_err << " Be_univ3_err_re = " << Be_univ3_err_re << endl;
+    abort();
+  }
   //
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",
-	  "<B(tau- -> e- nub nu)_univ3>",100.*Be_univ3,100.*Be_univ3_err, Be_univ3_wt[0], Be_univ3_wt[1], Be_univ3_wt[2], Be_univ3_err - Be_univ3_err_re);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau]\n",
+	  "<B(tau- -> e- nub nu)_univ3>",100.*Be_univ3,100.*Be_univ3_err, Be_univ3_wt[0], Be_univ3_wt[1], Be_univ3_wt[2]);
   //
   double Be_univ4 = 0;
   double Be_univ4_err = 0;
@@ -2041,12 +1395,18 @@ void calc_results(FILE* thisfile,
 					TMath::Power(Be_univ4_wt[2],2) * Be_univ_cov[2][2] + 
 					TMath::Power(Be_univ4_wt[3],2) * Be_univ_cov[3][3] + 
 					2 * Be_univ4_wt[0] * Be_univ4_wt[1] * Be_univ_cov[0][1] + 
-					2 * Be_univ4_wt[2] * Be_univ4_wt[1] * Be_univ_cov[2][1] +
+					2 * Be_univ4_wt[0] * Be_univ4_wt[2] * Be_univ_cov[0][2] + 
 					2 * Be_univ4_wt[0] * Be_univ4_wt[3] * Be_univ_cov[0][3] + 
+					2 * Be_univ4_wt[1] * Be_univ4_wt[2] * Be_univ_cov[1][2] +
 					2 * Be_univ4_wt[1] * Be_univ4_wt[3] * Be_univ_cov[1][3] + 
 					2 * Be_univ4_wt[2] * Be_univ4_wt[3] * Be_univ_cov[2][3] );
+  if (fabs(Be_univ4_err - Be_univ4_err_re)>0.001) {
+    cout << " Be_univ4_err = " << Be_univ4_err  << " Be_univ4_err_re = " << Be_univ4_err_re << endl;
+    abort();
+  }
   //
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau], %6.4f [Bpi]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n",  "<B(tau- -> e- nub nu)_univ4>",100.*Be_univ4,100.*Be_univ4_err, Be_univ4_wt[0], Be_univ4_wt[1], Be_univ4_wt[2], Be_univ4_wt[3], Be_univ4_err - Be_univ4_err_re);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau], %6.4f [Bpi]\n",  
+	  "<B(tau- -> e- nub nu)_univ4>",100.*Be_univ4,100.*Be_univ4_err, Be_univ4_wt[0], Be_univ4_wt[1], Be_univ4_wt[2], Be_univ4_wt[3]);
   //
   double Be_univ5 = 0;
   double Be_univ5_err = 0;
@@ -2066,106 +1426,96 @@ void calc_results(FILE* thisfile,
 					TMath::Power(Be_univ5_wt[3],2) * Be_univ_cov[3][3] + 
 					TMath::Power(Be_univ5_wt[4],2) * Be_univ_cov[4][4] + 
 					2 * Be_univ5_wt[0] * Be_univ5_wt[1] * Be_univ_cov[0][1] + 
-					2 * Be_univ5_wt[2] * Be_univ5_wt[1] * Be_univ_cov[2][1] +
+					2 * Be_univ5_wt[0] * Be_univ5_wt[2] * Be_univ_cov[0][2] + 
 					2 * Be_univ5_wt[0] * Be_univ5_wt[3] * Be_univ_cov[0][3] + 
-					2 * Be_univ5_wt[1] * Be_univ5_wt[3] * Be_univ_cov[1][3] + 
-					2 * Be_univ5_wt[2] * Be_univ5_wt[3] * Be_univ_cov[2][3] +
 					2 * Be_univ5_wt[0] * Be_univ5_wt[4] * Be_univ_cov[0][4] +
+					2 * Be_univ5_wt[1] * Be_univ5_wt[2] * Be_univ_cov[1][2] +
+					2 * Be_univ5_wt[1] * Be_univ5_wt[3] * Be_univ_cov[1][3] + 
 					2 * Be_univ5_wt[1] * Be_univ5_wt[4] * Be_univ_cov[1][4] +
+					2 * Be_univ5_wt[2] * Be_univ5_wt[3] * Be_univ_cov[2][3] +
 					2 * Be_univ5_wt[2] * Be_univ5_wt[4] * Be_univ_cov[2][4] +
 					2 * Be_univ5_wt[3] * Be_univ5_wt[4] * Be_univ_cov[3][4] );
+  if (fabs(Be_univ5_err - Be_univ5_err_re)>0.001) {
+    cout << "Be_univ5_err = " << Be_univ5_err << " Be_univ5_err_re = " << Be_univ5_err_re << endl;
+    abort();
+  }
   //
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau], %6.4f [Bpi], %6.4f [BK]; Difference of Error w.r.t (recalculated assuming e[wt]=0) = %4.2g\n", "<B(tau- -> e- nub nu)_univ5>", 100.*Be_univ5,100.*Be_univ5_err, Be_univ5_wt[0], Be_univ5_wt[1], Be_univ5_wt[2], Be_univ5_wt[3], Be_univ5_wt[4], Be_univ5_err - Be_univ5_err_re);
+  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% has weights = %6.4f [Be], %6.4f [Bmu], %6.4f [tautau], %6.4f [Bpi], %6.4f [BK]\n", 
+	  "<B(tau- -> e- nub nu)_univ5>", 100.*Be_univ5,100.*Be_univ5_err, Be_univ5_wt[0], Be_univ5_wt[1], Be_univ5_wt[2], Be_univ5_wt[3], Be_univ5_wt[4]) ;
+  //
+  par[P_wt_Be] = Be_univ5_wt[0];
+  par[P_wt_Be_from_Bmu] = Be_univ5_wt[1];
+  par[P_wt_Be_from_tautau] = Be_univ5_wt[2];
+  par[P_wt_Be_from_Bpi] = Be_univ5_wt[3];
+  par[P_wt_Be_from_BK] = Be_univ5_wt[4];
   //
   // Bhadrons
   //
   fprintf(thisfile,"\n");
   double   Bhadrons = 0;
   double e_Bhadrons = 0;
-  double ecomp_Bhadrons[5] = { 0, 0, 0, 0, 0};
-  calc_Bhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ3_wt, 
-		Bhadrons, e_Bhadrons, ecomp_Bhadrons); 
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Be,mu]) %% \n",
-	  "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
-	  100.*ecomp_Bhadrons[0], 100.*ecomp_Bhadrons[1], 100.*ecomp_Bhadrons[2], 100.*ecomp_Bhadrons[3], 100.*ecomp_Bhadrons[4]);
+  double*ecomp_Bhadrons = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Bhadrons, Bhadrons, e_Bhadrons, ecomp_Bhadrons);
+  fprintf(thisfile,
+	  "%s = (%6.3f +- %6.3f [Total] +- %6.3f [tautau] +- %6.3f [mtau] +- %6.3f [Be] +- %6.3f [Bmu] +- %6.3f [Bpi] +- %6.3f [BK] +- %6.3f [Bs] +- %6.3f [Ball]) %%\n",
+  	  "B(tau -> hadrons)", 100.*Bhadrons, 100.*e_Bhadrons,
+  	  100.*ecomp_Bhadrons[P_tau_tau], 100.*ecomp_Bhadrons[P_m_tau], 
+	  100.*ecomp_Bhadrons[P_Be], 100.*ecomp_Bhadrons[P_Bmu], 100.*ecomp_Bhadrons[P_Bpi], 100.*ecomp_Bhadrons[P_BK], 100.*ecomp_Bhadrons[P_Bs], 100.*ecomp_Bhadrons[P_Ball]);
   //
   // Rhadrons
   //
   double   Rhadrons = 0;
   double e_Rhadrons = 0;
-  double ecomp_Rhadrons[5] = { 0, 0, 0, 0, 0};
-  calc_Rhadrons(Be, e_Be, Bmu, e_Bmu, basecov_fit[M_GAMMA5][M_GAMMA3], Be_univ3_wt, 
-		Rhadrons, e_Rhadrons, ecomp_Rhadrons); 
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Be,Bmu]\n",
+  double*ecomp_Rhadrons = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Rhadrons, Rhadrons, e_Rhadrons, ecomp_Rhadrons);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bpi] +- %6.4f [BK] +- %6.4f [Bs] +- %6.4f [Ball]\n",
 	  "R(tau -> hadrons)", Rhadrons, e_Rhadrons,
-	  ecomp_Rhadrons[0], ecomp_Rhadrons[1], ecomp_Rhadrons[2], ecomp_Rhadrons[3], ecomp_Rhadrons[4]);
+  	  ecomp_Rhadrons[P_tau_tau], ecomp_Rhadrons[P_m_tau], 
+	  ecomp_Rhadrons[P_Be], ecomp_Rhadrons[P_Bmu], ecomp_Rhadrons[P_Bpi], ecomp_Rhadrons[P_BK], ecomp_Rhadrons[P_Bs], ecomp_Rhadrons[P_Ball]);
   //
   // Rstrange
   //
-  double Bstrange = NodeValue[N_GAMMA110];
-  double e_Bstrange = NodeError[N_GAMMA110];
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% \n","B(tau -> strange)", 100.*Bstrange, 100.*e_Bstrange);
+
+  fprintf(thisfile,"\n%s = (%6.3f +- %6.3f) %% \n","B(tau -> strange)", 100.*Bstrange, 100.*e_Bstrange);
   double Rstrange = 0;
   double e_Rstrange = 0;
-  double ecomp_Rstrange[6] = { 0, 0, 0, 0, 0, 0};
-  calc_Rstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
-		Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
-		Rstrange, e_Rstrange, ecomp_Rstrange);
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
+  double*ecomp_Rstrange = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Rstrange, Rstrange, e_Rstrange, ecomp_Rstrange);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bpi] +- %6.4f [BK] +- %6.4f [Bs] + %6.4f [Ball]\n",
 	  "R(tau -> strange)", Rstrange, e_Rstrange,
-	  ecomp_Rstrange[0], ecomp_Rstrange[1], ecomp_Rstrange[2], ecomp_Rstrange[3], ecomp_Rstrange[4], ecomp_Rstrange[5]);
+	  ecomp_Rstrange[P_tau_tau], ecomp_Rstrange[P_m_tau], 
+	  ecomp_Rstrange[P_Be], ecomp_Rstrange[P_Bmu], ecomp_Rstrange[P_Bpi], ecomp_Rstrange[P_BK], ecomp_Rstrange[P_Bs], ecomp_Rstrange[P_Ball]);
   //
   // Rnonstrange
   //
   double Rnonstrange = 0;
   double e_Rnonstrange = 0;
-  double ecomp_Rnonstrange[6] = { 0, 0, 0, 0, 0, 0};
-  calc_Rnonstrange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
-		   Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
-		   Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] + %6.4f [Be,mu,s] \n",
-	  "R(tau -> nonstrange)", Rnonstrange, e_Rnonstrange,
-	  ecomp_Rnonstrange[0], ecomp_Rnonstrange[1], ecomp_Rnonstrange[2], ecomp_Rnonstrange[3], ecomp_Rnonstrange[4], ecomp_Rnonstrange[5]);
+  double*ecomp_Rnonstrange = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Rnonstrange, Rnonstrange, e_Rnonstrange, ecomp_Rnonstrange);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bpi] +- %6.4f [BK] +- %6.4f [Bs] +- %6.4f [Ball]\n",
+	  "R(tau -> non-str)", Rnonstrange, e_Rnonstrange,
+	  ecomp_Rnonstrange[P_tau_tau], ecomp_Rnonstrange[P_m_tau], 
+	  ecomp_Rnonstrange[P_Be], ecomp_Rnonstrange[P_Bmu], ecomp_Rnonstrange[P_Bpi], ecomp_Rnonstrange[P_BK], ecomp_Rnonstrange[P_Bs], ecomp_Rnonstrange[P_Ball]);
   //
   // Vus_strange
   //
+  fprintf(thisfile,"\n%s = (%6.3f +- %6.3f) %% \n","B(tau -> total)", 100.*Btotal, 100.*e_Btotal);
   double Vus_strange = 0;
   double e_Vus_strange = 0;
-  double ecomp_Vus_strange[8] = { 0, 0, 0, 0, 0, 0, 0, 0};
-  calc_Vus_strange(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
-		   Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
-		   Vus_strange, e_Vus_strange, ecomp_Vus_strange);
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Be,mu,s] +- %6.4f [Vud] +- %6.4f [ms]\n",
+  double*ecomp_Vus_strange = new double [N_ParNames];
+  calc_generic(par, epar, CovarianceMatrix, func_Vus_strange, Vus_strange, e_Vus_strange, ecomp_Vus_strange);
+  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bpi] +- %6.4f [BK] +- %6.4f [Bs] +- %6.4f [Ball] +- %6.4f [Vud] +- %6.4f [ms]\n",
 	  "|Vus|_strange", Vus_strange, e_Vus_strange,
-	  ecomp_Vus_strange[0], ecomp_Vus_strange[1], ecomp_Vus_strange[2], ecomp_Vus_strange[3], 
-	  ecomp_Vus_strange[4], ecomp_Vus_strange[5], ecomp_Vus_strange[6], ecomp_Vus_strange[7]);
-  fprintf(thisfile,"Relative Error (in %%): +- %5.2f [Total] +- %5.2f [tautau] +- %5.2f [mtau] +- %5.2f [Be] +- %5.2f [Bmu] +- %5.2f [Bs] +- %5.2f [Be,mu,s] +- %5.2f [Vud] +- %5.2f [ms]\n", 
+	  ecomp_Vus_strange[P_tau_tau], ecomp_Vus_strange[P_m_tau], 
+	  ecomp_Vus_strange[P_Be], ecomp_Vus_strange[P_Bmu], ecomp_Vus_strange[P_Bpi], ecomp_Vus_strange[P_BK], ecomp_Vus_strange[P_Bs], ecomp_Vus_strange[P_Ball],
+	  ecomp_Vus_strange[P_Vud], ecomp_Vus_strange[P_Delta_Rth]);
+  fprintf(thisfile,"Relative Error (in %%): +- %5.2f [Total] +- %5.2f [tautau] +- %5.2f [mtau] +- %5.2f [Be] +- %5.2f [Bmu] +- %6.4f [Bpi] +- %6.4f [BK] +- %5.2f [Bs] +- %5.2f [Ball] +- %5.2f [Vud] +- %5.2f [ms]\n", 
 	  e_Vus_strange*100./Vus_strange,
-	  ecomp_Vus_strange[0]*100./Vus_strange, ecomp_Vus_strange[1]*100./Vus_strange, ecomp_Vus_strange[2]*100./Vus_strange, ecomp_Vus_strange[3]*100./Vus_strange, 
-	  ecomp_Vus_strange[4]*100./Vus_strange, ecomp_Vus_strange[5]*100./Vus_strange, ecomp_Vus_strange[6]*100./Vus_strange, ecomp_Vus_strange[7]*100./Vus_strange);
-  //
-  // Vus_unconstrained_fit
-  //
-  fprintf(thisfile,"\n");
-  double Btotal = NodeValue[N_GAMMAALL];
-  double e_Btotal = NodeError[N_GAMMAALL];
-  fprintf(thisfile,"%s = (%6.3f +- %6.3f) %% \n","B(tau -> total)", 100.*Btotal, 100.*e_Btotal);
-  double Vus_uncons = 0;
-  double e_Vus_uncons = 0;
-  double ecomp_Vus_uncons[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0};
-  calc_Vus_uncons(Be, e_Be, Bmu, e_Bmu,  basecov_fit[M_GAMMA5][M_GAMMA3],  Be_univ3_wt,
-		  Bstrange, e_Bstrange, NodeErrorMatrix[N_GAMMA5][N_GAMMA110], NodeErrorMatrix[N_GAMMA3][N_GAMMA110],
-		  Btotal, e_Btotal, NodeErrorMatrix[N_GAMMA5][N_GAMMAALL], NodeErrorMatrix[N_GAMMA3][N_GAMMAALL], NodeErrorMatrix[N_GAMMAALL][N_GAMMA110],
-		  Vus_uncons, e_Vus_uncons, ecomp_Vus_uncons);
-  fprintf(thisfile,"%s = %6.4f +- %6.4f [Total] +- %6.4f [tautau] +- %6.4f [mtau] +- %6.4f [Be] +- %6.4f [Bmu] +- %6.4f [Bs] +- %6.4f [Btot] +- %6.4f [Be,mu,s,tot] +- %6.4f [Vud] +- %6.4f [ms]\n",
-	  "|Vus|_uncons", Vus_uncons, e_Vus_uncons,
-	  ecomp_Vus_uncons[0], ecomp_Vus_uncons[1], ecomp_Vus_uncons[2], ecomp_Vus_uncons[3], 
-	  ecomp_Vus_uncons[4], ecomp_Vus_uncons[5], ecomp_Vus_uncons[6], ecomp_Vus_uncons[7], ecomp_Vus_uncons[8]);
-  fprintf(thisfile,"Relative Error (in %%): +- %4.2f [Total] +- %4.2f [tautau] +- %4.2f [mtau] +- %4.2f [Be] +- %4.2f [Bmu] +- %4.2f [Bs] +- %4.2f [Btot]+- %4.2f [Be,mu,s,tot] +- %4.2f [Vud] +- %4.2f [ms]\n", 
-	  e_Vus_uncons*100./Vus_uncons,
-	  ecomp_Vus_uncons[0]*100./Vus_uncons, ecomp_Vus_uncons[1]*100./Vus_uncons, ecomp_Vus_uncons[2]*100./Vus_uncons, ecomp_Vus_uncons[3]*100./Vus_uncons, 
-	  ecomp_Vus_uncons[4]*100./Vus_uncons, ecomp_Vus_uncons[5]*100./Vus_uncons, ecomp_Vus_uncons[6]*100./Vus_uncons, ecomp_Vus_uncons[7]*100./Vus_uncons,
-	  ecomp_Vus_uncons[8]*100./Vus_uncons);
+	  ecomp_Vus_strange[P_tau_tau]*100./Vus_strange, ecomp_Vus_strange[P_m_tau]*100./Vus_strange, 
+	  ecomp_Vus_strange[P_Be]*100./Vus_strange, ecomp_Vus_strange[P_Bmu]*100./Vus_strange, 
+	  ecomp_Vus_strange[P_Bpi]*100./Vus_strange, ecomp_Vus_strange[P_BK]*100./Vus_strange, 
+	  ecomp_Vus_strange[P_Bs]*100./Vus_strange, ecomp_Vus_strange[P_Ball]*100./Vus_strange, 
+	  ecomp_Vus_strange[P_Vud]*100./Vus_strange, ecomp_Vus_strange[P_Delta_Rth]*100./Vus_strange);
   //
   // Vus_unitarity
   //
@@ -2177,26 +1527,46 @@ void calc_results(FILE* thisfile,
   double e_diff_Vus_TauToKmNu = TMath::Sqrt(e_Vus_TauToKmNu * e_Vus_TauToKmNu + e_Vus_unitarity * e_Vus_unitarity);
   //
   double diff_Vus_TauToKmOverPimNu = Vus_TauToKmOverPimNu - Vus_unitarity;
-  double e_diff_Vus_TauToKmOverPimNu = TMath::Sqrt(e_Vus_TauToKmOverPimNu * e_Vus_TauToKmOverPimNu + e_Vus_unitarity * e_Vus_unitarity - 2 * therr4_Vus_TauToKmOverPimNu * e_Vus_unitarity);
+  double e_diff_Vus_TauToKmOverPimNu = TMath::Sqrt(e_Vus_TauToKmOverPimNu * e_Vus_TauToKmOverPimNu + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_TauToKmOverPimNu[P_Vud] * e_Vus_unitarity);
   //
   double diff_Vus_strange = Vus_strange - Vus_unitarity;
-  double e_diff_Vus_strange = TMath::Sqrt(e_Vus_strange * e_Vus_strange + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_strange[6] * e_Vus_unitarity);
+  double e_diff_Vus_strange = TMath::Sqrt(e_Vus_strange * e_Vus_strange + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_strange[P_Vud] * e_Vus_unitarity);
   //
-  double diff_Vus_uncons = Vus_uncons - Vus_unitarity;
-  double e_diff_Vus_uncons = TMath::Sqrt(e_Vus_uncons*e_Vus_uncons + e_Vus_unitarity * e_Vus_unitarity - 2 * ecomp_Vus_uncons[7] * e_Vus_unitarity);
-  //
-  fprintf(thisfile,"|Vus_unitarity| = %6.4f +- %6.4f [Vud]; Difference w.r.t unitarity: |Vus|_TauToKmNu = %3.1f |Vus|_TauToK/Pi = %3.1f |Vus|_strange = %3.1f |Vus|_uncons = %3.1f\n",
+  fprintf(thisfile,"|Vus_unitarity| = %6.4f +- %6.4f [Vud]; Difference w.r.t unitarity: |Vus|_TauToKmNu = %3.1f |Vus|_TauToK/Pi = %3.1f |Vus|_strange = %3.1f \n",
 	  Vus_unitarity, e_Vus_unitarity, 
 	  diff_Vus_TauToKmNu/e_diff_Vus_TauToKmNu, 
 	  diff_Vus_TauToKmOverPimNu/e_diff_Vus_TauToKmOverPimNu,
-	  diff_Vus_strange/e_diff_Vus_strange,
-	  diff_Vus_uncons/e_diff_Vus_uncons);
+	  diff_Vus_strange/e_diff_Vus_strange);
   //
   // Clean Up
   //
+  delete [] ecomp_fmufe;
+  delete [] ecomp_gmuge;
+  delete [] ecomp_Be_from_Bmu;
+  delete [] ecomp_Be_from_Bpi;
+  delete [] ecomp_Be_from_BK;
+  delete [] ecomp_Bpi_univ;
+  delete [] ecomp_BK_univ;
+  delete [] ecomp_gtaugmu_pi;
+  delete [] ecomp_gtaugmu_K;
+  delete [] ecomp_Be_from_tautau;
+  delete [] ecomp_Bmu_from_tautau;
+  delete [] ecomp_gtauge_mu;
+  delete [] ecomp_Vus_TauToKmNu; 
+  delete [] ecomp_Vus_TauToKmOverPimNu;
+  delete [] ecomp_Be;
+  delete [] ecomp_Bhadrons;
+  delete [] ecomp_Rhadrons;
+  delete [] ecomp_Rstrange;
+  delete [] ecomp_Rnonstrange;
+  delete [] ecomp_Vus_strange;
+  delete [] CorrelationMatrix;
+  delete [] CovarianceMatrix;
+  delete [] epar;
+  delete [] par;
   delete [] Be_univ_cov;
-  delete [] cov_gtaumu_pike;
-  delete [] cov_gtaumu_pik;
+  delete [] cov_gtaugmu_pike;
+  delete [] cov_gtaugmu_pik;
 }
 // ----------------------------------------------------------------------
 void print_node_def(int nnode, char** a_nodename, string* nodetitle,  vector<string> nodegammaname, bool* node_is_base, 
@@ -5106,8 +4476,10 @@ int main(int argc, char* argv[]){
 	}
       }
     }
+    if (NodeErrorMatrix[inode][inode]<0) NodeErrorMatrix[inode][inode] = 0;
     //
     NodeError[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix[inode][inode]));
+    //    cout << "inode = " << inode << " NodeError = " << NodeError[inode] << " NodeErrorMatrix = " << NodeErrorMatrix[inode][inode] << endl;
   }
   //
   int   nchisquare_tot=0; 
@@ -5331,6 +4703,7 @@ int main(int argc, char* argv[]){
 	}
       }
     }
+    if (NodeErrorMatrix_noweak[inode][inode]<0) NodeErrorMatrix_noweak[inode][inode] = 0;
     //
     NodeError_noweak[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_noweak[inode][inode]));
   }
@@ -5901,6 +5274,7 @@ int main(int argc, char* argv[]){
 	}
       }
     }
+    if (NodeErrorMatrix_noweak_scaled[inode][inode]<0) NodeErrorMatrix_noweak_scaled[inode][inode] = 0;
     //
     NodeError_noweak_scaled[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_noweak_scaled[inode][inode]));
   }
@@ -6178,6 +5552,7 @@ int main(int argc, char* argv[]){
 	}
       }
     }
+    if (NodeErrorMatrix_rescaled[inode][inode]<0) NodeErrorMatrix_rescaled[inode][inode] = 0;
     //
     NodeError_rescaled[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_rescaled[inode][inode]));
   }
@@ -6415,6 +5790,7 @@ int main(int argc, char* argv[]){
 	}
       }
     }
+    if (NodeErrorMatrix_noweak_rescaled[inode][inode]<0) NodeErrorMatrix_noweak_rescaled[inode][inode] = 0;
     //
     NodeError_noweak_rescaled[inode] = TMath::Sqrt(TMath::Max(0.,NodeErrorMatrix_noweak_rescaled[inode][inode]));
   }
@@ -6542,6 +5918,35 @@ int main(int argc, char* argv[]){
 		 inode, a_nodename[inode], nodegammaname[inode].data(), nodetitle[inode].data(), NodeValue_rescaled[inode], NodeError_rescaled[inode]);
   }
   cout << endl;
+  //
+  // Set Global Parameters
+  //
+  GlobalPar[P_m_e] =  m_e; e_GlobalPar[P_m_e] = e_m_e;
+  GlobalPar[P_m_mu] = m_mu; e_GlobalPar[P_m_mu] = e_m_mu;
+  GlobalPar[P_tau_mu] = tau_mu; e_GlobalPar[P_tau_mu] = e_tau_mu;
+  GlobalPar[P_m_tau] = m_tau; e_GlobalPar[P_m_tau] =  e_m_tau;
+  GlobalPar[P_tau_tau] = tau_tau; e_GlobalPar[P_tau_tau] = e_tau_tau;
+  GlobalPar[P_m_pim] = m_pim; e_GlobalPar[P_m_pim] = e_m_pim;
+  GlobalPar[P_tau_pim] = tau_pim; e_GlobalPar[P_tau_pim] = e_tau_pim;
+  GlobalPar[P_BR_PimToMumNu] = BR_PimToMumNu; e_GlobalPar[P_BR_PimToMumNu] = e_BR_PimToMumNu;
+  GlobalPar[P_Delta_TauToPim_over_PimToMu] = Delta_TauToPim_over_PimToMu; e_GlobalPar[P_Delta_TauToPim_over_PimToMu] = e_Delta_TauToPim_over_PimToMu;
+  GlobalPar[P_m_km] = m_km; e_GlobalPar[P_m_km] = e_m_km;
+  GlobalPar[P_tau_km] = tau_km; e_GlobalPar[P_tau_km] = e_tau_km;
+  GlobalPar[P_BR_KmToMumNu] = BR_KmToMumNu; e_GlobalPar[P_BR_KmToMumNu] = e_BR_KmToMumNu;
+  GlobalPar[P_Delta_TauToKm_over_KmToMu] = Delta_TauToKm_over_KmToMu; e_GlobalPar[P_Delta_TauToKm_over_KmToMu] = e_Delta_TauToKm_over_KmToMu;
+  GlobalPar[P_m_W] = m_W; e_GlobalPar[P_m_W] = e_m_W;
+  GlobalPar[P_alpha_val] = alpha_val; e_GlobalPar[P_alpha_val] = alpha_err;
+  GlobalPar[P_Delta_mu_gamma] = Delta_mu_gamma; e_GlobalPar[P_Delta_mu_gamma] = e_Delta_mu_gamma;
+  GlobalPar[P_Delta_tau_gamma] = Delta_tau_gamma; e_GlobalPar[P_Delta_tau_gamma] = e_Delta_tau_gamma;
+  GlobalPar[P_GMu] = GMu; e_GlobalPar[P_GMu] = e_GMu;
+  GlobalPar[P_hbar] = hbar; e_GlobalPar[P_hbar] = e_hbar;
+  GlobalPar[P_SEW] = SEW; e_GlobalPar[P_SEW] = e_SEW;
+  GlobalPar[P_fpi] = fpi; e_GlobalPar[P_fpi] = e_fpi;
+  GlobalPar[P_fK] = fK; e_GlobalPar[P_fK] = e_fK;
+  GlobalPar[P_fKfpi] = fKfpi; e_GlobalPar[P_fKfpi] = e_fKfpi;
+  GlobalPar[P_Vud] = Vud; e_GlobalPar[P_Vud] = e_Vud;
+  GlobalPar[P_Delta_Kpi] = Delta_Kpi; e_GlobalPar[P_Delta_Kpi] = e_Delta_Kpi;
+  GlobalPar[P_Delta_Rth] = Delta_Rth; e_GlobalPar[P_Delta_Rth] = e_Delta_Rth;
   //
   // Print Results 
   //
