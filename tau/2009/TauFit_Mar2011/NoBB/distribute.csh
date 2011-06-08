@@ -17,16 +17,16 @@ for dirname in \
  
   cd /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/${dirname}
   pwd
-  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/readpdg.cc .
-  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/any.com .
-  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/run_readpdg .
+#  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/readpdg.cc .
+#  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/any.com .
+#  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/run_readpdg .
   ./any.com readpdg
   source run_readpdg
   cp -p *.log log
   cp -p *.results log
-  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/summary0.tex .
-  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/summary0.csh .
-  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/maketable0.csh . 
+#  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/summary0.tex .
+#  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/summary0.csh .
+#  cp -f /afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/maketable0.csh . 
   rm -f what_is_this.tex 
   if [ "${dirname}" == "NoBB_nocorr" ] ; then
     echo '\noindent Using inputs from: the non-B-Factory measurements of single quantities and excluding all correlations.' > what_is_this.tex
