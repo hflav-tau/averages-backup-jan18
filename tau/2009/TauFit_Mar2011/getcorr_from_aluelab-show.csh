@@ -21,4 +21,4 @@
                -e 's/Belle.Gamma130.Published/154/g' \
                -e 's/Belle.Gamma132.Published/155/g' \
                -e 's/Belle.Gamma96.submitted/156/g' | \
-               awk '{if ($NF>0) print $0}' | awk '{if ($1<$2) print $0}' | awk '{printf "%% %4d %4d %14.10g\n",$1,$2,$3*100}'
+                awk '{if ($NF!=0) print $0}' | awk '{if ($1<$2) print $0}' | awk '{printf "%% %4d %4d %14.10g\n",$1,$2,$3*100}'
