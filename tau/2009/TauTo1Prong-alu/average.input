@@ -9,7 +9,7 @@
 * 5.        tau- -> K-  pi0 nu
 * 45.       tau- -> h-  pi0 nu
 
-INCLUDE mmnumbarnu.input
+INCLUDE mumnunumb.input
 INCLUDE pimnu.input
 INCLUDE kmnu.input
 INCLUDE hmnu.input
@@ -23,7 +23,7 @@ INCLUDE ../Common/Parameters.input
 
 COMBINE * * * 
 
-MEASUREMENT m_MmNumbarNu statistical systematic
+MEASUREMENT m_MumNuNumb  statistical systematic
 MEASUREMENT m_PimNu      statistical systematic
 MEASUREMENT m_KmNu       statistical systematic
 MEASUREMENT m_PimPizNu   statistical systematic
