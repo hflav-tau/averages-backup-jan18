@@ -149,7 +149,7 @@ if (any(quant.discarded)) {
 ##--- update
 measurements = measurements[meas.included.list]
 meas.names = names(measurements)
-meas.num = length(measurements[meas.included.list])
+meas.num = length(measurements)
 meas.quantities = meas.quantities[meas.included.list]
 quant.num = length(quant.names)
 
