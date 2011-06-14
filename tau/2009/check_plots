@@ -1,0 +1,27 @@
+ll */plot.input | \
+   grep -v TauMass | \
+   grep -v TauFit | \
+   grep -v gtau | \
+   grep -v gmu | \
+   awk '{print "grep -H HFAG "$NF" |grep Fit"}' | sh | \
+   sed -e 's/\// /g' | awk '{print "echo "$1" \""$0"\""}' | \
+   sed -e 's/TauToHmHmHmHpHpNu/`grep "Gamma103 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToHmHmHpNu/`grep "Gamma57 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToHmNu/`grep "Gamma8 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToHmPizNu/`grep "Gamma13 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToKmEtaNu/`grep "Gamma128 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToKmKmKpNu/`grep "Gamma96 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToKmNu/`grep "Gamma10 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToKmPizEtaNu/`grep "Gamma130 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToKmPizNu/`grep "Gamma16 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToMumNuNumb/`grep "Gamma3 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToPimKmKpNu/`grep "Gamma93 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimKmPipNu/`grep "Gamma85 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/'  \
+       -e 's/TauToPimKzbEtaNu/`grep "Gamma132 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimKzbNu/`grep "Gamma35 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimNu/`grep "Gamma9 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimPimPipEtaNu/`grep "Gamma136 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimPimPipNu/`grep "Gamma60 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimPizEtaNu/`grep "Gamma126 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimPizKzbNu/`grep "Gamma40 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' \
+       -e 's/TauToPimPizNu/`grep "Gamma14 " TauFit_Mar2011\/readpdg_constrained_aleph_hcorr.log | awk -F"=" '"'"'{print \$3}'"'"' `/' 

@@ -4520,7 +4520,8 @@ int main(int argc, char* argv[]){
     }
   }
   //
-  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot, nchisquare_tot);
+  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d Nbase_u = %2d NDOF = %3d CL = %8.4g \n\n", 
+	       chisquare_tot, nchisquare_tot, nbase_u, nchisquare_tot - nbase_u, TMath::Prob(chisquare_tot, nchisquare_tot - nbase_u));
   //
   cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
 	       nodetitle[N_GAMMAALL].data(),
@@ -4746,7 +4747,9 @@ int main(int argc, char* argv[]){
     }
   }
   //
-  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_noweak, nchisquare_tot_noweak);
+  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d Nbase_u = %2d NDOF = %3d CL = %8.4g \n\n", 
+	       chisquare_tot_noweak, nchisquare_tot_noweak, 
+	       nbase_u, nchisquare_tot_noweak - nbase_u, TMath::Prob(chisquare_tot_noweak, nchisquare_tot_noweak - nbase_u));
   //
   cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
 	       nodetitle[N_GAMMAALL].data(),
@@ -5317,7 +5320,9 @@ int main(int argc, char* argv[]){
     }
   }
   //
-  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_noweak_scaled, nchisquare_tot_noweak_scaled);
+  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d Nbase_u = %2d NDOF = %3d CL = %8.4g \n\n", 
+	       chisquare_tot_noweak_scaled, nchisquare_tot_noweak_scaled, 
+	       nbase_u, nchisquare_tot_noweak_scaled - nbase_u, TMath::Prob(chisquare_tot_noweak_scaled, nchisquare_tot_noweak_scaled - nbase_u));
   //
   cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
 	       nodetitle[N_GAMMAALL].data(),
@@ -5595,7 +5600,9 @@ int main(int argc, char* argv[]){
     }
   }
   //
-  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_rescaled, nchisquare_tot_rescaled);
+  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d Nbase_u = %2d NDOF = %3d CL = %8.4g \n\n", 
+	       chisquare_tot_rescaled, nchisquare_tot_rescaled,
+	       nbase_u, nchisquare_tot_rescaled - nbase_u, TMath::Prob(chisquare_tot_rescaled, nchisquare_tot_rescaled - nbase_u));
   //
   cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
 	       nodetitle[N_GAMMAALL].data(),
@@ -5833,7 +5840,9 @@ int main(int argc, char* argv[]){
     }
   }
   //
-  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d \n\n", chisquare_tot_noweak_rescaled, nchisquare_tot_noweak_rescaled);
+  cout << Form("chisquare_tot = %8.4f nchisquare_tot = %3d Nbase_u = %2d NDOF = %3d CL = %8.4g \n\n", 
+	       chisquare_tot_noweak_rescaled, nchisquare_tot_noweak_rescaled,
+	       nbase_u, nchisquare_tot_noweak_rescaled - nbase_u, TMath::Prob(chisquare_tot_noweak_rescaled, nchisquare_tot_noweak_rescaled - nbase_u));
   //
   cout << Form("%s = (%10.6f +- %10.6f)%% (%10.6f sigma); %s = (%10.6f +- %10.6f)%% (%10.6f sigma)\n\n",
 	       nodetitle[N_GAMMAALL].data(),

@@ -1,7 +1,7 @@
 # first line is xmin, xmax, precision, title
 * 0.8425       1.0525          6.4 |g_{#mu}/g_{e}|
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
-& 1.0019       0.0014       0            HFAG Fit (#tau #rightarrow #mu #bar{#nu}_{#mu} #nu_{#tau})/(#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau})
+& 1.0018       0.0014       0            HFAG Fit (#tau #rightarrow #mu #bar{#nu}_{#mu} #nu_{#tau})/(#tau #rightarrow e \bar{#nu}_{e} #nu_{#tau})
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
   1.0017       0.0015       -0.0015      0         0   TRIUMF, PSI (#pi #rightarrow #mu #bar{#nu}_{#mu})/(#pi #rightarrow e #bar{#nu}_{e})
   0.9980       0.0025       -0.0025      0         0   NA62, KLOE (K #rightarrow #mu #bar{#nu}_{#mu})/(K #rightarrow e #bar{#nu}_{e})

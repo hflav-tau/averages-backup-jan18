@@ -3,7 +3,7 @@
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages	
 & 0.15885 0.0089649 0.4104 HFAG Average
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
-% 0.21  0.04   0.00  PDG'09 Average
+% 0.21  0.04   0.00  PDG'10 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
   0.156 0.002 -0.002 0.009 -0.009 Belle ICHEP08
   0.213 0.048 -0.048 0.000 -0.000 ALEPH 1998
