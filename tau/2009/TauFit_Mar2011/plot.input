@@ -1,0 +1,12 @@
+# first line is xmin, xmax, precision, title
+* 0.198         0.232          6.4 |V_{us}|
+# next lines are average, error, CL (or -ScaleFactor) for HFAG Averages
+& 0.2255       0.0010       0            CKM Unitarity
+# next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
+  0.2168       0.0022       -0.0022      0         0    HFAG Fit (#tau #rightarrow s inclusive)
+  0.2239       0.0022       -0.0022      0         0    HFAG Fit (#tau #rightarrow K #nu_{#tau})/(#tau #rightarrow #pi #nu_{#tau})
+  0.2203       0.0032       -0.0032      0         0    HFAG Fit (#tau #rightarrow K #nu_{#tau})
+  0.2260       0.0050       -0.0050      0         0    Hyperon decays
+  0.2252       0.0013       -0.0013      0         0    FlaviaNet K_{l2} decays
+  0.2254       0.0013       -0.0013      0         0    FlaviaNet K_{l3} decays
+

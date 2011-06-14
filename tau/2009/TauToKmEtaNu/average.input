@@ -1,6 +1,6 @@
 INCLUDE babar.input
 INCLUDE belle.input
-* INCLUDE pdg.input
+INCLUDE pdg.input
 
 BEGIN   Belle+PDG all_methods
 

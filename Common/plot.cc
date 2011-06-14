@@ -71,7 +71,7 @@ int SetUp(){
   gStyle->SetNdivisions(505, "Y");
 }
 // ----------------------------------------------------------------------
-void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 0.825, Double_t xsiz=0.1, Double_t ysiz=0.12, Double_t scale= 1.0) {
+void HFAGTauLabel(Int_t yearversion=2011001, Double_t xpos= .99, Double_t ypos= 0.825, Double_t xsiz=0.1, Double_t ysiz=0.12, Double_t scale= 1.0) {
   TPaveText *tbox1 = new TPaveText(xpos-xsiz,ypos-ysiz,xpos,ypos,"BRNDC");
   tbox1->SetLineColor(1);
   tbox1->SetLineStyle(1);
@@ -105,6 +105,7 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
   if (yearversion==2009002) ts2="Summer 2009";
   if (yearversion==2010001) ts2="Winter 2010";
   if (yearversion==2010002) ts2="Summer 2010";
+  if (yearversion==2011001) ts2="Summer 2011";
   tbox2->AddText(ts2);
   tbox2->Draw();
 }
@@ -420,7 +421,7 @@ int plot(std::string filename_string = "plot.input", double DrawExtraLine_x=-999
     ExtraLine.DrawLine(DrawExtraLine_x, fYmin+0.002*(fYmax-fYmin), DrawExtraLine_x, fYmax-0.002*(fYmax-fYmin));
   }
 
-  HFAGTauLabel(2010002,.34,.23,.27,.05,.95);
+  HFAGTauLabel(2011001,.34,.23,.27,.05,.95);
 
   size_t extPos = filename_string.rfind('.');
   std::string outFilename;

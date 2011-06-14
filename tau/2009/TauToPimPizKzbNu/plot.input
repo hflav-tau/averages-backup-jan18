@@ -1,10 +1,10 @@
 # first line is xmin, xmax, precision, title
 * -0.3 0.6 5.3 B(#tau^{-} #rightarrow #pi^{-} #pi^{0} #bar{K}^{0} #nu) [%]
 # next lines are average, error, CL (or -ScaleFactor) for HFAG Averages	
-& 0.350     0.015       0.04924 HFAG Fit
+& 0.348     0.015       0.06308 HFAG Fit
 & 0.3448220 0.01495020  0.7947  HFAG Average
 # next lines are average, error, Scale Factor for PDG Averages; Scale==0 means none quoted
-% 0.36 0.04 0.00  PDG'09 Average
+% 0.36 0.04 0.00  PDG'10 Average
 # next lines are measurement, stat pos-error, neg-error[with negative sign], syst pos-error, neg-error[with negative sign], experiment-name
   0.342 0.006 -0.006 0.015 -0.015 BaBar DPF09
   0.347 0.053 -0.053 0.037 -0.037 ALEPH 1999 [K#splitline{0}{L} mode]

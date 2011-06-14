@@ -1,0 +1,14 @@
+#!/bin/csh -f
+#
+### lt */plot.input |grep -v TauMass | grep -v TauFit | grep -v gtau | grep -v gmu | awk '{print $NF}' | awk -F/ '{print $1}' | awk '{print "cd "$1"; touch plot.input ; make plot ; cp plot.log log ; cp plot.eps log ; cp plot.gif log ; cp plot.gif ~/hfagtau/plots/2011/"$1".gif ; cd - "}' 
+#
+lt */plot.input | \
+ grep -v TauMass | \
+ grep -v TauFit | \
+ grep -v gtau | \
+ grep -v gmu | \
+ awk '{print $NF}' | \
+ awk -F/ '{print $1}' | \
+ awk '{print "cd "$1"; touch plot.input ; make plot ; cp plot.log log ; cp plot.eps log ; cp plot.gif log ; cp plot.gif ~/hfagtau/plots/2011/"$1".gif ; cp -p plot.eps ~/hfagtau/plots/2011/"$1".eps ; cd - "}' 
+# awk '{print "cd "$1"; cp -p plot.eps ~/hfagtau/plots/2011/"$1".eps ; cd - "}' 
+# awk '{print "cd "$1"; diff plot.gif ~/hfagtau/plots/2011/"$1".gif ; cd - "}' 

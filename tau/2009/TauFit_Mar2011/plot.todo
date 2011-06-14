@@ -1,0 +1,6 @@
+root -l -b -q '../../../Common/plot.cc("plot.input",.2255,0.035)' | tee plot.log ; 
+convert plot.eps plot.gif ; 
+# cp -p plot.eps ~/public/Papers/EndOfYear09/figures/tau/Vus.eps ; 
+cp -p plot.eps ~/hfagtau/plots/2011/Vus.eps
+cp -p plot.gif ~/hfagtau/plots/2011/Vus.gif 
+
