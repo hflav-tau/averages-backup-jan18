@@ -671,6 +671,7 @@ double func_Bhadrons(double* x, double* par) {
   double Be_from_tautau = func_Be_from_tautau(x,par);
   double Be_from_Bpi = func_Be_from_Bpi(x,par);
   double Be_from_BK = func_Be_from_BK(x,par);
+  double Btotal = par[P_Ball];
   //
   //  cout << "Be = " << Be << " Be_from_Bmu = " << Be_from_Bmu << " Be_from_tautau = " << Be_from_tautau << " Be_from_Bpi = " << Be_from_Bpi << " Be_from_BK  = " << Be_from_BK  << endl;
   double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
@@ -678,7 +679,7 @@ double func_Bhadrons(double* x, double* par) {
   double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
   double fmufe = func_fmufe(x,par);
-  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Bhadrons = Btotal - (1. + fmufe) * Be_univ;
   //cout << "fmufe = " << fmufe << " Be_univ = " << Be_univ << " Bhadrons = " << Bhadrons << endl;
   return Bhadrons;
 }
@@ -692,12 +693,13 @@ double func_Rhadrons(double* x, double* par){
   double Be_from_tautau = func_Be_from_tautau(x,par);
   double Be_from_Bpi = func_Be_from_Bpi(x,par);
   double Be_from_BK = func_Be_from_BK(x,par);
+  double Btotal = par[P_Ball];
   //
   double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
   double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
   double fmufe = func_fmufe(x,par);
-  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Bhadrons = Btotal - (1. + fmufe) * Be_univ;
   double Rhadrons = Bhadrons/Be_univ;
   return Rhadrons;
 }
@@ -727,12 +729,13 @@ double func_Rnonstrange(double* x, double* par){
   double Be_from_tautau = func_Be_from_tautau(x,par);
   double Be_from_Bpi = func_Be_from_Bpi(x,par);
   double Be_from_BK = func_Be_from_BK(x,par);
+  double Btotal = par[P_Ball];
   //
   double Be_univ_wt[5] = {par[P_wt_Be], par[P_wt_Be_from_Bmu], par[P_wt_Be_from_tautau], par[P_wt_Be_from_Bpi], par[P_wt_Be_from_BK]};
   double Be_univ = Be_univ_wt[0] * Be + Be_univ_wt[1] * Be_from_Bmu + Be_univ_wt[2] * Be_from_tautau + Be_univ_wt[3] * Be_from_Bpi + Be_univ_wt[4] * Be_from_BK;
   //
   double fmufe = func_fmufe(x,par);
-  double Bhadrons = 1. - (1. + fmufe) * Be_univ;
+  double Bhadrons = Btotal - (1. + fmufe) * Be_univ;
   double Rhadrons = Bhadrons/Be_univ;
   //
   double Bstrange = par[P_Bs];

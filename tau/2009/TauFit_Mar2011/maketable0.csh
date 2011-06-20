@@ -196,9 +196,9 @@ echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ4)}} $    & ' ${Be_univ4_V
 #
 echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ5)}}$      & ' ${Be_univ5_Val} ' $\pm$ ' ${Be_univ5_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\tau_\\tau$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$)] & [' ${Be_univ5_wt_Be} ',' ${Be_univ5_wt_Bmu} ',' ${Be_univ5_wt_tt} ',' ${Be_univ5_wt_Bpi} ',' ${Be_univ5_wt_BK} '] \\\\ \\hline' >> maketable0.temp/table.tail
 #
-echo '$\mathrm{B_{had}}$ & \multicolumn{1}{c}{' ${Bhad_Val} ' $\pm$ ' ${Bhad_Err} '} &  \multicolumn{1}{c|}{$\mathrm{B_{had}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}} $ = ' ${Rhad_Val} ' $\pm$ ' ${Rhad_Err} ' } & $|V_{us}|$ = ' ${Vus_Val} ' $\pm$ ' ${Vus_Err} '\\\\ \\cline{4-4}' >> maketable0.temp/table.tail
+echo '\multicolumn{3}{|l|}{$\mathrm{B_{had}} = \mathrm{B_{total}} - ( 1 + \mathrm{(f_\\mu/f_e)}) \\times \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}} = $ ' ${Bhad_Val} ' $\pm$ ' ${Bhad_Err} '\hspace{.5cm}  $\mathrm{B_{had}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}} $ = ' ${Rhad_Val} ' $\pm$ ' ${Rhad_Err} ' } & $|V_{us}|$ = ' ${Vus_Val} ' $\pm$ ' ${Vus_Err} '\\\\ \\cline{4-4}' >> maketable0.temp/table.tail
 #
-echo '$\mathrm{B_{strange}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}}$ & \multicolumn{1}{c}{' ${Rs_Val} ' $\pm$ ' ${Rs_Err} '} &  \multicolumn{1}{c|}{$\mathrm{B_{non-strange}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}}$ = ' ${Rns_Val} ' $\pm$ ' ${Rns_Err} ' } & $\\mathrm{B_K/B_\\pi}$ = ' ${BKBpi_Val} '$\pm$' ${BKBpi_Err} ' \\\\ \\cline{1-3}' >> maketable0.temp/table.tail
+echo '$\mathrm{B_{strange}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}}$ & \multicolumn{1}{c}{' ${Rs_Val} ' $\pm$ ' ${Rs_Err} '} &  \multicolumn{1}{r|}{$\mathrm{B_{non-strange}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}}$ = ' ${Rns_Val} ' $\pm$ ' ${Rns_Err} ' } & $\\mathrm{B_K/B_\\pi}$ = ' ${BKBpi_Val} '$\pm$' ${BKBpi_Err} ' \\\\ \\cline{1-3}' >> maketable0.temp/table.tail
 #
 echo '$(\\mathrm{B_\\pi})_{univ}$ & \multicolumn{1}{c}{' ${Bpiuniv_Val} ' $\pm$ ' ${Bpiuniv_Err} '} &  \multicolumn{1}{c|}{$\mathrm{(g_\\tau/g_\\mu)_\\pi} $  = ' ${gtaugmu_pi_Val} ' $\pm$ ' ${gtaugmu_pi_Err} ' } & $|V_{us}|_{\mathrm{B_K}/{\mathrm{B_\\pi}}}$ = ' ${Vus_KPi_Val} '$\pm$' ${Vus_KPi_Err} ' \\\\ \\cline{1-3}' >> maketable0.temp/table.tail
 #
