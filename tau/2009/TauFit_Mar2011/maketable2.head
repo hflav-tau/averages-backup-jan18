@@ -1,0 +1,15 @@
+\documentclass [10pt]{article} 
+\usepackage[top=4cm,margin=2cm,letterpaper]{geometry}
+\pagestyle{empty}
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+\usepackage{xspace}
+\usepackage{varioref}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\begin{document}
+\begin{table}[!hbtp]
+\begin{center}
+{\scalebox{.9}{\begin{tabular}{|l| c |c|} \hline
+Base modes from $\tau^-$ decay                                         & $\mathrm{(B_{\pi,K})_{univ}}$ & With B-Factory Data\\ \hline
+\multicolumn{3}{|c|}{leptonic modes} \\ \hline
