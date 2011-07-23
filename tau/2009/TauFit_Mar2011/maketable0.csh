@@ -170,31 +170,31 @@ setenv gtauge_mu_Err   `grep -F "(gtau/ge)_mu = " $RESFILE | grep -v Corr | tail
 setenv Bmu_from_tt_Val `grep -F "B(tau- -> mu- nub nu)_tautau  = " $RESFILE | tail -1 | sed -e 's/(/ /g' | sed -e 's/)/ /g' | awk -F= '{print $2}' | awk '{print $1}'`
 setenv Bmu_from_tt_Err `grep -F "B(tau- -> mu- nub nu)_tautau  = " $RESFILE | tail -1 | sed -e 's/(/ /g' | sed -e 's/)/ /g' | awk -F= '{print $2}' | awk '{print $3}'`
 #
-echo '$\\mathrm{B_e}$                       & ' ${Be_Val} ' $\pm$ ' ${Be_Err} ' & [ Corr. with $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_s}$, $\\mathrm{B_{tot}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Be_Bpi} ',' ${Corr_Be_BK} ',' ${Corr_Be_Bs} ',' ${Corr_Be_Bt} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_e}$                       & ' ${Be_Val} ' $\pm$ ' ${Be_Err} ' & [ Corr. with $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_s}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Be_Bpi} ',' ${Corr_Be_BK} ',' ${Corr_Be_Bs} ',' ${Corr_Be_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_\\mu}$                   & ' ${Bmu_Val} ' $\pm$ ' ${Bmu_Err}' & [ Corr. with    $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_s}$, $\\mathrm{B_{tot}}$ ] & [' ${Corr_Bmu_Bpi} ',' ${Corr_Bmu_BK} ',' ${Corr_Bmu_Bs} ',' ${Corr_Bmu_Bt} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_\\mu}$                   & ' ${Bmu_Val} ' $\pm$ ' ${Bmu_Err}' & [ Corr. with $\\mathrm{B_e}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_s}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Bmu_Bpi} ',' ${Corr_Bmu_BK} ',' ${Corr_Bmu_Bs} ',' ${Corr_Bmu_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_\\pi}$                   & ' ${Bpi_Val} ' $\pm$ ' ${Bpi_Err}' & [ Corr. with       $\\mathrm{B_K}$, $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Bpi_BK} ',' ${Corr_Bpi_Bs} ',' ${Corr_Bpi_Bt} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_\\pi}$                   & ' ${Bpi_Val} ' $\pm$ ' ${Bpi_Err}' & [ Corr. with $\\mathrm{B_e}$,  $\\mathrm{B_\\mu}$, $\\mathrm{B_K}$, $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & ['  ${Corr_Be_Bpi} ',' ${Corr_Bmu_Bpi} ',' ${Corr_Bpi_BK} ',' ${Corr_Bpi_Bs} ',' ${Corr_Bpi_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_K}$                    & ' ${BK_Val} ' $\pm$ ' ${BK_Err}' & [ Corr. with       $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_BK_Bs} ',' ${Corr_BK_Bt} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_K}$                    & ' ${BK_Val} ' $\pm$ ' ${BK_Err}' & [ Corr. with $\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_BK} ',' ${Corr_Bmu_BK} ','  ${Corr_Bpi_BK} ',' ${Corr_BK_Bs} ',' ${Corr_BK_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_{strange}}$              & ' ${Bs_Val} ' $\pm$ ' ${Bs_Err}' & [ Corr. with      $\\mathrm{B_{total}}$ ] & [' ${Corr_Bs_Bt} '] \\\\ \\cline{3-4}' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_{strange}}$              & ' ${Bs_Val} ' $\pm$ ' ${Bs_Err}' & [ Corr. with $\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bs} ',' ${Corr_Bmu_Bs} ',' ${Corr_Bpi_Bs} ',' ${Corr_BK_Bs} ',' ${Corr_Bs_Bt} '] \\\\ \\cline{3-4}' >> maketable0.temp/table.tail
 #
 echo '$\\mathrm{B_{total}}$               & ' ${Bt_Val} ' $\pm$ ' ${Bt_Err}' & \multicolumn{2}{c|}{[Note: this is used to calculate $\\mathrm{B_{non-strange}}$ = $\\mathrm{B_{total}}$ - $\\mathrm{B_{strange}}$ - $\\mathrm{B_{leptonic}}$]}\\\\ \\hline' >> maketable0.temp/table.tail 
 #
 echo '$\\mathrm{B_e}$ (from $\\mathrm{B_\\mu}$)         & ' ${Be_from_Bmu_Val} ' $\pm$ ' ${Be_from_Bmu_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\tau_\\tau$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$)] & [' ${Corr_Be_from_Bmu_Be} ',' ${Corr_Be_from_Bmu_tt} ',' ${Corr_Be_from_Bmu_Bpi} ',' ${Corr_Be_from_Bmu_BK} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_e}$ (from $\\tau_\\tau$)      & ' ${Be_from_tt_Val} ' $\pm$ ' ${Be_from_tt_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$)] & [' ${Corr_Be_from_tt_Be} ',' ${Corr_Be_from_tt_Bpi} ',' ${Corr_Be_from_tt_BK} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_e}$ (from $\\tau_\\tau$)      & ' ${Be_from_tt_Val} ' $\pm$ ' ${Be_from_tt_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$)] & [' ${Corr_Be_from_tt_Be} ',' ${Corr_Be_from_Bmu_tt} ',' ${Corr_Be_from_tt_Bpi} ',' ${Corr_Be_from_tt_BK} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_e}$ (from $\\mathrm{B_\\pi}$)      & ' ${Be_from_Bpi_Val} ' $\pm$ ' ${Be_from_Bpi_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_K}$)] & [' ${Corr_Be_from_Bpi_Be} ',' ${Corr_Be_from_Bpi_BK} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_e}$ (from $\\mathrm{B_\\pi}$)      & ' ${Be_from_Bpi_Val} ' $\pm$ ' ${Be_from_Bpi_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{\\tau_\\tau}$, $\\mathrm{B_K}$)] & [' ${Corr_Be_from_Bpi_Be} ',' ${Corr_Be_from_Bmu_Bpi} ',' ${Corr_Be_from_tt_Bpi} ',' ${Corr_Be_from_Bpi_BK} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_e}$ (from $\\mathrm{B_K}$)      & ' ${Be_from_BK_Val} ' $\pm$ ' ${Be_from_BK_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$)] & [' ${Corr_Be_from_BK_Be} '] \\\\ \\hline ' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_e}$ (from $\\mathrm{B_K}$)      & ' ${Be_from_BK_Val} ' $\pm$ ' ${Be_from_BK_Err}' & [ Corr. with $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{\\tau_\\tau}$, $\\mathrm{B_\\pi}$ )] & [' ${Corr_Be_from_BK_Be} ',' ${Corr_Be_from_Bmu_BK} ',' ${Corr_Be_from_tt_BK} ',' ${Corr_Be_from_Bpi_BK} '] \\\\ \\hline ' >> maketable0.temp/table.tail
 #
-echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ3)}} $  & ' ${Be_univ3_Val} ' $\pm$ ' ${Be_univ3_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\tau_\\tau$)] & [' ${Be_univ3_wt_Be} ',' ${Be_univ3_wt_Bmu} ',' ${Be_univ3_wt_tt} '] \\\\' >> maketable0.temp/table.tail
+echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ3)}} $  & ' ${Be_univ3_Val} ' $\pm$ ' ${Be_univ3_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{\\tau_\\tau}$)] & [' ${Be_univ3_wt_Be} ',' ${Be_univ3_wt_Bmu} ',' ${Be_univ3_wt_tt} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ4)}} $    & ' ${Be_univ4_Val} ' $\pm$ ' ${Be_univ4_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\tau_\\tau$, $\\mathrm{B_\\pi}$)] & [' ${Be_univ4_wt_Be} ',' ${Be_univ4_wt_Bmu} ',' ${Be_univ4_wt_tt} ',' ${Be_univ4_wt_Bpi} '] \\\\' >> maketable0.temp/table.tail
+echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ4)}} $    & ' ${Be_univ4_Val} ' $\pm$ ' ${Be_univ4_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{\\tau_\\tau}$, $\\mathrm{B_\\pi}$)] & [' ${Be_univ4_wt_Be} ',' ${Be_univ4_wt_Bmu} ',' ${Be_univ4_wt_tt} ',' ${Be_univ4_wt_Bpi} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ5)}}$      & ' ${Be_univ5_Val} ' $\pm$ ' ${Be_univ5_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\tau_\\tau$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$)] & [' ${Be_univ5_wt_Be} ',' ${Be_univ5_wt_Bmu} ',' ${Be_univ5_wt_tt} ',' ${Be_univ5_wt_Bpi} ',' ${Be_univ5_wt_BK} '] \\\\ \\hline' >> maketable0.temp/table.tail
+echo '$ \\langle \\mathrm{B_e} \\rangle_{\mathrm{(univ5)}}$      & ' ${Be_univ5_Val} ' $\pm$ ' ${Be_univ5_Err}' & [ Weights for $\\mathrm{B_e}$ from ($\\mathrm{B_e}$, $\\mathrm{B_\\mu}$, $\\mathrm{\\tau_\\tau}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$)] & [' ${Be_univ5_wt_Be} ',' ${Be_univ5_wt_Bmu} ',' ${Be_univ5_wt_tt} ',' ${Be_univ5_wt_Bpi} ',' ${Be_univ5_wt_BK} '] \\\\ \\hline' >> maketable0.temp/table.tail
 #
 echo '\multicolumn{3}{|l|}{$\mathrm{B_{had}} = \mathrm{B_{total}} - ( 1 + \mathrm{(f_\\mu/f_e)}) \\times \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}} = $ ' ${Bhad_Val} ' $\pm$ ' ${Bhad_Err} '\hspace{.5cm}  $\mathrm{B_{had}}/ \\langle \\mathrm{B_e} \\rangle_{\mathrm{univ5}} $ = ' ${Rhad_Val} ' $\pm$ ' ${Rhad_Err} ' } & $|V_{us}|$ = ' ${Vus_Val} ' $\pm$ ' ${Vus_Err} '\\\\ \\cline{4-4}' >> maketable0.temp/table.tail
 #
