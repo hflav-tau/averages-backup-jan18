@@ -610,6 +610,9 @@ if (method == "alucomb2") {
 quant.val = quant.seed.val
 
 first.iteration = TRUE
+constr.num = length(combination$constr.all.expr)
+constr.names = names(combination$constr.all.expr)
+constr.nl = combination$constr.all.nl
 
 ##--- derivative and gradient of constraint equation expressions
 constr.expr = lapply(combination$constr.all.expr, function(x) deriv(x, all.vars(x)))
@@ -624,13 +627,13 @@ repeat {
   constr.expr.val = lapply(constr.expr, function(x) eval(x, as.list(quant.val)))
   constr.lin.comb = lapply(constr.expr.val, function(x) drop(attr(x, "gradient")))
   constr.lin.val = combination$constr.all.val - as.vector(unlist(constr.expr.val))
-  constr.lin.val = constr.lin.val + sapply(constr.lin.comb, function(x) drop(x %*% quant.val[names(x)]))
+  if (constr.num > 0) {
+    constr.lin.val = constr.lin.val + sapply(constr.lin.comb, function(x) drop(x %*% quant.val[names(x)]))
+  }
   
   ##
   ## obtain constraint equations
   ##
-  constr.num = length(combination$constr.all.expr)
-  constr.names = names(combination$constr.all.expr)
   constr.m =  do.call(rbind, lapply(constr.lin.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
   constr.v = constr.lin.val
   
@@ -687,17 +690,24 @@ repeat {
   quant.constr.val = solve.m %*% full.v
   quant.val = drop(quant.constr.val)[1:quant.num]
   
+  ##--- end if the average percent change of constraint equation coefficients is small enough
+ 
+  if (length(constr.lin.comb[constr.nl]) == 0) {
+    ##--- there is no non-linear constraint whose linearization must iteratively converge
+    break
+  }
+
   if (!first.iteration) {
-    ##--- end if the average percent change of constraint equation coefficients is small enough
-    nlmask = combination$constr.all.nl
+    ##--- compute sum of squares of differences between previous and current iteration linearized constraints
     constr.diff = mapply(function(c2, v2, c1, v1) {
       x2 = c(c2, v2)
       x1 = c(c1, v1)
       norm = pmax(x1,x2,x2+x1)
       norm = mean(norm)
       ifelse(norm==0, 0, sum(((x2-x1)/norm)^2))
-    }, constr.lin.comb[nlmask], constr.lin.val[nlmask], constr.lin.prev.comb[nlmask], constr.lin.prev.val[nlmask])
+    }, constr.lin.comb[constr.nl], constr.lin.val[constr.nl], constr.lin.prev.comb[constr.nl], constr.lin.prev.val[constr.nl])
     show(constr.diff)
+    ##--- end if the average percent change of constraint equation coefficients is small enough
     if (sum(constr.diff) / constr.num < 1e-10) break
   }
 
@@ -706,9 +716,10 @@ repeat {
   constr.lin.prev.val = constr.lin.val
   first.iteration = FALSE
 }
-cat("\n## End of constraint percent change summaries\n\n")
-rm(nlmask)
-rm(constr.diff)
+if (constr.num > 0) {
+  cat("\n## End of constraint percent change summaries\n\n")
+}
+rm(constr.nl)
 rm(first.iteration)
 
 ##
