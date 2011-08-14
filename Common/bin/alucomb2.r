@@ -690,8 +690,6 @@ repeat {
   quant.constr.val = solve.m %*% full.v
   quant.val = drop(quant.constr.val)[1:quant.num]
   
-  ##--- end if the average percent change of constraint equation coefficients is small enough
- 
   if (length(constr.lin.comb[constr.nl]) == 0) {
     ##--- there is no non-linear constraint whose linearization must iteratively converge
     break
