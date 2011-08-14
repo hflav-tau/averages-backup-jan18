@@ -162,8 +162,12 @@ for (line in lines) {
 
       constraint.labels = character()
       constraint.values = numeric()
+
       constraints.list.comb = list()
       constraints.list.val = list()
+
+      nlconstr.comb = list()
+      nlconstr.val = list()
 
       flag.in.meas = TRUE
     }
@@ -338,6 +342,8 @@ for (line in lines) {
       combination$meas.lin.combs = measlincombs.list
       combination$constr.comb = constraints.list.comb
       combination$constr.val = constraints.list.val
+      combination$nlconstr.comb = nlconstr.comb
+      combination$nlconstr.val = nlconstr.val
     }
     flag.in.meas = FALSE
     flag.in.combine = FALSE
@@ -389,6 +395,13 @@ for (line in lines) {
     meas$params = c(meas$params, list(unlist(params.data[2:4])))
     names(meas$params)[length(meas$params)] = params.data[[1]]
     next
+  }
+  ##--- non-linear constraints, label and expression
+  if (flag.in.combine && match.nocase("^NLCONSTRAINT$", fields[1])) {
+    expr = paste(fields[-(1:3)], collapse="")
+    expr = gsub("\"?([^\"]*)\"?.*", "\\1", expr, perl=TRUE)
+    nlconstr.comb[[fields[2]]] = expr
+    nlconstr.val[[fields[2]]] = ifelse(!is.na(suppressWarnings(as.numeric(fields[3]))), as.numeric(fields[3]), 0)
   }
   ##--- MEASUREMENT in COMBINE cards
   if ((flag.in.combine && match.nocase("^MEASUREMENT$", fields[1])) ||
