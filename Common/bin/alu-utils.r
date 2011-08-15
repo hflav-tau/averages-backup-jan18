@@ -112,6 +112,7 @@ measurements = list()
 combination = list()
 meas.options = list()
 
+flag.in.block = FALSE
 flag.in.meas = FALSE
 flag.in.data = FALSE
 flag.in.params = FALSE
@@ -140,41 +141,53 @@ for (line in lines) {
   
   ##--- begin of measurement cards
   if (match.nocase("^BEGIN$", fields[1])) {
-    if (flag.in.meas) {
-      cat("error, BEGIN keyword inside definition of", meas$tag, "\n")
-    } else {
-      ##--- init measurement list
-      meas = list()
-      meas$tag = paste(as.character(fields[2:4]), collapse=".")
-      meas$bibitem = as.character(fields[-1])
-      meas$value = numeric()
-      meas$stat = numeric()
-      meas$syst = numeric()
-      meas$params = list()
-      meas$syst.terms = numeric()
-      meas$corr.terms = list()
-      meas$corr.terms.tot = list()
-
-      sumofquant.values = numeric()
-      combofquant.labels = character()
-      combofquant.values = numeric()
-      measlincombs.list = list()
-
-      constraint.labels = character()
-      constraint.values = numeric()
-
-      constraints.list.comb = list()
-      constraints.list.val = list()
-
-      nlconstr.comb = list()
-      nlconstr.val = list()
-
-      flag.in.meas = TRUE
+    if (flag.in.block) {
+      cat("error, BEGIN keyword inside a block\n")
+      next
     }
+    flag.in.block = TRUE
+    ##
+    ## setup data for both a MEASUREMENT and COMBINE block
+    ##
+    
+    ##--- setup for MEASUREMENT
+    meas = list()
+    meas$tag = ""
+    if (length(fields)>=4) {
+      meas$tag = paste(as.character(fields[2:4]), collapse=".")
+    }
+    meas$bibitem = ""
+    if (length(fields)>=2) {
+      meas$bibitem = as.character(fields[-1])
+    }
+    meas$value = numeric()
+    meas$stat = numeric()
+    meas$syst = numeric()
+    meas$params = list()
+    meas$syst.terms = numeric()
+    meas$corr.terms = list()
+    meas$corr.terms.tot = list()
+
+    ##--- setup for COMBINE
+    sumofquant.values = numeric()
+    combofquant.labels = character()
+    combofquant.values = numeric()
+    measlincombs.list = list()
+    
+    constraint.labels = character()
+    constraint.values = numeric()
+    
+    constraints.list.comb = list()
+    constraints.list.val = list()
+    
+    nlconstr.comb = list()
+    nlconstr.val = list()
+    
+    flag.in.meas = TRUE
     next
   }
-  if (!flag.in.meas) {
-    cat("error, ", fields[1], "outside a measurement definition (BEGIN..END)\n")
+  if (!flag.in.block) {
+    cat("error, keyword", fields[1], "outside a BEGIN/END block\n")
     next
   }
   ##
@@ -254,6 +267,11 @@ for (line in lines) {
     flag.in.combine.meas = FALSE
   }
   if (match.nocase("^END$", fields[1])) {
+    if (!flag.in.block) {
+      cat("error, END keyword does not close a BEGIN clause\n")
+      next
+    }
+    flag.in.block = false
     if (!flag.in.combine) {
       ##
       ## measurement cards
