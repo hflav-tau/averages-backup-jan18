@@ -12,7 +12,7 @@
 ##
 
 library(methods)
-source("../../../Common/bin/alu-utils.r")
+source("../../../Common/bin/alu-utils2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
@@ -55,42 +55,20 @@ rm(rc)
 ##--- all measurements in the input cards
 meas.names = names(measurements)
 ##--- quantities to be averaged
-quant.names = combination$quantities
+quant.names = names(combination$quantities)
 
-##
-## transform COMBOFQUANT and SUMOFQUANT cards
-## (quantities that are combination of other quantities)
-## into constraints consisting in requirements that
-## a combination of values be equal to a constant numeric value
-##
-tmp = mapply(function(name, value) {
-  rc = c(value, -1)
-  names(rc)[length(rc)] = name
-  rc
-},
-  names(combination$meas.lin.combs), combination$meas.lin.combs,
-  SIMPLIFY=FALSE)
-if (length(tmp) > 0) {
-  names(tmp) = paste(names(tmp), "coq", sep=".")
-  combination$constr.comb = c(combination$constr.comb, tmp)
-  tmp2 = as.list(rep(0, length(tmp)))
-  names(tmp2) = names(tmp)
-  combination$constr.val = c(combination$constr.val, tmp2)
-  rm(tmp2)
-}
-rm(tmp)
-
-if (length(combination$constr.comb) > 1) {
+##--- check duplicate linear constraints
+if (length(combination$constr.lin.comb) > 1) {
   dupl.constr = NULL
-  for (i in seq(1, length(combination$constr.comb))) {
-    for (j in seq(i+1, length=length(combination$constr.comb)-i)) {
-      if (length(setdiff(names(combination$constr.comb[[i]]), names(combination$constr.comb[[j]]))) == 0) {
-        qn = names(combination$constr.comb[[i]])
+  for (i in seq(1, length(combination$constr.lin.comb))) {
+    for (j in seq(i+1, length=length(combination$constr.lin.comb)-i)) {
+      if (length(setdiff(names(combination$constr.lin.comb[[i]]), names(combination$constr.lin.comb[[j]]))) == 0) {
+        qn = names(combination$constr.lin.comb[[i]])
         dupl.constr = rbind(dupl.constr,
-          matrix(c(combination$constr.val[[i]], unlist(combination$constr.comb[[i]][qn])), nrow=1,
-                 dimnames=list(names(combination$constr.comb[i]), c("val", qn))),
-          matrix(c(combination$constr.val[[j]], unlist(combination$constr.comb[[j]][qn])), nrow=1,
-                 dimnames=list(names(combination$constr.comb[j]), c("val", qn))))
+          matrix(c(combination$constr.lin.val[[i]], unlist(combination$constr.lin.comb[[i]][qn])), nrow=1,
+                 dimnames=list(names(combination$constr.lin.comb[i]), c("val", qn))),
+          matrix(c(combination$constr.lin.val[[j]], unlist(combination$constr.lin.comb[[j]][qn])), nrow=1,
+                 dimnames=list(names(combination$constr.lin.comb[j]), c("val", qn))))
       }
     }
   }
@@ -100,9 +78,9 @@ if (length(combination$constr.comb) > 1) {
   }
 }
 
-if (length(combination$constr.comb) > 0) {
-  ##--- retain only constraints whose terms are all included in the fitted quantities
-  constr.select = sapply(combination$constr.comb, function(x) all(names(x) %in% quant.names))
+##--- retain only constraints whose terms are all included in the fitted quantities
+if (length(combination$constr.lin.comb) > 0) {
+  constr.select = sapply(combination$constr.lin.comb, function(x) all(names(x) %in% quant.names))
   if (any(!constr.select)) {
     cat("\nThe following constraints are dropped:\n")
     mapply(function(comb, val, val.name) {
@@ -110,18 +88,18 @@ if (length(combination$constr.comb) > 0) {
       names(tmp) = val.name
       show(c(comb, tmp))
     },
-    combination$constr.comb[!constr.select],
-    combination$constr.val[!constr.select],
-    names(combination$constr.val[!constr.select]))
+    combination$constr.lin.comb[!constr.select],
+    combination$constr.lin.val[!constr.select],
+    names(combination$constr.lin.val[!constr.select]))
     cat("\nThe following measurement types are missing:\n")
-    show(unique(unlist(lapply(combination$constr.comb, function(x) setdiff(names(x), quant.names)))))
+    show(unique(unlist(lapply(combination$constr.lin.comb, function(x) setdiff(names(x), quant.names)))))
   }
-  combination$constr.comb = combination$constr.comb[constr.select]
-  combination$constr.val = combination$constr.val[constr.select]
+  combination$constr.lin.comb = combination$constr.lin.comb[constr.select]
+  combination$constr.lin.val = combination$constr.lin.val[constr.select]
 }
 
 ##--- quantity measured per measurement
-meas.quantities = sapply(measurements, function(x) names(x$value))
+meas.quantities = sapply(measurements, function(x) x$quant)
 
 ##--- discard measurements that are not associated to a declared fitted quantity
 meas.included.list = meas.quantities %in% quant.names
@@ -133,7 +111,7 @@ if (length(meas.names.discarded) >0) {
 }
 
 ##--- quantities involved in constraints
-constr.quantities = unique(unlist(lapply(combination$constr.comb, function(x) names(x)), use.names=FALSE))
+constr.quantities = unique(unlist(lapply(combination$constr.lin.comb, function(x) names(x)), use.names=FALSE))
 
 ##--- discard fitted quantities that are not defined by measurements and constraints
 quant.discarded = !(quant.names %in% c(meas.quantities, constr.quantities))
@@ -250,6 +228,7 @@ for (mn in meas.names) {
       }
     }
   }
+
   ##--- update value
   measurements[[mn]]$value.orig = measurements[[mn]]$value
   measurements[[mn]]$value = measurements[[mn]]$value + sum(value.delta)
@@ -463,7 +442,8 @@ quant.seed.val[quant.measured.bool] =
   (t(delta.measured) %*% meas.invcov %*% meas.val)
 
 ##--- get seed values for quantities without measurements
-quant.cards.seed.val = sapply(combination$quantities.options, function(el) { unname(el["seed"]) })
+
+quant.cards.seed.val = unlist(lapply(combination$quantities, function(el) { unname(el["seed"]) }))
 quant.cards.seed.val = quant.cards.seed.val[!is.na(quant.cards.seed.val)]
 
 ##--- set seed values for quantities that have no measurements
@@ -486,23 +466,23 @@ quant.seed.val[seed.needed] = quant.cards.seed.val[seed.needed]
 ##
 
 ##--- get expressions corresponding to linear constraints combinations
-constr.expr = mapply(function(comb) {
+constr.lin.expr = mapply(function(comb) {
   constr = paste(mapply(function(x,y) paste(x, "*", y, sep = ""), comb, names(comb)), collapse = "+")
   parse(text=constr)
-}, combination$constr.comb)
+}, combination$constr.lin.comb)
 
 ##--- get expressions corresponding to non-linear constraints combinations
-nlconstr.expr = parse(text=combination$nlconstr.comb)
-names(nlconstr.expr) = names(combination$nlconstr.comb)
+constr.nl.expr = parse(text=combination$constr.nl.expr)
+names(constr.nl.expr) = names(combination$constr.nl.expr)
 
 ##--- join linear and non-linear constrainst expressions
-combination$constr.all.expr = c(constr.expr, nlconstr.expr)
+combination$constr.all.expr = c(constr.lin.expr, constr.nl.expr)
 
 ##--- join linear and non-linear constraint values
-combination$constr.all.val = unlist(c(combination$constr.val, combination$nlconstr.val))
+combination$constr.all.val = unlist(c(combination$constr.lin.val, combination$constr.nl.val))
 
 ##--- flag which constraints are non-linear
-combination$constr.all.nl = c(rep(FALSE, length(combination$constr.val)), rep(TRUE, length(combination$nlconstr.val)))
+combination$constr.all.nl = c(rep(FALSE, length(combination$constr.lin.val)), rep(TRUE, length(combination$constr.nl.val)))
 
 ##--- print constraint equations
 if (length(combination$constr.all.val) > 0) {
@@ -520,10 +500,10 @@ if (method == "alucomb") {
 ##
 ## obtain constraint equations
 ##
-constr.num = length(combination$constr.comb)
-constr.names = names(combination$constr.comb)
-constr.m =  do.call(rbind, lapply(combination$constr.comb, function(x) {tmp = quant.val; tmp[names(x)] = x; tmp}))
-constr.v = unlist(combination$constr.val)
+constr.num = length(combination$constr.lin.comb)
+constr.names = names(combination$constr.lin.comb)
+constr.m =  do.call(rbind, lapply(combination$constr.lin.comb, function(x) {tmp = quant.val; tmp[names(x)] = x; tmp}))
+constr.v = unlist(combination$constr.lin.val)
 
 if (constr.num > 0) {
   ##--- determine the typical size of quant.invcov elements
@@ -625,17 +605,17 @@ repeat {
   ## ... f_j'_i*x_i = c_j - f(x^0_i) + f_j'_i*x^0_i
   ##
   constr.expr.val = lapply(constr.expr, function(x) eval(x, as.list(quant.val)))
-  constr.lin.comb = lapply(constr.expr.val, function(x) drop(attr(x, "gradient")))
-  constr.lin.val = combination$constr.all.val - as.vector(unlist(constr.expr.val))
+  constr.grad.comb = lapply(constr.expr.val, function(x) drop(attr(x, "gradient")))
+  constr.grad.val = combination$constr.all.val - as.vector(unlist(constr.expr.val))
   if (constr.num > 0) {
-    constr.lin.val = constr.lin.val + sapply(constr.lin.comb, function(x) drop(x %*% quant.val[names(x)]))
+    constr.grad.val = constr.grad.val + sapply(constr.grad.comb, function(x) drop(x %*% quant.val[names(x)]))
   }
   
   ##
   ## obtain constraint equations
   ##
-  constr.m =  do.call(rbind, lapply(constr.lin.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
-  constr.v = constr.lin.val
+  constr.m = do.call(rbind, lapply(constr.grad.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
+  constr.v = constr.grad.val
   
   if (constr.num > 0) {
     if (first.iteration) {
@@ -690,7 +670,7 @@ repeat {
   quant.constr.val = solve.m %*% full.v
   quant.val = drop(quant.constr.val)[1:quant.num]
   
-  if (length(constr.lin.comb[constr.nl]) == 0) {
+  if (length(constr.grad.comb[constr.nl]) == 0) {
     ##--- there is no non-linear constraint whose linearization must iteratively converge
     break
   }
@@ -703,15 +683,15 @@ repeat {
       norm = pmax(x1,x2,x2+x1)
       norm = mean(norm)
       ifelse(norm==0, 0, sum(((x2-x1)/norm)^2))
-    }, constr.lin.comb[constr.nl], constr.lin.val[constr.nl], constr.lin.prev.comb[constr.nl], constr.lin.prev.val[constr.nl])
+    }, constr.grad.comb[constr.nl], constr.grad.val[constr.nl], constr.grad.prev.comb[constr.nl], constr.grad.prev.val[constr.nl])
     show(constr.diff)
     ##--- end if the average percent change of constraint equation coefficients is small enough
     if (sum(constr.diff) / constr.num < 1e-10) break
   }
 
   ##--- save before calculation of next updated values
-  constr.lin.prev.comb = constr.lin.comb
-  constr.lin.prev.val = constr.lin.val
+  constr.grad.prev.comb = constr.grad.comb
+  constr.grad.prev.val = constr.grad.val
   first.iteration = FALSE
 }
 if (constr.num > 0) {
@@ -801,7 +781,7 @@ cat("## end\n")
 
 ##--- cleanup
 if (FALSE) {
-  rm(nlconstr.expr, rc.solnp)
+  rm(constr.nl.expr, rc.solnp)
 }
 
 ##--- save data and results
@@ -809,8 +789,7 @@ rc = save(file=file.name.data,
   measurements, combination, delta,
   chisq, dof,
   meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
-  quant.val,  quant.err,  quant.cov, quant.corr,
-  constr.val, constr.expr)
+  quant.val,  quant.err,  quant.cov, quant.corr)
 
 } # end if method solnp
 
