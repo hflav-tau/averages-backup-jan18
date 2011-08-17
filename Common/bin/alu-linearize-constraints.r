@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##
-## alu-linear-constr.r
+## alu-linearize-constraints.r
 ##
 ## - get fitted quantities from alucomb .rdata file
 ## - read constraint equations from constraints.txt
