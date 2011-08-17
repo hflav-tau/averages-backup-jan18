@@ -11,13 +11,14 @@
 ## - can average multiple quantities related to multiple statistically correlated measurements
 ##
 
-library(methods)
+require(methods, quietly=TRUE)
 source("../../../Common/bin/alu-utils2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
 
 method="solnp"
+method="alabama"
 method="alucomb2"
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -407,10 +408,10 @@ if (TRUE) {
   cat("\n##\n")
   cat("## Using the following measurements\n")
   cat("##\n")
-  show(rbind(value=meas.val,
-             stat=meas.stat,
-             syst=meas.syst,
-             error=meas.err))
+  alu.print(rbind(value=meas.val,
+                  stat=meas.stat,
+                  syst=meas.syst,
+                  error=meas.err))
 }
 
 ##
@@ -720,7 +721,7 @@ if (constr.num > 0) {
   cat("\n## End of constraint percent change summaries\n")
 }
 rm(first.iteration)
-rm(constr.diff)
+suppressWarnings(rm(constr.diff))
 
 if (TRUE) {
   cat("\n## Begin of linearized constraint equations (after convergence)\n\n")
@@ -742,10 +743,10 @@ dof = meas.num - quant.num + constr.num
 cat("\n##\n")
 cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
+alu.print(rbind(value=quant.val, error=quant.err))
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr[1:quant.num, 1:quant.num])
+  show(quant.corr)
 }
 cat("## end\n")
 
@@ -772,7 +773,7 @@ library(Rsolnp)
 dof = meas.num - quant.num + length(combination$constr.all.val)
 
 ##--- function returns vector of non-linear constraint functions
-constr.fun <- function (qv)  {
+constr.fun <- function(qv)  {
   env.list = as.list(qv)
   rc = unlist(lapply(combination$constr.all.expr, function(expr) {eval(expr, env.list)}))
   return(rc)
@@ -800,7 +801,8 @@ cat("\n")
 cat("##\n")
 cat("## solnp solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant.val, error=quant.err))
+alu.print(rbind(value=quant.val, error=quant.err))
+
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
   show(quant.corr)
@@ -820,6 +822,76 @@ rc = save(file=file.name.data,
   quant.val,  quant.err,  quant.cov, quant.corr)
 
 } # end if method solnp
+
+##
+## ////////////////////////////////////////////////////////////////////////////
+##
+
+if (method == "alabama") {
+
+require(alabama, quietly=TRUE)
+##
+## note that we can give this the symbolic derivative of half.chisq.fun 
+## and the jacobian of the constraints if we want to; will go faster 
+##
+
+##--- degrees of freedom
+dof = meas.num - quant.num + length(combination$constr.all.val)
+
+##
+## function returns vector of non-linear constraint functions
+## here we include the combination$constr.all.val for alabama
+## meaning: [ f(x) = const ] goes to [ f(x) - const = 0 ]
+##
+constr.fun <- function (qv)  {
+  env.list = as.list(qv)
+  rc = unlist(lapply(combination$constr.all.expr, function(expr) {eval(expr, env.list)}))
+  rc = rc - combination$constr.all.val
+  return(rc)
+}
+
+##--- function returns 1/2 of chi square
+half.chisq.fun <- function(qv) {
+  drop(t(meas.val - delta %*% qv) %*% meas.invcov %*% (meas.val - delta %*% qv))/2
+}
+
+##--- minimize half chi square to get the correct covariance for the fitted parameters
+cat("\nBegin of alabama minimization\n")
+rc.alabama = auglag(par = quant.seed.val, fn = half.chisq.fun, heq = constr.fun)
+cat("\nEnd of alabama minimization\n")
+
+chisq = 2*tail(rc.alabama$value, 1)
+quant.val = rc.alabama$par
+quant.cov = solve(rc.alabama$hessian)
+rownames(quant.cov) = quant.names
+colnames(quant.cov) = quant.names
+quant.err = sqrt(diag(quant.cov))
+quant.corr = quant.cov / (quant.err %o% quant.err)
+
+cat("\n")
+cat("##\n")
+cat("## alabama solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
+cat("##\n")
+alu.print(rbind(value=quant.val, error=quant.err))
+if (FALSE && quant.num > 1) {
+  cat("correlation\n")
+  alu.print(quant.corr)
+}
+cat("## end\n")
+
+##--- cleanup
+if (FALSE) {
+  rm(nlconstr.expr, rc.alabama)
+}
+
+##--- save data and results
+rc = save(file=file.name.data,
+  measurements, combination, delta,
+  chisq, dof,
+  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
+  quant.val,  quant.err,  quant.cov, quant.corr)
+
+}  # end of if method alabama
 
 ##
 ## ////////////////////////////////////////////////////////////////////////////
