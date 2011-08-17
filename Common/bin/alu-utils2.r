@@ -341,7 +341,7 @@ repeat {
       if (clause.keyw == "STAT_CORR_WITH") {
         block.meas$corr.terms = c(block.meas$corr.terms, corr)
       } else {
-        block.meas$corr.terms.tot = c(block.meas$corr.terms, corr)
+        block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
       }
     } else if (clause.keyw == "SUMOFQUANT" || clause.keyw == "COMBOFQUANT" || clause.keyw == "CONSTRAINT") {
       ##
