@@ -612,21 +612,23 @@ print.linearized.constraints = function(val, comb) {
 
 repeat {
   ##
-  ## linearize the constraint equations
+  ## linearize just the non-linear constraint equations
   ## f_j(x_i) = c_j becomes
   ## ... f(x^0_i) + f_j'_i*(x_i - x^0_i) = c_j
   ## ... f_j'_i*x_i = c_j - f(x^0_i) + f_j'_i*x^0_i
   ##
-  constr.expr.val = lapply(constr.expr, function(x) eval(x, as.list(quant.val)))
+  constr.expr.val = lapply(constr.expr[constr.nl], function(x) eval(x, as.list(quant.val)))
   constr.grad.comb = lapply(constr.expr.val, function(x) drop(attr(x, "gradient")))
-  constr.grad.val = combination$constr.all.val - as.vector(unlist(constr.expr.val))
-  if (constr.num > 0) {
+  constr.grad.val = combination$constr.all.val[constr.nl] - as.vector(unlist(constr.expr.val))
+  if (sum(constr.nl) > 0) {
     constr.grad.val = constr.grad.val + sapply(constr.grad.comb, function(x) drop(x %*% quant.val[names(x)]))
   }
+
+  ##--- join linear constraints
+  constr.grad.comb = c(combination$constr.lin.comb, constr.grad.comb)
+  constr.grad.val = c(unlist(combination$constr.lin.val), constr.grad.val)
   
-  ##
-  ## obtain constraint equations
-  ##
+  ##--- obtain constraint equations
   constr.m = do.call(rbind, lapply(constr.grad.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
   constr.v = constr.grad.val
   
