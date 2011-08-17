@@ -147,7 +147,8 @@ for (line in lines) {
     }
     flag.in.block = TRUE
     ##
-    ## setup data for both a MEASUREMENT and COMBINE block
+    ## a block can containe either a MEASUREMENT or a COMBINATION,
+    ## setup for both until we find out what it is
     ##
     
     ##--- setup for MEASUREMENT
@@ -168,6 +169,8 @@ for (line in lines) {
     meas$corr.terms = list()
     meas$corr.terms.tot = list()
 
+    flag.in.meas = TRUE
+
     ##--- setup for COMBINE
     sumofquant.values = numeric()
     combofquant.labels = character()
@@ -183,7 +186,6 @@ for (line in lines) {
     nlconstr.comb = list()
     nlconstr.val = list()
     
-    flag.in.meas = TRUE
     next
   }
   if (!flag.in.block) {
@@ -271,7 +273,7 @@ for (line in lines) {
       cat("error, END keyword does not close a BEGIN clause\n")
       next
     }
-    flag.in.block = false
+    flag.in.block = FALSE
     if (!flag.in.combine) {
       ##
       ## measurement cards
