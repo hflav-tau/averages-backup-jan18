@@ -442,8 +442,10 @@ quant.seed.val[quant.measured.bool] =
   (t(delta.measured) %*% meas.invcov %*% meas.val)
 
 ##--- get seed values for quantities without measurements
-
 quant.cards.seed.val = unlist(lapply(combination$quantities, function(el) { unname(el["seed"]) }))
+if (is.null(quant.cards.seed.val)) {
+  quant.cards.seed.val = numeric(0)
+}
 quant.cards.seed.val = quant.cards.seed.val[!is.na(quant.cards.seed.val)]
 
 ##--- set seed values for quantities that have no measurements
