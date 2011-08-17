@@ -628,7 +628,7 @@ repeat {
   constr.grad.comb = c(combination$constr.lin.comb, constr.grad.comb)
   constr.grad.val = c(unlist(combination$constr.lin.val), constr.grad.val)
   
-  ##--- obtain constraint equations
+  ##--- convert linearized constraint equations into linear matricial form
   constr.m = do.call(rbind, lapply(constr.grad.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
   constr.v = constr.grad.val
   
