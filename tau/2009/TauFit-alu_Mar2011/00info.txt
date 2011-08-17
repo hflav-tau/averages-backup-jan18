@@ -36,8 +36,8 @@ Gamma46 = (        1.0000000000*Gamma48 +         1.0000000000*Gamma47 +        
 
 	How was this directory prepared
 
-> cd tau/2009/TauFit_Mar2011/README
-- following instructions in /tau/2009/TauFit_Mar2011/README, readpdg.exe is executed
+- following instructions in tau/2009/TauFit_Mar2011/README, readpdg.exe is executed
+> cd tau/2009/TauFit_Mar2011/
 > ./run_readpdg
 
 this produces several files:
