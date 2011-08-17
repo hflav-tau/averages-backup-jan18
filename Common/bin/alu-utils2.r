@@ -1,7 +1,5 @@
 #!/usr/bin/env Rscript
 
-require(stringr, quietly=TRUE)
-
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
 
@@ -15,6 +13,21 @@ diag.m <- function(vec) {
     rc = diag(vec)
   }
   rc
+}
+
+##
+## print matrix with even formatting
+##
+alu.print = function(x) {
+  if (class(x) != "matrix") {
+    show(x)
+  } else {
+    rn.max = max(nchar(rownames(x)))
+    cn.max = max(nchar(colnames(x)))
+    width = getOption("width")
+    digits = getOption("digits")
+    print(format(x), quote=FALSE)
+  }
 }
 
 ##
