@@ -469,7 +469,7 @@ quant.seed.val[seed.needed] = quant.cards.seed.val[seed.needed]
 
 ##--- get expressions corresponding to linear constraints combinations
 constr.lin.expr = mapply(function(comb) {
-  constr = paste(mapply(function(x,y) paste(x, "*", y, sep = ""), comb, names(comb)), collapse = "+")
+  constr = paste(mapply(function(x,y) paste(x, "*", y, sep=""), comb, names(comb)), collapse = "+")
   parse(text=constr)
 }, combination$constr.lin.comb)
 
@@ -519,11 +519,13 @@ if (constr.num > 0) {
   constr.m = constr.m * quant.invcov.order/constr.m.order
   constr.v = constr.v * quant.invcov.order/constr.m.order
 
-  cat("\n## Constraint equations begin\n\n")
-  tmp = mapply(function(name, val, comb) {names(val) = name; show(c(val, unlist(comb)))},
-    names(constr.v), constr.v/quant.invcov.order*constr.m.order,
-    apply(constr.m/quant.invcov.order*constr.m.order, 1, function(x) list(x[x!=0])))
-  cat("\n## Constraint equations end\n")
+  if (FALSE) {
+    cat("\n## Constraint equations begin\n\n")
+    tmp = mapply(function(name, val, comb) {names(val) = name; show(c(val, unlist(comb)))},
+      names(constr.v), constr.v/quant.invcov.order*constr.m.order,
+      apply(constr.m/quant.invcov.order*constr.m.order, 1, function(x) list(x[x!=0])))
+    cat("\n## Constraint equations end\n")
+  }
 }
 
 ##
@@ -599,6 +601,15 @@ constr.nl = combination$constr.all.nl
 ##--- derivative and gradient of constraint equation expressions
 constr.expr = lapply(combination$constr.all.expr, function(x) deriv(x, all.vars(x)))
 
+##--- print linearized constraints
+print.linearized.constraints = function(val, comb) {
+  tmp = mapply(function(val, comb) {
+    cat(val, "=", paste(mapply(function(name, val) {
+      paste(val, "*", name, sep="")
+    }, names(comb), comb), collapse=" + "), "\n")
+  }, val, comb)
+}
+
 repeat {
   ##
   ## linearize the constraint equations
@@ -629,14 +640,21 @@ repeat {
       
       ##--- determine the typical size of the constraint equation terms
       constr.m.order = 10^round(log(mean(abs(constr.m[constr.m!=0])))/log(10))
-      
+
       if (TRUE) {
+        cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
+        print.linearized.constraints(constr.grad.val[constr.nl], constr.grad.comb[constr.nl])
+        cat("\n## End of linearized constraint equations (1st iteration)\n")
+      }
+
+      if (FALSE) {
         cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
         tmp = mapply(function(name, val, comb) {names(val) = name; show(c(val, unlist(comb)))},
           names(constr.v), constr.v,
           apply(constr.m, 1, function(x) list(x[x!=0])))
         cat("\n## End of linearized constraint equations (1st iteration)\n")
       }
+      
       cat("\n## Begin of constraint percent change summaries\n\n")
     }
     ##--- to avoid computationally singular matrix, apply proper factor to constraint equations
@@ -697,10 +715,16 @@ repeat {
   first.iteration = FALSE
 }
 if (constr.num > 0) {
-  cat("\n## End of constraint percent change summaries\n\n")
+  cat("\n## End of constraint percent change summaries\n")
 }
-rm(constr.nl)
 rm(first.iteration)
+rm(constr.diff)
+
+if (TRUE) {
+  cat("\n## Begin of linearized constraint equations (after convergence)\n\n")
+  print.linearized.constraints(constr.grad.val[constr.nl], constr.grad.comb[constr.nl])
+  cat("\n## End of linearized constraint equations (after convergence)\n")
+}
 
 ##
 ## compute errors and chi square
@@ -713,7 +737,7 @@ quant.corr = quant.cov / (quant.err %o% quant.err)
 chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
 dof = meas.num - quant.num + constr.num
 
-cat("##\n")
+cat("\n##\n")
 cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
 show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
