@@ -6,18 +6,12 @@ MEASUREMENT m_Gamma93 statistical systematic
 DATA        m_Gamma93 statistical systematic
             1.3461e-03  1.0000e-05  3.6413e-05
 
-STAT_CORR_WITH  1.3652e-03 BaBar Gamma60 published PRL100:011801,2008
-STAT_CORR_WITH -1.5056e-01 BaBar Gamma85 published PRL100:011801,2008
-STAT_CORR_WITH -9.4891e-02 BaBar Gamma96 published PRL100:011801,2008
+ERROR_CORR_WITH  3.9181e-01 BaBar Gamma60 published PRL100:011801,2008
+ERROR_CORR_WITH  1.7888e-01 BaBar Gamma85 published PRL100:011801,2008
+ERROR_CORR_WITH  9.0128e-02 BaBar Gamma96 published PRL100:011801,2008
 
 DATA
             sigmataupmy4s% -0.3
             BaBarLumi%     -0.9 
-            BaBarSyst_00%  0.1
-#           BaBarSyst_00  1.2841e-05
-            BaBarSyst_13  1.6928e-05
-            BaBarSyst_23  1.1248e-05
-            BaBarSyst_34  1.2266e-05
-            BaBarSyst_3u  2.4444e-05
 
 END
