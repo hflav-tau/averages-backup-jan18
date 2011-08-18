@@ -45,6 +45,7 @@ file.name.data = gsub("[.][^.]*$", ".rdata", file.name)
 
 rc = alucomb.read(file.name)
 measurements = rc$measurements
+measurements = measurements[sort(names(measurements))]
 combination = rc$combination
 rm(rc)
 
@@ -211,7 +212,7 @@ for (mn in meas.names) {
         measurements[[mn]]$syst.terms[param.orig] = syst.term.upd
         ##--- collect difference of syst term squares, to adjust the total systematic error as well
         syst.term.deltasq = c(syst.term.deltasq, (syst.term.upd^2 - syst.term.orig^2))
-        if (FALSE) {
+        if (TRUE) {
           ##--- log updates to measurements values and uncertainties
           rc = cat(format(measurements[[mn]]$tag,width=30),
             format(param.orig,width=15),
@@ -244,6 +245,19 @@ meas.stat = sapply(measurements, function(x) {unname(x$stat)})
 meas.syst = sapply(measurements, function(x) {unname(x$syst)})
 meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
+##--- print corrected measurements
+if (TRUE) {
+  cat("\n##\n")
+  cat("## measurements as read from the cards\n")
+  cat("##\n")
+  rc = alu.rbind.print(
+    rbind(value=meas.val,
+          stat=meas.stat,
+          syst=meas.syst,
+          error=meas.err),
+    num.columns=1)
+}
+
 ##--- unshifted values
 meas.val.orig = sapply(measurements, function(x) {unname(x$value.orig)})
 meas.syst.orig = sapply(measurements, function(x) {unname(x$syst.orig)})
@@ -252,12 +266,15 @@ meas.syst.orig = sapply(measurements, function(x) {unname(x$syst.orig)})
 meas.shifted = (meas.val.orig != meas.val) | (meas.syst.orig != meas.syst)
 
 if (any(meas.shifted)) {
-  cat("\nThe following measurements were shifted from updated external parameters\n")
-  show(rbind(orig=meas.val.orig[meas.shifted],
-             value=meas.val[meas.shifted],
-             stat=meas.stat[meas.shifted],
-             orig=meas.syst.orig[meas.shifted],
-             syst=meas.syst[meas.shifted]))
+  cat("\n##\n")
+  cat("## following measurements were shifted from updated external parameters\n")
+  cat("##\n")
+  rc = alu.rbind.print(
+    rbind(orig=meas.val.orig[meas.shifted],
+          value=meas.val[meas.shifted],
+          stat=meas.stat[meas.shifted],
+          orig=meas.syst.orig[meas.shifted],
+          syst=meas.syst[meas.shifted]))
 }
   
 ##--- for each syst. term external parameter, collect affected measurements
@@ -406,12 +423,14 @@ rownames(delta) = meas.names
 ##--- print corrected measurements
 if (TRUE) {
   cat("\n##\n")
-  cat("## Using the following measurements\n")
+  cat("## measurements after updating systematic parameters\n")
   cat("##\n")
-  alu.print(rbind(value=meas.val,
-                  stat=meas.stat,
-                  syst=meas.syst,
-                  error=meas.err))
+  rc = alu.rbind.print(
+    rbind(value=meas.val,
+          stat=meas.stat,
+          syst=meas.syst,
+          error=meas.err),
+    num.columns=1)
 }
 
 ##
@@ -743,7 +762,7 @@ dof = meas.num - quant.num + constr.num
 cat("\n##\n")
 cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
-alu.print(rbind(value=quant.val, error=quant.err))
+rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
   show(quant.corr)
@@ -801,7 +820,7 @@ cat("\n")
 cat("##\n")
 cat("## solnp solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
-alu.print(rbind(value=quant.val, error=quant.err))
+rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
@@ -872,10 +891,10 @@ cat("\n")
 cat("##\n")
 cat("## alabama solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
-alu.print(rbind(value=quant.val, error=quant.err))
+rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
-  alu.print(quant.corr)
+  rc = alu.rbind.print(quant.corr)
 }
 cat("## end\n")
 
