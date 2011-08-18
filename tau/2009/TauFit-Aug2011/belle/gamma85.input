@@ -12,20 +12,8 @@ DATA        m_Gamma85 statistical systematic
             0.330e-2     1.2740e-05  1.6625e-04
 # pub:      0.330e-2     0.001e-2    0.0165e-2
 
-STAT_CORR_WITH -3.0087e-01 Belle Gamma60 submitted arXiv:1001.0083 (2010)
-STAT_CORR_WITH -2.0080e-01 Belle Gamma93 submitted arXiv:1001.0083 (2010)
-STAT_CORR_WITH  1.0666e-02 Belle Gamma96 submitted arXiv:1001.0083 (2010)
+ERROR_CORR_WITH 0.1749885 Belle Gamma60 submitted arXiv:1001.0083 (2010)
+ERROR_CORR_WITH 0.08026913 Belle Gamma93 submitted arXiv:1001.0083 (2010)
+ERROR_CORR_WITH 0.03505142 Belle Gamma96 submitted arXiv:1001.0083 (2010)
 
-DATA
-#           BelleSyst_00  6.6000e-06
-#           BelleSyst_12  6.8710e-05
-#           BelleSyst_23  4.6869e-05
-#           BelleSyst_24  3.4759e-05
-#           BelleSyst_2u  1.3804e-04
-
-            BelleSyst_00  6.6000e-06
-            BelleSyst_12  6.9241e-05
-            BelleSyst_23  4.7236e-05
-            BelleSyst_24  3.5030e-05
-            BelleSyst_2u  1.3908e-04
 END
