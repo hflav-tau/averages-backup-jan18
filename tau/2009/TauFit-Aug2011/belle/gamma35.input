@@ -1,0 +1,48 @@
+#
+# B(tau- -> pi- K0S nu) = (0.404 +- 0.002(stat.) +- 0.013(syst.))%
+# Belle 2007, 0706.2231 [hep-ex] PLB.2007.08.045
+#
+# note: multiplied by 2 to get B(tau- -> pi- K0bar nu)
+#
+
+BEGIN    Belle Gamma35 published PLB08:045,2007
+
+#
+# external parameters related to systematic contributions
+#
+# background related systematics from Belle paper, p.10:
+# 0.8%, 1.1%, 0.6% and 0.5% related respectively to:
+#
+# - tau --> KS KL pi- nu
+# - tau --> KS PI- Pi0 nu
+# - tau --> KS K- nu
+# - tau --> pi-pi+pi- nu
+#
+# as mentioned in the paper
+# - for BR2 and BR3 PDG06 has been used
+# - for BR1 a Cleo paper and isospin calculation has been used
+# - for BR4 there is no external parameter, the bkg has been
+#   subtracted using sidebands around the KS peak
+#
+
+PARAMETERS !      value       +err         -err
+  PimPizKzsNu     0.18e-2     +0.02e-2     -0.02e-2     ! 1/2* (0.36 +- 0.04)%
+  PimKzsKzlNu     0.078e-2    +0.006e-2    -0.006e-2    ! (0.078 +- 0.006)%
+  KmKzsNu         0.079e-2    +0.0085e-2   -0.0085e-2   ! 1/2*(0.158 +- 0.017)%
+
+MEASUREMENT m_Gamma35  statistical systematic
+DATA        m_Gamma35  statistical systematic
+            0.808e-2   0.004e-2    0.026e-2
+
+DATA                              # Systematic uncertainties
+
+# contributions depending on possibly common external parameters
+  PimPizKzsNu%      -1.1
+  PimKzsKzlNu%      -0.8
+  KmKzsNu%          -0.6
+
+# uncorrelated, PDG BR not used, sideband subtraction around KS peak
+# do not uncomment, left for documentation
+# PimPimPipNu%      -0.5
+
+END
