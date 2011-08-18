@@ -12,7 +12,7 @@ INCLUDE babar/gamma93.input
 INCLUDE babar/gamma103.input
 INCLUDE babar/gamma96.input
 INCLUDE babar/gamma136.input
-# INCLUDE babar/gamma128.input
+INCLUDE babar/gamma128.input
 
 INCLUDE belle/gamma13.input 
 INCLUDE belle/gamma35.input 
