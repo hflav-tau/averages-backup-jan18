@@ -59,6 +59,25 @@ meas.names = names(measurements)
 ##--- quantities to be averaged
 quant.names = names(combination$quantities)
 
+##--- get list of values, stat errors, syst errors
+meas.val = sapply(measurements, function(x) {unname(x$value)})
+meas.stat = sapply(measurements, function(x) {unname(x$stat)})
+meas.syst = sapply(measurements, function(x) {unname(x$syst)})
+meas.err = sqrt(meas.stat^2 + meas.syst^2)
+
+##--- print measurements as read from the cards
+if (TRUE) {
+  cat("\n##\n")
+  cat("## measurements as read from the cards\n")
+  cat("##\n")
+  rc = alu.rbind.print(
+    rbind(value=meas.val,
+          stat=meas.stat,
+          syst=meas.syst,
+          error=meas.err),
+    num.columns=1)
+}
+
 ##--- check duplicate linear constraints
 if (length(combination$constr.lin.comb) > 1) {
   dupl.constr = NULL
@@ -195,6 +214,7 @@ if (length(quant.sfact.list) > 0) {
 ## update systematic terms according to updated external parameter errors
 ##
 
+header.printed = FALSE
 for (mn in meas.names) {
   value.delta = numeric()
   syst.term.deltasq = numeric()
@@ -212,25 +232,37 @@ for (mn in meas.names) {
         measurements[[mn]]$syst.terms[param.orig] = syst.term.upd
         ##--- collect difference of syst term squares, to adjust the total systematic error as well
         syst.term.deltasq = c(syst.term.deltasq, (syst.term.upd^2 - syst.term.orig^2))
-        if (TRUE) {
+        if (FALSE) {
           ##--- log updates to measurements values and uncertainties
-          rc = cat(format(measurements[[mn]]$tag,width=30),
-            format(param.orig,width=15),
-            format(c(measurements[[mn]]$params[[param.orig]]["value"],
-                     combination$params[[param.upd]]["value"],
-                     (combination$params[[param.upd]]["value"] - measurements[[mn]]$params[[param.orig]]["value"])
-                     / measurements[[mn]]$params[[param.orig]]["delta_pos"],
-                     ## (value.upd - value.orig),
-                     measurements[[mn]]$params[[param.orig]]["delta_pos"],
-                     combination$params[[param.upd]]["delta_pos"],
-                     combination$params[[param.upd]]["delta_pos"] / measurements[[mn]]$params[[param.orig]]["delta_pos"]),
-                   width=10,digits=4,scientific=TRUE),
-            "\n")
+          if (!header.printed) {
+            cat("\n##\n")
+            cat("## measurements updates due to updated parameters\n")
+            cat("##\n")
+            header.printed = TRUE
+          }
+          rc = cat(
+            paste(measurements[[mn]]$tag, collapse="."), " syst-term=", param.orig, "\n  ",
+            ##
+            ## - measurement parameter
+            ## - updated parameter
+            ## - measurement shift
+            ## - measurement parameter uncertainty
+            ## - updated parameter uncertainty
+            ## - 
+            ##
+            rc = format(c(measurements[[mn]]$params[[param.orig]]["value"],
+              combination$params[[param.upd]]["value"],
+              (combination$params[[param.upd]]["value"] - measurements[[mn]]$params[[param.orig]]["value"])
+              / measurements[[mn]]$params[[param.orig]]["delta_pos"],
+              ## (value.upd - value.orig),
+              measurements[[mn]]$params[[param.orig]]["delta_pos"],
+              combination$params[[param.upd]]["delta_pos"]
+              ), width=10, digits=4, scientific=TRUE),
+            "\n", sep="")
         }
       }
     }
   }
-
   ##--- update value
   measurements[[mn]]$value.orig = measurements[[mn]]$value
   measurements[[mn]]$value = measurements[[mn]]$value + sum(value.delta)
@@ -238,25 +270,13 @@ for (mn in meas.names) {
   measurements[[mn]]$syst.orig = measurements[[mn]]$syst
   measurements[[mn]]$syst = sqrt(measurements[[mn]]$syst^2 + sum(syst.term.deltasq))
 }
+rm(header.printed)
 
-##--- get list of values, stat errors, syst errors
+##--- get list of updated values, stat errors, syst errors
 meas.val = sapply(measurements, function(x) {unname(x$value)})
 meas.stat = sapply(measurements, function(x) {unname(x$stat)})
 meas.syst = sapply(measurements, function(x) {unname(x$syst)})
 meas.err = sqrt(meas.stat^2 + meas.syst^2)
-
-##--- print corrected measurements
-if (TRUE) {
-  cat("\n##\n")
-  cat("## measurements as read from the cards\n")
-  cat("##\n")
-  rc = alu.rbind.print(
-    rbind(value=meas.val,
-          stat=meas.stat,
-          syst=meas.syst,
-          error=meas.err),
-    num.columns=1)
-}
 
 ##--- unshifted values
 meas.val.orig = sapply(measurements, function(x) {unname(x$value.orig)})
@@ -272,11 +292,24 @@ if (any(meas.shifted)) {
   rc = alu.rbind.print(
     rbind(orig=meas.val.orig[meas.shifted],
           value=meas.val[meas.shifted],
-          stat=meas.stat[meas.shifted],
+          ## stat=meas.stat[meas.shifted],
           orig=meas.syst.orig[meas.shifted],
           syst=meas.syst[meas.shifted]))
 }
   
+##--- print updated measurements
+if (FALSE) {
+  cat("\n##\n")
+  cat("## measurements after update due to updated parameters\n")
+  cat("##\n")
+  rc = alu.rbind.print(
+    rbind(value=meas.val,
+          stat=meas.stat,
+          syst=meas.syst,
+          error=meas.err),
+    num.columns=1)
+}
+
 ##--- for each syst. term external parameter, collect affected measurements
 syst.terms.list = list()
 for (mn in meas.names) {
