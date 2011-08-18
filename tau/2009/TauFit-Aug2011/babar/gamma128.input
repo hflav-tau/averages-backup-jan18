@@ -1,0 +1,23 @@
+#
+# B(tau- -> K- eta nu)
+#
+
+BEGIN       BaBar Gamma128 published  DEL-AMO-SANCHEZ 11E PR D83 032002
+
+MEASUREMENT m_Gamma128 statistical systematic
+DATA        m_Gamma128 statistical systematic
+            1.42e-4    0.11e-4     0.07e-4
+
+PARAMETERS  #              assumed_value  pos_excurs   neg_excurs
+            sigmataupmy4s  0.919         +0.003       -0.003
+
+DATA 
+#
+# uncertainty on n. of tau quoted as 0.9%: split that into
+# - 0.3% uncertainty from tau cross-section
+# - luminosity systematic, obtained by quadratically subtracting 0.3 from 0.9
+#
+            sigmataupmy4s% -0.3
+            BaBarLumi%     -0.8485281
+
+END

@@ -121,7 +121,7 @@ if (any(quant.discarded)) {
   cat("\nwarning: the following fitted quantities are discarded:\n")
   cat(paste("  ", quant.names[quant.discarded], collapse="\n"), "\n");
   combination$quantities = combination$quantities[!quant.discarded]
-  quant.names = combination$quantities
+  quant.names = names(combination$quantities)
 }
 
 ##--- update
@@ -421,7 +421,7 @@ delta = sapply(quant.names, function(x) as.numeric(x == meas.quantities))
 rownames(delta) = meas.names
 
 ##--- print corrected measurements
-if (TRUE) {
+if (FALSE) {
   cat("\n##\n")
   cat("## measurements after updating systematic parameters\n")
   cat("##\n")

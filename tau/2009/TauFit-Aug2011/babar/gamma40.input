@@ -1,0 +1,16 @@
+# B(tau- -> pi- pi0 K0bar nu)
+
+BEGIN       BaBar Gamma40 preliminary DPF09
+MEASUREMENT m_Gamma40 statistical systematic
+DATA        m_Gamma40 statistical systematic
+            0.342e-2  0.006e-2    0.015e-2        
+
+PARAMETERS  #               value       +err         -err
+            sigmataupmy4s   0.919       +0.003       -0.003
+
+DATA
+# possibly correlated with other BaBar results
+            sigmataupmy4s%   -0.3958
+            BaBarLumi%       -0.7278
+END
+

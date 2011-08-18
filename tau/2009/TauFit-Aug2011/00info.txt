@@ -1,0 +1,46 @@
+#//////////////////////////////////////////////////////////////////////////////
+#
+# global fit started in August 2011 and using alucomb2.r
+#
+#//////////////////////////////////////////////////////////////////////////////
+
+	preparation
+
+## measurement cards
+
+- tau/2009/TauFit_Mar2011/alucomb_measurements_unconstrained.input
+  --> measurements_noBB.input
+  measurements from:
+  - PDG fit without BaBar and Belle data
+  - HFAG-tau BaBar and Belle cards processed by readBB.cc
+ 
+- tau/2009/TauFit_Mar2011/alucomb_measurements_unconstrained_aleph_hcorr.input
+  --> measurements_noBB_aleph_hcorr.input
+  like above but ALEPH report results remixed to get pi BRs by subtraction of K from h=sum(pi,K) data
+
+from these cards I removed all BaBar and Belle measurements (noBB tag)
+which are now taken from the HFAG-tau cards directly
+
+## combination cards
+
+- tau/2009/TauFit_Mar2011/alucomb_average_unconstrained.input
+  --> average2.input
+  added a constraint to define Gamma58, otherwise unmentioned
+  measurements reordered to match average2_aleph_hcorr.input
+
+- tau/2009/TauFit_Mar2011/alucomb_average_unconstrained_aleph_hcorr.input
+  --> average2_aleph_hcorr.input
+
+added seed values for quantities without measurements
+
+all linearized non-linear constraints have been removed
+
+from the comments, the non-linear constraints formulas have been used to form NLCONSTRAINT cards
+by using ../../../Common/bin/readpdg-convert-constraints.r
+
+#//////////////////////////////////////////////////////////////////////////////
+
+	how to run
+
+- ../../../Common/bin/aluelab-results2.sh average2.input
+- ../../../Common/bin/aluelab-results2.sh average2_aleph_hcorr.input

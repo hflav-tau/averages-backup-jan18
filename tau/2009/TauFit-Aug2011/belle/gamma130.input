@@ -1,0 +1,16 @@
+# B (tau- -> K- pi0 eta nu)
+
+BEGIN       Belle Gamma130 Published  INAMI 09
+
+MEASUREMENT m_Gamma130  statistical systematic
+DATA        m_Gamma130  statistical systematic
+            0.46e-4       0.11e-4     0.04e-4
+
+PARAMETERS  #              assumed_value pos_excurs   neg_excurs
+            sigmataupmy4s  0.919         +0.003       -0.003
+
+DATA 
+            sigmataupmy4s% -0.3
+            BelleLumi%     -1.4
+
+END

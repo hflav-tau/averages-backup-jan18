@@ -1,0 +1,31 @@
+# B(tau- -> K- K- K+ nu)
+
+BEGIN   Belle Gamma96 submitted arXiv:1001.0083 (2010)
+
+#
+# by private communication we got numeric values that are more
+# precise than the published ones
+#
+
+MEASUREMENT m_Gamma96  statistical systematic
+DATA        m_Gamma96  statistical systematic
+            3.29e-5    1.6941e-06  1.9621e-06
+# pub:      3.29e-5    0.17e-5     0.195e-5
+
+STAT_CORR_WITH  2.5469e-03 Belle Gamma60 submitted arXiv:1001.0083 (2010)
+STAT_CORR_WITH  1.0666e-02 Belle Gamma85 submitted arXiv:1001.0083 (2010)
+STAT_CORR_WITH -2.1439e-01 Belle Gamma93 submitted arXiv:1001.0083 (2010)
+
+DATA
+#           BelleSyst_00  6.5800e-08  
+#           BelleSyst_14 -5.2689e-07 
+#           BelleSyst_24  4.1088e-07 
+#           BelleSyst_34  1.8444e-07 
+#           BelleSyst_4u  1.8215e-06 
+
+            BelleSyst_00  6.5800e-08
+            BelleSyst_14  -5.2999e-07
+            BelleSyst_24  4.1352e-07
+            BelleSyst_34  1.8591e-07
+            BelleSyst_4u  1.8328e-06
+END

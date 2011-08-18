@@ -1,0 +1,15 @@
+# B (tau- --> K- pi0 nu_tau)
+
+BEGIN       BaBar Gamma16 PUBLISHED AUBERT 07AP
+MEASUREMENT m_Gamma16    statistical systematic
+DATA        m_Gamma16    statistical systematic
+            0.416e-2     0.003e-2    0.018e-2
+
+PARAMETERS #     assumed_value  pos_excurs   neg_excurs
+  sigmataupmy4s  0.919         +0.003       -0.003
+
+DATA
+# possibly correlated with other results
+  sigmataupmy4s%   -0.31
+  BaBarLumi%       -0.94
+END
