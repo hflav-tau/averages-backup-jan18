@@ -1,7 +1,13 @@
-#//////////////////////////////////////////////////////////////////////////////
 #
 # global fit started in August 2011 and using alucomb2.r
 #
+#//////////////////////////////////////////////////////////////////////////////
+
+	how to run
+
+- ../../../Common/bin/aluelab-results2.sh average2.input
+- ../../../Common/bin/aluelab-results2.sh average2_aleph_hcorr.input
+
 #//////////////////////////////////////////////////////////////////////////////
 
 	preparation
@@ -42,7 +48,10 @@ added error scaling of 5.435276 to Gamma96 = tau -> K K K nu to account for expe
 
 #//////////////////////////////////////////////////////////////////////////////
 
-	how to run
+	publication references updates
 
-- ../../../Common/bin/aluelab-results2.sh average2.input
-- ../../../Common/bin/aluelab-results2.sh average2_aleph_hcorr.input
+perl -pi~ -e 's/published\s+PRL100:011801,2008/pub AUBERT.08/' babar/*.input 
+perl -pi~ -e 's/submitted\s+arXiv:0912.0242\s+\(2009\)/pub AUBERT.10P/' babar/*.input
+perl -pi~ -e 's/submitted\s+arXiv:1001.0083\s+\(2010\)/pub LEE.10/' belle/*.input 
+
+#//////////////////////////////////////////////////////////////////////////////
