@@ -196,9 +196,6 @@ if (is.null(quant.cards.sfact)) {
 }
 quant.cards.sfact = quant.cards.sfact[!is.na(quant.cards.sfact)]
 
-## quant.sfact.list = lapply(combination$quantities, function(el) { unname(el["scale"]) })
-## quant.sfact.list = quant.sfact.list[!is.na(quant.sfact.list)]
-
 meas.sfact.cards = rep(1, meas.num)
 if (length(quant.cards.sfact) > 0) {
   names(meas.sfact.cards) = meas.names
