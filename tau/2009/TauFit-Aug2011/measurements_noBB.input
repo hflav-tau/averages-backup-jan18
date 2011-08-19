@@ -1,32 +1,32 @@
-* IMEAS = 1 
-* GAMMANAME = 128 
-* DECAYNAME = G(K- eta nu(tau)) / G(total) 
-* NODENAME = S035B20 found at inode+1 = 1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau) seed =         0.0001546959 coef =         1.0000000000
-*  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau)
-
-BEGIN ALEPH Gamma128 pub.BUSKULIC.97C 
-
-MEASUREMENT  m_Gamma128 statistical systematic 
-DATA         m_Gamma128 statistical systematic 
-                     0.0002900000         0.0001432500  0 
- 
-END 
-
-* IMEAS = 2 
-* GAMMANAME = 128 
-* DECAYNAME = G(K- eta nu(tau)) / G(total) 
-* NODENAME = S035B20 found at inode+1 = 1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
-*                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau) seed =         0.0001546959 coef =         1.0000000000
-*  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau)
-
-BEGIN CLEO Gamma128 pub.BARTELT.96 
-
-MEASUREMENT  m_Gamma128 statistical systematic 
-DATA         m_Gamma128 statistical systematic 
-                     0.0002600000         0.0000707100  0 
- 
-END 
+# * IMEAS = 1 
+# * GAMMANAME = 128 
+# * DECAYNAME = G(K- eta nu(tau)) / G(total) 
+# * NODENAME = S035B20 found at inode+1 = 1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
+# *                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau) seed =         0.0001546959 coef =         1.0000000000
+# *  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau)
+# 
+# BEGIN ALEPH Gamma128 pub.BUSKULIC.97C 
+# 
+# MEASUREMENT  m_Gamma128 statistical systematic 
+# DATA         m_Gamma128 statistical systematic 
+#                      0.0002900000         0.0001432500  0 
+#  
+# END 
+# 
+# * IMEAS = 2 
+# * GAMMANAME = 128 
+# * DECAYNAME = G(K- eta nu(tau)) / G(total) 
+# * NODENAME = S035B20 found at inode+1 = 1 has 1, 0, 1 base quantities in numerator, denominator and both [excluding overlap] 
+# *                numerator of inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau) seed =         0.0001546959 coef =         1.0000000000
+# *  first quantity measured by inode+1 = 1 has gamma = 128 parm = 109 quan = 28 title = K- eta nu(tau)
+# 
+# BEGIN CLEO Gamma128 pub.BARTELT.96 
+# 
+# MEASUREMENT  m_Gamma128 statistical systematic 
+# DATA         m_Gamma128 statistical systematic 
+#                      0.0002600000         0.0000707100  0 
+#  
+# END 
 
 * IMEAS = 3 
 * GAMMANAME = 19by13 
