@@ -1,6 +1,6 @@
 # B(tau- --> K- nu_tau)/B(tau- --> e- nubar_e nu_tau)
 
-BEGIN          BaBar Gamma10by5 submitted arXiv:0912.0242 (2009)
+BEGIN          BaBar Gamma10by5 pub AUBERT.10P
 
 PARAMETERS     #               value   +err         -err
                PimPimPipNu     8.83e-2 +0.130384e-2 -0.130384e-2    # BaBar Published value 
@@ -20,14 +20,14 @@ DATA           m_Gamma10by5  statistical systematic
 # [sqrt(eRmu**2 - Delta_eRmu_Lumi**2 - Delta_eRmu_pipipi**2) * sqrt(eRK**2 - Delta_eRK_Lumi**2 - Delta_eRK_pipipi**2)] =
 # ( 0.12 * 0.00393954 * 0.000653682 - 0.00019592 * 0.00007764 - 0.0004898 * 0.00015528 ) / ( 0.00390406 * 0.000630207 ) = 0.0885061
  
-STAT_CORR_WITH 0.0885061 BaBar Gamma3by5 submitted arXiv:0912.0242 (2009)
+STAT_CORR_WITH 0.0885061 BaBar Gamma3by5 pub AUBERT.10P
  
 # Corr(RK, Rpi) after removing the common part =
 # [Corr(RK, Rpi) * eRK * eRpi - Delta_eRK_Lumi * Delta_eRpi_Lumi - Delta_eRK_pipipi * Delta_eRpi_pipipi]/
 # [sqrt(eRK**2 - Delta_eRK_Lumi**2 - Delta_eRK_pipipi**2) * sqrt(eRpi**2 - Delta_eRpi_Lumi**2 - Delta_eRpi_pipipi**2)] =
 # ( 0.33 * 0.000653682 * 0.00625859 - 0.00007764 * 0.00231855 - 0.00015528 * 0.00089175 ) / ( 0.000630207 * 0.00574448 ) = 0.284953
 
-STAT_CORR_WITH 0.284953 BaBar Gamma9by5 submitted arXiv:0912.0242 (2009)
+STAT_CORR_WITH 0.284953 BaBar Gamma9by5 pub AUBERT.10P
  
 DATA       
                PimPimPipNu -0.00015528
