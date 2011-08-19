@@ -1,4 +1,4 @@
-.PHONY:	all combos alucomb pdg aluplot plot 
+.PHONY:	all combos alucomb alucomb2 pdg aluplot plot 
 .PHONY:	update_combos update_alucomb update_pdg update_plot update_all
 
 PLOTS = $(patsubst %.input,%.eps,$(wildcard plot*.input))
@@ -118,6 +118,17 @@ combos:
 	  echo "../../../combos/combos average.input > average.log" ; \
 	  ../../../combos/combos average.input > average.log ; \
 	  echo "file $(CURDIR)/average.log created" ; \
+	fi
+
+alucomb2:
+	@if [ -f average.input ] ; then \
+	  /bin/rm -f average.log ; \
+	  echo "../../../Common/bin/alucomb2.r average.input > average.log 2>&1" ; \
+	  if ../../../Common/bin/alucomb2.r average.input > average.log ; then \
+	    echo "file $(CURDIR)/average.log created" ; \
+	  else \
+	    /bin/false ; \
+	  fi ; \
 	fi
 
 alucomb:
