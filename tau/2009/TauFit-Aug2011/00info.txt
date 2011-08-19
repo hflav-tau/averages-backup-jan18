@@ -38,6 +38,8 @@ all linearized non-linear constraints have been removed
 from the comments, the non-linear constraints formulas have been used to form NLCONSTRAINT cards
 by using ../../../Common/bin/readpdg-convert-constraints.r
 
+added error scaling of 5.435276 to Gamma96 = tau -> K K K nu to account for experimental discrepancies
+
 #//////////////////////////////////////////////////////////////////////////////
 
 	how to run

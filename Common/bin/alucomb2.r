@@ -190,21 +190,28 @@ if (length(not.matching) > 0) {
 ##
 ## scale all measurements of the specified type according to the scale parameter in the cards
 ##
-quant.sfact.list = lapply(combination$quantities.options, function(el) { unname(el["scale"]) })
-quant.sfact.list = quant.sfact.list[!is.na(quant.sfact.list)]
+quant.cards.sfact = unlist(lapply(combination$quantities, function(el) { unname(el["scale"]) }))
+if (is.null(quant.cards.sfact)) {
+  quant.cards.sfact = numeric(0)
+}
+quant.cards.sfact = quant.cards.sfact[!is.na(quant.cards.sfact)]
+
+## quant.sfact.list = lapply(combination$quantities, function(el) { unname(el["scale"]) })
+## quant.sfact.list = quant.sfact.list[!is.na(quant.sfact.list)]
+
 meas.sfact.cards = rep(1, meas.num)
-if (length(quant.sfact.list) > 0) {
+if (length(quant.cards.sfact) > 0) {
   names(meas.sfact.cards) = meas.names
   cat("\n")
-  rc = lapply(names(quant.sfact.list), function(el) {
+  rc = lapply(names(quant.cards.sfact), function(el) {
     sel = which(meas.quantities == el)
     rc = lapply(sel, function(i) {
-      measurements[[i]]$stat <<- measurements[[i]]$stat * quant.sfact.list[[el]]
-      measurements[[i]]$syst <<- measurements[[i]]$syst * quant.sfact.list[[el]]
-      measurements[[i]]$syst.terms <<- measurements[[i]]$syst.terms * quant.sfact.list[[el]]
+      measurements[[i]]$stat <<- measurements[[i]]$stat * quant.cards.sfact[el]
+      measurements[[i]]$syst <<- measurements[[i]]$syst * quant.cards.sfact[el]
+      measurements[[i]]$syst.terms <<- measurements[[i]]$syst.terms * quant.cards.sfact[el]
     })
-    meas.sfact.cards[sel] <<- quant.sfact.list[[el]]
-    cat("applying s-factor = ", quant.sfact.list[[el]], " for quantity ", el, "for measurements:\n")
+    meas.sfact.cards[sel] <<- quant.cards.sfact[el]
+    cat("applying s-factor = ", quant.cards.sfact[el], " for quantity ", el, "for measurements:\n")
     show(names(meas.sfact.cards[sel]))
   })
 }
