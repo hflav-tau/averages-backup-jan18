@@ -1,6 +1,6 @@
 # B(tau- --> pi- pi- pi+ eta nu_tau) [ex. K0] 
 
-BEGIN       BaBar Gamma136 published AUBERT,B 08AE 
+BEGIN       BaBar Gamma136 pub AUBERT.08AE 
 MEASUREMENT m_Gamma136 statistical systematic 
 DATA        m_Gamma136 statistical systematic 
             1.60e-4    0.05e-4     0.11e-4 

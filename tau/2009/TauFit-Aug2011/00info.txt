@@ -52,6 +52,14 @@ added error scaling of 5.435276 to Gamma96 = tau -> K K K nu to account for expe
 
 perl -pi~ -e 's/published\s+PRL100:011801,2008/pub AUBERT.08/' babar/*.input 
 perl -pi~ -e 's/submitted\s+arXiv:0912.0242\s+\(2009\)/pub AUBERT.10P/' babar/*.input
+
+perl -pi~ -e 's/published\s+DEL-AMO-SANCHEZ.11E/pub DEL-AMO-SANCHEZ.11E/' babar/*.input
+perl -pi~ -e 's/published\s+AUBERT,B\s+08AE/pub AUBERT.08AE/' babar/*.input
+perl -pi~ -e 's/published\s+PRL100:011801,08/pub AUBERT.08/' babar/*.input
+perl -pi~ -e 's/PUBLISHED\s+AUBERT\s+07AP/pub AUBERT.07AP/i' babar/*.input
+perl -pi~ -e 's///' babar/*.input
+
 perl -pi~ -e 's/submitted\s+arXiv:1001.0083\s+\(2010\)/pub LEE.10/' belle/*.input 
+perl -pi~ -e 's/published\s+INAMI\s+09/pub INAMI.09/i' belle/*.input
 
 #//////////////////////////////////////////////////////////////////////////////

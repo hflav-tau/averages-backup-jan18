@@ -2,7 +2,7 @@
 # B(tau- -> K- phi nu) 
 #
 
-BEGIN       BaBar Gamma144 published PRL100:011801,08
+BEGIN       BaBar Gamma144 pub AUBERT.08
 MEASUREMENT m_Gamma144 statistical systematic
 DATA        m_Gamma144 statistical systematic
             3.39e-5   0.20e-5     0.28e-5
