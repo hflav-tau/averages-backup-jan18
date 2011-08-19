@@ -1,14 +1,14 @@
 # B(tau- -> K- K- K+ nu)
 
-BEGIN   BaBar Gamma96 published PRL100:011801,2008
+BEGIN   BaBar Gamma96 pub AUBERT.08
 
 MEASUREMENT m_Gamma96   statistical systematic
 DATA        m_Gamma96   statistical systematic
             1.5777e-05   1.3000e-06  1.2308e-06
 
-ERROR_CORR_WITH 3.1926e-02 BaBar Gamma60 published PRL100:011801,2008
-ERROR_CORR_WITH 9.4573e-02 BaBar Gamma85 published PRL100:011801,2008
-ERROR_CORR_WITH 9.0128e-02 BaBar Gamma93 published PRL100:011801,2008
+ERROR_CORR_WITH 3.1926e-02 BaBar Gamma60 pub AUBERT.08
+ERROR_CORR_WITH 9.4573e-02 BaBar Gamma85 pub AUBERT.08
+ERROR_CORR_WITH 9.0128e-02 BaBar Gamma93 pub AUBERT.08
 
 DATA
             sigmataupmy4s% -0.3
