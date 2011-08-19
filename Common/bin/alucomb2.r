@@ -201,7 +201,6 @@ quant.cards.sfact = unlist(lapply(combination$quantities, function(el) { unname(
 if (is.null(quant.cards.sfact)) {
   quant.cards.sfact = numeric(0)
 }
-quant.cards.sfact = quant.cards.sfact[!is.na(quant.cards.sfact)]
 
 meas.sfact.cards = rep(1, meas.num)
 if (length(quant.cards.sfact) > 0) {
@@ -215,7 +214,7 @@ if (length(quant.cards.sfact) > 0) {
       measurements[[i]]$syst.terms <<- measurements[[i]]$syst.terms * quant.cards.sfact[el]
     })
     meas.sfact.cards[sel] <<- quant.cards.sfact[el]
-    cat("applying s-factor = ", quant.cards.sfact[el], " for quantity ", el, "for measurements:\n")
+    cat("applying s-factor =", quant.cards.sfact[el], "for quantity", el, "for measurements:\n")
     show(names(meas.sfact.cards[sel]))
   })
 }
@@ -511,7 +510,6 @@ quant.cards.seed.val = unlist(lapply(combination$quantities, function(el) { unna
 if (is.null(quant.cards.seed.val)) {
   quant.cards.seed.val = numeric(0)
 }
-quant.cards.seed.val = quant.cards.seed.val[!is.na(quant.cards.seed.val)]
 
 ##--- set seed values for quantities that have no measurements
 seed.needed = setdiff(quant.names, quant.names[quant.measured.bool])

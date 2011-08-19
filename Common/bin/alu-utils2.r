@@ -275,7 +275,7 @@ repeat {
       }
       if (length(clause.values) > 0) {
         names(clause.values) = clause.labels
-        block$quantities[[meas.name]] = clause.values
+        block$quantities[[meas.name]] = as.list(clause.values)
       }
 
     } else if (clause.keyw == "MEASUREMENT") {
