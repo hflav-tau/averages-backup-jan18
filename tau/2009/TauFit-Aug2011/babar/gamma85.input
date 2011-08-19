@@ -1,14 +1,14 @@
 # B(tau- -> pi- K- pi+ nu) [ex. K0] 
 
-BEGIN    BaBar Gamma85 published PRL100:011801,2008
+BEGIN    BaBar Gamma85 pub AUBERT.08
 
 MEASUREMENT m_Gamma85 statistical systematic
 DATA        m_Gamma85 statistical systematic
             2.7257e-03   1.8000e-05  9.2441e-05
 
-ERROR_CORR_WITH  5.4398e-01 BaBar Gamma60 published PRL100:011801,2008
-ERROR_CORR_WITH  1.7888e-01 BaBar Gamma93 published PRL100:011801,2008
-ERROR_CORR_WITH  9.4573e-02 BaBar Gamma96 published PRL100:011801,2008
+ERROR_CORR_WITH  5.4398e-01 BaBar Gamma60 pub AUBERT.08
+ERROR_CORR_WITH  1.7888e-01 BaBar Gamma93 pub AUBERT.08
+ERROR_CORR_WITH  9.4573e-02 BaBar Gamma96 pub AUBERT.08
 
 DATA
             sigmataupmy4s% -0.3
