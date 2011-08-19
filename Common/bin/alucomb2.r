@@ -304,7 +304,8 @@ if (any(meas.shifted)) {
           value=meas.val[meas.shifted],
           ## stat=meas.stat[meas.shifted],
           orig=meas.syst.orig[meas.shifted],
-          syst=meas.syst[meas.shifted]))
+          syst=meas.syst[meas.shifted]),
+    num.columns=1)
 }
   
 ##--- print updated measurements
