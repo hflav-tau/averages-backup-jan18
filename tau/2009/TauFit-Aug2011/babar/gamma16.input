@@ -1,6 +1,6 @@
 # B (tau- --> K- pi0 nu_tau)
 
-BEGIN       BaBar Gamma16 PUBLISHED AUBERT 07AP
+BEGIN       BaBar Gamma16 pub AUBERT.07AP
 MEASUREMENT m_Gamma16    statistical systematic
 DATA        m_Gamma16    statistical systematic
             0.416e-2     0.003e-2    0.018e-2

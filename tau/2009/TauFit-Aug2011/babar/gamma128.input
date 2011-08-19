@@ -2,7 +2,7 @@
 # B(tau- -> K- eta nu)
 #
 
-BEGIN       BaBar Gamma128 published  DEL-AMO-SANCHEZ.11E
+BEGIN       BaBar Gamma128 pub DEL-AMO-SANCHEZ.11E
 
 MEASUREMENT m_Gamma128 statistical systematic
 DATA        m_Gamma128 statistical systematic
