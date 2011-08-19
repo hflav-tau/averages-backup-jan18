@@ -1,14 +1,13 @@
 # B(tau- --> K- nu_tau)/B(tau- --> e- nubar_e nu_tau)
 
 BEGIN          BaBar Gamma10by5 submitted arXiv:0912.0242 (2009)
- 
+
 PARAMETERS     #               value   +err         -err
                PimPimPipNu     8.83e-2 +0.130384e-2 -0.130384e-2    # BaBar Published value 
  
 MEASUREMENT    m_Gamma10by5  statistical systematic 
- 
 DATA           m_Gamma10by5  statistical systematic 
-               0.03882    0.000630207 0.000173608
+               0.03882       0.000630207 0.000173608
  
 # Total Error [stat+syst] on RK= sqrt ( .00032**2 + .00057**2 ) = 0.000653682
 # Common Normalization Error on RK = .20 % of .03882 = 0.00007764

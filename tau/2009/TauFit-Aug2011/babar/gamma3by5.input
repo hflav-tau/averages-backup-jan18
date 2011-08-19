@@ -6,7 +6,6 @@ PARAMETERS     #               value   +err         -err
                PimPimPipNu     8.83e-2 +0.130384e-2 -0.130384e-2    # BaBar Published value 
 
 MEASUREMENT    m_Gamma3by5   statistical  systematic 
-
 DATA           m_Gamma3by5   statistical  systematic 
                0.9796     0.00390406   0.00052753
 
