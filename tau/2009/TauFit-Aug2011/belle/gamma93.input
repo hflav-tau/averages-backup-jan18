@@ -1,6 +1,6 @@
 # B(tau- -> pi- K- K+ nu)
 
-BEGIN   Belle Gamma93 submitted arXiv:1001.0083 (2010)
+BEGIN   Belle Gamma93 pub LEE.10
 
 #
 # by private communication we got numeric values that are more
@@ -12,8 +12,8 @@ DATA        m_Gamma93 statistical systematic
             1.550e-3  6.5750e-06  5.5579e-05
 # pub:      1.550e-3  0.010e-3    0.055e-3
 
-ERROR_CORR_WITH  0.04948276  Belle Gamma60 submitted arXiv:1001.0083 (2010)
-ERROR_CORR_WITH  0.08026913  Belle Gamma85 submitted arXiv:1001.0083 (2010)
-ERROR_CORR_WITH -0.008312885 Belle Gamma96 submitted arXiv:1001.0083 (2010)
+ERROR_CORR_WITH  0.04948276  Belle Gamma60 pub LEE.10
+ERROR_CORR_WITH  0.08026913  Belle Gamma85 pub LEE.10
+ERROR_CORR_WITH -0.008312885 Belle Gamma96 pub LEE.10
 
 END
