@@ -115,7 +115,7 @@ MEASUREMENT m_Gamma136 statistical systematic   ! NQUAN = 80
 MEASUREMENT m_Gamma46 statistical systematic   ! NQUAN = 81 
 MEASUREMENT m_Gamma9by5 statistical systematic   ! NQUAN = 82 
 MEASUREMENT m_Gamma10by5 statistical systematic   ! NQUAN = 83 
-MEASUREMENT m_Gamma96 statistical systematic   ! NQUAN = 84 
+MEASUREMENT m_Gamma96 statistical systematic scale 5.435276 ! NQUAN = 84 
 *--- dummy node to remove unitarity constraint
 MEASUREMENT m_Gamma998 statistical systematic seed 0
 *--- Gamma110, only present in constraint
