@@ -1,17 +1,24 @@
 #!/usr/bin/env Rscript
 
 ##
-## alucomb.r
+## alucomb2.r
 ##
 ## Copyright Alberto Lusiani 2010. All rights reserved.
 ## an open source license will be set once tested and working
+## usage of this code is allowed provided it is properly referenced
 ##
-## - averages measurements in a way that is mostly compatible with Combos
-## - can read Combos input files
-## - can average multiple quantities related to multiple statistically correlated measurements
+## - averages measurements by minimizing the chi square (Gaussian errors assumed)
+## - reads combos-like cards with:
+##   - measurements and their statistical and systematic errors
+##   - systematic error terms due to external parameters
+##   - statistical correlations among different measurements
+##   - linear and non-linear constraints on the fitted quantities
+## - non-linear constraints are linearized and the chi square is minimized analytically
+##   by solving a set of linear equations; the constraint linearization is iteratively
+##   optimized by repeating the fit until convergence is reached
 ##
 
-require(methods, quietly=TRUE)
+suppressWarnings(require(methods, quietly=TRUE))
 source("../../../Common/bin/alu-utils2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -217,7 +224,6 @@ if (length(quant.cards.sfact) > 0) {
 ## shift measurements according to updated external parameter dependencies
 ## update systematic terms according to updated external parameter errors
 ##
-
 header.printed = FALSE
 for (mn in meas.names) {
   value.delta = numeric()
@@ -348,6 +354,7 @@ meas.corr.stat = meas.corr
 ## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
 ## - meas.corr means total correlation, to be multiplied by total errors
 ##
+
 ##--- set off-diagonal statistical correlation matrix coefficients from cards
 for (mi.name in meas.names) {
   for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms), meas.names)) {
@@ -759,7 +766,7 @@ repeat {
     constr.diff = mapply(function(c2, v2, c1, v1) {
       x2 = c(c2, v2)
       x1 = c(c1, v1)
-      norm = pmax(x1,x2,x2+x1)
+      norm = pmax(abs(x1),abs(x2),abs(x2+x1))
       norm = mean(norm)
       ifelse(norm==0, 0, sum(((x2-x1)/norm)^2))
     }, constr.grad.comb[constr.nl], constr.grad.val[constr.nl], constr.grad.prev.comb[constr.nl], constr.grad.prev.val[constr.nl])
