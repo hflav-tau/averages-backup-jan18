@@ -16,6 +16,33 @@ diag.m <- function(vec) {
 }
 
 ##
+## print matrix with even formatting
+##
+alu.rbind.print = function(x, width=13, num.columns=NULL) {
+  number.width = width
+  rn.max = max(nchar(rownames(x)))
+  cn.max = max(nchar(colnames(x)))
+  cn.max = max(number.width, cn.max)
+  fmt = paste("%", number.width, ".", number.width-7, "e", sep="")
+  width = getOption("width")
+  digits = getOption("digits")
+  if (is.null(num.columns)) {
+    items.per.row = max(1, floor((width-rn.max) / (cn.max+1))) 
+  } else {
+    items.per.row = num.columns
+  }
+  for (i.first in seq(1, ncol(x), by=items.per.row)) {
+    ## print(format(x), quote=FALSE)
+    i.last = min(i.first + items.per.row - 1, ncol(x))
+    cat(format("", width=rn.max+1), paste(format(colnames(x)[i.first:i.last], width=cn.max), collapse=" "), "\n", sep="")
+    mapply(function(label, vec) {
+      cat(format(label, width=rn.max), " ", paste(format(sprintf(fmt, unlist(vec)), width=cn.max), collapse=" "), "\n", sep="")
+    }, rownames(x), apply(x[,i.first:i.last, drop=FALSE], 1, list))
+  }
+  return(invisible(NULL))
+}
+
+##
 ## test if pattern matches string irrespective of letters case
 ##
 match.nocase = function(pattern, str) {

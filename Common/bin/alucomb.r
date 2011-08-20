@@ -45,7 +45,7 @@ options.save = options()
 file.name.data = gsub("[.][^.]*$", "_alucomb.rdata", file.name)
 
 rc = alucomb.read(file.name)
-measurements = rc$measurements
+measurements = rc$measurements[sort(names(rc$measurements))]
 combination = rc$combination
 rm(rc)
 
@@ -58,6 +58,25 @@ rm(rc)
 meas.names = names(measurements)
 ##--- quantities to be averaged
 quant.names = combination$quantities
+
+##--- get list of values, stat errors, syst errors
+meas.val = sapply(measurements, function(x) {unname(x$value)})
+meas.stat = sapply(measurements, function(x) {unname(x$stat)})
+meas.syst = sapply(measurements, function(x) {unname(x$syst)})
+meas.err = sqrt(meas.stat^2 + meas.syst^2)
+
+##--- print measurements as read from the cards
+if (TRUE) {
+  cat("\n##\n")
+  cat("## measurements as read from the cards\n")
+  cat("##\n")
+  rc = alu.rbind.print(
+    rbind(value=meas.val,
+          stat=meas.stat,
+          syst=meas.syst,
+          error=meas.err),
+    num.columns=1)
+}
 
 ##
 ## transform COMBOFQUANT and SUMOFQUANT cards
@@ -425,14 +444,17 @@ delta = sapply(quant.names, function(x) as.numeric(x == meas.quantities))
 rownames(delta) = meas.names
 
 ##--- print corrected measurements
-if (TRUE) {
+##--- print corrected measurements
+if (FALSE) {
   cat("\n##\n")
-  cat("## Using the following measurements\n")
+  cat("## measurements after updating systematic parameters\n")
   cat("##\n")
-  show(rbind(value=meas.val,
-             stat=meas.stat,
-             syst=meas.syst,
-             error=meas.err))
+  rc = alu.rbind.print(
+    rbind(value=meas.val,
+          stat=meas.stat,
+          syst=meas.syst,
+          error=meas.err),
+    num.columns=1)
 }
 
 if (FALSE && !flag.no.maxLik) {

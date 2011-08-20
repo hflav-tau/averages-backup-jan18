@@ -51,8 +51,7 @@ options.save = options()
 file.name.data = gsub("[.][^.]*$", ".rdata", file.name)
 
 rc = alucomb.read(file.name)
-measurements = rc$measurements
-measurements = measurements[sort(names(measurements))]
+measurements = rc$measurements[sort(names(rc$measurements))]
 combination = rc$combination
 rm(rc)
 
@@ -349,6 +348,60 @@ rownames(meas.corr) = meas.names
 colnames(meas.corr) = meas.names
 meas.corr.stat = meas.corr
 
+if (TRUE) {
+  ##
+  ## deal with alucomb.r - style correlations terms, which have just 3 fields
+  ## to identify the measurement and do not match the complete measurement name
+  ##
+  
+  flag.empty.line.first.time = TRUE
+  print.empty.line.first.time = function() {
+    if (flag.empty.line.first.time) {
+      cat("\n")
+      flag.empty.line.first.time <<- FALSE
+    }
+  }
+
+  ##--- utility function to replace incomplete measurement names
+  alu.find.matching.meas = function(regexp) {
+    sapply(regexp, function(x) {
+      rc = grep(x, meas.names, perl=TRUE, value=TRUE)
+      if (length(rc)>1) {
+        stop("measurement", mi.name, "\n  correlation", x, "\n  matches multiple measurements\n", rc)
+      }
+      if (length(rc) == 0) {
+        cat("warning, measurement", mi.name, "\n  correlation", x, "\n  does not match any measurement\n")
+        return(x)
+      }
+      cat("warning, measurement", mi.name, "\n  correlation", x, "\n  updated with matching measurement", rc[1], "\n")
+      return(rc[1])
+    })
+  }
+  
+  ##--- replace incomplete measurement names in corrrlations
+  for (mi.name in meas.names) {
+    corr.names = names(measurements[[mi.name]]$corr.terms)
+    corr.names.missing.mask = !(corr.names %in% meas.names)
+    if (sum(corr.names.missing.mask) > 0) {
+      print.empty.line.first.time()
+      corr.names.missing = corr.names[corr.names.missing.mask]
+      corr.names.regexp = paste(gsub("[.]", "[.]", corr.names.missing, perl=TRUE), ".*", sep="")
+      corr.names.missing.upd = alu.find.matching.meas(corr.names.regexp)
+      names(measurements[[mi.name]]$corr.terms)[corr.names.missing.mask] = corr.names.missing.upd
+    }
+    
+    corr.names = names(measurements[[mi.name]]$corr.terms.tot)
+    corr.names.missing.mask = !(corr.names %in% meas.names)
+    if (sum(corr.names.missing.mask) > 0) {
+      print.empty.line.first.time()
+      corr.names.missing = corr.names[corr.names.missing.mask]
+      corr.names.regexp = paste(gsub("[.]", "[.]", corr.names.missing, perl=TRUE), ".*", sep="")
+      corr.names.missing.upd = alu.find.matching.meas(corr.names.regexp)
+      names(measurements[[mi.name]]$corr.terms.tot)[corr.names.missing.mask] = corr.names.missing.upd
+    }
+  }
+}
+
 ##
 ## set off-diagonal correlation matrix coefficients from cards
 ## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
@@ -367,7 +420,7 @@ for (mi.name in meas.names) {
 
 flag = FALSE
 
-##--- check that the STAT_CORRELATED_WITH terms are symmetric
+##--- check that the STAT_CORR_WITH terms are symmetric
 if (any(meas.corr.stat != t(meas.corr.stat))) {
   errors = character(0)
   for (mi in 1:meas.num) {
@@ -382,7 +435,7 @@ if (any(meas.corr.stat != t(meas.corr.stat))) {
   cat("error: asymmetric statistical correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
 }
 
-##--- check that the TOTAL_CORRELATED_WITH terms are symmetric
+##--- check that the ERROR_CORR_WITH terms are symmetric
 if (any(meas.corr != t(meas.corr))) {
   errors = character(0)
   for (mi in 1:meas.num) {
