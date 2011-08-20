@@ -170,9 +170,9 @@ setenv gtauge_mu_Err   `grep -F "(gtau/ge)_mu = " $RESFILE | grep -v Corr | tail
 setenv Bmu_from_tt_Val `grep -F "B(tau- -> mu- nub nu)_tautau  = " $RESFILE | tail -1 | sed -e 's/(/ /g' | sed -e 's/)/ /g' | awk -F= '{print $2}' | awk '{print $1}'`
 setenv Bmu_from_tt_Err `grep -F "B(tau- -> mu- nub nu)_tautau  = " $RESFILE | tail -1 | sed -e 's/(/ /g' | sed -e 's/)/ /g' | awk -F= '{print $2}' | awk '{print $3}'`
 #
-echo '$\\mathrm{B_e}$                       & ' ${Be_Val} ' $\pm$ ' ${Be_Err} ' & [ Corr. with $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_s}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Be_Bpi} ',' ${Corr_Be_BK} ',' ${Corr_Be_Bs} ',' ${Corr_Be_Bt} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_e}$                       & ' ${Be_Val} ' $\pm$ ' ${Be_Err} ' & [ Corr. with $\\mathrm{B_\\mu}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Be_Bpi} ',' ${Corr_Be_BK} ',' ${Corr_Be_Bs} ',' ${Corr_Be_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
-echo '$\\mathrm{B_\\mu}$                   & ' ${Bmu_Val} ' $\pm$ ' ${Bmu_Err}' & [ Corr. with $\\mathrm{B_e}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_s}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Bmu_Bpi} ',' ${Corr_Bmu_BK} ',' ${Corr_Bmu_Bs} ',' ${Corr_Bmu_Bt} '] \\\\' >> maketable0.temp/table.tail
+echo '$\\mathrm{B_\\mu}$                   & ' ${Bmu_Val} ' $\pm$ ' ${Bmu_Err}' & [ Corr. with $\\mathrm{B_e}$, $\\mathrm{B_\\pi}$, $\\mathrm{B_K}$, $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & [' ${Corr_Be_Bmu} ',' ${Corr_Bmu_Bpi} ',' ${Corr_Bmu_BK} ',' ${Corr_Bmu_Bs} ',' ${Corr_Bmu_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
 echo '$\\mathrm{B_\\pi}$                   & ' ${Bpi_Val} ' $\pm$ ' ${Bpi_Err}' & [ Corr. with $\\mathrm{B_e}$,  $\\mathrm{B_\\mu}$, $\\mathrm{B_K}$, $\\mathrm{B_{strange}}$, $\\mathrm{B_{total}}$ ] & ['  ${Corr_Be_Bpi} ',' ${Corr_Bmu_Bpi} ',' ${Corr_Bpi_BK} ',' ${Corr_Bpi_Bs} ',' ${Corr_Bpi_Bt} '] \\\\' >> maketable0.temp/table.tail
 #
