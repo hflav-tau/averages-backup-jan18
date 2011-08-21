@@ -18,7 +18,7 @@
 ##   optimized by repeating the fit until convergence is reached
 ##
 
-suppressWarnings(require(methods, quietly=TRUE))
+## suppressWarnings(require(methods, quietly=TRUE))
 source("../../../Common/bin/alu-utils2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -27,6 +27,17 @@ source("../../../Common/bin/alu-utils2.r")
 method="solnp"
 method="alabama"
 method="alucomb2"
+
+## ////////////////////////////////////////////////////////////////////////////
+## functions
+
+##--- utility function to only have an empty output line when needed
+print.empty.line.first.time = function() {
+  if (flag.empty.line.first.time) {
+    cat("\n")
+    flag.empty.line.first.time <<- FALSE
+  }
+}
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
@@ -60,10 +71,27 @@ rm(rc)
 ## (right now we only handle COMBINE * * *)
 ##
 
-##--- all measurements in the input cards
-meas.names = names(measurements)
 ##--- quantities to be averaged
 quant.names = names(combination$quantities)
+
+cat("\n##\n")
+cat("## averaging the following quantities\n")
+cat("##\n")
+
+print(quant.names, quote=FALSE)
+
+##--- quantity measured per measurement
+meas.quantities = sapply(measurements, function(x) x$quant)
+meas.fitted = meas.quantities %in% quant.names
+meas.discarded = length(meas.quantities) - sum(meas.fitted)
+if (meas.discarded > 0) {
+  cat("\ndiscarding", meas.discarded, "measurements of other quantities\n")
+  measurements = measurements[meas.fitted]
+  meas.quantities = meas.quantities[meas.fitted]
+}
+
+##--- all measurements in the input cards
+meas.names = names(measurements)
 
 ##--- get list of values, stat errors, syst errors
 meas.val = sapply(measurements, function(x) {unname(x$value)})
@@ -101,7 +129,7 @@ if (length(combination$constr.lin.comb) > 1) {
   }
   if (length(dupl.constr) > 0) {
     cat("warning: duplicated constraints, listed in row pairs\n")
-    show(dupl.constr)
+    print(dupl.constr)
   }
 }
 
@@ -113,20 +141,17 @@ if (length(combination$constr.lin.comb) > 0) {
     mapply(function(comb, val, val.name) {
       tmp = val
       names(tmp) = val.name
-      show(c(comb, tmp))
+      print(c(comb, tmp))
     },
     combination$constr.lin.comb[!constr.select],
     combination$constr.lin.val[!constr.select],
     names(combination$constr.lin.val[!constr.select]))
     cat("\nThe following measurement types are missing:\n")
-    show(unique(unlist(lapply(combination$constr.lin.comb, function(x) setdiff(names(x), quant.names)))))
+    print(unique(unlist(lapply(combination$constr.lin.comb, function(x) setdiff(names(x), quant.names)))))
   }
   combination$constr.lin.comb = combination$constr.lin.comb[constr.select]
   combination$constr.lin.val = combination$constr.lin.val[constr.select]
 }
-
-##--- quantity measured per measurement
-meas.quantities = sapply(measurements, function(x) x$quant)
 
 ##--- discard measurements that are not associated to a declared fitted quantity
 meas.included.list = meas.quantities %in% quant.names
@@ -179,43 +204,18 @@ for (mn in meas.names) {
 if (length(slightly.larger) > 0) {
   cat("\nwarning: syst. terms sum slightly larger than total syst. error\n")
   colnames(slightly.larger) = c("total", "sum of terms")
-  show(slightly.larger)
+  print(slightly.larger)
 }
 if (length(larger) > 0) {
   cat("\nerror: syst. terms sum larger than total syst. error\n")
   colnames(larger) = c("total", "sum of terms")
-  show(larger)
+  print(larger)
   stop("aborting")
 }
 if (length(not.matching) > 0) {
   cat("\nwarning: syst. terms do not match total syst. error, Combos requires that\n")
   colnames(not.matching) = c("total", "sum of terms")
-  show(not.matching)
-}
-
-##
-## scale all measurements of the specified type according to the scale parameter in the cards
-##
-quant.cards.sfact = unlist(lapply(combination$quantities, function(el) { unname(el["scale"]) }))
-if (is.null(quant.cards.sfact)) {
-  quant.cards.sfact = numeric(0)
-}
-
-meas.sfact.cards = rep(1, meas.num)
-if (length(quant.cards.sfact) > 0) {
-  names(meas.sfact.cards) = meas.names
-  cat("\n")
-  rc = lapply(names(quant.cards.sfact), function(el) {
-    sel = which(meas.quantities == el)
-    rc = lapply(sel, function(i) {
-      measurements[[i]]$stat <<- measurements[[i]]$stat * quant.cards.sfact[el]
-      measurements[[i]]$syst <<- measurements[[i]]$syst * quant.cards.sfact[el]
-      measurements[[i]]$syst.terms <<- measurements[[i]]$syst.terms * quant.cards.sfact[el]
-    })
-    meas.sfact.cards[sel] <<- quant.cards.sfact[el]
-    cat("applying s-factor =", quant.cards.sfact[el], "for quantity", el, "for measurements:\n")
-    show(names(meas.sfact.cards[sel]))
-  })
+  print(not.matching)
 }
 
 ##
@@ -348,57 +348,52 @@ rownames(meas.corr) = meas.names
 colnames(meas.corr) = meas.names
 meas.corr.stat = meas.corr
 
-if (TRUE) {
-  ##
-  ## deal with alucomb.r - style correlations terms, which have just 3 fields
-  ## to identify the measurement and do not match the complete measurement name
-  ##
-  
-  flag.empty.line.first.time = TRUE
-  print.empty.line.first.time = function() {
-    if (flag.empty.line.first.time) {
-      cat("\n")
-      flag.empty.line.first.time <<- FALSE
-    }
-  }
+##
+## warn about correlations with unknown measurements
+##
+## if strict=FALSE, deal with alucomb.r - style correlations terms,
+## which have just 3 fields to identify the measurement
+## and do not match the complete measurement name
+##
 
-  ##--- utility function to replace incomplete measurement names
-  alu.find.matching.meas = function(regexp) {
-    sapply(regexp, function(x) {
-      rc = grep(x, meas.names, perl=TRUE, value=TRUE)
-      if (length(rc)>1) {
-        stop("measurement", mi.name, "\n  correlation", x, "\n  matches multiple measurements\n", rc)
-      }
-      if (length(rc) == 0) {
-        cat("warning, measurement", mi.name, "\n  correlation", x, "\n  does not match any measurement\n")
-        return(x)
-      }
-      cat("warning, measurement", mi.name, "\n  correlation", x, "\n  updated with matching measurement", rc[1], "\n")
-      return(rc[1])
-    })
+##--- utility function to replace incomplete measurement names
+alu.find.matching.meas = function(name, strict=FALSE) {
+  regexp = paste("^", gsub("[.]", "[.]", name, perl=TRUE), ".*", ifelse(strict, "$", ""), sep="")
+  mapply(function(name, x) {
+    rc = grep(x, meas.names, perl=TRUE, value=TRUE)
+    if (length(rc)>1) {
+      stop("measurement", mi.name, "\n  correlation", name, "\n  matches multiple measurements\n", rc)
+    }
+    if (length(rc) == 0) {
+      cat("warning, measurement", mi.name, "\n  correlation", name, "\n  does not match any measurement\n")
+      return(name)
+    }
+    cat("warning, measurement", mi.name, "\n  correlation", name, "\n  updated with matching measurement", rc[1], "\n")
+    return(rc[1])
+  },
+  name, regexp)
+}
+
+flag.empty.line.first.time = TRUE
+strict.correlation.matching = FALSE
+##--- replace incomplete measurement names in correlations
+for (mi.name in meas.names) {
+  corr.names = names(measurements[[mi.name]]$corr.terms)
+  corr.names.missing.mask = !(corr.names %in% meas.names)
+  if (any(corr.names.missing.mask)) {
+    print.empty.line.first.time()
+    corr.names.missing = corr.names[corr.names.missing.mask]
+    corr.names.missing.upd = alu.find.matching.meas(corr.names.missing, strict.correlation.matching)
+    names(measurements[[mi.name]]$corr.terms)[corr.names.missing.mask] = corr.names.missing.upd
   }
   
-  ##--- replace incomplete measurement names in corrrlations
-  for (mi.name in meas.names) {
-    corr.names = names(measurements[[mi.name]]$corr.terms)
-    corr.names.missing.mask = !(corr.names %in% meas.names)
-    if (sum(corr.names.missing.mask) > 0) {
-      print.empty.line.first.time()
-      corr.names.missing = corr.names[corr.names.missing.mask]
-      corr.names.regexp = paste(gsub("[.]", "[.]", corr.names.missing, perl=TRUE), ".*", sep="")
-      corr.names.missing.upd = alu.find.matching.meas(corr.names.regexp)
-      names(measurements[[mi.name]]$corr.terms)[corr.names.missing.mask] = corr.names.missing.upd
-    }
-    
-    corr.names = names(measurements[[mi.name]]$corr.terms.tot)
-    corr.names.missing.mask = !(corr.names %in% meas.names)
-    if (sum(corr.names.missing.mask) > 0) {
-      print.empty.line.first.time()
-      corr.names.missing = corr.names[corr.names.missing.mask]
-      corr.names.regexp = paste(gsub("[.]", "[.]", corr.names.missing, perl=TRUE), ".*", sep="")
-      corr.names.missing.upd = alu.find.matching.meas(corr.names.regexp)
-      names(measurements[[mi.name]]$corr.terms.tot)[corr.names.missing.mask] = corr.names.missing.upd
-    }
+  corr.names = names(measurements[[mi.name]]$corr.terms.tot)
+  corr.names.missing.mask = !(corr.names %in% meas.names)
+  if (any(corr.names.missing.mask)) {
+    print.empty.line.first.time()
+    corr.names.missing = corr.names[corr.names.missing.mask]
+    corr.names.missing.upd = alu.find.matching.meas(corr.names.missing, strict.correlation.matching)
+    names(measurements[[mi.name]]$corr.terms.tot)[corr.names.missing.mask] = corr.names.missing.upd
   }
 }
 
@@ -449,23 +444,20 @@ if (any(meas.corr != t(meas.corr))) {
   }
   cat("error: asymmetric total correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
 }
-
 if (flag) stop("quitting")
 
 ##--- not handled and forbidden to enter both total and stat. only correlations
-flag.ok = TRUE
+flag = FALSE
 for (i in 1:meas.num) {
   for (j in i:meas.num) {
     if (meas.corr[i,j] != 0 && meas.corr.stat[i,j] != 0) {
-      flag.ok = FALSE
+      flag = TRUE
       cat(paste("error: both total and statistical correlation specified for measurements:\n  ",
                 meas.names[i], ", ", meas.names[j], "\n", collapse=""))
     }
   }
 }
-if (!flag.ok) {
-  stop("aborted because of above errors\n")
-}
+if (flag) stop("aborted because of above errors\n")
 
 ##
 ## build covariance matrix using errors and correlation coefficients
@@ -494,7 +486,7 @@ for (meas.i in meas.names) {
   }
 }
 
-##--- if total correlation specified, get stat. correlation by subtraction
+##--- if total correlation specified, get stat. correlation by subtraction (term-by-term)
 meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
 meas.cov.stat = meas.cov.stat + diag.m(meas.stat^2)
 ##--- total covariance
@@ -503,6 +495,30 @@ meas.cov = meas.cov.stat + meas.cov.syst
 
 ##--- total correlation
 meas.corr = meas.cov / (meas.err %o% meas.err)
+
+##
+## error scaling using the "scale" parameter for fitted quantities
+##
+quant.cards.sfact = unlist(lapply(combination$quantities, function(el) { unname(el["scale"]) }))
+if (is.null(quant.cards.sfact)) {
+  quant.cards.sfact = numeric()
+}
+meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
+meas.scale.stat = sapply(measurements[meas.scale.names], function(x) {unname(x$stat)})
+meas.scale.syst = sapply(measurements[meas.scale.names], function(x) {unname(x$syst.orig)})
+
+##--- compute additional syst. error to scale the total original error as requested
+meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
+##--- add additional syst. contribution to the diagonal elements of the covariance
+diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] + meas.scale.systsq
+
+if (length(quant.cards.sfact) > 0) {
+  cat("\n")
+  for (quant.i in names(quant.cards.sfact)) {
+    cat("applying s-factor =", quant.cards.sfact[quant.i], "for quantity", quant.i, "in measurements:\n")
+    print(names(meas.quantities[meas.quantities %in% quant.i]), quote=FALSE)
+  }
+}
 
 ##
 ## build delta matrix
@@ -569,7 +585,7 @@ seed.needed = setdiff(quant.names, quant.names[quant.measured.bool])
 seed.needed.notincards = setdiff(seed.needed, names(quant.cards.seed.val))
 if (length(seed.needed.notincards)>0) {
   cat("\nwarning: no seed value provided for the following quantities\n")
-  show(seed.needed.notincards)
+  print(seed.needed.notincards)
   cat("warning: please set them in the cards, (default values of zero used)\n")
 }
 quant.seed.val[seed.needed] = quant.cards.seed.val[seed.needed]
@@ -637,7 +653,7 @@ if (constr.num > 0) {
 
   if (FALSE) {
     cat("\n## Constraint equations begin\n\n")
-    tmp = mapply(function(name, val, comb) {names(val) = name; show(c(val, unlist(comb)))},
+    tmp = mapply(function(name, val, comb) {names(val) = name; print(c(val, unlist(comb)))},
       names(constr.v), constr.v/quant.invcov.order*constr.m.order,
       apply(constr.m/quant.invcov.order*constr.m.order, 1, function(x) list(x[x!=0])))
     cat("\n## Constraint equations end\n")
@@ -683,10 +699,10 @@ cat("\n")
 cat("##\n")
 cat("## exact solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
 cat("##\n")
-show(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
+alu.rbind.print(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr[1:quant.num, 1:quant.num])
+  print(quant.corr[1:quant.num, 1:quant.num])
 }
 cat("## end\n")
 
@@ -694,7 +710,7 @@ cat("## end\n")
 rc = save(file=file.name.data,
   measurements, combination, delta,
   chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
+  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
   quant.val,  quant.err,  quant.cov, quant.corr,
   constr.m, constr.v)
 
@@ -736,7 +752,7 @@ repeat {
   constr.expr.val = lapply(constr.expr[constr.nl], function(x) eval(x, as.list(quant.val)))
   constr.grad.comb = lapply(constr.expr.val, function(x) drop(attr(x, "gradient")))
   constr.grad.val = combination$constr.all.val[constr.nl] - as.vector(unlist(constr.expr.val))
-  if (sum(constr.nl) > 0) {
+  if (any(constr.nl)) {
     constr.grad.val = constr.grad.val + sapply(constr.grad.comb, function(x) drop(x %*% quant.val[names(x)]))
   }
 
@@ -767,7 +783,7 @@ repeat {
 
       if (FALSE) {
         cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
-        tmp = mapply(function(name, val, comb) {names(val) = name; show(c(val, unlist(comb)))},
+        tmp = mapply(function(name, val, comb) {names(val) = name; print(c(val, unlist(comb)))},
           names(constr.v), constr.v,
           apply(constr.m, 1, function(x) list(x[x!=0])))
         cat("\n## End of linearized constraint equations (1st iteration)\n")
@@ -822,7 +838,7 @@ repeat {
       norm = mean(norm)
       ifelse(norm==0, 0, sum(((x2-x1)/norm)^2))
     }, constr.grad.comb[constr.nl], constr.grad.val[constr.nl], constr.grad.prev.comb[constr.nl], constr.grad.prev.val[constr.nl])
-    show(constr.diff)
+    print(constr.diff)
     ##--- end if the average percent change of constraint equation coefficients is small enough
     if (sum(constr.diff) / constr.num < 1e-10) break
   }
@@ -861,7 +877,7 @@ cat("##\n")
 rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr)
+  print(quant.corr)
 }
 cat("## end\n")
 
@@ -869,7 +885,7 @@ cat("## end\n")
 rc = save(file=file.name.data,
   measurements, combination, delta,
   chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
+  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
   quant.val,  quant.err,  quant.cov, quant.corr,
   constr.m, constr.v)
 
@@ -920,7 +936,7 @@ rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 
 if (FALSE && quant.num > 1) {
   cat("correlation\n")
-  show(quant.corr)
+  print(quant.corr)
 }
 cat("## end\n")
 
@@ -933,7 +949,7 @@ if (FALSE) {
 rc = save(file=file.name.data,
   measurements, combination, delta,
   chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
+  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
   quant.val,  quant.err,  quant.cov, quant.corr)
 
 } # end if method solnp
@@ -1003,7 +1019,7 @@ if (FALSE) {
 rc = save(file=file.name.data,
   measurements, combination, delta,
   chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr, meas.sfact.cards,
+  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
   quant.val,  quant.err,  quant.cov, quant.corr)
 
 }  # end of if method alabama
