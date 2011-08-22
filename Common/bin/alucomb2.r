@@ -18,7 +18,6 @@
 ##   optimized by repeating the fit until convergence is reached
 ##
 
-## suppressWarnings(require(methods, quietly=TRUE))
 source("../../../Common/bin/alu-utils2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -146,7 +145,7 @@ if (length(combination$constr.lin.comb) > 0) {
     combination$constr.lin.comb[!constr.select],
     combination$constr.lin.val[!constr.select],
     names(combination$constr.lin.val[!constr.select]))
-    cat("\nThe following measurement types are missing:\n")
+    cat("\nThe following quantities are missing:\n")
     print(unique(unlist(lapply(combination$constr.lin.comb, function(x) setdiff(names(x), quant.names)))))
   }
   combination$constr.lin.comb = combination$constr.lin.comb[constr.select]
@@ -222,63 +221,65 @@ if (length(not.matching) > 0) {
 ## shift measurements according to updated external parameter dependencies
 ## update systematic terms according to updated external parameter errors
 ##
-header.printed = FALSE
+flag.header.printed = FALSE
 for (mn in meas.names) {
-  value.delta = numeric()
-  syst.term.deltasq = numeric()
-  for (param.upd in names(combination$params)) {
-    for (param.orig in names(measurements[[mn]]$params)) {
-      if (param.orig == param.upd && param.orig %in% names(measurements[[mn]]$syst.terms)) {
-        ##--- collect differences due to updated parameters
-        value.delta = c(value.delta,
-          ((combination$params[[param.upd]]["value"] - measurements[[mn]]$params[[param.orig]]["value"])
-           * measurements[[mn]]$syst.terms[param.orig] / measurements[[mn]]$params[[param.orig]]["delta_pos"]))
-        ##--- update systematic contribution according to updated parameter
-        syst.term.orig = measurements[[mn]]$syst.terms[param.orig]
-        syst.term.upd = syst.term.orig *
-          combination$params[[param.upd]]["delta_pos"] / measurements[[mn]]$params[[param.orig]]["delta_pos"]
-        measurements[[mn]]$syst.terms[param.orig] = syst.term.upd
-        ##--- collect difference of syst term squares, to adjust the total systematic error as well
-        syst.term.deltasq = c(syst.term.deltasq, (syst.term.upd^2 - syst.term.orig^2))
-        if (FALSE) {
-          ##--- log updates to measurements values and uncertainties
-          if (!header.printed) {
-            cat("\n##\n")
-            cat("## measurements updates due to updated parameters\n")
-            cat("##\n")
-            header.printed = TRUE
-          }
-          rc = cat(
-            paste(measurements[[mn]]$tag, collapse="."), " syst-term=", param.orig, "\n  ",
-            ##
-            ## - measurement parameter
-            ## - updated parameter
-            ## - measurement shift
-            ## - measurement parameter uncertainty
-            ## - updated parameter uncertainty
-            ## - 
-            ##
-            rc = format(c(measurements[[mn]]$params[[param.orig]]["value"],
-              combination$params[[param.upd]]["value"],
-              (combination$params[[param.upd]]["value"] - measurements[[mn]]$params[[param.orig]]["value"])
-              / measurements[[mn]]$params[[param.orig]]["delta_pos"],
-              ## (value.upd - value.orig),
-              measurements[[mn]]$params[[param.orig]]["delta_pos"],
-              combination$params[[param.upd]]["delta_pos"]
-              ), width=10, digits=4, scientific=TRUE),
-            "\n", sep="")
-        }
-      }
-    }
-  }
-  ##--- update value
+  ##--- save original values
   measurements[[mn]]$value.orig = measurements[[mn]]$value
+  measurements[[mn]]$syst.orig = measurements[[mn]]$syst
+
+  syst.upd.names = intersect(names(measurements[[mn]]$syst.terms), names(measurements[[mn]]$params))
+  syst.upd.names = intersect(syst.upd.names, names(combination$params))
+  if (length(syst.upd.names) == 0) next
+
+  syst.term.orig = measurements[[mn]]$syst.terms[syst.upd.names]
+
+  params.old       = sapply(measurements[[mn]]$params[syst.upd.names], function(x) unname(x["value"]))
+  params.old.delta = sapply(measurements[[mn]]$params[syst.upd.names], function(x) unname(x["delta_pos"]))
+  params.new       = sapply(combination$params[syst.upd.names], function(x) unname(x["value"]))
+  params.new.delta = sapply(combination$params[syst.upd.names], function(x) unname(x["delta_pos"]))
+
+  ##--- shift measurement values according to updated external parameters
+  value.delta = (params.new - params.old) * (syst.term.orig / params.old.delta)
+
+  ##--- differences of squares of uncertainties due to updated parameters
+  syst.term.upd = syst.term.orig * (params.new.delta / params.old.delta)
+  syst.term.deltasq = syst.term.upd^2 - syst.term.orig^2
+
+  need.update = (value.delta != 0) || (syst.term.deltasq != 0)
+  if (all(!need.update)) next
+
+  ##--- update value
   measurements[[mn]]$value = measurements[[mn]]$value + sum(value.delta)
   ##--- update systematic error
-  measurements[[mn]]$syst.orig = measurements[[mn]]$syst
   measurements[[mn]]$syst = sqrt(measurements[[mn]]$syst^2 + sum(syst.term.deltasq))
+  ##--- update systematic terms
+  measurements[[mn]]$syst.terms[syst.upd.names] = syst.term.upd
+  
+  if (TRUE) {
+    params.old = params.old[need.update]
+    params.old.delta = params.old.delta[need.update]
+    params.new = params.new[need.update]
+    params.new.delta = params.new.delta[need.update]
+    syst.term.orig = syst.term.orig[need.update]
+    syst.term.upd = syst.term.upd[need.update]
+    
+    ##--- log updates to measurements values and uncertainties
+    if (!flag.header.printed) {
+      cat("\n##\n")
+      cat("## measurements updates due to updated parameters\n")
+      cat("##\n")
+      flag.header.printed = TRUE
+    }
+    cat("\n", mn, "\n", sep="")
+    rc = print(rbind(
+      old=c(value=measurements[[mn]]$value.orig, syst=measurements[[mn]]$syst.orig),
+      new=c(value=measurements[[mn]]$value, syst=measurements[[mn]]$syst)))
+    print(rbind(params.old, delta.old=params.old.delta, params.new, delta.new=params.new.delta,
+                  syst.old=syst.term.orig, syst.new=syst.term.upd))
+  }
 }
-rm(header.printed)
+rm(flag.header.printed, need.update, syst.term.orig, syst.term.upd, syst.term.deltasq)
+rm(params.old, params.old.delta, params.new, params.new.delta)
 
 ##--- get list of updated values, stat errors, syst errors
 meas.val = sapply(measurements, function(x) {unname(x$value)})
@@ -293,7 +294,7 @@ meas.syst.orig = sapply(measurements, function(x) {unname(x$syst.orig)})
 ##--- which measurements got shifted in value or syst. error
 meas.shifted = (meas.val.orig != meas.val) | (meas.syst.orig != meas.syst)
 
-if (any(meas.shifted)) {
+if (FALSE && any(meas.shifted)) {
   cat("\n##\n")
   cat("## following measurements were shifted from updated external parameters\n")
   cat("##\n")
