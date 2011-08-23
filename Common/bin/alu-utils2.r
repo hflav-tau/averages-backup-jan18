@@ -78,28 +78,36 @@ alu.norm.pubstate = function(str) {
 
 ##
 ## measurement block:
-##   BEGIN [MEASUREMENT] <exp> <quantity> <pub|prelim> <reference> [<ref. 2nd word> ...]
+##   BEGIN [MEASUREMENT] <exp> <quantity> <pub|prelim> <reference> [<other tags>]
 ## 
 ## a "measurement" is stored in a list with fields
-## - tag = "character",
-## - value = "numeric",
-## - stat = "numeric",
-## - syst = "numeric",
-## - bibitem = "character",
-## - params = "list",
-## - syst.terms = "numeric",
-## - corr.terms = "list",
-## - corr.terms.tot = "list"
+##
+## - tags = character array: measurement name fields
+## - quant = character: measured quantity
+## - value = numeric,
+## - stat = numeric,
+## - syst = numeric,
+## - params = list of numeric arrays: parameter value, pos/neg uncertainty
+## - syst.terms = numeric array: syst. contributions related to external parameters
+## - corr.terms = numeric array: stat. corr. with other measurements
+## - corr.terms.tot = numeric array: error corr. with other measurements
 ## 
 
 ##
+## combinaiton block:
+##   BEGIN [COMBINATION] <tag> [<tag 2> ...]
+## old style: if "COMBINATION" keyword is missing then the presence of the
+## keyword "COMBINE" in the block indicates that it is a combination block
+##
 ## a "combination" is stored as a list with fields:
 ##
-## - tag = "character",
-## - bibitem = "character",
-## - quantities = "character",
-## - params = "list",
-## - meas.lin.combs = "list"
+## - tags = character array: combination name fields
+## - quantities = character array: measured quantities to be fitted
+## - params = list of numeric arrays: parameter value, pos/neg uncertainty
+## - constr.lin.comb = list of numeric arrays: coeffs of quantities in linear constraints
+## - constr.lin.val = list or numeric: values of linear constraint equations
+## - constr.nl.expr = list of numeric arrays: coeffs of quantities in linear constraints
+## - constr.nl.val = list or character: expression of non-linear constraint
 ##
 
 ## ////////////////////////////////////////////////////////////////////////////

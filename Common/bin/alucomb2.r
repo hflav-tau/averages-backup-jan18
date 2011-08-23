@@ -898,8 +898,8 @@ rc = save(file=file.name.data,
 
 if (method == "solnp") {
 
-library(truncnorm)
-library(Rsolnp)
+require(truncnorm, quietly=TRUE)
+require(Rsolnp, quietly=TRUE)
 
 ##--- degrees of freedom
 dof = meas.num - quant.num + length(combination$constr.all.val)
