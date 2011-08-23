@@ -729,10 +729,9 @@ quant.val = quant.seed.val
 first.iteration = TRUE
 constr.num = length(combination$constr.all.expr)
 constr.names = names(combination$constr.all.expr)
-constr.nl = combination$constr.all.nl
 
-##--- derivative and gradient of constraint equation expressions
-constr.expr = lapply(combination$constr.all.expr, function(x) deriv(x, all.vars(x)))
+##--- derivative and gradient of non-linear constraint equation expressions
+constr.nl.expr = lapply(combination$constr.all.expr[combination$constr.all.nl], function(x) deriv(x, all.vars(x)))
 
 ##--- print linearized constraints
 print.linearized.constraints = function(val, comb) {
@@ -750,20 +749,19 @@ repeat {
   ## ... f(x^0_i) + f_j'_i*(x_i - x^0_i) = c_j
   ## ... f_j'_i*x_i = c_j - f(x^0_i) + f_j'_i*x^0_i
   ##
-  constr.expr.val = lapply(constr.expr[constr.nl], function(x) eval(x, as.list(quant.val)))
-  constr.grad.comb = lapply(constr.expr.val, function(x) drop(attr(x, "gradient")))
-  constr.grad.val = combination$constr.all.val[constr.nl] - as.vector(unlist(constr.expr.val))
-  if (any(constr.nl)) {
-    constr.grad.val = constr.grad.val + sapply(constr.grad.comb, function(x) drop(x %*% quant.val[names(x)]))
+  constr.nl.val = lapply(constr.nl.expr, function(x) eval(x, as.list(quant.val)))
+  constr.nl.comb = lapply(constr.nl.val, function(x) drop(attr(x, "gradient")))
+  constr.nl.val = unlist(combination$constr.nl.val) - unlist(constr.nl.val)
+  if (any(combination$constr.all.nl)) {
+    constr.nl.val = constr.nl.val + sapply(constr.nl.comb, function(x) drop(x %*% quant.val[names(x)]))
   }
 
   ##--- join linear constraints
-  constr.grad.comb = c(combination$constr.lin.comb, constr.grad.comb)
-  constr.grad.val = c(unlist(combination$constr.lin.val), constr.grad.val)
-  
+  constr.all.comb = c(combination$constr.lin.comb, constr.nl.comb)
+  constr.all.val = c(unlist(combination$constr.lin.val), constr.nl.val)
   ##--- convert linearized constraint equations into linear matricial form
-  constr.m = do.call(rbind, lapply(constr.grad.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
-  constr.v = constr.grad.val
+  constr.m = do.call(rbind, lapply(constr.all.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
+  constr.v = constr.all.val
   
   if (constr.num > 0) {
     if (first.iteration) {
@@ -778,7 +776,7 @@ repeat {
 
       if (TRUE) {
         cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
-        print.linearized.constraints(constr.grad.val[constr.nl], constr.grad.comb[constr.nl])
+        print.linearized.constraints(constr.nl.val, constr.nl.comb)
         cat("\n## End of linearized constraint equations (1st iteration)\n")
       }
 
@@ -825,7 +823,7 @@ repeat {
   quant.constr.val = solve.m %*% full.v
   quant.val = drop(quant.constr.val)[1:quant.num]
   
-  if (length(constr.grad.comb[constr.nl]) == 0) {
+  if (all(!combination$constr.all.nl)) {
     ##--- there is no non-linear constraint whose linearization must iteratively converge
     break
   }
@@ -838,15 +836,15 @@ repeat {
       norm = pmax(abs(x1),abs(x2),abs(x2+x1))
       norm = mean(norm)
       ifelse(norm==0, 0, sum(((x2-x1)/norm)^2))
-    }, constr.grad.comb[constr.nl], constr.grad.val[constr.nl], constr.grad.prev.comb[constr.nl], constr.grad.prev.val[constr.nl])
+    }, constr.nl.comb, constr.nl.val, constr.nl.prev.comb, constr.nl.prev.val)
     print(constr.diff)
     ##--- end if the average percent change of constraint equation coefficients is small enough
-    if (sum(constr.diff) / constr.num < 1e-10) break
+    if (sum(constr.diff) / length(constr.nl.val) < 1e-10) break
   }
 
   ##--- save before calculation of next updated values
-  constr.grad.prev.comb = constr.grad.comb
-  constr.grad.prev.val = constr.grad.val
+  constr.nl.prev.comb = constr.nl.comb
+  constr.nl.prev.val = constr.nl.val
   first.iteration = FALSE
 }
 if (constr.num > 0) {
@@ -857,7 +855,7 @@ suppressWarnings(rm(constr.diff))
 
 if (TRUE) {
   cat("\n## Begin of linearized constraint equations (after convergence)\n\n")
-  print.linearized.constraints(constr.grad.val[constr.nl], constr.grad.comb[constr.nl])
+  print.linearized.constraints(constr.nl.val, constr.nl.comb)
   cat("\n## End of linearized constraint equations (after convergence)\n")
 }
 
@@ -1013,7 +1011,7 @@ cat("## end\n")
 
 ##--- cleanup
 if (FALSE) {
-  rm(nlconstr.expr, rc.alabama)
+  rm(rc.alabama)
 }
 
 ##--- save data and results
