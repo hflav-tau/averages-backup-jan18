@@ -278,8 +278,8 @@ for (mn in meas.names) {
                   syst.old=syst.term.orig, syst.new=syst.term.upd))
   }
 }
-rm(flag.header.printed, need.update, syst.term.orig, syst.term.upd, syst.term.deltasq)
-rm(params.old, params.old.delta, params.new, params.new.delta)
+suppressWarnings(rm(flag.header.printed, need.update, syst.term.orig, syst.term.upd, syst.term.deltasq))
+suppressWarnings(rm(params.old, params.old.delta, params.new, params.new.delta))
 
 ##--- get list of updated values, stat errors, syst errors
 meas.val = sapply(measurements, function(x) {unname(x$value)})
