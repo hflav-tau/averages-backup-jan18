@@ -736,8 +736,8 @@ constr.nl.expr = lapply(combination$constr.all.expr[combination$constr.all.nl], 
 ##--- print linearized constraints
 print.linearized.constraints = function(val, comb) {
   tmp = mapply(function(val, comb) {
-    cat(val, "=", paste(mapply(function(name, val) {
-      paste(val, "*", name, sep="")
+    cat(sprintf("%.5g", val), "=", paste(mapply(function(name, val) {
+      paste(sprintf("%.5g", val), name, sep="*")
     }, names(comb), comb), collapse=" + "), "\n")
   }, val, comb)
 }
@@ -788,7 +788,7 @@ repeat {
         cat("\n## End of linearized constraint equations (1st iteration)\n")
       }
       
-      cat("\n## Begin of constraint percent change summaries\n\n")
+      cat("\n## Begin of constraint percent change summaries\n")
     }
     ##--- to avoid computationally singular matrix, apply proper factor to constraint equations
     constr.m = constr.m * quant.invcov.order/constr.m.order
@@ -837,7 +837,8 @@ repeat {
       norm = mean(norm)
       ifelse(norm==0, 0, sum(((x2-x1)/norm)^2))
     }, constr.nl.comb, constr.nl.val, constr.nl.prev.comb, constr.nl.prev.val)
-    print(constr.diff)
+    cat("\n")
+    print(constr.diff, digits=3)
     ##--- end if the average percent change of constraint equation coefficients is small enough
     if (sum(constr.diff) / length(constr.nl.val) < 1e-10) break
   }

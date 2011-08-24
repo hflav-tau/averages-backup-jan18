@@ -23,7 +23,7 @@ alu.rbind.print = function(x, width=13, num.columns=NULL) {
   rn.max = max(nchar(rownames(x)))
   cn.max = max(nchar(colnames(x)))
   cn.max = max(number.width, cn.max)
-  fmt = paste("%", number.width, ".", number.width-7, "e", sep="")
+  fmt = paste("% -", number.width, ".", number.width-7, "g", sep="")
   width = getOption("width")
   digits = getOption("digits")
   if (is.null(num.columns)) {
