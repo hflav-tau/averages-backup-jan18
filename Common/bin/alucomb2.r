@@ -772,7 +772,7 @@ repeat {
       quant.invcov.order = 10^round(sv.log.mean/log(10))
       
       ##--- determine the typical size of the constraint equation terms
-      constr.m.order = 10^round(log(mean(abs(constr.m[constr.m!=0])))/log(10))
+      constr.m.order = apply(constr.m, 1, function(x) 10^round(log(mean(abs(x[x!=0])))/log(10)))
 
       if (TRUE) {
         cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
