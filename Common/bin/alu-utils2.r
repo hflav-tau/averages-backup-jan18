@@ -8,7 +8,7 @@
 ##
 diag.m <- function(vec) {
   if (length(vec) <= 1) {
-    rc = diag(as.matrix(vec))
+    rc = as.matrix(vec)
   } else {
     rc = diag(vec)
   }

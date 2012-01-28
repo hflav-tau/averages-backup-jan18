@@ -501,19 +501,16 @@ meas.corr = meas.cov / (meas.err %o% meas.err)
 ## error scaling using the "scale" parameter for fitted quantities
 ##
 quant.cards.sfact = unlist(lapply(combination$quantities, function(el) { unname(el["scale"]) }))
-if (is.null(quant.cards.sfact)) {
-  quant.cards.sfact = numeric()
-}
-meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
-meas.scale.stat = sapply(measurements[meas.scale.names], function(x) {unname(x$stat)})
-meas.scale.syst = sapply(measurements[meas.scale.names], function(x) {unname(x$syst.orig)})
-
-##--- compute additional syst. error to scale the total original error as requested
-meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
-##--- add additional syst. contribution to the diagonal elements of the covariance
-diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] + meas.scale.systsq
-
-if (length(quant.cards.sfact) > 0) {
+if (!is.null(quant.cards.sfact)) {
+  meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
+  meas.scale.stat = sapply(measurements[meas.scale.names], function(x) {unname(x$stat)})
+  meas.scale.syst = sapply(measurements[meas.scale.names], function(x) {unname(x$syst.orig)})
+  
+  ##--- compute additional syst. error to scale the total original error as requested
+  meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
+  ##--- add additional syst. contribution to the diagonal elements of the covariance
+  diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] + meas.scale.systsq
+  
   cat("\n")
   for (quant.i in names(quant.cards.sfact)) {
     cat("applying s-factor =", quant.cards.sfact[quant.i], "for quantity", quant.i, "in measurements:\n")
@@ -531,8 +528,10 @@ if (length(quant.cards.sfact) > 0) {
 ## one can generalize the above concepts to measurements that are linear combinations
 ## of quantities by using proper coefficients different from 1
 ##
-delta = sapply(quant.names, function(x) as.numeric(x == meas.quantities))
+delta = as.matrix(sapply(quant.names, function(x) as.numeric(x == meas.quantities)))
 rownames(delta) = meas.names
+##--- needed when length(quant.names) == 1
+colnames(delta) = quant.names
 
 ##--- print corrected measurements
 if (FALSE) {
@@ -548,12 +547,14 @@ if (FALSE) {
 }
 
 ##
-## analytical minimum chi-square solution for quantities
+## preliminary computations for analytical minimum chi-square solution
 ##
 quant.val = rep(0, quant.num)
 names(quant.val) = quant.names
 meas.invcov = solve(meas.cov)
 meas.invcov = (meas.invcov + t(meas.invcov))/2
+## meas.invcov = chol2inv(chol(meas.cov))
+
 ##--- useful in calculations but not actual quant.invcov if there are constraints
 quant.invcov = t(delta) %*% meas.invcov %*% delta
 quant.invcov = (quant.invcov + t(quant.invcov))/2
@@ -922,7 +923,9 @@ cat("\nEnd of solnp minimization\n")
 
 chisq = 2*tail(rc.solnp$values, 1)
 quant.val = rc.solnp$pars
-quant.cov = solve(rc.solnp$hessian)
+quant.hessian = rc.solnp$hessian
+quant.cov = solve(quant.hessian)
+rm(quant.hessian)
 rownames(quant.cov) = quant.names
 colnames(quant.cov) = quant.names
 quant.err = sqrt(diag(quant.cov))
