@@ -18,7 +18,7 @@
 ##   optimized by repeating the fit until convergence is reached
 ##
 
-source("../../../Common/bin/alu-utils2.r")
+source("../../../Common/bin/alucomb2-utils.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
