@@ -243,7 +243,7 @@ repeat {
       ##
 
       ##+++ combos
-      block.type = "COMBINE"
+      block.type = "COMBINATION"
 
     } else if (clause.keyw == "PARAMETERS") {
       ##
@@ -261,7 +261,7 @@ repeat {
         block$params[[param.name]] = unlist(param.data)
         names(block$params[[param.name]]) = c("value", "delta_pos", "delta_neg")
       }
-    } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINE" && clause.keyw == "MEASUREMENT")) {
+    } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
       ##
       ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
       ##
@@ -455,13 +455,13 @@ repeat {
     block.type = ""
     if (length(block.fields) > 0) {
       block.type = toupper(block.fields[[1]])
-      if (block.type == "COMBINE" || block.type == "MEASUREMENT") {
+      if (block.type == "COMBINATION" || block.type == "MEASUREMENT") {
         block.fields = block.fields[-1]
       } else {
-        ##+++
-        if (FALSE) {
+        ##+++ temporarily just warning for COMBOS-like cards compatibility
+        if (TRUE) {
           cat("warning, unknown BEGIN block in line...\n")
-          cat(" ", "BEGIN", fields, "\n")
+          cat(" ", fields, "\n")
         }
       }
     }
@@ -512,7 +512,7 @@ repeat {
       block.meas$quant = block.fields[[2]]
       measurements[[meas.tag]] = block.meas
       
-    } else if (block.type == "COMBINE") {
+    } else if (block.type == "COMBINATION") {
       ##
       ## COMBINE BLOCK
       ##
@@ -520,7 +520,7 @@ repeat {
       combination = block
       
     } else {
-      stop("unknown block type in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
+      stop("unknown block type in line...\n  ", paste(c("BEGIN", block.type, block.fields[-1]), collapse=" "))
     }
   }
   
