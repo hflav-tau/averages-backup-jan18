@@ -76,8 +76,7 @@ quant.names = names(combination$quantities)
 cat("\n##\n")
 cat("## averaging the following quantities\n")
 cat("##\n")
-
-print(quant.names, quote=FALSE)
+cat(quant.names, "\n")
 
 ##--- quantity measured per measurement
 meas.quantities = sapply(measurements, function(x) x$quant)
@@ -128,7 +127,7 @@ if (length(combination$constr.lin.comb) > 1) {
   }
   if (length(dupl.constr) > 0) {
     cat("warning: duplicated constraints, listed in row pairs\n")
-    print(dupl.constr)
+    cat(dupl.constr, "\n")
   }
 }
 
@@ -154,31 +153,33 @@ if (length(combination$constr.lin.comb) > 0) {
 
 ##--- discard measurements that are not associated to a declared fitted quantity
 meas.included.list = meas.quantities %in% quant.names
-names(meas.included.list) = names(meas.quantities)[meas.included.list]
+##+++ names(meas.included.list) = names(meas.quantities)[meas.included.list]
 meas.names.discarded =  meas.names[!meas.included.list]
 if (length(meas.names.discarded) >0) {
   cat("\nwarning: the following measurements are discarded:\n")
   cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
 }
 
-##--- quantities involved in constraints
-constr.quantities = unique(unlist(lapply(combination$constr.lin.comb, function(x) names(x)), use.names=FALSE))
-
-##--- discard fitted quantities that are not defined by measurements and constraints
-quant.discarded = !(quant.names %in% c(meas.quantities, constr.quantities))
-if (any(quant.discarded)) {
-  cat("\nwarning: the following fitted quantities are discarded:\n")
-  cat(paste("  ", quant.names[quant.discarded], collapse="\n"), "\n");
-  combination$quantities = combination$quantities[!quant.discarded]
-  quant.names = names(combination$quantities)
-}
-
-##--- update
+##--- discard measurements of non-mentioned quantities
 measurements = measurements[meas.included.list]
 meas.names = names(measurements)
 meas.num = length(measurements)
 meas.quantities = meas.quantities[meas.included.list]
 quant.num = length(quant.names)
+
+##--- quantities involved in constraints
+constr.lin.quantities = unique(unlist(lapply(combination$constr.lin.comb, function(x) names(x)), use.names=FALSE))
+constr.nl.quantities = all.vars(parse(text=combination$constr.nl.expr))
+involved.quantities = unique(c(meas.quantities, constr.lin.quantities, constr.nl.quantities))
+
+##--- discard fitted quantities that are not defined by measurements and constraints
+quant.discarded = !(quant.names %in% involved.quantities)
+if (any(quant.discarded)) {
+  cat("\nwarning: following quantities discarded (not in measurements & constraints):\n")
+  cat(paste("  ", quant.names[quant.discarded], collapse="\n"), "\n");
+  combination$quantities = combination$quantities[!quant.discarded]
+  quant.names = names(combination$quantities)
+}
 
 larger = numeric()
 slightly.larger = numeric()
@@ -514,7 +515,7 @@ if (!is.null(quant.cards.sfact)) {
   cat("\n")
   for (quant.i in names(quant.cards.sfact)) {
     cat("applying s-factor =", quant.cards.sfact[quant.i], "for quantity", quant.i, "in measurements:\n")
-    print(names(meas.quantities[meas.quantities %in% quant.i]), quote=FALSE)
+    cat(names(meas.quantities[meas.quantities %in% quant.i]), "\n")
   }
 }
 
@@ -700,13 +701,13 @@ dof = meas.num - quant.num + constr.num
 cat("\n")
 cat("##\n")
 cat("## exact solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
-cat("##\n")
+cat("##\n\n")
 alu.rbind.print(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
 if (FALSE && quant.num > 1) {
-  cat("correlation\n")
+  cat("\ncorrelation\n\n")
   print(quant.corr[1:quant.num, 1:quant.num])
 }
-cat("## end\n")
+cat("\n## end\n")
 
 ##--- save data and results
 rc = save(file=file.name.data,
@@ -864,7 +865,8 @@ if (TRUE) {
 ##
 ## compute errors and chi square
 ##
-quant.cov = solve.m[1:quant.num,1:meas.num, drop=FALSE] %*% meas.cov %*% t(solve.m[1:quant.num,1:meas.num, drop=FALSE])
+solve.cov.m = solve.m[1:quant.num,1:meas.num, drop=FALSE]
+quant.cov = solve.cov.m %*% meas.cov %*% t(solve.cov.m)
 quant.cov = (quant.cov + t(quant.cov))/2
 quant.err = sqrt(diag(quant.cov))
 quant.corr = quant.cov / (quant.err %o% quant.err)
@@ -874,13 +876,13 @@ dof = meas.num - quant.num + constr.num
 
 cat("\n##\n")
 cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
-cat("##\n")
+cat("##\n\n")
 rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 if (FALSE && quant.num > 1) {
-  cat("correlation\n")
+  cat("\ncorrelation\n\n")
   print(quant.corr)
 }
-cat("## end\n")
+cat("\n## end\n")
 
 ##--- save data and results
 rc = save(file=file.name.data,
@@ -888,7 +890,8 @@ rc = save(file=file.name.data,
   chisq, dof,
   meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
   quant.val,  quant.err,  quant.cov, quant.corr,
-  constr.m, constr.v)
+  constr.m, constr.v,
+  solve.cov.m)
 
 } # end if method alucomb2
 
@@ -934,14 +937,14 @@ quant.corr = quant.cov / (quant.err %o% quant.err)
 cat("\n")
 cat("##\n")
 cat("## solnp solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
-cat("##\n")
+cat("##\n\n")
 rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 
 if (FALSE && quant.num > 1) {
-  cat("correlation\n")
+  cat("\ncorrelation\n\n")
   print(quant.corr)
 }
-cat("## end\n")
+cat("\n## end\n")
 
 ##--- cleanup
 if (FALSE) {
@@ -1005,13 +1008,13 @@ quant.corr = quant.cov / (quant.err %o% quant.err)
 cat("\n")
 cat("##\n")
 cat("## alabama solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
-cat("##\n")
+cat("##\n\n")
 rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
 if (FALSE && quant.num > 1) {
-  cat("correlation\n")
+  cat("\ncorrelation\n\n")
   rc = alu.rbind.print(quant.corr)
 }
-cat("## end\n")
+cat("\n## end\n")
 
 ##--- cleanup
 if (FALSE) {
@@ -1033,8 +1036,7 @@ rc = save(file=file.name.data,
 
 cat("\n")
 cat(paste("file", file.name.data, "produced\n"))
-cat("\n")
-cat("## end\n")
+cat("\n## end\n")
 
 options(options.save)
 ##+++ } ##--- end function alucomb
