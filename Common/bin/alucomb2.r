@@ -76,7 +76,7 @@ quant.names = names(combination$quantities)
 cat("\n##\n")
 cat("## averaging the following quantities\n")
 cat("##\n")
-cat(quant.names, "\n")
+print(quant.names)
 
 ##--- quantity measured per measurement
 meas.quantities = sapply(measurements, function(x) x$quant)
@@ -515,7 +515,7 @@ if (!is.null(quant.cards.sfact)) {
   cat("\n")
   for (quant.i in names(quant.cards.sfact)) {
     cat("applying s-factor =", quant.cards.sfact[quant.i], "for quantity", quant.i, "in measurements:\n")
-    cat(names(meas.quantities[meas.quantities %in% quant.i]), "\n")
+    cat(names(meas.quantities[meas.quantities %in% quant.i]), sep="\n")
   }
 }
 

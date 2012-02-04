@@ -195,12 +195,12 @@ repeat {
     }
     ##--- remove end-of-line comments
     line = sub("\\s*[\\#!].*", "", line, perl=TRUE)
-    fields = strsplit(line, "\\s+", perl=TRUE)[[1]]
-    fields[[1]] = toupper(fields[[1]])
+    fields = unlist(strsplit(line, "\\s+", perl=TRUE))
+    fields[1] = toupper(fields[1])
     
-    t.inblock = (fields[[1]] == "BEGIN")
-    t.endblock = (fields[[1]] == "END")
-    t.continue = (fields[[1]] == "")
+    t.inblock = (fields[1] == "BEGIN")
+    t.endblock = (fields[1] == "END")
+    t.continue = (fields[1] == "")
     t.inclause = !(t.inblock || t.endblock || t.continue)
   }
 
@@ -230,7 +230,7 @@ repeat {
     ## handle a complete clause here
     ##
     ## cat("END clause", unlist(clause.fields), "\n\n")
-    clause.keyw = toupper(clause.fields[[1]])
+    clause.keyw = toupper(clause.fields[1])
     clause.fields = clause.fields[-1]
     clause.labels =
       unlist(lapply(clause.fields, function(elem) {if (is.na(suppressWarnings(as.numeric(elem)))) {elem}}))
@@ -267,7 +267,7 @@ repeat {
       ##
       
       ##+++ combos
-      meas.name = sub("^m_", "", clause.fields[[1]], ignore.case=TRUE)
+      meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
 
       if (!is.null(block$quantities[[meas.name]])) {
         stop("duplicated measurement ", meas.name, " in same block")
@@ -286,14 +286,17 @@ repeat {
         block$quantities[[meas.name]] = as.list(clause.values)
       }
 
-    } else if (clause.keyw == "MEASUREMENT") {
+    } else if (clause.keyw == "VALUE" || clause.keyw == "MEASUREMENT") {
       ##
-      ## MEASUREMENT in MEASUREMENT block
+      ## VALUE --> enter measurement value
+      ##+++ MEASUREMENT same as VALUE for combos compatibility
+      ##+++ (combos compatibility old comment: MEASUREMENT in MEASUREMENT block)
       ##
 
+      ##+++ combos compatibility, flag measurement block, expect value in DATA block
       block.type = "MEASUREMENT"
-      ##+++ combos
-      meas.name = sub("^m_", "", clause.fields[[1]], ignore.case=TRUE)
+      ##+++ combos compatibility
+      meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
       
       if (!is.null(block.meas$val)) {
         stop("duplicated measurement ", meas.name, " in same block")
@@ -326,9 +329,16 @@ repeat {
       } else {
         stop("wrong number of numeric data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
       }
-    } else if (clause.keyw == "DATA" || clause.keyw == "SYSTEMATICS") {
+    } else if (clause.keyw == "DATA" ||
+               clause.keyw == "SYSTEMATICS" || clause.keyw == "SYSTLOCAL" || clause.keyw == "SYSTPAPER" ) {
       ##
       ## SYSTEMATICS or (+++combos) DATA
+      ## list systematic terms with a label that possibly refers
+      ## to a global parameter or to the same effect in another
+      ## measurement
+      ##
+      ## SYSTLOCAL like SYSTEMATICS but add measurement name to make it local
+      ## SYSTPAPER like SYSTEMATICS but add reference name to make it paper-wide
       ##
 
       ##
@@ -356,6 +366,11 @@ repeat {
       if (!is.null(block.meas$syst.terms)) {
         stop("duplicated systematic terms in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
       }
+      if (clause.keyw == "SYSTLOCAL") {
+        clause.labels = paste(paste(block.fields, collapse="."), clause.labels, sep=".")
+      } else if (clause.keyw == "SYSTPAPER") {
+        clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
+      }
       names(clause.values) = clause.labels
       block.meas$syst.terms = clause.values
       
@@ -382,7 +397,7 @@ repeat {
       ##
       
       if (clause.keyw != "CONSTRAINT") {
-        constr.name = paste(clause.fields[[1]], "coq", sep=".")
+        constr.name = paste(clause.fields[1], "coq", sep=".")
         constr.val = 0
       }
 
@@ -413,7 +428,7 @@ repeat {
       ## NLCONSTRAINT
       ##
       
-      if (is.na(suppressWarnings(as.numeric(clause.fields[[2]])))) {
+      if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
         stop("error: missing numeric value in non-linear constraint in...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
       }
       constr.name = clause.labels[1]
@@ -423,8 +438,7 @@ repeat {
       block$constr.nl.val[[constr.name]] = constr.val
       block$constr.nl.expr[[constr.name]] = constr.expr
       
-    } else if (clause.keyw == "") {
-    } else if (clause.keyw == "") {
+      ## } else if (clause.keyw == "") {
     }
   }
   
@@ -454,7 +468,7 @@ repeat {
     
     block.type = ""
     if (length(block.fields) > 0) {
-      block.type = toupper(block.fields[[1]])
+      block.type = toupper(block.fields[1])
       if (block.type == "COMBINATION" || block.type == "MEASUREMENT") {
         block.fields = block.fields[-1]
       } else {
@@ -466,6 +480,7 @@ repeat {
       }
     }
     block.meas = list()
+    ##+++ block.meas$syst.terms = numeric(0)
     block.meas$corr.terms = numeric(0)
     block.meas$corr.terms.tot = numeric(0)
 
@@ -490,16 +505,16 @@ repeat {
       
       ##+++combos
       if (FALSE && length(block.fields) == 3) {
-        block.fields = c(block.fields[-3], strsplit(block.fields[[3]], "[.]", perl=TRUE)[[1]])
+        block.fields = c(block.fields[-3], strsplit(block.fields[3], "[.]", perl=TRUE)[[1]])
       }
 
       if (length(block.fields) < 3) {
         stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
       }
-      block.fields[[3]] = alu.norm.pubstate(block.fields[[3]])
+      block.fields[3] = alu.norm.pubstate(block.fields[3])
 
       meas.tag = paste(block.fields, collapse=".")
-      block.meas$tags = unlist(block.fields)
+      block.meas$tags = block.fields
 
       if (!is.null(measurements[[meas.tag]])) {
         stop("duplicate measurement in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
@@ -509,7 +524,7 @@ repeat {
       ## measured quantity = 2nd tag in the BEGIN MEASUREMENT statement
       ## BEGIN [MEASUREMENT] <esperiment> <quantity> <pub|prelim> <reference> [...]
       ##
-      block.meas$quant = block.fields[[2]]
+      block.meas$quant = block.fields[2]
       measurements[[meas.tag]] = block.meas
       
     } else if (block.type == "COMBINATION") {
