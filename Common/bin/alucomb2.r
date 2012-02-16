@@ -52,7 +52,7 @@ if (length(args) > 0) {
   file.name = "average.input"
 }
 
-##+++ alucomb = function(file.name = "") {
+alucomb = function(file.name = "") {
 
 ##--- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
@@ -76,7 +76,7 @@ quant.names = names(combination$quantities)
 cat("\n##\n")
 cat("## averaging the following quantities\n")
 cat("##\n")
-print(quant.names)
+print(quant.names, quote=FALSE)
 
 ##--- quantity measured per measurement
 meas.quantities = sapply(measurements, function(x) x$quant)
@@ -772,7 +772,6 @@ repeat {
       sv.central = round(quant.num*1/3):round(quant.num*2/3)
       sv.log.mean = mean(log(sv[sv.central]))
       quant.invcov.order = 10^round(sv.log.mean/log(10))
-      
       ##--- determine the typical size of the constraint equation terms
       constr.m.order = apply(constr.m, 1, function(x) 10^round(log(mean(abs(x[x!=0])))/log(10)))
 
@@ -1039,7 +1038,7 @@ cat(paste("file", file.name.data, "produced\n"))
 cat("\n## end\n")
 
 options(options.save)
-##+++ } ##--- end function alucomb
+} ##--- end function alucomb
 
 args <- commandArgs(TRUE)
 if (length(args) > 0 && exists("alucomb")) alucomb(file = args[1]) 
