@@ -97,8 +97,8 @@ meas.stat = sapply(measurements, function(x) {unname(x$stat)})
 meas.syst = sapply(measurements, function(x) {unname(x$syst)})
 meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
-##--- print measurements as read from the cards
-if (TRUE) {
+##--- print measurements as read from the cards (short form)
+if (FALSE) {
   cat("\n##\n")
   cat("## measurements as read from the cards\n")
   cat("##\n")
@@ -108,6 +108,87 @@ if (TRUE) {
           syst=meas.syst,
           error=meas.err),
     num.columns=1)
+}
+
+##
+## print measurements as read from the cards (all fields)
+##
+if (TRUE) {
+  cat("\n##\n")
+  cat("## new measurements as read from the cards\n")
+  cat("##\n")
+  
+  for (meas in measurements) {
+    cat("\n")
+    cat(paste(meas$tags, collapse="."), meas$quant, "\n")
+    cat("  value = ", meas$value)
+    
+    if (meas$stat.p == -meas$stat.n) {
+      if (meas$stat != meas$stat.p) {
+        stop(names(meas),": stat != stat.p, stat, stat.p, stat.n:", meas$stat, meas$stat.p, meas$stat.n)
+      }
+      cat(" +-", meas$stat, sep="")
+    } else {
+      cat(" (+", meas$stat.p, " ", meas$stat.n, ")", sep="")
+    }
+    
+    if (meas$syst.p == -meas$syst.n) {
+      if (meas$syst != meas$syst.p) {
+        stop(names(meas),": syst != syst.p, syst, syst.p, syst.n:", meas$syst, meas$syst.p, meas$syst.n)
+      }
+      cat(" +-", meas$syst, sep="")
+    } else {
+      cat(" (+", meas$syst.p, " ", meas$syst.n, ")", sep="")
+    }
+    cat("\n")
+    if (length(meas$corr.terms) > 0) {
+      cat("  statistical correlation\n")
+      mapply(function(label, value) {
+        cat("   ", value, label, "\n")
+      }, names(meas$corr.terms), sprintf("%+g", meas$corr.terms))
+    }
+    if (length(meas$corr.terms.tot) > 0) {
+      cat("  total correlation\n")
+      mapply(function(label, value) {
+        cat("   ", value, label, "\n")
+      }, names(meas$corr.terms.tot), sprintf("%+g", meas$corr.terms.tot))
+    }
+    if (length(meas$syst.terms) > 0) {
+      cat("  systematics terms\n")
+      mapply(function(label, value) {
+        cat("   ", value, label, "\n")
+      }, names(meas$syst.terms), sprintf("%+g", meas$syst.terms))
+    }
+    if (length(meas$params) > 0) {
+      cat("  parameters\n")
+      mapply(function(label, value) {
+        cat("   ", label, value[1])
+        if (value[2] == -value[3]) {
+          cat(" +-", value[2], "\n", sep="")
+        } else {
+          cat(" +", value[2], " -", value[3], "\n", sep="")
+        }
+      }, names(meas$params), meas$params)
+    }
+  }
+}
+
+cat("\n##\n")
+cat("## using the following updated global parameters\n")
+cat("##\n")
+if (length(combination$params) > 0) {
+  rc = mapply(function(value) {
+    if (value[2] == -value[3]) {
+      excurs = paste("+-", value[2], sep="")
+    } else {
+      excurs = paste("+", value[2], " -", value[3], sep="")
+    }
+    c(as.character(value[1]), excurs)
+  }, combination$params)
+  rc = t(as.matrix(rc))
+  colnames(rc) = c("value", "excursion")
+  print(rc, quote=FALSE)
+  rm(rc)
 }
 
 ##--- check duplicate linear constraints
@@ -781,14 +862,6 @@ repeat {
         cat("\n## End of linearized constraint equations (1st iteration)\n")
       }
 
-      if (FALSE) {
-        cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
-        tmp = mapply(function(name, val, comb) {names(val) = name; print(c(val, unlist(comb)))},
-          names(constr.v), constr.v,
-          apply(constr.m, 1, function(x) list(x[x!=0])))
-        cat("\n## End of linearized constraint equations (1st iteration)\n")
-      }
-      
       cat("\n## Begin of constraint percent change summaries\n")
     }
     ##--- to avoid computationally singular matrix, apply proper factor to constraint equations
