@@ -399,9 +399,13 @@ repeat {
         negval = attr(clause.values[[2]], "negval")
         if (!is.null(negval)) {
           block.meas$stat.n = negval
-          block.meas$stat = sqrt((block.meas$stat.p^2 + block.meas$stat.n^2)/2)
+          if (block.meas$stat.n == -block.meas$stat.p) {
+            block.meas$stat = block.meas$stat.p
+          } else {
+            block.meas$stat = sqrt((block.meas$stat.p^2 + block.meas$stat.n^2)/2)
+          }
         } else {
-          block.meas$stat.n = block.meas$stat.p
+          block.meas$stat.n = -block.meas$stat.p
           block.meas$stat = block.meas$stat.p
         }
 
@@ -411,7 +415,7 @@ repeat {
           block.meas$syst.n = negval
           block.meas$syst = sqrt((block.meas$syst.p^2 + block.meas$syst.n^2)/2)
         } else {
-          block.meas$syst.n = block.meas$syst.p
+          block.meas$syst.n = -block.meas$syst.p
           block.meas$syst = block.meas$syst.p
         }
         ##+++ set end of MEASEREMENT DATA (combos compatibility)
