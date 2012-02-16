@@ -279,10 +279,16 @@ repeat {
     clause.keyw = toupper(clause.fields[1])
     clause.fields = clause.fields[-1]
 
-    ##--- values are numbers possible preceded by "+", "-", "+-"
-    clause.fields.nosign = sub("([+]|-|[+]-)", "", clause.fields)
+    ##
+    ## values are numbers possibly preceded by "+", "-", "+-"
+    ## sequences "+num1 -num2" are replaced by a +num1 with attribute "negval" = -num2
+    ## the word +-num is replaced by +num with attribute "pm"
+    ##
+    ##--- for each word get any of "
     clause.fields.signtag = sub("^([+]|-|[+]-|).*$", "\\1", clause.fields)
-    clause.fields.val = suppressWarnings(as.numeric(clause.fields))
+    ##--- remove "+-" sequence at begin of word, which would stop conversion to numeric
+    clause.fields.nopm = sub("^[+]-", "", clause.fields)
+    clause.fields.val = suppressWarnings(as.numeric(clause.fields.nopm))
     ##--- labels are all non-numeric words
     clause.labels = clause.fields[is.na(clause.fields.val)]
     
@@ -292,8 +298,6 @@ repeat {
     ##--- indices to numeric values preceded by minus sign
     minus.ind = grep("-", clause.fields.signtag, fixed=TRUE)
     minus.ind = minus.ind[!is.na(clause.fields.val[minus.ind])]
-    ##--- apply minus signs
-    clause.fields.val[minus.ind] = -clause.fields.val[minus.ind]
 
     ##--- indices to sequences +<numeric value 1> -<numeric value 2>
     plus.minus.ind = intersect(plus.ind, minus.ind-1)
@@ -334,12 +338,10 @@ repeat {
       param.delta.n = lapply(param.delta.p, function(delta) {
         ifelse(is.null(attr(delta, "negval")), -delta, attr(delta, "negval"))
       })
-      block$params = mapply(
+      block$params = c(block$params, mapply(
         function(val, delta.p, delta.n) {
           c("value"=val, "delta_pos"=delta.p, "delta_neg"=delta.n)
-        }, param.val, param.delta.p, param.delta.n, SIMPLIFY=FALSE)
-      print(block$params)
-      print(param.val)
+        }, param.val, param.delta.p, param.delta.n, SIMPLIFY=FALSE))
       
     } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
       ##
