@@ -115,7 +115,7 @@ if (FALSE) {
 ##
 if (TRUE) {
   cat("\n##\n")
-  cat("## new measurements as read from the cards\n")
+  cat("## measurements as read from the cards\n")
   cat("##\n")
   
   for (meas in measurements) {
