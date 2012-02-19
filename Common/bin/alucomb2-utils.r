@@ -41,7 +41,7 @@ alu.rbind.print = function(x, width=13, num.columns=NULL) {
   }
   return(invisible(NULL))
 }
-  
+
 ##
 ## test if pattern matches string irrespective of letters case
 ##
@@ -127,7 +127,7 @@ alu.norm.pubstate = function(str) {
 ##   MEASUREMENT m_<quantity> statistical systematic [seed <value>] [scale <value>]
 ##   ...
 ##   END
-# new style
+## new style
 ##   BEGIN COMBINATION <tag> [<tag 2> ...]
 ##   PARAMETERS !      assumed_value  pos_excurs   neg_excurs
 ##     par1            0.919          +0.003       -0.003
@@ -155,497 +155,539 @@ alu.norm.pubstate = function(str) {
 ##
 
 alucomb.read = function(file = "") {
-
-if (match.nocase("^\\s*$", file)) {
-  stop("alucomb: please provide as argument the card input file\n")
-}
-
-flag.replace.corr = FALSE
-flag.build.delta = FALSE
-
-if (!file.exists(file)) {
-  stop("cannot find file ", file, "\n")
-}
-dir.base = dirname(file)
-lines = readLines(file)
-cat("read file", file, "\n")
-
-##
-## deal with INCLUDE lines
-##
-iline = 1
-lines.len = length(lines)
-repeat {
-  if (iline > lines.len) break
-  fields = unlist(strsplit(lines[iline], "\\s+", perl=TRUE))
-  if (length(fields) > 0 &&
-      match.nocase("^INCLUDE$", fields[1])) {
-    file.inc = paste(dir.base, fields[2], sep="/")
-    if (!file.exists(file.inc)) {
-      stop("cannot find included file ", file.inc, "\n")
-    }
-    lines.inc = readLines(file.inc)
-    cat("read file", file.inc, "\n")
-    lines = c(
-      if (iline-1>=1) {lines[1:(iline-1)]} else {NULL},
-      lines.inc,
-      if (iline+1<=lines.len) {lines[(iline+1):(lines.len)]} else {NULL}
-      )
-    lines.len = length(lines)
-    next
+  if (match.nocase("^\\s*$", file)) {
+    stop("alucomb: please provide as argument the card input file\n")
   }
-  iline = iline + 1
-}
-
-##
-## init global storage for cards
-##
-measurements = list()
-combination = list()
-
-s.inblock = FALSE
-s.inclause = FALSE
-
-t.inblock = FALSE
-t.inclause = FALSE
-t.continue = FALSE
-t.endclause = FALSE
-t.endblock = FALSE
-t.endfile = FALSE
-
-iline = 1
-lines.len = length(lines)
-repeat {
+  
+  flag.replace.corr = FALSE
+  flag.build.delta = FALSE
+  
+  if (!file.exists(file)) {
+    stop("cannot find file ", file, "\n")
+  }
+  dir.base = dirname(file)
+  lines = readLines(file)
+  cat("read file", file, "\n")
+  
   ##
-  ## read new line
+  ## deal with INCLUDE lines
   ##
-  if (iline > lines.len) {
-    t.endfile = TRUE
-  } else {
-    line = lines[iline]
-    iline = iline+1
-
-    ##--- skip comment and empty lines
-    if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
-        regexpr("^[\\#!*;]", line, perl=TRUE) != -1) {
+  iline = 1
+  lines.len = length(lines)
+  repeat {
+    if (iline > lines.len) break
+    fields = unlist(strsplit(lines[iline], "\\s+", perl=TRUE))
+    if (length(fields) > 0 &&
+        match.nocase("^INCLUDE$", fields[1])) {
+      file.inc = paste(dir.base, fields[2], sep="/")
+      if (!file.exists(file.inc)) {
+        stop("cannot find included file ", file.inc, "\n")
+      }
+      lines.inc = readLines(file.inc)
+      cat("read file", file.inc, "\n")
+      lines = c(
+        if (iline-1>=1) {lines[1:(iline-1)]} else {NULL},
+        lines.inc,
+        if (iline+1<=lines.len) {lines[(iline+1):(lines.len)]} else {NULL}
+        )
+      lines.len = length(lines)
       next
     }
-    ##--- remove end-of-line comments
-    line = sub("\\s*[\\#!].*", "", line, perl=TRUE)
-    fields = unlist(strsplit(line, "\\s+", perl=TRUE))
-    fields[1] = toupper(fields[1])
-    
-    ##--- block begin
-    t.inblock = (fields[1] == "BEGIN")
-    ##--- block end
-    t.endblock = (fields[1] == "END")
-    ##--- a line beginning with space is the continuation of the last clause
-    t.continue = (fields[1] == "")
-    ##--- begin a clause if: 1) does not begin/end a block and 2) does not begin with blank
-    t.inclause = !(t.inblock || t.endblock || t.continue)
-  }
-
-  ##--- when continuing a clause collect all its fields
-  if (t.continue) {
-    if (s.inclause) {
-      ##--- continuation of previous clause
-      clause.fields = c(clause.fields, fields[-1])
-    } else {
-      t.continue = FALSE
-      cat("warning, continuation line outside of clause, ignored, line ...\n")
-      cat("  '", line, "'\n", sep="")
-    }
-    next
+    iline = iline + 1
   }
   
   ##
-  ## end of a clause -> interpret its fields
+  ## init global storage for cards
   ##
-  if (s.inclause && !t.continue) {
-    ##--- if no continuation then the current clause ends
-    s.inclause = FALSE
-    if (t.inblock) {
-      cat("warning, clause ended by BEGIN block, line ...\n")
-      cat("  '", line, "'\n", sep="")
-    }
-    if (t.endfile) {
-      cat("warning, clause ended by end of file, clause...\n")
-      cat("  ", paste(clause.fields, collapse=" "), "\n", sep="")
-    }
+  measurements = list()
+  combination = list()
+  
+  s.inblock = FALSE
+  s.inclause = FALSE
+  
+  t.inblock = FALSE
+  t.inclause = FALSE
+  t.continue = FALSE
+  t.endclause = FALSE
+  t.endblock = FALSE
+  t.endfile = FALSE
+  
+  iline = 1
+  lines.len = length(lines)
+  repeat {
     ##
-    ## handle a complete clause here
+    ## read new line
     ##
-    ## cat("END clause", unlist(clause.fields), "\n\n")
-    clause.keyw = toupper(clause.fields[1])
-    clause.fields = clause.fields[-1]
+    if (iline > lines.len) {
+      t.endfile = TRUE
+    } else {
+      line = lines[iline]
+      iline = iline+1
+      
+      ##--- skip comment and empty lines
+      if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
+          regexpr("^[\\#!*;]", line, perl=TRUE) != -1) {
+        next
+      }
+      ##--- remove trailing whitespace
+      line = sub("\\s+$", "", line, perl=TRUE)
+      ##--- remove end-of-line comments
+      line = sub("\\s*[\\#!].*$", "", line, perl=TRUE)
 
-    ##
-    ## values are numbers possibly preceded by "+", "-", "+-"
-    ## sequences "+num1 -num2" are replaced by a +num1 with attribute "negval" = -num2
-    ## the word +-num is replaced by +num with attribute "pm"
-    ##
-    ##--- for each word get any of "
-    clause.fields.signtag = sub("^([+]|-|[+]-|).*$", "\\1", clause.fields)
-    ##--- remove "+-" sequence at begin of word, which would stop conversion to numeric
-    clause.fields.nopm = sub("^[+]-", "", clause.fields)
-    clause.fields.val = suppressWarnings(as.numeric(clause.fields.nopm))
-    ##--- labels are all non-numeric words
-    clause.labels = clause.fields[is.na(clause.fields.val)]
+      ##
+      ## tokenize input
+      ##
+
+      ##
+      ## split line in quoted strings segments
+      ## matched substrings will be
+      ## - a string for any unquoted sequence between line-begin, line-end or double-quotes
+      ## - a string for every quoted string
+      ## - an empty string both before and after any quoted string
+      ##
+      matches = gregexpr("([^\"\\]*(\\.[^\"\\]*)*)", line)[[1]]
+      if (length(matches) > 1) {
+        ##--- special treatment for lines with quoted strings
+        matches.len = attr(matches, "match.length")
+        matches.zerolen = which(matches.len == 0)
+        matches.qstr = matches.zerolen[c(TRUE, FALSE)] + 1
+        matches.str = setdiff(seq(1, length(matches)), c(matches.zerolen, matches.qstr))
+        matches.all.ind = sort(c(matches.str, matches.qstr))
+        matches.qstr.flag = matches.all.ind %in% matches.qstr
+        matches.all = matches[matches.all.ind]
+        attr(matches.all, "match.length") = matches.len[matches.all.ind]
+        line.qstrings = regmatches(line, list(matches.all))[[1]]
+        ##--- split
+        fields = unlist(mapply(function(word, qstr.flag) {
+          if (qstr.flag) {return(word)}
+          ##--- trim and split unquoted strings
+          word = sub("^\\s+|\\s+$", "", word)
+          unlist(strsplit(word, "\\s+", perl=TRUE))
+	}, line.qstrings, matches.qstr.flag, USE.NAMES=FALSE))
+        ##--- restore empty string that strsplit would return for lines that begin with whitespace
+        if (regexpr("^\\s+", line, perl=TRUE) != -1) {
+          fields = c("", fields)
+        }
+      } else {
+        fields = unlist(strsplit(line, "\\s+", perl=TRUE))
+      }
+      
+      ##--- block begin
+      t.inblock = (fields[1] == "BEGIN")
+      ##--- block end
+      t.endblock = (fields[1] == "END")
+      ##--- a line beginning with space is the continuation of the last clause
+      t.continue = (fields[1] == "")
+      ##--- begin a clause if: 1) does not begin/end a block and 2) does not begin with blank
+      t.inclause = !(t.inblock || t.endblock || t.continue)
+    }
     
-    ##--- indices to numeric values preceded by plus sign
-    plus.ind = grep("+", clause.fields.signtag, fixed=TRUE)
-    plus.ind = plus.ind[!is.na(clause.fields.val[plus.ind])]
-    ##--- indices to numeric values preceded by minus sign
-    minus.ind = grep("-", clause.fields.signtag, fixed=TRUE)
-    minus.ind = minus.ind[!is.na(clause.fields.val[minus.ind])]
-
-    ##--- indices to sequences +<numeric value 1> -<numeric value 2>
-    plus.minus.ind = intersect(plus.ind, minus.ind-1)
-    ##--- add negative value as attribute to positive value
-    plus.minus.val = mapply(
-      function(first, second) {
-        attr(first, "negval", second)
-        return(first)
-      }, clause.fields.val[plus.minus.ind], clause.fields.val[plus.minus.ind+1])
-    ##--- replace +<numeric value 1> -<numeric value 2> with a single number
-    clause.fields.val = as.list(clause.fields.val)
-    clause.fields.val[plus.minus.ind] = plus.minus.val
-    clause.fields.val[plus.minus.ind+1] = NA
-    pm.ind = grep("+-", clause.fields.signtag, fixed=TRUE)
-    clause.fields.val[pm.ind] = lapply(clause.fields.val[pm.ind], function(val) {attr(val, "pm") = TRUE; val})
-    clause.values = clause.fields.val[!is.na(clause.fields.val)]
-
-    if (clause.keyw == "COMBINE") {
-      ##
-      ## COMBINE
-      ##
-
-      ##+++ combos
-      block.type = "COMBINATION"
-
-    } else if (clause.keyw == "PARAMETERS") {
-      ##
-      ## PARAMETERS (same treatment in MEASUREMENT and COMBINATION block)
-      ##
-
-      ##--- after collapsing +devp -devm into devp with attr negval expect 2x values as labels
-      if (length(clause.values) != 2*length(clause.labels)) {
-        stop("wrong parameter data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-      }
-      param.val = clause.values[seq(1, 2*length(clause.labels), by=2)]
-      names(param.val) = clause.labels
-      param.delta.p = clause.values[seq(2, 2*length(clause.labels), by=2)]
-      param.delta.n = lapply(param.delta.p, function(delta) {
-        ifelse(is.null(attr(delta, "negval")), -delta, attr(delta, "negval"))
-      })
-      block$params = c(block$params, mapply(
-        function(val, delta.p, delta.n) {
-          c("value"=val, "delta_pos"=delta.p, "delta_neg"=delta.n)
-        }, param.val, param.delta.p, param.delta.n, SIMPLIFY=FALSE))
-      
-    } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
-      ##
-      ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
-      ##
-      
-      ##+++ combos
-      meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
-
-      if (!is.null(block$quantities[[meas.name]])) {
-        stop("duplicate quantity ", meas.name, " in same block")
-      }
-      block$quantities[[meas.name]] = list()
-      clause.labels = clause.labels[-1]
-
-      ##+++ combos, remove labels named "stat*", "syst*"
-      clause.labels = clause.labels[!match.nocase("^(syst|stat)", clause.labels)]
-
-      if (length(clause.labels) != length(clause.values)) {
-        stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-      }
-      if (length(clause.values) > 0) {
-        names(clause.values) = clause.labels
-        block$quantities[[meas.name]] = clause.values
-      }
-
-    } else if (clause.keyw == "MEASUREMENT") {
-      ##
-      ##+++ MEASUREMENT clause, combos compatibility
-      ##
-      block.type = "MEASUREMENT"
-      meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
-      if (meas.name != block.fields[2]) {
-        stop("MEASUREMENT quantity does not match BLOCK quantity...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-      }
-      measurement.in.data = TRUE
-    } else if (clause.keyw == "VALUE" || (clause.keyw == "DATA" && measurement.in.data)) {
-      ##
-      ## VALUE --> enter measurement value
-      ##+++ DATA after MEASUREMENT clause, combos compatibility
-      ##
-      
-      if (!is.null(block.meas$val)) {
-        stop("duplicated measurement in line...", paste(c(clause.keyw, clause.fields), collapse=" "))
-      }
-
-      if (length(clause.values) == 3) {
-        if (!is.null(attr(clause.values[[1]], "negval"))) {
-          stop("+-values for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-        }
-        ##--- use values if existing
-        block.meas$value = clause.values[[1]]
-
-        block.meas$stat.p = clause.values[[2]]
-        negval = attr(clause.values[[2]], "negval")
-        if (!is.null(negval)) {
-          block.meas$stat.n = negval
-          if (block.meas$stat.n == -block.meas$stat.p) {
-            block.meas$stat = block.meas$stat.p
-          } else {
-            block.meas$stat = sqrt((block.meas$stat.p^2 + block.meas$stat.n^2)/2)
-          }
-        } else {
-          block.meas$stat.n = -block.meas$stat.p
-          block.meas$stat = block.meas$stat.p
-        }
-
-        block.meas$syst.p = clause.values[[3]]
-        negval = attr(clause.values[[3]], "negval")
-        if (!is.null(negval)) {
-          block.meas$syst.n = negval
-          block.meas$syst = sqrt((block.meas$syst.p^2 + block.meas$syst.n^2)/2)
-        } else {
-          block.meas$syst.n = -block.meas$syst.p
-          block.meas$syst = block.meas$syst.p
-        }
-        ##+++ set end of MEASEREMENT DATA (combos compatibility)
-        measurement.in.data = FALSE
+    ##--- when continuing a clause collect all its fields
+    if (t.continue) {
+      if (s.inclause) {
+        ##--- continuation of previous clause
+        clause.fields = c(clause.fields, fields[-1])
       } else {
-        stop("wrong number of numeric data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        t.continue = FALSE
+        cat("warning, continuation line outside of clause, ignored, line ...\n")
+        cat("  '", line, "'\n", sep="")
       }
-    } else if (clause.keyw == "DATA" ||
-               clause.keyw == "SYSTEMATICS" || clause.keyw == "SYSTLOCAL" || clause.keyw == "SYSTPAPER" ) {
-      ##
-      ## SYSTEMATICS or (+++combos) DATA
-      ## list systematic terms with a label that possibly refers
-      ## to a global parameter or to the same effect in another
-      ## measurement
-      ##
-      ## SYSTLOCAL like SYSTEMATICS but add measurement name to make it local
-      ## SYSTPAPER like SYSTEMATICS but add reference name to make it paper-wide
-      ##
-
-      ##
-      ## - "%" on either name or value means percent of measurement value
-      ## - "&" on either name or value means relative of measurement value
-      ##
-      clause.df = data.frame(
-        field = clause.fields,
-        rel = grepl("^(.*)[&]$", clause.fields, perl=TRUE),
-        perc = grepl("^(.*)[%]$", clause.fields, perl=TRUE),
-        num = suppressWarnings(as.numeric(clause.fields)),
-        stringsAsFactors=FALSE)
-      clause.labels = sub("^(.*)[&%]$", "\\1", with(clause.df, field[is.na(num)]))
-      clause.values = with(clause.df, num[!is.na(num)])
-      if (length(clause.values) != length(clause.labels)) {
-        stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+      next
+    }
+    
+    ##
+    ## end of a clause -> interpret its fields
+    ##
+    if (s.inclause && !t.continue) {
+      ##--- if no continuation then the current clause ends
+      s.inclause = FALSE
+      if (t.inblock) {
+        cat("warning, clause ended by BEGIN block, line ...\n")
+        cat("  '", line, "'\n", sep="")
       }
-      clause.perc = with(clause.df, perc[is.na(num)]) | with(clause.df, perc[!is.na(num)])
-      clause.rel = with(clause.df, rel[is.na(num)]) | with(clause.df, rel[!is.na(num)])
-      clause.values =
-        ifelse(clause.perc, clause.values*block.meas$value/100,
-               ifelse(clause.rel, clause.values*block.meas$value,
-                      clause.values))
-
-      if (!is.null(block.meas$syst.terms)) {
-        stop("duplicated systematic terms in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+      if (t.endfile) {
+        cat("warning, clause ended by end of file, clause...\n")
+        cat("  ", paste(clause.fields, collapse=" "), "\n", sep="")
       }
-      if (clause.keyw == "SYSTLOCAL") {
-        clause.labels = paste(paste(block.fields, collapse="."), clause.labels, sep=".")
-      } else if (clause.keyw == "SYSTPAPER") {
-        clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
-      }
-      names(clause.values) = clause.labels
-      block.meas$syst.terms = unlist(clause.values)
+      ##
+      ## handle a complete clause here
+      ##
+      ## cat("END clause", unlist(clause.fields), "\n\n")
+      clause.keyw = toupper(clause.fields[1])
+      clause.fields = clause.fields[-1]
       
-    } else if (clause.keyw == "STAT_CORR_WITH" || clause.keyw == "ERROR_CORR_WITH") {
       ##
-      ## STAT_CORR_WITH, ERROR_CORR_WITH
+      ## values are numbers possibly preceded by "+", "-", "+-"
+      ## sequences "+num1 -num2" are replaced by a +num1 with attribute "negval" = -num2
+      ## the word +-num is replaced by +num with attribute "pm"
       ##
-
-      if (length(clause.values) != 1) {
-        stop("exactly one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-      }
-      corr = clause.values[[1]]
-
-      clause.labels[3] = alu.norm.pubstate(clause.labels[3])
-      names(corr) =  paste(clause.labels, collapse=".")
-      if (clause.keyw == "STAT_CORR_WITH") {
-        block.meas$corr.terms = c(block.meas$corr.terms, corr)
-      } else {
-        block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
-      }
-    } else if (clause.keyw == "SUMOFQUANT" || clause.keyw == "COMBOFQUANT" || clause.keyw == "CONSTRAINT") {
-      ##
-      ## SUMOFQUANT, COMBOFQUANT, CONSTRAINT
-      ##
+      ##--- for each word get any of "
+      clause.fields.signtag = sub("^([+]|-|[+]-|).*$", "\\1", clause.fields)
+      ##--- remove "+-" sequence at begin of word, which would stop conversion to numeric
+      clause.fields.nopm = sub("^[+]-", "", clause.fields)
+      clause.fields.val = suppressWarnings(as.numeric(clause.fields.nopm))
+      ##--- labels are all non-numeric words
+      clause.labels = clause.fields[is.na(clause.fields.val)]
       
-      if (clause.keyw != "CONSTRAINT") {
-        constr.name = paste(clause.fields[1], "coq", sep=".")
-        constr.val = 0
-      }
+      ##--- indices to numeric values preceded by plus sign
+      plus.ind = grep("+", clause.fields.signtag, fixed=TRUE)
+      plus.ind = plus.ind[!is.na(clause.fields.val[plus.ind])]
+      ##--- indices to numeric values preceded by minus sign
+      minus.ind = grep("-", clause.fields.signtag, fixed=TRUE)
+      minus.ind = minus.ind[!is.na(clause.fields.val[minus.ind])]
+      
+      ##--- indices to sequences +<numeric value 1> -<numeric value 2>
+      plus.minus.ind = intersect(plus.ind, minus.ind-1)
+      ##--- add negative value as attribute to positive value
+      plus.minus.val = mapply(
+        function(first, second) {
+          attr(first, "negval", second)
+          return(first)
+        }, clause.fields.val[plus.minus.ind], clause.fields.val[plus.minus.ind+1])
+      ##--- replace +<numeric value 1> -<numeric value 2> with a single number
+      clause.fields.val = as.list(clause.fields.val)
+      clause.fields.val[plus.minus.ind] = plus.minus.val
+      clause.fields.val[plus.minus.ind+1] = NA
+      pm.ind = grep("+-", clause.fields.signtag, fixed=TRUE)
+      clause.fields.val[pm.ind] = lapply(clause.fields.val[pm.ind], function(val) {attr(val, "pm") = TRUE; val})
+      clause.values = clause.fields.val[!is.na(clause.fields.val)]
 
-      if (clause.keyw == "SUMOFQUANT") {
-        constr.comb = c(-1, rep(1, length(clause.fields)-1))
-        names(constr.comb) = clause.fields
-      } else if (clause.keyw == "COMBOFQUANT") {
-        if (length(clause.labels)-1 != length(clause.values)) {
-          stop("error: mismatch between labels and data values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+      if (clause.keyw == "COMBINE") {
+        ##
+        ## COMBINE
+        ##
+        
+        ##+++ combos
+        block.type = "COMBINATION"
+        
+      } else if (clause.keyw == "PARAMETERS") {
+        ##
+        ## PARAMETERS (same treatment in MEASUREMENT and COMBINATION block)
+        ##
+        
+        ##--- after collapsing +devp -devm into devp with attr negval expect 2x values as labels
+        if (length(clause.values) != 2*length(clause.labels)) {
+          stop("wrong parameter data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
-        constr.comb = c(-1, unlist(clause.values))
-        names(constr.comb) = clause.labels
-      } else if (clause.keyw == "CONSTRAINT") {
+        param.val = clause.values[seq(1, 2*length(clause.labels), by=2)]
+        names(param.val) = clause.labels
+        param.delta.p = clause.values[seq(2, 2*length(clause.labels), by=2)]
+        param.delta.n = lapply(param.delta.p, function(delta) {
+          ifelse(is.null(attr(delta, "negval")), -delta, attr(delta, "negval"))
+        })
+        block$params = c(block$params, mapply(
+          function(val, delta.p, delta.n) {
+            c("value"=val, "delta_pos"=delta.p, "delta_neg"=delta.n)
+          }, param.val, param.delta.p, param.delta.n, SIMPLIFY=FALSE))
+        
+      } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
+        ##
+        ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
+        ##
+        
+        ##+++ combos
+        meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
+        
+        if (!is.null(block$quantities[[meas.name]])) {
+          stop("duplicate quantity ", meas.name, " in same block")
+        }
+        block$quantities[[meas.name]] = list()
+        clause.labels = clause.labels[-1]
+        
+        ##+++ combos, remove labels named "stat*", "syst*"
+        clause.labels = clause.labels[!match.nocase("^(syst|stat)", clause.labels)]
+        
         if (length(clause.labels) != length(clause.values)) {
-          stop("error: mismatch between labels and data values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+          stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        if (length(clause.values) > 0) {
+          names(clause.values) = clause.labels
+          block$quantities[[meas.name]] = clause.values
+        }
+        
+      } else if (clause.keyw == "MEASUREMENT") {
+        ##
+        ##+++ MEASUREMENT clause, combos compatibility
+        ##
+        block.type = "MEASUREMENT"
+        meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
+        if (meas.name != block.fields[2]) {
+          stop("MEASUREMENT quantity does not match BLOCK quantity...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        measurement.in.data = TRUE
+      } else if (clause.keyw == "VALUE" || (clause.keyw == "DATA" && measurement.in.data)) {
+        ##
+        ## VALUE --> enter measurement value
+        ##+++ DATA after MEASUREMENT clause, combos compatibility
+        ##
+        
+        if (!is.null(block.meas$val)) {
+          stop("duplicated measurement in line...", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        
+        if (length(clause.values) == 3) {
+          if (!is.null(attr(clause.values[[1]], "negval"))) {
+            stop("+-values for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+          }
+          ##--- use values if existing
+          block.meas$value = clause.values[[1]]
+          
+          block.meas$stat.p = clause.values[[2]]
+          negval = attr(clause.values[[2]], "negval")
+          if (!is.null(negval)) {
+            block.meas$stat.n = negval
+            if (block.meas$stat.n == -block.meas$stat.p) {
+              block.meas$stat = block.meas$stat.p
+            } else {
+              block.meas$stat = sqrt((block.meas$stat.p^2 + block.meas$stat.n^2)/2)
+            }
+          } else {
+            block.meas$stat.n = -block.meas$stat.p
+            block.meas$stat = block.meas$stat.p
+          }
+          
+          block.meas$syst.p = clause.values[[3]]
+          negval = attr(clause.values[[3]], "negval")
+          if (!is.null(negval)) {
+            block.meas$syst.n = negval
+            block.meas$syst = sqrt((block.meas$syst.p^2 + block.meas$syst.n^2)/2)
+          } else {
+            block.meas$syst.n = -block.meas$syst.p
+            block.meas$syst = block.meas$syst.p
+          }
+          ##+++ set end of MEASEREMENT DATA (combos compatibility)
+          measurement.in.data = FALSE
+        } else {
+          stop("wrong number of numeric data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+      } else if (clause.keyw == "DATA" ||
+                 clause.keyw == "SYSTEMATICS" || clause.keyw == "SYSTLOCAL" || clause.keyw == "SYSTPAPER" ) {
+        ##
+        ## SYSTEMATICS or (+++combos) DATA
+        ## list systematic terms with a label that possibly refers
+        ## to a global parameter or to the same effect in another
+        ## measurement
+        ##
+        ## SYSTLOCAL like SYSTEMATICS but add measurement name to make it local
+        ## SYSTPAPER like SYSTEMATICS but add reference name to make it paper-wide
+        ##
+        
+        ##
+        ## - "%" on either name or value means percent of measurement value
+        ## - "&" on either name or value means relative of measurement value
+        ##
+        clause.df = data.frame(
+          field = clause.fields,
+          rel = grepl("^(.*)[&]$", clause.fields, perl=TRUE),
+          perc = grepl("^(.*)[%]$", clause.fields, perl=TRUE),
+          num = suppressWarnings(as.numeric(clause.fields)),
+          stringsAsFactors=FALSE)
+        clause.labels = sub("^(.*)[&%]$", "\\1", with(clause.df, field[is.na(num)]))
+        clause.values = with(clause.df, num[!is.na(num)])
+        if (length(clause.values) != length(clause.labels)) {
+          stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        clause.perc = with(clause.df, perc[is.na(num)]) | with(clause.df, perc[!is.na(num)])
+        clause.rel = with(clause.df, rel[is.na(num)]) | with(clause.df, rel[!is.na(num)])
+        clause.values =
+          ifelse(clause.perc, clause.values*block.meas$value/100,
+                 ifelse(clause.rel, clause.values*block.meas$value,
+                        clause.values))
+        
+        if (!is.null(block.meas$syst.terms)) {
+          stop("duplicated systematic terms in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        if (clause.keyw == "SYSTLOCAL") {
+          clause.labels = paste(paste(block.fields, collapse="."), clause.labels, sep=".")
+        } else if (clause.keyw == "SYSTPAPER") {
+          clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
+        }
+        names(clause.values) = clause.labels
+        block.meas$syst.terms = unlist(clause.values)
+        
+      } else if (clause.keyw == "STAT_CORR_WITH" || clause.keyw == "ERROR_CORR_WITH") {
+        ##
+        ## STAT_CORR_WITH, ERROR_CORR_WITH
+        ##
+        
+        if (length(clause.values) != 1) {
+          stop("exactly one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        corr = clause.values[[1]]
+        
+        clause.labels[3] = alu.norm.pubstate(clause.labels[3])
+        names(corr) =  paste(clause.labels, collapse=".")
+        if (clause.keyw == "STAT_CORR_WITH") {
+          block.meas$corr.terms = c(block.meas$corr.terms, corr)
+        } else {
+          block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
+        }
+      } else if (clause.keyw == "SUMOFQUANT" || clause.keyw == "COMBOFQUANT" || clause.keyw == "CONSTRAINT") {
+        ##
+        ## SUMOFQUANT, COMBOFQUANT, CONSTRAINT
+        ##
+        
+        if (clause.keyw != "CONSTRAINT") {
+          constr.name = paste(clause.fields[1], "coq", sep=".")
+          constr.val = 0
+        }
+        
+        if (clause.keyw == "SUMOFQUANT") {
+          constr.comb = c(-1, rep(1, length(clause.fields)-1))
+          names(constr.comb) = clause.fields
+        } else if (clause.keyw == "COMBOFQUANT") {
+          if (length(clause.labels)-1 != length(clause.values)) {
+            stop("error: mismatch between labels and data values in line...\n  ",
+                 paste(c(clause.keyw, clause.fields), collapse=" "))
+          }
+          constr.comb = c(-1, unlist(clause.values))
+          names(constr.comb) = clause.labels
+        } else if (clause.keyw == "CONSTRAINT") {
+          if (length(clause.labels) != length(clause.values)) {
+            stop("error: mismatch between labels and data values in line...\n  ",
+                 paste(c(clause.keyw, clause.fields), collapse=" "))
+          }
+          constr.name = clause.labels[1]
+          constr.val = clause.values[[1]]
+          constr.comb = unlist(clause.values[-1])
+          names(constr.comb) = clause.labels[-1]
+        }
+        
+        block$constr.lin.val[[constr.name]] = constr.val
+        block$constr.lin.comb[[constr.name]] = constr.comb
+        
+      } else if (clause.keyw == "NLCONSTRAINT") {
+        ##
+        ## NLCONSTRAINT
+        ##
+        
+        if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
+          stop("error: missing numeric value in non-linear constraint in...\n  ",
+               paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        if (length(clause.labels) != 2) {
+          stop("error: NLCONSTRAINT needs one numeric value and one expression in line...\n  ",
+               paste(c(clause.keyw, clause.fields), collapse=" "))
         }
         constr.name = clause.labels[1]
         constr.val = clause.values[[1]]
-        constr.comb = unlist(clause.values[-1])
-        names(constr.comb) = clause.labels[-1]
+        constr.expr = clause.labels[2]
+        block$constr.nl.val[[constr.name]] = constr.val
+        block$constr.nl.expr[[constr.name]] = constr.expr
+        
       }
-
-      block$constr.lin.val[[constr.name]] = constr.val
-      block$constr.lin.comb[[constr.name]] = constr.comb
-
-    } else if (clause.keyw == "NLCONSTRAINT") {
-      ##
-      ## NLCONSTRAINT
-      ##
-      
-      if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
-        stop("error: missing numeric value in non-linear constraint in...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-      }
-      constr.name = clause.labels[1]
-      constr.val = clause.values[[1]]
-      constr.expr = paste(clause.fields[-(1:2)], collapse=" ")
-      constr.expr = sub("^\\s*\"?([^\"]*)\"?\\s*$", "\\1", constr.expr, perl=TRUE)
-      block$constr.nl.val[[constr.name]] = constr.val
-      block$constr.nl.expr[[constr.name]] = constr.expr
-      
-      ## } else if (clause.keyw == "") {
     }
-  }
-  
-  if (t.inclause) {
-    ##--- new clause (previous one has been handled already)
-    t.inclause = FALSE
-    if (s.inblock) {
-      s.inclause = TRUE
-      clause.fields = fields
-    } else {
-      cat("warning, begin clause outside of block, ignored, line ...\n")
-      cat("  '", line, "'\n", sep="")
-    }
-  }
-  
-  if (t.inblock) {
-    t.inblock = FALSE
-    if (s.inblock) {
-      cat("error, nested BEGIN block, ignored, line ...\n")
-      cat("  '", line, "'\n", sep="")
-      next
-    }
-    s.inblock = TRUE
-
-    ##--- remove "BEGIN"
-    block.fields = fields[-1]
     
-    block.type = ""
-    if (length(block.fields) > 0) {
-      block.type = toupper(block.fields[1])
-      if (block.type == "COMBINATION" || block.type == "MEASUREMENT") {
-        block.fields = block.fields[-1]
+    if (t.inclause) {
+      ##--- new clause (previous one has been handled already)
+      t.inclause = FALSE
+      if (s.inblock) {
+        s.inclause = TRUE
+        clause.fields = fields
       } else {
-        ##+++ temporarily just warning for COMBOS-like cards compatibility
-        if (TRUE) {
-          cat("warning, unknown BEGIN block in line...\n")
-          cat(" ", fields, "\n")
+        cat("warning, begin clause outside of block, ignored, line ...\n")
+        cat("  '", line, "'\n", sep="")
+      }
+    }
+    
+    if (t.inblock) {
+      t.inblock = FALSE
+      if (s.inblock) {
+        cat("error, nested BEGIN block, ignored, line ...\n")
+        cat("  '", line, "'\n", sep="")
+        next
+      }
+      s.inblock = TRUE
+      
+      ##--- remove "BEGIN"
+      block.fields = fields[-1]
+      
+      block.type = ""
+      if (length(block.fields) > 0) {
+        block.type = toupper(block.fields[1])
+        if (block.type == "COMBINATION" || block.type == "MEASUREMENT") {
+          block.fields = block.fields[-1]
+        } else {
+          ##+++ temporarily just warning for COMBOS-like cards compatibility
+          if (TRUE) {
+            cat("warning, unknown BEGIN block in line...\n")
+            cat(" ", fields, "\n")
+          }
         }
       }
+      block.meas = list()
+      ##+++ block.meas$syst.terms = numeric(0)
+      block.meas$corr.terms = numeric(0)
+      block.meas$corr.terms.tot = numeric(0)
+      
+      block = list()
+      block$params = list()
+      block$quantities = list()
+      block$constr.lin.val = list()
+      block$constr.lin.comb = list()
+      block$constr.nl.val = list()
+      block$constr.nl.expr = list()
     }
-    block.meas = list()
-    ##+++ block.meas$syst.terms = numeric(0)
-    block.meas$corr.terms = numeric(0)
-    block.meas$corr.terms.tot = numeric(0)
-
-    block = list()
-    block$params = list()
-    block$quantities = list()
-    block$constr.lin.val = list()
-    block$constr.lin.comb = list()
-    block$constr.nl.val = list()
-    block$constr.nl.expr = list()
+    
+    if (s.inblock && (t.endblock || t.endfile)) {
+      ##--- end block
+      t.endblock = FALSE
+      s.inblock = FALSE
+      ## cat("END block", unlist(block.fields), "\n\n")
+      if (block.type == "MEASUREMENT") {
+        ##
+        ## MEASUREMENT BLOCK
+        ##
+        
+        ##+++combos
+        if (FALSE && length(block.fields) == 3) {
+          block.fields = c(block.fields[-3], strsplit(block.fields[3], "[.]", perl=TRUE)[[1]])
+        }
+        
+        if (length(block.fields) < 3) {
+          stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
+        }
+        block.fields[3] = alu.norm.pubstate(block.fields[3])
+        
+        meas.tag = paste(block.fields, collapse=".")
+        block.meas$tags = block.fields
+        
+        if (!is.null(measurements[[meas.tag]])) {
+          stop("duplicate measurement in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
+        }
+        block.meas$params = block$params
+        ##
+        ## measured quantity = 2nd tag in the BEGIN MEASUREMENT statement
+        ## BEGIN [MEASUREMENT] <esperiment> <quantity> <pub|prelim> <reference> [...]
+        ##
+        block.meas$quant = block.fields[2]
+        measurements[[meas.tag]] = block.meas
+        
+      } else if (block.type == "COMBINATION") {
+        ##
+        ## COMBINE BLOCK
+        ##
+        block$tags = unlist(block.fields)
+        combination = block
+        
+      } else {
+        stop("unknown block type in line...\n  ", paste(c("BEGIN", block.type, block.fields[-1]), collapse=" "))
+      }
+    }
+    
+    if (t.endblock && !s.inblock) {
+      t.endblock = FALSE
+      cat("error, END block without BEGIN, ignored, line ...\n")
+      cat("  '", line, "'\n", sep="")
+    }
+    
+    if (t.endfile) {
+      t.endfile = FALSE
+      break
+    }
   }
   
-  if (s.inblock && (t.endblock || t.endfile)) {
-    ##--- end block
-    t.endblock = FALSE
-    s.inblock = FALSE
-    ## cat("END block", unlist(block.fields), "\n\n")
-    if (block.type == "MEASUREMENT") {
-      ##
-      ## MEASUREMENT BLOCK
-      ##
-      
-      ##+++combos
-      if (FALSE && length(block.fields) == 3) {
-        block.fields = c(block.fields[-3], strsplit(block.fields[3], "[.]", perl=TRUE)[[1]])
-      }
-
-      if (length(block.fields) < 3) {
-        stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
-      }
-      block.fields[3] = alu.norm.pubstate(block.fields[3])
-
-      meas.tag = paste(block.fields, collapse=".")
-      block.meas$tags = block.fields
-
-      if (!is.null(measurements[[meas.tag]])) {
-        stop("duplicate measurement in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
-      }
-      block.meas$params = block$params
-      ##
-      ## measured quantity = 2nd tag in the BEGIN MEASUREMENT statement
-      ## BEGIN [MEASUREMENT] <esperiment> <quantity> <pub|prelim> <reference> [...]
-      ##
-      block.meas$quant = block.fields[2]
-      measurements[[meas.tag]] = block.meas
-      
-    } else if (block.type == "COMBINATION") {
-      ##
-      ## COMBINE BLOCK
-      ##
-      block$tags = unlist(block.fields)
-      combination = block
-      
-    } else {
-      stop("unknown block type in line...\n  ", paste(c("BEGIN", block.type, block.fields[-1]), collapse=" "))
-    }
-  }
-  
-  if (t.endblock && !s.inblock) {
-    t.endblock = FALSE
-    cat("error, END block without BEGIN, ignored, line ...\n")
-    cat("  '", line, "'\n", sep="")
-  }
-
-  if (t.endfile) {
-    t.endfile = FALSE
-    break
-  }
-}
-
-list(combination=combination, measurements=measurements)
+  invisible(list(combination=combination, measurements=measurements))
 } ##--- end of alucomb.read
 
 ##
@@ -657,18 +699,18 @@ hfag.to.root = function(str) {
   }
   
   str.orig = str
-
+  
   str = gsub("Numbar", "#bar{#nu}_{#mu}",str)  
-
+  
   str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
   str = gsub("F1", "f_{1}",str)
   str = gsub("Pi", "#pi",str)
-
+  
   str = gsub("Nue", "#nu_{e}",str)
   str = gsub("Num", "#nu_{#mu}",str)
   str = gsub("Nut", "#nu_{#tau}",str)
   str = gsub("Nu", "#nu",str)
-
+  
   str = gsub("M", "#mu",str)
   str = gsub("H", "h",str)
   str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
@@ -691,7 +733,7 @@ alu.matr.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
     X <- as.matrix(X)
   if (length(dim(X)) > 2L || !(is.numeric(X))) 
     stop("'X' must be a numeric or complex matrix")
-
+  
   X = (X + t(X))/2
   rc.e = eigen(X)
   comp.positive = rc.e$values > tol*rc.e$values[1]
@@ -700,7 +742,7 @@ alu.matr.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
   rc = (rc + t(rc))/2
   rownames(rc) = rownames(X)
   colnames(rc) = colnames(X)
-
+  
   return(rc)
 }
 
@@ -713,7 +755,7 @@ alu.matr.inv.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
     X <- as.matrix(X)
   if (length(dim(X)) > 2L || !(is.numeric(X))) 
     stop("'X' must be a numeric or complex matrix")
-
+  
   X = (X + t(X))/2
   rc.e = eigen(X)
   ##--- force to zero computationally zero or negative eigenvalues
@@ -732,7 +774,7 @@ alu.matr.inv.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
   
   attr(rc, "pos.eigen.num") = sum(comp.positive)
   attr(rc, "inv") = rc.inv
-
+  
   attr(rc, "dof.eff") = apply(rc.e$vectors, 1, function(x) sum(x^2 * (rc.vals != 0)))
   ## attr(rc, "dof.factors") = ifelse(attr(rc, "dof.factors") != 0, 1/sqrt(attr(rc, "dof.factors")), 0)
   names(attr(rc, "dof.eff")) = rownames(X)
@@ -751,16 +793,16 @@ alu.matr.inv.sqrt.symm.semipos.norm = function(X, X.norm, tol = sqrt(.Machine$do
     X <- as.matrix(X)
   if (length(dim(X)) > 2L || !is.numeric(X))
     stop("'X' must be a numeric matrix")
-
+  
   if (dim(X)[1] != dim(X)[2])
     stop("'X' must be a square matrix")
-
+  
   if (!is.numeric(X.norm))
     stop("'X.norm' must be a numeric vector/matrix")
-
+  
   if (length(X.norm) != dim(X)[1])
     stop("X.norm vector dimension must match X matrix rank")
-
+  
   XX = diag.m(1/X.norm) %*% X %*% diag.m(1/X.norm)
   rownames(XX) = rownames(X)
   colnames(XX) = colnames(X)
@@ -776,6 +818,6 @@ alu.matr.inv.sqrt.symm.semipos.norm = function(X, X.norm, tol = sqrt(.Machine$do
   
   attr(XX.inv.sqrt, "pos.eigen.num") = attr(XX.inv.sqrt.attr, "pos.eigen.num")
   attr(XX.inv.sqrt, "dof.eff") = attr(XX.inv.sqrt.attr, "dof.eff")
-
+  
   return(XX.inv.sqrt)
 }
