@@ -71,31 +71,12 @@ rm(rc)
 ##
 
 ##--- quantities to be averaged
-quant.names = names(combination$quantities)
+quant.names = combination$combine
 
 cat("\n##\n")
 cat("## averaging the following quantities\n")
 cat("##\n")
 print(quant.names, quote=FALSE)
-
-##--- quantity measured per measurement
-meas.quantities = sapply(measurements, function(x) x$quant)
-meas.fitted = meas.quantities %in% quant.names
-meas.discarded = length(meas.quantities) - sum(meas.fitted)
-if (meas.discarded > 0) {
-  cat("\ndiscarding", meas.discarded, "measurements of other quantities\n")
-  measurements = measurements[meas.fitted]
-  meas.quantities = meas.quantities[meas.fitted]
-}
-
-##--- all measurements in the input cards
-meas.names = names(measurements)
-
-##--- get list of values, stat errors, syst errors
-meas.val = sapply(measurements, function(x) {unname(x$value)})
-meas.stat = sapply(measurements, function(x) {unname(x$stat)})
-meas.syst = sapply(measurements, function(x) {unname(x$syst)})
-meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
 ##--- print measurements as read from the cards (short form)
 if (FALSE) {
@@ -173,6 +154,26 @@ if (TRUE) {
   }
 }
 
+##--- discard measurements that are not associated to a declared fitted quantity
+meas.names = names(measurements)
+meas.quantities = sapply(measurements, function(x) x$quant)
+meas.included.list = meas.quantities %in% quant.names
+meas.names.discarded =  meas.names[!meas.included.list]
+if (length(meas.names.discarded) >0) {
+  cat("\nwarning: measurements discarded because not in combined quantities:\n")
+  cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
+}
+measurements = measurements[meas.included.list]
+meas.names = meas.names[meas.included.list]
+meas.quantities = meas.quantities[meas.included.list]
+meas.num = length(meas.names)
+
+##--- get list of values, stat errors, syst errors
+meas.val = sapply(measurements, function(x) {unname(x$value)})
+meas.stat = sapply(measurements, function(x) {unname(x$stat)})
+meas.syst = sapply(measurements, function(x) {unname(x$syst)})
+meas.err = sqrt(meas.stat^2 + meas.syst^2)
+
 cat("\n##\n")
 cat("## using the following updated global parameters\n")
 cat("##\n")
@@ -232,34 +233,19 @@ if (length(combination$constr.lin.comb) > 0) {
   combination$constr.lin.val = combination$constr.lin.val[constr.select]
 }
 
-##--- discard measurements that are not associated to a declared fitted quantity
-meas.included.list = meas.quantities %in% quant.names
-##+++ names(meas.included.list) = names(meas.quantities)[meas.included.list]
-meas.names.discarded =  meas.names[!meas.included.list]
-if (length(meas.names.discarded) >0) {
-  cat("\nwarning: the following measurements are discarded:\n")
-  cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
-}
-
-##--- discard measurements of non-mentioned quantities
-measurements = measurements[meas.included.list]
-meas.names = names(measurements)
-meas.num = length(measurements)
-meas.quantities = meas.quantities[meas.included.list]
-quant.num = length(quant.names)
-
 ##--- quantities involved in constraints
 constr.lin.quantities = unique(unlist(lapply(combination$constr.lin.comb, function(x) names(x)), use.names=FALSE))
 constr.nl.quantities = all.vars(parse(text=combination$constr.nl.expr))
 involved.quantities = unique(c(meas.quantities, constr.lin.quantities, constr.nl.quantities))
 
 ##--- discard fitted quantities that are not defined by measurements and constraints
-quant.discarded = !(quant.names %in% involved.quantities)
-if (any(quant.discarded)) {
+quant.discarded = setdiff(quant.names, involved.quantities)
+if (length(quant.discarded) > 0) {
   cat("\nwarning: following quantities discarded (not in measurements & constraints):\n")
-  cat(paste("  ", quant.names[quant.discarded], collapse="\n"), "\n");
-  combination$quantities = combination$quantities[!quant.discarded]
-  quant.names = names(combination$quantities)
+  cat(paste("  ", quant.discarded, collapse="\n"), "\n");
+  quant.names = setdiff(quant.names, quant.discarded)
+  combination$combine.old = combination$combine
+  combination$combine = quant.names
 }
 
 larger = numeric()
@@ -582,7 +568,7 @@ meas.corr = meas.cov / (meas.err %o% meas.err)
 ##
 ## error scaling using the "scale" parameter for fitted quantities
 ##
-quant.cards.sfact = unlist(lapply(combination$quantities, function(el) { unname(el["scale"]) }))
+quant.cards.sfact = unlist(lapply(combination$quantities[quant.names], function(el) { unname(el["scale"]) }))
 if (!is.null(quant.cards.sfact)) {
   meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
   meas.scale.stat = sapply(measurements[meas.scale.names], function(x) {unname(x$stat)})
@@ -631,6 +617,7 @@ if (FALSE) {
 ##
 ## preliminary computations for analytical minimum chi-square solution
 ##
+quant.num = length(quant.names)
 quant.val = rep(0, quant.num)
 names(quant.val) = quant.names
 meas.invcov = solve(meas.cov)
@@ -651,7 +638,7 @@ quant.invcov = (quant.invcov + t(quant.invcov))/2
 ##--- get quantities that have at least one measurement
 quant.measured.bool = quant.names %in% meas.quantities
 ##--- assemble delta matrix for just those quantities
-delta.measured = delta[,quant.measured.bool]
+delta.measured = delta[, quant.measured.bool]
 ##--- fit for quantities without constraints
 quant.seed.val = quant.val
 quant.seed.val[quant.measured.bool] =
@@ -659,7 +646,7 @@ quant.seed.val[quant.measured.bool] =
   (t(delta.measured) %*% meas.invcov %*% meas.val)
 
 ##--- get seed values for quantities without measurements
-quant.cards.seed.val = unlist(lapply(combination$quantities, function(el) { unname(el["seed"]) }))
+quant.cards.seed.val = unlist(lapply(combination$quantities[quant.names], function(el) { unname(el["seed"]) }))
 if (is.null(quant.cards.seed.val)) {
   quant.cards.seed.val = numeric(0)
 }
@@ -868,7 +855,7 @@ repeat {
     constr.m = constr.m * quant.invcov.order/constr.m.order
     constr.v = constr.v * quant.invcov.order/constr.m.order
   }
-  
+
   ##
   ## if there are constraints, assemble full matrix equation
   ##
