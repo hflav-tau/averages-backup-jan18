@@ -707,8 +707,12 @@ alucomb.read = function(file = "") {
 
         quant.descr = names(unlist(lapply(block$quantities, function(el) { unname(el["descr"]) })))
         quant.descr.wo = setdiff(names(block$quantities), quant.descr)
-        block$quantities = lapply(block$quantities, function(quant) {quant$descr = ""; quant})
-
+        block$quantities = lapply(block$quantities,
+          function(quant) {
+            if (is.null(quant$descr)) quant$descr = ""
+            quant
+          })
+        
         combination = block
         
       } else {
