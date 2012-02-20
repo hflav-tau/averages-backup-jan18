@@ -110,7 +110,7 @@ if (TRUE) {
       }
       cat(" +-", meas$stat, sep="")
     } else {
-      cat(" (+", meas$stat.p, " ", meas$stat.n, ")", sep="")
+      cat(" (+", meas$stat.p, " -", -meas$stat.n, ")", sep="")
     }
     
     if (meas$syst.p == -meas$syst.n) {
@@ -119,7 +119,7 @@ if (TRUE) {
       }
       cat(" +-", meas$syst, sep="")
     } else {
-      cat(" (+", meas$syst.p, " ", meas$syst.n, ")", sep="")
+      cat(" (+", meas$syst.p, " -", -meas$syst.n, ")", sep="")
     }
     cat("\n")
     if (length(meas$corr.terms.stat) > 0) {

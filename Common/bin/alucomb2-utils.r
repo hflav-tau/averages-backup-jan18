@@ -212,6 +212,8 @@ alucomb.read = function(file = "") {
   t.endblock = FALSE
   t.endfile = FALSE
   
+  measurement.in.data = FALSE
+
   iline = 1
   lines.len = length(lines)
   repeat {
@@ -298,7 +300,7 @@ alucomb.read = function(file = "") {
     ##
     ## end of a clause -> interpret its fields
     ##
-    if (s.inclause && !t.continue) {
+    if (s.inclause && !t.continue && !is.null(clause.fields)) {
       ##--- if no continuation then the current clause ends
       s.inclause = FALSE
       if (t.inblock) {
@@ -315,19 +317,28 @@ alucomb.read = function(file = "") {
       ## cat("END clause", unlist(clause.fields), "\n\n")
       clause.keyw = toupper(clause.fields[1])
       clause.fields = clause.fields[-1]
-      
+
       ##
       ## values are numbers possibly preceded by "+", "-", "+-"
       ## sequences "+num1 -num2" are replaced by a +num1 with attribute "negval" = -num2
       ## the word +-num is replaced by +num with attribute "pm"
       ##
-      ##--- for each word get any of "
+
+      ##--- for each words get possible +/-/+- at beginning
       clause.fields.signtag = sub("^([+]|-|[+]-|).*$", "\\1", clause.fields)
       ##--- remove "+-" sequence at begin of word, which would stop conversion to numeric
-      clause.fields.nopm = sub("^[+]-", "", clause.fields)
-      clause.fields.val = suppressWarnings(as.numeric(clause.fields.nopm))
+      clause.fields.convert = sub("^[+]-", "", clause.fields)
+
+      ##--- for each words get possible ^/% (relative and percent value)
+      clause.fields.relperc = sub("^[^&%]*(&|%|)$", "\\1", clause.fields)
+      ##--- remove "&" or "%" sequence at end of wrd, which would stop conversion to numeric
+      clause.fields.convert = sub("(&|%)$", "", clause.fields.convert)
+
+      ##--- convert if possible to numbers, else NA
+      clause.fields.val = suppressWarnings(as.numeric(clause.fields.convert))
       ##--- labels are all non-numeric words
-      clause.labels = clause.fields[is.na(clause.fields.val)]
+      clause.labels = clause.fields.convert[is.na(clause.fields.val)]
+      clause.labels.relperc = clause.fields.relperc[is.na(clause.fields.val)]
       
       ##--- indices to numeric values preceded by plus sign
       plus.ind = grep("+", clause.fields.signtag, fixed=TRUE)
@@ -338,20 +349,51 @@ alucomb.read = function(file = "") {
       
       ##--- indices to sequences +<numeric value 1> -<numeric value 2>
       plus.minus.ind = intersect(plus.ind, minus.ind-1)
+
+      ##--- transform to a list in order to store per-item attributes 
+      clause.fields.val = mapply(function(val, pm, relperc) {
+        if (is.na(val)) return(NA)
+        if (pm == "+-") attr(val, "+-") = TRUE
+        if (relperc != "") attr(val, relperc) = TRUE
+        val
+      }, clause.fields.val, clause.fields.signtag, clause.fields.relperc,
+        SIMPLIFY=FALSE)
+
+      plus.minus.val = lapply(plus.minus.ind, function(i) {
+        if (clause.fields.relperc[i] != clause.fields.relperc[i+1]) {
+          stop("+num -num sequence with different suffixes...\n  ",
+               paste(clause.fields[i:(i+1)], sep=" ")) 
+        }
+        first = clause.fields.val[[i]]
+        second = clause.fields.val[[i+1]]
+        attr(first, "negval", second)
+        return(first)
+      })
+
       ##--- add negative value as attribute to positive value
-      plus.minus.val = mapply(
+      plus.minus.val.old = mapply(
         function(first, second) {
           attr(first, "negval", second)
           return(first)
         }, clause.fields.val[plus.minus.ind], clause.fields.val[plus.minus.ind+1])
+
       ##--- replace +<numeric value 1> -<numeric value 2> with a single number
-      clause.fields.val = as.list(clause.fields.val)
       clause.fields.val[plus.minus.ind] = plus.minus.val
       clause.fields.val[plus.minus.ind+1] = NA
-      pm.ind = grep("+-", clause.fields.signtag, fixed=TRUE)
-      clause.fields.val[pm.ind] = lapply(clause.fields.val[pm.ind], function(val) {attr(val, "pm") = TRUE; val})
       clause.values = clause.fields.val[!is.na(clause.fields.val)]
 
+      ##--- apply labels attributes to corresponding values
+      if (length(clause.values) > 0 && length(clause.labels.relperc) > 0) {
+        clause.values = mapply(function(val, relperc) {
+          if (!is.na(relperc) && relperc != "") attr(val, relperc) = TRUE
+          if (!is.null(attr(val, "&")) && !is.null(attr(val, "%"))) {
+            stop("both % and & suffixes specified for same value...\n  ",
+                 paste(clause.fields, sep=" "))
+          }
+          val
+        }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
+      }
+      
       if (clause.keyw == "COMBINE") {
         ##
         ## COMBINE
@@ -376,6 +418,7 @@ alucomb.read = function(file = "") {
         param.val = clause.values[seq(1, 2*length(clause.labels), by=2)]
         names(param.val) = clause.labels
         param.delta.p = clause.values[seq(2, 2*length(clause.labels), by=2)]
+
         param.delta.n = lapply(param.delta.p, function(delta) {
           ifelse(is.null(attr(delta, "negval")), -delta, attr(delta, "negval"))
         })
@@ -452,7 +495,6 @@ alucomb.read = function(file = "") {
           }
           ##--- use values if existing
           block.meas$value = clause.values[[1]]
-          
           block.meas$stat.p = clause.values[[2]]
           negval = attr(clause.values[[2]], "negval")
           if (!is.null(negval)) {
@@ -477,19 +519,6 @@ alucomb.read = function(file = "") {
             block.meas$syst = block.meas$syst.p
           }
 
-          if (!is.null(measurements[[meas.tag]]$value)) {
-            old.meas = measurements[[meas.tag]]
-            cat("warning, update measurement", meas.tag, "\n")
-            cat("  old VALUE ", old.meas$value,
-                " (+", old.meas$stat.p, " ", old.meas$stat.n, ")",
-                " (+", old.meas$syst.p, " ", old.meas$syst.n, ")\n",
-                sep="")
-            cat("  new VALUE ", block.meas$value,
-                " (+", block.meas$stat.p, " ", block.meas$stat.n, ")",
-                " (+", block.meas$syst.p, " ", block.meas$syst.n, ")\n",
-                sep="")
-          }
-          
           ##+++ set end of MEASEREMENT DATA (combos compatibility)
           measurement.in.data = FALSE
         } else {
@@ -511,34 +540,32 @@ alucomb.read = function(file = "") {
         ## - "%" on either name or value means percent of measurement value
         ## - "&" on either name or value means relative of measurement value
         ##
-        clause.df = data.frame(
-          field = clause.fields,
-          rel = grepl("^(.*)[&]$", clause.fields, perl=TRUE),
-          perc = grepl("^(.*)[%]$", clause.fields, perl=TRUE),
-          num = suppressWarnings(as.numeric(clause.fields)),
-          stringsAsFactors=FALSE)
-        clause.labels = sub("^(.*)[&%]$", "\\1", with(clause.df, field[is.na(num)]))
-        clause.values = with(clause.df, num[!is.na(num)])
-        if (length(clause.values) != length(clause.labels)) {
-          stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-        }
-        clause.perc = with(clause.df, perc[is.na(num)]) | with(clause.df, perc[!is.na(num)])
-        clause.rel = with(clause.df, rel[is.na(num)]) | with(clause.df, rel[!is.na(num)])
-        clause.values =
-          ifelse(clause.perc, clause.values*block.meas$value/100,
-                 ifelse(clause.rel, clause.values*block.meas$value,
-                        clause.values))
-        
-        if (!is.null(block.meas$syst.terms)) {
-          stop("duplicated systematic terms in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
-        }
+        clause.values = lapply(clause.values, function(val) {
+          if (!is.null(attr(val, "&"))) {
+            attr(val, "input") = paste(val, "&", sep="")
+            val = val*block.meas$value
+          } else if (!is.null(attr(val, "%"))) {
+            attr(val, "input") = paste(val, "%", sep="")
+            val = val*block.meas$value/100
+          } else {
+            attr(val, "input") = paste(val)
+          }
+          val
+        })
+
         if (clause.keyw == "SYSTLOCAL") {
           clause.labels = paste(paste(block.fields, collapse="."), clause.labels, sep=".")
         } else if (clause.keyw == "SYSTPAPER") {
           clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
         }
         names(clause.values) = clause.labels
-        block.meas$syst.terms = unlist(clause.values)
+        new.attr = c(
+          attr(block.meas$syst.terms, "input"),
+          sapply(clause.values, function(el) attr(el, "input")))
+        block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause.values))
+        if (!is.null(block.meas$syst.terms)) {
+          attr(block.meas$syst.terms, "input") = new.attr
+        }
         
       } else if (clause.keyw == "STAT_CORR_WITH" || clause.keyw == "ERROR_CORR_WITH") {
         ##
@@ -634,6 +661,7 @@ alucomb.read = function(file = "") {
         next
       }
       s.inblock = TRUE
+      clause.fields = NULL
       
       ##--- remove "BEGIN"
       block.fields = fields[-1]
@@ -692,11 +720,31 @@ alucomb.read = function(file = "") {
         }
 
         block.meas$tags = meas.fields
+        block.meas$params = block$params
         
         if (!is.null(measurements[[meas.tag]])) {
-          cat("warning, updated measurement", meas.tag, "\n")
+          old.meas = measurements[[meas.tag]]
+          cat("warning, BEGIN update measurement", meas.tag, "\n")
+          el.check = intersect(names(old.meas), names(block.meas))
+          for (el in el.check) {
+            if (any(unlist(old.meas[[el]]) != unlist(block.meas[[el]]))) {
+              old.val = unlist(old.meas[[el]])
+              new.val = unlist(block.meas[[el]])
+              if (is.null(names(old.val))) {
+                names(old.val) = el
+                names(new.val) = el
+              } else {
+                cat(el, "\n")
+                val.names = unique(c(names(old.val), names(new.val)))
+                old.val = old.val[val.names]
+                new.val = new.val[val.names]
+              }
+              alu.rbind.print(rbind(old=old.val, new=new.val))
+            }
+          }
+          cat("warning, END update measurement", meas.tag, "\n")
         }
-        block.meas$params = block$params
+
         ##
         ## measured quantity = 2nd tag in the BEGIN MEASUREMENT statement
         ## BEGIN [MEASUREMENT] <esperiment> <quantity> <pub|prelim> <reference> [...]
