@@ -359,6 +359,10 @@ alucomb.read = function(file = "") {
         
         ##+++ combos
         block.type = "COMBINATION"
+        ##+++ combos
+        clause.labels = clause.labels[clause.labels != "*"]
+        ##--- collect quantities to combine        
+        block$combine = c(block$combine, clause.labels)
         
       } else if (clause.keyw == "PARAMETERS") {
         ##
@@ -385,24 +389,45 @@ alucomb.read = function(file = "") {
         ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
         ##
         
-        ##+++ combos
+        ##--- get first label, quantity name
+        ##+++ combos, remove leading "m_"
         meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
-        
-        if (!is.null(block$quantities[[meas.name]])) {
-          stop("duplicate quantity ", meas.name, " in same block")
+        if (is.null(block$quantities[[meas.name]])) {
+          block$quantities[[meas.name]] = list()
         }
-        block$quantities[[meas.name]] = list()
         clause.labels = clause.labels[-1]
-        
+
         ##+++ combos, remove labels named "stat*", "syst*"
         clause.labels = clause.labels[!match.nocase("^(syst|stat)", clause.labels)]
         
+        ##
+        ## get label/values where values are strings
+        ## for QUANTITY it is required that each value follows its label
+        ##
+        str.labels.mask = clause.labels %in% c("node", "descr")
+        if (tail(str.labels.mask, 1)) {
+          stop("label without a value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        str.values.mask = c(FALSE, head(str.labels.mask, -1))
+        ##--- add at beginning string labels/values before numeric label/values
+        clause.values = c(as.list(clause.labels[str.values.mask]), as.list(clause.values))
+        clause.labels = c(clause.labels[str.labels.mask], clause.labels[!(str.labels.mask | str.values.mask)])
+
         if (length(clause.labels) != length(clause.values)) {
           stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
+
         if (length(clause.values) > 0) {
-          names(clause.values) = clause.labels
-          block$quantities[[meas.name]] = clause.values
+          labels.exist = names(block$quantities[[meas.name]])
+          labels.override = clause.labels[clause.labels %in% labels.exist]
+          if (any(labels.override)) {
+            cat("warning, override quantity", meas.name, "\n")
+            rc = alu.rbind.print(rbind(
+              unlist(block$quantities[[meas.name]][labels.override]),
+              clause.values[labels.override]
+              ))
+          }
+          block$quantities[[meas.name]][clause.labels] = clause.values
         }
         
       } else if (clause.keyw == "MEASUREMENT") {
@@ -668,6 +693,22 @@ alucomb.read = function(file = "") {
         ## COMBINE BLOCK
         ##
         block$tags = unlist(block.fields)
+        if (is.null(block$combine) || length(block$combine) == 0) {
+          ##--- average all quantities mentioned in block if no explicit selection
+          block$combine = names(block$quantities)
+        }
+
+        ##--- add "USE = 1" quantities, drop "USE = 0" quantities
+        quant.use = unlist(lapply(block$quantities, function(el) { unname(el["use"]) }))
+        quant.drop = names(quant.use[quant.use == 0])
+        quant.use = names(quant.use[quant.use != 0])
+        block$combine = setdiff(block$combine, quant.drop)
+        block$combine = c(block$combine, setdiff(quant.use, block$combine))
+
+        quant.descr = names(unlist(lapply(block$quantities, function(el) { unname(el["descr"]) })))
+        quant.descr.wo = setdiff(names(block$quantities), quant.descr)
+        block$quantities = lapply(block$quantities, function(quant) {quant$descr = ""; quant})
+
         combination = block
         
       } else {
