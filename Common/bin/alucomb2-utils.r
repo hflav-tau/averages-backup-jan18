@@ -111,7 +111,7 @@ alu.norm.pubstate = function(str) {
 ## - syst = numeric,
 ## - params = list of numeric arrays: parameter value, pos/neg uncertainty
 ## - syst.terms = numeric array: syst. contributions related to external parameters
-## - corr.terms = numeric array: stat. corr. with other measurements
+## - corr.terms.stat = numeric array: stat. corr. with other measurements
 ## - corr.terms.tot = numeric array: error corr. with other measurements
 ## 
 
@@ -446,13 +446,9 @@ alucomb.read = function(file = "") {
         ##+++ DATA after MEASUREMENT clause, combos compatibility
         ##
         
-        if (!is.null(block.meas$val)) {
-          stop("duplicated measurement in line...", paste(c(clause.keyw, clause.fields), collapse=" "))
-        }
-        
         if (length(clause.values) == 3) {
           if (!is.null(attr(clause.values[[1]], "negval"))) {
-            stop("+-values for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+            stop("\"+-\" used for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
           }
           ##--- use values if existing
           block.meas$value = clause.values[[1]]
@@ -480,6 +476,20 @@ alucomb.read = function(file = "") {
             block.meas$syst.n = -block.meas$syst.p
             block.meas$syst = block.meas$syst.p
           }
+
+          if (!is.null(measurements[[meas.tag]]$value)) {
+            old.meas = measurements[[meas.tag]]
+            cat("warning, update measurement", meas.tag, "\n")
+            cat("  old VALUE ", old.meas$value,
+                " (+", old.meas$stat.p, " ", old.meas$stat.n, ")",
+                " (+", old.meas$syst.p, " ", old.meas$syst.n, ")\n",
+                sep="")
+            cat("  new VALUE ", block.meas$value,
+                " (+", block.meas$stat.p, " ", block.meas$stat.n, ")",
+                " (+", block.meas$syst.p, " ", block.meas$syst.n, ")\n",
+                sep="")
+          }
+          
           ##+++ set end of MEASEREMENT DATA (combos compatibility)
           measurement.in.data = FALSE
         } else {
@@ -543,10 +553,11 @@ alucomb.read = function(file = "") {
         clause.labels[3] = alu.norm.pubstate(clause.labels[3])
         names(corr) =  paste(clause.labels, collapse=".")
         if (clause.keyw == "STAT_CORR_WITH") {
-          block.meas$corr.terms = c(block.meas$corr.terms, corr)
+          block.meas$corr.terms.stat = c(block.meas$corr.terms.stat, corr)
         } else {
           block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
         }
+
       } else if (clause.keyw == "SUMOFQUANT" || clause.keyw == "COMBOFQUANT" || clause.keyw == "CONSTRAINT") {
         ##
         ## SUMOFQUANT, COMBOFQUANT, CONSTRAINT
@@ -640,10 +651,22 @@ alucomb.read = function(file = "") {
           }
         }
       }
+      ##
+      ## initialization both for MEASUREMENT and COMBINATION
+      ## when combos compatibility is abandoned, one can init just the relevant list
+      ## block$params is used for parameters both of MEASUREMENT and COMBINATION
+      ##
+
+      ##--- special treatment in case this is a MEASUREMENT block
+      meas.fields = block.fields
+      ##+++combos: separate tags joint with dots
+      if (length(meas.fields) == 3) {
+        meas.fields = c(meas.fields[-3], strsplit(meas.fields[3], "[.]", perl=TRUE)[[1]])
+      }
+      meas.fields[3] = alu.norm.pubstate(meas.fields[3])
+      meas.tag = paste(meas.fields, collapse=".")
+
       block.meas = list()
-      ##+++ block.meas$syst.terms = numeric(0)
-      block.meas$corr.terms = numeric(0)
-      block.meas$corr.terms.tot = numeric(0)
       
       block = list()
       block$params = list()
@@ -664,21 +687,14 @@ alucomb.read = function(file = "") {
         ## MEASUREMENT BLOCK
         ##
         
-        ##+++combos
-        if (FALSE && length(block.fields) == 3) {
-          block.fields = c(block.fields[-3], strsplit(block.fields[3], "[.]", perl=TRUE)[[1]])
-        }
-        
         if (length(block.fields) < 3) {
           stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
         }
-        block.fields[3] = alu.norm.pubstate(block.fields[3])
-        
-        meas.tag = paste(block.fields, collapse=".")
-        block.meas$tags = block.fields
+
+        block.meas$tags = meas.fields
         
         if (!is.null(measurements[[meas.tag]])) {
-          stop("duplicate measurement in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
+          cat("warning, updated measurement", meas.tag, "\n")
         }
         block.meas$params = block$params
         ##
@@ -705,6 +721,7 @@ alucomb.read = function(file = "") {
         block$combine = setdiff(block$combine, quant.drop)
         block$combine = c(block$combine, setdiff(quant.use, block$combine))
 
+        ##--- insure the descr field has at least an empty string
         quant.descr = names(unlist(lapply(block$quantities, function(el) { unname(el["descr"]) })))
         quant.descr.wo = setdiff(names(block$quantities), quant.descr)
         block$quantities = lapply(block$quantities,

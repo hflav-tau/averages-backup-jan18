@@ -122,11 +122,11 @@ if (TRUE) {
       cat(" (+", meas$syst.p, " ", meas$syst.n, ")", sep="")
     }
     cat("\n")
-    if (length(meas$corr.terms) > 0) {
+    if (length(meas$corr.terms.stat) > 0) {
       cat("  statistical correlation\n")
       mapply(function(label, value) {
         cat("   ", value, label, "\n")
-      }, names(meas$corr.terms), sprintf("%+g", meas$corr.terms))
+      }, names(meas$corr.terms.stat), sprintf("%+g", meas$corr.terms.stat))
     }
     if (length(meas$corr.terms.tot) > 0) {
       cat("  total correlation\n")
@@ -447,13 +447,13 @@ flag.empty.line.first.time = TRUE
 strict.correlation.matching = FALSE
 ##--- replace incomplete measurement names in correlations
 for (mi.name in meas.names) {
-  corr.names = names(measurements[[mi.name]]$corr.terms)
+  corr.names = names(measurements[[mi.name]]$corr.terms.stat)
   corr.names.missing.mask = !(corr.names %in% meas.names)
   if (any(corr.names.missing.mask)) {
     print.empty.line.first.time()
     corr.names.missing = corr.names[corr.names.missing.mask]
     corr.names.missing.upd = alu.find.matching.meas(corr.names.missing, strict.correlation.matching)
-    names(measurements[[mi.name]]$corr.terms)[corr.names.missing.mask] = corr.names.missing.upd
+    names(measurements[[mi.name]]$corr.terms.stat)[corr.names.missing.mask] = corr.names.missing.upd
   }
   
   corr.names = names(measurements[[mi.name]]$corr.terms.tot)
@@ -474,8 +474,8 @@ for (mi.name in meas.names) {
 
 ##--- set off-diagonal statistical correlation matrix coefficients from cards
 for (mi.name in meas.names) {
-  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms), meas.names)) {
-    meas.corr.stat[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms[[mj.name]]
+  for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.stat), meas.names)) {
+    meas.corr.stat[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.stat[[mj.name]]
   }
   for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.tot), meas.names)) {
     meas.corr[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.tot[[mj.name]]
