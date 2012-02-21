@@ -448,7 +448,7 @@ alucomb.read = function(file = "") {
         ## for QUANTITY it is required that each value follows its label
         ##
         str.labels.mask = clause.labels %in% c("node", "descr")
-        if (tail(str.labels.mask, 1)) {
+        if (length(str.labels.mask) > 0 && tail(str.labels.mask, 1)) {
           stop("label without a value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
         str.values.mask = c(FALSE, head(str.labels.mask, -1))
