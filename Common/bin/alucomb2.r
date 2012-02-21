@@ -154,24 +154,43 @@ if (TRUE) {
   }
 }
 
-##--- discard measurements that are not associated to a declared fitted quantity
+##--- discard measurements according to COMBINATION cards
 meas.names = names(measurements)
-meas.quantities = sapply(measurements, function(x) x$quant)
+meas.drop.cards = combination$meas.drop.cards
+if (is.null(meas.drop.cards)) meas.drop.cards = character(0)
+meas.drop.cards.existing = meas.drop.cards %in% meas.names
+if (any(!meas.drop.cards.existing)) {
+  cat("\nwarning, cards require dropping non-existing measurements\n")
+  cat(paste("  ", meas.drop.cards[!meas.drop.cards.existing], collapse="\n"), "\n")
+}
+if (any(meas.drop.cards.existing)) {
+  cat("\n##\n")
+  cat("## dropping the following measurements according to cards\n")
+  cat("##\n")
+  cat(paste("  ", meas.drop.cards[meas.drop.cards.existing], collapse="\n"), "\n")
+  meas.names = setdiff(meas.names, meas.drop.cards[meas.drop.cards.existing])
+}
+
+##--- discard measurements that are not associated to a declared fitted quantity
+meas.quantities = sapply(measurements[meas.names], function(x) x$quant)
 meas.included.list = meas.quantities %in% quant.names
 meas.names.discarded =  meas.names[!meas.included.list]
+combination$meas.drop.unass = meas.names.discarded
 if (length(meas.names.discarded) >0) {
   cat("\nwarning: measurements discarded because not in combined quantities:\n")
-  cat(paste("  ", meas.names.discarded, collapse="\n"), "\n");
+  cat(paste("  ", meas.names.discarded, collapse="\n"), "\n")
+  meas.names = setdiff(meas.names, meas.names.discarded)
 }
-measurements = measurements[meas.included.list]
-meas.names = meas.names[meas.included.list]
-meas.quantities = meas.quantities[meas.included.list]
+
+combination$measurements = meas.names
+meas.used = names(measurements) %in% meas.names
+meas.quantities = sapply(measurements[meas.used], function(x) x$quant)
 meas.num = length(meas.names)
 
 ##--- get list of values, stat errors, syst errors
-meas.val = sapply(measurements, function(x) {unname(x$value)})
-meas.stat = sapply(measurements, function(x) {unname(x$stat)})
-meas.syst = sapply(measurements, function(x) {unname(x$syst)})
+meas.val = sapply(measurements[meas.used], function(x) {unname(x$value)})
+meas.stat = sapply(measurements[meas.used], function(x) {unname(x$stat)})
+meas.syst = sapply(measurements[meas.used], function(x) {unname(x$syst)})
 meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
 cat("\n##\n")
@@ -350,14 +369,14 @@ suppressWarnings(rm(flag.header.printed, need.update, syst.term.orig, syst.term.
 suppressWarnings(rm(params.old, params.old.delta, params.new, params.new.delta))
 
 ##--- get list of updated values, stat errors, syst errors
-meas.val = sapply(measurements, function(x) {unname(x$value)})
-meas.stat = sapply(measurements, function(x) {unname(x$stat)})
-meas.syst = sapply(measurements, function(x) {unname(x$syst)})
+meas.val = sapply(measurements[meas.used], function(x) {unname(x$value)})
+meas.stat = sapply(measurements[meas.used], function(x) {unname(x$stat)})
+meas.syst = sapply(measurements[meas.used], function(x) {unname(x$syst)})
 meas.err = sqrt(meas.stat^2 + meas.syst^2)
 
 ##--- unshifted values
-meas.val.orig = sapply(measurements, function(x) {unname(x$value.orig)})
-meas.syst.orig = sapply(measurements, function(x) {unname(x$syst.orig)})
+meas.val.orig = sapply(measurements[meas.used], function(x) {unname(x$value.orig)})
+meas.syst.orig = sapply(measurements[meas.used], function(x) {unname(x$syst.orig)})
 
 ##--- which measurements got shifted in value or syst. error
 meas.shifted = (meas.val.orig != meas.val) | (meas.syst.orig != meas.syst)
@@ -571,8 +590,8 @@ meas.corr = meas.cov / (meas.err %o% meas.err)
 quant.cards.sfact = unlist(lapply(combination$quantities[quant.names], function(el) { unname(el["scale"]) }))
 if (!is.null(quant.cards.sfact)) {
   meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
-  meas.scale.stat = sapply(measurements[meas.scale.names], function(x) {unname(x$stat)})
-  meas.scale.syst = sapply(measurements[meas.scale.names], function(x) {unname(x$syst.orig)})
+  meas.scale.stat = sapply(measurements[meas.used][meas.scale.names], function(x) {unname(x$stat)})
+  meas.scale.syst = sapply(measurements[meas.used][meas.scale.names], function(x) {unname(x$syst.orig)})
   
   ##--- compute additional syst. error to scale the total original error as requested
   meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
