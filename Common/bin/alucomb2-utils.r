@@ -621,7 +621,7 @@ alucomb.read = function(file = "") {
         
       } else if (clause.keyw == "NLCONSTRAINT") {
         ##
-        ## NLCONSTRAINT
+        ## NLCONSTRAINT = non-linear constraint equation
         ##
         
         if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
@@ -638,6 +638,28 @@ alucomb.read = function(file = "") {
         block$constr.nl.val[[constr.name]] = constr.val
         block$constr.nl.expr[[constr.name]] = constr.expr
         
+      } else if (clause.keyw == "USEMEAS") {
+        ##
+        ## USEMEAS drop|keep <measurement tags>
+        ##
+        keyw = toupper(clause.fields[1])
+        if (keyw == "KEEP" || keyw == "DROP") {
+          meas.name = paste(clause.fields[-1], collapse=".")
+          if (keyw == "DROP") {
+            if (!meas.name %in% block$meas.drop.cards) {
+              block$meas.drop.cards = c(block$meas.drop.cards, meas.name)
+            }
+          } else {
+            block$meas.drop.cards = setdiff(block$meas.drop.cards, meas.name)
+          }
+        } else {
+          stop("error, invalid USEMEAS keyword in line...\n  ",
+               paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+        
+      } else {
+        stop("error, invalid keyword in line...\n  ",
+             paste(c(clause.keyw, clause.fields), collapse=" "))
       }
     }
     
