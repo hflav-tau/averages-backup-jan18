@@ -76,7 +76,38 @@ quant.names = combination$combine
 cat("\n##\n")
 cat("## averaging the following quantities\n")
 cat("##\n")
-print(quant.names, quote=FALSE)
+cat("COMBINE\n")
+quant.fmt = format(quant.names)
+maxlen = max(nchar(quant.fmt))
+items.per.row = floor((79-2)/maxlen)
+for (i.first in seq(1, length(quant.fmt), by=items.per.row)) {
+  i.last = min(i.first + items.per.row - 1, length(quant.fmt) )
+  cat("  ", paste(quant.fmt[i.first:i.last]), "\n", sep="")
+}
+cat("\n")
+
+fields.descr.list = c("node", "descr")
+for (quant.name in quant.names) {
+  quant = combination$quantities[[quant.name]]
+  fields = names(quant)
+  fields.descr = intersect(fields.descr.list, fields)
+  if (length(fields.descr) > 0 && any(quant[fields.descr] != "")) {
+    cat("QUANTITY", quant.name)
+    for (field in fields.descr.list) {
+      val = quant[[field]]
+      if (!is.null(val) && val != "") cat("", field, val)
+    }
+    cat("\n")
+  }
+}
+for (quant.name in quant.names) {
+  quant = combination$quantities[[quant.name]]
+  fields = names(quant)
+  fields.nodescr = setdiff(fields, fields.descr.list)
+  if (length(fields.nodescr) > 0) {
+    cat("QUANTITY ", quant.name, " ", paste(fields.nodescr, quant[fields.nodescr]), "\n", sep="")
+  }
+}
 
 ##--- print measurements as read from the cards (short form)
 if (FALSE) {
@@ -101,8 +132,13 @@ if (TRUE) {
   
   for (meas in measurements) {
     cat("\n")
-    cat(paste(meas$tags, collapse="."), meas$quant, "\n")
-    cat("  value = ", meas$value)
+    cat("# ", meas$quant, " (PDG node = ", combination$quantities[[meas$quant]]$node, ")\n", sep="")
+    descr = combination$quantities[[meas$quant]]$descr
+    if (!is.null(descr)) cat("# ", descr, "\n", sep="")
+    cat("BEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
+
+    cat("\n")
+    cat("VALUE", meas$value)
     
     if (meas$stat.p == -meas$stat.n) {
       if (meas$stat != meas$stat.p) {
@@ -122,28 +158,51 @@ if (TRUE) {
       cat(" (+", meas$syst.p, " -", -meas$syst.n, ")", sep="")
     }
     cat("\n")
+
     if (length(meas$corr.terms.stat) > 0) {
-      cat("  statistical correlation\n")
-      mapply(function(label, value) {
-        cat("   ", value, label, "\n")
-      }, names(meas$corr.terms.stat), sprintf("%+g", meas$corr.terms.stat))
+      cat("\n")
+      mapply(function(label, value, input) {
+        cat("STAT_CORR_WITH ", format(input, width=12), " ", gsub(".", " ", label, fixed=TRUE), sep="")
+        if (value != input) cat(" # ", value, sep="")
+        cat("\n")
+      }, names(meas$corr.terms.stat), sprintf("%+-g", meas$corr.terms.stat), attr(meas$corr.terms.stat, "input"))
     }
+
     if (length(meas$corr.terms.tot) > 0) {
-      cat("  total correlation\n")
-      mapply(function(label, value) {
-        cat("   ", value, label, "\n")
-      }, names(meas$corr.terms.tot), sprintf("%+g", meas$corr.terms.tot))
+      cat("\n")
+      mapply(function(label, value, input) {
+        cat("TOT_CORR_WITH ", format(input, width=12), " ", gsub(".", " ", label, fixed=TRUE), sep="")
+        if (value != input) cat(" # ", value, sep="")
+        cat("\n")
+      }, names(meas$corr.terms.tot), sprintf("%+-g", meas$corr.terms.tot), attr(meas$corr.terms.tot, "input"))
     }
-    if (length(meas$syst.terms) > 0) {
-      cat("  systematics terms\n")
-      mapply(function(label, value) {
-        cat("   ", value, label, "\n")
-      }, names(meas$syst.terms), sprintf("%+g", meas$syst.terms))
+
+    meas.name = paste(meas$tags, collapse=".")
+    paper.name = paste(meas$tags[-2], collapse=".")
+    syst.local.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == meas.name
+    syst.paper.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == paper.name
+
+    ##--- print systematic terms, the original input string and the resulting absolute value
+    alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
+      syst.terms.input = attr(syst.terms, "input")[mask]
+      syst.terms = syst.terms[mask]
+      if (length(syst.terms) > 0) {
+        cat("\n", syst.label, "\n", sep="")
+        mapply(function(label, val.abs, val.input) {
+          cat("  ", format(val.input, width=16), " ", format(label, width=16), sep="")
+          if (val.input != val.abs) cat(" # ", val.abs, sep="")
+          cat("\n")
+        }, names(syst.terms), sprintf("%+g", syst.terms), syst.terms.input)
+      }
     }
+    alucomb2.print.meas.syst.terms("SYSTEMATICS", meas$syst.terms, !(syst.local.mask | syst.paper.mask))
+    alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
+    alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
+    
     if (length(meas$params) > 0) {
-      cat("  parameters\n")
+      cat("\nPARAMETERS\n")
       mapply(function(label, value) {
-        cat("   ", label, value[1])
+        cat(" ", format(label, width=16), value[1])
         if (value[2] == -value[3]) {
           cat(" +-", value[2], "\n", sep="")
         } else {
@@ -151,6 +210,9 @@ if (TRUE) {
         }
       }, names(meas$params), meas$params)
     }
+
+    cat("\n")
+    cat("END\n")
   }
 }
 

@@ -351,12 +351,15 @@ alucomb.read = function(file = "") {
       plus.minus.ind = intersect(plus.ind, minus.ind-1)
 
       ##--- transform to a list in order to store per-item attributes 
-      clause.fields.val = mapply(function(val, pm, relperc) {
+      clause.fields.val = mapply(function(val, pm, relperc, input) {
         if (is.na(val)) return(NA)
         if (pm == "+-") attr(val, "+-") = TRUE
         if (relperc != "") attr(val, relperc) = TRUE
+        ##--- save input card string without %|&
+        attr(val, "input") = sub("0+$", "", input)
         val
-      }, clause.fields.val, clause.fields.signtag, clause.fields.relperc,
+      }, clause.fields.val, clause.fields.signtag,
+        clause.fields.relperc, clause.fields.convert,
         SIMPLIFY=FALSE)
 
       plus.minus.val = lapply(plus.minus.ind, function(i) {
@@ -390,7 +393,11 @@ alucomb.read = function(file = "") {
             stop("both % and & suffixes specified for same value...\n  ",
                  paste(clause.fields, sep=" "))
           }
-          val
+          ##--- append %|& attribute to card input value (even if it was originally on its label)
+          for (tag in c("&", "%")) {
+            if (!is.null(attr(val, tag))) attr(val, "input") = paste(attr(val, "input"), tag, sep="")
+          }
+          return(val)
         }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
       }
       
@@ -442,12 +449,20 @@ alucomb.read = function(file = "") {
 
         ##+++ combos, remove labels named "stat*", "syst*"
         clause.labels = clause.labels[!match.nocase("^(syst|stat)", clause.labels)]
-        
+
+        ##--- if there is a "descr" keyword, take as description all that follows
+        descr.pos = grep("descr", clause.labels)[1]
+        if (!is.na(descr.pos)) {
+          descr.txt = paste(tail(clause.labels,-descr.pos), collapse=" ")
+          descr.txt = sub("^\"", "", sub("\"$", "", descr.txt))
+          clause.labels = head(clause.labels, descr.pos-1)
+        }
+
         ##
         ## get label/values where values are strings
         ## for QUANTITY it is required that each value follows its label
         ##
-        str.labels.mask = clause.labels %in% c("node", "descr")
+        str.labels.mask = clause.labels %in% c("node")
         if (length(str.labels.mask) > 0 && tail(str.labels.mask, 1)) {
           stop("label without a value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
@@ -455,6 +470,12 @@ alucomb.read = function(file = "") {
         ##--- add at beginning string labels/values before numeric label/values
         clause.values = c(as.list(clause.labels[str.values.mask]), as.list(clause.values))
         clause.labels = c(clause.labels[str.labels.mask], clause.labels[!(str.labels.mask | str.values.mask)])
+
+        ##--- add description if present
+        if (!is.na(descr.pos)) {
+          clause.labels = c(clause.labels, "descr")
+          clause.values = c(clause.values, descr.txt)
+        }
 
         if (length(clause.labels) != length(clause.values)) {
           stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
@@ -536,19 +557,23 @@ alucomb.read = function(file = "") {
         ## SYSTPAPER like SYSTEMATICS but add reference name to make it paper-wide
         ##
         
+        if (length(clause.values) < 1) {
+          stop("at least one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
+
         ##
         ## - "%" on either name or value means percent of measurement value
         ## - "&" on either name or value means relative of measurement value
         ##
         clause.values = lapply(clause.values, function(val) {
           if (!is.null(attr(val, "&"))) {
-            attr(val, "input") = paste(val, "&", sep="")
+            ##+++ attr(val, "input") = paste(val, "&", sep="")
             val = val*block.meas$value
           } else if (!is.null(attr(val, "%"))) {
-            attr(val, "input") = paste(val, "%", sep="")
+            ##+++ attr(val, "input") = paste(val, "%", sep="")
             val = val*block.meas$value/100
           } else {
-            attr(val, "input") = paste(val)
+            ##+++ attr(val, "input") = paste(val)
           }
           val
         })
@@ -563,9 +588,7 @@ alucomb.read = function(file = "") {
           attr(block.meas$syst.terms, "input"),
           sapply(clause.values, function(el) attr(el, "input")))
         block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause.values))
-        if (!is.null(block.meas$syst.terms)) {
-          attr(block.meas$syst.terms, "input") = new.attr
-        }
+        attr(block.meas$syst.terms, "input") = new.attr
         
       } else if (clause.keyw == "STAT_CORR_WITH" || clause.keyw == "ERROR_CORR_WITH") {
         ##
@@ -576,13 +599,31 @@ alucomb.read = function(file = "") {
           stop("exactly one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
         corr = clause.values[[1]]
+        if (!is.null(attr(corr, "%"))) {
+          ##--- percent correlation coefficient
+          corr = corr/100
+        }
+
+        ##--- add + if not present and positive value
+        attr(corr, "input") = sub("^([^+-])", "+\\1", attr(corr, "input"))
         
+        ##--- fix the format of pub status to pub|prelim
         clause.labels[3] = alu.norm.pubstate(clause.labels[3])
+        ##--- set name to name of correlated measurement
         names(corr) =  paste(clause.labels, collapse=".")
+        ##--- update meas block
         if (clause.keyw == "STAT_CORR_WITH") {
+          new.attr = c(
+            attr(block.meas$corr.terms.stat, "input"),
+            attr(corr, "input"))
           block.meas$corr.terms.stat = c(block.meas$corr.terms.stat, corr)
+          attr(block.meas$corr.terms.stat, "input") = new.attr
         } else {
+          new.attr = c(
+            attr(block.meas$corr.terms.tot, "input"),
+            attr(corr, "input"))
           block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
+          attr(block.meas$corr.terms.tot, "input") = new.attr
         }
 
       } else if (clause.keyw == "SUMOFQUANT" || clause.keyw == "COMBOFQUANT" || clause.keyw == "CONSTRAINT") {
@@ -644,7 +685,10 @@ alucomb.read = function(file = "") {
         ##
         keyw = toupper(clause.fields[1])
         if (keyw == "KEEP" || keyw == "DROP") {
-          meas.name = paste(clause.fields[-1], collapse=".")
+          ##--- fix the format of pub status to pub|prelim
+          meas.name = clause.fields[-1]
+          meas.name[3] = alu.norm.pubstate(meas.name[3])
+          meas.name = paste(meas.name, collapse=".")
           if (keyw == "DROP") {
             if (!meas.name %in% block$meas.drop.cards) {
               block$meas.drop.cards = c(block$meas.drop.cards, meas.name)
@@ -715,6 +759,7 @@ alucomb.read = function(file = "") {
       }
       meas.fields[3] = alu.norm.pubstate(meas.fields[3])
       meas.tag = paste(meas.fields, collapse=".")
+      rm(meas.fields)
 
       block.meas = list()
       
@@ -741,7 +786,7 @@ alucomb.read = function(file = "") {
           stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
         }
 
-        block.meas$tags = meas.fields
+        block.meas$tags = strsplit(meas.tag, "[.]", perl=TRUE)[[1]]
         block.meas$params = block$params
         
         if (!is.null(measurements[[meas.tag]])) {
