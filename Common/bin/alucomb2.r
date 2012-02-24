@@ -84,14 +84,15 @@ for (i.first in seq(1, length(quant.fmt), by=items.per.row)) {
   i.last = min(i.first + items.per.row - 1, length(quant.fmt) )
   cat("  ", paste(quant.fmt[i.first:i.last]), "\n", sep="")
 }
-cat("\n")
 
+flag.empty.line.first.time <<- TRUE
 fields.descr.list = c("node", "descr")
 for (quant.name in quant.names) {
   quant = combination$quantities[[quant.name]]
   fields = names(quant)
   fields.descr = intersect(fields.descr.list, fields)
   if (length(fields.descr) > 0 && any(quant[fields.descr] != "")) {
+    print.empty.line.first.time()
     cat("QUANTITY", quant.name)
     for (field in fields.descr.list) {
       val = quant[[field]]
@@ -100,12 +101,25 @@ for (quant.name in quant.names) {
     cat("\n")
   }
 }
+
+flag.empty.line.first.time <<- TRUE
 for (quant.name in quant.names) {
   quant = combination$quantities[[quant.name]]
   fields = names(quant)
   fields.nodescr = setdiff(fields, fields.descr.list)
   if (length(fields.nodescr) > 0) {
+    print.empty.line.first.time()
     cat("QUANTITY ", quant.name, " ", paste(fields.nodescr, quant[fields.nodescr]), "\n", sep="")
+  }
+}
+
+cat("\n##\n")
+cat("## quantities with no description\n")
+cat("##\n")
+for (quant.name in quant.names) {
+  quant = combination$quantities[[quant.name]]
+  if (is.null(quant$descr) || quant$descr == "") {
+    cat("QUANTITY", quant.name, "node \"\" descr \"\"\n")
   }
 }
 
@@ -524,7 +538,7 @@ alu.find.matching.meas = function(name, strict=FALSE) {
   name, regexp)
 }
 
-flag.empty.line.first.time = TRUE
+flag.empty.line.first.time <<- TRUE
 strict.correlation.matching = FALSE
 ##--- replace incomplete measurement names in correlations
 for (mi.name in meas.names) {
