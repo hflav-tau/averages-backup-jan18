@@ -38,6 +38,35 @@ print.empty.line.first.time = function() {
   }
 }
 
+##--- print parameters
+alucomb2.print.params = function(params) {
+  if (length(params) > 0) {
+    cat("\nPARAMETERS\n")
+    mapply(function(label, value) {
+      cat(" ", format(label, width=16), sprintf("%-12g", value[1]))
+      if (value[2] == -value[3]) {
+        cat(" +-", value[2], "\n", sep="")
+      } else {
+        cat(" +", sprintf("%-12g", value[2]), " -", value[3], "\n", sep="")
+      }
+    }, names(params), params)
+  }
+}
+
+##--- print systematic terms, the original input string and the resulting absolute value
+alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
+  syst.terms.input = attr(syst.terms, "input")[mask]
+  syst.terms = syst.terms[mask]
+  if (length(syst.terms) > 0) {
+    cat("\n", syst.label, "\n", sep="")
+    mapply(function(label, val.abs, val.input) {
+      cat("  ", format(val.input, width=16), " ", format(label, width=16), sep="")
+      if (val.input != val.abs) cat(" # ", val.abs, sep="")
+      cat("\n")
+    }, names(syst.terms), sprintf("%+g", syst.terms), syst.terms.input)
+  }
+}
+
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
 
@@ -196,34 +225,11 @@ if (TRUE) {
     syst.local.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == meas.name
     syst.paper.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == paper.name
 
-    ##--- print systematic terms, the original input string and the resulting absolute value
-    alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
-      syst.terms.input = attr(syst.terms, "input")[mask]
-      syst.terms = syst.terms[mask]
-      if (length(syst.terms) > 0) {
-        cat("\n", syst.label, "\n", sep="")
-        mapply(function(label, val.abs, val.input) {
-          cat("  ", format(val.input, width=16), " ", format(label, width=16), sep="")
-          if (val.input != val.abs) cat(" # ", val.abs, sep="")
-          cat("\n")
-        }, names(syst.terms), sprintf("%+g", syst.terms), syst.terms.input)
-      }
-    }
     alucomb2.print.meas.syst.terms("SYSTEMATICS", meas$syst.terms, !(syst.local.mask | syst.paper.mask))
     alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
     alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
     
-    if (length(meas$params) > 0) {
-      cat("\nPARAMETERS\n")
-      mapply(function(label, value) {
-        cat(" ", format(label, width=16), value[1])
-        if (value[2] == -value[3]) {
-          cat(" +-", value[2], "\n", sep="")
-        } else {
-          cat(" +", value[2], " -", value[3], "\n", sep="")
-        }
-      }, names(meas$params), meas$params)
-    }
+    alucomb2.print.params(meas$params)
 
     cat("\n")
     cat("END\n")
@@ -272,20 +278,7 @@ meas.err = sqrt(meas.stat^2 + meas.syst^2)
 cat("\n##\n")
 cat("## using the following updated global parameters\n")
 cat("##\n")
-if (length(combination$params) > 0) {
-  rc = mapply(function(value) {
-    if (value[2] == -value[3]) {
-      excurs = paste("+-", value[2], sep="")
-    } else {
-      excurs = paste("+", value[2], " -", value[3], sep="")
-    }
-    c(as.character(value[1]), excurs)
-  }, combination$params)
-  rc = t(as.matrix(rc))
-  colnames(rc) = c("value", "excursion")
-  print(rc, quote=FALSE)
-  rm(rc)
-}
+alucomb2.print.params(combination$params)
 
 ##--- check duplicate linear constraints
 if (length(combination$constr.lin.comb) > 1) {
