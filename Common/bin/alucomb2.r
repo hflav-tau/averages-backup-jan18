@@ -174,11 +174,10 @@ if (TRUE) {
   cat("##\n")
   
   for (meas in measurements) {
-    cat("\n")
-    cat("# ", meas$quant, " (PDG node = ", combination$quantities[[meas$quant]]$node, ")\n", sep="")
+    cat("\n#\n# ", meas$quant, " (PDG node = ", combination$quantities[[meas$quant]]$node, ")\n", sep="")
     descr = combination$quantities[[meas$quant]]$descr
     if (!is.null(descr)) cat("# ", descr, "\n", sep="")
-    cat("BEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
+    cat("#\nBEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
 
     cat("\n")
     cat("VALUE", meas$value)

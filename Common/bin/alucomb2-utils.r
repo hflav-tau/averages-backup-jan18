@@ -491,7 +491,7 @@ alucomb.read = function(file = "") {
               clause.values[labels.override]
               ))
           }
-          block$quantities[[meas.name]][clause.labels] = clause.values
+          block$quantities[[meas.name]][clause.labels] = unlist(clause.values)
         }
         
       } else if (clause.keyw == "MEASUREMENT") {
@@ -657,7 +657,7 @@ alucomb.read = function(file = "") {
           names(constr.comb) = clause.labels[-1]
         }
         
-        block$constr.lin.val[[constr.name]] = constr.val
+        block$constr.lin.val[[constr.name]] = as.vector(constr.val)
         block$constr.lin.comb[[constr.name]] = constr.comb
         
       } else if (clause.keyw == "NLCONSTRAINT") {
@@ -674,7 +674,7 @@ alucomb.read = function(file = "") {
                paste(c(clause.keyw, clause.fields), collapse=" "))
         }
         constr.name = clause.labels[1]
-        constr.val = clause.values[[1]]
+        constr.val = as.vector(clause.values[[1]])
         constr.expr = clause.labels[2]
         block$constr.nl.val[[constr.name]] = constr.val
         block$constr.nl.expr[[constr.name]] = constr.expr
