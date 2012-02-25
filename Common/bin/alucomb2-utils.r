@@ -73,6 +73,42 @@ alu.norm.pubstate = function(str) {
 }
 
 ##
+## return asymmetric excursions, possibly as percent or relative
+##
+alucomb2.handle.asymm.excurs = function(value, delta) {
+  delta.p = as.vector(delta)
+  if (is.null(attr(delta, "negval"))) {
+    ##--- no separate negative value
+    if (!is.null(attr(delta, "%"))) {
+      delta.p = value * delta.p /100
+    } else if (!is.null(attr(delta, "&"))) {
+      delta.p = value * delta.p
+    }
+    delta.n = -delta.p
+    delta.pn = delta.p
+    attr(delta.p, "input") = ""
+    attr(delta.n, "input") = ""
+    attr(delta.pn, "input") = attr(delta, "input")
+  } else {
+    ##--- there is a separate negative value
+    delta.n = as.vector(attr(delta, "negval"))
+    if (!is.null(attr(delta, "%"))) {
+      delta.p = value * delta.p /100
+      delta.n = value * delta.n /100
+    } else if (!is.null(attr(delta, "&"))) {
+      delta.p = value * delta.p
+      delta.n = value * delta.n
+    }
+    ##--- symmetrize according to combos prescription
+    delta.pn = sqrt( (delta.p^2 + delta.n^2)/2 )
+    attr(delta.p, "input") = attr(delta, "input")
+    attr(delta.n, "input") = attr(attr(delta, "negval"), "input")
+    attr(delta.pn, "input") = ""
+  }
+  return(list(delta.pn, delta.p, delta.n))
+}
+
+##
 ## cards
 ##
 
@@ -432,39 +468,6 @@ alucomb.read = function(file = "") {
         names(param.values) = clause.labels
         param.deltas = clause.values[seq(2, 2*length(clause.labels), by=2)]
 
-        alucomb2.handle.asymm.excurs = function(value, delta) {
-          delta.p = as.vector(delta)
-          if (is.null(attr(delta, "negval"))) {
-            ##--- no separate negative value
-            if (!is.null(attr(delta, "%"))) {
-              delta.p = value * delta.p /100
-            } else if (!is.null(attr(delta, "&"))) {
-              delta.p = value * delta.p
-            }
-            delta.n = -delta.p
-            delta.pn = delta.p
-            attr(delta.p, "input") = ""
-            attr(delta.n, "input") = ""
-            attr(delta.pn, "input") = attr(delta, "input")
-          } else {
-            ##--- there is a separate negative value
-            delta.n = as.vector(attr(delta, "negval"))
-            if (!is.null(attr(delta, "%"))) {
-              delta.p = value * delta.p /100
-              delta.n = value * delta.n /100
-            } else if (!is.null(attr(delta, "&"))) {
-              delta.p = value * delta.p
-              delta.n = value * delta.n
-            }
-            ##--- symmetrize according to combos prescription
-            delta.pn = sqrt( (delta.p^2 + delta.n^2)/2 )
-            attr(delta.p, "input") = attr(delta, "input")
-            attr(delta.n, "input") = attr(attr(delta, "negval"), "input")
-            attr(delta.pn, "input") = ""
-          }
-          return(list(delta.pn, delta.p, delta.n))
-        }
-                 
         ##--- add defined parameters, each is an array with value and excursions
         block$params = c(block$params, mapply(
           function(value, delta) {
@@ -553,33 +556,22 @@ alucomb.read = function(file = "") {
         
         if (length(clause.values) == 3) {
           if (!is.null(attr(clause.values[[1]], "negval"))) {
-            stop("\"+-\" used for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+            stop("\"+val -val\" used for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
           }
           ##--- use values if existing
           block.meas$value = clause.values[[1]]
-          block.meas$stat.p = clause.values[[2]]
-          negval = attr(clause.values[[2]], "negval")
-          if (!is.null(negval)) {
-            block.meas$stat.n = negval
-            if (block.meas$stat.n == -block.meas$stat.p) {
-              block.meas$stat = block.meas$stat.p
-            } else {
-              block.meas$stat = sqrt((block.meas$stat.p^2 + block.meas$stat.n^2)/2)
-            }
-          } else {
-            block.meas$stat.n = -block.meas$stat.p
-            block.meas$stat = block.meas$stat.p
-          }
-          
-          block.meas$syst.p = clause.values[[3]]
-          negval = attr(clause.values[[3]], "negval")
-          if (!is.null(negval)) {
-            block.meas$syst.n = negval
-            block.meas$syst = sqrt((block.meas$syst.p^2 + block.meas$syst.n^2)/2)
-          } else {
-            block.meas$syst.n = -block.meas$syst.p
-            block.meas$syst = block.meas$syst.p
-          }
+
+          ##--- get possibly asymmetric stat error, possibly percent or relative
+          rc = alucomb2.handle.asymm.excurs(clause.values[[1]], clause.values[[2]])
+          block.meas$stat = rc[[1]]
+          block.meas$stat.p = rc[[2]]
+          block.meas$stat.n = rc[[3]]
+
+          ##--- get possibly asymmetric syst error, possibly percent or relative
+          rc = alucomb2.handle.asymm.excurs(clause.values[[1]], clause.values[[3]])
+          block.meas$syst = rc[[1]]
+          block.meas$syst.p = rc[[2]]
+          block.meas$syst.n = rc[[3]]
 
           ##+++ set end of MEASEREMENT DATA (combos compatibility)
           measurement.in.data = FALSE
@@ -608,15 +600,11 @@ alucomb.read = function(file = "") {
         ##
         clause.values = lapply(clause.values, function(val) {
           if (!is.null(attr(val, "&"))) {
-            ##+++ attr(val, "input") = paste(val, "&", sep="")
             val = val*block.meas$value
           } else if (!is.null(attr(val, "%"))) {
-            ##+++ attr(val, "input") = paste(val, "%", sep="")
             val = val*block.meas$value/100
-          } else {
-            ##+++ attr(val, "input") = paste(val)
           }
-          val
+          return(val)
         })
 
         if (clause.keyw == "SYSTLOCAL") {
