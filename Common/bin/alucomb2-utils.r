@@ -821,6 +821,7 @@ alucomb.read = function(file = "") {
           stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
         }
 
+        block.meas$quant = block.fields[2]
         block.meas$tags = strsplit(meas.tag, "[.]", perl=TRUE)[[1]]
         block.meas$params = block$params
         
@@ -842,6 +843,25 @@ alucomb.read = function(file = "") {
                 new.val = new.val[val.names]
               }
               alu.rbind.print(rbind(old=old.val, new=new.val))
+            } else if (!identical(old.meas[[el]], block.meas[[el]])) {
+              cat("\n<<<<<<<< old", el, "\n")
+              print(old.meas[[el]])
+              cat(">>>>>>>> new", el, "\n")
+              print(block.meas[[el]])
+            }
+          }
+          el.removed = setdiff(names(old.meas), names(block.meas))
+          if (length(el.removed) > 0) {
+            cat("removed elements\n")
+            for (el in el.removed) {
+              print(unlist(old.meas[[el]]))
+            }
+          }
+          el.added = setdiff(names(block.meas), names(old.meas))
+          if (length(el.added) > 0) {
+            cat("added elements\n")
+            for (el in el.added) {
+              print(unlist(block.meas[[el]]))
             }
           }
           cat("warning, END update measurement", meas.tag, "\n")
@@ -851,7 +871,6 @@ alucomb.read = function(file = "") {
         ## measured quantity = 2nd tag in the BEGIN MEASUREMENT statement
         ## BEGIN [MEASUREMENT] <esperiment> <quantity> <pub|prelim> <reference> [...]
         ##
-        block.meas$quant = block.fields[2]
         measurements[[meas.tag]] = block.meas
         
       } else if (block.type == "COMBINATION") {
