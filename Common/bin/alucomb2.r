@@ -43,11 +43,15 @@ alucomb2.print.params = function(params) {
   if (length(params) > 0) {
     cat("\nPARAMETERS\n")
     mapply(function(label, value) {
-      cat(" ", format(label, width=16), sprintf("%-12g", value[1]))
-      if (value[2] == -value[3]) {
-        cat(" +-", value[2], "\n", sep="")
+      input = attr(value, "input")
+      cat(" ", format(label, width=16), format(input[1], width=12))
+      if (input[2] == "" && value[3] == -value[4]) {
+        input[2] = substr(input[4], 2, nchar(input[4]))
+      }
+      if (input[2] == "") {
+        cat(format(paste(" ", input[3], sep=""), width=12),  paste(" ", input[4], sep=""), "\n", sep="")
       } else {
-        cat(" +", sprintf("%-12g", value[2]), " -", value[3], "\n", sep="")
+        cat(paste(" +-", input[2], sep=""), "\n", sep="")
       }
     }, names(params), params)
   }
