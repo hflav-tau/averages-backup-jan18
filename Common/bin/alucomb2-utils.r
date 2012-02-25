@@ -152,7 +152,7 @@ alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
   }
 }
 
-alucomb2.print.correlation = function(corr.label, corr.terms) {
+alucomb2.print.meas.correlation = function(corr.label, corr.terms) {
   if (length(corr.terms) > 0) {
     cat("\n")
     rc = mapply(function(label, value, input) {
@@ -190,14 +190,11 @@ alucomb2.print.meas = function(meas, quantities) {
   }
   cat("\n")
   
-  alucomb2.print.correlation("STAT_CORR_WITH", meas$corr.terms.stat)
-  alucomb2.print.correlation("TOT_CORR_WITH", meas$corr.terms.tot)
+  alucomb2.print.meas.correlation("STAT_CORR_WITH", meas$corr.terms.stat)
+  alucomb2.print.meas.correlation("TOT_CORR_WITH", meas$corr.terms.tot)
   
-  meas.name = paste(meas$tags, collapse=".")
-  paper.name = paste(meas$tags[-2], collapse=".")
-  syst.local.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == meas.name
-  syst.paper.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == paper.name
-  
+  syst.local.mask = attr(meas$syst.terms, "type") == "l"
+  syst.paper.mask = attr(meas$syst.terms, "type") == "p"  
   alucomb2.print.meas.syst.terms("SYSTEMATICS", meas$syst.terms, !(syst.local.mask | syst.paper.mask))
   alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
   alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
@@ -715,6 +712,10 @@ alucomb.read = function(file = "") {
           type.attr = "p"
           clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
         }
+        if (any(clause.labels %in% names(block.meas$syst.terms))) {
+          stop("already used systematics label in line...\n  ",
+               paste(c(clause.keyw, clause.fields), collapse=" "))
+        }
         names(clause.values) = clause.labels
         input.attr = c(attr(block.meas$syst.terms, "input"), sapply(clause.values, function(el) attr(el, "input")))
         input.attr = sub("^[+-]", "", input.attr)
@@ -757,10 +758,18 @@ alucomb.read = function(file = "") {
         input.attr = attr(corr, "input")
         names(input.attr) = names(corr)
         if (clause.keyw == "STAT_CORR_WITH") {
+          if (any(names(corr) %in% names(block.meas$corr.terms.stat))) {
+            stop("correlation specified twice in line...\n  ",
+                 paste(c(clause.keyw, clause.fields), collapse=" "))
+          }
           input.attr = c(attr(block.meas$corr.terms.stat, "input"), input.attr)
           block.meas$corr.terms.stat = c(block.meas$corr.terms.stat, corr)
           attr(block.meas$corr.terms.stat, "input") = input.attr
         } else {
+          if (any(names(corr) %in% names(block.meas$corr.terms.tot))) {
+            stop("correlation specified twice in line...\n  ",
+                 paste(c(clause.keyw, clause.fields), collapse=" "))
+          }
           input.attr = c(attr(block.meas$corr.terms.tot, "input"), input.attr)
           block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
           attr(block.meas$corr.terms.tot, "input") = input.attr
@@ -957,16 +966,16 @@ alucomb.read = function(file = "") {
           }
           el.removed = setdiff(names(old.meas), names(block.meas))
           if (length(el.removed) > 0) {
-            cat("removed elements\n")
+            cat("<<<<<<<< removed elements\n")
             for (el in el.removed) {
-              print(unlist(old.meas[[el]]))
+              print(old.meas[[el]])
             }
           }
           el.added = setdiff(names(block.meas), names(old.meas))
           if (length(el.added) > 0) {
-            cat("added elements\n")
+            cat(">>>>>>>> added elements\n")
             for (el in el.added) {
-              print(unlist(block.meas[[el]]))
+              print(block.meas[[el]])
             }
           }
           cat("warning, END update measurement", meas.tag, "\n")
