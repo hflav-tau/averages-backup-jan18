@@ -389,9 +389,9 @@ for (mn in meas.names) {
   syst.term.orig = measurements[[mn]]$syst.terms[syst.upd.names]
 
   params.old       = sapply(measurements[[mn]]$params[syst.upd.names], function(x) unname(x["value"]))
-  params.old.delta = sapply(measurements[[mn]]$params[syst.upd.names], function(x) unname(x["delta_pos"]))
+  params.old.delta = sapply(measurements[[mn]]$params[syst.upd.names], function(x) unname(x["delta"]))
   params.new       = sapply(combination$params[syst.upd.names], function(x) unname(x["value"]))
-  params.new.delta = sapply(combination$params[syst.upd.names], function(x) unname(x["delta_pos"]))
+  params.new.delta = sapply(combination$params[syst.upd.names], function(x) unname(x["delta"]))
 
   ##--- shift measurement values according to updated external parameters
   value.delta = (params.new - params.old) * (syst.term.orig / params.old.delta)

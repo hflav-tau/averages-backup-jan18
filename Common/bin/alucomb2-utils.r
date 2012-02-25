@@ -363,22 +363,19 @@ alucomb.read = function(file = "") {
         SIMPLIFY=FALSE)
 
       plus.minus.val = lapply(plus.minus.ind, function(i) {
-        if (clause.fields.relperc[i] != clause.fields.relperc[i+1]) {
+        second.relperc = clause.fields.relperc[i+1]
+        if (clause.fields.relperc[i] != second.relperc) {
           stop("+num -num sequence with different suffixes...\n  ",
-               paste(clause.fields[i:(i+1)], sep=" ")) 
+               paste(clause.fields[i:(i+1)], collapse=" ")) 
         }
         first = clause.fields.val[[i]]
         second = clause.fields.val[[i+1]]
-        attr(first, "negval", second)
+        if (second.relperc != "") {
+          attr(second, second.relperc) = NULL
+        }
+        attr(first, "negval") = second        
         return(first)
       })
-
-      ##--- add negative value as attribute to positive value
-      plus.minus.val.old = mapply(
-        function(first, second) {
-          attr(first, "negval", second)
-          return(first)
-        }, clause.fields.val[plus.minus.ind], clause.fields.val[plus.minus.ind+1])
 
       ##--- replace +<numeric value 1> -<numeric value 2> with a single number
       clause.fields.val[plus.minus.ind] = plus.minus.val
@@ -386,16 +383,24 @@ alucomb.read = function(file = "") {
       clause.values = clause.fields.val[!is.na(clause.fields.val)]
 
       ##--- apply labels attributes to corresponding values
-      if (length(clause.values) > 0 && length(clause.labels.relperc) > 0) {
+      if (length(clause.values) > 0) {
         clause.values = mapply(function(val, relperc) {
           if (!is.na(relperc) && relperc != "") attr(val, relperc) = TRUE
           if (!is.null(attr(val, "&")) && !is.null(attr(val, "%"))) {
-            stop("both % and & suffixes specified for same value...\n  ",
+            stop("both % and & suffixes specified for same value in...\n  ",
                  paste(clause.fields, sep=" "))
           }
           ##--- append %|& attribute to card input value (even if it was originally on its label)
           for (tag in c("&", "%")) {
-            if (!is.null(attr(val, tag))) attr(val, "input") = paste(attr(val, "input"), tag, sep="")
+            if (!is.null(attr(val, tag))) {
+              attr(val, "input") = paste(attr(val, "input"), tag, sep="")
+              ##--- append to "negval" attribute as well if existing
+              negval = attr(val, "negval")
+              if (!is.null(negval)) {
+                attr(negval, "input") = paste(attr(negval, "input"), tag, sep="")
+                attr(val, "negval") = negval
+              }
+            }
           }
           return(val)
         }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
@@ -422,17 +427,53 @@ alucomb.read = function(file = "") {
         if (length(clause.values) != 2*length(clause.labels)) {
           stop("wrong parameter data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
-        param.val = clause.values[seq(1, 2*length(clause.labels), by=2)]
-        names(param.val) = clause.labels
-        param.delta.p = clause.values[seq(2, 2*length(clause.labels), by=2)]
+        
+        param.values = clause.values[seq(1, 2*length(clause.labels), by=2)]
+        names(param.values) = clause.labels
+        param.deltas = clause.values[seq(2, 2*length(clause.labels), by=2)]
 
-        param.delta.n = lapply(param.delta.p, function(delta) {
-          ifelse(is.null(attr(delta, "negval")), -delta, attr(delta, "negval"))
-        })
+        alucomb2.handle.asymm.excurs = function(value, delta) {
+          delta.p = as.vector(delta)
+          if (is.null(attr(delta, "negval"))) {
+            ##--- no separate negative value
+            if (!is.null(attr(delta, "%"))) {
+              delta.p = value * delta.p /100
+            } else if (!is.null(attr(delta, "&"))) {
+              delta.p = value * delta.p
+            }
+            delta.n = -delta.p
+            delta.pn = delta.p
+            attr(delta.p, "input") = ""
+            attr(delta.n, "input") = ""
+            attr(delta.pn, "input") = attr(delta, "input")
+          } else {
+            ##--- there is a separate negative value
+            delta.n = as.vector(attr(delta, "negval"))
+            if (!is.null(attr(delta, "%"))) {
+              delta.p = value * delta.p /100
+              delta.n = value * delta.n /100
+            } else if (!is.null(attr(delta, "&"))) {
+              delta.p = value * delta.p
+              delta.n = value * delta.n
+            }
+            ##--- symmetrize according to combos prescription
+            delta.pn = sqrt( (delta.p^2 + delta.n^2)/2 )
+            attr(delta.p, "input") = attr(delta, "input")
+            attr(delta.n, "input") = attr(attr(delta, "negval"), "input")
+            attr(delta.pn, "input") = ""
+          }
+          return(list(delta.pn, delta.p, delta.n))
+        }
+                 
+        ##--- add defined parameters, each is an array with value and excursions
         block$params = c(block$params, mapply(
-          function(val, delta.p, delta.n) {
-            c("value"=val, "delta_pos"=delta.p, "delta_neg"=delta.n)
-          }, param.val, param.delta.p, param.delta.n, SIMPLIFY=FALSE))
+          function(value, delta) {
+            rc = alucomb2.handle.asymm.excurs(value, delta)
+            param.list = list(value=value, delta=rc[[1]], delta.p=rc[[2]], delta.n=rc[[3]])
+            param = unlist(param.list)
+            attr(param, "input") = sapply(param.list, function(el) attr(el, "input"))
+            return(param)
+          }, param.values, param.deltas, SIMPLIFY=FALSE))
         
       } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
         ##
@@ -594,11 +635,23 @@ alucomb.read = function(file = "") {
         ##
         ## STAT_CORR_WITH, ERROR_CORR_WITH
         ##
-        
+
         if (length(clause.values) != 1) {
           stop("exactly one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
+
+        ##
+        ## get correlation
+        ## in the old format (measurement name before correlation)
+        ## we need that all meas tags are non-numeric and this happens with the 2009 input cards
+        ## 
         corr = clause.values[[1]]
+
+        ##--- fix the format of pub status to pub|prelim
+        clause.labels[3] = alu.norm.pubstate(clause.labels[3])
+        ##--- set name to correlated measurement
+        names(corr) =  paste(clause.labels, collapse=".")
+
         if (!is.null(attr(corr, "%"))) {
           ##--- percent correlation coefficient
           corr = corr/100
@@ -607,21 +660,15 @@ alucomb.read = function(file = "") {
         ##--- add + if not present and positive value
         attr(corr, "input") = sub("^([^+-])", "+\\1", attr(corr, "input"))
         
-        ##--- fix the format of pub status to pub|prelim
-        clause.labels[3] = alu.norm.pubstate(clause.labels[3])
-        ##--- set name to name of correlated measurement
-        names(corr) =  paste(clause.labels, collapse=".")
         ##--- update meas block
+        new.attr = attr(corr, "input")
+        names(new.attr) = names(corr)
         if (clause.keyw == "STAT_CORR_WITH") {
-          new.attr = c(
-            attr(block.meas$corr.terms.stat, "input"),
-            attr(corr, "input"))
+          new.attr = c(attr(block.meas$corr.terms.stat, "input"), new.attr)
           block.meas$corr.terms.stat = c(block.meas$corr.terms.stat, corr)
           attr(block.meas$corr.terms.stat, "input") = new.attr
         } else {
-          new.attr = c(
-            attr(block.meas$corr.terms.tot, "input"),
-            attr(corr, "input"))
+          new.attr = c(attr(block.meas$corr.terms.tot, "input"), new.attr)
           block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
           attr(block.meas$corr.terms.tot, "input") = new.attr
         }
