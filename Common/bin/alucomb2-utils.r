@@ -108,6 +108,106 @@ alucomb2.handle.asymm.excurs = function(value, delta) {
   return(list(delta.pn, delta.p, delta.n))
 }
 
+##--- utility function to only have an empty output line when needed
+print.empty.line.first.time = function() {
+  if (flag.empty.line.first.time) {
+    cat("\n")
+    flag.empty.line.first.time <<- FALSE
+  }
+}
+
+##--- print parameters
+alucomb2.print.params = function(params) {
+  if (length(params) > 0) {
+    cat("\nPARAMETERS\n")
+    mapply(function(label, value) {
+      input = attr(value, "input")
+      cat(" ", format(label, width=16), format(input[1], width=12))
+      if (input[2] == "" && value[3] == -value[4]) {
+        input[2] = substr(input[4], 2, nchar(input[4]))
+      }
+      if (input[2] == "") {
+        cat(format(paste(" ", input[3], sep=""), width=12),  paste(" ", input[4], sep=""), "\n", sep="")
+      } else {
+        cat(paste(" +-", input[2], sep=""), "\n", sep="")
+      }
+    }, names(params), params)
+  }
+}
+
+##--- print systematic terms, the original input string and the resulting absolute value
+alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
+  syst.terms.input = attr(syst.terms, "input")[mask]
+  syst.terms = syst.terms[mask]
+  if (length(syst.terms) > 0) {
+    cat("\n", syst.label, "\n", sep="")
+    rc= mapply(function(label, val.abs, val.input) {
+      cat("  ", format(val.input, width=16), " ", format(label, width=16), sep="")
+      if (val.input != val.abs) cat(" # ", val.abs, sep="")
+      cat("\n")
+    },
+      names(syst.terms),
+      paste(ifelse(syst.terms>=0, "+", ""), as.character(syst.terms), sep=""),
+      syst.terms.input)
+  }
+}
+
+alucomb2.print.correlation = function(corr.label, corr.terms) {
+  if (length(corr.terms) > 0) {
+    cat("\n")
+    rc = mapply(function(label, value, input) {
+      cat(corr.label, " ", format(input, width=12), " ", gsub(".", " ", label, fixed=TRUE), sep="")
+      if (value != input) cat(" # ", value, sep="")
+      cat("\n")
+    },
+      names(corr.terms),
+      paste(ifelse(corr.terms>=0, "+", ""), as.character(corr.terms), sep=""),
+      attr(corr.terms, "input"))
+  }
+}
+
+##
+## print a measurement
+##
+alucomb2.print.meas = function(meas, quantities) {
+  cat("#\n# ", meas$quant, " (PDG node = ", quantities[[meas$quant]]$node, ")\n", sep="")
+  descr = quantities[[meas$quant]]$descr
+  if (!is.null(descr)) cat("# ", descr, "\n", sep="")
+  cat("#\nBEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
+  
+  cat("\n")
+  cat("VALUE", meas$value)
+  
+  if (meas$stat.p == -meas$stat.n) {
+    cat(" +-", meas$stat, sep="")
+  } else {
+    cat(" +", meas$stat.p, " -", -meas$stat.n, sep="")
+  }
+  if (meas$syst.p == -meas$syst.n) {
+    cat(" +-", meas$syst, sep="")
+  } else {
+    cat(" +", meas$syst.p, " -", -meas$syst.n, sep="")
+  }
+  cat("\n")
+  
+  alucomb2.print.correlation("STAT_CORR_WITH", meas$corr.terms.stat)
+  alucomb2.print.correlation("TOT_CORR_WITH", meas$corr.terms.tot)
+  
+  meas.name = paste(meas$tags, collapse=".")
+  paper.name = paste(meas$tags[-2], collapse=".")
+  syst.local.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == meas.name
+  syst.paper.mask = substr(names(meas$syst.terms), 1, length(meas.name)) == paper.name
+  
+  alucomb2.print.meas.syst.terms("SYSTEMATICS", meas$syst.terms, !(syst.local.mask | syst.paper.mask))
+  alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
+  alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
+  
+  alucomb2.print.params(meas$params)
+  
+  cat("\n")
+  cat("END\n")
+}
+
 ##
 ## cards
 ##
@@ -607,17 +707,22 @@ alucomb.read = function(file = "") {
           return(val)
         })
 
+        type.attr = "g"
         if (clause.keyw == "SYSTLOCAL") {
+          type.attr = "l"
           clause.labels = paste(paste(block.fields, collapse="."), clause.labels, sep=".")
         } else if (clause.keyw == "SYSTPAPER") {
+          type.attr = "p"
           clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
         }
         names(clause.values) = clause.labels
-        new.attr = c(
-          attr(block.meas$syst.terms, "input"),
-          sapply(clause.values, function(el) attr(el, "input")))
+        input.attr = c(attr(block.meas$syst.terms, "input"), sapply(clause.values, function(el) attr(el, "input")))
+        input.attr = sub("^[+-]", "", input.attr)
+        input.attr = paste(ifelse(clause.values >= 0, "+", "-"), input.attr, sep="")
+        type.attr = c(attr(block.meas$syst.terms, "type"), sapply(clause.values, function(el) type.attr))
         block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause.values))
-        attr(block.meas$syst.terms, "input") = new.attr
+        attr(block.meas$syst.terms, "input") = input.attr
+        attr(block.meas$syst.terms, "type") = type.attr
         
       } else if (clause.keyw == "STAT_CORR_WITH" || clause.keyw == "ERROR_CORR_WITH") {
         ##
@@ -649,16 +754,16 @@ alucomb.read = function(file = "") {
         attr(corr, "input") = sub("^([^+-])", "+\\1", attr(corr, "input"))
         
         ##--- update meas block
-        new.attr = attr(corr, "input")
-        names(new.attr) = names(corr)
+        input.attr = attr(corr, "input")
+        names(input.attr) = names(corr)
         if (clause.keyw == "STAT_CORR_WITH") {
-          new.attr = c(attr(block.meas$corr.terms.stat, "input"), new.attr)
+          input.attr = c(attr(block.meas$corr.terms.stat, "input"), input.attr)
           block.meas$corr.terms.stat = c(block.meas$corr.terms.stat, corr)
-          attr(block.meas$corr.terms.stat, "input") = new.attr
+          attr(block.meas$corr.terms.stat, "input") = input.attr
         } else {
-          new.attr = c(attr(block.meas$corr.terms.tot, "input"), new.attr)
+          input.attr = c(attr(block.meas$corr.terms.tot, "input"), input.attr)
           block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
-          attr(block.meas$corr.terms.tot, "input") = new.attr
+          attr(block.meas$corr.terms.tot, "input") = input.attr
         }
 
       } else if (clause.keyw == "SUMOFQUANT" || clause.keyw == "COMBOFQUANT" || clause.keyw == "CONSTRAINT") {
