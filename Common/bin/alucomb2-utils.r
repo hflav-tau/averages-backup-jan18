@@ -146,7 +146,7 @@ alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
       if (val.input != val.abs) cat(" # ", val.abs, sep="")
       cat("\n")
     },
-      names(syst.terms),
+      names(syst.terms.input),
       paste(ifelse(syst.terms>=0, "+", ""), as.character(syst.terms), sep=""),
       syst.terms.input)
   }
@@ -704,6 +704,7 @@ alucomb.read = function(file = "") {
           return(val)
         })
 
+        clause.labels.input = clause.labels
         type.attr = "g"
         if (clause.keyw == "SYSTLOCAL") {
           type.attr = "l"
@@ -717,10 +718,16 @@ alucomb.read = function(file = "") {
                paste(c(clause.keyw, clause.fields), collapse=" "))
         }
         names(clause.values) = clause.labels
-        input.attr = c(attr(block.meas$syst.terms, "input"), sapply(clause.values, function(el) attr(el, "input")))
+
+        input.attr = sapply(clause.values, function(el) attr(el, "input"))
         input.attr = sub("^[+-]", "", input.attr)
         input.attr = paste(ifelse(clause.values >= 0, "+", "-"), input.attr, sep="")
-        type.attr = c(attr(block.meas$syst.terms, "type"), sapply(clause.values, function(el) type.attr))
+        names(input.attr) = clause.labels.input
+
+        type.attr = sapply(clause.values, function(el) type.attr)
+        
+        input.attr = c(attr(block.meas$syst.terms, "input"), input.attr)
+        type.attr = c(attr(block.meas$syst.terms, "type"), type.attr)
         block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause.values))
         attr(block.meas$syst.terms, "input") = input.attr
         attr(block.meas$syst.terms, "type") = type.attr
