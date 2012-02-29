@@ -226,8 +226,10 @@ combination$constr.all.comb = c(combination$constr.lin.comb, lapply(combination$
 
 ##--- print constraint equations
 if (length(combination$constr.all.val) > 0) {
+  eqs.order = order(names(combination$constr.all.val))
+  eqs.order = seq(1, length(eqs.order))
   cat("\n## Constraint equations from cards begin\n\n")
-  cat(paste(combination$constr.all.val, combination$constr.all.str.expr, sep=" = "), sep="\n")
+  cat(paste(combination$constr.all.val[eqs.order], combination$constr.all.str.expr[eqs.order], sep=" = "), sep="\n")
   cat("\n## Constraint equations from cards end\n")
 }
 
@@ -299,9 +301,11 @@ if (any(combination$constr.all.nl)) {
 
 ##--- print constraint equations that will be used
 if (any(combination$constr.all.lin | combination$constr.all.nl)) {
+  eqs.order = order(names(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl]))
+  eqs.order = seq(1, length(eqs.order))
   cat("\n## Constraint equations used begin\n\n")
-  cat(paste(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl],
-            combination$constr.all.str.expr[combination$constr.all.lin | combination$constr.all.nl],
+  cat(paste(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl][eqs.order],
+            combination$constr.all.str.expr[combination$constr.all.lin | combination$constr.all.nl][eqs.order],
             sep=" = "), sep="\n")
   cat("\n## Constraint equations used end\n")
 }
