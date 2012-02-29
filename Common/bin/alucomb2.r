@@ -228,14 +228,16 @@ combination$constr.all.comb = c(combination$constr.lin.comb, lapply(combination$
 if (length(combination$constr.all.val) > 0) {
   eqs.order = order(names(combination$constr.all.val))
   eqs.order = seq(1, length(eqs.order))
-  cat("\n## Constraint equations from cards begin\n\n")
+  cat("\n##\n")
+  cat("## Constraint equations from card\n")
+  cat("##\n")
   cat(paste(combination$constr.all.val[eqs.order], combination$constr.all.str.expr[eqs.order], sep=" = "), sep="\n")
-  cat("\n## Constraint equations from cards end\n")
 }
 
 ##--- check duplicate linear constraints
 ##+++ improve, must check if the two linear combinations are degenerate
 ##+++ in general, should check if constraints are linearly independent
+flag = FALSE
 if (length(combination$constr.lin.comb) > 1) {
   dupl.constr = NULL
   for (i in seq(1, length(combination$constr.lin.comb))) {
@@ -253,8 +255,11 @@ if (length(combination$constr.lin.comb) > 1) {
   if (length(dupl.constr) > 0) {
     cat("warning: duplicated constraints, listed in row pairs\n")
     cat(dupl.constr, "\n")
-    stop("duplicated constraints will produce a singular matrix")
+    flag = TRUE
   }
+}
+if (flag) {
+  stop("duplicated constraints will produce a singular matrix")
 }
 
 ##--- retain only linear constraints whose terms are all included in the fitted quantities
@@ -263,7 +268,9 @@ if (any(combination$constr.all.lin)) {
   constr.var.not.in.quant.lin[combination$constr.all.lin] =
     sapply(combination$constr.all.comb[combination$constr.all.lin], function(x) !all(names(x) %in% quant.names))
   if (any(constr.var.not.in.quant.lin)) {
-    cat("\nThe following linear constraints are dropped:\n")
+    cat("\n##\n")
+    cat("## Linear constraints dropped due to missing quantities\n")
+    cat("##\n")
     constr.missing.var.lin = lapply(
       combination$constr.all.comb[constr.var.not.in.quant.lin],
       function(x) setdiff(names(x), quant.names))    
@@ -284,7 +291,9 @@ if (any(combination$constr.all.nl)) {
   constr.var.not.in.quant.nl[combination$constr.all.nl] =
     sapply(combination$constr.all.expr[combination$constr.all.nl], function(x) !all(all.vars(x) %in% quant.names))
   if (any(constr.var.not.in.quant.nl)) {
-    cat("\nThe following non-linear constraints are dropped:\n")
+    cat("\n##\n")
+    cat("## Non-linear constraints dropped due to missing quantities\n")
+    cat("##\n")
     constr.missing.var.nl = lapply(
       combination$constr.all.expr[constr.var.not.in.quant.nl],
       function(x) setdiff(all.vars(x), quant.names))    
@@ -299,15 +308,47 @@ if (any(combination$constr.all.nl)) {
   combination$constr.all.nl = combination$constr.all.nl & !constr.var.not.in.quant.nl
 }
 
+##--- convert non-linear constraints into linear ones if possible
+quant.val = rep(NA, length(quant.names))
+names(quant.val) = quant.names
+flag.no.output.yet = TRUE
+for(constr.name in names(combination$constr.all.nl)) {
+  nlconstr.expr = combination$constr.all.expr[constr.name]
+  comb = try(drop(attr(eval(deriv(nlconstr.expr, all.vars(nlconstr.expr)), as.list(quant.val)), "gradient")), silent=TRUE)
+  if (!inherits(comb, "try-error") && all(!is.na(comb))) {
+    combination$constr.all.nl[constr.name] = FALSE
+    combination$constr.all.lin[constr.name] = TRUE
+    combination$constr.all.comb[[constr.name]] = comb
+    if (flag.no.output.yet) {
+      cat("\n##\n")
+      cat("## Linearized non-linear constraints\n")
+      cat("##\n")
+      flag.no.output.yet = FALSE
+    }
+    cat("non-linear: ",
+        combination$constr.all.val[constr.name], " = ",
+        combination$constr.all.str.expr[[constr.name]],
+        "\n", sep="")
+    cat("linearized: ",
+        combination$constr.all.val[constr.name], " = ",
+        paste(combination$constr.all.comb[[constr.name]],
+              names(combination$constr.all.comb[[constr.name]]),
+              sep="*", collapse=" + "),
+        "\n", sep="")
+  }
+}
+rm(quant.val, flag.no.output.yet)
+
 ##--- print constraint equations that will be used
 if (any(combination$constr.all.lin | combination$constr.all.nl)) {
   eqs.order = order(names(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl]))
   eqs.order = seq(1, length(eqs.order))
-  cat("\n## Constraint equations used begin\n\n")
+  cat("\n##\n")
+  cat("## Constraint equations used\n")
+  cat("##\n")
   cat(paste(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl][eqs.order],
             combination$constr.all.str.expr[combination$constr.all.lin | combination$constr.all.nl][eqs.order],
             sep=" = "), sep="\n")
-  cat("\n## Constraint equations used end\n")
 }
 
 ##--- quantities involved in constraints
@@ -319,7 +360,9 @@ involved.quantities = unique(c(meas.quantities, constr.lin.quantities, constr.nl
 ##--- discard fitted quantities that are not defined by measurements and constraints
 quant.discarded = setdiff(quant.names, involved.quantities)
 if (length(quant.discarded) > 0) {
-  cat("\nwarning: following quantities discarded (not in measurements & constraints):\n")
+  cat("\n##\n")
+  cat("## warning: quantities discarded (not in measurements & constraints)\n")
+  cat("##\n")
   cat(paste("  ", quant.discarded, collapse="\n"), "\n");
   quant.names = setdiff(quant.names, quant.discarded)
   combination$combine.old = combination$combine
@@ -347,18 +390,24 @@ for (mn in meas.names) {
 }
 
 if (length(slightly.larger) > 0) {
-  cat("\nwarning: syst. terms sum slightly larger than total syst. error\n")
+  cat("\n##\n")
+  cat("## warning: syst. terms sum slightly larger than total syst. error\n")
+  cat("##\n")
   colnames(slightly.larger) = c("total", "sum of terms")
   print(slightly.larger)
 }
 if (length(larger) > 0) {
-  cat("\nerror: syst. terms sum larger than total syst. error\n")
+  cat("\n##\n")
+  cat("## warning: syst. terms sum larger than total syst. error\n")
+  cat("##\n")
   colnames(larger) = c("total", "sum of terms")
   print(larger)
   stop("aborting")
 }
 if (length(not.matching) > 0) {
-  cat("\nwarning: syst. terms do not match total syst. error, Combos requires that\n")
+  cat("\n##\n")
+  cat("## warning: syst. terms do not match total syst. error, Combos requires that\n")
+  cat("##\n")
   colnames(not.matching) = c("total", "sum of terms")
   print(not.matching)
 }
@@ -895,12 +944,15 @@ repeat {
       constr.m.order = apply(constr.m, 1, function(x) 10^round(log(mean(abs(x[x!=0])))/log(10)))
 
       if (TRUE) {
-        cat("\n## Begin of linearized constraint equations (1st iteration)\n\n")
+        cat("\n##\n")
+        cat("## linearized constraint equations (1st iteration)\n")
+        cat("##\n\n")
         print.linearized.constraints(constr.nl.val, constr.nl.comb)
-        cat("\n## End of linearized constraint equations (1st iteration)\n")
       }
 
-      cat("\n## Begin of constraint percent change summaries\n")
+      cat("\n##\n")
+      cat("## constraint percent change summaries\n")
+      cat("##\n")
     }
     ##--- to avoid computationally singular matrix, apply proper factor to constraint equations
     constr.m = constr.m * quant.invcov.order/constr.m.order
@@ -960,16 +1012,14 @@ repeat {
   constr.nl.prev.val = constr.nl.val
   first.iteration = FALSE
 }
-if (constr.num > 0) {
-  cat("\n## End of constraint percent change summaries\n")
-}
 rm(first.iteration)
 suppressWarnings(rm(constr.diff))
 
 if (TRUE) {
-  cat("\n## Begin of linearized constraint equations (after convergence)\n\n")
+  cat("\n##\n")
+  cat("## linearized constraint equations (after convergence)\n")
+  cat("##\n\n")
   print.linearized.constraints(constr.nl.val, constr.nl.comb)
-  cat("\n## End of linearized constraint equations (after convergence)\n")
 }
 
 ##
