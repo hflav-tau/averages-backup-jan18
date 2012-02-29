@@ -186,6 +186,51 @@ cat("## using the following updated global parameters\n")
 cat("##\n")
 alucomb2.print.params(combination$params)
 
+## 
+## prepare constraints
+## - transform linear constraints combinations into expressions
+## - transform non-linear constraint strings into expressions
+## - join linear and non-linear expressions in a single list
+## - join linear and non-linear constraint constants in a single list
+## - save all lists in "combination" list
+##
+
+##--- flag which constraints are non-linear
+combination$constr.all.nl = c(rep(FALSE, length(combination$constr.lin.val)), rep(TRUE, length(combination$constr.nl.str.val)))
+names(combination$constr.all.nl) = c(names(combination$constr.lin.val), names(combination$constr.nl.str.val))
+combination$constr.all.lin = !combination$constr.all.nl
+
+##--- join linear and non-linear constraint values
+combination$constr.all.val = unlist(c(combination$constr.lin.val, combination$constr.nl.str.val))
+
+##--- get expressions corresponding to linear constraints combinations
+constr.lin.expr = mapply(function(comb) {
+  constr = paste(mapply(function(x,y) paste(x, "*", y, sep=""), comb, names(comb)), collapse = "+")
+  parse(text=constr)
+}, combination$constr.lin.comb)
+
+##--- get expressions corresponding to non-linear constraints combinations
+constr.nl.expr = parse(text=combination$constr.nl.str.expr)
+names(constr.nl.expr) = names(combination$constr.nl.str.expr)
+
+##--- join linear and non-linear constrainst expressions
+combination$constr.all.expr = c(constr.lin.expr, constr.nl.expr)
+
+##--- join text representation of constraint equations
+combination$constr.all.str.expr = c(
+  sapply(combination$constr.lin.comb, function(comb) paste(comb, names(comb), sep="*", collapse=" + ")),
+  combination$constr.nl.str.expr)
+
+##--- linear combination coefficients, the non-linear ones will be iteratively computed/updated
+combination$constr.all.comb = c(combination$constr.lin.comb, lapply(combination$constr.nl.str.expr, function(x) NA))
+
+##--- print constraint equations
+if (length(combination$constr.all.val) > 0) {
+  cat("\n## Constraint equations from cards begin\n\n")
+  cat(paste(combination$constr.all.val, combination$constr.all.str.expr, sep=" = "), sep="\n")
+  cat("\n## Constraint equations from cards end\n")
+}
+
 ##--- check duplicate linear constraints
 ##+++ improve, must check if the two linear combinations are degenerate
 ##+++ in general, should check if constraints are linearly independent
@@ -206,32 +251,65 @@ if (length(combination$constr.lin.comb) > 1) {
   if (length(dupl.constr) > 0) {
     cat("warning: duplicated constraints, listed in row pairs\n")
     cat(dupl.constr, "\n")
+    stop("duplicated constraints will produce a singular matrix")
   }
 }
 
-##--- retain only constraints whose terms are all included in the fitted quantities
-if (length(combination$constr.lin.comb) > 0) {
-  constr.select = sapply(combination$constr.lin.comb, function(x) all(names(x) %in% quant.names))
-  if (any(!constr.select)) {
-    cat("\nThe following constraints are dropped:\n")
-    mapply(function(comb, val, val.name) {
-      tmp = val
-      names(tmp) = val.name
-      print(c(comb, tmp))
+##--- retain only linear constraints whose terms are all included in the fitted quantities
+if (any(combination$constr.all.lin)) {
+  constr.var.not.in.quant.lin = rep(FALSE, length(combination$constr.all.lin))
+  constr.var.not.in.quant.lin[combination$constr.all.lin] =
+    sapply(combination$constr.all.comb[combination$constr.all.lin], function(x) !all(names(x) %in% quant.names))
+  if (any(constr.var.not.in.quant.lin)) {
+    cat("\nThe following linear constraints are dropped:\n")
+    constr.missing.var.lin = lapply(
+      combination$constr.all.comb[constr.var.not.in.quant.lin],
+      function(x) setdiff(names(x), quant.names))    
+    rc = mapply(function(val, str.expr, missing) {
+      cat(val, " = ", str.expr, "\n", sep="")
+      cat("  missing vars: ", paste(missing, collapse="\n"), "\n", sep="")
     },
-    combination$constr.lin.comb[!constr.select],
-    combination$constr.lin.val[!constr.select],
-    names(combination$constr.lin.val[!constr.select]))
-    cat("\nThe following quantities are missing:\n")
-    print(unique(unlist(lapply(combination$constr.lin.comb, function(x) setdiff(names(x), quant.names)))))
+      combination$constr.all.val[constr.var.not.in.quant.lin],
+      combination$constr.all.str.expr[constr.var.not.in.quant.lin],
+      constr.missing.var.lin)
   }
-  combination$constr.lin.comb = combination$constr.lin.comb[constr.select]
-  combination$constr.lin.val = combination$constr.lin.val[constr.select]
+  combination$constr.all.lin = combination$constr.all.lin & !constr.var.not.in.quant.lin
+}
+
+##--- retain only non-linear constraints whose terms are all included in the fitted quantities
+if (any(combination$constr.all.nl)) {
+  constr.var.not.in.quant.nl = rep(FALSE, length(combination$constr.all.nl))
+  constr.var.not.in.quant.nl[combination$constr.all.nl] =
+    sapply(combination$constr.all.expr[combination$constr.all.nl], function(x) !all(all.vars(x) %in% quant.names))
+  if (any(constr.var.not.in.quant.nl)) {
+    cat("\nThe following non-linear constraints are dropped:\n")
+    constr.missing.var.nl = lapply(
+      combination$constr.all.expr[constr.var.not.in.quant.nl],
+      function(x) setdiff(all.vars(x), quant.names))    
+    rc = mapply(function(val, str.expr, missing) {
+      cat(val, " = ", str.expr, "\n", sep="")
+      cat("  missing vars: ", paste(missing, collapse="\n"), "\n", sep="")
+    },
+      combination$constr.all.val[constr.var.not.in.quant.nl],
+      combination$constr.all.str.expr[constr.var.not.in.quant.nl],
+      constr.missing.var.nl)
+  }
+  combination$constr.all.nl = combination$constr.all.nl & !constr.var.not.in.quant.nl
+}
+
+##--- print constraint equations that will be used
+if (any(combination$constr.all.lin | combination$constr.all.nl)) {
+  cat("\n## Constraint equations used begin\n\n")
+  cat(paste(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl],
+            combination$constr.all.str.expr[combination$constr.all.lin | combination$constr.all.nl],
+            sep=" = "), sep="\n")
+  cat("\n## Constraint equations used end\n")
 }
 
 ##--- quantities involved in constraints
-constr.lin.quantities = unique(unlist(lapply(combination$constr.lin.comb, function(x) names(x)), use.names=FALSE))
-constr.nl.quantities = all.vars(parse(text=combination$constr.nl.str.expr))
+constr.lin.quantities = unique(unlist(lapply(combination$constr.all.comb[combination$constr.all.lin],
+  function(x) names(x)), use.names=FALSE))
+constr.nl.quantities = unique(unlist(all.vars(combination$constr.all.expr[combination$constr.all.nl])))
 involved.quantities = unique(c(meas.quantities, constr.lin.quantities, constr.nl.quantities))
 
 ##--- discard fitted quantities that are not defined by measurements and constraints
@@ -657,41 +735,6 @@ if (length(seed.needed.notincards)>0) {
 }
 quant.seed.val[seed.needed] = quant.cards.seed.val[seed.needed]
 
-## 
-## prepare constraints for minimization constraints
-## - transform linear constraints combinations into expressions
-## - transform non-linear constraint strings into expressions
-## - join linear and non-linear expressions in a single list
-## - join linear and non-linear constraint constants in a single list
-## - save all lists in "combination" list
-##
-
-##--- get expressions corresponding to linear constraints combinations
-constr.lin.expr = mapply(function(comb) {
-  constr = paste(mapply(function(x,y) paste(x, "*", y, sep=""), comb, names(comb)), collapse = "+")
-  parse(text=constr)
-}, combination$constr.lin.comb)
-
-##--- get expressions corresponding to non-linear constraints combinations
-constr.nl.expr = parse(text=combination$constr.nl.str.expr)
-names(constr.nl.expr) = names(combination$constr.nl.str.expr)
-
-##--- join linear and non-linear constrainst expressions
-combination$constr.all.expr = c(constr.lin.expr, constr.nl.expr)
-
-##--- join linear and non-linear constraint values
-combination$constr.all.val = unlist(c(combination$constr.lin.val, combination$constr.nl.str.val))
-
-##--- flag which constraints are non-linear
-combination$constr.all.nl = c(rep(FALSE, length(combination$constr.lin.val)), rep(TRUE, length(combination$constr.nl.str.val)))
-
-##--- print constraint equations
-if (length(combination$constr.all.val) > 0) {
-  cat("\n## Constraint equations begin\n\n")
-  cat(paste(combination$constr.all.val, as.character(combination$constr.all.expr), sep=" = "), sep="\n")
-  cat("\n## Constraint equations end\n")
-}
-
 ##
 ## ////////////////////////////////////////////////////////////////////////////
 ##
@@ -802,17 +845,21 @@ if (method == "alucomb2") {
 ##--- init quant.val
 quant.val = quant.seed.val
 
-first.iteration = TRUE
-constr.num = length(combination$constr.all.expr)
-constr.names = names(combination$constr.all.expr)
+##--- prepare list of all linear and linearized values and combination coefficients
+constr.all.used = combination$constr.all.lin | combination$constr.all.nl
+constr.all.lin = combination$constr.all.lin[constr.all.used]
+constr.all.nl = combination$constr.all.nl[constr.all.used]
+constr.all.val = combination$constr.all.val[constr.all.used]
+constr.all.comb = combination$constr.all.comb[constr.all.used]
+constr.all.comb[constr.all.lin] = combination$constr.all.comb[combination$constr.all.lin]
 
 ##--- derivative and gradient of non-linear constraint equation expressions
 constr.nl.expr = lapply(combination$constr.all.expr[combination$constr.all.nl], function(x) deriv(x, all.vars(x)))
 
-##--- prepare list of all linear and linearized values and combination coefficients
-constr.all.val = combination$constr.all.val
-constr.all.comb = c(combination$constr.lin.comb, rep(NA, length(combination$constr.nl.str.val)))
+constr.num = length(constr.all.val)
+constr.names = names(constr.all.val)
 
+first.iteration = TRUE
 repeat {
   ##
   ## linearize just the non-linear constraint equations
@@ -827,8 +874,8 @@ repeat {
     constr.nl.val = constr.nl.val + sapply(constr.nl.comb, function(x) drop(x %*% quant.val[names(x)]))
   }
   ##--- update linearized values and combination coefficients
-  constr.all.val[combination$constr.all.nl] = constr.nl.val
-  constr.all.comb[combination$constr.all.nl] = constr.nl.comb  
+  constr.all.val[constr.all.nl] = constr.nl.val
+  constr.all.comb[constr.all.nl] = constr.nl.comb  
   ##--- convert linearized constraint equations into linear matricial form
   constr.m = do.call(rbind, lapply(constr.all.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
   constr.v = constr.all.val
