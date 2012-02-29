@@ -372,7 +372,7 @@ alucomb.read = function(file = "") {
       
       ##--- skip comment and empty lines
       if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
-          regexpr("^[\\#!*;]", line, perl=TRUE) != -1) {
+          regexpr("^\\s*[\\#!*;]", line, perl=TRUE) != -1) {
         next
       }
       ##--- remove trailing whitespace
