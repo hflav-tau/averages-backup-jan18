@@ -262,6 +262,20 @@ if (flag) {
   stop("duplicated constraints will produce a singular matrix")
 }
 
+##--- substitute constant parameters in constraint equations
+params = lapply(combination$params, function(x) unname(x["value"]))
+for(constr.name in names(combination$constr.all.nl)) {
+  nlconstr.expr = combination$constr.all.expr[constr.name]
+  nlconstr.expr.subs = esub.expr(nlconstr.expr, params)
+  if (!identical(nlconstr.expr, nlconstr.expr.subs)) {
+    nlconstr.str.expr = deparse.one.line(nlconstr.expr.subs)
+    attr(nlconstr.str.expr, "input") = combination$constr.all.str.expr[constr.name]
+    combination$constr.all.str.expr[constr.name] = nlconstr.str.expr
+    attr(nlconstr.expr.subs, "input") = nlconstr.expr
+    combination$constr.all.expr[constr.name] = nlconstr.expr.subs
+  }
+}
+
 ##--- retain only linear constraints whose terms are all included in the fitted quantities
 if (any(combination$constr.all.lin)) {
   constr.var.not.in.quant.lin = rep(FALSE, length(combination$constr.all.lin))
@@ -314,6 +328,10 @@ names(quant.val) = quant.names
 flag.no.output.yet = TRUE
 for(constr.name in names(combination$constr.all.nl)) {
   nlconstr.expr = combination$constr.all.expr[constr.name]
+  ##
+  ## evaluate gradient of constraint expr using defined but invalid variables
+  ## if successful, it means the gradient does not depent on variables, i.e. the constraint is linear
+  ##
   comb = try(drop(attr(eval(deriv(nlconstr.expr, all.vars(nlconstr.expr)), as.list(quant.val)), "gradient")), silent=TRUE)
   if (!inherits(comb, "try-error") && all(!is.na(comb))) {
     combination$constr.all.nl[constr.name] = FALSE

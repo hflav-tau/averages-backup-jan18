@@ -16,6 +16,21 @@ diag.m <- function(vec) {
 }
 
 ##
+## substitute after evaluating arg
+##
+esub = function(expr, sublist) do.call("substitute", list(expr, sublist))
+esub.expr = function(expr, sublist) {
+  sapply(as.expression(expr), function(call) as.expression(esub(call, sublist)))
+}
+
+##
+## deparse expression and produce single line
+##
+deparse.one.line = function(expr) {
+  paste(gsub("^\\s+|\\s+$", "", sapply(as.expression(expr), function(x) deparse(x)), perl=TRUE), collapse="")
+}
+
+##
 ## print matrix with even formatting
 ##
 alu.rbind.print = function(x, width=13, num.columns=NULL) {
