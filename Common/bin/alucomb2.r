@@ -187,6 +187,8 @@ cat("##\n")
 alucomb2.print.params(combination$params)
 
 ##--- check duplicate linear constraints
+##+++ improve, must check if the two linear combinations are degenerate
+##+++ in general, should check if constraints are linearly independent
 if (length(combination$constr.lin.comb) > 1) {
   dupl.constr = NULL
   for (i in seq(1, length(combination$constr.lin.comb))) {
@@ -229,7 +231,7 @@ if (length(combination$constr.lin.comb) > 0) {
 
 ##--- quantities involved in constraints
 constr.lin.quantities = unique(unlist(lapply(combination$constr.lin.comb, function(x) names(x)), use.names=FALSE))
-constr.nl.quantities = all.vars(parse(text=combination$constr.nl.expr))
+constr.nl.quantities = all.vars(parse(text=combination$constr.nl.str.expr))
 involved.quantities = unique(c(meas.quantities, constr.lin.quantities, constr.nl.quantities))
 
 ##--- discard fitted quantities that are not defined by measurements and constraints
@@ -589,7 +591,7 @@ if (!is.null(quant.cards.sfact)) {
 ## all remaining delta matrix terms are zero
 ## one can generalize the above concepts to measurements that are linear combinations
 ## of quantities by using proper coefficients different from 1
-##
+#
 delta = as.matrix(sapply(quant.names, function(x) as.numeric(x == meas.quantities)))
 rownames(delta) = meas.names
 ##--- needed when length(quant.names) == 1
@@ -671,17 +673,17 @@ constr.lin.expr = mapply(function(comb) {
 }, combination$constr.lin.comb)
 
 ##--- get expressions corresponding to non-linear constraints combinations
-constr.nl.expr = parse(text=combination$constr.nl.expr)
-names(constr.nl.expr) = names(combination$constr.nl.expr)
+constr.nl.expr = parse(text=combination$constr.nl.str.expr)
+names(constr.nl.expr) = names(combination$constr.nl.str.expr)
 
 ##--- join linear and non-linear constrainst expressions
 combination$constr.all.expr = c(constr.lin.expr, constr.nl.expr)
 
 ##--- join linear and non-linear constraint values
-combination$constr.all.val = unlist(c(combination$constr.lin.val, combination$constr.nl.val))
+combination$constr.all.val = unlist(c(combination$constr.lin.val, combination$constr.nl.str.val))
 
 ##--- flag which constraints are non-linear
-combination$constr.all.nl = c(rep(FALSE, length(combination$constr.lin.val)), rep(TRUE, length(combination$constr.nl.val)))
+combination$constr.all.nl = c(rep(FALSE, length(combination$constr.lin.val)), rep(TRUE, length(combination$constr.nl.str.val)))
 
 ##--- print constraint equations
 if (length(combination$constr.all.val) > 0) {
@@ -785,6 +787,16 @@ rc = save(file=file.name.data,
 ## ////////////////////////////////////////////////////////////////////////////
 ##
 
+##--- print linearized constraints
+print.linearized.constraints = function(val, comb) {
+  tmp = mapply(function(val, comb) {
+    cat(sprintf("%.5g", val), "=", paste(mapply(function(name, val) {
+      paste(sprintf("%.5g", val), name, sep="*")
+    }, names(comb), comb), collapse=" + "), "\n")
+  }, val, comb)
+}
+
+##--- alucomb2
 if (method == "alucomb2") {
 
 ##--- init quant.val
@@ -797,14 +809,9 @@ constr.names = names(combination$constr.all.expr)
 ##--- derivative and gradient of non-linear constraint equation expressions
 constr.nl.expr = lapply(combination$constr.all.expr[combination$constr.all.nl], function(x) deriv(x, all.vars(x)))
 
-##--- print linearized constraints
-print.linearized.constraints = function(val, comb) {
-  tmp = mapply(function(val, comb) {
-    cat(sprintf("%.5g", val), "=", paste(mapply(function(name, val) {
-      paste(sprintf("%.5g", val), name, sep="*")
-    }, names(comb), comb), collapse=" + "), "\n")
-  }, val, comb)
-}
+##--- prepare list of all linear and linearized values and combination coefficients
+constr.all.val = combination$constr.all.val
+constr.all.comb = c(combination$constr.lin.comb, rep(NA, length(combination$constr.nl.str.val)))
 
 repeat {
   ##
@@ -815,14 +822,13 @@ repeat {
   ##
   constr.nl.val = lapply(constr.nl.expr, function(x) eval(x, as.list(quant.val)))
   constr.nl.comb = lapply(constr.nl.val, function(x) drop(attr(x, "gradient")))
-  constr.nl.val = unlist(combination$constr.nl.val) - unlist(constr.nl.val)
+  constr.nl.val = combination$constr.all.val[combination$constr.all.nl] - unlist(constr.nl.val)
   if (any(combination$constr.all.nl)) {
     constr.nl.val = constr.nl.val + sapply(constr.nl.comb, function(x) drop(x %*% quant.val[names(x)]))
   }
-
-  ##--- join linear constraints
-  constr.all.comb = c(combination$constr.lin.comb, constr.nl.comb)
-  constr.all.val = c(unlist(combination$constr.lin.val), constr.nl.val)
+  ##--- update linearized values and combination coefficients
+  constr.all.val[combination$constr.all.nl] = constr.nl.val
+  constr.all.comb[combination$constr.all.nl] = constr.nl.comb  
   ##--- convert linearized constraint equations into linear matricial form
   constr.m = do.call(rbind, lapply(constr.all.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
   constr.v = constr.all.val

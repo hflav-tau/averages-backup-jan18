@@ -152,6 +152,7 @@ alucomb2.print.meas.syst.terms = function(syst.label, syst.terms, mask) {
   }
 }
 
+##--- print correlation terms, using the cards input values
 alucomb2.print.meas.correlation = function(corr.label, corr.terms) {
   if (length(corr.terms) > 0) {
     cat("\n")
@@ -203,6 +204,16 @@ alucomb2.print.meas = function(meas, quantities) {
   
   cat("\n")
   cat("END\n")
+}
+
+##
+## return numerid id for sorting labels like "Gamma5", "Gamma3by5", ...
+##
+alucomb2.gamma.num.id = function(gamma.name) {
+  num1 = as.numeric(sub("^(\\D+)(\\d+)(|by.*)$", "\\2", gamma.name, perl=TRUE))
+  tmp = sub("^\\D+\\d+(by|)(\\d*)$", "\\2", gamma.name)
+  num2 = ifelse(tmp=="", 0, as.numeric(tmp))
+  return(10000*num1 + num2)
 }
 
 ##
@@ -276,8 +287,8 @@ alucomb2.print.meas = function(meas, quantities) {
 ## - params = list of numeric arrays: parameter value, pos/neg uncertainty
 ## - constr.lin.comb = list of numeric arrays: coeffs of quantities in linear constraints
 ## - constr.lin.val = list or numeric: values of linear constraint equations
-## - constr.nl.expr = list of numeric arrays: coeffs of quantities in linear constraints
-## - constr.nl.val = list or character: expression of non-linear constraint
+## - constr.nl.str.expr = list of character: non-linear constraint expression
+## - constr.nl.str.val = list or character: expression of non-linear constraint
 ##
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -832,8 +843,8 @@ alucomb.read = function(file = "") {
         constr.name = clause.labels[1]
         constr.val = as.vector(clause.values[[1]])
         constr.expr = clause.labels[2]
-        block$constr.nl.val[[constr.name]] = constr.val
-        block$constr.nl.expr[[constr.name]] = constr.expr
+        block$constr.nl.str.val[[constr.name]] = constr.val
+        block$constr.nl.str.expr[[constr.name]] = constr.expr
         
       } else if (clause.keyw == "USEMEAS") {
         ##
@@ -924,8 +935,8 @@ alucomb.read = function(file = "") {
       block$quantities = list()
       block$constr.lin.val = list()
       block$constr.lin.comb = list()
-      block$constr.nl.val = list()
-      block$constr.nl.expr = list()
+      block$constr.nl.str.val = list()
+      block$constr.nl.str.expr = list()
     }
     
     if (s.inblock && (t.endblock || t.endfile)) {
