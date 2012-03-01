@@ -186,7 +186,7 @@ cat("## using the following updated global parameters\n")
 cat("##\n")
 alucomb2.print.params(combination$params)
 
-## 
+##
 ## prepare constraints
 ## - transform linear constraints combinations into expressions
 ## - transform non-linear constraint strings into expressions
@@ -275,6 +275,7 @@ for(constr.name in names(combination$constr.all.nl)) {
     combination$constr.all.expr[constr.name] = nlconstr.expr.subs
   }
 }
+rm(params)
 
 ##--- retain only linear constraints whose terms are all included in the fitted quantities
 if (any(combination$constr.all.lin)) {
@@ -287,7 +288,7 @@ if (any(combination$constr.all.lin)) {
     cat("##\n")
     constr.missing.var.lin = lapply(
       combination$constr.all.comb[constr.var.not.in.quant.lin],
-      function(x) setdiff(names(x), quant.names))    
+      function(x) setdiff(names(x), quant.names))
     rc = mapply(function(val, str.expr, missing) {
       cat(val, " = ", str.expr, "\n", sep="")
       cat("  missing vars: ", paste(missing, collapse="\n"), "\n", sep="")
@@ -310,7 +311,7 @@ if (any(combination$constr.all.nl)) {
     cat("##\n")
     constr.missing.var.nl = lapply(
       combination$constr.all.expr[constr.var.not.in.quant.nl],
-      function(x) setdiff(all.vars(x), quant.names))    
+      function(x) setdiff(all.vars(x), quant.names))
     rc = mapply(function(val, str.expr, missing) {
       cat(val, " = ", str.expr, "\n", sep="")
       cat("  missing vars: ", paste(missing, collapse="\n"), "\n", sep="")
@@ -467,7 +468,7 @@ for (mn in meas.names) {
   measurements[[mn]]$syst = sqrt(measurements[[mn]]$syst^2 + sum(syst.term.deltasq))
   ##--- update systematic terms
   measurements[[mn]]$syst.terms[syst.upd.names] = syst.term.upd
-  
+
   if (TRUE) {
     params.old = params.old[need.update]
     params.old.delta = params.old.delta[need.update]
@@ -475,7 +476,7 @@ for (mn in meas.names) {
     params.new.delta = params.new.delta[need.update]
     syst.term.orig = syst.term.orig[need.update]
     syst.term.upd = syst.term.upd[need.update]
-    
+
     ##--- log updates to measurements values and uncertainties
     if (!flag.header.printed) {
       cat("\n##\n")
@@ -519,7 +520,7 @@ if (FALSE && any(meas.shifted)) {
           syst=meas.syst[meas.shifted]),
     num.columns=1)
 }
-  
+
 ##--- print updated measurements
 if (FALSE) {
   cat("\n##\n")
@@ -600,7 +601,7 @@ for (mi.name in meas.names) {
     corr.names.missing.upd = alu.find.matching.meas(corr.names.missing, strict.correlation.matching)
     names(measurements[[mi.name]]$corr.terms.stat)[corr.names.missing.mask] = corr.names.missing.upd
   }
-  
+
   corr.names = names(measurements[[mi.name]]$corr.terms.tot)
   corr.names.missing.mask = !(corr.names %in% meas.names)
   if (any(corr.names.missing.mask)) {
@@ -718,12 +719,12 @@ if (!is.null(quant.cards.sfact)) {
   meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
   meas.scale.stat = sapply(measurements[meas.used][meas.scale.names], function(x) {unname(x$stat)})
   meas.scale.syst = sapply(measurements[meas.used][meas.scale.names], function(x) {unname(x$syst.orig)})
-  
+
   ##--- compute additional syst. error to scale the total original error as requested
   meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
   ##--- add additional syst. contribution to the diagonal elements of the covariance
   diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] + meas.scale.systsq
-  
+
   cat("\n")
   for (quant.i in names(quant.cards.sfact)) {
     cat("applying s-factor =", quant.cards.sfact[quant.i], "for quantity", quant.i, "in measurements:\n")
@@ -946,11 +947,11 @@ repeat {
   }
   ##--- update linearized values and combination coefficients
   constr.all.val[constr.all.nl] = constr.nl.val
-  constr.all.comb[constr.all.nl] = constr.nl.comb  
+  constr.all.comb[constr.all.nl] = constr.nl.comb
   ##--- convert linearized constraint equations into linear matricial form
   constr.m = do.call(rbind, lapply(constr.all.comb, function(x) {tmp = quant.val*0; tmp[names(x)] = x; tmp}))
   constr.v = constr.all.val
-  
+
   if (constr.num > 0) {
     if (first.iteration) {
       ##--- determine the typical size of quant.invcov elements
@@ -996,15 +997,15 @@ repeat {
     full.v.m = t(delta) %*% meas.invcov
     full.v = meas.val
   }
-  
+
   ##--- matrix that applied to c(meas.val, constr. values) gives c(quant.val, lagr.mult.)
   solve.m = solve(full.m) %*% full.v.m
-  
+
   ##--- solve for both quantities and lagrange multipliers
   ## quant.constr.val = solve(full.m, (full.v.m %*% full.v))
   quant.constr.val = solve.m %*% full.v
   quant.val = drop(quant.constr.val)[1:quant.num]
-  
+
   if (all(!combination$constr.all.nl)) {
     ##--- there is no non-linear constraint whose linearization must iteratively converge
     break
@@ -1146,8 +1147,8 @@ if (method == "alabama") {
 
 require(alabama, quietly=TRUE)
 ##
-## note that we can give this the symbolic derivative of half.chisq.fun 
-## and the jacobian of the constraints if we want to; will go faster 
+## note that we can give this the symbolic derivative of half.chisq.fun
+## and the jacobian of the constraints if we want to; will go faster
 ##
 
 ##--- degrees of freedom
@@ -1220,4 +1221,8 @@ options(options.save)
 } ##--- end function alucomb
 
 args <- commandArgs(TRUE)
-if (length(args) > 0 && exists("alucomb")) alucomb(file = args[1]) 
+if (length(args) == 1 && exists("alucomb")) {
+  alucomb(file = args[1])
+} else {
+  cat("Usage: alucomb2.r <input file>\n")
+}

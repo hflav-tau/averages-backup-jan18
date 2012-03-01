@@ -6,7 +6,7 @@
 ##
 ## create diagonal matrix also for vectors of length one
 ##
-diag.m <- function(vec) {
+diag.m = function(vec) {
   if (length(vec) <= 1) {
     rc = as.matrix(vec)
   } else {
@@ -42,7 +42,7 @@ alu.rbind.print = function(x, width=13, num.columns=NULL) {
   width = getOption("width")
   digits = getOption("digits")
   if (is.null(num.columns)) {
-    items.per.row = max(1, floor((width-rn.max) / (cn.max+1))) 
+    items.per.row = max(1, floor((width-rn.max) / (cn.max+1)))
   } else {
     items.per.row = num.columns
   }
@@ -190,10 +190,10 @@ alucomb2.print.meas = function(meas, quantities) {
   descr = quantities[[meas$quant]]$descr
   if (!is.null(descr)) cat("# ", descr, "\n", sep="")
   cat("#\nBEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
-  
+
   cat("\n")
   cat("VALUE", meas$value)
-  
+
   if (meas$stat.p == -meas$stat.n) {
     cat(" +-", meas$stat, sep="")
   } else {
@@ -205,18 +205,18 @@ alucomb2.print.meas = function(meas, quantities) {
     cat(" +", meas$syst.p, " -", -meas$syst.n, sep="")
   }
   cat("\n")
-  
+
   alucomb2.print.meas.correlation("STAT_CORR_WITH", meas$corr.terms.stat)
-  alucomb2.print.meas.correlation("TOT_CORR_WITH", meas$corr.terms.tot)
-  
+  alucomb2.print.meas.correlation("ERROR_CORR_WITH", meas$corr.terms.tot)
+
   syst.local.mask = attr(meas$syst.terms, "type") == "l"
-  syst.paper.mask = attr(meas$syst.terms, "type") == "p"  
+  syst.paper.mask = attr(meas$syst.terms, "type") == "p"
   alucomb2.print.meas.syst.terms("SYSTEMATICS", meas$syst.terms, !(syst.local.mask | syst.paper.mask))
   alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
   alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
-  
+
   alucomb2.print.params(meas$params)
-  
+
   cat("\n")
   cat("END\n")
 }
@@ -240,14 +240,14 @@ alucomb2.gamma.num.id = function(gamma.name) {
 ##
 ## old style
 ##   BEGIN <exp> <quantity> <pub|prelim> <reference>.[<other.tags>]
-##   MEASUREMENT    m_<quantity>  statistical  systematic 
-##   DATA           m_<quantity>  statistical  systematic 
+##   MEASUREMENT    m_<quantity>  statistical  systematic
+##   DATA           m_<quantity>  statistical  systematic
 ##                  <val>         <stat>       <syst>
 ##   ...
 ##   STAT_CORR_WITH 0.235119 BaBar Gamma9by5 pub AUBERT.10P
 ##   ...
 ##   ##--- systematics terms
-##   DATA      
+##   DATA
 ##     term1 <signed val>
 ##     term2 <signed val>
 ##   END
@@ -260,7 +260,7 @@ alucomb2.gamma.num.id = function(gamma.name) {
 ##     term2 <signed val>
 ##   ...
 ##   END
-## 
+##
 ## a "measurement" is stored in a list with fields
 ##
 ## - tags = character array: measurement name fields
@@ -272,7 +272,7 @@ alucomb2.gamma.num.id = function(gamma.name) {
 ## - syst.terms = numeric array: syst. contributions related to external parameters
 ## - corr.terms.stat = numeric array: stat. corr. with other measurements
 ## - corr.terms.tot = numeric array: error corr. with other measurements
-## 
+##
 
 ##
 ## combination block:
@@ -317,17 +317,17 @@ alucomb.read = function(file = "") {
   if (match.nocase("^\\s*$", file)) {
     stop("alucomb: please provide as argument the card input file\n")
   }
-  
+
   flag.replace.corr = FALSE
   flag.build.delta = FALSE
-  
+
   if (!file.exists(file)) {
     stop("cannot find file ", file, "\n")
   }
   dir.base = dirname(file)
   lines = readLines(file)
   cat("read file", file, "\n")
-  
+
   ##
   ## deal with INCLUDE lines
   ##
@@ -354,23 +354,23 @@ alucomb.read = function(file = "") {
     }
     iline = iline + 1
   }
-  
+
   ##
   ## init global storage for cards
   ##
   measurements = list()
   combination = list()
-  
+
   s.inblock = FALSE
   s.inclause = FALSE
-  
+
   t.inblock = FALSE
   t.inclause = FALSE
   t.continue = FALSE
   t.endclause = FALSE
   t.endblock = FALSE
   t.endfile = FALSE
-  
+
   measurement.in.data = FALSE
 
   iline = 1
@@ -384,7 +384,7 @@ alucomb.read = function(file = "") {
     } else {
       line = lines[iline]
       iline = iline+1
-      
+
       ##--- skip comment and empty lines
       if (regexpr("^\\s*$", line, perl=TRUE) != -1 ||
           regexpr("^\\s*[\\#!*;]", line, perl=TRUE) != -1) {
@@ -432,7 +432,7 @@ alucomb.read = function(file = "") {
       } else {
         fields = unlist(strsplit(line, "\\s+", perl=TRUE))
       }
-      
+
       ##--- block begin
       t.inblock = (fields[1] == "BEGIN")
       ##--- block end
@@ -442,7 +442,7 @@ alucomb.read = function(file = "") {
       ##--- begin a clause if: 1) does not begin/end a block and 2) does not begin with blank
       t.inclause = !(t.inblock || t.endblock || t.continue)
     }
-    
+
     ##--- when continuing a clause collect all its fields
     if (t.continue) {
       if (s.inclause) {
@@ -455,7 +455,7 @@ alucomb.read = function(file = "") {
       }
       next
     }
-    
+
     ##
     ## end of a clause -> interpret its fields
     ##
@@ -495,21 +495,23 @@ alucomb.read = function(file = "") {
 
       ##--- convert if possible to numbers, else NA
       clause.fields.val = suppressWarnings(as.numeric(clause.fields.convert))
+      ##--- take note wich fields were converted to numbers
+      clause.fields.numeric = which(!is.na(clause.fields.val))
       ##--- labels are all non-numeric words
       clause.labels = clause.fields.convert[is.na(clause.fields.val)]
       clause.labels.relperc = clause.fields.relperc[is.na(clause.fields.val)]
-      
+
       ##--- indices to numeric values preceded by plus sign
-      plus.ind = grep("+", clause.fields.signtag, fixed=TRUE)
+      plus.ind = which(clause.fields.signtag == "+")
       plus.ind = plus.ind[!is.na(clause.fields.val[plus.ind])]
       ##--- indices to numeric values preceded by minus sign
-      minus.ind = grep("-", clause.fields.signtag, fixed=TRUE)
+      minus.ind = which(clause.fields.signtag == "-")
       minus.ind = minus.ind[!is.na(clause.fields.val[minus.ind])]
-      
+
       ##--- indices to sequences +<numeric value 1> -<numeric value 2>
       plus.minus.ind = intersect(plus.ind, minus.ind-1)
 
-      ##--- transform to a list in order to store per-item attributes 
+      ##--- transform to a list in order to store per-item attributes
       clause.fields.val = mapply(function(val, pm, relperc, input) {
         if (is.na(val)) return(NA)
         if (pm == "+-") attr(val, "+-") = TRUE
@@ -525,14 +527,14 @@ alucomb.read = function(file = "") {
         second.relperc = clause.fields.relperc[i+1]
         if (clause.fields.relperc[i] != second.relperc) {
           stop("+num -num sequence with different suffixes...\n  ",
-               paste(clause.fields[i:(i+1)], collapse=" ")) 
+               paste(clause.fields[i:(i+1)], collapse=" "))
         }
         first = clause.fields.val[[i]]
         second = clause.fields.val[[i+1]]
         if (second.relperc != "") {
           attr(second, second.relperc) = NULL
         }
-        attr(first, "negval") = second        
+        attr(first, "negval") = second
         return(first)
       })
 
@@ -564,29 +566,29 @@ alucomb.read = function(file = "") {
           return(val)
         }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
       }
-      
+
       if (clause.keyw == "COMBINE") {
         ##
         ## COMBINE
         ##
-        
+
         ##+++ combos
         block.type = "COMBINATION"
         ##+++ combos
         clause.labels = clause.labels[clause.labels != "*"]
-        ##--- collect quantities to combine        
+        ##--- collect quantities to combine
         block$combine = c(block$combine, clause.labels)
-        
+
       } else if (clause.keyw == "PARAMETERS") {
         ##
         ## PARAMETERS (same treatment in MEASUREMENT and COMBINATION block)
         ##
-        
+
         ##--- after collapsing +devp -devm into devp with attr negval expect 2x values as labels
         if (length(clause.values) != 2*length(clause.labels)) {
           stop("wrong parameter data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
-        
+
         param.values = clause.values[seq(1, 2*length(clause.labels), by=2)]
         names(param.values) = clause.labels
         param.deltas = clause.values[seq(2, 2*length(clause.labels), by=2)]
@@ -600,12 +602,12 @@ alucomb.read = function(file = "") {
             attr(param, "input") = sapply(param.list, function(el) attr(el, "input"))
             return(param)
           }, param.values, param.deltas, SIMPLIFY=FALSE))
-        
+
       } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
         ##
         ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
         ##
-        
+
         ##--- get first label, quantity name
         ##+++ combos, remove leading "m_"
         meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
@@ -660,7 +662,7 @@ alucomb.read = function(file = "") {
           }
           block$quantities[[meas.name]][clause.labels] = unlist(clause.values)
         }
-        
+
       } else if (clause.keyw == "MEASUREMENT") {
         ##
         ##+++ MEASUREMENT clause, combos compatibility
@@ -676,7 +678,7 @@ alucomb.read = function(file = "") {
         ## VALUE --> enter measurement value
         ##+++ DATA after MEASUREMENT clause, combos compatibility
         ##
-        
+
         if (length(clause.values) == 3) {
           if (!is.null(attr(clause.values[[1]], "negval"))) {
             stop("\"+val -val\" used for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
@@ -712,7 +714,7 @@ alucomb.read = function(file = "") {
         ## SYSTLOCAL like SYSTEMATICS but add measurement name to make it local
         ## SYSTPAPER like SYSTEMATICS but add reference name to make it paper-wide
         ##
-        
+
         if (length(clause.values) < 1) {
           stop("at least one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
@@ -751,28 +753,37 @@ alucomb.read = function(file = "") {
         names(input.attr) = clause.labels.input
 
         type.attr = sapply(clause.values, function(el) type.attr)
-        
+
         input.attr = c(attr(block.meas$syst.terms, "input"), input.attr)
         type.attr = c(attr(block.meas$syst.terms, "type"), type.attr)
         block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause.values))
         attr(block.meas$syst.terms, "input") = input.attr
         attr(block.meas$syst.terms, "type") = type.attr
-        
+
       } else if (clause.keyw == "STAT_CORR_WITH" || clause.keyw == "ERROR_CORR_WITH") {
         ##
         ## STAT_CORR_WITH, ERROR_CORR_WITH
         ##
 
-        if (length(clause.values) != 1) {
-          stop("exactly one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (length(clause.values) < 1) {
+          stop("at least one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
         }
 
         ##
         ## get correlation
         ## in the old format (measurement name before correlation)
         ## we need that all meas tags are non-numeric and this happens with the 2009 input cards
-        ## 
+        ##
         corr = clause.values[[1]]
+
+        ##
+        ## in new cards format, we can have numeric measurement tags after
+        ## the numeric value of the correlation, we assume that the 1st
+        ## number is the correlation and all the remaining input words are
+        ## the measurement tags, here we recover all the input words expect
+        ## the first converted numeric value
+        ##
+        clause.labels = clause.fields[-clause.fields.numeric[1]]
 
         ##--- fix the format of pub status to pub|prelim
         clause.labels[3] = alu.norm.pubstate(clause.labels[3])
@@ -786,7 +797,7 @@ alucomb.read = function(file = "") {
 
         ##--- add + if not present and positive value
         attr(corr, "input") = sub("^([^+-])", "+\\1", attr(corr, "input"))
-        
+
         ##--- update meas block
         input.attr = attr(corr, "input")
         names(input.attr) = names(corr)
@@ -812,12 +823,12 @@ alucomb.read = function(file = "") {
         ##
         ## SUMOFQUANT, COMBOFQUANT, CONSTRAINT
         ##
-        
+
         if (clause.keyw != "CONSTRAINT") {
           constr.name = paste(clause.fields[1], "coq", sep=".")
           constr.val = 0
         }
-        
+
         if (clause.keyw == "SUMOFQUANT") {
           constr.comb = c(-1, rep(1, length(clause.fields)-1))
           names(constr.comb) = clause.fields
@@ -838,15 +849,15 @@ alucomb.read = function(file = "") {
           constr.comb = unlist(clause.values[-1])
           names(constr.comb) = clause.labels[-1]
         }
-        
+
         block$constr.lin.val[[constr.name]] = as.vector(constr.val)
         block$constr.lin.comb[[constr.name]] = constr.comb
-        
+
       } else if (clause.keyw == "NLCONSTRAINT") {
         ##
         ## NLCONSTRAINT = non-linear constraint equation
         ##
-        
+
         if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
           stop("error: missing numeric value in non-linear constraint in...\n  ",
                paste(c(clause.keyw, clause.fields), collapse=" "))
@@ -860,7 +871,7 @@ alucomb.read = function(file = "") {
         constr.expr = clause.labels[2]
         block$constr.nl.str.val[[constr.name]] = constr.val
         block$constr.nl.str.expr[[constr.name]] = constr.expr
-        
+
       } else if (clause.keyw == "USEMEAS") {
         ##
         ## USEMEAS drop|keep <measurement tags>
@@ -882,13 +893,13 @@ alucomb.read = function(file = "") {
           stop("error, invalid USEMEAS keyword in line...\n  ",
                paste(c(clause.keyw, clause.fields), collapse=" "))
         }
-        
+
       } else {
         stop("error, invalid keyword in line...\n  ",
              paste(c(clause.keyw, clause.fields), collapse=" "))
       }
     }
-    
+
     if (t.inclause) {
       ##--- new clause (previous one has been handled already)
       t.inclause = FALSE
@@ -900,7 +911,7 @@ alucomb.read = function(file = "") {
         cat("  '", line, "'\n", sep="")
       }
     }
-    
+
     if (t.inblock) {
       t.inblock = FALSE
       if (s.inblock) {
@@ -910,10 +921,10 @@ alucomb.read = function(file = "") {
       }
       s.inblock = TRUE
       clause.fields = NULL
-      
+
       ##--- remove "BEGIN"
       block.fields = fields[-1]
-      
+
       block.type = ""
       if (length(block.fields) > 0) {
         block.type = toupper(block.fields[1])
@@ -944,7 +955,7 @@ alucomb.read = function(file = "") {
       rm(meas.fields)
 
       block.meas = list()
-      
+
       block = list()
       block$params = list()
       block$quantities = list()
@@ -953,7 +964,7 @@ alucomb.read = function(file = "") {
       block$constr.nl.str.val = list()
       block$constr.nl.str.expr = list()
     }
-    
+
     if (s.inblock && (t.endblock || t.endfile)) {
       ##--- end block
       t.endblock = FALSE
@@ -963,7 +974,7 @@ alucomb.read = function(file = "") {
         ##
         ## MEASUREMENT BLOCK
         ##
-        
+
         if (length(block.fields) < 3) {
           stop("too few fields in line...\n  ", paste(c("BEGIN", block.type, block.fields), collapse=" "))
         }
@@ -971,7 +982,7 @@ alucomb.read = function(file = "") {
         block.meas$quant = block.fields[2]
         block.meas$tags = strsplit(meas.tag, "[.]", perl=TRUE)[[1]]
         block.meas$params = block$params
-        
+
         if (!is.null(measurements[[meas.tag]])) {
           old.meas = measurements[[meas.tag]]
           cat("warning, BEGIN update measurement", meas.tag, "\n")
@@ -1019,7 +1030,7 @@ alucomb.read = function(file = "") {
         ## BEGIN [MEASUREMENT] <esperiment> <quantity> <pub|prelim> <reference> [...]
         ##
         measurements[[meas.tag]] = block.meas
-        
+
       } else if (block.type == "COMBINATION") {
         ##
         ## COMBINE BLOCK
@@ -1045,26 +1056,26 @@ alucomb.read = function(file = "") {
             if (is.null(quant$descr)) quant$descr = ""
             quant
           })
-        
+
         combination = block
-        
+
       } else {
         stop("unknown block type in line...\n  ", paste(c("BEGIN", block.type, block.fields[-1]), collapse=" "))
       }
     }
-    
+
     if (t.endblock && !s.inblock) {
       t.endblock = FALSE
       cat("error, END block without BEGIN, ignored, line ...\n")
       cat("  '", line, "'\n", sep="")
     }
-    
+
     if (t.endfile) {
       t.endfile = FALSE
       break
     }
   }
-  
+
   invisible(list(combination=combination, measurements=measurements))
 } ##--- end of alucomb.read
 
@@ -1075,20 +1086,20 @@ hfag.to.root = function(str) {
   if (str == "TauMass") {
     return("m_{#tau} [MeV]")
   }
-  
+
   str.orig = str
-  
-  str = gsub("Numbar", "#bar{#nu}_{#mu}",str)  
-  
+
+  str = gsub("Numbar", "#bar{#nu}_{#mu}",str)
+
   str = gsub("(^|[^A-Z])([A-Z][a-y]*)([z+-]*)b", "\\1#bar{\\2}\\3", str, perl=TRUE)
   str = gsub("F1", "f_{1}",str)
   str = gsub("Pi", "#pi",str)
-  
+
   str = gsub("Nue", "#nu_{e}",str)
   str = gsub("Num", "#nu_{#mu}",str)
   str = gsub("Nut", "#nu_{#tau}",str)
   str = gsub("Nu", "#nu",str)
-  
+
   str = gsub("M", "#mu",str)
   str = gsub("H", "h",str)
   str = gsub("m($|[#}A-Zh])", "^{-}\\1", str, perl=TRUE)
@@ -1107,11 +1118,11 @@ hfag.to.root = function(str) {
 ## compute root of symmetric real positive semi-definite matrix
 ##
 alu.matr.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
-  if (!is.matrix(X)) 
+  if (!is.matrix(X))
     X <- as.matrix(X)
-  if (length(dim(X)) > 2L || !(is.numeric(X))) 
+  if (length(dim(X)) > 2L || !(is.numeric(X)))
     stop("'X' must be a numeric or complex matrix")
-  
+
   X = (X + t(X))/2
   rc.e = eigen(X)
   comp.positive = rc.e$values > tol*rc.e$values[1]
@@ -1120,7 +1131,7 @@ alu.matr.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
   rc = (rc + t(rc))/2
   rownames(rc) = rownames(X)
   colnames(rc) = colnames(X)
-  
+
   return(rc)
 }
 
@@ -1129,18 +1140,18 @@ alu.matr.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
 ## zero eigenvalues produce zero eigenvalues in the inverse-square matrix
 ##
 alu.matr.inv.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
-  if (!is.matrix(X)) 
+  if (!is.matrix(X))
     X <- as.matrix(X)
-  if (length(dim(X)) > 2L || !(is.numeric(X))) 
+  if (length(dim(X)) > 2L || !(is.numeric(X)))
     stop("'X' must be a numeric or complex matrix")
-  
+
   X = (X + t(X))/2
   rc.e = eigen(X)
   ##--- force to zero computationally zero or negative eigenvalues
   comp.positive = rc.e$values > tol*rc.e$values[1]
   rc.vals = ifelse(comp.positive, rc.e$values, 0)
   rc.vecs.inv = ifelse(rc.vals > 0, 1/rc.vals, 0)
-  
+
   rc.inv = rc.e$vectors %*% diag.m(rc.vecs.inv) %*% t(rc.e$vectors)
   rc.inv = (rc.inv + t(rc.inv))/2
   rownames(rc.inv) = rownames(X)
@@ -1149,14 +1160,14 @@ alu.matr.inv.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
   rc = (rc + t(rc))/2
   rownames(rc) = rownames(X)
   colnames(rc) = colnames(X)
-  
+
   attr(rc, "pos.eigen.num") = sum(comp.positive)
   attr(rc, "inv") = rc.inv
-  
+
   attr(rc, "dof.eff") = apply(rc.e$vectors, 1, function(x) sum(x^2 * (rc.vals != 0)))
   ## attr(rc, "dof.factors") = ifelse(attr(rc, "dof.factors") != 0, 1/sqrt(attr(rc, "dof.factors")), 0)
   names(attr(rc, "dof.eff")) = rownames(X)
-  
+
   return(rc)
 }
 
@@ -1167,20 +1178,20 @@ alu.matr.inv.sqrt.symm.semipos = function(X, tol = sqrt(.Machine$double.eps)) {
 ## the resulting matrix Y satisfies: t(Y) %*% Y = X^-1
 ##
 alu.matr.inv.sqrt.symm.semipos.norm = function(X, X.norm, tol = sqrt(.Machine$double.eps)) {
-  if (!is.matrix(X)) 
+  if (!is.matrix(X))
     X <- as.matrix(X)
   if (length(dim(X)) > 2L || !is.numeric(X))
     stop("'X' must be a numeric matrix")
-  
+
   if (dim(X)[1] != dim(X)[2])
     stop("'X' must be a square matrix")
-  
+
   if (!is.numeric(X.norm))
     stop("'X.norm' must be a numeric vector/matrix")
-  
+
   if (length(X.norm) != dim(X)[1])
     stop("X.norm vector dimension must match X matrix rank")
-  
+
   XX = diag.m(1/X.norm) %*% X %*% diag.m(1/X.norm)
   rownames(XX) = rownames(X)
   colnames(XX) = colnames(X)
@@ -1188,14 +1199,14 @@ alu.matr.inv.sqrt.symm.semipos.norm = function(X, X.norm, tol = sqrt(.Machine$do
   XX.inv.sqrt = XX.inv.sqrt.attr %*% diag.m(1/X.norm)
   rownames(XX.inv.sqrt) = rownames(X)
   colnames(XX.inv.sqrt) = colnames(X)
-  
+
   attr(XX.inv.sqrt, "inv") = diag.m(1/X.norm) %*% attr(XX.inv.sqrt.attr, "inv") %*% diag.m(1/X.norm)
   attr(XX.inv.sqrt, "inv") = (attr(XX.inv.sqrt, "inv")+ t(attr(XX.inv.sqrt, "inv")))/2
   rownames(attr(XX.inv.sqrt, "inv")) = rownames(X)
   colnames(attr(XX.inv.sqrt, "inv")) = colnames(X)
-  
+
   attr(XX.inv.sqrt, "pos.eigen.num") = attr(XX.inv.sqrt.attr, "pos.eigen.num")
   attr(XX.inv.sqrt, "dof.eff") = attr(XX.inv.sqrt.attr, "dof.eff")
-  
+
   return(XX.inv.sqrt)
 }
