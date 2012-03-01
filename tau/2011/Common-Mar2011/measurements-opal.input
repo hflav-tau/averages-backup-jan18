@@ -1,0 +1,193 @@
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma103 pub ACKERSTAFF 99E
+
+VALUE 0.00091 +-0.0001523 +-0
+
+END
+
+#
+# Gamma104 (PDG node = S035R39)
+# G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma104 pub ACKERSTAFF 99E
+
+VALUE 0.00027 +-0.0002012 +-0
+
+END
+
+#
+# Gamma10 (PDG node = S035R7)
+# G(K- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma10 pub ABBIENDI 01J
+
+VALUE 0.00658 +-0.0003962 +-0
+
+STAT_CORR_WITH +0.6         OPAL Gamma31 pub ABBIENDI 01J
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma13 pub ACKERSTAFF 98M
+
+VALUE 0.2589 +-0.003362 +-0
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma16 pub ABBIENDI 04J
+
+VALUE 0.00471 +-0.0006332 +-0
+
+END
+
+#
+# Gamma17 (PDG node = S035R44)
+# G(h- >=2 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma17 pub ACKERSTAFF 98M
+
+VALUE 0.0991 +-0.004111 +-0
+
+END
+
+#
+# Gamma31 (PDG node = S035R26)
+# G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma31 pub ABBIENDI 01J
+
+VALUE 0.01528 +-0.0005587 +-0
+
+STAT_CORR_WITH +0.6         OPAL Gamma10 pub ABBIENDI 01J
+
+END
+
+#
+# Gamma33 (PDG node = S035B43)
+# G(K(S)0 (particles)- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma33 pub AKERS 94G
+
+VALUE 0.0097 +-0.001082 +-0
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(Kbar0 pi- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma35 pub ABBIENDI 00C
+
+VALUE 0.00933 +-0.0008382 +-0
+
+END
+
+#
+# Gamma38 (PDG node = S035C38)
+# G(K- K0 >=0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma38 pub ABBIENDI 00C
+
+VALUE 0.0033 +-0.0006742 +-0
+
+END
+
+#
+# Gamma3 (PDG node = S035R1)
+# G(mu- nubar(mu) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma3 pub ABBIENDI 03
+
+VALUE 0.1734 +-0.001082 +-0
+
+END
+
+#
+# Gamma43 (PDG node = S035C37)
+# G(Kbar0 pi- >=1 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma43 pub ABBIENDI 00C
+
+VALUE 0.00324 +-0.000991564 +-0
+
+END
+
+#
+# Gamma55 (PDG node = S035B63)
+# G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma55 pub AKERS 95Y
+
+VALUE 0.1496 +-0.002377 +-0
+
+END
+
+#
+# Gamma57by55 (PDG node = S035B64)
+# G(h- h- h+ nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong''))
+#
+BEGIN MEASUREMENT OPAL Gamma57by55 pub AKERS 95Y
+
+VALUE 0.66 +-0.01456 +-0
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma5 pub ABBIENDI 99H
+
+VALUE 0.1781 +-0.001082 +-0
+
+END
+
+#
+# Gamma7 (PDG node = S035R43)
+# G(h- >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma7 pub ALEXANDER 91D
+
+VALUE 0.121 +-0.008602 +-0
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma85 pub ABBIENDI 04J
+
+VALUE 0.00415 +-0.000664 +-0
+
+END
+
+#
+# Gamma8 (PDG node = S035B73)
+# G(h- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma8 pub ACKERSTAFF 98M
+
+VALUE 0.1198 +-0.002062 +-0
+
+END
+
+#
+# Gamma92 (PDG node = S035B37)
+# G(pi- K- K+ >=0 neutrals nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma92 pub ABBIENDI 00D
+
+VALUE 0.00159 +-0.0005665 +-0
+
+END
