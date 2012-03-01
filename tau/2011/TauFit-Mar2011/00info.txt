@@ -40,8 +40,7 @@ Alberto code alucomb2.r.
 	alucomb2.r
 
 In the Summer 2011, with the collaboration of a DOE Summer student, Alberto
-added non-linear updated alucomb.r to alucomb2.r with the following additional
-features
+updated alucomb.r to alucomb2.r with the following additional features
 
 - non-linear equality constraints minimization
 
