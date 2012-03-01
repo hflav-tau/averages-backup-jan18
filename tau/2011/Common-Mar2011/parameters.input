@@ -1,0 +1,52 @@
+#
+# parameters used for possibly updating systematic terms
+# use PDG 2011 when possible
+#
+PARAMETERS
+  # --- e+e- -> tau+tau- cross section from Swagato et al. paper
+  sigmataupmy4s    0.919        +-0.003
+  # --- --- tau -> pi- pi0 nu Gamma14 from TauFit/pdgfit.input
+  PimPizNu         0.254861     +-0.000932
+  # --- tau -> K- K0S nu = 1/2*Gamma37 from TauFit/pdgfit.input  
+  KmKzsNu          0.000763     +-8.05e-05
+  # --- tau -> pi- K0S pi0 nu = 1/2*(0.345 +- 0.015)% from TauToPimPizKzbNu/log/average.log
+  PimPizKzsNu      0.1725e-2    +-0.0075e-2
+  # --- tau -> K- K0S pi0 nu = 1/2*Gamma42 from TauFit/pdgfit.input
+  KmPizKzsNu       0.000768     +-0.0001
+  # --- tau -> pi- K0S K0S nu = Gamma47 from TauFit/pdgfit.input
+  PimKzsKzsNu      0.00024      +-0.000052
+  # --- tau -> pi-pi-pi+ nu (ex K0S) from TauToHmHmHpNu/log/average.log
+  PimPimPipNu      0.089509     +-0.0007026
+  # --- tau -> pi- pi- pi+ pi0 nu (ex K0S) = Gamma69 fit from PDG09
+  PimPimPipPizNu   4.48e-2      +-0.06e-2
+  # --- tau -> K-pi+pi- nu (ex K0S) from TauToHmHmHpNu/log/average.log
+  PimKmPipNu       0.0029253    +-0.0000709
+  # --- tau -> pi-K+K- nu from TauToHmHmHpNu/log/average.log
+  PimKmKpNu        0.0014303    +-0.0000279
+  # --- tau -> pi- K0S K0L nu, Swagato isospin notes
+  PimKzsKzlNu      0.093e-2     +-0.011e-2
+
+#
+# the following parameters are used in the constraint equations
+# (the errors are actually not used)
+#
+PARAMETERS
+  BR_eta_2gam           39.31e-2    +-0.20e-2
+  BR_eta_neutral        71.90e-2    +-0.34e-2
+  BR_eta_3piz           32.57e-2    +-0.23e-2
+  BR_eta_pimpippiz      22.74e-2    +-0.28e-2
+  BR_eta_charged        28.10e-2    +-0.34e-2
+  BR_KS_2piz            30.69e-2    +-0.05e-2
+  BR_KS_pimpip          69.20e-2    +-0.05e-2
+  BR_om_pimpippiz       89.2e-2     +-0.7e-2
+  BR_om_pimpip          1.53e-2     +0.11e-2    -0.13e-2
+  BR_om_pizgamma        8.28e-2     +-0.28e-2
+  BR_phi_KmKp           48.9e-2     +-0.5e-2
+  BR_phi_KSKL           34.2e-2     +-0.4e-2
+  #    
+  BRA_Kz_KS_KET		0.5	    +-0		# |<Kz | KS>|^2
+  BRA_Kz_KL_KET		0.5         +-0         # |<Kz | KS>|^2
+  BRA_Kzbar_KS_KET	0.5	    +-0		# |<Kzbar | KS>|^2
+  BRA_Kzbar_KL_KET	0.5	    +-0		# |<Kzbar | KS>|^2
+  # --- |<Kz Kzbar | KS KS>|^2
+  BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET  1 +-0

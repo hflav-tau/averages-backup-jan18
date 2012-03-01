@@ -1,0 +1,117 @@
+#
+# Gamma102 (PDG node = S035R33)
+# G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma102 pub ACHARD 01D
+
+VALUE 0.0017 +-0.0003406 +-0
+
+STAT_CORR_WITH -0.19        L3 Gamma55 pub ACHARD 01D
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma13 pub ACCIARRI 95
+
+VALUE 0.2505 +-0.006103 +-0
+
+END
+
+#
+# Gamma19 (PDG node = S035R20)
+# G(h- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma19 pub ACCIARRI 95
+
+VALUE 0.0888 +-0.005597 +-0
+
+END
+
+#
+# Gamma26 (PDG node = S035R21)
+# G(h- 3pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma26 pub ACCIARRI 95
+
+VALUE 0.017 +-0.004494 +-0
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(Kbar0 pi- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma35 pub ACCIARRI 95F
+
+VALUE 0.0095 +-0.001616 +-0
+
+END
+
+#
+# Gamma3 (PDG node = S035R1)
+# G(mu- nubar(mu) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma3 pub ACCIARRI 01F
+
+VALUE 0.17342 +-0.001288 +-0
+
+STAT_CORR_WITH +0.078       L3 Gamma5 pub ACCIARRI 01F
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(Kbar0 pi- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma40 pub ACCIARRI 95F
+
+VALUE 0.0041 +-0.001237 +-0
+
+END
+
+#
+# Gamma54 (PDG node = S035R31)
+# G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma54 pub ADEVA 91F
+
+VALUE 0.144 +-0.006708 +-0
+
+END
+
+#
+# Gamma55 (PDG node = S035B63)
+# G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma55 pub ACHARD 01D
+
+VALUE 0.14556 +-0.001296 +-0
+
+STAT_CORR_WITH -0.19        L3 Gamma102 pub ACHARD 01D
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma5 pub ACCIARRI 01F
+
+VALUE 0.17806 +-0.001288 +-0
+
+STAT_CORR_WITH +0.078       L3 Gamma3 pub ACCIARRI 01F
+
+END
+
+#
+# Gamma7 (PDG node = S035R43)
+# G(h- >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma7 pub ACCIARRI 95
+
+VALUE 0.1247 +-0.005025 +-0
+
+END

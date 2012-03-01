@@ -1,0 +1,156 @@
+#
+# Gamma126 (PDG node = S035R32)
+# G(pi- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma126 pub INAMI 09
+
+VALUE 0.00135 +-3e-05 +-7e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.05e-06
+  -1.4%            BelleLumi        # -1.89e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma128 pub INAMI 09
+
+VALUE 0.000158 +-5e-06 +-9e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.74e-07
+  -1.4%            BelleLumi        # -2.212e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma130 (PDG node = S035C27)
+# G(K- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma130 pub INAMI 09
+
+VALUE 4.6e-05 +-1.1e-05 +-4e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.38e-07
+  -1.4%            BelleLumi        # -6.44e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma132 (PDG node = S035C28)
+# G(Kbar0 pi- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma132 pub INAMI 09
+
+VALUE 8.8e-05 +-1.4e-05 +-6e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.64e-07
+  -1.4%            BelleLumi        # -1.232e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma13 pub FUJIKAWA 08
+
+VALUE 0.2567 +-1e-04 +-0.0039
+
+SYSTEMATICS
+  +0.39e-2         BelleHmPizNu     # +0.0039
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(Kbar0 pi- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma35 pub EPIFANOV 07
+
+VALUE 0.00808 +-4e-05 +-0.00026
+
+SYSTEMATICS
+  -1.1%            PimPizKzsNu      # -8.888e-05
+  -0.8%            PimKzsKzlNu      # -6.464e-05
+  -0.6%            KmKzsNu          # -4.848e-05
+
+PARAMETERS
+  PimPizKzsNu      0.18e-2      +-0.02e-2
+  PimKzsKzlNu      0.078e-2     +-0.006e-2
+  KmKzsNu          0.079e-2     +-0.0085e-2
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma60 pub LEE 10
+
+VALUE 0.0842 +-3.3211e-05 +-0.0025879
+
+ERROR_CORR_WITH +0.1749885   Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH +0.04948276  Belle Gamma93 pub LEE 10
+ERROR_CORR_WITH -0.05346557  Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma85 pub LEE 10
+
+VALUE 0.0033 +-1.274e-05 +-0.00016625
+
+ERROR_CORR_WITH +0.1749885   Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08026913  Belle Gamma93 pub LEE 10
+ERROR_CORR_WITH +0.03505142  Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma93 pub LEE 10
+
+VALUE 0.00155 +-6.575e-06 +-5.5579e-05
+
+ERROR_CORR_WITH +0.04948276  Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08026913  Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH -0.008312885 Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma96 (PDG node = S035C9)
+# G(K- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma96 pub LEE 10
+
+VALUE 3.29e-05 +-1.6941e-06 +-1.9621e-06
+
+ERROR_CORR_WITH -0.05346557  Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.03505142  Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH -0.008312885 Belle Gamma93 pub LEE 10
+
+END

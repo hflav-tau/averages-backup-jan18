@@ -1,0 +1,12 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	measurements and other data to reproduce HGFAG tau 2011 last average
+
+///////////////////////////////////////////////////////////////////////////////
+
+- input cards use the Feb 2012 alucomb2.r forman
+- quantities.input has quantities description and constraints
+- parameters.input has the parameters for the syst. terms and constraints
+
+using the new features of alucomb2.r these cards can be used for the
+2011 averages, by updating or dropping single measurements

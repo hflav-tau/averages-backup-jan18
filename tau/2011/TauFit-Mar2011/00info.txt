@@ -1,0 +1,80 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	tau/2011/TauFit-Mar2011 directory
+
+///////////////////////////////////////////////////////////////////////////////
+
+preparation for end-of-2011 HFAG paper by reproducing latest 2011 results
+with alucomb2.r, using several new features
+
+///////////////////////////////////////////////////////////////////////////////
+
+	summary of March 2011 update
+
+In March 2011 HFAG-tau did new averages following comments by Michel Davier
+
+- 3 decay modes were added as additional
+Gamma =  49 Param = 278 Node = S035C44 Title = pi- pi0 K0 Kbar0 nu(tau)
+Gamma = 804 Param = 804 Node = S035Z05 Title = pi- K(L)0 K(L)0 nu(tau)
+Gamma = 805 Param = 805 Node = S035Z06 Title = a1- [-> pi- gamma) nu(tau)]
+
+- 3 new measurements were included
+132 46     S035B51  0.153E-02    0.034E-02   ALEPH  BARATE 98E  G(pi- K0 Kbar0 nu(tau)) / G(total)
+133 49     S035C44  0.31E-03     0.23E-03    ALEPH  BARATE 99R  G(pi- pi0 K0 Kbar0 nu(tau)) / G(total)
+134 805    S035Z06  0.04E-02     0.02E-02    ALEPH  SCHAEL 05C  G(a1- (-> pi- gamma) nu(tau)) / G(total)
+
+later, a published babar result was added
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma128 pub DEL-AMO-SANCHEZ 11E
+VALUE 0.000142 +-1.1e-05 +-7e-06
+
+with these additions we did fits with Swagato readpgd.cc and Alberto alucomb.r
+SW and obtained equivalent results, which are reproduced here with the new
+Alberto code alucomb2.r.
+
+///////////////////////////////////////////////////////////////////////////////
+
+	alucomb2.r
+
+In the Summer 2011, with the collaboration of a DOE Summer student, Alberto
+added non-linear updated alucomb.r to alucomb2.r with the following additional
+features
+
+- non-linear equality constraints minimization
+
+later in February 2011 Alberto added to alucomb2.r some additional features:
+
+- input of asymmetric errors
+- new cards format, quite easier to read (with backward compatibility)
+- non-linear constraints can include parameters taken from input cards
+- ability to drop or modify individual measurements
+- input cards can be used to document the fitted quantities
+
+///////////////////////////////////////////////////////////////////////////////
+
+	input cards in this directory reproduce the March 2011 update
+
+average2_2009_aleph_hcorr.input
+- read the measurements in 2009/TauFit-Aug2011
+- HFAG-tau reference average, using h-K tau decays from ALEPH
+
+average2_2009.input
+- same as average2_2009_aleph_hcorr but using pi-K ALEPH data 
+
+average2_2009_unitarity_aleph_hcorr.input
+- same as average2_2009_aleph_hcorr but unitarity constrained
+
+average2-aleph-hcorr.input
+average2.input
+average2-unitarity-aleph-hcorr.input
+- same as the average2_2009_* files but
+- use the new input cards in the 2011 HFAG tau directory
+- use constraints with symbolic parameters
+
+note that the results using the ALEPH h-K or pi-K results are
+numerically equivalent
+
+///////////////////////////////////////////////////////////////////////////////

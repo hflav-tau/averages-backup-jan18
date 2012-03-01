@@ -1,0 +1,249 @@
+BEGIN MEASUREMENT BaBar Gamma103 pub AUBERT 05W
+
+VALUE 0.000856 +-5e-06 +-4.2e-05
+
+SYSTEMATICS
+  -2.24719%        sigmataupmy4s    # -1.92359464e-05
+  -0.49%           BaBarLumi        # -4.1944e-06
+
+PARAMETERS
+  sigmataupmy4s    0.89         +-0.02
+
+END
+
+#
+# Gamma10by5 (PDG node = S035Y02)
+# G(K- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma10by5 pub AUBERT 10P
+
+VALUE 0.03882 +-0.000630207 +-0.000173608
+
+STAT_CORR_WITH +0.0885061   BaBar Gamma3by5 pub AUBERT 10P
+STAT_CORR_WITH +0.284953    BaBar Gamma9by5 pub AUBERT 10P
+
+SYSTEMATICS
+  -0.00015528      PimPimPipNu     
+  -0.00007764      BaBarLumi        # -7.764e-05
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma128 pub DEL-AMO-SANCHEZ 11E
+
+VALUE 0.000142 +-1.1e-05 +-7e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.26e-07
+  -0.8485281%      BaBarLumi        # -1.204909902e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma136 (PDG node = S035B89)
+# G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma136 pub AUBERT 08AE
+
+VALUE 0.00016 +-5e-06 +-1.1e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.8e-07
+  -0.9%            BaBarLumi        # -1.44e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma16 pub AUBERT 07AP
+
+VALUE 0.00416 +-3e-05 +-0.00018
+
+SYSTEMATICS
+  -0.31%           sigmataupmy4s    # -1.2896e-05
+  -0.94%           BaBarLumi        # -3.9104e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(Kbar0 pi- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma35 prelim ICHEP08
+
+VALUE 0.0084 +-4e-05 +-0.00023
+
+SYSTEMATICS
+  -0.0008%         PimPizNu         # -6.72e-08
+  -0.07581%        KmKzsNu          # -6.36804e-06
+  -0.70078%        PimPizKzsNu      # -5.886552e-05
+  -0.02744%        KmPizKzsNu       # -2.30496e-06
+  -0.01029%        PimKzsKzsNu      # -8.6436e-07
+  -0.05778%        PimPimPipNu      # -4.85352e-06
+  -0.01263%        PimPimPipPizNu   # -1.06092e-06
+  -0.02197%        PimKmPipNu       # -1.84548e-06
+  -0.00465%        PimKmKpNu        # -3.906e-07
+  -1.17299%        PimKzsKzlNu      # -9.853116e-05
+  -0.3958%         sigmataupmy4s    # -3.32472e-05
+  -0.7278%         BaBarLumi        # -6.11352e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+  PimPizNu         25.3754e-2   +-0.10e-2
+  KmKzsNu          0.08255e-2   +-0.008e-2
+  PimPizKzsNu      0.18835e-2   +-0.02e-2
+  KmPizKzsNu       0.0768e-2    +-0.013471e-2
+  PimKzsKzsNu      2.4e-4       +-0.5e-4
+  PimPimPipNu      9.1783e-2    +-0.08e-2
+  PimPimPipPizNu   4.3654e-2    +-0.06e-2
+  PimKmPipNu       0.3009e-2    +-0.04e-2
+  PimKmKpNu        0.1346e-2    +-0.003736e-2
+  PimKzsKzlNu      0.0673e-2    +-0.0070e-2
+
+END
+
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma3by5 pub AUBERT 10P
+
+VALUE 0.9796 +-0.00390406 +-0.00052753
+
+STAT_CORR_WITH +0.235119    BaBar Gamma9by5 pub AUBERT 10P
+STAT_CORR_WITH +0.0885061   BaBar Gamma10by5 pub AUBERT 10P
+
+SYSTEMATICS
+  -0.0004898       PimPimPipNu     
+  -0.00019592      BaBarLumi       
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(Kbar0 pi- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma40 prelim DPF09
+
+VALUE 0.00342 +-6e-05 +-0.00015
+
+SYSTEMATICS
+  -0.3958%         sigmataupmy4s    # -1.353636e-05
+  -0.7278%         BaBarLumi        # -2.489076e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma60 pub AUBERT 08
+
+VALUE 0.088337 +-7.4e-05 +-0.00126724
+
+ERROR_CORR_WITH +5.4398e-01  BaBar Gamma85 pub AUBERT 08 # +0.54398
+ERROR_CORR_WITH +3.9181e-01  BaBar Gamma93 pub AUBERT 08 # +0.39181
+ERROR_CORR_WITH +3.1926e-02  BaBar Gamma96 pub AUBERT 08 # +0.031926
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -0.000265011
+  -0.9%            BaBarLumi        # -0.000795033
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma85 pub AUBERT 08
+
+VALUE 0.0027257 +-1.8e-05 +-9.2441e-05
+
+ERROR_CORR_WITH +5.4398e-01  BaBar Gamma60 pub AUBERT 08 # +0.54398
+ERROR_CORR_WITH +1.7888e-01  BaBar Gamma93 pub AUBERT 08 # +0.17888
+ERROR_CORR_WITH +9.4573e-02  BaBar Gamma96 pub AUBERT 08 # +0.094573
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -8.1771e-06
+  -0.9%            BaBarLumi        # -2.45313e-05
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma93 pub AUBERT 08
+
+VALUE 0.0013461 +-1e-05 +-3.6413e-05
+
+ERROR_CORR_WITH +3.9181e-01  BaBar Gamma60 pub AUBERT 08 # +0.39181
+ERROR_CORR_WITH +1.7888e-01  BaBar Gamma85 pub AUBERT 08 # +0.17888
+ERROR_CORR_WITH +9.0128e-02  BaBar Gamma96 pub AUBERT 08 # +0.090128
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.0383e-06
+  -0.9%            BaBarLumi        # -1.21149e-05
+
+END
+
+#
+# Gamma96 (PDG node = S035C9)
+# G(K- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma96 pub AUBERT 08
+
+VALUE 1.5777e-05 +-1.3e-06 +-1.2308e-06
+
+ERROR_CORR_WITH +3.1926e-02  BaBar Gamma60 pub AUBERT 08 # +0.031926
+ERROR_CORR_WITH +9.4573e-02  BaBar Gamma85 pub AUBERT 08 # +0.094573
+ERROR_CORR_WITH +9.0128e-02  BaBar Gamma93 pub AUBERT 08 # +0.090128
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.7331e-08
+  -0.9%            BaBarLumi        # -1.41993e-07
+
+END
+
+#
+# Gamma9by5 (PDG node = S035Y01)
+# G(pi- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma9by5 pub AUBERT 10P
+
+VALUE 0.5945 +-0.00574448 +-0.00248413
+
+STAT_CORR_WITH +0.235119    BaBar Gamma3by5 pub AUBERT 10P
+STAT_CORR_WITH +0.284953    BaBar Gamma10by5 pub AUBERT 10P
+
+SYSTEMATICS
+  -0.00089175      PimPimPipNu     
+  -0.00231855      BaBarLumi       
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
