@@ -25,7 +25,14 @@ END
 #
 BEGIN MEASUREMENT ALEPH Gamma104 pub SCHAEL 05C
 
-VALUE 0.00021 +-0.000114 +-0
+#
+# Swagato noted that the paper reports +- 0.7 +- 06 but PDG uses
+# +- 0.7 +- 09. In the March 2011 update the PDG value was used
+# here that is corrected to match what we use in the "aleph_hcorr"
+# variant
+# VALUE 0.00021 +-0.000114 +-0
+#
+VALUE 0.00021 +-9.21954e-05 +-0
 
 STAT_CORR_WITH -0.04        ALEPH Gamma30 pub SCHAEL 05C
 STAT_CORR_WITH +0.03        ALEPH Gamma20 pub SCHAEL 05C
