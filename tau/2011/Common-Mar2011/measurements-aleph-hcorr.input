@@ -1,3 +1,13 @@
+#//////////////////////////////////////////////////////////////////////////////
+#
+# alternative set of ALEPH measurements as computed in
+# http://code.google.com/p/hfag/source/browse/trunk/tau/2009/TauFit/pdginput/aleph_hcorr.cc
+# by Swagato, by considering tau -> nh X and tau -> nK X measurements
+# as base measurements and tau -> npi X measurements as devived by
+# subtraction
+#
+#//////////////////////////////////////////////////////////////////////////////
+
 #
 # Gamma103 (PDG node = S035R38)
 # G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
