@@ -232,7 +232,112 @@ alucomb2.gamma.num.id = function(gamma.name) {
 }
 
 ##
-## cards
+## handle:
+## - numbers preceded by +, -, +-
+## - sequences of two numbers, +a -b
+##   - replaced by a single number, equal to a, with attribute "negval" equal to b
+## - numbers followed by %, &
+## - labels followed by %, &
+## returns:
+## - vector of labels (what cannot be converted to a number)
+## - vector of numbers (numbers or +a -b sequences, possibly followed by %, &)
+##
+alucomb2.get.labels.values = function(clause.fields) {
+  ##
+  ## values are numbers possibly preceded by "+", "-", "+-"
+  ## sequences "+num1 -num2" are replaced by a +num1 with attribute "negval" = -num2
+  ## the word +-num is replaced by +num with attribute "pm"
+  ##
+  
+  ##--- for each words get possible +/-/+- at beginning
+  clause.fields.signtag = sub("^([+]|-|[+]-|).*$", "\\1", clause.fields)
+  ##--- remove "+-" sequence at begin of word, which would stop conversion to numeric
+  clause.fields.convert = sub("^[+]-", "", clause.fields)
+  
+  ##--- for each words get possible ^/% (relative and percent value)
+  clause.fields.relperc = sub("^[^&%]*(&|%|)$", "\\1", clause.fields)
+  ##--- remove "&" or "%" sequence at end of wrd, which would stop conversion to numeric
+  clause.fields.convert = sub("(&|%)$", "", clause.fields.convert)
+  
+  ##--- convert if possible to numbers, else NA
+  clause.fields.val = suppressWarnings(as.numeric(clause.fields.convert))
+  ##--- take note wich fields were converted to numbers
+  clause.fields.numeric = which(!is.na(clause.fields.val))
+  ##--- labels are all non-numeric words
+  clause.labels = clause.fields.convert[is.na(clause.fields.val)]
+  clause.labels.relperc = clause.fields.relperc[is.na(clause.fields.val)]
+  
+  ##--- indices to numeric values preceded by plus sign
+  plus.ind = which(clause.fields.signtag == "+")
+  plus.ind = plus.ind[!is.na(clause.fields.val[plus.ind])]
+  ##--- indices to numeric values preceded by minus sign
+  minus.ind = which(clause.fields.signtag == "-")
+  minus.ind = minus.ind[!is.na(clause.fields.val[minus.ind])]
+  
+  ##--- indices to sequences +<numeric value 1> -<numeric value 2>
+  plus.minus.ind = intersect(plus.ind, minus.ind-1)
+  
+  ##--- transform to a list in order to store per-item attributes
+  clause.fields.val = mapply(function(val, pm, relperc, input) {
+    if (is.na(val)) return(NA)
+    if (pm == "+-") attr(val, "+-") = TRUE
+    if (relperc != "") attr(val, relperc) = TRUE
+    ##--- save input card string without %|&
+    attr(val, "input") = input
+    val
+  }, clause.fields.val, clause.fields.signtag,
+    clause.fields.relperc, clause.fields.convert,
+    SIMPLIFY=FALSE)
+  
+  plus.minus.val = lapply(plus.minus.ind, function(i) {
+    second.relperc = clause.fields.relperc[i+1]
+    if (clause.fields.relperc[i] != second.relperc) {
+      stop("+num -num sequence with different suffixes...\n  ",
+           paste(clause.fields[i:(i+1)], collapse=" "))
+    }
+    first = clause.fields.val[[i]]
+    second = clause.fields.val[[i+1]]
+    if (second.relperc != "") {
+      attr(second, second.relperc) = NULL
+    }
+    attr(first, "negval") = second
+    return(first)
+  })
+  
+  ##--- replace +<numeric value 1> -<numeric value 2> with a single number
+  clause.fields.val[plus.minus.ind] = plus.minus.val
+  clause.fields.val[plus.minus.ind+1] = NA
+  clause.values = clause.fields.val[!is.na(clause.fields.val)]
+  
+  ##--- apply labels attributes to corresponding values
+  if (length(clause.values) > 0) {
+    clause.values = mapply(function(val, relperc) {
+      if (!is.na(relperc) && relperc != "") attr(val, relperc) = TRUE
+      if (!is.null(attr(val, "&")) && !is.null(attr(val, "%"))) {
+        stop("both % and & suffixes specified for same value in...\n  ",
+             paste(clause.fields, sep=" "))
+      }
+      ##--- append %|& attribute to card input value (even if it was originally on its label)
+      for (tag in c("&", "%")) {
+        if (!is.null(attr(val, tag))) {
+          attr(val, "input") = paste(attr(val, "input"), tag, sep="")
+          ##--- append to "negval" attribute as well if existing
+          negval = attr(val, "negval")
+          if (!is.null(negval)) {
+            attr(negval, "input") = paste(attr(negval, "input"), tag, sep="")
+            attr(val, "negval") = negval
+          }
+        }
+      }
+      return(val)
+    }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
+  }
+  return(list(labels=clause.labels, values=clause.values, fields.numeric=clause.fields.numeric))
+}
+
+##////////////////////////////////
+##
+## cards documentation
 ##
 
 ##
@@ -406,7 +511,7 @@ alucomb.read = function(file = "") {
       ## - a string for every quoted string
       ## - an empty string both before and after any quoted string
       ##
-      matches = gregexpr("([^\"\\]*(\\.[^\"\\]*)*)", line)[[1]]
+      matches = gregexpr("([^\"]*(\\.[^\"]*)*)", line)[[1]]
       if (length(matches) > 1) {
         ##--- special treatment for lines with quoted strings
         matches.len = attr(matches, "match.length")
@@ -432,7 +537,6 @@ alucomb.read = function(file = "") {
       } else {
         fields = unlist(strsplit(line, "\\s+", perl=TRUE))
       }
-
       ##--- block begin
       t.inblock = (fields[1] == "BEGIN")
       ##--- block end
@@ -476,97 +580,13 @@ alucomb.read = function(file = "") {
       ## cat("END clause", unlist(clause.fields), "\n\n")
       clause.keyw = toupper(clause.fields[1])
       clause.fields = clause.fields[-1]
-
-      ##
-      ## values are numbers possibly preceded by "+", "-", "+-"
-      ## sequences "+num1 -num2" are replaced by a +num1 with attribute "negval" = -num2
-      ## the word +-num is replaced by +num with attribute "pm"
-      ##
-
-      ##--- for each words get possible +/-/+- at beginning
-      clause.fields.signtag = sub("^([+]|-|[+]-|).*$", "\\1", clause.fields)
-      ##--- remove "+-" sequence at begin of word, which would stop conversion to numeric
-      clause.fields.convert = sub("^[+]-", "", clause.fields)
-
-      ##--- for each words get possible ^/% (relative and percent value)
-      clause.fields.relperc = sub("^[^&%]*(&|%|)$", "\\1", clause.fields)
-      ##--- remove "&" or "%" sequence at end of wrd, which would stop conversion to numeric
-      clause.fields.convert = sub("(&|%)$", "", clause.fields.convert)
-
-      ##--- convert if possible to numbers, else NA
-      clause.fields.val = suppressWarnings(as.numeric(clause.fields.convert))
-      ##--- take note wich fields were converted to numbers
-      clause.fields.numeric = which(!is.na(clause.fields.val))
-      ##--- labels are all non-numeric words
-      clause.labels = clause.fields.convert[is.na(clause.fields.val)]
-      clause.labels.relperc = clause.fields.relperc[is.na(clause.fields.val)]
-
-      ##--- indices to numeric values preceded by plus sign
-      plus.ind = which(clause.fields.signtag == "+")
-      plus.ind = plus.ind[!is.na(clause.fields.val[plus.ind])]
-      ##--- indices to numeric values preceded by minus sign
-      minus.ind = which(clause.fields.signtag == "-")
-      minus.ind = minus.ind[!is.na(clause.fields.val[minus.ind])]
-
-      ##--- indices to sequences +<numeric value 1> -<numeric value 2>
-      plus.minus.ind = intersect(plus.ind, minus.ind-1)
-
-      ##--- transform to a list in order to store per-item attributes
-      clause.fields.val = mapply(function(val, pm, relperc, input) {
-        if (is.na(val)) return(NA)
-        if (pm == "+-") attr(val, "+-") = TRUE
-        if (relperc != "") attr(val, relperc) = TRUE
-        ##--- save input card string without %|&
-        attr(val, "input") = sub("0+$", "", input)
-        val
-      }, clause.fields.val, clause.fields.signtag,
-        clause.fields.relperc, clause.fields.convert,
-        SIMPLIFY=FALSE)
-
-      plus.minus.val = lapply(plus.minus.ind, function(i) {
-        second.relperc = clause.fields.relperc[i+1]
-        if (clause.fields.relperc[i] != second.relperc) {
-          stop("+num -num sequence with different suffixes...\n  ",
-               paste(clause.fields[i:(i+1)], collapse=" "))
-        }
-        first = clause.fields.val[[i]]
-        second = clause.fields.val[[i+1]]
-        if (second.relperc != "") {
-          attr(second, second.relperc) = NULL
-        }
-        attr(first, "negval") = second
-        return(first)
-      })
-
-      ##--- replace +<numeric value 1> -<numeric value 2> with a single number
-      clause.fields.val[plus.minus.ind] = plus.minus.val
-      clause.fields.val[plus.minus.ind+1] = NA
-      clause.values = clause.fields.val[!is.na(clause.fields.val)]
-
-      ##--- apply labels attributes to corresponding values
-      if (length(clause.values) > 0) {
-        clause.values = mapply(function(val, relperc) {
-          if (!is.na(relperc) && relperc != "") attr(val, relperc) = TRUE
-          if (!is.null(attr(val, "&")) && !is.null(attr(val, "%"))) {
-            stop("both % and & suffixes specified for same value in...\n  ",
-                 paste(clause.fields, sep=" "))
-          }
-          ##--- append %|& attribute to card input value (even if it was originally on its label)
-          for (tag in c("&", "%")) {
-            if (!is.null(attr(val, tag))) {
-              attr(val, "input") = paste(attr(val, "input"), tag, sep="")
-              ##--- append to "negval" attribute as well if existing
-              negval = attr(val, "negval")
-              if (!is.null(negval)) {
-                attr(negval, "input") = paste(attr(negval, "input"), tag, sep="")
-                attr(val, "negval") = negval
-              }
-            }
-          }
-          return(val)
-        }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
+      clause.line = paste(c(clause.keyw, clause.fields), collapse=" ")
+      
+      if (!(clause.keyw %in% c("QUANTITY", "STAT_CORR_WITH", "ERROR_CORR_WITH"))) {
+        ##--- separate numeric values from string identifiers
+        clause = alucomb2.get.labels.values(clause.fields)
       }
-
+      
       if (clause.keyw == "COMBINE") {
         ##
         ## COMBINE
@@ -575,9 +595,9 @@ alucomb.read = function(file = "") {
         ##+++ combos
         block.type = "COMBINATION"
         ##+++ combos
-        clause.labels = clause.labels[clause.labels != "*"]
+        clause$labels = clause$labels[clause$labels != "*"]
         ##--- collect quantities to combine
-        block$combine = c(block$combine, clause.labels)
+        block$combine = c(block$combine, clause$labels)
 
       } else if (clause.keyw == "PARAMETERS") {
         ##
@@ -585,13 +605,13 @@ alucomb.read = function(file = "") {
         ##
 
         ##--- after collapsing +devp -devm into devp with attr negval expect 2x values as labels
-        if (length(clause.values) != 2*length(clause.labels)) {
-          stop("wrong parameter data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (length(clause$values) != 2*length(clause$labels)) {
+          stop("wrong parameter data in line...\n  ", clause.line)
         }
 
-        param.values = clause.values[seq(1, 2*length(clause.labels), by=2)]
-        names(param.values) = clause.labels
-        param.deltas = clause.values[seq(2, 2*length(clause.labels), by=2)]
+        param.values = clause$values[seq(1, 2*length(clause$labels), by=2)]
+        names(param.values) = clause$labels
+        param.deltas = clause$values[seq(2, 2*length(clause$labels), by=2)]
 
         ##--- add defined parameters, each is an array with value and excursions
         block$params = c(block$params, mapply(
@@ -614,53 +634,63 @@ alucomb.read = function(file = "") {
         if (is.null(block$quantities[[meas.name]])) {
           block$quantities[[meas.name]] = list()
         }
-        clause.labels = clause.labels[-1]
+        clause.fields = clause.fields[-1]
 
         ##+++ combos, remove labels named "stat*", "syst*"
-        clause.labels = clause.labels[!match.nocase("^(syst|stat)", clause.labels)]
+        clause.fields = clause.fields[!match.nocase("^(syst|stat)", clause.fields)]
 
-        ##--- if there is a "descr" keyword, take as description all that follows
-        descr.pos = grep("descr", clause.labels)[1]
+        ##--- if "descr" or "texdescr", use as argument all what follows
+        descr.pos = match(c("descr", "texdescr"), tolower(clause.fields))
+        descr.pos = descr.pos[which(!is.na(descr.pos))[1]]
         if (!is.na(descr.pos)) {
-          descr.txt = paste(tail(clause.labels,-descr.pos), collapse=" ")
-          descr.txt = sub("^\"", "", sub("\"$", "", descr.txt))
-          clause.labels = head(clause.labels, descr.pos-1)
+          descr.label = tolower(clause.fields[descr.pos])
+          descr.text = paste(tail(clause.fields, -descr.pos), collapse=" ")
+          ##--- remove possible double quotes
+          descr.text = sub("^\"", "", sub("\"$", "", descr.text))
+          clause.fields = head(clause.fields, -(descr.pos-1))
         }
 
         ##
         ## get label/values where values are strings
         ## for QUANTITY it is required that each value follows its label
         ##
-        str.labels.mask = clause.labels %in% c("node")
+        str.labels.mask = tolower(clause.fields) %in% c("node")
         if (length(str.labels.mask) > 0 && tail(str.labels.mask, 1)) {
-          stop("label without a value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+          stop("label without a value in line...\n  ", clause.line)
         }
         str.values.mask = c(FALSE, head(str.labels.mask, -1))
-        ##--- add at beginning string labels/values before numeric label/values
-        clause.values = c(as.list(clause.labels[str.values.mask]), as.list(clause.values))
-        clause.labels = c(clause.labels[str.labels.mask], clause.labels[!(str.labels.mask | str.values.mask)])
+        clause.labels = clause.fields[str.labels.mask]
+        clause.values = as.list(clause.fields[str.values.mask])
+        clause.fields = clause.fields[!(str.labels.mask | str.values.mask)]
+
+        ##--- deal with remaining keywords that require numeric values
+        clause = alucomb2.get.labels.values(clause.fields)
+        
+        ##--- add string-valued keywords
+        clause$labels = c(clause$labels, clause.labels)
+        clause$values = c(clause$values, clause.values)
 
         ##--- add description if present
         if (!is.na(descr.pos)) {
-          clause.labels = c(clause.labels, "descr")
-          clause.values = c(clause.values, descr.txt)
+          clause$labels = c(clause$labels, descr.label)
+          clause$values = c(clause$values, descr.text)
         }
 
-        if (length(clause.labels) != length(clause.values)) {
-          stop("mismatch between labels and numeric values in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (length(clause$labels) != length(clause$values)) {
+          stop("mismatch between labels and numeric values in line...\n  ", clause.line)
         }
 
-        if (length(clause.values) > 0) {
+        if (length(clause$values) > 0) {
           labels.exist = names(block$quantities[[meas.name]])
-          labels.override = clause.labels[clause.labels %in% labels.exist]
+          labels.override = clause$labels[clause$labels %in% labels.exist]
           if (any(labels.override)) {
             cat("warning, override quantity", meas.name, "\n")
             rc = alu.rbind.print(rbind(
               unlist(block$quantities[[meas.name]][labels.override]),
-              clause.values[labels.override]
+              clause$values[labels.override]
               ))
           }
-          block$quantities[[meas.name]][clause.labels] = unlist(clause.values)
+          block$quantities[[meas.name]][clause$labels] = unlist(clause$values)
         }
 
       } else if (clause.keyw == "MEASUREMENT") {
@@ -670,7 +700,7 @@ alucomb.read = function(file = "") {
         block.type = "MEASUREMENT"
         meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
         if (meas.name != block.fields[2]) {
-          stop("MEASUREMENT quantity does not match BLOCK quantity...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+          stop("MEASUREMENT quantity does not match BLOCK quantity...\n  ", clause.line)
         }
         measurement.in.data = TRUE
       } else if (clause.keyw == "VALUE" || (clause.keyw == "DATA" && measurement.in.data)) {
@@ -679,21 +709,21 @@ alucomb.read = function(file = "") {
         ##+++ DATA after MEASUREMENT clause, combos compatibility
         ##
 
-        if (length(clause.values) == 3) {
-          if (!is.null(attr(clause.values[[1]], "negval"))) {
-            stop("\"+val -val\" used for measurements value in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (length(clause$values) == 3) {
+          if (!is.null(attr(clause$values[[1]], "negval"))) {
+            stop("\"+val -val\" used for measurements value in line...\n  ", clause.line)
           }
           ##--- use values if existing
-          block.meas$value = clause.values[[1]]
+          block.meas$value = clause$values[[1]]
 
           ##--- get possibly asymmetric stat error, possibly percent or relative
-          rc = alucomb2.handle.asymm.excurs(clause.values[[1]], clause.values[[2]])
+          rc = alucomb2.handle.asymm.excurs(clause$values[[1]], clause$values[[2]])
           block.meas$stat = rc[[1]]
           block.meas$stat.p = rc[[2]]
           block.meas$stat.n = rc[[3]]
 
           ##--- get possibly asymmetric syst error, possibly percent or relative
-          rc = alucomb2.handle.asymm.excurs(clause.values[[1]], clause.values[[3]])
+          rc = alucomb2.handle.asymm.excurs(clause$values[[1]], clause$values[[3]])
           block.meas$syst = rc[[1]]
           block.meas$syst.p = rc[[2]]
           block.meas$syst.n = rc[[3]]
@@ -701,7 +731,7 @@ alucomb.read = function(file = "") {
           ##+++ set end of MEASEREMENT DATA (combos compatibility)
           measurement.in.data = FALSE
         } else {
-          stop("wrong number of numeric data in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+          stop("wrong number of numeric data in line...\n  ", clause.line)
         }
       } else if (clause.keyw == "DATA" ||
                  clause.keyw == "SYSTEMATICS" || clause.keyw == "SYSTLOCAL" || clause.keyw == "SYSTPAPER" ) {
@@ -715,15 +745,15 @@ alucomb.read = function(file = "") {
         ## SYSTPAPER like SYSTEMATICS but add reference name to make it paper-wide
         ##
 
-        if (length(clause.values) < 1) {
-          stop("at least one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (length(clause$values) < 1) {
+          stop("at least one numeric value required in line...\n  ", clause.line)
         }
 
         ##
         ## - "%" on either name or value means percent of measurement value
         ## - "&" on either name or value means relative of measurement value
         ##
-        clause.values = lapply(clause.values, function(val) {
+        clause$values = lapply(clause$values, function(val) {
           if (!is.null(attr(val, "&"))) {
             val = val*block.meas$value
           } else if (!is.null(attr(val, "%"))) {
@@ -732,31 +762,30 @@ alucomb.read = function(file = "") {
           return(val)
         })
 
-        clause.labels.input = clause.labels
+        clause$labels.input = clause$labels
         type.attr = "g"
         if (clause.keyw == "SYSTLOCAL") {
           type.attr = "l"
-          clause.labels = paste(paste(block.fields, collapse="."), clause.labels, sep=".")
+          clause$labels = paste(paste(block.fields, collapse="."), clause$labels, sep=".")
         } else if (clause.keyw == "SYSTPAPER") {
           type.attr = "p"
-          clause.labels = paste(paste(block.fields[-2], collapse="."), clause.labels, sep=".")
+          clause$labels = paste(paste(block.fields[-2], collapse="."), clause$labels, sep=".")
         }
-        if (any(clause.labels %in% names(block.meas$syst.terms))) {
-          stop("already used systematics label in line...\n  ",
-               paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (any(clause$labels %in% names(block.meas$syst.terms))) {
+          stop("already used systematics label in line...\n  ", clause.line)
         }
-        names(clause.values) = clause.labels
+        names(clause$values) = clause$labels
 
-        input.attr = sapply(clause.values, function(el) attr(el, "input"))
+        input.attr = sapply(clause$values, function(el) attr(el, "input"))
         input.attr = sub("^[+-]", "", input.attr)
-        input.attr = paste(ifelse(clause.values >= 0, "+", "-"), input.attr, sep="")
-        names(input.attr) = clause.labels.input
+        input.attr = paste(ifelse(clause$values >= 0, "+", "-"), input.attr, sep="")
+        names(input.attr) = clause$labels.input
 
-        type.attr = sapply(clause.values, function(el) type.attr)
+        type.attr = sapply(clause$values, function(el) type.attr)
 
         input.attr = c(attr(block.meas$syst.terms, "input"), input.attr)
         type.attr = c(attr(block.meas$syst.terms, "type"), type.attr)
-        block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause.values))
+        block.meas$syst.terms = c(block.meas$syst.terms, unlist(clause$values))
         attr(block.meas$syst.terms, "input") = input.attr
         attr(block.meas$syst.terms, "type") = type.attr
 
@@ -765,36 +794,40 @@ alucomb.read = function(file = "") {
         ## STAT_CORR_WITH, ERROR_CORR_WITH
         ##
 
-        if (length(clause.values) < 1) {
-          stop("at least one numeric value required in line...\n  ", paste(c(clause.keyw, clause.fields), collapse=" "))
+        clause = alucomb2.get.labels.values(clause.fields[1])
+        if (length(clause$values) == 1) {
+          ##--- alucomb2.r format (has a number in 1st word)
+          corr = clause$values[[1]]
+          clause$labels = clause.fields[-1]
+        } else {
+          ##--- if first word is not a number, check for old format, 3 strings followed by a number
+          corr = NA
+          if (length(clause.fields) == 4) {
+            clause = alucomb2.get.labels.values(clause.fields[4])
+            if (length(clause$values) == 1) {
+              corr = clause$values[[1]]
+              clause$labels = clause.fields[-4]
+            }
+          }
+          if (length(clause.fields) != 4 || is.na(corr)) {
+            stop("invalid ", clause.keyw, " clause in line...  ...\n  ", clause.line)
+          }
         }
 
-        ##
-        ## get correlation
-        ## in the old format (measurement name before correlation)
-        ## we need that all meas tags are non-numeric and this happens with the 2009 input cards
-        ##
-        corr = clause.values[[1]]
-
-        ##
-        ## in new cards format, we can have numeric measurement tags after
-        ## the numeric value of the correlation, we assume that the 1st
-        ## number is the correlation and all the remaining input words are
-        ## the measurement tags, here we recover all the input words expect
-        ## the first converted numeric value
-        ##
-        clause.labels = clause.fields[-clause.fields.numeric[1]]
-
+        if (!is.null(attr(corr, "+-"))) {
+          stop("invalid ", clause.keyw, " clause with \"+-\" in line...  ...\n  ", clause.line)
+        }
+          
         ##--- fix the format of pub status to pub|prelim
-        clause.labels[3] = alu.norm.pubstate(clause.labels[3])
+        clause$labels[3] = alu.norm.pubstate(clause$labels[3])
         ##--- set name to correlated measurement
-        names(corr) =  paste(clause.labels, collapse=".")
-
+        names(corr) =  paste(clause$labels, collapse=".")
+        
         if (!is.null(attr(corr, "%"))) {
           ##--- percent correlation coefficient
           corr = corr/100
         }
-
+        
         ##--- add + if not present and positive value
         attr(corr, "input") = sub("^([^+-])", "+\\1", attr(corr, "input"))
 
@@ -803,16 +836,14 @@ alucomb.read = function(file = "") {
         names(input.attr) = names(corr)
         if (clause.keyw == "STAT_CORR_WITH") {
           if (any(names(corr) %in% names(block.meas$corr.terms.stat))) {
-            stop("correlation specified twice in line...\n  ",
-                 paste(c(clause.keyw, clause.fields), collapse=" "))
+            stop("correlation specified twice in line...\n  ", clause.line)
           }
           input.attr = c(attr(block.meas$corr.terms.stat, "input"), input.attr)
           block.meas$corr.terms.stat = c(block.meas$corr.terms.stat, corr)
           attr(block.meas$corr.terms.stat, "input") = input.attr
         } else {
           if (any(names(corr) %in% names(block.meas$corr.terms.tot))) {
-            stop("correlation specified twice in line...\n  ",
-                 paste(c(clause.keyw, clause.fields), collapse=" "))
+            stop("correlation specified twice in line...\n  ", clause.line)
           }
           input.attr = c(attr(block.meas$corr.terms.tot, "input"), input.attr)
           block.meas$corr.terms.tot = c(block.meas$corr.terms.tot, corr)
@@ -833,21 +864,19 @@ alucomb.read = function(file = "") {
           constr.comb = c(-1, rep(1, length(clause.fields)-1))
           names(constr.comb) = clause.fields
         } else if (clause.keyw == "COMBOFQUANT") {
-          if (length(clause.labels)-1 != length(clause.values)) {
-            stop("error: mismatch between labels and data values in line...\n  ",
-                 paste(c(clause.keyw, clause.fields), collapse=" "))
+          if (length(clause$labels)-1 != length(clause$values)) {
+            stop("error: mismatch between labels and data values in line...\n  ", clause.line)
           }
-          constr.comb = c(-1, unlist(clause.values))
-          names(constr.comb) = clause.labels
+          constr.comb = c(-1, unlist(clause$values))
+          names(constr.comb) = clause$labels
         } else if (clause.keyw == "CONSTRAINT") {
-          if (length(clause.labels) != length(clause.values)) {
-            stop("error: mismatch between labels and data values in line...\n  ",
-                 paste(c(clause.keyw, clause.fields), collapse=" "))
+          if (length(clause$labels) != length(clause$values)) {
+            stop("error: mismatch between labels and data values in line...\n  ", clause.line)
           }
-          constr.name = clause.labels[1]
-          constr.val = clause.values[[1]]
-          constr.comb = unlist(clause.values[-1])
-          names(constr.comb) = clause.labels[-1]
+          constr.name = clause$labels[1]
+          constr.val = clause$values[[1]]
+          constr.comb = unlist(clause$values[-1])
+          names(constr.comb) = clause$labels[-1]
         }
 
         block$constr.lin.val[[constr.name]] = as.vector(constr.val)
@@ -859,16 +888,14 @@ alucomb.read = function(file = "") {
         ##
 
         if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
-          stop("error: missing numeric value in non-linear constraint in...\n  ",
-               paste(c(clause.keyw, clause.fields), collapse=" "))
+          stop("error: missing numeric value in non-linear constraint in...\n  ", clause.line)
         }
-        if (length(clause.labels) != 2) {
-          stop("error: NLCONSTRAINT needs one numeric value and one expression in line...\n  ",
-               paste(c(clause.keyw, clause.fields), collapse=" "))
+        if (length(clause$labels) != 2) {
+          stop("error: NLCONSTRAINT needs one numeric value and one expression in line...\n  ", clause.line)
         }
-        constr.name = clause.labels[1]
-        constr.val = as.vector(clause.values[[1]])
-        constr.expr = clause.labels[2]
+        constr.name = clause$labels[1]
+        constr.val = as.vector(clause$values[[1]])
+        constr.expr = clause$labels[2]
         block$constr.nl.str.val[[constr.name]] = constr.val
         block$constr.nl.str.expr[[constr.name]] = constr.expr
 
@@ -890,13 +917,11 @@ alucomb.read = function(file = "") {
             block$meas.drop.cards = setdiff(block$meas.drop.cards, meas.name)
           }
         } else {
-          stop("error, invalid USEMEAS keyword in line...\n  ",
-               paste(c(clause.keyw, clause.fields), collapse=" "))
+          stop("error, invalid USEMEAS keyword in line...\n  ", clause.line)
         }
 
       } else {
-        stop("error, invalid keyword in line...\n  ",
-             paste(c(clause.keyw, clause.fields), collapse=" "))
+        stop("error, invalid keyword in line...\n  ", clause.line)
       }
     }
 

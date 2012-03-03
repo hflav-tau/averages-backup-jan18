@@ -76,4 +76,16 @@ average2-unitarity-aleph-hcorr.input
 note that the results using the ALEPH h-K or pi-K results are
 numerically equivalent
 
+a repository tag was created with:
+> svn copy -m "tau/2011/TauFit-Mar2011 reproduces tau/2009/TauFit_Mar2011/ and tau/2009/TauFit-Aug2011" \
+    https://hfag.googlecode.com/svn/trunk https://hfag.googlecode.com/svn/tags/alucomb2-Mar2012-reproduces-Mar2011
+
+///////////////////////////////////////////////////////////////////////////////
+
+	example commands
+
+> ../../../Common/bin/alucomb2.r average2_2009.input > average2_2009.log
+> ../../../Common/bin/alucomb2.r average2_2009_unitarity_aleph_hcorr.input > average2_2009_unitarity_aleph_hcorr.log
+> ../../../Common/bin/alucomb2.r average2_2009_aleph_hcorr.input > average2_2009_aleph_hcorr.log
+
 ///////////////////////////////////////////////////////////////////////////////

@@ -27,6 +27,7 @@ COMBINE
 
 INCLUDE ../Common-Mar2011/parameters.input
 INCLUDE ../Common-Mar2011/quantities.input
+INCLUDE ../Common-Mar2011/quantities-texdescr.input
 
 QUANTITY Gamma9 seed 0.108
 QUANTITY Gamma14 seed 0.25
