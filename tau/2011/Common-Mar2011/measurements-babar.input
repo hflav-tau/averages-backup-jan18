@@ -2,7 +2,7 @@
 # Gamma103 (PDG node = S035R38)
 # G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma103 pub AUBERT 05W
+BEGIN MEASUREMENT BaBar Gamma103 pub AUBERT,B 05W
 
 VALUE 0.000856 +-5e-06 +-4.2e-05
 
