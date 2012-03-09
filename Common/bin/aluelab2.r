@@ -25,14 +25,13 @@ quadrature = function(x) {
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
 
+##
+## class to do computations on statistically correlated quantities
+##
 StatComb = proto()
 
+##--- create object to store quantities values and covariance
 StatComb$new = function(., val, cov) {
-  # Creates a child object to hold data and results
-  #
-  # x - a design matrix (ie. predictors
-  # y - a binary reponse vector
-
   proto(., val=val, cov=cov)
 }
 
