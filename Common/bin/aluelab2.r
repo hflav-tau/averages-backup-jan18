@@ -31,8 +31,16 @@ quadrature = function(x) {
 StatComb = proto()
 
 ##--- create object to store quantities values and covariance
-StatComb$new = function(., val, cov) {
+StatComb$new = function(., val=numeric(0), cov=matrix(ncol=0, nrow=0)) {
   proto(., val=val, cov=cov)
+}
+
+StatComb$val = function(.) {
+  .$val
+}
+
+StatComb$cov = function(.) {
+  .$cov
 }
 
 StatComb$corr = function(.) {
@@ -42,6 +50,11 @@ StatComb$corr = function(.) {
 
 StatComb$err = function(.) {
   sqrt(diag(.$cov))
+}
+
+StatComb$val.err = function(., name=NULL) {
+  if (is.null(name)) return(NULL)
+  c(val=.$val[name], err=sqrt(.$cov[name, name]))
 }
 
 ##
@@ -86,6 +99,8 @@ StatComb$meas.add = function(., add.val, add.err, add.corr=NULL) {
 ##
 ## aeb.meas.add.single = function(label, val, err) {}
 StatComb$meas.add.single = function(., label, val, err) {
+  val = as.numeric(val)
+  err = as.numeric(err)
   names(val) = label
   names(err) = label
   .$meas.add(val, err)
