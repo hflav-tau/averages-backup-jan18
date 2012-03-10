@@ -1,0 +1,28 @@
+#
+# parameters used for possibly updating systematic terms
+# use PDG 2011 when possible
+#
+PARAMETERS
+  # --- e+e- -> tau+tau- cross section from Swagato et al. paper
+  sigmataupmy4s    0.919        +-0.003
+  # --- --- tau -> pi- pi0 nu Gamma14 from TauFit/pdgfit.input
+  PimPizNu         0.254861     +-0.000932
+  # --- tau -> K- K0S nu = 1/2*Gamma37 from TauFit/pdgfit.input  
+  KmKzsNu          0.000763     +-8.05e-05
+  # --- tau -> pi- K0S pi0 nu = 1/2*(0.345 +- 0.015)% from TauToPimPizKzbNu/log/average.log
+  PimPizKzsNu      0.1725e-2    +-0.0075e-2
+  # --- tau -> K- K0S pi0 nu = 1/2*Gamma42 from TauFit/pdgfit.input
+  KmPizKzsNu       0.000768     +-0.0001
+  # --- tau -> pi- K0S K0S nu = Gamma47 from TauFit/pdgfit.input
+  PimKzsKzsNu      0.00024      +-0.000052
+  # --- tau -> pi-pi-pi+ nu (ex K0S) from TauToHmHmHpNu/log/average.log
+  PimPimPipNu      0.089509     +-0.0007026
+  # --- tau -> pi- pi- pi+ pi0 nu (ex K0S) = Gamma69 fit from PDG09
+  PimPimPipPizNu   4.48e-2      +-0.06e-2
+  # --- tau -> K-pi+pi- nu (ex K0S) from TauToHmHmHpNu/log/average.log
+  PimKmPipNu       0.0029253    +-0.0000709
+  # --- tau -> pi-K+K- nu from TauToHmHmHpNu/log/average.log
+  PimKmKpNu        0.0014303    +-0.0000279
+  # --- tau -> pi- K0S K0L nu, Swagato isospin notes
+  PimKzsKzlNu      0.093e-2     +-0.011e-2
+
