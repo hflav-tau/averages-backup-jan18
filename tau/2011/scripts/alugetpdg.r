@@ -1,0 +1,15 @@
+#!/usr/bin/env Rscript
+
+source("../../../Common/bin/alucomb2-getpdg.r")
+
+## ////////////////////////////////////////////////////////////////////////////
+## functions
+
+## ////////////////////////////////////////////////////////////////////////////
+## code
+
+args = commandArgs(TRUE)
+if (length(args) > 0) {
+  rc = alucomb2.getpdg(args[1]) 
+  print(rc)
+}
