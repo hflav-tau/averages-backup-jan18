@@ -1,7 +1,9 @@
 #!/usr/bin/env Rscript
 
 ##
-## 
+## read readpdg.cc output file 2009/TauFit_Mar2011/all_node_def.txt
+## get quantities description, PDG node and definitions
+## produce alucomb2.r cards for quantities
 ##
 
 require(stringr, quietly=TRUE)
