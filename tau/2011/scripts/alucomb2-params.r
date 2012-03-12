@@ -30,7 +30,7 @@ alucomb2.print.param = function(label, val, err.p, err.m=NULL) {
 }
 
 ##
-## class for updatinf params
+## class for updating params
 ##
 Alucomb2Param = proto()
 
