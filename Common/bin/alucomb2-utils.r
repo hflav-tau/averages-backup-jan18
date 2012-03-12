@@ -186,7 +186,13 @@ alucomb2.print.meas.correlation = function(corr.label, corr.terms) {
 ## print a measurement
 ##
 alucomb2.print.meas = function(meas, quantities) {
-  cat("#\n# ", meas$quant, " (PDG node = ", quantities[[meas$quant]]$node, ")\n", sep="")
+  node = quantities[[meas$quant]]$node
+  cat("#\n#", meas$quant)
+  if (!is.null(node) && node != "") {
+    cat(" (PDG node = ", node, ")\n", sep="")
+  } else {
+    cat("\n")
+  }
   descr = quantities[[meas$quant]]$descr
   if (!is.null(descr)) cat("# ", descr, "\n", sep="")
   cat("#\nBEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
