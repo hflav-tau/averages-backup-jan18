@@ -21,41 +21,30 @@
 source("../../../Common/bin/alucomb2-utils.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
-## definitions
-
-method="solnp"
-method="alabama"
-method="alucomb2"
-
-## ////////////////////////////////////////////////////////////////////////////
 ## functions
 
-## ////////////////////////////////////////////////////////////////////////////
-## code
-
 ##
-## alucomb
+## alucomb.fit()
+## fit measurements to averages
 ##
 
-args <- commandArgs(TRUE)
-if (length(args) > 0) {
-  file.name = args[1]
-} else {
-  file.name = "average.input"
-}
-
-alucomb = function(file.name = "") {
+alucomb.fit = function(combination, measurements, basename = "average", method = "alucomb2") {
 
 ##--- set very large line width to print even large amount of averaged quantities on single line
 options.save = options()
 ## options(width=10000)
 
-file.name.data = gsub("[.][^.]*$", ".rdata", file.name)
+filename.data = paste(basename, "rdata", sep=".")
+measurements = measurements[sort(names(measurements))]
 
-rc = alucomb.read(file.name)
-measurements = rc$measurements[sort(names(rc$measurements))]
-combination = rc$combination
-rm(rc)
+return.symbols = c(
+  "measurements", "combination", "delta",
+  "chisq", "dof",
+  "meas.val",   "meas.err",   "meas.cov",  "meas.cov.stat", "meas.cov.syst", "meas.corr",
+  "quant.val",  "quant.err",  "quant.cov", "quant.corr",
+  "constr.m", "constr.v",
+  "solve.cov.m"
+  )
 
 ##
 ## build list of all measurements mentioned in the COMBINE section
@@ -229,7 +218,7 @@ if (length(combination$constr.all.val) > 0) {
   eqs.order = order(names(combination$constr.all.val))
   eqs.order = seq(1, length(eqs.order))
   cat("\n##\n")
-  cat("## Constraint equations from card\n")
+  cat("## Constraint equations from cards\n")
   cat("##\n")
   cat(paste(combination$constr.all.val[eqs.order], combination$constr.all.str.expr[eqs.order], sep=" = "), sep="\n")
 }
@@ -889,12 +878,7 @@ if (FALSE && quant.num > 1) {
 cat("\n## end\n")
 
 ##--- save data and results
-rc = save(file=file.name.data,
-  measurements, combination, delta,
-  chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
-  quant.val,  quant.err,  quant.cov, quant.corr,
-  constr.m, constr.v)
+rc = save(file=filename.data, list = return.symbols)
 
 } # end if method alucomb
 
@@ -1064,13 +1048,7 @@ if (FALSE && quant.num > 1) {
 cat("\n## end\n")
 
 ##--- save data and results
-rc = save(file=file.name.data,
-  measurements, combination, delta,
-  chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
-  quant.val,  quant.err,  quant.cov, quant.corr,
-  constr.m, constr.v,
-  solve.cov.m)
+rc = save(file=filename.data, list = return.symbols)
 
 } # end if method alucomb2
 
@@ -1131,11 +1109,7 @@ if (FALSE) {
 }
 
 ##--- save data and results
-rc = save(file=file.name.data,
-  measurements, combination, delta,
-  chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
-  quant.val,  quant.err,  quant.cov, quant.corr)
+rc = save(file=filename.data, list = return.symbols)
 
 } # end if method solnp
 
@@ -1193,7 +1167,7 @@ if (FALSE && quant.num > 1) {
   cat("\ncorrelation\n\n")
   rc = alu.rbind.print(quant.corr)
 }
-cat("\n## end\n")
+cat("\n## end of solution\n")
 
 ##--- cleanup
 if (FALSE) {
@@ -1201,28 +1175,43 @@ if (FALSE) {
 }
 
 ##--- save data and results
-rc = save(file=file.name.data,
-  measurements, combination, delta,
-  chisq, dof,
-  meas.val,   meas.err,   meas.cov,  meas.cov.stat, meas.cov.syst, meas.corr,
-  quant.val,  quant.err,  quant.cov, quant.corr)
+rc = save(file=filename.data, list = return.symbols)
 
 }  # end of if method alabama
 
-##
-## ////////////////////////////////////////////////////////////////////////////
-##
-
 cat("\n")
-cat(paste("file", file.name.data, "produced\n"))
+cat(paste("file", filename.data, "produced\n"))
 cat("\n## end\n")
 
 options(options.save)
-} ##--- end function alucomb
+
+return.symbols = return.symbols[sapply(return.symbols, function(x) exists(x, -1))]
+return(invisible(mget(return.symbols, envir=as.environment(-1))))
+
+} ##--- end function alucomb.fit
+
+##
+## alucomb()
+## - read cards file
+## - fit
+##
+alucomb = function(filename = "", method = "alucomb2") {
+  basename = gsub("[.][^.]*$", "", filename)
+  rc = alucomb.read(filename)  
+  rc = alucomb.fit(rc$combination, rc$measurements, basename, method)
+}
+
+## ////////////////////////////////////////////////////////////////////////////
+## code
+
+method="solnp"
+method="alabama"
+method="alucomb"
+method="alucomb2"
 
 args <- commandArgs(TRUE)
 if (length(args) == 1 && exists("alucomb")) {
-  alucomb(file = args[1])
+  alucomb(filename = args[1], method = method)
 } else {
   cat("Usage: alucomb2.r <input file>\n")
 }
