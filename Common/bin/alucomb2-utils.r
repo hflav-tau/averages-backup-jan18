@@ -200,15 +200,42 @@ alucomb2.print.meas = function(meas, quantities) {
   cat("\n")
   cat("VALUE", meas$value)
 
-  if (meas$stat.p == -meas$stat.n) {
-    cat(" +-", meas$stat, sep="")
+  flag.stat = FALSE
+  if (attr(meas$stat, "input") != "") {
+    flag.stat.symm = TRUE
+    cat(" +-", attr(meas$stat, "input"), sep="")
+    if (attr(meas$stat, "input") != meas$stat) flag.stat = TRUE
   } else {
-    cat(" +", meas$stat.p, " -", -meas$stat.n, sep="")
+    flag.stat.symm = FALSE
+    cat(" ", attr(meas$stat.p, "input"), " ", attr(meas$stat.n, "input"), sep="")
+    if (attr(meas$stat.p, "input") != meas$stat.p ||
+        attr(meas$stat.n, "input") != meas$stat.n) flag.stat = TRUE
   }
-  if (meas$syst.p == -meas$syst.n) {
-    cat(" +-", meas$syst, sep="")
+
+  flag.syst = FALSE
+  if (attr(meas$syst, "input") != "") {
+    flag.syst.symm = TRUE
+    cat(" +-", attr(meas$syst, "input"), sep="")
+    if (attr(meas$syst, "input") != meas$syst) flag.syst = TRUE
   } else {
-    cat(" +", meas$syst.p, " -", -meas$syst.n, sep="")
+    flag.syst.symm = FALSE
+    cat(" ", attr(meas$syst.p, "input"), " ", attr(meas$syst.n, "input"), sep="")
+    if (attr(meas$syst.p, "input") != meas$syst.p ||
+        attr(meas$syst.n, "input") != meas$syst.n) flag.syst = TRUE
+  }
+
+  if (flag.stat || flag.syst) {
+    cat("  # ", meas$value)
+    if (meas$stat.p == -meas$stat.n) {
+      cat(" +-", meas$stat, sep="")
+    } else {
+      cat(" +", meas$stat.p, " -", -meas$stat.n, sep="")
+    }
+    if (meas$syst.p == -meas$syst.n) {
+      cat(" +-", meas$syst, sep="")
+    } else {
+      cat(" +", meas$syst.p, " -", -meas$syst.n, sep="")
+    }
   }
   cat("\n")
 
