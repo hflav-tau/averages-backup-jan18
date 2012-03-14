@@ -56,7 +56,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   cat("\n##\n")
   cat("## averaging the following quantities\n")
-  cat("##\n")
+  cat("##\n\n")
   cat("COMBINE\n")
   quant.fmt = format(quant.names)
   maxlen = max(nchar(quant.fmt))
@@ -97,7 +97,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   cat("\n##\n")
   cat("## quantities with no description\n")
-  cat("##\n")
+  cat("##\n\n")
   for (quant.name in quant.names) {
     quant = combination$quantities[[quant.name]]
     if (is.null(quant$descr) || quant$descr == "") {
@@ -173,7 +173,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   cat("\n##\n")
   cat("## using the following updated global parameters\n")
-  cat("##\n")
+  cat("##\n\n")
   alucomb2.print.params(combination$params)
   
   ##
@@ -220,7 +220,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     eqs.order = seq(1, length(eqs.order))
     cat("\n##\n")
     cat("## Constraint equations from cards\n")
-    cat("##\n")
+    cat("##\n\n")
     cat(paste(combination$constr.all.val[eqs.order], combination$constr.all.str.expr[eqs.order], sep=" = "), sep="\n")
   }
   
@@ -331,7 +331,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       if (flag.no.output.yet) {
         cat("\n##\n")
         cat("## Linearized non-linear constraints\n")
-        cat("##\n")
+        cat("##\n\n")
         flag.no.output.yet = FALSE
       }
       cat("non-linear: ",
@@ -354,7 +354,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     eqs.order = seq(1, length(eqs.order))
     cat("\n##\n")
     cat("## Constraint equations used\n")
-    cat("##\n")
+    cat("##\n\n")
     cat(paste(combination$constr.all.val[combination$constr.all.lin | combination$constr.all.nl][eqs.order],
               combination$constr.all.str.expr[combination$constr.all.lin | combination$constr.all.nl][eqs.order],
               sep=" = "), sep="\n")
