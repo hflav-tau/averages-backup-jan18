@@ -194,7 +194,7 @@ alucomb2.print.meas = function(meas, quantities) {
     cat("\n")
   }
   descr = quantities[[meas$quant]]$descr
-  if (!is.null(descr)) cat("# ", descr, "\n", sep="")
+  if (!is.null(descr) && descr != "") cat("# ", descr, "\n", sep="")
   cat("#\nBEGIN MEASUREMENT ", paste(meas$tags, collapse=" "), "\n", sep="")
 
   cat("\n")
