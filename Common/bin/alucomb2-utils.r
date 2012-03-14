@@ -131,6 +131,24 @@ print.empty.line.first.time = function() {
   }
 }
 
+alucomb2.def.global.flag = function() {
+  flag = FALSE
+  list(
+       set = function(x) flag <<- x,
+       get = function() flag
+       )}
+
+alucomb2.eol.first.time = list(
+  flag = alucomb2.def.global.flag(),
+  reset = function() alucomb2.eol.first.time$flag$set(TRUE),
+  print = function() {
+    if (alucomb2.eol.first.time$flag$get()) {
+      alucomb2.eol.first.time$flag$set(FALSE)
+      cat("\n")
+    }
+  }
+)
+
 ##--- print parameters
 alucomb2.print.params = function(params) {
   if (length(params) > 0) {
@@ -366,6 +384,23 @@ alucomb2.get.labels.values = function(clause.fields) {
     }, clause.values, clause.labels.relperc[1:length(clause.values)], SIMPLIFY=FALSE)
   }
   return(list(labels=clause.labels, values=clause.values, fields.numeric=clause.fields.numeric))
+}
+
+##
+## get matrix deriv(meas_i, syst.term_k) * delta(syst.term_k)
+##
+alucomb2.meas.by.syst.term = function(measurements, syst.terms) {
+  rc = sapply(measurements, function(m) {
+    if (is.null(m$syst.terms)) {
+      st = rep(0, length(syst.terms))
+    } else {
+      st = m$syst.terms[syst.terms]
+      st = ifelse(is.na(st), 0, st)
+    }
+    names(st) = names(syst.terms)
+    return(st)
+  })
+  return(t(rc))
 }
 
 ##////////////////////////////////
