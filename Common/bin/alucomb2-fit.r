@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##
-## alucomb2.r
+## alucomb2-fit.r
 ##
 ## Copyright Alberto Lusiani 2010. All rights reserved.
 ## an open source license will be set once tested and working
@@ -66,30 +66,31 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     cat("  ", paste(quant.fmt[i.first:i.last]), "\n", sep="")
   }
   
-  flag.empty.line.first.time <<- TRUE
-  fields.descr.list = c("node", "descr")
+  alucomb2.eol.first.time$reset()
+  fields.descr.list = c("node", "descr", "texdescr")
   for (quant.name in quant.names) {
     quant = combination$quantities[[quant.name]]
     fields = names(quant)
     fields.descr = intersect(fields.descr.list, fields)
-    if (length(fields.descr) > 0 && any(quant[fields.descr] != "")) {
-      print.empty.line.first.time()
-      cat("QUANTITY", quant.name)
-      for (field in fields.descr.list) {
-        val = quant[[field]]
-        if (!is.null(val) && val != "") cat("", field, val)
+    flag = FALSE
+    for (field in fields.descr.list) {
+      val = quant[[field]]
+      if (!is.null(val) && val != "") {
+        alucomb2.eol.first.time$print()
+        cat("QUANTITY ", quant.name, " ", field, " \"", val, "\"\n", sep="")
+        flag = TRUE
       }
-      cat("\n")
     }
+    if (flag) cat("\n")
   }
   
-  flag.empty.line.first.time <<- TRUE
+  alucomb2.eol.first.time$reset()
   for (quant.name in quant.names) {
     quant = combination$quantities[[quant.name]]
     fields = names(quant)
     fields.nodescr = setdiff(fields, fields.descr.list)
     if (length(fields.nodescr) > 0) {
-      print.empty.line.first.time()
+      alucomb2.eol.first.time$print()
       cat("QUANTITY ", quant.name, " ", paste(fields.nodescr, quant[fields.nodescr]), "\n", sep="")
     }
   }
@@ -541,18 +542,6 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   }
   
   ##
-  ## in the following, the covariance matrix for measurements is assembled
-  ##
-  
-  ##
-  ## build correlation matrix
-  ##
-  meas.corr = diag.m(rep(0,meas.num))
-  rownames(meas.corr) = meas.names
-  colnames(meas.corr) = meas.names
-  meas.corr.stat = meas.corr
-  
-  ##
   ## warn about correlations with unknown measurements
   ##
   ## if strict=FALSE, deal with alucomb.r - style correlations terms,
@@ -561,9 +550,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ##
   
   ##--- utility function to replace incomplete measurement names
-  alu.find.matching.meas = function(name, strict=FALSE) {
+  alucomb2.find.matching.meas = function(name, strict=FALSE) {
     regexp = paste("^", gsub("[.]", "[.]", name, perl=TRUE), ".*", ifelse(strict, "$", ""), sep="")
-    mapply(function(name, x) {
+    rc = mapply(function(name, x) {
       rc = grep(x, meas.names, perl=TRUE, value=TRUE)
       if (length(rc)>1) {
         stop("measurement", mi.name, "\n  correlation", name, "\n  matches multiple measurements\n", rc)
@@ -575,38 +564,50 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       cat("warning, measurement", mi.name, "\n  correlation", name, "\n  updated with matching measurement", rc[1], "\n")
       return(rc[1])
     },
-           name, regexp)
+      name, regexp)
   }
   
-  flag.empty.line.first.time <<- TRUE
+  alucomb2.eol.first.time$reset()
   strict.correlation.matching = FALSE
   ##--- replace incomplete measurement names in correlations
   for (mi.name in meas.names) {
     corr.names = names(measurements[[mi.name]]$corr.terms.stat)
     corr.names.missing.mask = !(corr.names %in% meas.names)
     if (any(corr.names.missing.mask)) {
-      print.empty.line.first.time()
+      alucomb2.eol.first.time$print()
       corr.names.missing = corr.names[corr.names.missing.mask]
-      corr.names.missing.upd = alu.find.matching.meas(corr.names.missing, strict.correlation.matching)
+      corr.names.missing.upd = alucomb2.find.matching.meas(corr.names.missing, strict.correlation.matching)
       names(measurements[[mi.name]]$corr.terms.stat)[corr.names.missing.mask] = corr.names.missing.upd
     }
     
     corr.names = names(measurements[[mi.name]]$corr.terms.tot)
     corr.names.missing.mask = !(corr.names %in% meas.names)
     if (any(corr.names.missing.mask)) {
-      print.empty.line.first.time()
+      alucomb2.eol.first.time$print()
       corr.names.missing = corr.names[corr.names.missing.mask]
-      corr.names.missing.upd = alu.find.matching.meas(corr.names.missing, strict.correlation.matching)
+      corr.names.missing.upd = alucomb2.find.matching.meas(corr.names.missing, strict.correlation.matching)
       names(measurements[[mi.name]]$corr.terms.tot)[corr.names.missing.mask] = corr.names.missing.upd
     }
   }
   
   ##
-  ## set off-diagonal correlation matrix coefficients from cards
-  ## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
-  ## - meas.corr means total correlation, to be multiplied by total errors
+  ## in the following, the covariance matrix for measurements is assembled
   ##
   
+  ##
+  ## build correlation matrix
+  ##
+  meas.corr = diag.m(rep(0, meas.num))
+  rownames(meas.corr) = meas.names
+  colnames(meas.corr) = meas.names
+  meas.corr.stat = meas.corr
+  
+  ##
+  ## set off-diagonal correlation matrix coefficients from cards
+  ## - meas.corr.stat means only stat. correlation, to be multiplied by stat. errors
+  ## - meas.corr.tot means total correlation, to be multiplied by total errors
+  ##
+
   ##--- set off-diagonal statistical correlation matrix coefficients from cards
   for (mi.name in meas.names) {
     for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.stat), meas.names)) {
@@ -616,52 +617,56 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       meas.corr[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.tot[[mj.name]]
     }
   }
-  
+
   flag = FALSE
   
   ##--- check that the STAT_CORR_WITH terms are symmetric
   if (any(meas.corr.stat != t(meas.corr.stat))) {
+    flag = TRUE
     errors = character(0)
     for (mi in 1:meas.num) {
       for (mj in seq(mi+1, length=meas.num-mi)) {
         if (meas.corr.stat[mi, mj] != meas.corr.stat[mj, mi]) {
           errors = c(errors, paste(meas.names[mi], " - ", meas.names[mj],
             " : ", meas.corr.stat[mi, mj], " , ",  meas.corr.stat[mj, mi], sep=""))
-          flag = TRUE
         }
       }
     }
-    cat("error: asymmetric statistical correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
+    cat("\nerror: asymmetric statistical correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
   }
   
   ##--- check that the ERROR_CORR_WITH terms are symmetric
   if (any(meas.corr != t(meas.corr))) {
+    flag = TRUE
     errors = character(0)
     for (mi in 1:meas.num) {
       for (mj in seq(mi+1, length=meas.num-mi)) {
         if (meas.corr[mi, mj] != meas.corr[mj, mi]) {
           errors = c(errors, paste(meas.names[mi], " - ", meas.names[mj],
             " : ", meas.corr[mi, mj], " , ",  meas.corr[mj, mi], sep=""))
-          flag = TRUE
         }
       }
     }
-    cat("error: asymmetric total correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
+    cat("\nerror: asymmetric total correlation\n  ", paste(errors, collapse="\n  "), "\n", sep="")
   }
-  if (flag) stop("quitting")
   
   ##--- not handled and forbidden to enter both total and stat. only correlations
-  flag = FALSE
-  for (i in 1:meas.num) {
-    for (j in i:meas.num) {
-      if (meas.corr[i,j] != 0 && meas.corr.stat[i,j] != 0) {
-        flag = TRUE
-        cat(paste("error: both total and statistical correlation specified for measurements:\n  ",
-                  meas.names[i], ", ", meas.names[j], "\n", collapse=""))
+  if (any(meas.corr != 0 & meas.corr.stat != 0)) {
+    flag = TRUE
+    errors = character(0)
+    for (mi in 1:meas.num) {
+      for (mj in mi:meas.num) {
+        if (meas.corr[mi,mj] != 0 && meas.corr.stat[mi,mj] != 0) {
+          errors = c(errors, paste(meas.names[mi], " - ", meas.names[mj],
+            " : ", meas.corr[mi, mj], " , ",  meas.corr[mj, mi], sep=""))
+        }
       }
     }
+    cat("\nerror: both total and statistical correlation specified for measurements:  \n",
+        paste(errors, collapse="\n  "), "\n", sep="")
   }
-  if (flag) stop("aborted because of above errors\n")
+  if (flag) stop("quitting")
+  rm(flag)
   
   ##
   ## build covariance matrix using errors and correlation coefficients
@@ -670,35 +675,27 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ##
   meas.cov = meas.corr * (meas.err %o% meas.err)
   meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
+
+  syst.terms = unique(unlist(lapply(measurements, function(m)  names(m$syst.terms)), use.names=FALSE))
+  names(syst.terms) = syst.terms
+
+  ##--- get dependence of measurements from syst.terms
+  dm.by.dp = alucomb2.meas.by.syst.term(measurements, syst.terms)
   
-  ##
-  ## get syst. correlation corresponding to correlated syst. terms
-  ##
-  meas.cov.syst = meas.corr * 0
-  for (meas.i in meas.names) {
-    syst.i = measurements[[meas.i]]$syst.terms
-    for (meas.j in meas.names) {
-      ##--- no addition needed for on-diagonal terms
-      if (meas.i == meas.j) next
-      syst.j = measurements[[meas.j]]$syst.terms
-      ##--- systematics common to the two measurements
-      correl.i.j = intersect(names(syst.i), names(syst.j))
-      ##--- remove syst. terms uncorrelated to two different measurements
-      correl.i.j = intersect(correl.i.j, syst.terms.corr)
-      if (length(correl.i.j) == 0) next
-      meas.cov.syst[meas.i,meas.j] = sum(syst.i[correl.i.j] * syst.j[correl.i.j])
-    }
-  }
+  ##--- get total systematic covariance due to syst.terms
+  meas.cov.syst = dm.by.dp %*% t(dm.by.dp)
   
   ##--- if total correlation specified, get stat. correlation by subtraction (term-by-term)
   meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
-  meas.cov.stat = meas.cov.stat + diag.m(meas.stat^2)
-  ##--- total covariance
-  meas.cov.syst = meas.cov.syst + diag.m(meas.syst^2)
+
+  ##--- set diagonal of stat covariance using stat errors
+  diag(meas.cov.stat) = meas.stat^2
+  ##--- set diagonal of syst covariance using stat errors insuring result is semi-positive-definite
+  diag(meas.cov.syst) = pmax(diag(meas.cov.syst), meas.syst^2)
+
+  ##--- total covariance and total correlation
   meas.cov = meas.cov.stat + meas.cov.syst
-  
-  ##--- total correlation
-  meas.corr = meas.cov / (meas.err %o% meas.err)
+  meas.corr = meas.cov / diag(meas.cov) %o% diag(meas.cov)
   
   ##
   ## error scaling using the "scale" parameter for fitted quantities
@@ -730,7 +727,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ## all remaining delta matrix terms are zero
   ## one can generalize the above concepts to measurements that are linear combinations
   ## of quantities by using proper coefficients different from 1
-                                        #
+  ##
   delta = as.matrix(sapply(quant.names, function(x) as.numeric(x == meas.quantities)))
   rownames(delta) = meas.names
   ##--- needed when length(quant.names) == 1
