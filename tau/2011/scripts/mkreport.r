@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 ##
-## alurep11.r
+## mkreport.r
 ##
 
 require("optparse", quietly=TRUE)
@@ -12,9 +12,9 @@ source("../../../Common/bin/alucomb2-fit.r")
 ## functions
 
 ##
+## example function to use vars of an env in the function env
 ##
-##
-alurep11.rc = function(alucomb.env) {
+mkreport.rc = function(alucomb.env) {
   attach(alucomb.env)
   rc = try({
   })
@@ -22,6 +22,9 @@ alurep11.rc = function(alucomb.env) {
   return(invisible(NULL))
 }
 
+##
+## get the inspire bibtex key from the measurement tags
+##
 get.reference = function(tags) {
   bib.pdg.table = list(
     "DEL-AMO-SANCHEZ.11E" = "delAmoSanchez:2010pc",
@@ -294,7 +297,7 @@ get.reference = function(tags) {
 
   ref.conf = bib.conf.table[[paste(tags[1], tail(tags, -3), collapse=".", sep=".")]]
   if (!is.null(ref.conf)) return(ref.conf)
-  
+
   ref.insp = bib.pdg.table[[paste(tail(tags, -3), collapse=".")]]
   if (is.null(ref.insp) || ref.insp=="not found") {
     ref.insp = paste("not found:", paste(tags, collapse="."))
@@ -302,6 +305,9 @@ get.reference = function(tags) {
   return(ref.insp)
 }
 
+##
+##
+##
 get.tex.quant.descr = function(quant) {
   repeat {
     texdescr = quant$texdescr
@@ -340,10 +346,14 @@ get.tex.quant.descr = function(quant) {
     texdescr = descr
     break
   }
-  
+
   return(texdescr)
 }
 
+##
+## return quantity formatted val +- stat in a string
+## according to the specified precision and power-of-ten order
+##
 get.tex.quant.val = function(quant.val, quant.err, precision, order) {
   quant.val = quant.val/10^order
   quant.err = quant.err/10^order
@@ -358,6 +368,10 @@ get.tex.quant.val = function(quant.val, quant.err, precision, order) {
   return(rc)
 }
 
+##
+## return measurement formatted val +- stat +- syst in a string
+## according to the specified precision and power-of-ten order
+##
 get.tex.meas.val = function(meas, precision, order) {
   norm = 10^order
   str.val = sprintf(paste("%", precision, "f", sep=""), meas$value/norm)
@@ -381,6 +395,13 @@ get.tex.meas.val = function(meas, precision, order) {
   return(rc)
 }
 
+##
+## for the spec. measurement return list with:
+## - experiment
+## - latex \cite{} reference
+## - type: prelim or pub
+## - formatter val +- stat +- syst
+##
 get.tex.meas = function(meas, precision, order) {
   meas.item = list()
   meas.item$exp = meas$tags[1]
@@ -390,6 +411,9 @@ get.tex.meas = function(meas, precision, order) {
   return(meas.item)
 }
 
+##
+## for the spec. quantity return the associated measurements
+##
 get.meas.quant = function(quant.name, delta) {
   delta.names = delta[, quant.name]
   meas.names = delta.names[delta.names!=0]
@@ -397,7 +421,8 @@ get.meas.quant = function(quant.name, delta) {
 }
 
 ##
-## return numeric id for sorting labels like "Gamma5", "Gamma3by5", ...
+## return numeric id for sorting labels like "Gamma5", "Gamma3by5"
+## <n>by<m> are sorted after <n> in ascending order ov <m>
 ##
 alucomb2.gamma.num.id = function(gamma.name) {
   gamma.name = sub("Unitarity", "Gamma1000", gamma.name, fixed=TRUE)
@@ -411,7 +436,7 @@ alucomb2.gamma.num.id = function(gamma.name) {
 ##
 ## return tex label such as \Gamma_1 or \frac{\Gamma_1}{\Gamma_2}
 ##
-alucomb2.gamma.texlabel = function(gamma.name) {
+alucomb2.gamma.texlabel.nv = function(gamma.name) {
   if (gamma.name == "GammaAll") return("1")
   str = str_match(gamma.name, "Gamma(\\d+)(by(\\d+))?")[1,]
   if (is.na(str[1])) return(gamma.name)
@@ -419,6 +444,49 @@ alucomb2.gamma.texlabel = function(gamma.name) {
     return(paste("\\Gamma_{", str[2], "}", sep=""))
   }
   return(paste("\\frac{\\Gamma_{", str[2], "}}{\\Gamma_{", str[4], "}}", sep=""))
+}
+alucomb2.gamma.texlabel = Vectorize(alucomb2.gamma.texlabel.nv)
+
+##
+## for the spec vector of measurement, compute the
+## appropriate precision and power-of-ten order
+##
+get.precision.order = function(vals) {
+  max.abs.val = max(abs(vals))
+
+  if (max.abs.val == 0) {
+    not.higher.order = 0
+  } else {
+    not.higher.order = floor(log(max.abs.val*1.01)/log(10))
+  }
+  if (not.higher.order == -1) {
+    order = -2
+    precision = 5.2
+  } else if (not.higher.order == -2) {
+    order = -2
+    precision = 5.3
+  } else if (not.higher.order == -3) {
+    order = -2
+    precision = 5.3
+  } else if (not.higher.order == 0) {
+    order = 0
+    precision = 5.3
+  } else if (not.higher.order == 1) {
+    order = 0
+    precision = 5.2
+  } else if (not.higher.order == 2) {
+    order = 0
+    precision = 5.1
+  } else if (not.higher.order == 3) {
+    order = 0
+    precision = 5.0
+  } else {
+    order = not.higher.order
+    precision = 5.3
+  }
+  precision = precision + 1.1
+
+  return(c(precision=precision, order=order))
 }
 
 ##
@@ -431,81 +499,52 @@ get.tex.table = function(quant.names) {
   rc = mapply(function(quant.name, quant) {
     meas.names = get.meas.quant(quant.name, delta)
 
-    meas.vals = unlist(lapply(measurements[meas.names], function(m)
-      abs(c(m$value, m$stat.p, m$stat.n, m$syst.p, m$syst.n))))
-    meas.vals = c(meas.vals, abs(quant.val[quant.name]), quant.err[quant.name])
-    meas.abs.val.max = max(meas.vals)
-      
-    if (meas.abs.val.max == 0) {
-      not.higher.order = 0
-    } else {
-      not.higher.order = floor(log(meas.abs.val.max*1.01)/log(10))
-    }
-    if (not.higher.order == -1) {
-      order = -2
-      precision = 5.2
-    } else if (not.higher.order == -2) {
-      order = -2
-      precision = 5.3
-    } else if (not.higher.order == -3) {
-      order = -2
-      precision = 5.3
-    } else if (not.higher.order == 0) {
-      order = 0
-      precision = 5.3
-    } else if (not.higher.order == 1) {
-      order = 0
-      precision = 5.2
-    } else if (not.higher.order == 2) {
-      order = 0
-      precision = 5.1
-    } else if (not.higher.order == 3) {
-      order = 0
-      precision = 5.0
-    } else {
-      order = not.higher.order
-      precision = 5.3
-    }
-    precision = precision + 1.1
-    
+    vals = unlist(lapply(measurements[meas.names], function(m)
+      c(m$value, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
+    vals = c(vals, quant.val[quant.name], quant.err[quant.name])
+    rc = get.precision.order(vals)
+    precision = rc[1]
+    order = rc[2]
+
     quant.descr = get.tex.quant.descr(quant)
     quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
     ## return(paste("\\[", texdescr, "\\]", sep=""))
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
-    rc = cat(
+    quant.line = paste(
       quant.descr, "&",
       get.tex.quant.val(quant.val[quant.name], quant.err[quant.name], precision, order),
-      " & HFAG & Winter 2012 fit \\\\\n"
+      " & HFAG & Winter 2012 fit"
       )
-    for (meas.name in meas.names) { 
+    meas.lines = sapply(meas.names, function(meas.name) {
       meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
-      cat(paste(c("", meas.item$value, meas.item$exp, meas.item$ref), collapse=" & "), "\\\\\n")
+      return(paste(c("", meas.item$value, meas.item$exp, meas.item$ref), collapse=" & "))
+    })
+    rc = quant.line
+    if (length(meas.lines) > 0) {
+      meas.lines = paste(meas.lines, collapse=" \\\\\n")
+      rc = paste(rc, meas.lines, sep=" \\\\\n")
     }
-    cat("\\hline\n")
-    return(invisible(NULL))
+    return(rc)
   },
     quant.names, combination$quantities[quant.names])
-  return(invisible(NULL))
+  return(invisible(paste(rc, collapse=" \\\\\n\\hline\n")))
 }
 
 ##
 ## create files
 ##
-alurep11 = function(fname = "average2-aleph-hcorr.rdata") {
+mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   load(fname, .GlobalEnv)
-  
-  fname = "tau-aleph-hcorr-all.tex"
-  sink(file=fname)
+
+  fname = "../report/tau-aleph-hcorr-all.tex"
   quant.names = combination$combine
   quant.names = setdiff(quant.names, "GammaAll")
-  rc = get.tex.table(quant.names)
-  sink()
+  cat(get.tex.table(quant.names), file=fname)
   cat("produced file '", fname, "'\n", sep="")
 
   if (FALSE) {
-  fname = "tau-aleph-hcorr-strange.tex"
-  sink(file=fname)
+  fname = "../report/tau-aleph-hcorr-strange.tex"
   rc = get.tex.table(c(
     "Gamma10",
     "Gamma16",
@@ -524,10 +563,96 @@ alurep11 = function(fname = "average2-aleph-hcorr.rdata") {
     "Gamma803",
     "Gamma110"
     ))
-  sink()
+  cat(rc, file=fname)
   cat("produced file '", fname, "'\n", sep="")
   }
 
+  ##
+  ## dump correlation of base nodes
+  ##
+  quant.names = combination$combine
+  ##--- quantity names defined via constraint
+  quant.constr.names = sub(".c", "", names(combination$constr.all.expr), fixed=TRUE)
+  quant.names = setdiff(quant.names, quant.constr.names)
+  quant.names = setdiff(quant.names, "Gamma998")
+  quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
+
+  corr.pre = c(
+    "%%",
+    "%% base nodes correlation, @@num@@",
+    "%%",
+    "\\ifhevea\\begin{table}\\fi",
+    "\\begin{center}",
+    "\\ifhevea",
+    "\\caption{Base nodes correlation coefficients in percent, section @@num@@\\label{tab:br-fit-corr@@num@@}}%",
+    "\\else",
+    "\\begin{minipage}{\\linewidth}",
+    "\\begin{center}",
+    "\\captionof{table}{Base nodes correlation coefficients in percent, section @@num@@}\\label{tab:br-fit-corr@@num@@}%",
+    "\\vspace*{-2ex}%",
+    "\\fi",
+    "{\\ifhevea\\footnotesize\\else\\small\\fi",
+    "\\renewcommand*{\\arraystretch}{1.3}%",
+    "\\begin{tabular}{@@tabcols@@}",
+    "\\\\",
+    "\\hline")
+  corr.post = c(
+    "\\\\\\hline",
+    "\\end{tabular}}",
+    "\\ifhevea\\else",
+    "\\end{center}",
+    "\\end{minipage}",
+    "\\fi",
+    "\\end{center}",
+    "\\ifhevea\\end{table}\\fi")
+  
+  quant.corr.base = quant.corr[quant.names, quant.names] * 100
+  inum = 1
+  fname = "../report/tau-aleph-hcorr-corr.tex"
+  for (j in seq(1, length(quant.names), by=10)) {
+    for (i in seq(1, length(quant.names), by=10)) {
+      submat.txt = NULL
+      for(ii in i:min(i+10-1, length(quant.names))) {
+        if (ii<=j) next
+        maxcol = min(ii-1,j+10-1)
+        row.txt = paste("\\(", alucomb2.gamma.texlabel(quant.names[ii]), "\\)")
+        row.txt = c(row.txt, sprintf("%4.0f", quant.corr.base[ii, j:maxcol]))
+        row.txt = c(row.txt, rep("", length.out=min(j+10-1, length(quant.names))-j+1-(maxcol-j+1)))
+        submat.txt = c(submat.txt, paste(row.txt, collapse=" & "))
+      }
+      if (is.null(submat.txt)) next
+      label.txt = alucomb2.gamma.texlabel(quant.names[j:min(j+10-1, length(quant.names))])
+      label.num = min(j+10-1, length(quant.names)) - j + 1
+      label.txt = paste("\\(", label.txt, "\\)", sep=" ", collapse=" & ")
+      label.txt = paste("", label.txt, sep=" & ")
+      submat.txt = paste(submat.txt, collapse=" \\\\\n")
+      submat.txt = paste(submat.txt, label.txt, sep=" \\\\\n")
+      out.txt = gsub("@@num@@", as.character(inum), corr.pre)
+      out.txt = gsub("@@tabcols@@", paste(rep("r", length.out=label.num+1), collapse=""), out.txt)
+      out.txt = paste(out.txt, collapse="\n")
+      cat(file=fname, append=ifelse(inum==1, FALSE, TRUE),
+          out.txt, submat.txt, paste(corr.post, collapse="\n"), sep="\n")
+      inum = inum + 1
+    }
+  }
+  cat("produced file '", fname, "'\n", sep="")
+  
+  if (FALSE) {
+    rc = apply(quant.corr[quant.names, quant.names], 1, function(corr.val) {
+      rc = paste(sprintf("%4.0f", 100*corr.val), collapse = " & ")
+    })
+    quant.texlabel = alucomb2.gamma.texlabel(quant.names)
+    rc = paste(quant.texlabel, "&", rc)
+
+    fname = "../report/tau-aleph-hcorr-corr.tex"
+    corr.header = paste(quant.texlabel, collapse=" & ")
+    cat(file=fname, c(corr.header, rc), sep=" \\\\")
+    cat("produced file '", fname, "'\n", sep="")
+  }
+
+  ##
+  ## dump constraint equations
+  ##
   constr.order = order(alucomb2.gamma.num.id(names(combination$constr.all.str.expr)))
   comb.str = combination$constr.all.str.expr[constr.order]
   comb.str = comb.str[grep("Gamma\\d+by\\d+.*|Unitarity", names(comb.str), perl=TRUE, invert=TRUE)]
@@ -566,10 +691,9 @@ alurep11 = function(fname = "average2-aleph-hcorr.rdata") {
   constr.right = gsub("BRA_Kzbar_KS_KET", "\\Gamma_{<\\bar{K}^0|K_S>}", constr.right, fixed=TRUE)
   constr.right = gsub("BRA_Kzbar_KL_KET", "\\Gamma_{<\\bar{K}^0|K_L>}", constr.right, fixed=TRUE)
   constr.right = gsub("BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET", "R_{0\\bar{0}SS/LL}", constr.right, fixed=TRUE)
-  
-  fname = "tau-aleph-hcorr-constr-eq.tex"  
-  cat(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}"), sep="\n", file=fname)
 
+  fname = "../report/tau-aleph-hcorr-constr-eq.tex"
+  cat(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}"), sep="\n", file=fname)
   cat("produced file '", fname, "'\n", sep="")
 }
 
@@ -578,7 +702,7 @@ alurep11 = function(fname = "average2-aleph-hcorr.rdata") {
 
 args <- commandArgs(TRUE)
 if (length(args) == 1) {
-  rc = alurep11(fname = args[1])
+  rc = mkreport(fname = args[1])
 } else {
-  alurep11()
+  mkreport()
 }
