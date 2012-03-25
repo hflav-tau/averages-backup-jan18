@@ -30,7 +30,7 @@ alucomb2.print.param = function(label, val, err.p, err.m=NULL) {
 }
 
 ##
-## class for updating params
+## class for updating parameters
 ##
 Alucomb2Param = proto()
 
@@ -120,7 +120,7 @@ alucomb2.params = function() {
   ## but one does not have:
   ## - GammaKSKS = GammaKSKL
   ## to improve GammaKSKL one can use the above equalities
-  ## GammaKSKS_fit = average(KSKS, KLKL) (however, there no PDG value for KLKL)
+  ## GammaKSKS_fit = average(KSKS, KLKL) (however, there is no PDG value for KLKL)
   ## GammaKSKL_fit = average(KSKL, KPKM - 2*GammaKSKS_fit)
   ## 
 
