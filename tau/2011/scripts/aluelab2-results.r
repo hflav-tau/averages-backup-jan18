@@ -1,10 +1,17 @@
 #!/usr/bin/env Rscript
 
+require(stringr, quietly=TRUE)
 source("../../../Common/bin/aluelab2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## functions
 
+##
+## get list of quantity names in the definition of a quantity
+## using the relevant constraint equation
+## used since Oct 2010
+## since March 2012, use aluelab.get.str.expr, needs alucomb2 format
+##
 aluelab.get.quant.names = function(quant.name, combination) {
   var.comb = combination$constr.all.comb[[paste(quant.name, ".c", sep="")]]
   if (is.null(var.comb) || is.na(var.comb)) {
@@ -22,6 +29,18 @@ aluelab.get.quant.names = function(quant.name, combination) {
   var.comb = var.comb[names(var.comb) != quant.name]
   var.names = names(var.comb[var.comb != 0])
   return(var.names)
+}
+
+##
+## get string expression for a quantity, from its constraint equations
+## needs alucomb2 format
+##
+aluelab.get.str.expr = function(quant.name, combination) {
+  str.expr = combination$constr.all.str.expr[[paste(quant.name, ".c", sep="")]]
+  str.expr = str_match(str.expr, "-([[:alnum:]]+)\\s+[+]\\s+(.*\\S)\\s*$")[,3]
+  ##--- remove outer braces
+  str.expr = gsub("(\\(((?:[^()]++|(?1))+)*+\\))", "\\2", str.expr, perl=TRUE)
+  return(str.expr)
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -81,35 +100,17 @@ aluelab.results = function(args) {
 
   quant = StatComb$new(quant.val, quant.cov)
   quant.names = names(quant.val)
+
+  comb.params = lapply(combination$params, function(x) unname(x["value"]))
+  quant$params.add(comb.params)
   
   ##
   ## recover some BRs as function of others
   ##
-  if (!any("Gamma801" == quant.names)) {
-    rc = aeb.meas.expr.add("Gamma801", quote(1.699387*Gamma96))
-  }
   if (!any("Gamma89" == quant.names)) {
-    rc = quant$meas.expr.add("Gamma89", quote(Gamma803 + 0.892*Gamma151))
+    rc = quant$meas.expr.add("Gamma89", quote(Gamma803 + BR_om_pimpippiz*Gamma151))
   }
-  
-  ##
-  ## Gamma151 = K omega nu
-  ## PDG 2009 ( 4.1  0.9 )  10 ~ 4
-  ##+++ do not include, included in K 3pi nu
-  ##+++ aeb.meas.add.single("Gamma151", 4.1e-4, 0.9e-4)
-  
-  ##
-  ## B[tau- -> (K3pi)- nu (ex. K0, omega,eta)]  : 1e-2 : 0.074  0.030    
-  ## Aleph estimate, not used
-  ##
-  ##+++ aeb.meas.add.single("Km3PiNu", 0.074e-2, 0.030e-2)
-  
-  ##
-  ## B[tau- -> (K4pi)- nu]                      : 1e-2 : 0.011  0.007
-  ## Aleph estimate, not used
-  ##
-  ##+++ aeb.meas.add.single("Km4PiNu", 0.011e-2, 0.007e-2)
-  
+    
   ##
   ## PDG 2009 definition of Gamma110 = B(tau -> Xs nu)
   ##
@@ -152,12 +153,7 @@ aluelab.results = function(args) {
     Gamma44=1,  Gamma53=1,  Gamma85=1,  
     Gamma89=1,  Gamma128=1, Gamma130=1, 
     Gamma132=1, Gamma151=1, Gamma801=1)
-  
-  if (!any("Gamma151" == quant.names)) {
-    ##--- remove Gamma151 (tau -> K omega nu) if not present in fit for backward compatibility
-    Gamma110.comb = Gamma110.comb[names(Gamma110.comb) != "Gamma151"]
-  }
-  
+
   ##
   ## end Oct2010 update
   ## define Gamma110 using the alucomb.r Gamma110 constraint
@@ -165,8 +161,21 @@ aluelab.results = function(args) {
   ##
   Gamma110.names = aluelab.get.quant.names("Gamma110", combination)
   
-  ##--- use Gamma110 defined through COMBOFQUANT rather than here
-  ## quant$meas.comb.add("Gamma110", Gamma110.comb)
+  ##
+  ## March 2012, get Gamma110 from its constraint equation
+  ##
+  Gamma110.str.expr = aluelab.get.str.expr("Gamma110", combination)
+  Gamma110.comb = quant$str.to.comb(Gamma110.str.expr)
+  Gamma110.names = names(Gamma110.comb)
+  
+  Gamma110.str.expr = paste(Gamma110.comb, Gamma110.names, sep="*", collapse=" + ")
+  cat("Gamma110 = ", Gamma110.str.expr, "\n", sep="")
+  
+  if (!any("Gamma151" == quant.names)) {
+    ##--- remove Gamma151 (tau -> K omega nu) if not present in fit for backward compatibility
+    Gamma110.comb = Gamma110.comb[Gamma110.names != "Gamma151"]
+    cat("warning, Gamma151 removed from Gamma110 definition\n")
+  }
   
   ##--- list of all tau BRs that are not leptonic and not strange, i.e. not-strange-hadronic
   B.tau.VA.names = setdiff(aluelab.get.quant.names("GammaAll", combination), Gamma110.names)
@@ -198,12 +207,17 @@ aluelab.results = function(args) {
   quant$meas.expr.add("Be_unitarity", quote(1 - Gamma3 - B_tau_VA - Gamma110))
   quant$meas.expr.add("Bmu_unitarity", quote(1 - Gamma5 - B_tau_VA - Gamma110))
   
-  ##
-  ## fit best values for Be, Bmu, B_tau_VA, B_tau_s
-  ## using both the direct measurements and the result from the unitarity constraint
-  ##
-  if (any("Gamma998" == aluelab.get.quant.names("GammaAll", combination))) {
-    ##--- here we got results from unconstrained fit
+  ##--- understand if there was no unitarity constraint
+  no.unit.constr.flag =
+    ("Gamma998" %in% aluelab.get.quant.names("GammaAll", combination) ||
+     "Gamma998" %in% aluelab.get.quant.names("Unitarity", combination))
+
+  if (no.unit.constr.flag) {
+    ##
+    ## unconstrained fit
+    ## fit best values for Be, Bmu, B_tau_VA, B_tau_s
+    ## using both the direct measurements and the result from the unitarity constraint
+    ##
     if (flag.unitarity) {
       ##--- use unitarity constraint to compute Be, Bmu, B_tau_VA/s
       quant$meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
@@ -229,7 +243,10 @@ aluelab.results = function(args) {
       }
     }
   } else {
-    ##--- here we got results from unitarity constrained fit
+    ##
+    ## unitarity constrained fit
+    ## the fitted values have the unitarity constraint already
+    ##
     rc = quant$meas.expr.add("Be_fit", quote(Gamma5))
     rc = quant$meas.expr.add("Bmu_fit", quote(Gamma3))
     rc = quant$meas.expr.add("B_tau_VA_fit", quote(B_tau_VA))
@@ -264,14 +281,14 @@ aluelab.results = function(args) {
 
   ##
   ## Be from tau lifetime
-  ## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
+  ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
   quant$meas.expr.add("Be_from_taulife",
-                    bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
+                      bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
                            *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
   ##
   ## Bmu from tau lifetime
-  ## Bmu = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_mu/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
+  ## Bmu= tau_tau/tau_mu (m_tau/m_mu)^5 f(m^2_mu/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
   quant$meas.expr.add("Bmu_from_taulife",
                     bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mmubymtau/phspf_mebymmu
@@ -284,7 +301,7 @@ aluelab.results = function(args) {
   ## minimum chisq fit for Be_univ using, Be, Be from Bmu, Be from tau lifetime
   ##
   ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
-  ## Be = tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
+  ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
   quant$meas.fit.add("Be_univ", c(Be_fit=1, Be_from_Bmu=1, Be_from_taulife=1))
   
@@ -324,7 +341,7 @@ aluelab.results = function(args) {
   quant$meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
   quant$meas.expr.add("deltaR_su3break", quote(deltaR_su3break_pheno + deltaR_su3break_msd2*(m_s/1000)^2 + deltaR_su3break_remain))
   
-  if (any("Gamma998" == aluelab.get.quant.names("GammaAll", combination))) {
+  if (no.unit.constr.flag) {
     ##
     ## if using constrained fit with dummy mode (Gamma998), i.e. unconstrained fit
     ##
