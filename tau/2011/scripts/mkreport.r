@@ -489,46 +489,71 @@ get.precision.order = function(vals) {
   return(c(precision=precision, order=order))
 }
 
+get.precision.order.quant = function(quant.name) {
+  meas.names = get.meas.quant(quant.name, delta)
+  
+  vals = unlist(lapply(measurements[meas.names], function(m)
+    c(m$value, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
+  vals = c(vals, quant.val[quant.name], quant.err[quant.name])
+  return(get.precision.order(vals))
+}
+
 ##
 ## return body of latex tabular environment for the requested quantities
 ## including the quantities values followed by the related measurement values
 ##
-get.tex.table = function(quant.names) {
+get.tex.table = function(quant.names, with.meas=TRUE) {
   quant.order = order(alucomb2.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(function(quant.name, quant) {
-    meas.names = get.meas.quant(quant.name, delta)
-
-    vals = unlist(lapply(measurements[meas.names], function(m)
-      c(m$value, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
-    vals = c(vals, quant.val[quant.name], quant.err[quant.name])
-    rc = get.precision.order(vals)
+    rc = get.precision.order.quant(quant.name)
     precision = rc[1]
     order = rc[2]
 
     quant.descr = get.tex.quant.descr(quant)
     quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
-    ## return(paste("\\[", texdescr, "\\]", sep=""))
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
-    quant.line = paste(
+    rc = paste(
       quant.descr, "&",
       get.tex.quant.val(quant.val[quant.name], quant.err[quant.name], precision, order),
       " & HFAG & Winter 2012 fit"
       )
-    meas.lines = sapply(meas.names, function(meas.name) {
-      meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
-      return(paste(c("", meas.item$value, meas.item$exp, meas.item$ref), collapse=" & "))
-    })
-    rc = quant.line
-    if (length(meas.lines) > 0) {
-      meas.lines = paste(meas.lines, collapse=" \\\\\n")
-      rc = paste(rc, meas.lines, sep=" \\\\\n")
+
+    if (with.meas) {
+      meas.names = get.meas.quant(quant.name, delta)
+      meas.lines = sapply(meas.names, function(meas.name) {
+        meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
+        return(paste(c("", meas.item$value, meas.item$exp, meas.item$ref), collapse=" & "))
+      })
+      if (length(meas.lines) > 0) {
+        meas.lines = paste(meas.lines, collapse=" \\\\\n")
+        rc = paste(rc, meas.lines, sep=" \\\\\n")
+      }
     }
     return(rc)
   },
     quant.names, combination$quantities[quant.names])
-  return(invisible(paste(rc, collapse=" \\\\\n\\hline\n")))
+  if (with.meas) {
+    return(invisible(paste(rc, collapse=" \\\\\n\\hline\n")))
+  } else {
+    return(invisible(paste(rc, collapse=" \\\\\n")))
+  }
+}
+
+get.tex.table.simple = function(quant.names, precision, order) {
+  quant.order = order(alucomb2.gamma.num.id(quant.names))
+  quant.names = quant.names[quant.order]
+  rc = mapply(function(quant.name, quant) {
+    quant.descr = get.tex.quant.descr(quant)
+    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")    
+    rc = paste(
+      quant.descr, "&",
+      get.tex.quant.val(quant.val[quant.name], quant.err[quant.name], precision, order)
+      )
+  }, quant.names, combination$quantities[quant.names])
+  return(paste(rc, collapse=" \\\\\n"))
 }
 
 ##
@@ -543,29 +568,18 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   cat(get.tex.table(quant.names), file=fname)
   cat("produced file '", fname, "'\n", sep="")
 
-  if (FALSE) {
   fname = "../report/tau-aleph-hcorr-strange.tex"
-  rc = get.tex.table(c(
-    "Gamma10",
-    "Gamma16",
-    "Gamma23",
-    "Gamma28",
-    "Gamma35",
-    "Gamma40",
-    "Gamma128",
-    "Gamma151",
-    "Gamma130",
-    "Gamma132",
-    "Gamma44",
-    "Gamma53",
-    "Gamma801",
-    "Gamma802",
-    "Gamma803",
-    "Gamma110"
-    ))
-  cat(rc, file=fname)
+  gamma110.names = names(combination$constr.all.comb$Gamma110.c)
+  gamma110.names = setdiff(gamma110.names, "Gamma110")
+  rc = get.tex.table.simple(gamma110.names, 6.3, -2)
+  cat(rc, "\n", sep="", file=fname)
   cat("produced file '", fname, "'\n", sep="")
-  }
+
+  fname = "../report/tau-aleph-hcorr-gamma110.tex"
+  gamma110.names = "Gamma110"
+  rc = get.tex.table.simple(gamma110.names, 6.3, -2)
+  cat(rc, "\n", sep="", file=fname)
+  cat("produced file '", fname, "'\n", sep="")
 
   ##
   ## dump correlation of base nodes
@@ -592,7 +606,7 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
     "\\vspace*{-2ex}%",
     "\\fi",
     "{\\ifhevea\\footnotesize\\else\\small\\fi",
-    "\\renewcommand*{\\arraystretch}{1.3}%",
+    "\\renewcommand*{\\arraystretch}{1.1}%",
     "\\begin{tabular}{@@tabcols@@}",
     "\\\\",
     "\\hline")
