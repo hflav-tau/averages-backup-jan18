@@ -45,6 +45,7 @@ str.match.just.single = function(string, pattern) {
 
 ##
 ## return numeric id for sorting labels like "Gamma5", "Gamma3by5", ...
+## copied from alucomb2-utils.r
 ##
 alucomb2.gamma.num.id = function(gamma.name) {
   gamma.name = ifelse(gamma.name == "GammaAll", "Gamma999", gamma.name)
