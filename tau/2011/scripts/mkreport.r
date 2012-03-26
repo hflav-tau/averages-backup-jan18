@@ -571,13 +571,13 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   fname = "../report/tau-aleph-hcorr-strange.tex"
   gamma110.names = names(combination$constr.all.comb$Gamma110.c)
   gamma110.names = setdiff(gamma110.names, "Gamma110")
-  rc = get.tex.table.simple(gamma110.names, 6.3, -2)
+  rc = get.tex.table.simple(gamma110.names, 6.3, -3)
   cat(rc, "\n", sep="", file=fname)
   cat("produced file '", fname, "'\n", sep="")
 
   fname = "../report/tau-aleph-hcorr-gamma110.tex"
   gamma110.names = "Gamma110"
-  rc = get.tex.table.simple(gamma110.names, 6.3, -2)
+  rc = get.tex.table.simple(gamma110.names, 6.3, -3)
   cat(rc, "\n", sep="", file=fname)
   cat("produced file '", fname, "'\n", sep="")
 
