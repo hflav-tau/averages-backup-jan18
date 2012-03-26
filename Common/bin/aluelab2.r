@@ -1,4 +1,9 @@
-#!/usr/bin/env Rscript
+## ////////////////////////////////////////////////////////////////////////////
+##
+## aluelab2.r
+##
+## utility functions to elaborate alucomb2.r results
+##
 
 require(proto, quietly=TRUE)
 
@@ -22,6 +27,23 @@ quadrature = function(x) {
   return(sqrt(sum(x^2)))
 }
 
+##
+## substitute after evaluating arg
+## copied from alucomb2-utils.r
+##
+esub = function(expr, sublist) do.call("substitute", list(expr, sublist))
+esub.expr = function(expr, sublist) {
+  sapply(as.expression(expr), function(call) as.expression(esub(call, sublist)))
+}
+
+##
+## deparse expression and produce single line
+## copied from alucomb2-utils.r
+##
+deparse.one.line = function(expr) {
+  paste(gsub("^\\s+|\\s+$", "", sapply(as.expression(expr), function(x) deparse(x)), perl=TRUE), collapse="")
+}
+
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
 
@@ -32,7 +54,15 @@ StatComb = proto()
 
 ##--- create object to store quantities values and covariance
 StatComb$new = function(., val=numeric(0), cov=matrix(ncol=0, nrow=0)) {
-  proto(., val=val, cov=cov)
+  proto(., val=val, cov=cov, params=list())
+}
+
+StatComb$params.add = function(., params) {
+  .$params = c(.$params, as.list(params))
+}
+
+StatComb$params.get = function(.) {
+  .$params
 }
 
 StatComb$val = function(.) {
@@ -55,6 +85,17 @@ StatComb$err = function(.) {
 StatComb$val.err = function(., name=NULL) {
   if (is.null(name)) return(NULL)
   c(val=.$val[name], err=sqrt(.$cov[name, name]))
+}
+
+##
+## get string expression for a quantity, from its constraint equations
+## needs alucomb2 format
+##
+StatComb$str.to.comb = function(., str.expr) {
+  expr = parse(text=as.character(str.expr))
+  vars = intersect(all.vars(expr), names(.$val))
+  comb = drop(attr(eval(deriv(expr, vars), c(as.list(.$val), as.list(.$params))), "gradient"))
+  return(comb)
 }
 
 ##
@@ -174,6 +215,8 @@ StatComb$meas.comb.add = function(., add.name, add.comb) {
 ##
 ## aeb.meas.expr.add = function(add.name, add.expr) {}
 StatComb$meas.expr.add = function(., add.name, add.expr) {
+  ##--- substitute parameters
+  add.expr = esub.expr(add.expr, .$params)
   add.deriv.expr = deriv(add.expr, all.vars(add.expr))
   add.val = eval(add.deriv.expr, as.list(.$val))
   add.grad = attr(add.val, "gradient")
