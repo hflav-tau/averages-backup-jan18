@@ -5,6 +5,7 @@
 # aluelab-results2.sh
 #
 # execute alucomb2.r and print aluelab-results.r results
+# obsolete, alucomb2.r now uses arguments
 #
 
 usage ()

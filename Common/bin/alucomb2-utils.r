@@ -1,7 +1,10 @@
-#!/usr/bin/env Rscript
+## ////////////////////////////////////////////////////////////////////////////
+##
+## utility functions for alucomb2.r
+##
 
 ## ////////////////////////////////////////////////////////////////////////////
-## definitions
+## functions
 
 ##
 ## create diagonal matrix also for vectors of length one
@@ -266,16 +269,6 @@ alucomb2.print.meas = function(meas, quantities) {
 
   cat("\n")
   cat("END\n")
-}
-
-##
-## return numerid id for sorting labels like "Gamma5", "Gamma3by5", ...
-##
-alucomb2.gamma.num.id = function(gamma.name) {
-  num1 = as.numeric(sub("^(\\D+)(\\d+)(|by.*)$", "\\2", gamma.name, perl=TRUE))
-  tmp = sub("^\\D+\\d+(by|)(\\d*)$", "\\2", gamma.name)
-  num2 = ifelse(tmp=="", 0, as.numeric(tmp))
-  return(10000*num1 + num2)
 }
 
 ##
