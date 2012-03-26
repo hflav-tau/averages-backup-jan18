@@ -15,7 +15,7 @@
 
 load("average_alucomb.rdata")
 
-lines  <- readLines("constraints.txt")
+lines = readLines("constraints.txt")
 lines = lines[grep("^[*]\\s*\\S+\\s*=\\s*.*\\S\\s*$", lines, perl=TRUE)]
 lines = gsub("^[*]\\s*", "", lines, perl=TRUE)
 lines = gsub("\\s+$", "", lines, perl=TRUE)

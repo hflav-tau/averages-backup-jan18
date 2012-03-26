@@ -1,5 +1,3 @@
-#!/usr/bin/env Rscript
-
 ##
 ## alucomb2-fit.r
 ##
@@ -1036,6 +1034,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     
     cat("\n##\n")
     cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
+    cat("## (", meas.num, "measurements,", quant.num, "fitted quantities,", constr.num, "constraints )\n")
     cat("##\n\n")
     rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
     if (FALSE && quant.num > 1) {

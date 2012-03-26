@@ -3,6 +3,7 @@
 
 #
 # alucomb2.sh
+# obsolete, now alucomb.r uses args
 #
 
 usage ()
