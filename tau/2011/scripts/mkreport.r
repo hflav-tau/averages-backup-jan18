@@ -358,7 +358,6 @@ get.tex.quant.val = function(quant.val, quant.err, precision, order) {
   quant.val = quant.val/10^order
   quant.err = quant.err/10^order
   if (order == 0) {
-    rc = paste("\\(", quant.val, "\\pm", quant.err, "\\)")
     rc = sprintf(paste("\\(%", precision, "f \\pm %", precision, "f\\)", sep=""),
       quant.val, quant.err)
   } else {
@@ -608,7 +607,6 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
     "{\\ifhevea\\footnotesize\\else\\small\\fi",
     "\\renewcommand*{\\arraystretch}{1.1}%",
     "\\begin{tabular}{@@tabcols@@}",
-    "\\\\",
     "\\hline")
   corr.post = c(
     "\\\\\\hline",
