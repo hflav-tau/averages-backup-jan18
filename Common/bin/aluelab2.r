@@ -8,7 +8,7 @@
 require(proto, quietly=TRUE)
 
 ## ////////////////////////////////////////////////////////////////////////////
-## definitions
+## functions
 
 ##
 ## create diagonal matrix also for vectors of length one
@@ -45,8 +45,6 @@ deparse.one.line = function(expr) {
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
-## definitions
-
 ##
 ## class to do computations on statistically correlated quantities
 ##
@@ -54,37 +52,37 @@ StatComb = proto()
 
 ##--- create object to store quantities values and covariance
 StatComb$new = function(., val=numeric(0), cov=matrix(ncol=0, nrow=0)) {
-  proto(., val=val, cov=cov, params=list())
+  proto(., .val=val, .cov=cov, .params=list())
 }
 
 StatComb$params.add = function(., params) {
-  .$params = c(.$params, as.list(params))
+  .$.params = c(.$.params, as.list(params))
 }
 
 StatComb$params.get = function(.) {
-  .$params
+  .$.params
 }
 
 StatComb$val = function(.) {
-  .$val
+  .$.val
 }
 
 StatComb$cov = function(.) {
-  .$cov
+  .$.cov
 }
 
 StatComb$corr = function(.) {
-  err = sqrt(diag(.$cov))
-  .$cov / (err %o% err)
+  err = sqrt(diag(.$.cov))
+  .$.cov / (err %o% err)
 }
 
 StatComb$err = function(.) {
-  sqrt(diag(.$cov))
+  sqrt(diag(.$.cov))
 }
 
 StatComb$val.err = function(., name=NULL) {
   if (is.null(name)) return(NULL)
-  c(val=.$val[name], err=sqrt(.$cov[name, name]))
+  c(val=.$.val[name], err=sqrt(.$.cov[name, name]))
 }
 
 ##
@@ -93,8 +91,8 @@ StatComb$val.err = function(., name=NULL) {
 ##
 StatComb$str.to.comb = function(., str.expr) {
   expr = parse(text=as.character(str.expr))
-  vars = intersect(all.vars(expr), names(.$val))
-  comb = drop(attr(eval(deriv(expr, vars), c(as.list(.$val), as.list(.$params))), "gradient"))
+  vars = intersect(all.vars(expr), names(.$.val))
+  comb = drop(attr(eval(deriv(expr, vars), c(as.list(.$.val), as.list(.$.params))), "gradient"))
   return(comb)
 }
 
@@ -121,17 +119,17 @@ StatComb$meas.add = function(., add.val, add.err, add.corr=NULL) {
   add.cov = add.corr * (add.err %o% add.err)
   
   ##--- assemble covariance matrix
-  cov.right = matrix(0, dim(.$cov)[1], dim(add.cov)[2])
+  cov.right = matrix(0, dim(.$.cov)[1], dim(add.cov)[2])
   colnames(cov.right) = colnames(add.cov)
-  cov.top = cbind(.$cov, cov.right)
-  cov.left = matrix(0, dim(add.cov)[1], dim(.$cov)[2])
+  cov.top = cbind(.$.cov, cov.right)
+  cov.left = matrix(0, dim(add.cov)[1], dim(.$.cov)[2])
   rownames(cov.left) = rownames(add.cov)
   cov.bottom = cbind(cov.left, add.cov)
-  .$cov = rbind(cov.top, cov.bottom)
+  .$.cov = rbind(cov.top, cov.bottom)
   
   ##--- assemble averaged quantities
   quant.averaged.sel = names(add.val) %in% quant.names.averaged
-  .$val = c(.$val, add.val[quant.averaged.sel])
+  .$.val = c(.$.val, add.val[quant.averaged.sel])
 }
 
 ##
@@ -163,12 +161,12 @@ StatComb$linear.comb.with.cov = function(., lc, val, cov) {
 ##
 ## aeb.linear.comb.glob = function(lc) {}
 StatComb$linear.comb = function(., label, val, err) {
-  diff = setdiff(names(lc), names(.$val))
+  diff = setdiff(names(lc), names(.$.val))
   if (length(diff) > 0) {
     stop("error: following quantities were not loaded: ", diff)
   }
   meas.lc = names(lc)
-  return(.$linear.comb.with.cov(lc, .$val[meas.lc], .$cov[meas.lc, meas.lc]))
+  return(.$linear.comb.with.cov(lc, .$.val[meas.lc], .$.cov[meas.lc, meas.lc]))
 }
 
 ##
@@ -179,14 +177,14 @@ StatComb$linear.comb = function(., label, val, err) {
 StatComb$meas.val.grad.add = function(., add.name, add.val, add.grad) {
   names(add.val) = add.name
   add.comb = drop(add.grad)
-  add.comb.full = .$val * 0
+  add.comb.full = .$.val * 0
   add.comb.full[names(add.comb)] = add.grad
-  add.cov = add.comb.full %*% .$cov %*% add.comb.full
+  add.cov = add.comb.full %*% .$.cov %*% add.comb.full
   names(add.cov) = add.name
-  .$cov = rbind(
-    cbind(.$cov, matrix(.$cov %*% add.comb.full, dimnames=list(NULL, add.name))),
-    matrix(c(add.comb.full %*% .$cov, add.cov), 1, dim(.$cov)[2]+1, dimnames=list(add.name)))
-  .$val = c(.$val, add.val)
+  .$.cov = rbind(
+    cbind(.$.cov, matrix(.$.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
+    matrix(c(add.comb.full %*% .$.cov, add.cov), 1, dim(.$.cov)[2]+1, dimnames=list(add.name)))
+  .$.val = c(.$.val, add.val)
   return(invisible())
 }
 
@@ -197,16 +195,16 @@ StatComb$meas.val.grad.add = function(., add.name, add.val, add.grad) {
 ## aeb.meas.comb.add = function(add.name, add.comb) {}
 StatComb$meas.comb.add = function(., add.name, add.comb) {
   add.comb = drop(add.comb)
-  add.comb.full = .$val * 0
+  add.comb.full = .$.val * 0
   add.comb.full[names(add.comb)] = add.comb
-  add.val = add.comb.full %*% .$val
+  add.val = add.comb.full %*% .$.val
   names(add.val) = add.name
-  add.err = sqrt(add.comb.full %*% .$cov %*% add.comb.full)
+  add.err = sqrt(add.comb.full %*% .$.cov %*% add.comb.full)
   names(add.err) = add.name
-  .$val = c(.$val, add.val)
-  .$cov = rbind(
-    cbind(.$cov, matrix(.$cov %*% add.comb.full, dimnames=list(NULL, add.name))),
-    matrix(c(add.comb.full %*% .$cov, add.err^2), 1, dim(.$cov)[2]+1, dimnames=list(add.name)))
+  .$.val = c(.$.val, add.val)
+  .$.cov = rbind(
+    cbind(.$.cov, matrix(.$.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
+    matrix(c(add.comb.full %*% .$.cov, add.err^2), 1, dim(.$.cov)[2]+1, dimnames=list(add.name)))
   return(invisible())
 }
 
@@ -216,9 +214,9 @@ StatComb$meas.comb.add = function(., add.name, add.comb) {
 ## aeb.meas.expr.add = function(add.name, add.expr) {}
 StatComb$meas.expr.add = function(., add.name, add.expr) {
   ##--- substitute parameters
-  add.expr = esub.expr(add.expr, .$params)
+  add.expr = esub.expr(add.expr, .$.params)
   add.deriv.expr = deriv(add.expr, all.vars(add.expr))
-  add.val = eval(add.deriv.expr, as.list(.$val))
+  add.val = eval(add.deriv.expr, as.list(.$.val))
   add.grad = attr(add.val, "gradient")
   .$meas.val.grad.add(add.name, add.val, add.grad)
   return(invisible())
@@ -231,8 +229,8 @@ StatComb$meas.expr.add = function(., add.name, add.expr) {
 ## aeb.model.matrix.fit = function(model.matrix) {}
 StatComb$model.matrix.fit = function(., model.matrix) {
   model.matrix.names = names(model.matrix)
-  val = .$val[model.matrix.names]
-  cov = .$cov[model.matrix.names, model.matrix.names]
+  val = .$.val[model.matrix.names]
+  cov = .$.cov[model.matrix.names, model.matrix.names]
   model.matrix = matrix(model.matrix, length(model.matrix), 1)
   invcov = solve(cov)
   fit.cov = solve(t(model.matrix) %*% invcov %*% model.matrix)
@@ -249,4 +247,22 @@ StatComb$meas.fit.add = function(., add.name, add.model.matrix) {
   fit.comb = .$model.matrix.fit(add.model.matrix)
   .$meas.comb.add(add.name, fit.comb)
   return(invisible())
+}
+
+## ////////////////////////////////////////////////////////////////////////////
+##
+## object for doing string translations
+##
+TrStr = proto()
+
+##--- create object make a string translation
+TrStr$new = function(., set1, set2) {
+  table = 1:256
+  table[as.integer(charToRaw(set1))+1] = as.integer(charToRaw(set2))+1
+  proto(., .table=table)
+}
+
+##--- translate a string using stored table
+TrStr$tr = function(., str) {
+  rawToChar(as.raw(.$.table[as.integer(charToRaw(str))+1]-1))
 }
