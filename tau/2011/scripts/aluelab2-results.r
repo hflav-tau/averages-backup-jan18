@@ -188,15 +188,21 @@ aluelab.results = function(args) {
   ## add measurements to compute universality improved Be
   ##
   
-  ##--- from PDG 2009
+  ##--- from PDG 2009, 2011
   quant$meas.add.single("m_e", 0.510998910, 0.000000013)
   quant$meas.add.single("m_mu", 105.658367, 0.000004)
   quant$meas.add.single("tau_tau", 290.6e-15, 1.0e-15)
-  
-  ##--- from HFAG 2009
-  quant$meas.add.single("m_tau", 1776.7673082, 0.1507259)
-  
-  ##--- from PDG 2010
+  ##--- m_tau HFAG 2009
+  ## quant$meas.add.single("m_tau", 1776.7673082, 0.1507259)
+  ##--- m_tau PDG 2011
+  quant$meas.add.single("m_tau", 1776.82, 0.16)
+ 
+  quant$meas.add.single("m_pi", 139.57018, 0.00035)
+  quant$meas.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
+  quant$meas.add.single("m_K", 493.677, 0.016)
+  quant$meas.add.single("tau_K", 1.2380e-8, 0.0021e-8)
+
+  ##--- from PDG 2010, 2011
   quant$meas.add.single("m_W", 80.399*1e3, 0.023*1e3)
   quant$meas.add.single("tau_mu", 2.197034e-6, 0.000021e-6)
   
@@ -256,13 +262,12 @@ aluelab.results = function(args) {
   ##
   ## compute phase space factors for Bmu/Be universality
   ##
-
   ##--- phase space factor, function of lepton masses
   phspf = quote(1 -8*x + 8*x^3 - x^4 - 12*x^2*log(x))
   ##--- phase space factors for e/tau, mu/tau, e/mu
-  rc = quant$meas.expr.add("phspf_mebymtau",  eval(bquote(substitute(.(phspf), list(x=quote(m_e^2/m_tau^2))))))
-  rc = quant$meas.expr.add("phspf_mmubymtau", eval(bquote(substitute(.(phspf), list(x=quote(m_mu^2/m_tau^2))))))
-  rc = quant$meas.expr.add("phspf_mebymmu", eval(bquote(substitute(.(phspf), list(x=quote(m_e^2/m_mu^2))))))
+  rc = quant$meas.expr.add("phspf_mebymtau",  esub.expr(phspf, list(x=quote(m_e^2/m_tau^2))))
+  rc = quant$meas.expr.add("phspf_mmubymtau", esub.expr(phspf, list(x=quote(m_mu^2/m_tau^2))))
+  rc = quant$meas.expr.add("phspf_mebymmu", esub.expr(phspf, list(x=quote(m_e^2/m_mu^2))))
   rc = quant$meas.expr.add("Bmu_by_Be_th", quote(phspf_mmubymtau/phspf_mebymtau))
   
   ##--- Be from Bmu
@@ -274,25 +279,24 @@ aluelab.results = function(args) {
   ## - delta^L_gamma = 1 + alpha(mL)/2pi * (25/4 - pi^2)
   ## - delta^L_W = 1 + 3/5* m_L^2/M_W^2
   ##
-  delta.tau.gamma = 1 - 43.2e-4
-  delta.mu.gamma = 1 - 42.4e-4
-  delta.tau.W = 1 + 2.9e-4
-  delta.mu.W = 1 + 1.0e-6
-
+  quant$params.add(c(delta_mu_gamma=(1-42.4e-4), delta_tau_gamma=(1-43.2e-4)))
+  quant$meas.expr.add("delta_mu_W", quote(1 + 3/5*m_mu^2/m_W^2))
+  quant$meas.expr.add("delta_tau_W", quote(1 + 3/5*m_tau^2/m_W^2))
+  
   ##
   ## Be from tau lifetime
   ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
   quant$meas.expr.add("Be_from_taulife",
-                      bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
-                           *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
+                      quote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
+                            * (delta_tau_gamma*delta_tau_W) / (delta_mu_gamma*delta_mu_W)))
   ##
   ## Bmu from tau lifetime
   ## Bmu= tau_tau/tau_mu (m_tau/m_mu)^5 f(m^2_mu/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
   quant$meas.expr.add("Bmu_from_taulife",
-                    bquote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mmubymtau/phspf_mebymmu
-                           *.(delta.tau.gamma) *.(delta.tau.W) /.(delta.mu.gamma) /.(delta.mu.W)))
+                      quote(tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mmubymtau/phspf_mebymmu
+                             * (delta_tau_gamma*delta_tau_W) / (delta_mu_gamma*delta_mu_W)))
   
   ##
   ## universality improved Be = B(tau -> e nu nubar (gamma))
@@ -303,13 +307,14 @@ aluelab.results = function(args) {
   ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
   ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
-  quant$meas.fit.add("Be_univ", c(Be_fit=1, Be_from_Bmu=1, Be_from_taulife=1))
+  quant$meas.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
   
   ##
   ## Vud
   ##
   ## arXiv:0710.3181v1 [nucl-th], 10.1103/PhysRevC.77.025501
   ## I.S.Towner, J.C.Hardy, An improved calculation of the isospin-symmetry-breaking corrections to superallowed Fermi beta decay
+  ## also PDG 2010 review
   ##
   Vud.val = 0.97425
   Vud.err = 0.00022
@@ -334,6 +339,8 @@ aluelab.results = function(args) {
   
   ##--- s quark mass, PhysRevD.74.074009
   quant$meas.add.single("m_s", 94, 6)
+  ##--- PDG 2011
+  ## quant$meas.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
   
   ##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
   quant$meas.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
@@ -383,14 +390,17 @@ aluelab.results = function(args) {
   quant$meas.expr.add("Vus", quote(sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break))))
   
   ##--- theory error
-  Vus.err.th = abs(quant$cov["Vus", "deltaR_su3break"])/quant$err()["deltaR_su3break"]
+  Vus.err.th = abs(quant$cov()["Vus", "deltaR_su3break"])/quant$err()["deltaR_su3break"]
   Vus.err.exp = sqrt(quant$err()["Vus"]^2 - Vus.err.th^2)
-  
-  ##--- using Hardy-Towner 2009
+
+  ##--- using Hardy-Towner 2009, PDG 2010
   Vus.unitarity.val = 0.2255
   Vus.unitarity.err = 0.0010
-  nsigma = (quant$val["Vus"] - Vus.unitarity.val)/quadrature(c(quant$err()["Vus"], Vus.unitarity.err))
-  
+  quant$meas.add.single("Vus_uni", Vus.unitarity.val, Vus.unitarity.err)
+
+  quant$meas.expr.add("Vus_mism", quote(Vus - Vus_uni))
+  nsigma = quant$val()["Vus_mism"] / quant$err()["Vus_mism"]
+
   display.names = c(Gamma110.names,
     "Gamma5", "Be_unitarity", "Be_fit",
     "Gamma3", "Bmu_unitarity", "Bmu_fit",
@@ -399,26 +409,89 @@ aluelab.results = function(args) {
     "Gamma110", "B_tau_s_unitarity", "B_tau_s_fit", "Gamma110_pdg09",
     "R_tau", "R_tau_s", "R_tau_VA", "deltaR_su3break", "Vus")
 
-  print(rbind(cbind(val=quant$val[display.names], err=quant$err()[display.names]),
-             Vus_err_perc = c(quant$err()["Vus"]/quant$val["Vus"]*100, 0),
+  print(rbind(cbind(val=quant$val()[display.names], err=quant$err()[display.names]),
+             Vus_err_perc = c(quant$err()["Vus"]/quant$val()["Vus"]*100, 0),
              Vus_err_exp = c(Vus.err.exp, 0),
              Vus_err_th = c(Vus.err.th, 0),
-             Vus_err_th_perc = c(Vus.err.th /quant$val["Vus"]*100, 0),
+             Vus_err_th_perc = c(Vus.err.th /quant$val()["Vus"]*100, 0),
              nsigma = c(val=nsigma, err=0)
              ))
+
+  ##
+  ## Lattice averages from http://arxiv.org/abs/0910.2928 and
+  ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
+  ##
+  quant$meas.add.single("f_K_by_f_pi", 1.1936, 0.0053)
+  quant$meas.add.single("f_K", 156.1, 1.1)
+
+  ##
+  ## gtau/gmu using tau -> hnu / h -> mu nu
+  ##
+  quant$meas.add.single("pitoENu", 1.230e-4, 0.004e-4)
+  quant$meas.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
+  quant$meas.add.single("KtoENu", 1.584e-5, 0.020e-5)
+  quant$meas.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
+  ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd
+  quant$meas.add.single("delta_pi", 0.16e-2, 0.14e-2)
+  quant$meas.add.single("delta_K", 0.90e-2, 0.22e-2)
+
+  ##--- gtau/gmu using tau -> pi nu / pi -> mu nu
+  quant$meas.expr.add("gtaubygmu_pi",
+                      quote(sqrt(Gamma9/pitoMuNu *(2*m_pi*m_mu^2*tau_pi) /((1+delta_pi)*m_tau^3*tau_tau)*
+                                 ((1-m_mu^2/m_pi^2)/(1-m_pi^2/m_tau^2))^2)))
+
+  ##--- gtau/gmu using tau -> K nu / K -> mu nu
+  quant$meas.expr.add("gtaubygmu_K",
+                      quote(sqrt(Gamma10/KtoMuNu *(2*m_K*m_mu^2*tau_K) /((1+delta_K)*m_tau^3*tau_tau)*
+                                 ((1-m_mu^2/m_K^2)/(1-m_K^2/m_tau^2))^2)))
+
+  ##--- gtau/gmu using tau lifetime
+  quant$meas.expr.add("gtaubygmu_tau", quote(sqrt(Gamma5/Be_from_taulife)))
+
+  ##--- gtau/gmu average
+  quant$meas.fit.add("gtaubygmu_fit", c(gtaubygmu_tau=1, gtaubygmu_pi=1, gtaubygmu_K=1))
   
-  if (FALSE) {
-    ##--- print couplings ratio
-    quant$meas.expr.add("B_mu/B_e", quote(Gamma3/Gamma5))
-    quant$meas.expr.add("g_mu/g_e", quote(sqrt(Gamma3/Gamma5/Bmu_by_Be_th)))
-    display.names = c(
-      "Gamma5", 
-      "Gamma3",
-      "B_mu/B_e",
-      "g_mu/g_e"
-      )
-    print(rbind(cbind(val=quant$val[display.names], err=quant$err()[display.names])))
-  }
+  ##--- gtau/ge using tau lifetime
+  quant$meas.expr.add("gtaubyge_tau", quote(sqrt(Gamma3/Bmu_from_taulife)))
+  
+  ##--- gmu / ge from tau -> mu / tau -> e
+  quant$meas.expr.add("gmubyge_tau", quote(sqrt(Gamma3/Gamma5 * phspf_mebymtau/phspf_mmubymtau)))
+
+  display.names = c(
+    "gtaubygmu_tau", "gtaubygmu_pi", "gtaubygmu_K", "gtaubygmu_fit",
+    "gtaubyge_tau", "gmubyge_tau"
+    )
+  print(rbind(cbind(val=quant$val()[display.names], err=quant$err()[display.names])))
+
+  ##
+  ## define LeTeX commands with elaborated values
+  ##
+  toTex = TrStr$new("0123456789_", "zothfvsneiU")
+  specialFormat = c(
+    tau_tau="%.1f"
+    )
+  specialFactor = c(
+    tau_tau=1e15
+    )
+  rc = mapply(function(name, val, err) {
+    fmt = ifelse(is.na(specialFormat[name]), "%.4f", specialFormat[name])
+    val = ifelse(is.na(specialFactor[name]), val, val*specialFactor[name])
+    err = ifelse(is.na(specialFactor[name]), err, err*specialFactor[name])
+    name.orig = name
+    name = gsub("(\\d+)", "N\\1N", name)
+    fmt = paste("}{\\ensuremath{", fmt, " \\pm ", fmt, "}}", sep="")
+    rc = paste("\\newcommand{\\", toTex$tr(name), sprintf(fmt, val, err), "% ", name.orig, sep="") 
+  }, names(quant$val()), quant$val(), quant$err())
+  fname.short = gsub("average[^-]*-*", "", file.name)
+  fname.short = gsub("[.]rdata", "", fname.short)
+  fname = "../report/tau-elab"
+  if (fname.short != "") fname = paste(fname, "-", fname.short, sep="")
+  if (flag.unitarity) fname = paste(fname, "-unitar", sep="")
+  if (flag.vadirect) fname = paste(fname, "-vadirect", sep="")
+  if (flag.lepuniv) fname = paste(fname, "-lepuniv", sep="")
+  fname = paste(fname, ".tex", sep="")
+  cat(rc, sep="\n", file=fname)
+  cat("produced file '", fname, "'\n", sep="")
 }
 
 args = commandArgs(TRUE)
