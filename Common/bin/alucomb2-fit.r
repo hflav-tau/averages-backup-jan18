@@ -159,14 +159,13 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   }
   
   combination$measurements = meas.names
-  meas.used = names(measurements) %in% meas.names
-  meas.quantities = sapply(measurements[meas.used], function(x) x$quant)
+  meas.quantities = sapply(measurements[meas.names], function(x) x$quant)
   meas.num = length(meas.names)
   
   ##--- get list of values, stat errors, syst errors
-  meas.val = sapply(measurements[meas.used], function(x) {unname(x$value)})
-  meas.stat = sapply(measurements[meas.used], function(x) {unname(x$stat)})
-  meas.syst = sapply(measurements[meas.used], function(x) {unname(x$syst)})
+  meas.val = sapply(measurements[meas.names], function(x) {unname(x$value)})
+  meas.stat = sapply(measurements[meas.names], function(x) {unname(x$stat)})
+  meas.syst = sapply(measurements[meas.names], function(x) {unname(x$syst)})
   meas.err = sqrt(meas.stat^2 + meas.syst^2)
   
   cat("\n##\n")
@@ -484,14 +483,14 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   suppressWarnings(rm(params.old, params.old.delta, params.new, params.new.delta))
   
   ##--- get list of updated values, stat errors, syst errors
-  meas.val = sapply(measurements[meas.used], function(x) {unname(x$value)})
-  meas.stat = sapply(measurements[meas.used], function(x) {unname(x$stat)})
-  meas.syst = sapply(measurements[meas.used], function(x) {unname(x$syst)})
+  meas.val = sapply(measurements[meas.names], function(x) {unname(x$value)})
+  meas.stat = sapply(measurements[meas.names], function(x) {unname(x$stat)})
+  meas.syst = sapply(measurements[meas.names], function(x) {unname(x$syst)})
   meas.err = sqrt(meas.stat^2 + meas.syst^2)
   
   ##--- unshifted values
-  meas.val.orig = sapply(measurements[meas.used], function(x) {unname(x$value.orig)})
-  meas.syst.orig = sapply(measurements[meas.used], function(x) {unname(x$syst.orig)})
+  meas.val.orig = sapply(measurements[meas.names], function(x) {unname(x$value.orig)})
+  meas.syst.orig = sapply(measurements[meas.names], function(x) {unname(x$syst.orig)})
   
   ##--- which measurements got shifted in value or syst. error
   meas.shifted = (meas.val.orig != meas.val) | (meas.syst.orig != meas.syst)
@@ -520,23 +519,6 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
             syst=meas.syst,
             error=meas.err),
       num.columns=1)
-  }
-  
-  ##--- for each syst. term external parameter, collect affected measurements
-  syst.terms.list = list()
-  for (mn in meas.names) {
-    for (syst.term in names(measurements[[mn]]$syst.terms)) {
-      ##--- add measurement to the list of the currect syst. term
-      syst.terms.list[[syst.term]] = c(syst.terms.list[[syst.term]], mn)
-    }
-  }
-  
-  ##--- retain just the syst. contributions that affect at least two measurements
-  syst.terms.corr = lapply(syst.terms.list, length) >= 2
-  if (length(syst.terms.corr) > 0) {
-    syst.terms.corr = names(syst.terms.corr)[syst.terms.corr]
-  } else {
-    syst.terms.corr = character()
   }
   
   ##
@@ -674,15 +656,15 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   meas.cov = meas.corr * (meas.err %o% meas.err)
   meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
-  syst.terms = unique(unlist(lapply(measurements, function(m)  names(m$syst.terms)), use.names=FALSE))
+  syst.terms = unique(unlist(lapply(measurements[meas.names], function(m)  names(m$syst.terms)), use.names=FALSE))
   names(syst.terms) = syst.terms
 
   ##--- get dependence of measurements from syst.terms
-  dm.by.dp = alucomb2.meas.by.syst.term(measurements, syst.terms)
+  dm.by.dp = alucomb2.meas.by.syst.term(measurements[meas.names], syst.terms)
   
   ##--- get total systematic covariance due to syst.terms
   meas.cov.syst = dm.by.dp %*% t(dm.by.dp)
-  
+
   ##--- if total correlation specified, get stat. correlation by subtraction (term-by-term)
   meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
 
@@ -701,8 +683,8 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   quant.cards.sfact = unlist(lapply(combination$quantities[quant.names], function(el) { unname(el["scale"]) }))
   if (!is.null(quant.cards.sfact)) {
     meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
-    meas.scale.stat = sapply(measurements[meas.used][meas.scale.names], function(x) {unname(x$stat)})
-    meas.scale.syst = sapply(measurements[meas.used][meas.scale.names], function(x) {unname(x$syst.orig)})
+    meas.scale.stat = sapply(measurements[meas.names][meas.scale.names], function(x) {unname(x$stat)})
+    meas.scale.syst = sapply(measurements[meas.names][meas.scale.names], function(x) {unname(x$syst.orig)})
     
     ##--- compute additional syst. error to scale the total original error as requested
     meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
@@ -1195,4 +1177,5 @@ alucomb = function(filename = "", method = "alucomb2") {
   basename = gsub("[.][^.]*$", "", filename)
   rc = alucomb.read(filename)
   rc = alucomb.fit(rc$combination, rc$measurements, basename, method)
+  return(invisible(rc))
 }
