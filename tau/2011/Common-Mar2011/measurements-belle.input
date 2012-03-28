@@ -154,3 +154,82 @@ ERROR_CORR_WITH +0.03505142  Belle Gamma85 pub LEE 10
 ERROR_CORR_WITH -0.008312885 Belle Gamma93 pub LEE 10
 
 END
+
+#
+# Gamma40 (PDG node = S???????)
+# G(Kbar0 pi- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma40 pub Soo 12
+
+VALUE 0.00384 +-4e-05 +-0.00016
+
+SYSTEMATICS
+  -1.8%            PimKzsPizPizNu        # 
+  -1.2%            KmKzsPizNu           # 
+  -0.3%            PimKzKzbarNu         # 
+  -0.3%            PimKzsNu              # 
+  -0.2%            PimKzKzbarPizNu       # 
+
+PARAMETERS
+   PimKzsPizPizNu  0.013e-2      +-0.012e-2     
+   KmKzsPizNu      0.079e-2      +-0.010e-2          
+   PimKzKzbarNu    0.17e-2      +-0.04e-2          
+   PimKzsNu        0.42e-2      +-0.02e-2          
+   PimKzKzbarPizNu 0.031e-2      +-0.023e-2          
+
+END
+
+#
+# Gamma42 (PDG node = S???????)
+# G(Kbar0 K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma42 pub Soo 12
+
+VALUE 0.00148 +-2e-05 +-0.00008
+
+SYSTEMATICS
+  -1.7%            PimKzsPizNu        # 
+  -0.4%            KmKzsNu           # 
+  -0.3%            PimKzsNu         # 
+  -0.2%            PimKzKzbarNu       # 
+
+PARAMETERS
+  PimKzsPizNu      0.195e-2      +-0.02e-2
+  KmKzsNu          0.079e-2      +-0.08e-2
+  PimKzsNu         0.42e-2       +-0.02e-2
+  PimKzKzbarNu     0.17e-2       +-0.04e-2
+
+END
+
+#
+# Gamma47 (PDG node = S???????)
+# G(pi- Ks0 Ks0  nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma47 pub Soo 12
+
+VALUE 0.000235 +-0.000004 +-0.000013
+
+SYSTEMATICS
+  -0.89%            PimKzsKzsPizNu      # 
+
+
+PARAMETERS
+  PimKzsKzsPizNu   0.0078e-2      +-0.0058e-2
+
+END
+
+#
+# Gamma50 (PDG node = S???????)
+# G(pi- Ks0 Ks0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma50 pub Soo 12
+
+VALUE 2.10e-5 +-0.24e-5 +-0.22e-5
+
+SYSTEMATICS
+  -6.2%            PimKzsKzsNu      # 
+
+PARAMETERS
+  PimKzsKzsNu      0.043e-2      +-0.01e-2
+
+END
