@@ -7,6 +7,7 @@
 ##
 
 require(stringr, quietly=TRUE)
+source("../../../Common/bin/alucomb2-hfag-tau.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## definitions
@@ -41,18 +42,6 @@ str.match.just = function(string, pattern) {
 str.match.just.single = function(string, pattern) {
   rc = str_match(string, pattern)
   return(rc[1, -1, drop=TRUE])
-}
-
-##
-## return numeric id for sorting labels like "Gamma5", "Gamma3by5", ...
-## copied from alucomb2-utils.r
-##
-alucomb2.gamma.num.id = function(gamma.name) {
-  gamma.name = ifelse(gamma.name == "GammaAll", "Gamma999", gamma.name)
-  num1 = as.numeric(sub("^(\\D+)(\\d+)(|by.*)$", "\\2", gamma.name, perl=TRUE))
-  tmp = sub("^\\D+\\d+(by|)(\\d*)$", "\\2", gamma.name)
-  num2 = ifelse(tmp=="", 0, as.numeric(tmp))
-  return(10000*num1 + num2)
 }
 
 ##
