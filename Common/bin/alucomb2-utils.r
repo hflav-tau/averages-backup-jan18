@@ -38,8 +38,12 @@ deparse.one.line = function(expr) {
 ##
 alu.rbind.print = function(x, width=13, num.columns=NULL) {
   number.width = width
-  rn.max = max(nchar(rownames(x)))
-  cn.max = max(nchar(colnames(x)))
+  row.names = rownames(x)
+  col.names = colnames(x)
+  if (is.null(row.names)) row.names = rep("", nrow(x))
+  if (is.null(col.names)) col.names = rep("", ncol(x))
+  rn.max = max(nchar(row.names))
+  cn.max = max(nchar(col.names))
   cn.max = max(number.width, cn.max)
   fmt = paste("% -", number.width, ".", number.width-7, "g", sep="")
   width = getOption("width")
@@ -52,10 +56,10 @@ alu.rbind.print = function(x, width=13, num.columns=NULL) {
   for (i.first in seq(1, ncol(x), by=items.per.row)) {
     ## print(format(x), quote=FALSE)
     i.last = min(i.first + items.per.row - 1, ncol(x))
-    cat(format("", width=rn.max+1), paste(format(colnames(x)[i.first:i.last], width=cn.max), collapse=" "), "\n", sep="")
+    cat(format("", width=rn.max+1), paste(format(col.names[i.first:i.last], width=cn.max), collapse=" "), "\n", sep="")
     mapply(function(label, vec) {
       cat(format(label, width=rn.max), " ", paste(format(sprintf(fmt, unlist(vec)), width=cn.max), collapse=" "), "\n", sep="")
-    }, rownames(x), apply(x[,i.first:i.last, drop=FALSE], 1, list))
+    }, row.names, apply(x[,i.first:i.last, drop=FALSE], 1, list))
   }
   return(invisible(NULL))
 }
@@ -740,11 +744,11 @@ alucomb.read = function(file = "") {
         if (length(clause$values) > 0) {
           labels.exist = names(block$quantities[[meas.name]])
           labels.override = clause$labels[clause$labels %in% labels.exist]
-          if (any(labels.override)) {
+          if (length(labels.override) > 0) {
             cat("warning, override quantity", meas.name, "\n")
-            rc = alu.rbind.print(rbind(
+            rc = print(rbind(
               unlist(block$quantities[[meas.name]][labels.override]),
-              clause$values[labels.override]
+              unlist(clause$values[clause$labels %in% labels.override])
               ))
           }
           block$quantities[[meas.name]][clause$labels] = unlist(clause$values)
@@ -947,12 +951,12 @@ alucomb.read = function(file = "") {
         if (is.na(suppressWarnings(as.numeric(clause.fields[2])))) {
           stop("error: missing numeric value in non-linear constraint in...\n  ", clause.line)
         }
-        if (length(clause$labels) != 2) {
+        if (FALSE && length(clause$labels) != 2) { #+++ fields preprocessing removed, disable check
           stop("error: NLCONSTRAINT needs one numeric value and one expression in line...\n  ", clause.line)
         }
         constr.name = clause$labels[1]
         constr.val = as.vector(clause$values[[1]])
-        constr.expr = clause$labels[2]
+        constr.expr = paste(clause$labels[-1], collapse=" ")
         block$constr.nl.str.val[[constr.name]] = constr.val
         block$constr.nl.str.expr[[constr.name]] = constr.expr
 
@@ -1157,7 +1161,6 @@ alucomb.read = function(file = "") {
       break
     }
   }
-
   invisible(list(combination=combination, measurements=measurements))
 } ##--- end of alucomb.read
 
