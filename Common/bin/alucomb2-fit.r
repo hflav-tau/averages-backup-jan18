@@ -63,7 +63,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     i.last = min(i.first + items.per.row - 1, length(quant.fmt) )
     cat("  ", paste(quant.fmt[i.first:i.last]), "\n", sep="")
   }
-  
+
   alucomb2.eol.first.time$reset()
   fields.descr.list = c("node", "descr", "texdescr")
   for (quant.name in quant.names) {
@@ -1018,7 +1018,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
     cat("## (", meas.num, "measurements,", quant.num, "fitted quantities,", constr.num, "constraints )\n")
     cat("##\n\n")
-    rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
+    rc = alu.rbind.print(rbind(value=quant.val[quant.names], error=quant.err[quant.names]))
     if (FALSE && quant.num > 1) {
       cat("\ncorrelation\n\n")
       print(quant.corr)
