@@ -5,8 +5,10 @@
 # - no unitarity constraint
 #
 INCLUDE ../Common-Mar2011/measurements-aleph-hcorr.input
+INCLUDE ../Common/measurements-aleph.input
 INCLUDE ../Common-Mar2011/measurements-babar.input
 INCLUDE ../Common-Mar2011/measurements-belle.input
+INCLUDE ../Common/measurements-belle.input
 INCLUDE ../Common-Mar2011/measurements-cleo.input
 INCLUDE ../Common-Mar2011/measurements-delphi.input
 INCLUDE ../Common-Mar2011/measurements-l3.input
@@ -16,22 +18,25 @@ INCLUDE ../Common-Mar2011/measurements-other.input
 BEGIN COMBINATION
 
 COMBINE
-  Gamma3 Gamma5 Gamma9 Gamma10 Gamma14 Gamma16 Gamma20 Gamma23 Gamma27
-  Gamma28 Gamma30 Gamma35 Gamma37 Gamma40 Gamma42 Gamma47 Gamma48
-  Gamma62 Gamma70 Gamma77 Gamma78 Gamma802 Gamma803 Gamma93 Gamma94
-  Gamma104 Gamma126 Gamma128 Gamma800 Gamma151 Gamma152 Gamma130
-  Gamma132 Gamma44 Gamma53 Gamma49 Gamma804 Gamma805 Gamma801 Gamma103
-  Gamma19by13 Gamma26by13 Gamma76by54 Gamma152by76 Gamma92 Gamma33
-  Gamma66 Gamma19 Gamma26 Gamma76 Gamma57 Gamma55 Gamma57by55 Gamma34
-  Gamma39 Gamma8 Gamma29 Gamma25 Gamma74 Gamma60 Gamma58 Gamma85 Gamma69
-  Gamma88 Gamma80by60 Gamma81by69 Gamma93by60 Gamma94by69 Gamma38
-  Gamma150by66 Gamma150 Gamma31 Gamma54 Gamma102 Gamma82 Gamma7 Gamma17
-  Gamma3by5 Gamma13 Gamma43 Gamma136 Gamma46 Gamma9by5 Gamma10by5
-  Gamma96 Gamma110 GammaAll Gamma998
+  Gamma3 Gamma3by5 Gamma5 Gamma7 Gamma8 Gamma9 Gamma9by5 Gamma10
+  Gamma10by5 Gamma13 Gamma14 Gamma16 Gamma17 Gamma19 Gamma19by13
+  Gamma20 Gamma23 Gamma25 Gamma26 Gamma26by13 Gamma27 Gamma28 Gamma29
+  Gamma30 Gamma31 Gamma33 Gamma34 Gamma35 Gamma37 Gamma38 Gamma39
+  Gamma40 Gamma42 Gamma43 Gamma44 Gamma46 Gamma47 Gamma48 Gamma49
+  Gamma50 Gamma51 Gamma53 Gamma54 Gamma55 Gamma57 Gamma57by55 Gamma58
+  Gamma60 Gamma62 Gamma66 Gamma69 Gamma70 Gamma74 Gamma76 Gamma76by54
+  Gamma77 Gamma78 Gamma80by60 Gamma81by69 Gamma82 Gamma85 Gamma88
+  Gamma92 Gamma93 Gamma93by60 Gamma94 Gamma94by69 Gamma96 Gamma102
+  Gamma103 Gamma104 Gamma110 Gamma126 Gamma128 Gamma130 Gamma132
+  Gamma136 Gamma150 Gamma150by66 Gamma151 Gamma152 Gamma152by76
+  Gamma800 Gamma801 Gamma802 Gamma803 Gamma804 Gamma805
+  Gamma998 GammaAll
 
 INCLUDE ../Common/parameters.input
 INCLUDE ../Common-Mar2011/quantities.input
+INCLUDE ../Common/quantities.input
 INCLUDE ../Common-Mar2011/quantities-texdescr.input
+INCLUDE ../Common/quantities-texdescr.input
 
 #
 # seed to set a feed value for quantities without measurements
