@@ -52,15 +52,19 @@ StatComb = proto()
 
 ##--- create object to store quantities values and covariance
 StatComb$new = function(., val=numeric(0), cov=matrix(ncol=0, nrow=0)) {
-  proto(., .val=val, .cov=cov, .params=list())
+  proto(., .val=val, .cov=cov, .param=list())
 }
 
-StatComb$params.add = function(., params) {
-  .$.params = c(.$.params, as.list(params))
+StatComb$param.add.list = function(., param) {
+  .$.param = c(.$.param, as.list(param))
 }
 
-StatComb$params.get = function(.) {
-  .$.params
+StatComb$param = function(.) {
+  unlist(.$.param)
+}
+
+StatComb$param.err = function(.) {
+  return(unlist(.$.param) * 0)
 }
 
 StatComb$val = function(.) {
@@ -85,6 +89,18 @@ StatComb$val.err = function(., name=NULL) {
   c(val=.$.val[name], err=sqrt(.$.cov[name, name]))
 }
 
+StatComb$all.val = function(.) {
+  c(.$val(), .$param())
+}
+
+StatComb$all.err = function(.) {
+  c(.$err(), .$param.err())
+}
+
+StatComb$all.name = function(.) {
+  c(names(.$val()), names(.$param()))
+}
+
 ##
 ## get string expression for a quantity, from its constraint equations
 ## needs alucomb2 format
@@ -92,7 +108,7 @@ StatComb$val.err = function(., name=NULL) {
 StatComb$str.to.comb = function(., str.expr) {
   expr = parse(text=as.character(str.expr))
   vars = intersect(all.vars(expr), names(.$.val))
-  comb = drop(attr(eval(deriv(expr, vars), c(as.list(.$.val), as.list(.$.params))), "gradient"))
+  comb = drop(attr(eval(deriv(expr, vars), c(as.list(.$.val), as.list(.$.param))), "gradient"))
   return(comb)
 }
 
@@ -117,7 +133,7 @@ StatComb$meas.add = function(., add.val, add.err, add.corr=NULL) {
   }
 
   add.cov = add.corr * (add.err %o% add.err)
-  
+
   ##--- assemble covariance matrix
   cov.right = matrix(0, dim(.$.cov)[1], dim(add.cov)[2])
   colnames(cov.right) = colnames(add.cov)
@@ -126,10 +142,21 @@ StatComb$meas.add = function(., add.val, add.err, add.corr=NULL) {
   rownames(cov.left) = rownames(add.cov)
   cov.bottom = cbind(cov.left, add.cov)
   .$.cov = rbind(cov.top, cov.bottom)
-  
+
   ##--- assemble averaged quantities
   quant.averaged.sel = names(add.val) %in% quant.names.averaged
   .$.val = c(.$.val, add.val[quant.averaged.sel])
+  return(invisible(NULL))
+}
+
+##
+## add a single additional parameter
+##
+StatComb$param.add.single = function(., label, val) {
+  val = as.numeric(val)
+  names(val) = label
+  .$.param = c(.$.param, val)
+  return(val)
 }
 
 ##
@@ -137,12 +164,14 @@ StatComb$meas.add = function(., add.val, add.err, add.corr=NULL) {
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
 ## aeb.meas.add.single = function(label, val, err) {}
-StatComb$meas.add.single = function(., label, val, err) {
+StatComb$meas.add.single = function(., label, val, err=0) {
   val = as.numeric(val)
   err = as.numeric(err)
+  if (err == 0) return(.$param.add.single(label, val))
   names(val) = label
   names(err) = label
   .$meas.add(val, err)
+  return(c(val, err))
 }
 
 ##
@@ -214,7 +243,7 @@ StatComb$meas.comb.add = function(., add.name, add.comb) {
 ## aeb.meas.expr.add = function(add.name, add.expr) {}
 StatComb$meas.expr.add = function(., add.name, add.expr) {
   ##--- substitute parameters
-  add.expr = esub.expr(add.expr, .$.params)
+  add.expr = esub.expr(add.expr, .$.param)
   add.deriv.expr = deriv(add.expr, all.vars(add.expr))
   add.val = eval(add.deriv.expr, as.list(.$.val))
   add.grad = attr(add.val, "gradient")
