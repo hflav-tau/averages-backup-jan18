@@ -1,0 +1,28 @@
+#
+# Gamma50 = G(pi- pi0 K(S) K(S) nu(tau)) / G(total)
+#
+QUANTITY Gamma50 node S035C2 descr "G(pi- pi0 K(S) K(S) nu(tau)) / G(total)"
+
+#
+# Gamma51 = G(pi- pi0 K(S) K(L) nu(tau)) / G(total)
+#
+QUANTITY Gamma51 node S035C3 descr "G(pi- pi0 K(S) K(L) nu(tau)) / G(total)"
+
+#
+# Gamma49 = G(pi- pi0 K0 Kbar0 nu(tau)) / G(total) = Gamma51 + 2*Gamma50
+# assuming that rates are equal to KS KS and KL KL
+# use parameter BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET to allow updates
+#
+NLCONSTRAINT Gamma49.c 0 "-Gamma49 + (Gamma50 *(1+BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET) + Gamma51)"
+
+#
+# update unitarity constraint adding also Gamma49
+#
+NLCONSTRAINT GammaAll.c 0 -GammaAll +
+  (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 +
+  Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 +
+  Gamma42 + Gamma47 + Gamma48 + Gamma49 + Gamma62 + Gamma70 + Gamma77 +
+  Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 +
+  Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 +
+  Gamma44 + Gamma53 + Gamma49 + Gamma804 + Gamma805 + Gamma801 +
+  Gamma152 + Gamma103)
