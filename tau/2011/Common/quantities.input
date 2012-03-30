@@ -13,7 +13,7 @@ QUANTITY Gamma51 node S035C3 descr "G(pi- pi0 K(S) K(L) nu(tau)) / G(total)"
 # assuming that rates are equal to KS KS and KL KL
 # use parameter BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET to allow updates
 #
-NLCONSTRAINT Gamma49.c 0 "-Gamma49 + (Gamma50 *(1+BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET) + Gamma51)"
+NLCONSTRAINT Gamma49.c 0 "-Gamma49 + (Gamma50 * (1+ ( (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET) )) + Gamma51)"
 
 #
 # update unitarity constraint adding also Gamma49

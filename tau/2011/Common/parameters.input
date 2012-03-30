@@ -65,5 +65,3 @@ PARAMETERS
   BRA_Kz_KL_KET		0.5         +-0         # |<Kz | KS>|^2
   BRA_Kzbar_KS_KET	0.5	    +-0		# |<Kzbar | KS>|^2
   BRA_Kzbar_KL_KET	0.5	    +-0		# |<Kzbar | KS>|^2
-  # --- |<Kz Kzbar | KS KS>|^2
-  BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET  1 +-0
