@@ -624,7 +624,7 @@ aluelab.results = function(args) {
   fname.short = gsub("[.]rdata", "", fname.short)
   fname = "../report/tau-elab"
   if (fname.short != "") fname = paste(fname, "-", fname.short, sep="")
-  if (flag.unitarity) fname = paste(fname, "-unitar", sep="")
+  if (flag.unitarity) fname = paste(fname, "-uniconstr", sep="")
   if (flag.vadirect) fname = paste(fname, "-vadirect", sep="")
   if (flag.lepuniv) fname = paste(fname, "-lepuniv", sep="")
   fname = paste(fname, ".tex", sep="")
