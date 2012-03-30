@@ -37,7 +37,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   return.symbols = c(
     "measurements", "combination", "delta",
-    "chisq", "dof",
+    "chisq", "dof", "chisq.prob", "meas.num", "quant.num", "constr.num",
     "meas.val",   "meas.err",   "meas.cov",  "meas.cov.stat", "meas.cov.syst", "meas.corr",
     "quant.val",  "quant.err",  "quant.cov", "quant.corr",
     "constr.m", "constr.v",
@@ -1013,9 +1013,10 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     
     chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
     dof = meas.num - quant.num + constr.num
+    chisq.prob = (1-pchisq(chisq, df=dof))
     
     cat("\n##\n")
-    cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
+    cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", chisq.prob, "\n",sep="")
     cat("## (", meas.num, "measurements,", quant.num, "fitted quantities,", constr.num, "constraints )\n")
     cat("##\n\n")
     rc = alu.rbind.print(rbind(value=quant.val[quant.names], error=quant.err[quant.names]))
