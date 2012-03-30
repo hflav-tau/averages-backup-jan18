@@ -293,7 +293,8 @@ get.reference = function(tags) {
 
   bib.conf.table = list(
     "BaBar.ICHEP08" = "Aubert:2008an",
-    "BaBar.DPF09" = "Paramesvaran:2009ec"
+    "BaBar.DPF09" = "Paramesvaran:2009ec",
+    "Belle.PHIPSI11" = "SooRyu:2011aa"
     )
 
   ref.conf = bib.conf.table[[paste(tags[1], tail(tags, -3), collapse=".", sep=".")]]
@@ -349,6 +350,43 @@ get.tex.quant.descr = function(quant) {
   }
 
   return(texdescr)
+}
+
+##
+## return numeric value formatted val +- stat in a string
+## according to the specified precision and power-of-ten order
+##
+get.tex.val = function(quant.val, precision, order) {
+  quant.val = quant.val/10^order
+  quant.err = quant.err/10^order
+  if (order == 0) {
+    rc = sprintf(paste("%", precision, "f", sep=""), quant.val)
+  } else {
+    rc = sprintf(paste("\\ensuremath{%", precision, "f\\cdot 10^{%d}}", sep=""), quant.val, order)
+  }
+  return(rc)
+}
+
+get.tex.val.auto = function(quant.val) {
+  rc = get.precision.order(quant.val)
+  precision = rc[1]
+  order = rc[2]
+  qvred = quant.val / 10^order
+  if (qvred>=1) {
+    precision = precision - 3.3
+  } else {
+    precision = precision - 2.2
+  }
+  quant.val = quant.val/10^order
+  quant.err = quant.err/10^order
+  if (order == 0) {
+    rc = sprintf(paste("%", precision, "f", sep=""), quant.val)
+  } else if (order == -2) {
+    rc = sprintf(paste("%", precision, "f\\%%", sep=""), quant.val)    
+  } else {
+    rc = sprintf(paste("\\ensuremath{%", precision, "f\\cdot 10^{%d}}", sep=""), quant.val, order)
+  }
+  return(rc)
 }
 
 ##
@@ -543,34 +581,59 @@ get.tex.table.simple = function(quant.names, precision, order) {
   return(paste(rc, collapse=" \\\\\n"))
 }
 
+mkreport.tex.cmd = function(cmd, body) {
+  paste("\\newcommand{\\", cmd, "}{%\n", body, "%\n}\n", sep="")
+}
+
+mkreport.tex.cmd.short = function(cmd, body) {
+  paste("\\newcommand{\\", cmd, "}{", body, "\\xspace}\n", sep="")
+}
+
 ##
 ## create files
 ##
 mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   load(fname, .GlobalEnv)
 
-  fname = "../report/tau-aleph-hcorr-all.tex"
+  fname = sub("[.][^.]*$", ".tex", fname, perl=TRUE)
+  fname = file.path("../report", fname)
+  cat("", file=fname)
+  cat("file '", fname, "' created\n", sep="")
+
+  tex.defs = paste(
+    mkreport.tex.cmd.short("HfagTauMeasNum", as.character(meas.num)),
+    ##--- subtract GammaAll and Gamma998
+    mkreport.tex.cmd.short("HfagTauQuantNum", as.character(quant.num-2)),
+    ##--- subtract GammaAll def and Unitarity constraint with Gamma998
+    mkreport.tex.cmd.short("HfagTauConstrNum", as.character(constr.num-2)),
+    mkreport.tex.cmd.short("HfagTauChisq", sprintf("%.1f", chisq)),
+    mkreport.tex.cmd.short("HfagDof", as.character(dof)),
+    mkreport.tex.cmd.short("HfagTauChisqProb", get.tex.val.auto(chisq.prob)),
+    sep="")
+  cat(tex.defs, file=fname, append=TRUE)
+  cat("file '", fname, "', initial defs\n", sep="")
+
   quant.names = combination$combine
   quant.names = setdiff(quant.names, "GammaAll")
-  cat(get.tex.table(quant.names), file=fname)
-  cat("produced file '", fname, "'\n", sep="")
+  tex.all.tau.br.val = mkreport.tex.cmd("HfagTauBrVal", get.tex.table(quant.names))
+  cat(tex.all.tau.br.val, file=fname, append=TRUE)
+  cat("file '", fname, "', BR val table content\n", sep="")
 
-  fname = "../report/tau-aleph-hcorr-strange.tex"
   gamma110.names = names(combination$constr.all.comb$Gamma110.c)
   gamma110.names = setdiff(gamma110.names, "Gamma110")
-  rc = get.tex.table.simple(gamma110.names, 6.3, -3)
-  cat(rc, "\n", sep="", file=fname)
-  cat("produced file '", fname, "'\n", sep="")
+  tex.tau.br.strange.val = mkreport.tex.cmd("HfagTauBrStrangeVal", get.tex.table.simple(gamma110.names, 6.4, -2))
+  cat(tex.tau.br.strange.val, file=fname, append=TRUE)
+  cat("file '", fname, "', BR strange table content\n", sep="")
 
-  fname = "../report/tau-aleph-hcorr-gamma110.tex"
   gamma110.names = "Gamma110"
-  rc = get.tex.table.simple(gamma110.names, 6.3, -3)
-  cat(rc, "\n", sep="", file=fname)
-  cat("produced file '", fname, "'\n", sep="")
+  tex.tau.br.strange.tot.val = mkreport.tex.cmd("HfagTauBrStrangeTotVal", get.tex.table.simple(gamma110.names, 6.4, -2))
+  cat(tex.tau.br.strange.tot.val, file=fname, append=TRUE)
+  cat("file '", fname, "', BR strange tot table content\n", sep="")
 
   ##
   ## dump correlation of base nodes
   ##
+  tex.all.tau.br.corr = NULL  
   quant.names = combination$combine
   ##--- quantity names defined via constraint
   quant.constr.names = sub(".c", "", names(combination$constr.all.expr), fixed=TRUE)
@@ -607,7 +670,6 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   
   quant.corr.base = quant.corr[quant.names, quant.names] * 100
   inum = 1
-  fname = "../report/tau-aleph-hcorr-corr.tex"
   for (j in seq(1, length(quant.names), by=10)) {
     for (i in seq(1, length(quant.names), by=10)) {
       submat.txt = NULL
@@ -626,15 +688,16 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
       label.txt = paste("", label.txt, sep=" & ")
       submat.txt = paste(submat.txt, collapse=" \\\\\n")
       submat.txt = paste(submat.txt, label.txt, sep=" \\\\\n")
-      out.txt = gsub("@@num@@", as.character(inum), corr.pre)
-      out.txt = gsub("@@tabcols@@", paste(rep("r", length.out=label.num+1), collapse=""), out.txt)
-      out.txt = paste(out.txt, collapse="\n")
-      cat(file=fname, append=ifelse(inum==1, FALSE, TRUE),
-          out.txt, submat.txt, paste(corr.post, collapse="\n"), sep="\n")
+      corr.pre.mod = gsub("@@num@@", as.character(inum), corr.pre)
+      corr.pre.mod = gsub("@@tabcols@@", paste(rep("r", length.out=label.num+1), collapse=""), corr.pre.mod)
+      ## corr.pre.mod = paste(corr.pre.mod, collapse="\n")
+      tex.all.tau.br.corr = c(tex.all.tau.br.corr, corr.pre.mod, submat.txt, corr.post)
       inum = inum + 1
     }
   }
-  cat("produced file '", fname, "'\n", sep="")
+  tex.all.tau.br.corr = mkreport.tex.cmd("HfagTauBrCorr", paste(tex.all.tau.br.corr, collapse="\n"))
+  cat(tex.all.tau.br.corr, file=fname, append=TRUE)
+  cat("file '", fname, "', BR correlations table content\n", sep="")
   
   if (FALSE) {
     rc = apply(quant.corr[quant.names, quant.names], 1, function(corr.val) {
@@ -691,9 +754,10 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   constr.right = gsub("BRA_Kzbar_KL_KET", "\\Gamma_{<\\bar{K}^0|K_L>}", constr.right, fixed=TRUE)
   constr.right = gsub("BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET", "R_{0\\bar{0}SS/LL}", constr.right, fixed=TRUE)
 
-  fname = "../report/tau-aleph-hcorr-constr-eq.tex"
-  cat(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}"), sep="\n", file=fname)
-  cat("produced file '", fname, "'\n", sep="")
+  tex.constr.val = mkreport.tex.cmd("HfagConstrVal",
+    paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}", collapse="\n"))
+  cat(tex.constr.val, file=fname, append=TRUE)
+  cat("file '", fname, "', constraint table content\n", sep="")
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
