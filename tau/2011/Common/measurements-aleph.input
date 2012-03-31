@@ -1,9 +1,13 @@
 #
+# not used in PDG 2011 and earlier fits
+# correlated with Ks particles- of same paper
+# was temporarily used at end of March 2011 and then commented
+# 
 # Gamma51 (PDG node = S035C3)
 # G(pi- pi0 K(S) K(L) nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT ALEPH Gamma51 pub BARATE 98E
-
-VALUE 3.1e-4 +-1.1e-4 +-0.5e-4
-
-END
+# BEGIN MEASUREMENT ALEPH Gamma51 pub BARATE 98E
+# 
+# VALUE 3.1e-4 +-1.1e-4 +-0.5e-4
+# 
+# END
