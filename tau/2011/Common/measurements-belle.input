@@ -1,6 +1,6 @@
 #
 # Gamma40 (PDG node = S035B33)
-# G(Kbar0 pi- pi0 nu(tau)) / G(total)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
 #
 BEGIN MEASUREMENT Belle Gamma40 prelim PHIPSI11
 
@@ -24,7 +24,7 @@ END
 
 #
 # Gamma42 (PDG node = S035B34)
-# G(K- pi0 K0 nu(tau)) / G(total)
+# G(K- K0 pi0 nu(tau)) / G(total)
 #
 BEGIN MEASUREMENT Belle Gamma42 prelim PHIPSI11
 
@@ -63,7 +63,7 @@ END
 
 #
 # Gamma50 (PDG node = S035C2)
-# G(pi- pi0 K(S) K(S) nu(tau)) / G(total)
+# G(pi- K(S) K(S) pi0 nu(tau)) / G(total)
 #
 BEGIN MEASUREMENT Belle Gamma50 prelim PHIPSI11
 
