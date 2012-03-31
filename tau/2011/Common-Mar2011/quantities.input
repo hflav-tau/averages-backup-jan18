@@ -472,9 +472,9 @@ QUANTITY Gamma33 node S035B43 descr "G(K(S)0 (particles)- nu(tau)) / G(total)"
 NLCONSTRAINT Gamma33.c 0 "-Gamma33 + (Gamma35*BRA_Kzbar_KS_KET + Gamma40*BRA_Kzbar_KS_KET + Gamma42*BRA_Kz_KS_KET + Gamma47 + Gamma48 + Gamma37*BRA_Kz_KS_KET + Gamma132*(BRA_Kzbar_KS_KET*BR_eta_neutral) + Gamma44*BRA_Kzbar_KS_KET + Gamma801*BR_phi_KSKL/(BR_phi_KmKp+BR_phi_KSKL))"
 
 #
-# Gamma34 = G(Kbar0 h- nu(tau)) / G(total)
+# Gamma34 = G(h- Kbar0 nu(tau)) / G(total)
 #
-QUANTITY Gamma34 node S035B67 descr "G(Kbar0 h- nu(tau)) / G(total)"
+QUANTITY Gamma34 node S035B67 descr "G(h- Kbar0 nu(tau)) / G(total)"
 #
 # Gamma34 = (Gamma35 + Gamma37)
 #
@@ -484,9 +484,9 @@ QUANTITY Gamma34 node S035B67 descr "G(Kbar0 h- nu(tau)) / G(total)"
 NLCONSTRAINT Gamma34.c 0 "-Gamma34 + (Gamma35 + Gamma37)"
 
 #
-# Gamma35 = G(Kbar0 pi- nu(tau)) / G(total)
+# Gamma35 = G(pi- Kbar0 nu(tau)) / G(total)
 #
-QUANTITY Gamma35 node S035B32 descr "G(Kbar0 pi- nu(tau)) / G(total)"
+QUANTITY Gamma35 node S035B32 descr "G(pi- Kbar0 nu(tau)) / G(total)"
 
 #
 # Gamma37 = G(K- K0 nu(tau)) / G(total)
@@ -506,9 +506,9 @@ QUANTITY Gamma38 node S035C38 descr "G(K- K0 >=0 pi0 nu(tau)) / G(total)"
 NLCONSTRAINT Gamma38.c 0 "-Gamma38 + (Gamma42 + Gamma37)"
 
 #
-# Gamma39 = G(Kbar0 h- pi0 nu(tau)) / G(total)
+# Gamma39 = G(h- Kbar0 pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma39 node S035B68 descr "G(Kbar0 h- pi0 nu(tau)) / G(total)"
+QUANTITY Gamma39 node S035B68 descr "G(h- Kbar0 pi0 nu(tau)) / G(total)"
 #
 # Gamma39 = (Gamma40 + Gamma42)
 #
@@ -518,19 +518,19 @@ QUANTITY Gamma39 node S035B68 descr "G(Kbar0 h- pi0 nu(tau)) / G(total)"
 NLCONSTRAINT Gamma39.c 0 "-Gamma39 + (Gamma40 + Gamma42)"
 
 #
-# Gamma40 = G(Kbar0 pi- pi0 nu(tau)) / G(total)
+# Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma40 node S035B33 descr "G(Kbar0 pi- pi0 nu(tau)) / G(total)"
+QUANTITY Gamma40 node S035B33 descr "G(pi- Kbar0 pi0 nu(tau)) / G(total)"
 
 #
-# Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
+# Gamma42 = G(K- K0 pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma42 node S035B34 descr "G(K- pi0 K0 nu(tau)) / G(total)"
+QUANTITY Gamma42 node S035B34 descr "G(K- K0 pi0 nu(tau)) / G(total)"
 
 #
-# Gamma43 = G(Kbar0 pi- >=1 pi0 nu(tau)) / G(total)
+# Gamma43 = G(pi- Kbar0 >=1 pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma43 node S035C37 descr "G(Kbar0 pi- >=1 pi0 nu(tau)) / G(total)"
+QUANTITY Gamma43 node S035C37 descr "G(pi- Kbar0 >=1 pi0 nu(tau)) / G(total)"
 #
 # Gamma43 = (Gamma40 + Gamma44)
 #
@@ -540,9 +540,9 @@ QUANTITY Gamma43 node S035C37 descr "G(Kbar0 pi- >=1 pi0 nu(tau)) / G(total)"
 NLCONSTRAINT Gamma43.c 0 "-Gamma43 + (Gamma40 + Gamma44)"
 
 #
-# Gamma44 = G(Kbar0 pi- 2pi0 nu(tau)) / G(total)
+# Gamma44 = G(pi- Kbar0 2pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma44 node S035B98 descr "G(Kbar0 pi- 2pi0 nu(tau)) / G(total)"
+QUANTITY Gamma44 node S035B98 descr "G(pi- Kbar0 2pi0 nu(tau)) / G(total)"
 
 #
 # Gamma46 = G(pi- K0 Kbar0 nu(tau)) / G(total)
