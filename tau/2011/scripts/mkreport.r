@@ -525,7 +525,9 @@ get.precision.order.quant = function(quant.name) {
 
 ##
 ## return body of latex tabular environment for the requested quantities
-## including the quantities values followed by the related measurement values
+## include
+## - quantity description, HFAG average
+## - list of experimental measurements, with reference
 ##
 get.tex.table = function(quant.names, with.meas=TRUE) {
   quant.order = order(alucomb2.gamma.num.id(quant.names))
@@ -566,6 +568,11 @@ get.tex.table = function(quant.names, with.meas=TRUE) {
   }
 }
 
+##
+## return body of latex tabular environment for the requested quantities
+## include
+## - quantity description and HFAG average
+##
 get.tex.table.simple = function(quant.names, precision, order) {
   quant.order = order(alucomb2.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
@@ -581,16 +588,36 @@ get.tex.table.simple = function(quant.names, precision, order) {
   return(paste(rc, collapse=" \\\\\n"))
 }
 
+##--- return latex command def with specified multi-line body
 mkreport.tex.cmd = function(cmd, body) {
   paste("\\newcommand{\\", cmd, "}{%\n", body, "%\n}\n", sep="")
 }
 
+##--- return latex command def with specified one-line body
 mkreport.tex.cmd.short = function(cmd, body) {
   paste("\\newcommand{\\", cmd, "}{", body, "\\xspace}\n", sep="")
 }
 
+##---
+mkreport.get.meas.val = function(meas) {
+  if (attr(meas$stat, "input") != "") {
+    stat.txt = paste("\\pm", attr(meas$stat, "input"))
+  } else {
+    stat.txt = paste("{}^{", attr(meas$stat.p, "input"), "}_{", attr(meas$stat.n, "input"), "}", sep="")
+  }
+  if (attr(meas$syst, "input") != "") {
+    syst.txt = paste("\\pm", attr(meas$syst, "input"))
+  } else {
+    syst.txt = paste("{}^{", attr(meas$syst.p, "input"), "}_{", attr(meas$syst.n, "input"), "}", sep="")
+  }
+  rc = paste(attr(meas$value.orig, "input"), stat.txt, syst.txt)
+  rc = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", rc, ignore.case=TRUE)
+  rc = paste("\\(", rc, "\\)", sep="")
+  return(rc)
+}
+
 ##
-## create files
+## create .tex files for HFAT report
 ##
 mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   load(fname, .GlobalEnv)
@@ -618,6 +645,48 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   tex.all.tau.br.val = mkreport.tex.cmd("HfagTauBrVal", get.tex.table(quant.names))
   cat(tex.all.tau.br.val, file=fname, append=TRUE)
   cat("file '", fname, "', BR val table content\n", sep="")
+
+  meas.paper = list()
+  rc = mapply(function(meas.name, meas) {
+    paper = paste(meas$tags[-2], collapse=".")
+    
+    quant.name = meas$quant
+    quant = combination$quantities[[quant.name]]
+    quant.descr = get.tex.quant.descr(quant)
+    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste("\\begin{ensuredisplaymath}\n\\;\\;", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
+
+    if (is.null(meas.paper[[paper]])) {
+      meas.paper[[paper]] = list()
+      ref.txt = paste(meas$tags[-2], collapse=" ")
+      ref.txt = paste(ref.txt, paste("\\cite{", get.reference(meas$tags), "}", sep=""))
+      meas.paper[[paper]]$ref <<- ref.txt
+      meas.paper[[paper]]$meas <<- list()
+    }
+
+    index = 1
+    repeat {
+      if (is.null(meas.paper[[paper]]$meas[[quant.name]])) break
+      quant.name = sub("([.]\\d+)?$", paste(".", as.character(index), sep=""), quant.name)
+      index=index+1
+    }
+
+    meas.paper[[paper]]$meas[[quant.name]] <<- paste(quant.descr, "&", mkreport.get.meas.val(meas))
+    return(invisible(NULL))
+  }, combination$measurements, measurements[combination$measurements])
+
+  rc = sapply(meas.paper, function(x) {
+    meas.order = order(alucomb2.gamma.num.id(names(x$meas)))
+    rc = paste(
+      paste("\\multicolumn{2}{l}{", x$ref, "} \\\\", sep=""),
+      paste(unlist(x$meas[meas.order]), collapse=" \\\\\n"),
+      sep="\n")
+  })
+
+  tex.meas.paper = mkreport.tex.cmd("HfagTauMeasPaper", paste(rc, collapse=" \\\\\\hline\n"))
+  rm(rc)
+  cat(tex.meas.paper, file=fname, append=TRUE)
+  cat("file '", fname, "', meas.paper table content\n", sep="")
 
   gamma110.names = names(combination$constr.all.comb$Gamma110.c)
   gamma110.names = setdiff(gamma110.names, "Gamma110")
@@ -670,20 +739,22 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   
   quant.corr.base = quant.corr[quant.names, quant.names] * 100
   inum = 1
-  for (j in seq(1, length(quant.names), by=10)) {
-    for (i in seq(1, length(quant.names), by=10)) {
+  coeff.per.row = 12
+  coeff.per.col = 12
+  for (j in seq(1, length(quant.names), by=coeff.per.col)) {
+    for (i in seq(1, length(quant.names), by=coeff.per.row)) {
       submat.txt = NULL
-      for(ii in i:min(i+10-1, length(quant.names))) {
+      for(ii in i:min(i+coeff.per.row-1, length(quant.names))) {
         if (ii<=j) next
-        maxcol = min(ii-1,j+10-1)
+        maxcol = min(ii-1,j+coeff.per.col-1)
         row.txt = paste("\\(", alucomb2.gamma.texlabel(quant.names[ii]), "\\)")
         row.txt = c(row.txt, sprintf("%4.0f", quant.corr.base[ii, j:maxcol]))
-        row.txt = c(row.txt, rep("", length.out=min(j+10-1, length(quant.names))-j+1-(maxcol-j+1)))
+        row.txt = c(row.txt, rep("", length.out=min(j+coeff.per.col-1, length(quant.names))-j+1-(maxcol-j+1)))
         submat.txt = c(submat.txt, paste(row.txt, collapse=" & "))
       }
       if (is.null(submat.txt)) next
-      label.txt = alucomb2.gamma.texlabel(quant.names[j:min(j+10-1, length(quant.names))])
-      label.num = min(j+10-1, length(quant.names)) - j + 1
+      label.txt = alucomb2.gamma.texlabel(quant.names[j:min(j+coeff.per.col-1, length(quant.names))])
+      label.num = min(j+coeff.per.col-1, length(quant.names)) - j + 1
       label.txt = paste("\\(", label.txt, "\\)", sep=" ", collapse=" & ")
       label.txt = paste("", label.txt, sep=" & ")
       submat.txt = paste(submat.txt, collapse=" \\\\\n")
@@ -763,7 +834,7 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
 
-args <- commandArgs(TRUE)
+args = commandArgs(TRUE)
 if (length(args) == 1) {
   rc = mkreport(fname = args[1])
 } else {
