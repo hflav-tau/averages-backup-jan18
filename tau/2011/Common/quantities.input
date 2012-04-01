@@ -1,16 +1,33 @@
 #
+# Gamma50 = G(pi- K(S) K(S) pi0 nu(tau)) / G(total)
+#
+QUANTITY Gamma50 node S035C2 descr "G(pi- K(S) K(S) pi0 nu(tau)) / G(total)"
+
+#
+# Gamma51 = G(pi- K(S) K(L) pi0 nu(tau)) / G(total)
+#
+QUANTITY Gamma51 node S035C3 descr "G(pi- K(S) K(L) pi0 nu(tau)) / G(total)"
+
+#
+# Gamma806 = G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)
+#
+QUANTITY Gamma806 descr "G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)"
+#
+# Gamma806 = Gamma50
+#
 # Gamma50 = G(pi- pi0 K(S) K(S) nu(tau)) / G(total)
 #
-QUANTITY Gamma50 node S035C2 descr "G(pi- pi0 K(S) K(S) nu(tau)) / G(total)"
-
-#
-# Gamma51 = G(pi- pi0 K(S) K(L) nu(tau)) / G(total)
-#
-QUANTITY Gamma51 node S035C3 descr "G(pi- pi0 K(S) K(L) nu(tau)) / G(total)"
-
-#
-# Gamma49 = G(pi- pi0 K0 Kbar0 nu(tau)) / G(total) = Gamma51 + 2*Gamma50
 # assuming that rates are equal to KS KS and KL KL
 # use parameter BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET to allow updates
 #
-NLCONSTRAINT Gamma49.c 0 "-Gamma49 + (Gamma50 * (1+ ( (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET) )) + Gamma51)"
+NLCONSTRAINT Gamma806.c 0 "-Gamma806 + (Gamma50 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))"
+
+#
+# Gamma49 = G(pi- K0 Kbar0 pi0 nu(tau)) / G(total) = Gamma51 + Gamma50 + Gamma806
+#
+NLCONSTRAINT Gamma49.c 0 "-Gamma49 + (Gamma50 + Gamma51 + Gamma806)"
+
+#
+# add constraint G(pi- K(S) K(S) nu(tau)) = G(pi- K(L) K(L) nu(tau))
+#
+NLCONSTRAINT Gamma804.c 0 "-Gamma804 + (Gamma47 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))"
