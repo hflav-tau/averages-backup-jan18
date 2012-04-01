@@ -588,6 +588,50 @@ get.tex.table.simple = function(quant.names, precision, order) {
   return(paste(rc, collapse=" \\\\\n"))
 }
 
+##
+## return table body with measurements by reference
+##
+get.tex.meas.by.ref = function() {
+  meas.paper = list()
+  rc = mapply(function(meas.name, meas) {
+    paper = paste(meas$tags[-2], collapse=".")
+    
+    quant.name = meas$quant
+    quant = combination$quantities[[quant.name]]
+    quant.descr = get.tex.quant.descr(quant)
+    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste("\\begin{ensuredisplaymath}\n\\;\\;", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
+
+    if (is.null(meas.paper[[paper]])) {
+      meas.paper[[paper]] = list()
+      ref.txt = paste(meas$tags[-2], collapse=" ")
+      ref.txt = paste(ref.txt, paste("\\cite{", get.reference(meas$tags), "}", sep=""))
+      meas.paper[[paper]]$ref <<- ref.txt
+      meas.paper[[paper]]$meas <<- list()
+    }
+
+    index = 1
+    repeat {
+      if (is.null(meas.paper[[paper]]$meas[[quant.name]])) break
+      quant.name = sub("([.]\\d+)?$", paste(".", as.character(index), sep=""), quant.name)
+      index=index+1
+    }
+
+    meas.paper[[paper]]$meas[[quant.name]] <<- paste(quant.descr, "&", mkreport.get.meas.val(meas))
+    return(invisible(NULL))
+  }, combination$measurements, measurements[combination$measurements])
+
+  rc = sapply(meas.paper, function(x) {
+    meas.order = order(alucomb2.gamma.num.id(names(x$meas)))
+    rc = paste(
+      paste("\\multicolumn{2}{l}{", x$ref, "} \\\\", sep=""),
+      paste(unlist(x$meas[meas.order]), collapse=" \\\\\n"),
+      sep="\n")
+  })
+
+  return(rc)
+}
+
 ##--- return latex command def with specified multi-line body
 mkreport.tex.cmd = function(cmd, body) {
   paste("\\newcommand{\\", cmd, "}{%\n", body, "%\n}\n", sep="")
@@ -646,43 +690,8 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   cat(tex.all.tau.br.val, file=fname, append=TRUE)
   cat("file '", fname, "', BR val table content\n", sep="")
 
-  meas.paper = list()
-  rc = mapply(function(meas.name, meas) {
-    paper = paste(meas$tags[-2], collapse=".")
-    
-    quant.name = meas$quant
-    quant = combination$quantities[[quant.name]]
-    quant.descr = get.tex.quant.descr(quant)
-    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
-    quant.descr = paste("\\begin{ensuredisplaymath}\n\\;\\;", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
-
-    if (is.null(meas.paper[[paper]])) {
-      meas.paper[[paper]] = list()
-      ref.txt = paste(meas$tags[-2], collapse=" ")
-      ref.txt = paste(ref.txt, paste("\\cite{", get.reference(meas$tags), "}", sep=""))
-      meas.paper[[paper]]$ref <<- ref.txt
-      meas.paper[[paper]]$meas <<- list()
-    }
-
-    index = 1
-    repeat {
-      if (is.null(meas.paper[[paper]]$meas[[quant.name]])) break
-      quant.name = sub("([.]\\d+)?$", paste(".", as.character(index), sep=""), quant.name)
-      index=index+1
-    }
-
-    meas.paper[[paper]]$meas[[quant.name]] <<- paste(quant.descr, "&", mkreport.get.meas.val(meas))
-    return(invisible(NULL))
-  }, combination$measurements, measurements[combination$measurements])
-
-  rc = sapply(meas.paper, function(x) {
-    meas.order = order(alucomb2.gamma.num.id(names(x$meas)))
-    rc = paste(
-      paste("\\multicolumn{2}{l}{", x$ref, "} \\\\", sep=""),
-      paste(unlist(x$meas[meas.order]), collapse=" \\\\\n"),
-      sep="\n")
-  })
-
+  ##--- measurements by reference
+  rc = get.tex.meas.by.ref()
   tex.meas.paper = mkreport.tex.cmd("HfagTauMeasPaper", paste(rc, collapse=" \\\\\\hline\n"))
   rm(rc)
   cat(tex.meas.paper, file=fname, append=TRUE)
@@ -739,8 +748,8 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   
   quant.corr.base = quant.corr[quant.names, quant.names] * 100
   inum = 1
-  coeff.per.row = 12
-  coeff.per.col = 12
+  coeff.per.row = 14
+  coeff.per.col = 14
   for (j in seq(1, length(quant.names), by=coeff.per.col)) {
     for (i in seq(1, length(quant.names), by=coeff.per.row)) {
       submat.txt = NULL
