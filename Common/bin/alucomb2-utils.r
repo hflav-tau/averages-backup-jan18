@@ -960,9 +960,9 @@ alucomb.read = function(file = "") {
         block$constr.nl.str.val[[constr.name]] = constr.val
         block$constr.nl.str.expr[[constr.name]] = constr.expr
 
-      } else if (clause.keyw == "USEMEAS") {
+      } else if (clause.keyw == "MODMEAS") {
         ##
-        ## USEMEAS drop|keep <measurement tags>
+        ## MODMEAS drop|keep <measurement tags>
         ##
         keyw = toupper(clause.fields[1])
         if (keyw == "KEEP" || keyw == "DROP") {
@@ -978,7 +978,7 @@ alucomb.read = function(file = "") {
             block$meas.drop.cards = setdiff(block$meas.drop.cards, meas.name)
           }
         } else {
-          stop("error, invalid USEMEAS keyword in line...\n  ", clause.line)
+          stop("error, invalid MODMEAS keyword in line...\n  ", clause.line)
         }
 
       } else {
