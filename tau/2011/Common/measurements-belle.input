@@ -4,7 +4,7 @@
 #
 BEGIN MEASUREMENT Belle Gamma40 prelim PHIPSI11
 
-VALUE 0.00384 +-4e-05 +-0.00016
+VALUE 0.00384 +-0.00004 +-0.00016
 
 SYSTEMATICS
   -1.8%            PimKzsPizPizNu
@@ -12,6 +12,14 @@ SYSTEMATICS
   -0.3%            PimKzKzbarNu
   -0.3%            PimKzsNu
   -0.2%            PimKzKzbarPizNu
+
+SYSTPAPER
+   2.10%           tracking
+   1.57%	   pi0efficiency
+   1.63%	   e_mu_selection
+   1.03%	   KS_efficiency
+   0.15%	   e_mu_normalization
+   0.60%	   energy_restriction_extra_photons
 
 PARAMETERS
    PimKzsPizPizNu  0.013e-2      +-0.012e-2     
@@ -28,13 +36,21 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma42 prelim PHIPSI11
 
-VALUE 0.00148 +-2e-05 +-0.00008
+VALUE 0.00148 +-0.00002 +-0.00008
 
 SYSTEMATICS
   -1.7%            PimKzsPizNu
   -0.4%            KmKzsNu
   -0.3%            PimKzsNu
   -0.2%            PimKzKzbarNu
+
+SYSTPAPER
+   2.10%           tracking
+   1.57%	   pi0efficiency
+   1.63%	   e_mu_selection
+   1.37%	   KS_efficiency
+   0.15%	   e_mu_normalization
+   0.67%	   energy_restriction_extra_photons
 
 PARAMETERS
   PimKzsPizNu      0.195e-2      +-0.02e-2
