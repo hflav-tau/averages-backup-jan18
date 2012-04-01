@@ -278,7 +278,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
         function(x) setdiff(names(x), quant.names))
       rc = mapply(function(val, str.expr, missing) {
         cat(val, " = ", str.expr, "\n", sep="")
-        cat("  missing vars: ", paste(missing, collapse="\n"), "\n", sep="")
+        cat("  missing vars: ", paste(missing, collapse=" "), "\n", sep="")
       },
         combination$constr.all.val[constr.var.not.in.quant.lin],
         combination$constr.all.str.expr[constr.var.not.in.quant.lin],
@@ -301,7 +301,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
         function(x) setdiff(all.vars(x), quant.names))
       rc = mapply(function(val, str.expr, missing) {
         cat(val, " = ", str.expr, "\n", sep="")
-        cat("  missing vars: ", paste(missing, collapse="\n"), "\n", sep="")
+        cat("  missing vars: ", paste(missing, collapse=" "), "\n", sep="")
       },
         combination$constr.all.val[constr.var.not.in.quant.nl],
         combination$constr.all.str.expr[constr.var.not.in.quant.nl],
