@@ -50,7 +50,7 @@ enum DECAY { EGAMMA = 1,
 
 void SetUp();
 //void HFAGTauLabel(Int_t yearversion, Double_t xpos, Double_t ypos, Double_t scale);
-void TauLFV_UL(Int_t when=2010001)
+void TauLFV_UL(Int_t when=2011001)
 {
   SetUp();
   unsigned int ibin;
@@ -75,6 +75,9 @@ void TauLFV_UL(Int_t when=2010001)
     fillBaBar_2009002(BaBar);
   }else if (when==2010001) {
     fillBelle_2010001(Belle);
+    fillBaBar_2010001(BaBar);
+  }else if (when==2011001) {
+    fillBelle_2011001(Belle);
     fillBaBar_2010001(BaBar);
   }
   fillCLEO(CLEO);
@@ -337,6 +340,74 @@ void fillBelle_2010001(double * array)
 
   array[-1+PILAM]   = 7.2;
   array[-1+PILAMBAR]= 14;
+  
+}
+
+
+void fillBelle_2011001(double * array)
+{
+  // at 10^-8
+  array[-1+EGAMMA]  = 12;
+  array[-1+MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
+//
+// Belle 901/fb data // previous 401/fb
+  array[-1+EPI0]    = 2.2; // 8.0; 
+  array[-1+MUPI0]   = 2.7; // 12;
+
+  array[-1+EETA]    = 4.4; // 9.2;
+  array[-1+MUETA]   = 2.3; // 6.5;
+
+  array[-1+EETAP]   = 3.6; // 16;
+  array[-1+MUETAP]  = 3.8; // 13;
+
+  array[-1+EKS0]    = 2.6;
+  array[-1+MUKS0]   = 2.3;
+
+  array[-1+EF0]     = 3.2;
+  array[-1+MUF0]    = 3.4;
+//
+// Belle 854 fb-1  //previous 543 fb-1
+  array[-1+ERHO]    = 1.8; // 6.3;
+  array[-1+MURHO]   = 1.2; // 6.8;
+  array[-1+EKSTAR]  = 3.2; // 7.8;
+  array[-1+MUKSTAR] = 7.2; // 5.9;
+  array[-1+EAKSTAR] = 3.4; // 7.7;
+  array[-1+MUAKSTAR]= 7.0 - 0.2; // 10; // substracted .2 for clarity in display
+  array[-1+EPHI]    = 3.1 - 0.2; // 7.3; // substracted .2 for clarity in display
+  array[-1+MUPHI]   = 8.4; // 13;
+  array[-1+EOMEGA]  = 4.8; // 18;
+  array[-1+MUOMEGA] = 4.7; // 8.9;
+ 
+  array[-1+EEE]     = 2.7;
+  array[-1+MEE]     = 1.8;
+  array[-1+EMM]     = 2.7; 
+  array[-1+MMM]     = 2.1; 
+  array[-1+EME]     = 1.5; 
+  array[-1+MEM]     = 1.7; 
+
+// 671 fb-1    //Previous   671 fb-1.
+  array[-1+EPIPI]   = 2.3;  //4.4;
+  array[-1+MUPIPI]  = 2.1;  //3.3;
+  array[-1+EPIK]    = 3.7;  //5.8;
+  array[-1+MUPIK]   = 8.6;   //16;
+  array[-1+EKPI]    = 3.1;   //5.2;
+  array[-1+MUKPI]   = 4.5;  //10;
+  array[-1+EKK]     = 3.4;  //5.4;
+  array[-1+MUKK]    = 4.4;  // 6.8;
+  array[-1+EKS0KS0] = 7.1;
+  array[-1+MUKS0KS0]= 8.0;
+  array[-1+PIEPI]   = 2.0; //8.8;
+  array[-1+PIMUPI]  = 3.9; //3.7;
+  array[-1+PIEK]    = 3.2; //6.7;
+  array[-1+PIMUK]   = 4.8;  //9.4;
+  array[-1+KEK]     = 3.3;  //6.0;
+  array[-1+KMUK]    = 4.7;  //9.6;
+
+//  906 fb-1 //Previous 154 fb-1
+  array[-1+PILAM]   = 3.0; //7.2;
+  array[-1+PILAMBAR]= 2.8; //14;
+  array[-1+KLAM]    = 4.2;   
+  array[-1+KLAMBAR] = 3.1; 
   
 }
 
@@ -706,6 +777,7 @@ void HFAGTauLabel(Int_t yearversion=2010001, Double_t xpos= .99, Double_t ypos= 
   if (yearversion==2009001) ts2="Spring 2009";
   if (yearversion==2009002) ts2="Summer 2009";
   if (yearversion==2010001) ts2="Summer 2010";
+  if (yearversion==2011001) ts2="Winter 2011";
   tbox2->AddText(ts2);
   tbox2->Draw();
 
