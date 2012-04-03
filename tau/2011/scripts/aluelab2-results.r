@@ -622,12 +622,12 @@ aluelab.results = function(args) {
   ##--- make file name for report .tex output
   fname.short = gsub("average[^-]*-*", "", file.name)
   fname.short = gsub("[.]rdata", "", fname.short)
-  fname = "../report/tau-elab"
+  fname = "../report/tau-br-fit"
   if (fname.short != "") fname = paste(fname, "-", fname.short, sep="")
   if (flag.unitarity) fname = paste(fname, "-uniconstr", sep="")
   if (flag.vadirect) fname = paste(fname, "-vadirect", sep="")
   if (flag.lepuniv) fname = paste(fname, "-lepuniv", sep="")
-  fname = paste(fname, ".tex", sep="")
+  fname = paste(fname, "-elab.tex", sep="")
   cat(unlist(rc), sep="\n", file=fname)
   cat("produced file '", fname, "'\n", sep="")
 }

@@ -662,7 +662,7 @@ get.tex.base.nodes.corr = function() {
     "\\begin{center}",
     "\\captionof{table}{Base nodes correlation coefficients in percent, section @@num@@}\\label{tab:br-fit-corr@@num@@}%",
     "\\fi",
-    "{\\ifhevea\\footnotesize\\else\\small\\fi",
+    "{\\ifhevea\\footnotesize\\else\\tausmall\\fi",
     "\\renewcommand*{\\arraystretch}{1.1}%",
     "\\begin{tabular}{@@tabcols@@}",
     "\\hline")
@@ -795,6 +795,7 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
 
   ##--- build out file name
   fname = sub("[.][^.]*$", ".tex", fname, perl=TRUE)
+  fname = sub("^[^.-]*", "tau-br-fit", fname, perl=TRUE)
   fname = file.path("../report", fname)
   cat("", file=fname)
   cat("file '", fname, "' created\n", sep="")
