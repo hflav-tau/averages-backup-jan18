@@ -475,7 +475,8 @@ aluelab.results = function(args) {
   ##
   quant$meas.add.single("f_K_by_f_pi", 1.1936, 0.0053)
   quant$meas.add.single("f_K", 156.1, 1.1)
-
+  ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
+  
   ##
   ## Marciano:2004uf
   ## W. J. Marciano, "Precise determination of |V(us)| from lattice calculations of pseudoscalar decay constants",
