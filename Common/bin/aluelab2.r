@@ -175,6 +175,17 @@ StatComb$meas.add.single = function(., label, val, err=0) {
 }
 
 ##
+## add a single correlation between two quantities
+##
+StatComb$corr.add.single = function(., label.1, label.2, corr) {
+  corr = as.numeric(corr)
+  cov = corr*sqrt(.$.cov[label.1, label.1] * .$.cov[label.2, label.2])
+  .$.cov[label.1, label.2] = cov
+  .$.cov[label.2, label.1] = cov
+  return(corr)
+}
+
+##
 ## compute linear combination given measurements and their variance
 ##
 StatComb$linear.comb.with.cov = function(., lc, val, cov) {
