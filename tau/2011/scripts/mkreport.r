@@ -861,7 +861,7 @@ mkreport = function(fname = "average2-aleph-hcorr.rdata") {
   ##
   ## write text macro containing constraint equations
   ##
-  tex.constr.val = mkreport.tex.cmd("HfagConstrVal", get.tex.constraint.equations())
+  tex.constr.val = mkreport.tex.cmd("HfagConstrEqs", get.tex.constraint.equations())
   cat(tex.constr.val, file=fname, append=TRUE)
   cat("file '", fname, "', constraint table content\n", sep="")
 }
