@@ -717,12 +717,15 @@ get.tex.base.nodes.corr = function() {
 ## return latex code with constraint equations
 ##
 get.tex.constraint.equations = function() {
-  constr.order = order(alucomb2.gamma.num.id(names(combination$constr.all.str.expr)))
-  comb.str = combination$constr.all.str.expr[constr.order]
+  constr.used = combination$constr.all.lin | combination$constr.all.nl
+  constr.used.names = names(combination$constr.all.str.expr[constr.used])
+  constr.order = order(alucomb2.gamma.num.id(constr.used.names))
+  comb.str = combination$constr.all.str.expr[constr.used.names[constr.order]]
   comb.str = comb.str[grep("Gamma\\d+by\\d+.*|Unitarity", names(comb.str), perl=TRUE, invert=TRUE)]
   comb.str.nl = intersect(names(comb.str), names(combination$constr.nl.str.expr))
 
   comb.str[comb.str.nl] = combination$constr.nl.str.expr[comb.str.nl]
+
   rc = str_match(unlist(comb.str), "-([[:alnum:]]+)\\s+[+]\\s+(.*\\S)\\s*$")
   constr.left = rc[,2]
   constr.right = rc[,3]
@@ -733,7 +736,7 @@ get.tex.constraint.equations = function() {
   constr.right = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.right, fixed=TRUE)
 
   ##--- remove outer braces
-  constr.right = gsub("(\\(((?:[^()]++|(?1))+)*+\\))", "\\2", constr.right, perl=TRUE)
+  constr.right = gsub("^\\s*(\\(((?:[^()]++|(?1))+)*+\\))\\s*$", "\\2", constr.right, perl=TRUE)
   ##--- split long eqs
   constr.right = gsub("(([^+]+[+*]){4}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
 
