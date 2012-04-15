@@ -1,0 +1,27 @@
+*
+*  This directory conatains files to create the table of LFV results.
+*
+*                                     2012/04/15   Hisaki Hayashii
+* 
+-To compile the latex source, just type  
+make
+
+-If you type
+make clean
+the directory is cleaned by removing all unnecessary files.
+
+*
+* Files.
+*
+hfag.standalone.tex  :main latex file
+LFV2012.tex          :create the tabale of LFV results.
+hfag-tau-bib.bib     :bibtex file of references.
+
+Makefile             :makefile
+README               :this file
+
+elaarticle.cls       :Elsevier standard class
+model1a-num-names.bst:Elsevier standard bibtex style file.  
+                      use number for reference, without showing
+                      titles.
+natbib.sty           :standard bib style file.
