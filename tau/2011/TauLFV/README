@@ -1,5 +1,0 @@
--How to make plot. Type
-
- root -l -b -q TauLFV_UL.cxx
-
-Then eps file, TauLFV_UL_20xx.eps will be created. 
