@@ -5,11 +5,37 @@
 // produce tau LFV upper limits plot
 // execute as follows:
 //
-// > root -l -b -q TauLFV_UL_plot.cc
+// > root -l -b -q TauLFV_UL_plot.cc+
 //
 // This will create a .eps file with the plot.
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <assert.h>
+#include <math.h>
+#include <stddef.h>
+#include "TROOT.h"
+#include "TString.h"
+#include "TFile.h"
+#include "TStyle.h"
+#include "TCanvas.h"
+#include "TH1F.h"
+#include "TMath.h"
+#include "TPostScript.h"
+#include "TLine.h"
+#include "TBox.h"
+#include "TGraph.h"
+#include "TGraphErrors.h"
+#include "TGraphAsymmErrors.h"
+#include "TLatex.h"
+#include "TColor.h"
+#include "TLegend.h"
+#include "TPaveText.h"
+
+#include "../plots/HFAGTauLabel.cc"
 
 enum DECAY {
   EGAMMA = 1,
@@ -62,129 +88,6 @@ enum DECAY {
   KLAMBAR = 48,
   NDECAY = 49
 };
-
-void SetUp();
-
-void HFAGTauLabel(Int_t yearversion=2012001, Double_t xpos= .99, Double_t ypos= 0.825, Double_t scale= 1.0);
-
-void TauLFV_UL_plot(Int_t when=2012001)
-{
-  SetUp();
-  unsigned int ibin;
-  
-  double Belle[NDECAY];
-  for (ibin = 0; ibin < NDECAY; ++ibin) Belle[ibin] = 0;
-  
-  double BaBar[NDECAY];
-  for (ibin = 0; ibin < NDECAY; ++ibin) BaBar[ibin] = 0;
-  
-  double CLEO[NDECAY];
-  for (ibin = 0; ibin < NDECAY; ++ibin) CLEO[ibin] = 0;
-  
-  double histbins[NDECAY];
-  for (ibin = 0; ibin < NDECAY; ++ibin) histbins[ibin] = ibin+1;
-  
-  if (when==2009001){
-    fillBelle_2009001(Belle);
-    fillBaBar_2009001(BaBar);
-  }else if (when==2009002) {
-    fillBelle_2009002(Belle);
-    fillBaBar_2009002(BaBar);
-  }else if (when==2010001) {
-    fillBelle_2010001(Belle);
-    fillBaBar_2010001(BaBar);
-  }else if (when==2012001) {
-    fillBelle_2012001(Belle);
-    fillBaBar_2010001(BaBar);
-  }
-  fillCLEO(CLEO);
-  
-  TH1F * hBelle = new TH1F("hBelle","",NDECAY+1, -0.5, float(NDECAY)+0.5);
-  TH1F * hBaBar = new TH1F("hBaBar","",NDECAY+1, -0.5, float(NDECAY)+0.5);
-  TH1F * hCLEO  = new TH1F("hCLEO","", NDECAY+1, -0.5, float(NDECAY)+0.5);
-  
-  hBelle->FillN(NDECAY, histbins, Belle);
-  hBaBar->FillN(NDECAY, histbins, BaBar);
-  hCLEO-> FillN(NDECAY, histbins, CLEO);
-  
-  hBelle->Scale(1.e-8);
-  hBaBar->Scale(1.e-8);
-  hCLEO->Scale(1.e-6);
-  
-  setLabels(hBelle);
-  
-  hBelle->GetYaxis()->SetTitle("90% C.L. upper limits for LFV #tau decays");
-  hBelle->LabelsOption("v");
-  hBelle->GetYaxis()->SetLabelSize(36);
-
-  // hBelle->SetMarkerStyle(kOpenCircle); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.0);
-  // hBaBar->SetMarkerStyle(kOpenDiamond); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.3);
-  // hCLEO->SetMarkerStyle(kOpenSquare);  hCLEO->SetMarkerColor(kGreen);  hCLEO->SetMarkerSize(0.8);
-  
-  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.0);
-  hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.0);
-  hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(1.0);
-  
-  TCanvas *c1 = new TCanvas("c1","",1500,800); 
-  c1->SetBottomMargin(.2);
-  c1->SetTopMargin(.02);
-  c1->SetLeftMargin(.10);
-  c1->SetRightMargin(.12);
-  c1->SetLogy(1) ;
-  
-  double ul_min=4.e-5;
-  hBelle->SetMaximum(ul_min);
-  double ul_max=4.e-9;
-  hBelle->SetMinimum(ul_max);
-  hBelle->Draw("p");
-  c1->SetGridy();
-  hBaBar->Draw("p,same");
-  hCLEO->Draw("p,same");
-  c1->Update();
-  
-  double y_latex=2.e-5;
-  
-  TLine l0(0+.5,ul_min,0+.5,ul_max); l0.SetLineStyle(2); l0.Draw();
-
-  TLine l1(MUGAMMA+.5,ul_min,MUGAMMA+.5,ul_max); l1.SetLineStyle(2); l1.Draw();
-  TLatex t1(((MUGAMMA-EGAMMA)*1.0/2.0)+EGAMMA*1.0,y_latex,"l#gamma"); t1.SetTextAlign(21); t1.SetTextFont(12); t1.Draw();
-  
-  TLine l2(MUKS0+.5,ul_min,MUKS0+.5,ul_max); l2.SetLineStyle(2); l2.Draw();
-  TLatex t2(((MUKS0-EPI0)*1.0/2.0)+EPI0*1.0,y_latex,"lP^{0}"); t2.SetTextAlign(21); t2.SetTextFont(12); t2.Draw();
-  
-  TLine l3(MUF0+.5,ul_min,MUF0+.5,ul_max); l3.SetLineStyle(2); l3.Draw();
-  TLatex t3(((MUF0-EF0)*1.0/2.0)+EF0*1.0,y_latex,"lS^{0}"); t3.SetTextAlign(21); t3.SetTextFont(12); t3.Draw();
-  
-  TLine l4(MUOMEGA+.5,ul_min,MUOMEGA+.5,ul_max); l4.SetLineStyle(2); l4.Draw();
-  TLatex t4(((MUOMEGA-ERHO)*1.0/2.0)+ERHO*1.0,y_latex,"lV^{0}"); t4.SetTextAlign(21); t4.SetTextFont(12); t4.Draw();
-  
-  TLine l5(MEM+.5,ul_min,MEM+.5,ul_max); l5.SetLineStyle(2); l5.Draw();
-  TLatex t5(((MEM-EEE)*1.0/2.0)+EEE*1.0,y_latex,"lll"); t5.SetTextAlign(21); t5.SetTextFont(12); t5.Draw();
-  
-  TLine l6(KMUK+.5,ul_min,KMUK+.5,ul_max); l6.SetLineStyle(2); l6.Draw();
-  TLatex t6(((KMUK-EPIPI)*1.0/2.0)+EPIPI*1.0,y_latex,"lhh"); t6.SetTextAlign(21); t6.SetTextFont(12); t6.Draw();
-  
-  TLine l7(KLAMBAR+.5,ul_min,KLAMBAR+.5,ul_max); l7.SetLineStyle(2); l7.Draw();
-  TLatex t7(((KLAMBAR-PILAM)*1.0/2.0)+PILAM*1.0,y_latex,"#Lambdah"); t7.SetTextAlign(21); t7.SetTextFont(12); t7.Draw();
-  
-  TLegend *leg = new TLegend(0.88,0.3,0.95,.5);
-  leg->SetBorderSize(0);
-  leg->SetFillStyle(4000);
-  leg->SetFillColor(0);
-  leg->SetTextSize(.05);
-  leg->SetMargin(.5);
-  leg->AddEntry(hCLEO,"CLEO","p");
-  leg->AddEntry(hBaBar,"BaBar","p");
-  leg->AddEntry(hBelle,"Belle","p");
-  leg->Draw();
-  c1->Update();
-  //
-  HFAGTauLabel(when,.99,.825,1.0);
-  c1->Update();  
-  
-  c1->SaveAs(Form("TauLFV_UL_%d.eps",when));
-  c1->SaveAs(Form("TauLFV_UL_%d.png",when));
-}
 
 void fillBelle_2009001(double * array)
 {
@@ -732,77 +635,154 @@ void setLabels(TH1* hist)
 
 void SetUp()
 {
-  //  cout << "SetUp Plain " << endl;
+  // gROOT->SetBatch(kTRUE);
+
   gROOT->SetStyle("Plain");
-  //  gROOT->SetBatch(kTRUE);
   gROOT->ForceStyle();
+
   gStyle->SetStatStyle(0);
   gStyle->SetOptStat(00000000);
   
-  gStyle->SetLabelFont(64,"X");
-  gStyle->SetLabelSize(42,"X");
-  gStyle->SetLabelOffset(.006,"X");
+  const int plotFont(44);
+  gStyle->SetLabelFont(plotFont, "xyz");
+  gStyle->SetTitleFont(plotFont, "xyz");
+  gStyle->SetTextFont(42);
+  gStyle->SetStatFont(42);  
+
+  gStyle->SetTitleSize(42,"xyz");
+  gStyle->SetLabelSize(42,"xyz");
+
+  gStyle->SetTitleOffset(0.5, "x");
+  gStyle->SetTitleOffset(0.8, "y");
   
-  gStyle->SetTitleFont(64,"X");
-  gStyle->SetTitleSize(42,"X");
-  gStyle->SetTitleOffset(.5,"X");
+  gStyle->SetLabelOffset(0.006, "x");
+  gStyle->SetLabelOffset(0.001, "y");
   
-  gStyle->SetLabelFont(64,"Y");
-  gStyle->SetLabelSize(42,"Y");
-  gStyle->SetLabelOffset(.001,"Y");
-  
-  gStyle->SetTitleFont(64,"Y");
-  gStyle->SetTitleSize(42,"Y");
-  gStyle->SetTitleOffset(.8,"Y");
-  
-  gStyle->SetTickLength(.03,"X");
-  gStyle->SetTickLength(.02,"Y");
-  gStyle->SetNdivisions(5,"Y");
+  gStyle->SetTickLength(0.03, "x");
+  gStyle->SetTickLength(0.02, "y");
+  gStyle->SetNdivisions(5, "y");
   
   // put tick marks on top and RHS of plots
-  gStyle->SetPadTickX(1);
+  gStyle->SetPadTickX(0); //not for x-axis
   gStyle->SetPadTickY(1);
-  gStyle->SetPadTickX(0);//not for x-axis
-  //gStyle->SetTickLength(0,"x");
-  //..Get rid of X error bars
   gStyle->SetErrorX(0.001);
 }
 
-void HFAGTauLabel(Int_t yearversion, Double_t xpos, Double_t ypos, Double_t scale)
+void TauLFV_UL_plot(Int_t when=2012001)
 {
-  TPaveText *tbox1 = new TPaveText(xpos-0.1,ypos-.12,xpos,ypos,"BRNDC");
-  tbox1->SetLineColor(1);
-  tbox1->SetLineStyle(1);
-  tbox1->SetLineWidth(1);
-  tbox1->SetFillColor(1);
-  tbox1->SetFillStyle(1001);
-  tbox1->SetBorderSize(1);
-  tbox1->SetShadowColor(0);
-  tbox1->SetTextColor(0);
-  tbox1->SetTextFont(76);
-  tbox1->SetTextSize(24*scale);
-  tbox1->SetTextAlign(22); //center-adjusted and vertically centered
-  TString ts1("HFAG-Tau");
-  tbox1->AddText(ts1);
-  tbox1->Draw();
+  SetUp();
+  unsigned int ibin;
   
-  TPaveText *tbox2 = new TPaveText(xpos-0.1,ypos-0.18,xpos,ypos-0.12,"BRNDC");
-  tbox2->SetLineColor(1);
-  tbox2->SetLineStyle(1);
-  tbox2->SetLineWidth(1);
-  tbox2->SetFillColor(0);
-  tbox2->SetFillStyle(1001);
-  tbox2->SetBorderSize(1);
-  tbox2->SetShadowColor(0);
-  tbox2->SetTextColor(1);
-  tbox2->SetTextFont(76);
-  tbox2->SetTextSize(20*scale);
-  tbox2->SetTextAlign(22); //center-adjusted and vertically centered
-  TString ts2;
-  if (yearversion==2009001) ts2="Spring 2009";
-  if (yearversion==2009002) ts2="Summer 2009";
-  if (yearversion==2010001) ts2="Summer 2010";
-  if (yearversion==2012001) ts2="Winter 2012";
-  tbox2->AddText(ts2);
-  tbox2->Draw();
+  double Belle[NDECAY];
+  for (ibin = 0; ibin < NDECAY; ++ibin) Belle[ibin] = 0;
+  
+  double BaBar[NDECAY];
+  for (ibin = 0; ibin < NDECAY; ++ibin) BaBar[ibin] = 0;
+  
+  double CLEO[NDECAY];
+  for (ibin = 0; ibin < NDECAY; ++ibin) CLEO[ibin] = 0;
+  
+  double histbins[NDECAY];
+  for (ibin = 0; ibin < NDECAY; ++ibin) histbins[ibin] = ibin+1;
+  
+  if (when==2009001){
+    fillBelle_2009001(Belle);
+    fillBaBar_2009001(BaBar);
+  }else if (when==2009002) {
+    fillBelle_2009002(Belle);
+    fillBaBar_2009002(BaBar);
+  }else if (when==2010001) {
+    fillBelle_2010001(Belle);
+    fillBaBar_2010001(BaBar);
+  }else if (when==2012001) {
+    fillBelle_2012001(Belle);
+    fillBaBar_2010001(BaBar);
+  }
+  fillCLEO(CLEO);
+  
+  TH1F * hBelle = new TH1F("hBelle","",NDECAY+1, -0.5, float(NDECAY)+0.5);
+  TH1F * hBaBar = new TH1F("hBaBar","",NDECAY+1, -0.5, float(NDECAY)+0.5);
+  TH1F * hCLEO  = new TH1F("hCLEO","", NDECAY+1, -0.5, float(NDECAY)+0.5);
+  
+  hBelle->FillN(NDECAY, histbins, Belle);
+  hBaBar->FillN(NDECAY, histbins, BaBar);
+  hCLEO-> FillN(NDECAY, histbins, CLEO);
+  
+  hBelle->Scale(1.e-8);
+  hBaBar->Scale(1.e-8);
+  hCLEO->Scale(1.e-6);
+  
+  setLabels(hBelle);
+  
+  hBelle->GetYaxis()->SetTitle("90% C.L. upper limits for LFV #tau decays");
+  hBelle->LabelsOption("v");
+  hBelle->GetYaxis()->SetLabelSize(36);
+
+  // hBelle->SetMarkerStyle(kOpenCircle); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.0);
+  // hBaBar->SetMarkerStyle(kOpenDiamond); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.3);
+  // hCLEO->SetMarkerStyle(kOpenSquare);  hCLEO->SetMarkerColor(kGreen);  hCLEO->SetMarkerSize(0.8);
+  
+  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.0);
+  hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.0);
+  hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(1.0);
+  
+  TCanvas *c1 = new TCanvas("c1","",1500,800); 
+  c1->SetBottomMargin(.2);
+  c1->SetTopMargin(.02);
+  c1->SetLeftMargin(.10);
+  c1->SetRightMargin(.12);
+  c1->SetLogy(1) ;
+  
+  double ul_min=4.e-5;
+  hBelle->SetMaximum(ul_min);
+  double ul_max=4.e-9;
+  hBelle->SetMinimum(ul_max);
+  hBelle->Draw("p");
+  c1->SetGridy();
+  hBaBar->Draw("p,same");
+  hCLEO->Draw("p,same");
+  c1->Update();
+  
+  double y_latex=2.e-5;
+  
+  TLine l0(0+.5,ul_min,0+.5,ul_max); l0.SetLineStyle(2); l0.Draw();
+
+  TLine l1(MUGAMMA+.5,ul_min,MUGAMMA+.5,ul_max); l1.SetLineStyle(2); l1.Draw();
+  TLatex t1(((MUGAMMA-EGAMMA)*1.0/2.0)+EGAMMA*1.0,y_latex,"l#gamma"); t1.SetTextAlign(21); t1.SetTextFont(42); t1.Draw();
+  
+  TLine l2(MUKS0+.5,ul_min,MUKS0+.5,ul_max); l2.SetLineStyle(2); l2.Draw();
+  TLatex t2(((MUKS0-EPI0)*1.0/2.0)+EPI0*1.0,y_latex,"lP^{0}"); t2.SetTextAlign(21); t2.SetTextFont(42); t2.Draw();
+  
+  TLine l3(MUF0+.5,ul_min,MUF0+.5,ul_max); l3.SetLineStyle(2); l3.Draw();
+  TLatex t3(((MUF0-EF0)*1.0/2.0)+EF0*1.0,y_latex,"lS^{0}"); t3.SetTextAlign(21); t3.SetTextFont(42); t3.Draw();
+  
+  TLine l4(MUOMEGA+.5,ul_min,MUOMEGA+.5,ul_max); l4.SetLineStyle(2); l4.Draw();
+  TLatex t4(((MUOMEGA-ERHO)*1.0/2.0)+ERHO*1.0,y_latex,"lV^{0}"); t4.SetTextAlign(21); t4.SetTextFont(42); t4.Draw();
+  
+  TLine l5(MEM+.5,ul_min,MEM+.5,ul_max); l5.SetLineStyle(2); l5.Draw();
+  TLatex t5(((MEM-EEE)*1.0/2.0)+EEE*1.0,y_latex,"lll"); t5.SetTextAlign(21); t5.SetTextFont(42); t5.Draw();
+  
+  TLine l6(KMUK+.5,ul_min,KMUK+.5,ul_max); l6.SetLineStyle(2); l6.Draw();
+  TLatex t6(((KMUK-EPIPI)*1.0/2.0)+EPIPI*1.0,y_latex,"lhh"); t6.SetTextAlign(21); t6.SetTextFont(42); t6.Draw();
+  
+  TLine l7(KLAMBAR+.5,ul_min,KLAMBAR+.5,ul_max); l7.SetLineStyle(2); l7.Draw();
+  TLatex t7(((KLAMBAR-PILAM)*1.0/2.0)+PILAM*1.0,y_latex,"#Lambdah"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
+  
+  TLegend *leg = new TLegend(0.88,0.3,0.95,.5);
+  leg->SetBorderSize(0);
+  leg->SetFillStyle(4000);
+  leg->SetFillColor(0);
+  leg->SetTextSize(.05);
+  leg->SetMargin(.5);
+  leg->AddEntry(hCLEO,"CLEO","p");
+  leg->AddEntry(hBaBar,"BaBar","p");
+  leg->AddEntry(hBelle,"Belle","p");
+  leg->Draw();
+  c1->Update();
+  //
+  HFAGTauLabel("Winter 2012", -0.01, -0.02, 1.2);
+  c1->Update();  
+  
+  c1->SaveAs(Form("TauLFV_UL_%d.eps",when));
+  c1->SaveAs(Form("TauLFV_UL_%d.png",when));
 }
