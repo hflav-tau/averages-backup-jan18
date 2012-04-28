@@ -727,10 +727,10 @@ void TauLFV_UL_plot(Int_t when=2012001)
   hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(1.0);
   
   TCanvas *c1 = new TCanvas("c1","",1500,800); 
-  c1->SetBottomMargin(.2);
-  c1->SetTopMargin(.02);
-  c1->SetLeftMargin(.10);
-  c1->SetRightMargin(.12);
+  c1->SetBottomMargin(0.17);
+  c1->SetTopMargin(0.02);
+  c1->SetLeftMargin(0.10);
+  c1->SetRightMargin(0.12);
   c1->SetLogy(1) ;
   
   double ul_min=4.e-5;
