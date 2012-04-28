@@ -30,7 +30,8 @@
 
 #include "HFAGTauLabel.cc"
 
-void SetUp(){
+void SetUp(Float_t scale = 1)
+{
  // gROOT->SetBatch(kTRUE);
 
   gROOT->SetStyle("Pub");
@@ -40,8 +41,9 @@ void SetUp(){
   // gStyle->SetCanvasDefH(680);
 
   //--- canvas size, average plots
-  gStyle->SetCanvasDefW(500);
-  gStyle->SetCanvasDefH(Int_t(0.8*500));
+  gStyle->SetCanvasDefW(560);
+  //--- height will be recalculated later
+  gStyle->SetCanvasDefH(Int_t(0.75*gStyle->GetCanvasDefW()));
 
   //--- normal plots
   // gStyle->SetPadLeftMargin(0.20);
@@ -50,16 +52,16 @@ void SetUp(){
   // gStyle->SetPadBottomMargin(0.15);
 
   //--- average plots
-  gStyle->SetPadLeftMargin(0.05);
-  gStyle->SetPadRightMargin(0.60);
-  gStyle->SetPadTopMargin(0.03);
-  gStyle->SetPadBottomMargin(0.15);
+  gStyle->SetPadLeftMargin(0.05*scale);
+  gStyle->SetPadRightMargin(0.50);
+  gStyle->SetPadTopMargin(0.03*scale);
+  gStyle->SetPadBottomMargin(0.16*scale);
 
   gStyle->SetLineWidth(3);
   gStyle->SetFrameLineWidth(3);
   gStyle->SetHistLineWidth(3);
   gStyle->SetHistLineColor(kBlack);
-  gStyle->SetEndErrorSize(8);
+  gStyle->SetEndErrorSize(6);
 
   gStyle->SetFuncColor(kBlue);
   gStyle->SetLineColor(kBlack);
@@ -68,8 +70,8 @@ void SetUp(){
   gStyle->SetTitleOffset(1.1, "x");
   gStyle->SetTitleOffset(1.6, "y");
 
-  gStyle->SetLabelOffset(0.01, "xyz");
-  gStyle->SetTickLength(0.06, "x");
+  gStyle->SetLabelOffset(0.01*scale, "xyz");
+  gStyle->SetTickLength(0.06*scale, "x");
   gStyle->SetNdivisions(505, "x");
 
   //--- do not print y axis
@@ -77,6 +79,10 @@ void SetUp(){
   gStyle->SetLabelSize(0, "y");
   gStyle->SetLabelColor(kWhite, "y");
   gStyle->SetTickLength(0, "y");
+
+  gStyle->SetTextSize(0.05*scale);
+  gStyle->SetTitleSize(0.06*scale, "x");
+  gStyle->SetLabelSize(0.05*scale, "x");
 
   const int plotFont(42);
   gStyle->SetLabelFont(plotFont, "xyz");
@@ -306,9 +312,10 @@ void aluAverPlot(std::string filename){
   //--- if more than 6 measurements, increase y axis limit
   fYmax = (nPoints < 6 ? 6 : nPoints) + 0.6;
   
-  cout << "x min/max: " << fXmin << " " << fXmax
-       << " meas min/max: " << meas_xmax << " " << meas_xmin << endl;
-  cout << "meas num: " << nexp << ", average: " << aver << " +- " << err << endl;
+  cout << "x min/max: " << fXmin << " " << fXmax << " meas min/max: " << meas_xmax << " " << meas_xmin << endl
+       << "result num: " << nPoints << " ymin/ymax: " << fYmin << " " << fYmax << endl
+       << "meas num:   " << nexp << ", average: " << aver << " +- " << err << endl
+    ;
 
   TString sprecision = Form("%s%3.1f%s", "%", precision, "f");
   cout << "sprecision = " << sprecision << endl;
@@ -316,25 +323,47 @@ void aluAverPlot(std::string filename){
   //
   // Canvas
   //
+
+  Float_t keepFontAdj;
   TCanvas* canvas;
   {
-    Int_t canvas_height;
+    const Float_t heightByWidth(0.75);
 
-    canvas_height = Int_t(0.8*gStyle->GetCanvasDefW() + (nPoints > 8 ? 75*(nPoints-8) : 0));
-    canvas_height = Int_t(float(canvas_height) * float(1 - 0.02 - 0.06)/float(1 -0.02 - 0.14));
-    gStyle->SetCanvasDefH(canvas_height);
-    
-    if (title != "") {
-      canvas_height = Int_t(float(canvas_height) * float(1 - 0.02 - 0.06)/float(1 -0.02 - 0.14));
+    //
+    // frame height = plot height + bottom margin + top margin
+    // one point has one slot, the default is space for 7 points
+    // when there are 7 points, the vertical slot is
+    // frame_height * (1 - top_margin - bottom_margin) / 7.6
+    //
+    Float_t vert_slot(heightByWidth * gStyle->GetCanvasDefW() *
+		      (1-gStyle->GetPadTopMargin()-gStyle->GetPadBottomMargin()) / 7.6);
+    //--- plot height increases if more than 7 points
+    Float_t plot_height(vert_slot * (0.6 + (nPoints > 7 ? nPoints : 7)));;
+
+    //--- adjust pad margin if no title
+    if (title == "") {
+      gStyle->SetPadBottomMargin(0.06);
+    } else {
+      gStyle->SetPadBottomMargin(0.15);
     }
-    canvas = new TCanvas("canvas", "canvas");
-  }
   
-  //--- adjust pad margin if no title
-  if (title == "") {
-    canvas->SetBottomMargin(0.06);
-  } else {
-    canvas->SetBottomMargin(0.15);
+    Float_t canvas_height(plot_height / (1-gStyle->GetPadTopMargin()-gStyle->GetPadBottomMargin()));
+    keepFontAdj =
+      Float_t(gStyle->GetCanvasDefW())*heightByWidth /
+      Float_t(min(Float_t(gStyle->GetCanvasDefW()), canvas_height));
+    cout << "keepFontAdj " << keepFontAdj << endl;
+    cout << " " <<  gStyle->GetCanvasDefH() << " " << canvas_height << " " << vert_slot << " " << plot_height << endl;
+    SetUp(keepFontAdj);
+
+    gStyle->SetCanvasDefH(Int_t(canvas_height));    
+    //--- (repeat) adjust pad margin if no title
+    if (title == "") {
+      gStyle->SetPadBottomMargin(0.06*keepFontAdj);
+    } else {
+      gStyle->SetPadBottomMargin(0.15*keepFontAdj);
+    }
+
+    canvas = new TCanvas("canvas", "canvas");
   }
   // canvas->SetGrid(1, 1);
 
@@ -454,7 +483,8 @@ void aluAverPlot(std::string filename){
     // cout << "value " << valtxt << endl;
   }
   
-  HFAGTauLabel("Winter 2012", 0.5, 0.05);
+  Double_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
+  HFAGTauLabel("Winter 2012", xtextNDC, 0.03*keepFontAdj, 0.9);
 
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');

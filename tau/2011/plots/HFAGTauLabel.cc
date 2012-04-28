@@ -1,7 +1,7 @@
 void HFAGTauLabel(const TString& label="Winter 2012",
 		  // Double_t xpos=0.6, Double_t ypos=0.2,
 		  Double_t xpos=0, Double_t ypos=0,
-		  Double_t scale=0.8);
+		  Double_t scale=1);
 
 void HFAGTauLabel(const TString& label,
 		  Double_t xpos, Double_t ypos,
