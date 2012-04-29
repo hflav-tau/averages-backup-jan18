@@ -32,15 +32,9 @@
 
 void PlotStyleSetup(Float_t scale = 1)
 {
- // gROOT->SetBatch(kTRUE);
-
   gROOT->SetStyle("Pub");
 
-  //--- canvas size, normal plots
-  // gStyle->SetCanvasDefW(700);
-  // gStyle->SetCanvasDefH(680);
-
-  //--- canvas size, average plots
+  //--- canvas size
   gStyle->SetCanvasDefW(560);
   //--- height will be recalculated later
   gStyle->SetCanvasDefH(Int_t(0.75*gStyle->GetCanvasDefW()));
@@ -54,8 +48,6 @@ void PlotStyleSetup(Float_t scale = 1)
   //--- average plots
   gStyle->SetPadLeftMargin(0.05);
   gStyle->SetPadRightMargin(0.50);
-  // gStyle->SetPadTopMargin(0.03*scale);
-  // gStyle->SetPadBottomMargin(0.16*scale);
 
   gStyle->SetLineWidth(3);
   gStyle->SetFrameLineWidth(3);
@@ -84,7 +76,7 @@ void PlotStyleSetup(Float_t scale = 1)
   gStyle->SetTitleSize(0.06*scale, "x");
   gStyle->SetLabelSize(0.05*scale, "x");
 
-  const int plotFont(42);
+  const Int_t plotFont(42);
   gStyle->SetLabelFont(plotFont, "xyz");
   gStyle->SetTitleFont(plotFont, "xyz");
   gStyle->SetTextFont(plotFont);
@@ -131,26 +123,27 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   const Float_t fnPoints_offset(0.6);
   
   TString title, expname[nPointsMax], tempstring;
-  Double_t precision;
+  Float_t precision;
 
   // -- set up frame for plot
-  Double_t fXmin;
-  Double_t fXmax;
-  Double_t fYmin(0);
-  Double_t fYmax;
+  Float_t fXmin;
+  Float_t fXmax;
+  Float_t fYmin(0);
+  Float_t fYmax;
   
-  Double_t meas[nPointsMax];
-  Double_t stath[nPointsMax], statl[nPointsMax], stat[nPointsMax];
-  Double_t systh[nPointsMax], systl[nPointsMax], syst[nPointsMax];
-  Double_t errorh[nPointsMax], errorl[nPointsMax], error[nPointsMax];
-  Double_t meascl[nPointsMax];
-  Double_t sfact[nPointsMax];
+  Float_t meas[nPointsMax];
+  Float_t stath[nPointsMax], statl[nPointsMax], stat[nPointsMax];
+  Float_t systh[nPointsMax], systl[nPointsMax], syst[nPointsMax];
+  Float_t errorh[nPointsMax], errorl[nPointsMax], error[nPointsMax];
+  Float_t meascl[nPointsMax];
+  Float_t sfact[nPointsMax];
+
   TString measinfo[nPointsMax];
   
   //--- open input file
   ifstream ifs(filename.c_str()) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ;
-  int ref_meas(0);
+  Int_t ref_meas(0);
   
   while(ifs.good()) {
     if (ifs.eof()) break;
@@ -226,15 +219,15 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   }
   cout << "read " << nPoints << " data lines from file '" << filename << "'" << endl ;
   
-  int nexp(0);
-  double num(0), den(0), aver(0), err(0), wt;
-  Double_t meas_xmin(meas[0]);
-  Double_t meas_xmax(meas[0]);
-  Double_t meas_width_min(stath[0]+statl[0]+systh[0]+systl[0]);
-  Double_t meas_width_xmin(meas[0]);
-  Double_t meas_width_xmax(meas[0]);
+  Int_t nexp(0);
+  Float_t num(0), den(0), aver(0), err(0), wt;
+  Float_t meas_xmin(meas[0]);
+  Float_t meas_xmax(meas[0]);
+  Float_t meas_width_min(stath[0]+statl[0]+systh[0]+systl[0]);
+  Float_t meas_width_xmin(meas[0]);
+  Float_t meas_width_xmax(meas[0]);
 
-  for (int i=0;i<nPoints;++i) {
+  for (Int_t i=0;i<nPoints;++i) {
 
     stat[i] = 0.5*(stath[i]+statl[i]);
     syst[i] = 0.5*(systh[i]+systl[i]);
@@ -278,12 +271,12 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
     }
 
     //--- compute min/max x position of drawn bars
-    Double_t xmintmp = meas[i] - errorl[i];
-    Double_t xmaxtmp = meas[i] + errorh[i];
+    Float_t xmintmp = meas[i] - errorl[i];
+    Float_t xmaxtmp = meas[i] + errorh[i];
     if (xmintmp < meas_xmin) meas_xmin = xmintmp;
     if (xmaxtmp > meas_xmax) meas_xmax = xmaxtmp;
 
-    Double_t meas_width_min_tmp(errorh[i]+errorl[i]);
+    Float_t meas_width_min_tmp(errorh[i]+errorl[i]);
     // cout <<  meas_width_min_tmp << " " << meas_width_min << endl;
     if (meas_width_min_tmp < meas_width_min) {
       meas_width_min = meas_width_min_tmp;
@@ -307,7 +300,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
     fXmax = meas_xmax + 0.10 * (meas_xmax - meas_xmin);
 
     //--- avoid excessive x axis limits when errors are large
-    const Double_t max_width_mult(8);
+    const Float_t max_width_mult(8);
     if (fXmin < meas_width_xmin - max_width_mult*meas_width_min) {
       fXmin = meas_width_xmin - max_width_mult*meas_width_min;
     }
@@ -386,12 +379,12 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   //--- redraw axis above the average band
   canvas->RedrawAxis();
 
-  Double_t y[nPoints], ey[nPoints], eyl[nPoints], eyh[nPoints];
-  int fColor[nPoints], fSymbol[nPoints];
+  Float_t y[nPoints], ey[nPoints], eyl[nPoints], eyh[nPoints];
+  Int_t fColor[nPoints], fSymbol[nPoints];
 
-  for (int i=0; i<nPoints; ++i) {
+  for (Int_t i=0; i<nPoints; ++i) {
     //--- vertical position
-    y[i] = double(nPoints-i) -1 + 0.8;
+    y[i] = Float_t(nPoints-i) -1 + 0.8;
     ey[i] = 0.0;
     eyl[i] = 0.0;
     eyh[i] = 0.0;
@@ -400,11 +393,11 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   }
 
   //--- x label position at 107% of plot width
-  const Double_t fTxtX(0.07);
-  Double_t xtext(fXmax + fTxtX*(fXmax-fXmin));
+  const Float_t fTxtX(0.07);
+  Float_t xtext(fXmax + fTxtX*(fXmax-fXmin));
 
   //--- y label base position at position dependent on plot height
-  Double_t ytext;
+  Float_t ytext;
 
   //--- result label
   TLatex  tlexp;
@@ -415,7 +408,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   tlval.SetTextSize(gStyle->GetLabelSize()*0.9);
 
   Int_t color;
-  for (int i=0; i<nPoints; ++i) {
+  for (Int_t i=0; i<nPoints; ++i) {
     color = kBlack;
     if (measinfo[i] == "p") {
       color = kBlue;
@@ -482,9 +475,9 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
     // cout << "value " << valtxt << endl;
   }
 
-  Double_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
+  const Float_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
   HFAGTauLabel("Winter 2012", xtextNDC, 0.03*plotScaleFact, 0.9);
-
+  
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');
   if (extPos != std::string::npos) {
