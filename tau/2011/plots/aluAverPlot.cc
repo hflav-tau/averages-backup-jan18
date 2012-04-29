@@ -30,15 +30,15 @@
 
 #include "HFAGTauLabel.cc"
 
-void PlotStyleSetup(Float_t scale = 1)
+void PlotStyleSetup(Float_t scale = 1, Int_t canvas_width = 560)
 {
   gROOT->SetStyle("Pub");
 
   //--- canvas size
-  gStyle->SetCanvasDefW(560);
+  gStyle->SetCanvasDefW(canvas_width);
   //--- height will be recalculated later
   gStyle->SetCanvasDefH(Int_t(0.75*gStyle->GetCanvasDefW()));
-
+  
   //--- normal plots
   // gStyle->SetPadLeftMargin(0.20);
   // gStyle->SetPadRightMargin(0.06);
@@ -111,9 +111,11 @@ void PlotStyleSetup(Float_t scale = 1)
 
 // ////////////////////////////////////////////////////////////////////////////
 
-void aluAverPlot(const std::string& filename = "plot.input", const Int_t nPoints_def = 6);
+void aluAverPlot(const std::string& filename = "plot.input",
+		 const Int_t nPoints_def = 6,
+		 Int_t canvas_width = 560);
 
-void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
+void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t canvas_width)
 {  
   //--- num of points in plot
   Int_t nPoints(0);
@@ -324,7 +326,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   //
   // Canvas
   //
-  PlotStyleSetup();
+  PlotStyleSetup(1, canvas_width);
 
   Float_t plotScaleFact;
   TCanvas* canvas;
@@ -350,7 +352,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
     // cout << "plotScaleFact " << plotScaleFact << endl;
     // cout << " " <<  gStyle->GetCanvasDefH() << " " << canvas_height << " " << vert_slot << " " << plot_height << endl;
 
-    PlotStyleSetup(plotScaleFact);
+    PlotStyleSetup(plotScaleFact, canvas_width);
 
     gStyle->SetCanvasDefH(canvas_height);
     gStyle->SetPadTopMargin(padTopMarginAbs / Float_t(canvas_height));
@@ -476,7 +478,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
   }
 
   const Float_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
-  HFAGTauLabel("Winter 2012", xtextNDC, 0.03*plotScaleFact, 0.9);
+  HFAGTauLabel("Winter 2012", xtextNDC, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
   
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');
