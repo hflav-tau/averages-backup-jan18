@@ -5,7 +5,7 @@
 Root script to produce plot will all tau LFV limits.
 Execute as follows:
 
-> root -l -b -q TauLFV_UL_plot.cc
+> root -l -b -q TauLFV_UL_plot.cc+
 
 This will create a .eps file with the plot.
 
