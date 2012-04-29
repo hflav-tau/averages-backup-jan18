@@ -30,7 +30,7 @@
 
 #include "HFAGTauLabel.cc"
 
-void SetUp(Float_t scale = 1)
+void PlotStyleSetup(Float_t scale = 1)
 {
  // gROOT->SetBatch(kTRUE);
 
@@ -52,10 +52,10 @@ void SetUp(Float_t scale = 1)
   // gStyle->SetPadBottomMargin(0.15);
 
   //--- average plots
-  gStyle->SetPadLeftMargin(0.05*scale);
+  gStyle->SetPadLeftMargin(0.05);
   gStyle->SetPadRightMargin(0.50);
-  gStyle->SetPadTopMargin(0.03*scale);
-  gStyle->SetPadBottomMargin(0.16*scale);
+  // gStyle->SetPadTopMargin(0.03*scale);
+  // gStyle->SetPadBottomMargin(0.16*scale);
 
   gStyle->SetLineWidth(3);
   gStyle->SetFrameLineWidth(3);
@@ -70,7 +70,7 @@ void SetUp(Float_t scale = 1)
   gStyle->SetTitleOffset(1.1, "x");
   gStyle->SetTitleOffset(1.6, "y");
 
-  gStyle->SetLabelOffset(0.01*scale, "xyz");
+  gStyle->SetLabelOffset(0.01, "x");
   gStyle->SetTickLength(0.06*scale, "x");
   gStyle->SetNdivisions(505, "x");
 
@@ -88,7 +88,7 @@ void SetUp(Float_t scale = 1)
   gStyle->SetLabelFont(plotFont, "xyz");
   gStyle->SetTitleFont(plotFont, "xyz");
   gStyle->SetTextFont(plotFont);
-  gStyle->SetStatFont(plotFont);  
+  gStyle->SetStatFont(plotFont);
 
   gStyle->SetMarkerStyle(20);
   gStyle->SetMarkerSize(1.5);
@@ -119,45 +119,52 @@ void SetUp(Float_t scale = 1)
 
 // ////////////////////////////////////////////////////////////////////////////
 
-void aluAverPlot(std::string filename = "plot.input");
+void aluAverPlot(const std::string& filename = "plot.input", const Int_t nPoints_def = 6);
 
-void aluAverPlot(std::string filename){
-  SetUp();
-  //
+void aluAverPlot(const std::string& filename, const Int_t nPoints_def)
+{  
+  //--- num of points in plot
   Int_t nPoints(0);
-  TString title,expname[99],tempstring;
+  const Int_t nPointsMax(20);
+
+  //--- fixed vertical offset
+  const Float_t fnPoints_offset(0.6);
+  
+  TString title, expname[nPointsMax], tempstring;
   Double_t precision;
 
   // -- set up frame for plot
   Double_t fXmin;
   Double_t fXmax;
   Double_t fYmin(0);
-  Double_t fYmax(6);
-
-  Double_t meas[99];
-  Double_t stath[99], statl[99], stat[99];
-  Double_t systh[99], systl[99], syst[99];
-  Double_t errorh[99], errorl[99], error[99];
-  Double_t meascl[99];
-  Double_t sfact[99];
-  TString measinfo[99];
+  Double_t fYmax;
+  
+  Double_t meas[nPointsMax];
+  Double_t stath[nPointsMax], statl[nPointsMax], stat[nPointsMax];
+  Double_t systh[nPointsMax], systl[nPointsMax], syst[nPointsMax];
+  Double_t errorh[nPointsMax], errorl[nPointsMax], error[nPointsMax];
+  Double_t meascl[nPointsMax];
+  Double_t sfact[nPointsMax];
+  TString measinfo[nPointsMax];
+  
+  //--- open input file
   ifstream ifs(filename.c_str()) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
-  char buffer[200] ; 
+  char buffer[200] ;
   int ref_meas(0);
-
+  
   while(ifs.good()) {
     if (ifs.eof()) break;
     char first_ch; ifs.get(first_ch) ;
 
-    if (first_ch=='#'||first_ch=='\n') { // Skip this line
-      ifs.ignore(200,'\n') ;
+    if (first_ch=='#' || first_ch=='\n') { // Skip this line
+      ifs.ignore(200, '\n') ;
 
     } else if (first_ch=='i') {
       //--- plot limits and title: i <xmin> <xmax> <format> <title>
       ifs >> fXmin >> fXmax >> precision;
       ifs.getline(buffer, 200, '\n');
       title = TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
-      
+
     } else if (first_ch=='h' || first_ch=='p') {
       //--- other average: h <mean> <sigma> <s-factor> <CL> <label>
       //--- pdg average: p <mean> <sigma> <s-factor> <CL> <label> -- other average
@@ -168,7 +175,7 @@ void aluAverPlot(std::string filename){
       statl[nPoints] = stath[nPoints];
       systh[nPoints] = systl[nPoints] = 0;
       ifs.getline(buffer,200,'\n');
-      expname[nPoints++]=TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
+      expname[nPoints++] = TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
 
     } else if (first_ch=='m') {
       //
@@ -210,27 +217,28 @@ void aluAverPlot(std::string filename){
       }
 
       ifs.getline(buffer,200,'\n') ;
-      expname[nPoints]=TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
+      expname[nPoints] = TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
       if (expname[nPoints].Length()) nPoints++;
 
     } else { // discard
       ifs.ignore(200,'\n') ;
     }
   }
-  cout << "Read " << nPoints << " lines from filename " << filename.c_str() << endl ;
-
-  int nexp=0;
-  double num=0,den=0,aver=0,err=0,wt;
+  cout << "read " << nPoints << " data lines from file '" << filename << "'" << endl ;
+  
+  int nexp(0);
+  double num(0), den(0), aver(0), err(0), wt;
   Double_t meas_xmin(meas[0]);
   Double_t meas_xmax(meas[0]);
   Double_t meas_width_min(stath[0]+statl[0]+systh[0]+systl[0]);
   Double_t meas_width_xmin(meas[0]);
   Double_t meas_width_xmax(meas[0]);
+
   for (int i=0;i<nPoints;++i) {
 
     stat[i] = 0.5*(stath[i]+statl[i]);
     syst[i] = 0.5*(systh[i]+systl[i]);
-    
+
     errorh[i] = sqrt(pow(stath[i], 2) + pow(systh[i], 2));
     errorl[i] = sqrt(pow(statl[i], 2) + pow(systl[i], 2));
     error[i] = 0.5*(errorh[i]+errorl[i]);
@@ -274,7 +282,7 @@ void aluAverPlot(std::string filename){
     Double_t xmaxtmp = meas[i] + errorh[i];
     if (xmintmp < meas_xmin) meas_xmin = xmintmp;
     if (xmaxtmp > meas_xmax) meas_xmax = xmaxtmp;
-    
+
     Double_t meas_width_min_tmp(errorh[i]+errorl[i]);
     // cout <<  meas_width_min_tmp << " " << meas_width_min << endl;
     if (meas_width_min_tmp < meas_width_min) {
@@ -308,60 +316,52 @@ void aluAverPlot(std::string filename){
     }
     // cout << meas_width_min << " " << meas_width_xmax << " " << meas_width_xmax + max_width_mult*meas_width_min << endl;
   }
-  
-  //--- if more than 6 measurements, increase y axis limit
-  fYmax = (nPoints < 6 ? 6 : nPoints) + 0.6;
-  
-  cout << "x min/max: " << fXmin << " " << fXmax << " meas min/max: " << meas_xmax << " " << meas_xmin << endl
-       << "result num: " << nPoints << " ymin/ymax: " << fYmin << " " << fYmax << endl
-       << "meas num:   " << nexp << ", average: " << aver << " +- " << err << endl
-    ;
 
+  //--- compute plot ymax according to number to input points
+  fYmax = Float_t(max(nPoints, nPoints_def)) + fnPoints_offset;
   TString sprecision = Form("%s%3.1f%s", "%", precision, "f");
-  cout << "sprecision = " << sprecision << endl;
+
+  cout << "x axis min/max:       " << fXmin << " " << fXmax << endl
+       << "measurements min/max: " << meas_xmax << " " << meas_xmin << endl
+       << "total num of points:  " << nPoints << " ymin/ymax: " << fYmin << " " << fYmax << endl
+       << "measurements num:     " << nexp << ", average: " << aver << " +- " << err << endl
+       << "format precision:     " << sprecision << endl
+    ;
 
   //
   // Canvas
   //
+  PlotStyleSetup();
 
-  Float_t keepFontAdj;
+  Float_t plotScaleFact;
   TCanvas* canvas;
   {
-    const Float_t heightByWidth(0.75);
+    //--- vertical slot in pixel needed for each shown point
+    const Float_t vert_slot(0.08 * gStyle->GetCanvasDefW());
 
-    //
-    // frame height = plot height + bottom margin + top margin
-    // one point has one slot, the default is space for 7 points
-    // when there are 7 points, the vertical slot is
-    // frame_height * (1 - top_margin - bottom_margin) / 7.6
-    //
-    Float_t vert_slot(heightByWidth * gStyle->GetCanvasDefW() *
-		      (1-gStyle->GetPadTopMargin()-gStyle->GetPadBottomMargin()) / 7.6);
-    //--- plot height increases if more than 7 points
-    Float_t plot_height(vert_slot * (0.6 + (nPoints > 7 ? nPoints : 7)));;
+    //--- float default number of points
+    const Float_t fnPoints_def(nPoints_def);
+    const Float_t fnPoints(nPoints);
+    
+    const Float_t padTopMarginAbs(0.3 * vert_slot);
+    const Float_t padBottomMarginAbs( (title == "" ? 0.5625 : 1.5 ) * vert_slot );
 
-    //--- adjust pad margin if no title
-    if (title == "") {
-      gStyle->SetPadBottomMargin(0.06);
-    } else {
-      gStyle->SetPadBottomMargin(0.15);
-    }
-  
-    Float_t canvas_height(plot_height / (1-gStyle->GetPadTopMargin()-gStyle->GetPadBottomMargin()));
-    keepFontAdj =
-      Float_t(gStyle->GetCanvasDefW())*heightByWidth /
-      Float_t(min(Float_t(gStyle->GetCanvasDefW()), canvas_height));
-    cout << "keepFontAdj " << keepFontAdj << endl;
-    cout << " " <<  gStyle->GetCanvasDefH() << " " << canvas_height << " " << vert_slot << " " << plot_height << endl;
-    SetUp(keepFontAdj);
+    const Float_t plot_height(vert_slot * (max(fnPoints, fnPoints_def) + fnPoints_offset) );
 
-    gStyle->SetCanvasDefH(Int_t(canvas_height));    
-    //--- (repeat) adjust pad margin if no title
-    if (title == "") {
-      gStyle->SetPadBottomMargin(0.06*keepFontAdj);
-    } else {
-      gStyle->SetPadBottomMargin(0.15*keepFontAdj);
-    }
+    const Int_t canvas_height( TMath::Nint(plot_height + padTopMarginAbs + padBottomMarginAbs) );
+
+    plotScaleFact =
+      0.75 * Float_t(gStyle->GetCanvasDefW()) /
+      Float_t(min( gStyle->GetCanvasDefW(), canvas_height));
+
+    // cout << "plotScaleFact " << plotScaleFact << endl;
+    // cout << " " <<  gStyle->GetCanvasDefH() << " " << canvas_height << " " << vert_slot << " " << plot_height << endl;
+
+    PlotStyleSetup(plotScaleFact);
+
+    gStyle->SetCanvasDefH(canvas_height);
+    gStyle->SetPadTopMargin(padTopMarginAbs / Float_t(canvas_height));
+    gStyle->SetPadBottomMargin(padBottomMarginAbs / Float_t(canvas_height));
 
     canvas = new TCanvas("canvas", "canvas");
   }
@@ -377,9 +377,9 @@ void aluAverPlot(std::string filename){
   //--- draw band for average measurement
   TBox average_band;
   average_band.SetFillStyle(1000);
-  // average_band.SetFillColor(kGreen-9);  
-  // average_band.SetFillColor(kOrange-9);  
-  average_band.SetFillColor(kYellow-9);  
+  // average_band.SetFillColor(kGreen-9);
+  // average_band.SetFillColor(kOrange-9);
+  average_band.SetFillColor(kYellow-9);
   average_band.DrawBox(meas[ref_meas]-statl[ref_meas], fYmin,
 		       meas[ref_meas]+stath[ref_meas], fYmax);
 
@@ -404,7 +404,6 @@ void aluAverPlot(std::string filename){
   Double_t xtext(fXmax + fTxtX*(fXmax-fXmin));
 
   //--- y label base position at position dependent on plot height
-  Double_t fTxtY(0.40 + 0.20*(fYmax-6.6)/6);
   Double_t ytext;
 
   //--- result label
@@ -430,7 +429,7 @@ void aluAverPlot(std::string filename){
     GraphA->SetMarkerColor(color);
     GraphA->SetMarkerStyle(fSymbol[i]);
     GraphA->Draw("p");
-    
+
     //--- stat errors
     if (systl[i] != 0 || systh[i] != 0) {
       TGraph* GraphB = new TGraphAsymmErrors(1, &meas[i], &y[i], &statl[i], &stath[i], &eyl[i], &eyh[i]);
@@ -444,9 +443,9 @@ void aluAverPlot(std::string filename){
     ytext = y[i];
     tlexp.DrawLatex(xtext, ytext, expname[i]);
     // cout << "ytext " << ytext << " " << i << endl;
-    
+
     TString valtxt(Form(sprecision.Data(),meas[i]));
-    
+
     if (stath[i] == statl[i]) {
       valtxt += " #pm ";
       valtxt += Form(sprecision.Data(),stath[i]);
@@ -457,7 +456,7 @@ void aluAverPlot(std::string filename){
       valtxt += Form(sprecision.Data(),statl[i]);
       valtxt += "}";
     }
-    
+
     if (systh[i] != 0 || systl[i] != 0) {
       if (systh[i] == systl[i]) {
 	valtxt += " #pm ";
@@ -470,7 +469,7 @@ void aluAverPlot(std::string filename){
 	valtxt += "}";
       }
     }
-    
+
     if (measinfo[i] == "h" || measinfo[i] == "p") {
       if (sfact[i] >0) { // S-factor
 	valtxt += Form(" (S = %3.1f)", sfact[i]);
@@ -479,12 +478,12 @@ void aluAverPlot(std::string filename){
       }
     }
 
-    tlval.DrawLatex(xtext, ytext-fTxtY, valtxt);
+    tlval.DrawLatex(xtext, ytext-0.44, valtxt);
     // cout << "value " << valtxt << endl;
   }
-  
+
   Double_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
-  HFAGTauLabel("Winter 2012", xtextNDC, 0.03*keepFontAdj, 0.9);
+  HFAGTauLabel("Winter 2012", xtextNDC, 0.03*plotScaleFact, 0.9);
 
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');
@@ -492,7 +491,7 @@ void aluAverPlot(std::string filename){
     //--- Erase the current extension.
     basefname.assign(filename, 0, extPos);
   }
-  
+
   canvas->SaveAs(std::string(basefname + ".eps").c_str());
   // canvas->SaveAs(std::string(basefname + ".gif").c_str());
   canvas->SaveAs(std::string(basefname + ".png").c_str());
