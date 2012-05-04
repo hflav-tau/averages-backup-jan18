@@ -1,5 +1,13 @@
 #!/usr/bin/env Rscript
 
+##
+## aluelab-results.r [flags] [<.rdata file>]
+## elaborate hfag tau 2011 results for Vus, lepton univ
+##
+## tau/2011/TauFit> ../scripts/aluelab2-results.r -vadirect average2-aleph-hcorr.rdata
+## will produce '../report/tau-br-fit-aleph-hcorr-vadirect-elab.tex' 
+##
+
 require(stringr, quietly=TRUE)
 source("../../../Common/bin/aluelab2.r")
 
@@ -496,6 +504,9 @@ aluelab.results = function(args) {
   ##--- compute delta_LD_tauK_taupi = delta_LD_tauK_Kmu/delta_LD_taupi_pimu * delta_LD_kmu_pimu
   quant$meas.expr.add("rrad_LD_tauK_taupi", quote((1+delta_LD_tauK_Kmu)/(1+delta_LD_taupi_pimu) * rrad_LD_kmu_pimu))
 
+  ##--- compute intermediate B_tau_K / B_tau_pi
+  quant$meas.expr.add("Gamma10by9", quote(Gamma10/Gamma9));
+
   ##
   ## Vus^2 = Vud^2 * B(tau -> Knu)/B(tau -> pinu) * f_pi^2/f_K^2 * (1-m_pi^2/m_tau*2)/(1-m_K^2/m_tau*2) /(1+delta_LD)
   ##
@@ -558,6 +569,7 @@ aluelab.results = function(args) {
   display.names = c(
     display.names,
     "rrad_LD_tauK_taupi",
+    "Gamma10by9",
     "Vus_tauKpi",
     "Vus_tauKpi_mism_sigma",
     "rrad_tau_Knu",
