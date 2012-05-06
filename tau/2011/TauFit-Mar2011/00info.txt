@@ -54,7 +54,10 @@ later in February 2011 Alberto added to alucomb2.r some additional features:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-	input cards in this directory reproduce the March 2011 update
+	reproduction of the March 2011 update
+
+the 2009/TauFit-alu_Mar2011 results are reproduced in 2009/TauFit-Aug2011
+the results here, 2011/TauFit-Mar2011, reproduce 2009/TauFit-Aug2011
 
 average2_2009_aleph_hcorr.input
 - read the measurements in 2009/TauFit-Aug2011
@@ -70,8 +73,8 @@ average2-aleph-hcorr.input
 average2.input
 average2-unitarity-aleph-hcorr.input
 - same as the average2_2009_* files but
-- use the new input cards in the 2011 HFAG tau directory
-- use constraints with symbolic parameters
+  - use the new input cards in the 2011 HFAG tau directory
+  - use constraints with symbolic parameters
 
 note that the results using the ALEPH h-K or pi-K results are
 numerically equivalent
