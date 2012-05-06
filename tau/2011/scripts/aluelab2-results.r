@@ -4,8 +4,13 @@
 ## aluelab-results.r [flags] [<.rdata file>]
 ## elaborate hfag tau 2011 results for Vus, lepton univ
 ##
-## tau/2011/TauFit> ../scripts/aluelab2-results.r -vadirect average2-aleph-hcorr.rdata
-## will produce '../report/tau-br-fit-aleph-hcorr-vadirect-elab.tex' 
+## winter 2012 report:
+##   tau/2011/TauFit> ../scripts/aluelab2-results.r -vadirect average2-aleph-hcorr.rdata
+##   will produce '../report/tau-br-fit-aleph-hcorr-vadirect-elab.tex'
+##
+## reproduce 2009/TauFit-Aug2011:
+##   replace old f_K and f_K/f_pi
+##   tau/2011/TauFit> ../scripts/aluelab2-results.r -lepuniv -u average2-aleph-hcorr.rdata
 ##
 
 require(stringr, quietly=TRUE)
@@ -432,6 +437,7 @@ aluelab.results = function(args) {
     "Vus_err_perc", "Vus_err_exp_perc", "Vus_err_th_perc",
     "Vus_uni", "Vus_mism_sigma"
     )
+  ## display.names = c(Gamma110.names, display.names)
 
   ##
   ## gtau/gmu using tau -> hnu / h -> mu nu
@@ -476,14 +482,21 @@ aluelab.results = function(args) {
   ##
   ## Vus from tau -> Knu
   ##
-
-  ##
-  ## Lattice averages from http://arxiv.org/abs/0910.2928 and
-  ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
-  ##
-  quant$meas.add.single("f_K_by_f_pi", 1.1936, 0.0053)
-  quant$meas.add.single("f_K", 156.1, 1.1)
-  ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
+  lattice.2012 = TRUE
+  if (lattice.2012) {
+    ##
+    ## Lattice averages from http://arxiv.org/abs/0910.2928 and
+    ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
+    ##
+    quant$meas.add.single("f_K_by_f_pi", 1.1936, 0.0053)
+    quant$meas.add.single("f_K", 156.1, 1.1)
+    ##--- check effect of lattice correlations
+    ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
+  } else {
+    ##--- http://arxiv.org/abs/1101.5138
+    quant$meas.add.single("f_K_by_f_pi", 1.189, 0.007)
+    quant$meas.add.single("f_K", 157, 2)
+  }
   
   ##
   ## Marciano:2004uf
@@ -616,7 +629,8 @@ aluelab.results = function(args) {
     delta_LD_tauK_taupi=100
     )
 
-  ##--- provice LaTeX commands printing quantity +- error
+  ##--- provide LaTeX commands printing quantity +- error
+  quant.all.order = order(quant$all.name())
   rc = mapply(function(name, val, err) {
     fmt = ifelse(is.na(specialFormat[name]), "%.4f", specialFormat[name])
     val = ifelse(is.na(specialFactor[name]), val, val*specialFactor[name])
@@ -630,7 +644,7 @@ aluelab.results = function(args) {
       rc = c(rc, paste("\\newcommand{\\quant", toTex$tr(name), sprintf(fmt.valerr, val, err), "% ", name.orig, sep=""))
     }
     rc = c(rc, paste("\\newcommand{\\quval", toTex$tr(name), sprintf(fmt.val, val), "% ", name.orig, sep=""))
-  }, quant$all.name(), quant$all.val(), quant$all.err())
+  }, quant$all.name()[quant.all.order], quant$all.val()[quant.all.order], quant$all.err()[quant.all.order])
 
   ##--- make file name for report .tex output
   fname.short = gsub("average[^-]*-*", "", file.name)
