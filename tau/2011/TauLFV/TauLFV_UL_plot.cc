@@ -38,599 +38,603 @@
 #include "../plots/HFAGTauLabel.cc"
 
 enum DECAY {
-  EGAMMA = 1,
-  MUGAMMA = 2,
-  EPI0 = 3,
-  MUPI0 = 4,
-  EETA = 5,
-  MUETA = 6,
-  EETAP = 7,
-  MUETAP = 8,
-  EKS0 = 9,
-  MUKS0 = 10,
-  EF0 = 11, 
-  MUF0 = 12,
-  ERHO = 13,  
-  MURHO = 14,
-  EKSTAR = 15,
-  MUKSTAR = 16,
-  EAKSTAR = 17,
-  MUAKSTAR = 18,
-  EPHI = 19,
-  MUPHI = 20,
-  EOMEGA = 21,
-  MUOMEGA = 22,
-  EEE = 23, //order of charge -+-     
-  MEE = 24, 
-  EMM = 25,
-  MMM = 26, 
-  EME = 27,   
-  MEM = 28, 
-  EPIPI = 29,
-  MUPIPI = 30,
-  EPIK = 31,
-  MUPIK = 32,
-  EKPI = 33,
-  MUKPI = 34,
-  EKK = 35,
-  MUKK = 36,
-  EKS0KS0 = 37,
-  MUKS0KS0 = 38,
-  PIEPI = 39,
-  PIMUPI = 40,
-  PIEK = 41,
-  PIMUK = 42,
-  KEK = 43,
-  KMUK = 44,
-  PILAM = 45,
-  PILAMBAR = 46,
-  KLAM = 47,
-  KLAMBAR = 48,
-  NDECAY = 49
+  EGAMMA = 0,
+  MUGAMMA = 1,
+  EPI0 = 2,
+  MUPI0 = 3,
+  EETA = 4,
+  MUETA = 5,
+  EETAP = 6,
+  MUETAP = 7,
+  EKS0 = 8,
+  MUKS0 = 9,
+  EF0 = 10, 
+  MUF0 = 11,
+  ERHO = 12,  
+  MURHO = 13,
+  EKSTAR = 14,
+  MUKSTAR = 15,
+  EAKSTAR = 16,
+  MUAKSTAR = 17,
+  EPHI = 18,
+  MUPHI = 19,
+  EOMEGA = 20,
+  MUOMEGA = 21,
+  EEE = 22, //order of charge -+-     
+  MEE = 23, 
+  EMM = 24,
+  MMM = 25, 
+  EME = 26,   
+  MEM = 27, 
+  EPIPI = 28,
+  MUPIPI = 29,
+  EPIK = 30,
+  MUPIK = 31,
+  EKPI = 32,
+  MUKPI = 33,
+  EKK = 34,
+  MUKK = 35,
+  EKS0KS0 = 36,
+  MUKS0KS0 = 37,
+  PIEPI = 38,
+  PIMUPI = 39,
+  PIEK = 40,
+  PIMUK = 41,
+  KEK = 42,
+  KMUK = 43,
+  PILAM = 44,
+  PILAMBAR = 45,
+  KLAM = 46,
+  KLAMBAR = 47,
+  NDECAY = 48
 };
 
 void fillBelle_2009001(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 12;
-  array[-1+MUGAMMA] = 4.5 + .2; // added .2 for clarity in display
+  array[EGAMMA]  = 12;
+  array[MUGAMMA] = 4.5 + .2; // added .2 for clarity in display
   
-  array[-1+EPI0]    = 8.0; 
-  array[-1+MUPI0]   = 12;
+  array[EPI0]    = 8.0; 
+  array[MUPI0]   = 12;
   
-  array[-1+EETA]    = 9.2;
-  array[-1+MUETA]   = 6.5;
+  array[EETA]    = 9.2;
+  array[MUETA]   = 6.5;
   
-  array[-1+EETAP]   = 16;
-  array[-1+MUETAP]  = 13;
+  array[EETAP]   = 16;
+  array[MUETAP]  = 13;
   
-  array[-1+EKS0]    = 5.6;//2.6;
-  array[-1+MUKS0]   = 4.8;//2.3;
+  array[EKS0]    = 5.6;//2.6;
+  array[MUKS0]   = 4.8;//2.3;
   
-  array[-1+EF0]     = 3.2;
-  array[-1+MUF0]    = 3.4;
+  array[EF0]     = 3.2;
+  array[MUF0]    = 3.4;
   
-  array[-1+ERHO]    = 6.3;
-  array[-1+MURHO]   = 6.8;
-  array[-1+EKSTAR]  = 7.8;
-  array[-1+MUKSTAR] = 5.9;
-  array[-1+EAKSTAR] = 7.7;
-  array[-1+MUAKSTAR]= 10;
-  array[-1+EPHI]    = 7.3;
-  array[-1+MUPHI]   = 13;
-  array[-1+EOMEGA]  = 18;
-  array[-1+MUOMEGA] = 8.9;
+  array[ERHO]    = 6.3;
+  array[MURHO]   = 6.8;
+  array[EKSTAR]  = 7.8;
+  array[MUKSTAR] = 5.9;
+  array[EAKSTAR] = 7.7;
+  array[MUAKSTAR]= 10;
+  array[EPHI]    = 7.3;
+  array[MUPHI]   = 13;
+  array[EOMEGA]  = 18;
+  array[MUOMEGA] = 8.9;
   
-  array[-1+EEE]     = 3.6;//2.7;
-  array[-1+MEE]     = 2.7;//1.8;
-  array[-1+EMM]     = 4.1;//2.7; 
-  array[-1+MMM]     = 3.2;//2.1; 
-  array[-1+EME]     = 2.0;//1.5; 
-  array[-1+MEM]     = 2.3;//1.7; 
+  array[EEE]     = 3.6;//2.7;
+  array[MEE]     = 2.7;//1.8;
+  array[EMM]     = 4.1;//2.7; 
+  array[MMM]     = 3.2;//2.1; 
+  array[EME]     = 2.0;//1.5; 
+  array[MEM]     = 2.3;//1.7; 
   
-  array[-1+EPIPI]   = 4.4;
-  array[-1+MUPIPI]  = 3.3;
-  array[-1+EPIK]    = 5.8;
-  array[-1+MUPIK]   = 16;
-  array[-1+EKPI]    = 5.2;
-  array[-1+MUKPI]   = 10;
-  array[-1+EKK]     = 5.4;
-  array[-1+MUKK]    = 6.8;
-  //  array[-1+EKS0KS0] = 7.1;
-  //  array[-1+MUKS0KS0]= 8.0;
-  array[-1+PIEPI]   = 8.8;
-  array[-1+PIMUPI]  = 3.7;
-  array[-1+PIEK]    = 6.7;
-  array[-1+PIMUK]   = 9.4;
-  array[-1+KEK]     = 6.0;
-  array[-1+KMUK]    = 9.6;
+  array[EPIPI]   = 4.4;
+  array[MUPIPI]  = 3.3;
+  array[EPIK]    = 5.8;
+  array[MUPIK]   = 16;
+  array[EKPI]    = 5.2;
+  array[MUKPI]   = 10;
+  array[EKK]     = 5.4;
+  array[MUKK]    = 6.8;
+  //  array[EKS0KS0] = 7.1;
+  //  array[MUKS0KS0]= 8.0;
+  array[PIEPI]   = 8.8;
+  array[PIMUPI]  = 3.7;
+  array[PIEK]    = 6.7;
+  array[PIMUK]   = 9.4;
+  array[KEK]     = 6.0;
+  array[KMUK]    = 9.6;
   
-  array[-1+PILAM]   = 7.2;
-  array[-1+PILAMBAR]= 14;
+  array[PILAM]   = 7.2;
+  array[PILAMBAR]= 14;
 }
 
 void fillBelle_2009002(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 12;
-  array[-1+MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
+  array[EGAMMA]  = 12;
+  array[MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
   
-  array[-1+EPI0]    = 8.0; 
-  array[-1+MUPI0]   = 12;
+  array[EPI0]    = 8.0; 
+  array[MUPI0]   = 12;
   
-  array[-1+EETA]    = 9.2;
-  array[-1+MUETA]   = 6.5;
+  array[EETA]    = 9.2;
+  array[MUETA]   = 6.5;
   
-  array[-1+EETAP]   = 16;
-  array[-1+MUETAP]  = 13;
+  array[EETAP]   = 16;
+  array[MUETAP]  = 13;
   
-  array[-1+EKS0]    = 2.6;
-  array[-1+MUKS0]   = 2.3;
+  array[EKS0]    = 2.6;
+  array[MUKS0]   = 2.3;
   
-  array[-1+EF0]     = 3.2;
-  array[-1+MUF0]    = 3.4;
+  array[EF0]     = 3.2;
+  array[MUF0]    = 3.4;
   
-  array[-1+ERHO]    = 6.3;
-  array[-1+MURHO]   = 6.8;
-  array[-1+EKSTAR]  = 7.8;
-  array[-1+MUKSTAR] = 5.9;
-  array[-1+EAKSTAR] = 7.7;
-  array[-1+MUAKSTAR]= 10;
-  array[-1+EPHI]    = 7.3;
-  array[-1+MUPHI]   = 13;
-  array[-1+EOMEGA]  = 18;
-  array[-1+MUOMEGA] = 8.9;
+  array[ERHO]    = 6.3;
+  array[MURHO]   = 6.8;
+  array[EKSTAR]  = 7.8;
+  array[MUKSTAR] = 5.9;
+  array[EAKSTAR] = 7.7;
+  array[MUAKSTAR]= 10;
+  array[EPHI]    = 7.3;
+  array[MUPHI]   = 13;
+  array[EOMEGA]  = 18;
+  array[MUOMEGA] = 8.9;
   
-  array[-1+EEE]     = 2.7;
-  array[-1+MEE]     = 1.8;
-  array[-1+EMM]     = 2.7; 
-  array[-1+MMM]     = 2.1; 
-  array[-1+EME]     = 1.5; 
-  array[-1+MEM]     = 1.7; 
+  array[EEE]     = 2.7;
+  array[MEE]     = 1.8;
+  array[EMM]     = 2.7; 
+  array[MMM]     = 2.1; 
+  array[EME]     = 1.5; 
+  array[MEM]     = 1.7; 
   
-  array[-1+EPIPI]   = 4.4;
-  array[-1+MUPIPI]  = 3.3;
-  array[-1+EPIK]    = 5.8;
-  array[-1+MUPIK]   = 16;
-  array[-1+EKPI]    = 5.2;
-  array[-1+MUKPI]   = 10;
-  array[-1+EKK]     = 5.4;
-  array[-1+MUKK]    = 6.8;
-  array[-1+EKS0KS0] = 7.1;
-  array[-1+MUKS0KS0]= 8.0;
-  array[-1+PIEPI]   = 8.8;
-  array[-1+PIMUPI]  = 3.7;
-  array[-1+PIEK]    = 6.7;
-  array[-1+PIMUK]   = 9.4;
-  array[-1+KEK]     = 6.0;
-  array[-1+KMUK]    = 9.6;
+  array[EPIPI]   = 4.4;
+  array[MUPIPI]  = 3.3;
+  array[EPIK]    = 5.8;
+  array[MUPIK]   = 16;
+  array[EKPI]    = 5.2;
+  array[MUKPI]   = 10;
+  array[EKK]     = 5.4;
+  array[MUKK]    = 6.8;
+  array[EKS0KS0] = 7.1;
+  array[MUKS0KS0]= 8.0;
+  array[PIEPI]   = 8.8;
+  array[PIMUPI]  = 3.7;
+  array[PIEK]    = 6.7;
+  array[PIMUK]   = 9.4;
+  array[KEK]     = 6.0;
+  array[KMUK]    = 9.6;
   
-  array[-1+PILAM]   = 7.2;
-  array[-1+PILAMBAR]= 14; 
+  array[PILAM]   = 7.2;
+  array[PILAMBAR]= 14; 
 }
 
 void fillBelle_2010001(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 12;
-  array[-1+MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
+  array[EGAMMA]  = 12;
+  array[MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
   
-  array[-1+EPI0]    = 2.2; // 8.0; 
-  array[-1+MUPI0]   = 2.7; // 12;
+  array[EPI0]    = 2.2; // 8.0; 
+  array[MUPI0]   = 2.7; // 12;
   
-  array[-1+EETA]    = 4.4; // 9.2;
-  array[-1+MUETA]   = 2.3; // 6.5;
+  array[EETA]    = 4.4; // 9.2;
+  array[MUETA]   = 2.3; // 6.5;
   
-  array[-1+EETAP]   = 3.6; // 16;
-  array[-1+MUETAP]  = 3.8; // 13;
+  array[EETAP]   = 3.6; // 16;
+  array[MUETAP]  = 3.8; // 13;
   
-  array[-1+EKS0]    = 2.6;
-  array[-1+MUKS0]   = 2.3;
+  array[EKS0]    = 2.6;
+  array[MUKS0]   = 2.3;
   
-  array[-1+EF0]     = 3.2;
-  array[-1+MUF0]    = 3.4;
+  array[EF0]     = 3.2;
+  array[MUF0]    = 3.4;
   
-  array[-1+ERHO]    = 1.8; // 6.3;
-  array[-1+MURHO]   = 1.2; // 6.8;
-  array[-1+EKSTAR]  = 3.2; // 7.8;
-  array[-1+MUKSTAR] = 7.2; // 5.9;
-  array[-1+EAKSTAR] = 3.4; // 7.7;
-  array[-1+MUAKSTAR]= 7.0 - 0.2; // 10; // substracted .2 for clarity in display
-  array[-1+EPHI]    = 3.1 - 0.2; // 7.3; // substracted .2 for clarity in display
-  array[-1+MUPHI]   = 8.4; // 13;
-  array[-1+EOMEGA]  = 4.8; // 18;
-  array[-1+MUOMEGA] = 4.7; // 8.9;
+  array[ERHO]    = 1.8; // 6.3;
+  array[MURHO]   = 1.2; // 6.8;
+  array[EKSTAR]  = 3.2; // 7.8;
+  array[MUKSTAR] = 7.2; // 5.9;
+  array[EAKSTAR] = 3.4; // 7.7;
+  array[MUAKSTAR]= 7.0 - 0.2; // 10; // substracted .2 for clarity in display
+  array[EPHI]    = 3.1 - 0.2; // 7.3; // substracted .2 for clarity in display
+  array[MUPHI]   = 8.4; // 13;
+  array[EOMEGA]  = 4.8; // 18;
+  array[MUOMEGA] = 4.7; // 8.9;
   
-  array[-1+EEE]     = 2.7;
-  array[-1+MEE]     = 1.8;
-  array[-1+EMM]     = 2.7; 
-  array[-1+MMM]     = 2.1; 
-  array[-1+EME]     = 1.5; 
-  array[-1+MEM]     = 1.7; 
+  array[EEE]     = 2.7;
+  array[MEE]     = 1.8;
+  array[EMM]     = 2.7; 
+  array[MMM]     = 2.1; 
+  array[EME]     = 1.5; 
+  array[MEM]     = 1.7; 
   
-  array[-1+EPIPI]   = 4.4;
-  array[-1+MUPIPI]  = 3.3;
-  array[-1+EPIK]    = 5.8;
-  array[-1+MUPIK]   = 16;
-  array[-1+EKPI]    = 5.2;
-  array[-1+MUKPI]   = 10;
-  array[-1+EKK]     = 5.4;
-  array[-1+MUKK]    = 6.8;
-  array[-1+EKS0KS0] = 7.1;
-  array[-1+MUKS0KS0]= 8.0;
-  array[-1+PIEPI]   = 8.8;
-  array[-1+PIMUPI]  = 3.7;
-  array[-1+PIEK]    = 6.7;
-  array[-1+PIMUK]   = 9.4;
-  array[-1+KEK]     = 6.0;
-  array[-1+KMUK]    = 9.6;
+  array[EPIPI]   = 4.4;
+  array[MUPIPI]  = 3.3;
+  array[EPIK]    = 5.8;
+  array[MUPIK]   = 16;
+  array[EKPI]    = 5.2;
+  array[MUKPI]   = 10;
+  array[EKK]     = 5.4;
+  array[MUKK]    = 6.8;
+  array[EKS0KS0] = 7.1;
+  array[MUKS0KS0]= 8.0;
+  array[PIEPI]   = 8.8;
+  array[PIMUPI]  = 3.7;
+  array[PIEK]    = 6.7;
+  array[PIMUK]   = 9.4;
+  array[KEK]     = 6.0;
+  array[KMUK]    = 9.6;
   
-  array[-1+PILAM]   = 7.2;
-  array[-1+PILAMBAR]= 14;
+  array[PILAM]   = 7.2;
+  array[PILAMBAR]= 14;
   
 }
 
 void fillBelle_2012001(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 12;
-  array[-1+MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
+  array[EGAMMA]  = 12;
+  array[MUGAMMA] = 4.5 + .3; // added .3 for clarity in display
   //
   // Belle 901/fb data // previous 401/fb
-  array[-1+EPI0]    = 2.2; // 8.0; 
-  array[-1+MUPI0]   = 2.7; // 12;
+  array[EPI0]    = 2.2; // 8.0; 
+  array[MUPI0]   = 2.7; // 12;
   
-  array[-1+EETA]    = 4.4; // 9.2;
-  array[-1+MUETA]   = 2.3; // 6.5;
+  array[EETA]    = 4.4; // 9.2;
+  array[MUETA]   = 2.3; // 6.5;
   
-  array[-1+EETAP]   = 3.6; // 16;
-  array[-1+MUETAP]  = 3.8; // 13;
+  array[EETAP]   = 3.6; // 16;
+  array[MUETAP]  = 3.8; // 13;
   
-  array[-1+EKS0]    = 2.6;
-  array[-1+MUKS0]   = 2.3;
+  array[EKS0]    = 2.6;
+  array[MUKS0]   = 2.3;
   
-  array[-1+EF0]     = 3.2;
-  array[-1+MUF0]    = 3.4;
+  array[EF0]     = 3.2;
+  array[MUF0]    = 3.4;
   //
   // Belle 854 fb-1  //previous 543 fb-1
-  array[-1+ERHO]    = 1.8; // 6.3;
-  array[-1+MURHO]   = 1.2; // 6.8;
-  array[-1+EKSTAR]  = 3.2; // 7.8;
-  array[-1+MUKSTAR] = 7.2; // 5.9;
-  array[-1+EAKSTAR] = 3.4; // 7.7;
-  array[-1+MUAKSTAR]= 7.0 - 0.2; // 10; // substracted .2 for clarity in display
-  array[-1+EPHI]    = 3.1 - 0.2; // 7.3; // substracted .2 for clarity in display
-  array[-1+MUPHI]   = 8.4; // 13;
-  array[-1+EOMEGA]  = 4.8; // 18;
-  array[-1+MUOMEGA] = 4.7; // 8.9;
+  array[ERHO]    = 1.8; // 6.3;
+  array[MURHO]   = 1.2; // 6.8;
+  array[EKSTAR]  = 3.2; // 7.8;
+  array[MUKSTAR] = 7.2; // 5.9;
+  array[EAKSTAR] = 3.4; // 7.7;
+  array[MUAKSTAR]= 7.0 - 0.2; // 10; // substracted .2 for clarity in display
+  array[EPHI]    = 3.1 - 0.2; // 7.3; // substracted .2 for clarity in display
+  array[MUPHI]   = 8.4; // 13;
+  array[EOMEGA]  = 4.8; // 18;
+  array[MUOMEGA] = 4.7; // 8.9;
   
-  array[-1+EEE]     = 2.7;
-  array[-1+MEE]     = 1.8;
-  array[-1+EMM]     = 2.7; 
-  array[-1+MMM]     = 2.1; 
-  array[-1+EME]     = 1.5; 
-  array[-1+MEM]     = 1.7; 
+  array[EEE]     = 2.7;
+  array[MEE]     = 1.8;
+  array[EMM]     = 2.7; 
+  array[MMM]     = 2.1; 
+  array[EME]     = 1.5; 
+  array[MEM]     = 1.7; 
   
   // 671 fb-1    //Previous   671 fb-1.
-  array[-1+EPIPI]   = 2.3;  //4.4;
-  array[-1+MUPIPI]  = 2.1;  //3.3;
-  array[-1+EPIK]    = 3.7;  //5.8;
-  array[-1+MUPIK]   = 8.6;   //16;
-  array[-1+EKPI]    = 3.1;   //5.2;
-  array[-1+MUKPI]   = 4.5;  //10;
-  array[-1+EKK]     = 3.4;  //5.4;
-  array[-1+MUKK]    = 4.4;  // 6.8;
-  array[-1+EKS0KS0] = 7.1;
-  array[-1+MUKS0KS0]= 8.0;
-  array[-1+PIEPI]   = 2.0; //8.8;
-  array[-1+PIMUPI]  = 3.9; //3.7;
-  array[-1+PIEK]    = 3.2; //6.7;
-  array[-1+PIMUK]   = 4.8;  //9.4;
-  array[-1+KEK]     = 3.3;  //6.0;
-  array[-1+KMUK]    = 4.7;  //9.6;
+  array[EPIPI]   = 2.3;  //4.4;
+  array[MUPIPI]  = 2.1;  //3.3;
+  array[EPIK]    = 3.7;  //5.8;
+  array[MUPIK]   = 8.6;   //16;
+  array[EKPI]    = 3.1;   //5.2;
+  array[MUKPI]   = 4.5;  //10;
+  array[EKK]     = 3.4;  //5.4;
+  array[MUKK]    = 4.4;  // 6.8;
+  array[EKS0KS0] = 7.1;
+  array[MUKS0KS0]= 8.0;
+  array[PIEPI]   = 2.0; //8.8;
+  array[PIMUPI]  = 3.9; //3.7;
+  array[PIEK]    = 3.2; //6.7;
+  array[PIMUK]   = 4.8;  //9.4;
+  array[KEK]     = 3.3;  //6.0;
+  array[KMUK]    = 4.7;  //9.6;
   
   //  906 fb-1 //Previous 154 fb-1
-  array[-1+PILAM]   = 3.0; //7.2;
-  array[-1+PILAMBAR]= 2.8; //14;
-  array[-1+KLAM]    = 4.2;   
-  array[-1+KLAMBAR] = 3.1; 
+  array[PILAM]   = 3.0; //7.2;
+  array[PILAMBAR]= 2.8; //14;
+  array[KLAM]    = 4.2;   
+  array[KLAMBAR] = 3.1; 
   
 }
 
 void fillBaBar_2009001(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 11;//3.3;
-  array[-1+MUGAMMA] = 6.8;//4.4 - 0.2;
+  array[EGAMMA]  = 11;//3.3;
+  array[MUGAMMA] = 6.8;//4.4 - 0.2;
   
-  array[-1+EPI0]    = 13; 
-  array[-1+MUPI0]   = 11;
+  array[EPI0]    = 13; 
+  array[MUPI0]   = 11;
   
-  array[-1+EETA]    = 16;
-  array[-1+MUETA]   = 15;
+  array[EETA]    = 16;
+  array[MUETA]   = 15;
   
-  array[-1+EETAP]   = 24;
-  array[-1+MUETAP]  = 14;
+  array[EETAP]   = 24;
+  array[MUETAP]  = 14;
   
-  array[-1+EKS0]    = 3.3;
-  array[-1+MUKS0]   = 4.0;
-  
-  
+  array[EKS0]    = 3.3;
+  array[MUKS0]   = 4.0;
   
   
-  array[-1+ERHO]    = 4.6;
-  array[-1+MURHO]   = 2.6;
-  array[-1+EKSTAR]  = 5.9;
-  array[-1+MUKSTAR] = 17;
-  array[-1+EAKSTAR] = 4.6;
-  array[-1+MUAKSTAR]= 7.3;
-  array[-1+EPHI]    = 3.1;
-  array[-1+MUPHI]   = 19;
-  array[-1+EOMEGA]  = 11;
-  array[-1+MUOMEGA] = 10;
-  
-  array[-1+EEE]     = 4.3;//2.9;
-  array[-1+MEE]     = 8.0;//2.2;
-  array[-1+EMM]     = 3.7;//3.2; 
-  array[-1+MMM]     = 5.3;//3.3; 
-  array[-1+EME]     = 5.8;//1.8; 
-  array[-1+MEM]     = 5.6;//2.6; 
-  
-  array[-1+EPIPI]   = 12;
-  array[-1+MUPIPI]  = 29;
-  array[-1+EPIK]    = 32;
-  array[-1+MUPIK]   = 26;
-  array[-1+EKPI]    = 17;
-  array[-1+MUKPI]   = 32;
-  array[-1+EKK]     = 14;
-  array[-1+MUKK]    = 25;
   
   
-  array[-1+PIEPI]   = 27;
-  array[-1+PIMUPI]  = 7.0;
-  array[-1+PIEK]    = 18;
-  array[-1+PIMUK]   = 22;
-  array[-1+KEK]     = 15;
-  array[-1+KMUK]    = 48;
+  array[ERHO]    = 4.6;
+  array[MURHO]   = 2.6;
+  array[EKSTAR]  = 5.9;
+  array[MUKSTAR] = 17;
+  array[EAKSTAR] = 4.6;
+  array[MUAKSTAR]= 7.3;
+  array[EPHI]    = 3.1;
+  array[MUPHI]   = 19;
+  array[EOMEGA]  = 11;
+  array[MUOMEGA] = 10;
   
-  array[-1+PILAM]   = 5.8;
-  array[-1+PILAMBAR]= 5.9;
-  array[-1+KLAM]    = 15;
-  array[-1+KLAMBAR] = 7.2;
+  array[EEE]     = 4.3;//2.9;
+  array[MEE]     = 8.0;//2.2;
+  array[EMM]     = 3.7;//3.2; 
+  array[MMM]     = 5.3;//3.3; 
+  array[EME]     = 5.8;//1.8; 
+  array[MEM]     = 5.6;//2.6; 
+  
+  array[EPIPI]   = 12;
+  array[MUPIPI]  = 29;
+  array[EPIK]    = 32;
+  array[MUPIK]   = 26;
+  array[EKPI]    = 17;
+  array[MUKPI]   = 32;
+  array[EKK]     = 14;
+  array[MUKK]    = 25;
+  
+  
+  array[PIEPI]   = 27;
+  array[PIMUPI]  = 7.0;
+  array[PIEK]    = 18;
+  array[PIMUK]   = 22;
+  array[KEK]     = 15;
+  array[KMUK]    = 48;
+  
+  array[PILAM]   = 5.8;
+  array[PILAMBAR]= 5.9;
+  array[KLAM]    = 15;
+  array[KLAMBAR] = 7.2;
 }
 
 void fillBaBar_2009002(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 3.3;
-  array[-1+MUGAMMA] = 4.4 - 0.3; // substracted .3 for clarity in display
+  array[EGAMMA]  = 3.3;
+  array[MUGAMMA] = 4.4 - 0.3; // substracted .3 for clarity in display
   
-  array[-1+EPI0]    = 13; 
-  array[-1+MUPI0]   = 11;
+  array[EPI0]    = 13; 
+  array[MUPI0]   = 11;
   
-  array[-1+EETA]    = 16;
-  array[-1+MUETA]   = 15;
+  array[EETA]    = 16;
+  array[MUETA]   = 15;
   
-  array[-1+EETAP]   = 24;
-  array[-1+MUETAP]  = 14;
+  array[EETAP]   = 24;
+  array[MUETAP]  = 14;
   
-  array[-1+EKS0]    = 3.3;
-  array[-1+MUKS0]   = 4.0;
-  
-  
+  array[EKS0]    = 3.3;
+  array[MUKS0]   = 4.0;
   
   
-  array[-1+ERHO]    = 4.6;
-  array[-1+MURHO]   = 2.6;
-  array[-1+EKSTAR]  = 5.9;
-  array[-1+MUKSTAR] = 17;
-  array[-1+EAKSTAR] = 4.6;
-  array[-1+MUAKSTAR]= 7.3;
-  array[-1+EPHI]    = 3.1;
-  array[-1+MUPHI]   = 19;
-  array[-1+EOMEGA]  = 11;
-  array[-1+MUOMEGA] = 10;
-  
-  array[-1+EEE]     = 2.9;
-  array[-1+MEE]     = 2.2;
-  array[-1+EMM]     = 3.2; 
-  array[-1+MMM]     = 3.3; 
-  array[-1+EME]     = 1.8; 
-  array[-1+MEM]     = 2.6; 
-  
-  array[-1+EPIPI]   = 12;
-  array[-1+MUPIPI]  = 29;
-  array[-1+EPIK]    = 32;
-  array[-1+MUPIK]   = 26;
-  array[-1+EKPI]    = 17;
-  array[-1+MUKPI]   = 32;
-  array[-1+EKK]     = 14;
-  array[-1+MUKK]    = 25;
   
   
-  array[-1+PIEPI]   = 27;
-  array[-1+PIMUPI]  = 7.0;
-  array[-1+PIEK]    = 18;
-  array[-1+PIMUK]   = 22;
-  array[-1+KEK]     = 15;
-  array[-1+KMUK]    = 48;
+  array[ERHO]    = 4.6;
+  array[MURHO]   = 2.6;
+  array[EKSTAR]  = 5.9;
+  array[MUKSTAR] = 17;
+  array[EAKSTAR] = 4.6;
+  array[MUAKSTAR]= 7.3;
+  array[EPHI]    = 3.1;
+  array[MUPHI]   = 19;
+  array[EOMEGA]  = 11;
+  array[MUOMEGA] = 10;
   
-  array[-1+PILAM]   = 5.8;
-  array[-1+PILAMBAR]= 5.9;
-  array[-1+KLAM]    = 15;
-  array[-1+KLAMBAR] = 7.2;
+  array[EEE]     = 2.9;
+  array[MEE]     = 2.2;
+  array[EMM]     = 3.2; 
+  array[MMM]     = 3.3; 
+  array[EME]     = 1.8; 
+  array[MEM]     = 2.6; 
+  
+  array[EPIPI]   = 12;
+  array[MUPIPI]  = 29;
+  array[EPIK]    = 32;
+  array[MUPIK]   = 26;
+  array[EKPI]    = 17;
+  array[MUKPI]   = 32;
+  array[EKK]     = 14;
+  array[MUKK]    = 25;
+  
+  
+  array[PIEPI]   = 27;
+  array[PIMUPI]  = 7.0;
+  array[PIEK]    = 18;
+  array[PIMUK]   = 22;
+  array[KEK]     = 15;
+  array[KMUK]    = 48;
+  
+  array[PILAM]   = 5.8;
+  array[PILAMBAR]= 5.9;
+  array[KLAM]    = 15;
+  array[KLAMBAR] = 7.2;
 }
 
 void fillBaBar_2010001(double * array)
 {
   // at 10^-8
-  array[-1+EGAMMA]  = 3.3;
-  array[-1+MUGAMMA] = 4.4 - 0.3; // substracted .3 for clarity in display
+  array[EGAMMA]  = 3.3;
+  array[MUGAMMA] = 4.4 - 0.3; // substracted .3 for clarity in display
   
-  array[-1+EPI0]    = 13; 
-  array[-1+MUPI0]   = 11;
+  array[EPI0]    = 13; 
+  array[MUPI0]   = 11;
   
-  array[-1+EETA]    = 16;
-  array[-1+MUETA]   = 15;
+  array[EETA]    = 16;
+  array[MUETA]   = 15;
   
-  array[-1+EETAP]   = 24;
-  array[-1+MUETAP]  = 14;
+  array[EETAP]   = 24;
+  array[MUETAP]  = 14;
   
-  array[-1+EKS0]    = 3.3;
-  array[-1+MUKS0]   = 4.0;
-  
-  
+  array[EKS0]    = 3.3;
+  array[MUKS0]   = 4.0;
   
   
-  array[-1+ERHO]    = 4.6;
-  array[-1+MURHO]   = 2.6;
-  array[-1+EKSTAR]  = 5.9;
-  array[-1+MUKSTAR] = 17;
-  array[-1+EAKSTAR] = 4.6;
-  array[-1+MUAKSTAR]= 7.3 + 0.2; //added .2 for clarity in display
-  array[-1+EPHI]    = 3.1 + 0.2; //added .2 for clarity in display
-  array[-1+MUPHI]   = 19;
-  array[-1+EOMEGA]  = 11;
-  array[-1+MUOMEGA] = 10;
-  
-  array[-1+EEE]     = 2.9;
-  array[-1+MEE]     = 2.2;
-  array[-1+EMM]     = 3.2; 
-  array[-1+MMM]     = 3.3; 
-  array[-1+EME]     = 1.8; 
-  array[-1+MEM]     = 2.6; 
-  
-  array[-1+EPIPI]   = 12;
-  array[-1+MUPIPI]  = 29;
-  array[-1+EPIK]    = 32;
-  array[-1+MUPIK]   = 26;
-  array[-1+EKPI]    = 17;
-  array[-1+MUKPI]   = 32;
-  array[-1+EKK]     = 14;
-  array[-1+MUKK]    = 25;
   
   
-  array[-1+PIEPI]   = 27;
-  array[-1+PIMUPI]  = 7.0;
-  array[-1+PIEK]    = 18;
-  array[-1+PIMUK]   = 22;
-  array[-1+KEK]     = 15;
-  array[-1+KMUK]    = 48;
+  array[ERHO]    = 4.6;
+  array[MURHO]   = 2.6;
+  array[EKSTAR]  = 5.9;
+  array[MUKSTAR] = 17;
+  array[EAKSTAR] = 4.6;
+  array[MUAKSTAR]= 7.3 + 0.2; //added .2 for clarity in display
+  array[EPHI]    = 3.1 + 0.2; //added .2 for clarity in display
+  array[MUPHI]   = 19;
+  array[EOMEGA]  = 11;
+  array[MUOMEGA] = 10;
   
-  array[-1+PILAM]   = 5.8;
-  array[-1+PILAMBAR]= 5.9;
-  array[-1+KLAM]    = 15;
-  array[-1+KLAMBAR] = 7.2;
+  array[EEE]     = 2.9;
+  array[MEE]     = 2.2;
+  array[EMM]     = 3.2; 
+  array[MMM]     = 3.3; 
+  array[EME]     = 1.8; 
+  array[MEM]     = 2.6; 
+  
+  array[EPIPI]   = 12;
+  array[MUPIPI]  = 29;
+  array[EPIK]    = 32;
+  array[MUPIK]   = 26;
+  array[EKPI]    = 17;
+  array[MUKPI]   = 32;
+  array[EKK]     = 14;
+  array[MUKK]    = 25;
+  
+  
+  array[PIEPI]   = 27;
+  array[PIMUPI]  = 7.0;
+  array[PIEK]    = 18;
+  array[PIMUK]   = 22;
+  array[KEK]     = 15;
+  array[KMUK]    = 48;
+  
+  array[PILAM]   = 5.8;
+  array[PILAMBAR]= 5.9;
+  array[KLAM]    = 15;
+  array[KLAMBAR] = 7.2;
 }
 
 void fillCLEO(double * array)
 {
   // at 10^-6
-  array[-1+EGAMMA]  = 2.7;
-  array[-1+MUGAMMA] = 1.1;
+  array[EGAMMA]  = 2.7;
+  array[MUGAMMA] = 1.1;
   
-  array[-1+EPI0]    = 3.7; 
-  array[-1+MUPI0]   = 4.0;
+  array[EPI0]    = 3.7; 
+  array[MUPI0]   = 4.0;
   
-  array[-1+EETA]    = 8.2;
-  array[-1+MUETA]   = 9.6;
+  array[EETA]    = 8.2;
+  array[MUETA]   = 9.6;
   
-  array[-1+EETAP]   = 0;
-  array[-1+MUETAP]  = 0;
+  array[EETAP]   = 0;
+  array[MUETAP]  = 0;
   
-  array[-1+EKS0]    = 0.91;
-  array[-1+MUKS0]   = 0.95;
+  array[EKS0]    = 0.91;
+  array[MUKS0]   = 0.95;
   
-  array[-1+EF0]     = 0;
-  array[-1+MUF0]    = 0;
+  array[EF0]     = 0;
+  array[MUF0]    = 0;
   
-  array[-1+ERHO]    = 2.0;
-  array[-1+MURHO]   = 6.3;
-  array[-1+EKSTAR]  = 5.1;
-  array[-1+MUKSTAR] = 7.5;
-  array[-1+EAKSTAR] = 7.4;
-  array[-1+MUAKSTAR]= 7.5;
-  array[-1+EPHI]    = 6.9;
-  array[-1+MUPHI]   = 7.0;
-  array[-1+EOMEGA]  = 0;
-  array[-1+MUOMEGA] = 0;
+  array[ERHO]    = 2.0;
+  array[MURHO]   = 6.3;
+  array[EKSTAR]  = 5.1;
+  array[MUKSTAR] = 7.5;
+  array[EAKSTAR] = 7.4;
+  array[MUAKSTAR]= 7.5;
+  array[EPHI]    = 6.9;
+  array[MUPHI]   = 7.0;
+  array[EOMEGA]  = 0;
+  array[MUOMEGA] = 0;
   
-  array[-1+EEE]     = 2.9;
-  array[-1+MEE]     = 1.7;
-  array[-1+EMM]     = 1.8; 
-  array[-1+MMM]     = 1.9; 
-  array[-1+EME]     = 1.5; 
-  array[-1+MEM]     = 1.5; 
+  array[EEE]     = 2.9;
+  array[MEE]     = 1.7;
+  array[EMM]     = 1.8; 
+  array[MMM]     = 1.9; 
+  array[EME]     = 1.5; 
+  array[MEM]     = 1.5; 
   
-  array[-1+EPIPI]   = 2.2;
-  array[-1+MUPIPI]  = 8.2;
-  array[-1+EPIK]    = 6.4;
-  array[-1+MUPIK]   = 7.5;
-  array[-1+EKPI]    = 3.8;
-  array[-1+MUKPI]   = 7.4;
-  array[-1+EKK]     = 6.0;
-  array[-1+MUKK]    = 15;
-  array[-1+EKS0KS0] = 2.2;
-  array[-1+MUKS0KS0]= 3.4;
-  array[-1+PIEPI]   = 1.9;
-  array[-1+PIMUPI]  = 3.4;
-  array[-1+PIEK]    = 2.1;
-  array[-1+PIMUK]   = 7.0;
-  array[-1+KEK]     = 3.8;
-  array[-1+KMUK]    = 6.0;
+  array[EPIPI]   = 2.2;
+  array[MUPIPI]  = 8.2;
+  array[EPIK]    = 6.4;
+  array[MUPIK]   = 7.5;
+  array[EKPI]    = 3.8;
+  array[MUKPI]   = 7.4;
+  array[EKK]     = 6.0;
+  array[MUKK]    = 15;
+  array[EKS0KS0] = 2.2;
+  array[MUKS0KS0]= 3.4;
+  array[PIEPI]   = 1.9;
+  array[PIMUPI]  = 3.4;
+  array[PIEK]    = 2.1;
+  array[PIMUK]   = 7.0;
+  array[KEK]     = 3.8;
+  array[KMUK]    = 6.0;
 }
 
 void setLabels(TH1* hist)
 {
+  const Int_t label_offs(2);
+
   TAxis * axis = hist->GetXaxis();
-  axis->SetBinLabel(EGAMMA  ,"e^{-} #gamma");
-  axis->SetBinLabel(MUGAMMA ,"#mu^{-} #gamma");
-  axis->SetBinLabel(EPI0    ,"e^{-} #pi^{0}");
-  axis->SetBinLabel(MUPI0   ,"#mu^{-} #pi^{0}");
-  axis->SetBinLabel(EETA    ,"e^{-} #eta");
-  axis->SetBinLabel(MUETA   ,"#mu^{-} #eta");
-  axis->SetBinLabel(EETAP   ,"e^{-} #eta'");
-  axis->SetBinLabel(MUETAP  ,"#mu^{-} #eta'");
-  axis->SetBinLabel(EKS0    ,"e^{-} K_{S}^{0}");
-  axis->SetBinLabel(MUKS0   ,"#mu^{-} K_{S}^{0}");
-  axis->SetBinLabel(EF0     ,"e^{-} f_{0}");
-  axis->SetBinLabel(MUF0    ,"#mu^{-} f_{0}");
-  axis->SetBinLabel(ERHO    ,"e^{-} #rho_{0}");
-  axis->SetBinLabel(MURHO   ,"#mu^{-} #rho_{0}");
-  axis->SetBinLabel(EKSTAR  ,"e^{-} K*");
-  axis->SetBinLabel(MUKSTAR ,"#mu^{-} K*");
-  axis->SetBinLabel(EAKSTAR ,"e^{-} #bar{K*}");
-  axis->SetBinLabel(MUAKSTAR,"#mu^{-} #bar{K*}");
-  axis->SetBinLabel(EPHI    ,"e^{-} #phi");
-  axis->SetBinLabel(MUPHI   ,"#mu^{-} #phi");
-  axis->SetBinLabel(EOMEGA  ,"e^{-} #omega");
-  axis->SetBinLabel(MUOMEGA ,"#mu^{-} #omega");
-  axis->SetBinLabel(EEE,     "e^{-} e^{+} e^{-}");
-  axis->SetBinLabel(MEE,     "#mu^{-} e^{+} e^{-}");
-  axis->SetBinLabel(EMM,     "e^{-} #mu^{+} #mu^{-}");
-  axis->SetBinLabel(MMM,     "#mu^{-} #mu^{+} #mu^{-}");
-  axis->SetBinLabel(EME,     "e^{-} #mu^{+} e^{-}");
-  axis->SetBinLabel(MEM,     "#mu^{-} e^{+} #mu^{-}");
-  axis->SetBinLabel(EPIPI   ,"e^{-} #pi^{+} #pi^{-}");
-  axis->SetBinLabel(MUPIPI  ,"#mu^{-} #pi^{+} #pi^{-}");
-  axis->SetBinLabel(EPIK    ,"e^{-} #pi^{+} K^{-}");
-  axis->SetBinLabel(MUPIK   ,"#mu^{-} #pi^{+} K^{-}");
-  axis->SetBinLabel(EKPI    ,"e^{-} K^{+} #pi^{-}");
-  axis->SetBinLabel(MUKPI   ,"#mu^{-} K^{+} #pi^{-}");
-  axis->SetBinLabel(EKK     ,"e^{-} K^{+} K^{-}");
-  axis->SetBinLabel(MUKK    ,"#mu^{-} K^{+} K^{-}");
-  axis->SetBinLabel(EKS0KS0 ,"e^{-} K_{S}^{0} K_{S}^{0}");
-  axis->SetBinLabel(MUKS0KS0,"#mu^{-} K_{S}^{0} K_{S}^{0}");
-  axis->SetBinLabel(PIEPI   ,"#pi^{-} e^{+} #pi^{-}");
-  axis->SetBinLabel(PIMUPI  ,"#pi^{-} #mu^{+} #pi^{-}");
-  axis->SetBinLabel(PIEK    ,"#pi^{-} e^{+} K^{-}");
-  axis->SetBinLabel(PIMUK   ,"#pi^{-} #mu^{+} K^{-}");
-  axis->SetBinLabel(KEK     ,"K^{-} e^{+} K^{-}");
-  axis->SetBinLabel(KMUK    ,"K^{-} #mu^{+} K^{-}");
-  axis->SetBinLabel(PILAM   ,"#pi^{-} #Lambda");
-  axis->SetBinLabel(PILAMBAR,"#pi^{-} #bar{#Lambda}");
-  axis->SetBinLabel(KLAM   , "K^{-} #Lambda");
-  axis->SetBinLabel(KLAMBAR, "K^{-} #bar{#Lambda}");
+
+  axis->SetBinLabel(label_offs - 1 ," ");
+  axis->SetBinLabel(label_offs + EGAMMA ,"e^{-} #gamma");
+  axis->SetBinLabel(label_offs + MUGAMMA ,"#mu^{-} #gamma");
+  axis->SetBinLabel(label_offs + EPI0    ,"e^{-} #pi^{0}");
+  axis->SetBinLabel(label_offs + MUPI0   ,"#mu^{-} #pi^{0}");
+  axis->SetBinLabel(label_offs + EETA    ,"e^{-} #eta");
+  axis->SetBinLabel(label_offs + MUETA   ,"#mu^{-} #eta");
+  axis->SetBinLabel(label_offs + EETAP   ,"e^{-} #eta'");
+  axis->SetBinLabel(label_offs + MUETAP  ,"#mu^{-} #eta'");
+  axis->SetBinLabel(label_offs + EKS0    ,"e^{-} K_{S}^{0}");
+  axis->SetBinLabel(label_offs + MUKS0   ,"#mu^{-} K_{S}^{0}");
+  axis->SetBinLabel(label_offs + EF0     ,"e^{-} f_{0}");
+  axis->SetBinLabel(label_offs + MUF0    ,"#mu^{-} f_{0}");
+  axis->SetBinLabel(label_offs + ERHO    ,"e^{-} #rho_{0}");
+  axis->SetBinLabel(label_offs + MURHO   ,"#mu^{-} #rho_{0}");
+  axis->SetBinLabel(label_offs + EKSTAR  ,"e^{-} K*");
+  axis->SetBinLabel(label_offs + MUKSTAR ,"#mu^{-} K*");
+  axis->SetBinLabel(label_offs + EAKSTAR ,"e^{-} #bar{K*}");
+  axis->SetBinLabel(label_offs + MUAKSTAR,"#mu^{-} #bar{K*}");
+  axis->SetBinLabel(label_offs + EPHI    ,"e^{-} #phi");
+  axis->SetBinLabel(label_offs + MUPHI   ,"#mu^{-} #phi");
+  axis->SetBinLabel(label_offs + EOMEGA  ,"e^{-} #omega");
+  axis->SetBinLabel(label_offs + MUOMEGA ,"#mu^{-} #omega");
+  axis->SetBinLabel(label_offs + EEE,     "e^{-} e^{+} e^{-}");
+  axis->SetBinLabel(label_offs + MEE,     "#mu^{-} e^{+} e^{-}");
+  axis->SetBinLabel(label_offs + EMM,     "e^{-} #mu^{+} #mu^{-}");
+  axis->SetBinLabel(label_offs + MMM,     "#mu^{-} #mu^{+} #mu^{-}");
+  axis->SetBinLabel(label_offs + EME,     "e^{-} #mu^{+} e^{-}");
+  axis->SetBinLabel(label_offs + MEM,     "#mu^{-} e^{+} #mu^{-}");
+  axis->SetBinLabel(label_offs + EPIPI   ,"e^{-} #pi^{+} #pi^{-}");
+  axis->SetBinLabel(label_offs + MUPIPI  ,"#mu^{-} #pi^{+} #pi^{-}");
+  axis->SetBinLabel(label_offs + EPIK    ,"e^{-} #pi^{+} K^{-}");
+  axis->SetBinLabel(label_offs + MUPIK   ,"#mu^{-} #pi^{+} K^{-}");
+  axis->SetBinLabel(label_offs + EKPI    ,"e^{-} K^{+} #pi^{-}");
+  axis->SetBinLabel(label_offs + MUKPI   ,"#mu^{-} K^{+} #pi^{-}");
+  axis->SetBinLabel(label_offs + EKK     ,"e^{-} K^{+} K^{-}");
+  axis->SetBinLabel(label_offs + MUKK    ,"#mu^{-} K^{+} K^{-}");
+  axis->SetBinLabel(label_offs + EKS0KS0 ,"e^{-} K_{S}^{0} K_{S}^{0}");
+  axis->SetBinLabel(label_offs + MUKS0KS0,"#mu^{-} K_{S}^{0} K_{S}^{0}");
+  axis->SetBinLabel(label_offs + PIEPI   ,"#pi^{-} e^{+} #pi^{-}");
+  axis->SetBinLabel(label_offs + PIMUPI  ,"#pi^{-} #mu^{+} #pi^{-}");
+  axis->SetBinLabel(label_offs + PIEK    ,"#pi^{-} e^{+} K^{-}");
+  axis->SetBinLabel(label_offs + PIMUK   ,"#pi^{-} #mu^{+} K^{-}");
+  axis->SetBinLabel(label_offs + KEK     ,"K^{-} e^{+} K^{-}");
+  axis->SetBinLabel(label_offs + KMUK    ,"K^{-} #mu^{+} K^{-}");
+  axis->SetBinLabel(label_offs + PILAM   ,"#pi^{-} #Lambda");
+  axis->SetBinLabel(label_offs + PILAMBAR,"#pi^{-} #bar{#Lambda}");
+  axis->SetBinLabel(label_offs + KLAM   , "K^{-} #Lambda");
+  axis->SetBinLabel(label_offs + KLAMBAR, "K^{-} #bar{#Lambda}");
 }
 
 void SetUp()
@@ -666,6 +670,9 @@ void SetUp()
   gStyle->SetPadTickX(0); //not for x-axis
   gStyle->SetPadTickY(1);
   gStyle->SetErrorX(0.001);
+
+  gStyle->SetGridColor(kGray);
+  gStyle->SetGridStyle(1);
 }
 
 void TauLFV_UL_plot(Int_t when=2012001)
@@ -683,7 +690,7 @@ void TauLFV_UL_plot(Int_t when=2012001)
   for (ibin = 0; ibin < NDECAY; ++ibin) CLEO[ibin] = 0;
   
   double histbins[NDECAY];
-  for (ibin = 0; ibin < NDECAY; ++ibin) histbins[ibin] = ibin+1;
+  for (ibin = 0; ibin < NDECAY; ++ibin) histbins[ibin] = ibin;
   
   if (when==2009001){
     fillBelle_2009001(Belle);
@@ -700,9 +707,9 @@ void TauLFV_UL_plot(Int_t when=2012001)
   }
   fillCLEO(CLEO);
   
-  TH1F * hBelle = new TH1F("hBelle","",NDECAY+1, -0.5, float(NDECAY)+0.5);
-  TH1F * hBaBar = new TH1F("hBaBar","",NDECAY+1, -0.5, float(NDECAY)+0.5);
-  TH1F * hCLEO  = new TH1F("hCLEO","", NDECAY+1, -0.5, float(NDECAY)+0.5);
+  TH1F * hBelle = new TH1F("hBelle", "", NDECAY+2, -1.5, float(NDECAY)+0.5);
+  TH1F * hBaBar = new TH1F("hBaBar", "", NDECAY+2, -1.5, float(NDECAY)+0.5);
+  TH1F * hCLEO  = new TH1F("hCLEO",  "", NDECAY+2, -1.5, float(NDECAY)+0.5);
   
   hBelle->FillN(NDECAY, histbins, Belle);
   hBaBar->FillN(NDECAY, histbins, BaBar);
@@ -745,35 +752,35 @@ void TauLFV_UL_plot(Int_t when=2012001)
   
   double y_latex=2.e-5;
   
-  TLine l0(0+.5,ul_min,0+.5,ul_max); l0.SetLineStyle(2); l0.Draw();
+  TLine l0(EGAMMA-0.5, ul_min, EGAMMA-0.5, ul_max); l0.SetLineColor(kGray); l0.Draw();
 
-  TLine l1(MUGAMMA+.5,ul_min,MUGAMMA+.5,ul_max); l1.SetLineStyle(2); l1.Draw();
+  TLine l1(MUGAMMA+0.5,ul_min,MUGAMMA+0.5,ul_max); l1.SetLineColor(kGray); l1.Draw();
   TLatex t1(((MUGAMMA-EGAMMA)*1.0/2.0)+EGAMMA*1.0,y_latex,"l#gamma"); t1.SetTextAlign(21); t1.SetTextFont(42); t1.Draw();
   
-  TLine l2(MUKS0+.5,ul_min,MUKS0+.5,ul_max); l2.SetLineStyle(2); l2.Draw();
+  TLine l2(MUKS0+0.5,ul_min,MUKS0+0.5,ul_max); l2.SetLineColor(kGray); l2.Draw();
   TLatex t2(((MUKS0-EPI0)*1.0/2.0)+EPI0*1.0,y_latex,"lP^{0}"); t2.SetTextAlign(21); t2.SetTextFont(42); t2.Draw();
   
-  TLine l3(MUF0+.5,ul_min,MUF0+.5,ul_max); l3.SetLineStyle(2); l3.Draw();
+  TLine l3(MUF0+0.5,ul_min,MUF0+0.5,ul_max); l3.SetLineColor(kGray); l3.Draw();
   TLatex t3(((MUF0-EF0)*1.0/2.0)+EF0*1.0,y_latex,"lS^{0}"); t3.SetTextAlign(21); t3.SetTextFont(42); t3.Draw();
   
-  TLine l4(MUOMEGA+.5,ul_min,MUOMEGA+.5,ul_max); l4.SetLineStyle(2); l4.Draw();
+  TLine l4(MUOMEGA+0.5,ul_min,MUOMEGA+0.5,ul_max); l4.SetLineColor(kGray); l4.Draw();
   TLatex t4(((MUOMEGA-ERHO)*1.0/2.0)+ERHO*1.0,y_latex,"lV^{0}"); t4.SetTextAlign(21); t4.SetTextFont(42); t4.Draw();
   
-  TLine l5(MEM+.5,ul_min,MEM+.5,ul_max); l5.SetLineStyle(2); l5.Draw();
+  TLine l5(MEM+0.5,ul_min,MEM+0.5,ul_max); l5.SetLineColor(kGray); l5.Draw();
   TLatex t5(((MEM-EEE)*1.0/2.0)+EEE*1.0,y_latex,"lll"); t5.SetTextAlign(21); t5.SetTextFont(42); t5.Draw();
   
-  TLine l6(KMUK+.5,ul_min,KMUK+.5,ul_max); l6.SetLineStyle(2); l6.Draw();
+  TLine l6(KMUK+0.5,ul_min,KMUK+0.5,ul_max); l6.SetLineColor(kGray); l6.Draw();
   TLatex t6(((KMUK-EPIPI)*1.0/2.0)+EPIPI*1.0,y_latex,"lhh"); t6.SetTextAlign(21); t6.SetTextFont(42); t6.Draw();
   
-  TLine l7(KLAMBAR+.5,ul_min,KLAMBAR+.5,ul_max); l7.SetLineStyle(2); l7.Draw();
+  TLine l7(KLAMBAR+0.5,ul_min,KLAMBAR+0.5,ul_max); l7.SetLineColor(kGray); l7.Draw();
   TLatex t7(((KLAMBAR-PILAM)*1.0/2.0)+PILAM*1.0,y_latex,"#Lambdah"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
   
-  TLegend *leg = new TLegend(0.88,0.3,0.95,.5);
+  TLegend *leg = new TLegend(0.88,0.3,0.95,0.5);
   leg->SetBorderSize(0);
   leg->SetFillStyle(4000);
   leg->SetFillColor(0);
-  leg->SetTextSize(.05);
-  leg->SetMargin(.5);
+  leg->SetTextSize(0.05);
+  leg->SetMargin(0.5);
   leg->AddEntry(hCLEO,"CLEO","p");
   leg->AddEntry(hBaBar,"BaBar","p");
   leg->AddEntry(hBelle,"Belle","p");
@@ -783,6 +790,7 @@ void TauLFV_UL_plot(Int_t when=2012001)
   HFAGTauLabel("Winter 2012", -0.01, -0.02, 1.3);
   c1->Update();  
   
+  c1->SaveAs(Form("TauLFV_UL_%d.pdf",when));
   c1->SaveAs(Form("TauLFV_UL_%d.eps",when));
   c1->SaveAs(Form("TauLFV_UL_%d.png",when));
 }
