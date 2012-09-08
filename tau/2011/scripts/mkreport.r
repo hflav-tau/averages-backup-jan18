@@ -443,6 +443,7 @@ get.tex.meas.val = function(meas, precision, order) {
 get.tex.meas = function(meas, precision, order) {
   meas.item = list()
   meas.item$exp = meas$tags[1]
+  meas.item$exp = sub("BaBar", "\\\\babar", meas.item$exp, ignore.case=TRUE)
   meas.item$ref = paste("\\cite{", get.reference(meas$tags), "}", sep="")
   meas.item$type = meas$tags[3]
   meas.item$value = get.tex.meas.val(meas, precision, order)
@@ -605,6 +606,7 @@ get.tex.meas.by.ref = function() {
     if (is.null(meas.paper[[paper]])) {
       meas.paper[[paper]] = list()
       ref.txt = paste(meas$tags[-2], collapse=" ")
+      ref.txt = sub("BaBar", "\\\\babar", ref.txt, ignore.case=TRUE)
       ref.txt = paste(ref.txt, paste("\\cite{", get.reference(meas$tags), "}", sep=""))
       meas.paper[[paper]]$ref <<- ref.txt
       meas.paper[[paper]]$meas <<- list()
