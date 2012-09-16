@@ -35,10 +35,6 @@ COMBINE
 MODMEAS DROP Belle Gamma47 prelim PHIPSI11
 MODMEAS DROP Belle Gamma50 prelim PHIPSI11
 
-##--- drop BaBar results introduced for Tau12
-MODMEAS DROP BaBar Gamma47 prelim TAU12 Sobie.2
-MODMEAS DROP BaBar Gamma50 prelim TAU12 Sobie.2
-
 INCLUDE ../Common/parameters.input
 INCLUDE ../Common-Mar2011/quantities.input
 INCLUDE ../Common/quantities.input

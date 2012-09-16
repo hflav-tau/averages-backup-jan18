@@ -4,7 +4,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-- input cards use the Feb 2012 alucomb2.r format
+- input cards use the Feb 2012 alucomb2.r forman
 - quantities.input has quantities description and constraints
 - parameters.input has the parameters for the syst. terms and constraints
 
