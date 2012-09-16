@@ -4,7 +4,7 @@
 #
 PARAMETERS
   # --- e+e- -> tau+tau- cross section from Swagato et al. paper
-  sigmataupmy4s    0.919        +-0.003
+  sigmataupmy4s    0.919        +-0.0032165
   # --- tau -> pi- pi0 nu, Gamma14, PDG11 fit
   PimPizNu         0.2551       +-0.0009
   # --- tau -> K- K0S, 1/2 * Gamma37, PDG11 fit
