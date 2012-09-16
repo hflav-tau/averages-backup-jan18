@@ -795,7 +795,7 @@ mkreport.get.meas.val = function(meas) {
 ##
 ## create .tex files for HFAT report
 ##
-mkreport = function(fname = "average2-aleph-hcorr.rdata") {
+mkreport = function(fname) {
   load(fname, .GlobalEnv)
 
   ##--- build out file name
@@ -878,5 +878,5 @@ args = commandArgs(TRUE)
 if (length(args) == 1) {
   rc = mkreport(fname = args[1])
 } else {
-  mkreport()
+  mkreport(fname = "average.rdata")
 }
