@@ -48,7 +48,7 @@ SYSTEMATICS
   -0.8485281%      BaBarLumi        # -1.204909902e-06
 
 PARAMETERS
-  sigmataupmy4s    0.919        +-0.003
+  sigmataupmy4s    0.919        +-0.0032165
 
 END
 
@@ -65,7 +65,7 @@ SYSTEMATICS
   -0.9%            BaBarLumi        # -1.44e-06
 
 PARAMETERS
-  sigmataupmy4s    0.919        +-0.003
+  sigmataupmy4s    0.919        +-0.0032165
 
 END
 
@@ -82,7 +82,7 @@ SYSTEMATICS
   -0.94%           BaBarLumi        # -3.9104e-05
 
 PARAMETERS
-  sigmataupmy4s    0.919        +-0.003
+  sigmataupmy4s    0.919        +-0.0032165
 
 END
 
@@ -109,7 +109,7 @@ SYSTEMATICS
   -0.7278%         BaBarLumi        # -6.11352e-05
 
 PARAMETERS
-  sigmataupmy4s    0.919        +-0.003
+  sigmataupmy4s    0.919        +-0.0032165
   PimPizNu         25.3754e-2   +-0.10e-2
   KmKzsNu          0.08255e-2   +-0.008e-2
   PimPizKzsNu      0.18835e-2   +-0.02e-2
@@ -156,7 +156,7 @@ SYSTEMATICS
   -0.7278%         BaBarLumi        # -2.489076e-05
 
 PARAMETERS
-  sigmataupmy4s    0.919        +-0.003
+  sigmataupmy4s    0.919        +-0.0032165
 
 END
 
@@ -176,6 +176,9 @@ SYSTEMATICS
   -0.3%            sigmataupmy4s    # -0.000265011
   -0.9%            BaBarLumi        # -0.000795033
 
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
 END
 
 #
@@ -193,6 +196,9 @@ ERROR_CORR_WITH +9.4573e-02  BaBar Gamma96 pub AUBERT 08 # +0.094573
 SYSTEMATICS
   -0.3%            sigmataupmy4s    # -8.1771e-06
   -0.9%            BaBarLumi        # -2.45313e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
 
 END
 
@@ -212,6 +218,9 @@ SYSTEMATICS
   -0.3%            sigmataupmy4s    # -4.0383e-06
   -0.9%            BaBarLumi        # -1.21149e-05
 
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
 END
 
 #
@@ -229,6 +238,9 @@ ERROR_CORR_WITH +9.0128e-02  BaBar Gamma93 pub AUBERT 08 # +0.090128
 SYSTEMATICS
   -0.3%            sigmataupmy4s    # -4.7331e-08
   -0.9%            BaBarLumi        # -1.41993e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
 
 END
 
