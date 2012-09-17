@@ -340,7 +340,7 @@ get.tex.quant.descr = function(quant) {
     descr = gsub("K0", "K^0", descr)
     descr = gsub("K\\(S\\)0", "K_S^0", descr)
     descr = gsub("K\\(L\\)0", "K_L^0", descr)
-    descr = gsub("(nu|tau|mu|pi|omega|gamma)", "\\\\\\1", descr)
+    descr = gsub("(nu|tau|mu|pi|omega|gamma|eta)", "\\\\\\1", descr)
     descr = gsub("\\s+\\(ex[.]", "\\\\;(\\\\text{ex.}", descr)
     descr = gsub("(neutrals)", "\\\\text{\\1}", descr)
     descr = gsub("(particles|strange|total)", "\\\\text{\\1}", descr)
@@ -761,7 +761,7 @@ get.tex.constraint.equations = function() {
   constr.right = gsub("BRA_Kzbar_KL_KET", "\\Gamma_{<\\bar{K}^0|K_L>}", constr.right, fixed=TRUE)
   constr.right = gsub("BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET", "R_{0\\bar{0}SS/LL}", constr.right, fixed=TRUE)
 
-  return(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}", collapse="\n"))
+  return(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}", sep="", collapse="\n"))
 }
 
 ##--- return latex command def with specified multi-line body
