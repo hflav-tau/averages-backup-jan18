@@ -8,6 +8,7 @@ require("optparse", quietly=TRUE)
 require("stringr", quietly=TRUE)
 source("../../../Common/bin/alucomb2-hfag-tau.r")
 source("../../../Common/bin/alucomb2-fit.r")
+source("../../../Common/bin/aluelab2.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## functions
@@ -340,7 +341,7 @@ get.tex.quant.descr = function(quant) {
     descr = gsub("K0", "K^0", descr)
     descr = gsub("K\\(S\\)0", "K_S^0", descr)
     descr = gsub("K\\(L\\)0", "K_L^0", descr)
-    descr = gsub("(nu|tau|mu|pi|omega|gamma|eta)", "\\\\\\1", descr)
+    descr = gsub("(nu|tau|mu|pi|omega|eta|gamma)", "\\\\\\1", descr)
     descr = gsub("\\s+\\(ex[.]", "\\\\;(\\\\text{ex.}", descr)
     descr = gsub("(neutrals)", "\\\\text{\\1}", descr)
     descr = gsub("(particles|strange|total)", "\\\\text{\\1}", descr)
@@ -367,6 +368,10 @@ get.tex.val = function(quant.val, precision, order) {
   return(rc)
 }
 
+##
+## return numeric value formatted val +- stat in a string
+## use automatic precision and order of magnitude
+##
 get.tex.val.auto = function(quant.val) {
   rc = get.precision.order(quant.val)
   precision = rc[1]
@@ -412,14 +417,14 @@ get.tex.quant.val = function(quant.val, quant.err, precision, order) {
 ##
 get.tex.meas.val = function(meas, precision, order) {
   norm = 10^order
-  str.val = sprintf(paste("%", precision, "f", sep=""), meas$value/norm)
+  str.val = sprintf(paste("%", precision, "f", sep=""), meas$value.orig/norm)
   if (meas$stat.p == -meas$stat.n) {
     str.stat = sprintf(paste("\\pm %", precision, "f", sep=""), meas$stat/norm)
   } else {
     str.stat = sprintf(paste("{}^{%+", precision, "f}_{%+", precision, "f}", sep=""), meas$stat.p/norm, meas$stat.n/norm)
   }
   if (meas$syst.p == -meas$syst.n) {
-    str.syst = sprintf(paste("\\pm %", precision, "f", sep=""), meas$syst/norm)
+    str.syst = sprintf(paste("\\pm %", precision, "f", sep=""), meas$syst.orig/norm)
   } else {
     str.syst = sprintf(paste("{}^{%+", precision, "f}_{%+", precision, "f}", sep=""), meas$syst.p/norm, meas$syst.n/norm)
   }
@@ -515,11 +520,15 @@ get.precision.order = function(vals) {
   return(c(precision=precision, order=order))
 }
 
+##
+## get all measurements related to a quantity
+## compute appropriate precision and order of magnitude
+##
 get.precision.order.quant = function(quant.name) {
   meas.names = get.meas.quant(quant.name, delta)
   
   vals = unlist(lapply(measurements[meas.names], function(m)
-    c(m$value, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
+    c(m$value.orig, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
   vals = c(vals, quant.val[quant.name], quant.err[quant.name])
   return(get.precision.order(vals))
 }
@@ -587,6 +596,31 @@ get.tex.table.simple = function(quant.names, precision, order) {
       )
   }, quant.names, combination$quantities[quant.names])
   return(paste(rc, collapse=" \\\\\n"))
+}
+
+##
+## return measurements by collaboration
+##
+get.tex.meas.by.collab = function() {
+  collab.meas = sapply(measurements[combination$measurements], function(meas) meas$tags[1])
+  collabs = sort(unique(collab.meas))
+  collab.nmeas = sapply(collabs, function(collab) sum(collab.meas == collab))
+  return(paste("\\newcommand{\\hfagNumMeas", collabs, "}{", collab.nmeas, "}", sep="", collapse="\n"))
+}
+
+##
+## return measurements by collaboration
+##
+get.tex.def.quant.descr = function() {
+  toTex = TrStr$num2tex()
+  rc = mapply(function(quant.name, quant) {
+    quant.texdescr = paste("\\ensuremath{", get.tex.quant.descr(quant), "}", sep="")
+    quant.texnam = paste("qdescr", toTex$trN(quant.name), sep="")
+    rc = mkreport.tex.cmd.short(quant.texnam, quant.texdescr)
+    return(rc)
+  },
+    combination$combine, combination$quantities[combination$combine])
+  return(paste(rc, collapse=""))
 }
 
 ##
@@ -774,7 +808,10 @@ mkreport.tex.cmd.short = function(cmd, body) {
   paste("\\newcommand{\\", cmd, "}{", body, "\\xspace}\n", sep="")
 }
 
-##---
+##
+## return value +- stat +- syst original values
+## convert exponential format for latex
+##
 mkreport.get.meas.val = function(meas) {
   if (attr(meas$stat, "input") != "") {
     stat.txt = paste("\\pm", attr(meas$stat, "input"))
@@ -826,6 +863,17 @@ mkreport = function(fname) {
   ##
   quant.names = combination$combine
   quant.names = setdiff(quant.names, "GammaAll")
+
+  ##
+  ## define quantities descriptions
+  ##
+  rc = get.tex.def.quant.descr()
+  cat(rc, file=fname, append=TRUE)
+  cat("file '", fname, "', quantities description defs\n", sep="")
+  
+  ##
+  ## write tex macro containing BR fit data
+  ##
   tex.all.tau.br.val = mkreport.tex.cmd("HfagTauBrVal", get.tex.table(quant.names))
   cat(tex.all.tau.br.val, file=fname, append=TRUE)
   cat("file '", fname, "', BR val table content\n", sep="")
@@ -857,6 +905,16 @@ mkreport = function(fname) {
   cat("file '", fname, "', BR strange tot table content\n", sep="")
 
   ##
+  ## write text macro containing all strange BR values and refs
+  ##
+  gammaAll.names = names(combination$constr.all.comb$GammaAll.c)
+  gammaAll.names = c(gammaAll.names, "Gamma998")
+  gammaAll.names = setdiff(gammaAll.names, "GammaAll")
+  tex.tau.unitarity.quants = mkreport.tex.cmd("HfagTauUnitarityQuants", get.tex.table.simple(gammaAll.names, 6.4, -2))
+  cat(tex.tau.unitarity.quants, file=fname, append=TRUE)
+  cat("file '", fname, "', unitarity quantities\n", sep="")
+
+  ##
   ## write text macro containing correlation of base nodes
   ##
   tex.all.tau.br.corr = mkreport.tex.cmd("HfagTauBrCorr", get.tex.base.nodes.corr())
@@ -869,6 +927,13 @@ mkreport = function(fname) {
   tex.constr.val = mkreport.tex.cmd("HfagConstrEqs", get.tex.constraint.equations())
   cat(tex.constr.val, file=fname, append=TRUE)
   cat("file '", fname, "', constraint table content\n", sep="")
+
+  ##
+  ## measurements by collaboration
+  ##
+  tex.num.meas.per.collab = get.tex.meas.by.collab()  
+  cat(tex.num.meas.per.collab, file=fname, append=TRUE)
+  cat("file '", fname, "', measurements per collaboration\n", sep="")
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
