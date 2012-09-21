@@ -596,7 +596,7 @@ aluelab.results = function(args) {
   print(rbind(cbind(val=quant$all.val()[display.names], err=quant$all.err()[display.names])))
 
   ##--- translate quantity names to get a valid LaTeX command
-  toTex = TrStr$new("0123456789_", "zothfvsneiU")
+  toTex = TrStr$num2tex()
   ##--- non-default formatting for selected quantities
   specialFormat = c(
     tau_tau="%.1f",
@@ -635,15 +635,13 @@ aluelab.results = function(args) {
     fmt = ifelse(is.na(specialFormat[name]), "%.4f", specialFormat[name])
     val = ifelse(is.na(specialFactor[name]), val, val*specialFactor[name])
     err = ifelse(is.na(specialFactor[name]), err, err*specialFactor[name])
-    name.orig = name
-    name = gsub("(\\d+)", "N\\1N", name)
     fmt.val = paste("}{", fmt, "\\xspace}", sep="")
     fmt.valerr = paste("}{\\ensuremath{", fmt, " \\pm ", fmt, "}\\xspace}", sep="")
     rc = NULL
     if (err != 0) {
-      rc = c(rc, paste("\\newcommand{\\quant", toTex$tr(name), sprintf(fmt.valerr, val, err), "% ", name.orig, sep=""))
+      rc = c(rc, paste("\\newcommand{\\quant", toTex$trN(name), sprintf(fmt.valerr, val, err), "% ", name, sep=""))
     }
-    rc = c(rc, paste("\\newcommand{\\quval", toTex$tr(name), sprintf(fmt.val, val), "% ", name.orig, sep=""))
+    rc = c(rc, paste("\\newcommand{\\quval", toTex$trN(name), sprintf(fmt.val, val), "% ", name, sep=""))
   }, quant$all.name()[quant.all.order], quant$all.val()[quant.all.order], quant$all.err()[quant.all.order])
 
   ##--- make file name for report .tex output

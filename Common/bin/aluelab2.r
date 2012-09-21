@@ -302,7 +302,17 @@ TrStr$new = function(., set1, set2) {
   proto(., .table=table)
 }
 
+TrStr$num2tex = function(.) {
+  return(.$new("0123456789_", "zothfvsneiU"))
+}
+
 ##--- translate a string using stored table
 TrStr$tr = function(., str) {
+  rawToChar(as.raw(.$.table[as.integer(charToRaw(str))+1]-1))
+}
+
+##--- translate a string using stored table, delimit numbers by "N"
+TrStr$trN = function(., str) {
+  str = gsub("(\\d+)", "N\\1N", str)
   rawToChar(as.raw(.$.table[as.integer(charToRaw(str))+1]-1))
 }
