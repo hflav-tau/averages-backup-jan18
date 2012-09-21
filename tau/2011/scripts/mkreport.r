@@ -602,10 +602,13 @@ get.tex.table.simple = function(quant.names, precision, order) {
 ## return measurements by collaboration
 ##
 get.tex.meas.by.collab = function() {
+  toTex = TrStr$num2tex()
   collab.meas = sapply(measurements[combination$measurements], function(meas) meas$tags[1])
   collabs = sort(unique(collab.meas))
   collab.nmeas = sapply(collabs, function(collab) sum(collab.meas == collab))
-  return(paste("\\newcommand{\\hfagNumMeas", collabs, "}{", collab.nmeas, "}", sep="", collapse="\n"))
+  return(paste("\\newcommand{\\hfagNumMeas",
+               sapply(collabs, function(x) toTex$trN(x)),
+               "}{", collab.nmeas, "}", sep="", collapse="\n"))
 }
 
 ##
