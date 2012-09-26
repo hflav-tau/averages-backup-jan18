@@ -479,6 +479,7 @@ aluelab.results = function(args) {
     "gtaubyge_tau", "gmubyge_tau"
     )
 
+  ## ////////////////////////////////////////
   ##
   ## Vus from tau -> Knu
   ##
@@ -532,6 +533,16 @@ aluelab.results = function(args) {
   quant$meas.add.single("Vus_tauKpi_mism_sigma", Vus_tauKpi_mism_sigma, 0)
   quant$meas.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma), 0)
 
+  Vus_tauKpi.err.th = sqrt(
+    (quant$cov()["Vus_tauKpi", "f_K_by_f_pi"]/quant$err()["f_K_by_f_pi"])^2 +
+    (quant$cov()["Vus_tauKpi", "delta_LD_taupi_pimu"]/quant$err()["delta_LD_taupi_pimu"])^2 +
+    (quant$cov()["Vus_tauKpi", "delta_LD_tauK_Kmu"]/quant$err()["delta_LD_tauK_Kmu"])^2 +
+    (quant$cov()["Vus_tauKpi", "rrad_LD_tauK_taupi"]/quant$err()["rrad_LD_tauK_taupi"])^2
+    )
+  quant$meas.add.single("Vus_tauKpi_err_th", Vus_tauKpi.err.th, 0)
+  quant$meas.expr.add("Vus_tauKpi_err_th_perc", quote(Vus_tauKpi_err_th/Vus_tauKpi*100))
+
+  ## ////////////////////////////////////////
   ##
   ## Vus from tau -> K nu
   ##
@@ -565,6 +576,14 @@ aluelab.results = function(args) {
   quant$meas.add.single("Vus_tauKnu_mism_sigma", Vus_tauKnu_mism_sigma, 0)
   quant$meas.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma), 0)
 
+  Vus_tauKnu.err.th = sqrt(
+    (quant$cov()["Vus_tauKnu", "f_K"]/quant$err()["f_K"])^2 +
+    (quant$cov()["Vus_tauKnu", "rrad_tau_Knu"]/quant$err()["rrad_tau_Knu"])^2
+    )
+  quant$meas.add.single("Vus_tauKnu_err_th", Vus_tauKnu.err.th, 0)
+  quant$meas.expr.add("Vus_tauKnu_err_th_perc", quote(Vus_tauKnu_err_th/Vus_tauKnu*100))
+
+  ## ////////////////////////////////////////
   ##
   ## Vus from tau fit
   ##
@@ -585,9 +604,11 @@ aluelab.results = function(args) {
     "Gamma10by9",
     "Vus_tauKpi",
     "Vus_tauKpi_mism_sigma",
+    "Vus_tauKpi_err_th_perc",
     "rrad_tau_Knu",
     "Vus_tauKnu",
     "Vus_tauKnu_mism_sigma",
+    "Vus_tauKnu_err_th_perc",
     "Vus_tau",
     "Vus_tau_mism_sigma"
     )
