@@ -602,7 +602,7 @@ get.tex.table.simple = function(quant.names, precision, order) {
 ## return measurements by collaboration
 ##
 get.tex.meas.by.collab = function() {
-  toTex = TrStr$num2tex()
+  toTex = TrStr.num2tex$new()
   collab.meas = sapply(measurements[combination$measurements], function(meas) meas$tags[1])
   collabs = sort(unique(collab.meas))
   collab.nmeas = sapply(collabs, function(collab) sum(collab.meas == collab))
@@ -615,7 +615,7 @@ get.tex.meas.by.collab = function() {
 ## return measurements by collaboration
 ##
 get.tex.def.quant.descr = function() {
-  toTex = TrStr$num2tex()
+  toTex = TrStr.num2tex$new()
   rc = mapply(function(quant.name, quant) {
     quant.texdescr = paste("\\ensuremath{", get.tex.quant.descr(quant), "}", sep="")
     quant.texnam = paste("qdescr", toTex$trN(quant.name), sep="")
