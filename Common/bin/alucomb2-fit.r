@@ -56,12 +56,13 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   cat("## averaging the following quantities\n")
   cat("##\n\n")
   cat("COMBINE\n")
+
   quant.fmt = format(quant.names)
-  maxlen = max(nchar(quant.fmt))
+  maxlen = max(nchar(quant.fmt)) + 1
   items.per.row = floor((79-2)/maxlen)
   for (i.first in seq(1, length(quant.fmt), by=items.per.row)) {
     i.last = min(i.first + items.per.row - 1, length(quant.fmt) )
-    cat("  ", paste(quant.fmt[i.first:i.last]), "\n", sep="")
+    cat("  ", paste(quant.fmt[i.first:i.last], collapse=" "), "\n", sep="")
   }
 
   alucomb2.eol.first.time$reset()
