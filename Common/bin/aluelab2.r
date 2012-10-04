@@ -57,17 +57,18 @@ StatComb = setRefClass("StatComb",
     .param = "list"
     ),
   methods=list(
-    initialize = function(quant.val=numeric(), quant.cov=matrix()) {
+    initialize = function(quant.val=numeric(), quant.cov=matrix(), parameters=list()) {
       ## callSuper(...)
       .self$.val = quant.val
       .self$.cov = quant.cov
+      .self$.param = parameters
       .self
     })
   )
 
 rc = StatComb$methods(
   param.add.list = function(param) {
-    .param <<- c(.param, as.list(param))
+    .self$.param = c(.param, as.list(param))
   })
 
 rc = StatComb$methods(
@@ -164,11 +165,11 @@ rc = StatComb$methods(
     cov.left = matrix(0, dim(add.cov)[1], dim(.cov)[2])
     rownames(cov.left) = rownames(add.cov)
     cov.bottom = cbind(cov.left, add.cov)
-    .cov <<- rbind(cov.top, cov.bottom)
+    .self$.cov = rbind(cov.top, cov.bottom)
     
     ##--- assemble averaged quantities
     quant.averaged.sel = names(add.val) %in% quant.names.averaged
-    .val <<- c(.val, add.val[quant.averaged.sel])
+    .self$.val = c(.val, add.val[quant.averaged.sel])
     return(invisible(NULL))
   })
 
@@ -179,7 +180,7 @@ rc = StatComb$methods(
   param.add.single = function(label, val) {
     val = as.numeric(val)
     names(val) = label
-    .param <<- c(.param, val)
+    .self$.param = c(.param, val)
     return(val)
   })
 
@@ -206,8 +207,8 @@ rc = StatComb$methods(
   corr.add.single = function(label.1, label.2, corr) {
     corr = as.numeric(corr)
     cov = corr*sqrt(.cov[label.1, label.1] * .cov[label.2, label.2])
-    .cov[label.1, label.2] <<- cov
-    .cov[label.2, label.1] <<- cov
+    .self$.cov[label.1, label.2] = cov
+    .self$.cov[label.2, label.1] = cov
     return(corr)
   })
 
@@ -250,10 +251,10 @@ rc = StatComb$methods(
     add.comb.full[names(add.comb)] = add.grad
     add.cov = add.comb.full %*% .cov %*% add.comb.full
     names(add.cov) = add.name
-    .cov <<- rbind(
+    .self$.cov = rbind(
       cbind(.cov, matrix(.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
       matrix(c(add.comb.full %*% .cov, add.cov), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
-    .val <<- c(.val, add.val)
+    .self$.val = c(.val, add.val)
     return(invisible())
   })
 
@@ -271,8 +272,8 @@ rc = StatComb$methods(
     names(add.val) = add.name
     add.err = sqrt(add.comb.full %*% .cov %*% add.comb.full)
     names(add.err) = add.name
-    .val <<- c(.val, add.val)
-    .cov <<- rbind(
+    .self$.val = c(.val, add.val)
+    .self$.cov = rbind(
       cbind(.cov, matrix(.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
       matrix(c(add.comb.full %*% .cov, add.err^2), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
     return(invisible())
