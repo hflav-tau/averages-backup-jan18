@@ -139,7 +139,6 @@ rc = StatComb$methods(
 ## add a vector of measurements and their correlation to the list
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
-## aeb.meas.add = function(add.val, add.err, add.corr=NULL) {}
 rc = StatComb$methods(
   meas.add = function(add.val, add.err, add.corr=NULL) {
     ##
@@ -188,7 +187,6 @@ rc = StatComb$methods(
 ## add a single additional uncorrelated measurement
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
-## aeb.meas.add.single = function(label, val, err) {}
 rc = StatComb$methods(
   meas.add.single = function(label, val, err=0) {
     val = as.numeric(val)
@@ -227,7 +225,6 @@ rc = StatComb$methods(
 ## compute linear combinations using measurements stored
 ## in quant.val, quant.cov
 ##
-## aeb.linear.comb.glob = function(lc) {}
 rc = StatComb$methods(
   linear.comb = function(label, val, err) {
     diff = setdiff(names(lc), names(.val))
@@ -242,7 +239,6 @@ rc = StatComb$methods(
 ## add quantity, specifying its gradient to compute the covariance
 ## - add value, error, covariamce, correlation
 ##
-## aeb.meas.val.grad.add = function(add.name, add.val, add.grad) {}
 rc = StatComb$methods(
   meas.val.grad.add = function(add.name, add.val, add.grad) {
     names(add.val) = add.name
@@ -262,7 +258,6 @@ rc = StatComb$methods(
 ## add quantity that is combination of other quantities
 ## - add value, error, covariamce, correlation
 ##
-## aeb.meas.comb.add = function(add.name, add.comb) {}
 rc = StatComb$methods(
   meas.comb.add = function(add.name, add.comb) {
     add.comb = drop(add.comb)
@@ -282,7 +277,6 @@ rc = StatComb$methods(
 ##
 ## add quantity defined as expression of existing quantities
 ##
-## aeb.meas.expr.add = function(add.name, add.expr) {}
 rc = StatComb$methods(
   meas.expr.add = function(add.name, add.expr) {
     ##--- substitute parameters
@@ -298,7 +292,6 @@ rc = StatComb$methods(
 ## given a model matrix that describes how a parameter relates to quantities,
 ## fit for it and return the fitted combination of quantities
 ##
-## aeb.model.matrix.fit = function(model.matrix) {}
 rc = StatComb$methods(
   model.matrix.fit = function(model.matrix) {
     model.matrix.names = names(model.matrix)
@@ -315,7 +308,6 @@ rc = StatComb$methods(
 ## fit theory parameter according to model matrix and
 ## add the result to the quantities
 ##
-## aeb.meas.fit.add = function(add.name, add.model.matrix) {}
 rc = StatComb$methods(
   meas.fit.add = function(add.name, add.model.matrix) {
     fit.comb = model.matrix.fit(add.model.matrix)

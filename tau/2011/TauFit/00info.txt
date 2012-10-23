@@ -1,0 +1,19 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	HFAG Fit Early 2012
+
+///////////////////////////////////////////////////////////////////////////////
+
+before Tau 2012
+
+../../../Common/bin/alucomb2.r average2-aleph-hcorr.input
+../scripts/aluelab2-results.r average2-aleph-hcorr.rdata
+../scripts/mkreport.r average2-aleph-hcorr.rdata
+
+after Tau 2012 the KsKs results have been included
+
+../../../Common/bin/alucomb2.r average2-aleph-hcorr-tau12.input
+../scripts/aluelab2-results.r average2-aleph-hcorr-tau12.rdata
+../scripts/mkreport.r average2-aleph-hcorr-tau12.rdata
+
+///////////////////////////////////////////////////////////////////////////////
