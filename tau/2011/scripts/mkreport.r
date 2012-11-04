@@ -701,7 +701,8 @@ get.tex.base.nodes.corr = function() {
     "\\begin{center}",
     "\\captionof{table}{Base nodes correlation coefficients in percent, section @@num@@}\\label{tab:br-fit-corr@@num@@}%",
     "\\fi",
-    "{\\ifhevea\\footnotesize\\else\\tausmall\\fi",
+    "\\begin{envsmall}",
+    "\\begin{center}",
     "\\renewcommand*{\\arraystretch}{1.1}%",
     "\\begin{tabular}{@@tabcols@@}",
     "\\hline")
@@ -709,7 +710,9 @@ get.tex.base.nodes.corr = function() {
   ##--- tex code following the correlation table content
   corr.post = c(
     "\\\\\\hline",
-    "\\end{tabular}}",
+    "\\end{tabular}",
+    "\\end{center}",
+    "\\end{envsmall}",
     "\\ifhevea\\else",
     "\\end{center}",
     "\\end{minipage}",
