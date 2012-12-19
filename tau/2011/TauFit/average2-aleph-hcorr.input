@@ -30,6 +30,7 @@ COMBINE
   Gamma150by66 Gamma151 Gamma152 Gamma152by76 Gamma800 Gamma801
   Gamma802 Gamma803 Gamma804 Gamma805
   Gamma998 GammaAll
+  Gamma50 Gamma51 Gamma806
 
 ##--- drop not yet public Belle results
 MODMEAS DROP Belle Gamma47 prelim PHIPSI11
@@ -62,6 +63,13 @@ QUANTITY Gamma803 seed 0.00041
 QUANTITY Gamma800 seed 0.019
 QUANTITY Gamma804 seed 0.00018
 QUANTITY Gamma801 seed 3.7e-05
+
+# --- extra to cope with Tau12 changes
+QUANTITY Gamma50 seed 1.60e-5
+QUANTITY Gamma51 seed 3.20e-5
+QUANTITY Gamma806 seed 1.60e-5
+NLCONSTRAINT Gamma51.c 0 "-Gamma51 + 2*Gamma50"
+NLCONSTRAINT Gamma806.c 0 "-Gamma806 + Gamma50"
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
