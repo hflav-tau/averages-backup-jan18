@@ -608,7 +608,7 @@ get.tex.meas.by.collab = function() {
   collab.nmeas = sapply(collabs, function(collab) sum(collab.meas == collab))
   return(paste("\\newcommand{\\hfagNumMeas",
                sapply(collabs, function(x) toTex$trN(x)),
-               "}{", collab.nmeas, "}", sep="", collapse="\n"))
+               "}{", collab.nmeas, "\\xspace}", sep="", collapse="\n"))
 }
 
 ##
@@ -849,18 +849,27 @@ mkreport = function(fname) {
   cat("file '", fname, "' created\n", sep="")
 
   ##
+  ## HFAG-Tau fit uses some extra quantities not related to measurements:
+  ## GammaAll, Gamma998 (unitarity residual), Gamma110
+  ## we subtract these three to get the number of variables that
+  ## are actually corresponding to a measurement or an estimate
+  ##
+  dummy.quant.num = 3
+
+  ##
   ## write tex defs of some quantities
   ##
   tex.defs = paste(
     mkreport.tex.cmd.short("HfagTauMeasNum", as.character(meas.num)),
-    ##--- subtract GammaAll and Gamma998
-    mkreport.tex.cmd.short("HfagTauQuantNum", as.character(quant.num-2)),
-    ##--- subtract GammaAll def and Unitarity constraint with Gamma998
-    mkreport.tex.cmd.short("HfagTauConstrNum", as.character(constr.num-2)),
+    ##--- quantities corresponding to measurements
+    mkreport.tex.cmd.short("HfagTauQuantNum", as.character(quant.num-dummy.quant.num)),
+    ##--- base quantities
+    mkreport.tex.cmd.short("HfagTauBaseQuantNum", as.character(quant.num - constr.num)),
+    ##--- constraints used to relate measurements to base quantities
+    mkreport.tex.cmd.short("HfagTauConstrNum", as.character(constr.num - dummy.quant.num)),
     mkreport.tex.cmd.short("HfagTauChisq", sprintf("%.1f", chisq)),
     mkreport.tex.cmd.short("HfagDof", as.character(dof)),
-    mkreport.tex.cmd.short("HfagTauChisqProb", get.tex.val.auto(chisq.prob)),
-    sep="")
+    mkreport.tex.cmd.short("HfagTauChisqProb", get.tex.val.auto(chisq.prob)), sep="")
   cat(tex.defs, file=fname, append=TRUE)
   cat("file '", fname, "', initial defs\n", sep="")
 
