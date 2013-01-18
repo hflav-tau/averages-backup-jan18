@@ -71,7 +71,7 @@ alucomb2.getpdgrefs = function(node) {
       return(NULL)
     }
 
-    page.html = getUrlRetry(bibtex.uri, curl=curl)
+    page.html = getUrlRetry(paste("http://inspirehep.net/", bibtex.uri, sep=""), curl=curl)
     if (inherits(page.html, "try-error")) {
       cat("error on", pdg.key, "loading", bibtex.uri, "\n", file=stderr())
       return(NULL)
