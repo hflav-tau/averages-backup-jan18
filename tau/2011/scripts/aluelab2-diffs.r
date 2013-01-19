@@ -188,7 +188,10 @@ aluelab.results = function(args) {
   names(pull.dof) = names(meas.val)
   ##--- zero dof numerically compatible with zero
   pull.dof = ifelse(pull.dof > length(pull.cov.eigen.nonzero)*tol, pull.dof, 0)
-  
+
+  ##--- normalize pull significance with square root of effective dof
+  pull.signif = ifelse(pull.dof != 0, pull.signif/sqrt(pull.dof), 0)
+
   ##--- reorder by abs value of pulls significance
   pull.signif.order = order(abs(pull.signif))
   pull.signif.sorted = pull.signif[pull.signif.order]
@@ -246,6 +249,7 @@ aluelab.results = function(args) {
   }
   cat("\\bottomrule\n")
   cat("\\end{tabular}\n")
+  
   print(cbind(pull.val[pull.check.meas], meas.err[pull.check.meas], pull.signif[pull.check.meas], pull.dof[pull.check.meas]))
 }
 
