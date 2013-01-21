@@ -179,19 +179,43 @@ aluelab.results = function(args) {
   ##--- get inverse square root of covariance for measurements pulls
   pull.cov.inv.sqrt = rc.e$vectors %*% diag(pull.cov.eigen.val.inv.sqrt) %*% t(rc.e$vectors)
   ##--- compute significance of measuremnts pulls
-  pull.signif = drop(pull.val %*% pull.cov.inv.sqrt)
-  names(pull.signif) = names(meas.val)
-
+  pull.chisq = drop(pull.val %*% pull.cov.inv.sqrt)
+  names(pull.chisq) = names(meas.val)
+  
   ##--- compute equivalent number of dof for measurements pulls
   pull.cov.eigen.nonzero = ifelse(pull.cov.eigen.val != 0, 1, 0)
   pull.dof = drop(rc.e$vectors^2 %*% pull.cov.eigen.nonzero)
   names(pull.dof) = names(meas.val)
   ##--- zero dof numerically compatible with zero
-  pull.dof = ifelse(pull.dof > length(pull.cov.eigen.nonzero)*tol, pull.dof, 0)
+  pull.dof = ifelse(pull.dof > length(pull.cov.eigen.nonzero)^2*tol, pull.dof, 0)
 
-  ##--- normalize pull significance with square root of effective dof
-  pull.signif = ifelse(pull.dof != 0, pull.signif/sqrt(pull.dof), 0)
+  ##--- explicitly set to zero the chisq contribution of pulls for single measurements with zero ndof
+  pull.chisq = ifelse(pull.dof != 0, pull.chisq, 0)
+  
+  ##--- normalize pull significance with square root of effective dof (probably wrong)
+  pull.signif.a = ifelse(pull.dof != 0, pull.chisq/sqrt(pull.dof), 0)
 
+  ##--- get pulls in the base that diagonalizes the covariance matrix
+  pull.diag.val = drop(t(rc.e$vectors) %*% pull.val)
+  ##--- significance in the diag. base (set to 1 if the eigenvalue is zero)
+  pull.diag.signif2 = ifelse(pull.cov.eigen.val != 0, pull.diag.val^2 / pull.cov.eigen.val, 1)
+  ##--- pull significances square are sum of diag base significances square times coeff square
+  pull.signif2.b = drop(rc.e$vectors^2 %*% pull.diag.signif2)
+  ##--- explicitly set to zero square signif of pulls for single measurements with zero ndof
+  pull.signif2.b = ifelse(pull.dof != 0, pull.signif2.b, 0)
+  ##--- use sign of chisq residuals to sign the pull significances
+  pull.signif.b = sign(pull.chisq)*sqrt(pull.signif2.b)
+
+  ##--- pulls weighted with inverse sqrt of measurements covariance
+  rc.e = eigen(meas.cov)
+  meas.cov.inv.sqrt = rc.e$vectors %*% diag(1/sqrt(rc.e$values)) %*% t(rc.e$vectors)
+  pull.signif.c = drop(pull.val %*% meas.cov.inv.sqrt)
+  pull.signif.c = ifelse(pull.dof != 0, pull.signif.c, 0)
+  names(pull.signif.c) = names(meas.val)
+
+  ##--- choose signif definition
+  pull.signif = pull.signif.c
+  
   ##--- reorder by abs value of pulls significance
   pull.signif.order = order(abs(pull.signif))
   pull.signif.sorted = pull.signif[pull.signif.order]
@@ -245,12 +269,19 @@ aluelab.results = function(args) {
         ifelse(length(meas.babar.quant)==1, aluelab.fmt(pull.signif[meas.babar.quant]), ""),
         " & ",
         ifelse(length(meas.belle.quant)==1, aluelab.fmt(pull.signif[meas.belle.quant]), ""),
-        "\\\\\n", sep="")
+        " \\\\\n", sep="")
   }
   cat("\\bottomrule\n")
   cat("\\end{tabular}\n")
   
-  print(cbind(pull.val[pull.check.meas], meas.err[pull.check.meas], pull.signif[pull.check.meas], pull.dof[pull.check.meas]))
+  rc = print(cbind(
+    pull=pull.val[pull.check.meas],
+    meas.err=meas.err[pull.check.meas],
+    pull.chisq=pull.chisq[pull.check.meas],
+    signif.a=pull.signif.a[pull.check.meas],
+    signif.b=pull.signif.b[pull.check.meas],
+    signif.c=pull.signif.c[pull.check.meas],
+    eff.dof=pull.dof[pull.check.meas]))
 }
 
 args = commandArgs(TRUE)
