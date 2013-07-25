@@ -1,0 +1,19 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-vus-hfag-end2011.input\")"
+#
+# i       - xmin, xmax, precision, title
+# m       - measurement with symmetric stat & syst errors
+# ma      - measurement with asymmetric stat & syst errors
+# mt, mat - like m, ma but for "this work"
+# p       - PDG average, sets band
+# h       - other averages
+#  
+#i   0.2130 0.2280    6.4    |V_{us}|
+i   0 0              6.4    |V_{us}|
+h   0.2254 0.0013 -1 -1 K_{l3} decays, FlaviaNet 2010
+h   0.2252 0.0013 -1 -1 K_{l2} decays, FlaviaNet 2010
+p   0.2255 0.0010 -1 -1 CKM unitarity
+mt  0.2229 0.0021 0.0000 #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFAG 2012
+mt  0.2214 0.0022 0.0000 #tau #rightarrow K#nu, HFAG 2012
+mt  0.2173 0.0022 0.0000 #tau #rightarrow s inclusive, HFAG 2012
+mt  0.2202 0.0015 0.0000 #tau average, HFAG 2012
