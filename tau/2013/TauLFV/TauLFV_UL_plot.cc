@@ -9,6 +9,7 @@
 //
 // This will create a .eps file with the plot.
 //
+//                          Last update  2013/07/25
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
@@ -35,7 +36,7 @@
 #include "TLegend.h"
 #include "TPaveText.h"
 
-//#include "../plots/HFAGTauLabel.cc"
+#include "../plots/HFAGTauLabel.cc"
 
 enum DECAY {
   EGAMMA = 0,
@@ -683,7 +684,7 @@ void SetUp()
   gStyle->SetGridStyle(1);
 }
 
-void TauLFV_UL_plot(Int_t when=2012001)
+void TauLFV_UL_plot(Int_t when=2013001)
 {
   SetUp();
   unsigned int ibin;
@@ -713,6 +714,9 @@ void TauLFV_UL_plot(Int_t when=2012001)
     fillBelle_2010001(Belle);
     fillBaBar_2010001(BaBar);
   }else if (when==2012001) {
+    fillBelle_2012001(Belle);
+    fillBaBar_2010001(BaBar);
+  }else if (when==2013001) {
     fillBelle_2012001(Belle);
     fillBaBar_2010001(BaBar);
     fillLHCb(LHCb);
