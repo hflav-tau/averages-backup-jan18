@@ -1,0 +1,67 @@
+#
+# parameters used for possibly updating systematic terms
+# use PDG 2011 when possible
+#
+PARAMETERS
+  # --- e+e- -> tau+tau- cross section from Swagato et al. paper
+  sigmataupmy4s    0.919        +-0.0032165
+  # --- tau -> pi- pi0 nu, Gamma14, PDG11 fit
+  PimPizNu_13         0.2552       +-0.0009
+  # --- tau -> K- K0S, 1/2 * Gamma37, PDG13 fit
+  KmKzsNu          0.000795     +-8e-05
+  # --- tau -> pi- pi0 K0S, 1/2 * Gamma40, HFAG-tau mid-2011 fit using BaBar prelim. meas.
+  PimPizKzsNu      0.0017248    +-7.3636e-05
+  # --- tau -> K- pi0 K0S, 1/2 * Gamma42, PDG11 fit
+  KmPizKzsNu       0.000795     +-0.0001
+  # --- tau -> pi- K0S K0S, Gamma47, PDG11 fit
+  PimKzsKzsNu_13      0.000231      +-1.7e-05
+  # --- tau -> pi-pi-pi+ (ex.K0), Gamma60, PDG13 fit
+  PimPimPipNu_13      0.0899       +-0.0006
+  # --- tau -> pi-pi-pi+pi0 (ex.K0), Gamma69, PDG13 fit
+  PimPimPipPizNu   0.0448       +-0.0006
+  # --- tau -> K-pi-pi+, Gamma85, PDG11 fit
+  PimKmPipNu       0.00294      +-0.00015
+  # --- tau -> K-K+pi, Gamma93, PDG11 fit
+  PimKmKpNu        0.00144      +-5e-05
+  #
+  # tau -> pi KS KL nu
+  # best fit of PDG11 fit results (neglecting correlations)
+  # weighted average of BRs to KSKL and K+K- - 2KSKS
+  # KSKL = Gamma48, K+K- = Gamma93, KSKS = Gamma47
+  #
+  PimKzsKzlNu      0.00097739   +-0.00010768
+
+#
+# the following parameters are used in the constraint equations
+# (the errors are actually not used)
+#
+PARAMETERS
+  # --- eta -> gamma gamma, node S014R34, PDG13 fit
+  BR_eta_2gam_13      0.3941       +-0.002
+  # eta -> neutral, node S014R21, PDG13 fit
+  BR_eta_neutral_13   0.7212        +-0.0034
+  # --- eta -> 3pi0, node S014R52, PDG13 fit
+  BR_eta_3piz_13      0.3268       +-0.0023
+  # --- eta -> pi+pi-pi0, node S014R53, PDG13 fit
+  BR_eta_pimpippiz_13 0.2292       +-0.0028
+  # eta -> charged, node S014R21, 
+  BR_eta_charged   0.281        +-0.0034
+  # --- K0S -> 2piz, node S012R2, PDG11 fit
+  BR_KS_2piz       0.3069       +-0.0005
+  # --- K0S -> pi+pi-, node S012R1, PDG11 fit
+  BR_KS_pimpip     0.692        +-0.0005
+  # --- omega -> pi+pi-pi0, from PDG11 fit
+  BR_om_pimpippiz  0.892        +-0.007
+  # --- omega -> pi+pi-, from PDG11 fit
+  BR_om_pimpip     0.0153       +0.0011      -0.0013
+  # --- omega -> pi0gamma, from PDG11 fit
+  BR_om_pizgamma   0.0828       +-0.0028
+  # --- phi -> K+K-, node M004R1, PDG11 fit
+  BR_phi_KmKp      0.489        +-0.005
+  # --- phi -> K0SK0L, node M004R2, PDG11 fit
+  BR_phi_KSKL      0.342        +-0.004
+  #
+  BRA_Kz_KS_KET		0.5	    +-0		# |<Kz | KS>|^2
+  BRA_Kz_KL_KET		0.5         +-0         # |<Kz | KS>|^2
+  BRA_Kzbar_KS_KET	0.5	    +-0		# |<Kzbar | KS>|^2
+  BRA_Kzbar_KL_KET	0.5	    +-0		# |<Kzbar | KS>|^2
