@@ -1,0 +1,19 @@
+///////////////////////////////////////////////////////////////////////////////
+
+	HFAG Fit Early 2014
+
+///////////////////////////////////////////////////////////////////////////////
+
+reproduce Early 2012 results
+
+actually, we reproduce here the Early 2012 results as reproduced in
+December 2012 after adding some Tau12 results and modifying properly
+the input cards to reproduce the Early 2012 results together with two
+additional BRs, Gamma50 and Gamma51, which have essentially no
+correlation with the other ones.
+
+../../../Common/bin/alucomb2.r average2-aleph-hcorr-mar12.input
+../scripts/aluelab2-results.r average2-aleph-hcorr.rdata
+../scripts/mkreport.r average2-aleph-hcorr.rdata
+
+///////////////////////////////////////////////////////////////////////////////
