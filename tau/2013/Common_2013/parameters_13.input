@@ -6,7 +6,7 @@ PARAMETERS
   # --- e+e- -> tau+tau- cross section from Swagato et al. paper
   sigmataupmy4s    0.919        +-0.0032165
   # --- tau -> pi- pi0 nu, Gamma14, PDG11 fit
-  PimPizNu_13         0.2552       +-0.0009
+  PimPizNu         0.2552       +-0.0009
   # --- tau -> K- K0S, 1/2 * Gamma37, PDG13 fit
   KmKzsNu          0.000795     +-8e-05
   # --- tau -> pi- pi0 K0S, 1/2 * Gamma40, HFAG-tau mid-2011 fit using BaBar prelim. meas.
@@ -14,9 +14,9 @@ PARAMETERS
   # --- tau -> K- pi0 K0S, 1/2 * Gamma42, PDG11 fit
   KmPizKzsNu       0.000795     +-0.0001
   # --- tau -> pi- K0S K0S, Gamma47, PDG11 fit
-  PimKzsKzsNu_13      0.000231      +-1.7e-05
+  PimKzsKzsNu      0.000231      +-1.7e-05
   # --- tau -> pi-pi-pi+ (ex.K0), Gamma60, PDG13 fit
-  PimPimPipNu_13      0.0899       +-0.0006
+  PimPimPipNu      0.0899       +-0.0006
   # --- tau -> pi-pi-pi+pi0 (ex.K0), Gamma69, PDG13 fit
   PimPimPipPizNu   0.0448       +-0.0006
   # --- tau -> K-pi-pi+, Gamma85, PDG11 fit
@@ -37,13 +37,13 @@ PARAMETERS
 #
 PARAMETERS
   # --- eta -> gamma gamma, node S014R34, PDG13 fit
-  BR_eta_2gam_13      0.3941       +-0.002
+  BR_eta_2gam      0.3941       +-0.002
   # eta -> neutral, node S014R21, PDG13 fit
-  BR_eta_neutral_13   0.7212        +-0.0034
+  BR_eta_neutral   0.7212        +-0.0034
   # --- eta -> 3pi0, node S014R52, PDG13 fit
-  BR_eta_3piz_13      0.3268       +-0.0023
+  BR_eta_3piz      0.3268       +-0.0023
   # --- eta -> pi+pi-pi0, node S014R53, PDG13 fit
-  BR_eta_pimpippiz_13 0.2292       +-0.0028
+  BR_eta_pimpippiz 0.2292       +-0.0028
   # eta -> charged, node S014R21, 
   BR_eta_charged   0.281        +-0.0034
   # --- K0S -> 2piz, node S012R2, PDG11 fit
