@@ -1,4 +1,4 @@
-#
+	#
 # parameters used for possibly updating systematic terms
 # use PDG 2011 when possible
 #
@@ -15,8 +15,8 @@ PARAMETERS
   KmPizKzsNu       0.000795     +-0.0001
   # --- tau -> pi- K0S K0S, Gamma47, PDG11 fit
   PimKzsKzsNu      0.000231      +-1.7e-05
-  # --- tau -> pi-pi-pi+ (ex.K0), Gamma60, PDG13 fit
-  PimPimPipNu      0.0899       +-0.0006
+  # --- tau -> pi-pi-pi+ (ex.K0), Gamma60, PDG11 fit
+  PimPimPipNu      0.0902       +-0.0006
   # --- tau -> pi-pi-pi+pi0 (ex.K0), Gamma69, PDG13 fit
   PimPimPipPizNu   0.0448       +-0.0006
   # --- tau -> K-pi-pi+, Gamma85, PDG11 fit
