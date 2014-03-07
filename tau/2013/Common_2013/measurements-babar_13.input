@@ -7,7 +7,7 @@ BEGIN MEASUREMENT BaBar Gamma136 pub ARXIV 1209.2734
 VALUE 0.000225 +-7e-06 +-1.2e-05
 
 SYSTEMATICS
-  -0.3%            sigmataupmy4s    # -4.8e-07
+  -0.3%            sigmataupmy4s    # -6.75e-07
   -1.0%            BaBarLumi        # -2.25e-06
 
 PARAMETERS
@@ -19,16 +19,51 @@ END
 # Gamma900 
 # G(pi- pi0 pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total) # agree with the numbering sheame
 #
+BEGIN MEASUREMENT BaBar Gamma900 pub PHYS. REV. D 86 092010 (2012)
+
+
 VALUE 0.000201  +-3.4e-05 +-2.2e-05
 SYSTEMATICS
-  -0.3%            sigmataupmy4s    # -4.8e-07
-  -1.0%            BaBarLumi        # -2.25e-06
+  -0.3%            sigmataupmy4s    # -6.03e-07
+  -1.0%            BaBarLumi        # -2.01e-06
 
 PARAMETERS
   sigmataupmy4s    0.919        +-0.0032165
 
 END
 
+#
+# Gamma901
+# G(pi- f1(2pi+ 2pi-) nu(tau) ) / G(total) # agree with the numbering sheame
+#
+BEGIN MEASUREMENT BaBar Gamma901 pub PHYS. REV.	D 86 092010 (2012)
 
+VALUE 4.73e-04 +-2.8e-05 +-4.5e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.42e-06
+  -1.0%            BaBarLumi        # -4.73e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma902
+# G(pi- f1(pi+ pi- eta) nu(tau) ) / G(total) # agree with the numbering sheame
+#
+BEGIN MEASUREMENT BaBar Gamma902 pub PHYS. REV.	D 86 092010 (2012)
+
+VALUE 3.60e-04 +-1.8e-05 +-2.3e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.08e-06
+  -1.0%            BaBarLumi        # -3.60e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
 
 
