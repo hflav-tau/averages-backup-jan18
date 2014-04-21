@@ -443,7 +443,7 @@ get.tex.meas.val = function(meas, precision, order) {
 ## - experiment
 ## - latex \cite{} reference
 ## - type: prelim or pub
-## - formatter val +- stat +- syst
+## - formatted val +- stat +- syst
 ##
 get.tex.meas = function(meas, precision, order) {
   meas.item = list()
@@ -836,7 +836,7 @@ mkreport.get.meas.val = function(meas) {
 }
 
 ##
-## create .tex files for HFAT report
+## create .tex files for HFAG report
 ##
 mkreport = function(fname) {
   load(fname, .GlobalEnv)

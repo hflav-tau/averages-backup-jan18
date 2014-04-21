@@ -404,12 +404,12 @@ aluelab.results = function(args) {
   quant$meas.add.single("Vus_err_perc", quant$err()["Vus"]/quant$val()["Vus"]*100, 0)
 
   ##--- theory, exp errors, with percent
-  Vus.err.th = abs(quant$cov()["Vus", "deltaR_su3break"])/quant$err()["deltaR_su3break"]
-  quant$meas.add.single("Vus_err_th", Vus.err.th, 0)
-  quant$meas.expr.add("Vus_err_th_perc", quote(Vus_err_th/Vus*100))
-  Vus.err.exp = sqrt(quant$err()["Vus"]^2 - Vus.err.th^2)
+  quant$meas.add.single("Vus_err_th", quant$syst.contrib("Vus", "deltaR_su3break"), 0)
+  quant$meas.add.single("Vus_err_th_perc", quant$syst.contrib.perc("Vus", "deltaR_su3break"), 0)
+
+  Vus.err.exp = sqrt(quant$err()["Vus"]^2 - quant$param()["Vus_err_th"]^2)
   quant$meas.add.single("Vus_err_exp", Vus.err.exp, 0)
-  quant$meas.expr.add("Vus_err_exp_perc", quote(Vus_err_exp/Vus*100))
+  quant$meas.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val()["Vus"]*100, 0)
 
   ##--- Vus from Vud using CKM unitarity
   quant$meas.expr.add("Vus_uni", quote(sqrt(1-Vud^2)))
@@ -662,6 +662,48 @@ aluelab.results = function(args) {
     rc = c(rc, paste("\\newcommand{\\quval", toTex$trN(name), sprintf(fmt.val, val), "% ", name, sep=""))
   }, quant$all.name()[quant.all.order], quant$all.val()[quant.all.order], quant$all.err()[quant.all.order])
 
+  ##--- print correlation of universality results
+  quant.list = c(
+    "gtaubygmu_tau", "gtaubyge_tau", "gmubyge_tau",
+    "gtaubygmu_pi", "gtaubygmu_K"
+    )
+  univ.corr = quant$corr()[quant.list, quant.list]
+  univ.corr = 100*univ.corr
+  ## print(univ.corr)
+
+  tex.corr = NULL
+
+  tex.corr = c(tex.corr,
+    paste("$\\left( \\frac{g_\\tau}{g_e} \\right)$",
+          paste(sprintf("%4.0f", univ.corr[2, 1]), collapse=" & "),
+          sep=" & "))
+
+  tex.corr = c(tex.corr,
+    paste("$\\left( \\frac{g_\\mu}{g_e} \\right)$",
+          paste(sprintf("%4.0f", univ.corr[3, 1:2]), collapse=" & "),
+          sep=" & "))
+
+  tex.corr = c(tex.corr,
+    paste("$\\left( \\frac{g_\\tau}{g_\\mu} \\right)_\\pi$",
+          paste(sprintf("%4.0f", univ.corr[4, 1:3]), collapse=" & "),
+          sep=" & "))
+
+  tex.corr = c(tex.corr,
+    paste("$\\left( \\frac{g_\\tau}{g_\\mu} \\right)_K$",
+          paste(sprintf("%4.0f", univ.corr[5, 1:4]), collapse=" & "),
+          sep=" & "))
+
+  tex.corr = c(tex.corr, paste(
+    "",
+    "$\\left( \\frac{g_\\tau}{g_\\mu} \\right)$", 
+    "$\\left( \\frac{g_\\tau}{g_e} \\right)$",
+    "$\\left( \\frac{g_\\mu}{g_e} \\right)$",
+    "$\\left( \\frac{g_\\tau}{g_\\mu} \\right)_\\pi$",
+    ## "$\\left( \\frac{g_\\tau}{g_\\mu} \\right)_K$",
+     sep=" & ", collapse=" & "))
+
+  rc = c(rc, paste("\\newcommand{\\couplingsCorr}{", paste(tex.corr, collapse="\\\\\n"), "}", sep=""))
+  
   ##--- make file name for report .tex output
   fname.short = gsub("average[^-]*-*", "", file.name)
   fname.short = gsub("[.]rdata", "", fname.short)
