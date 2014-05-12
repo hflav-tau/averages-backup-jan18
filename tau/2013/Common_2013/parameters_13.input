@@ -60,6 +60,8 @@ PARAMETERS
   BR_phi_KmKp      0.489        +-0.005
   # --- phi -> K0SK0L, node M004R2, PDG11 fit
   BR_phi_KSKL      0.342        +-0.004
+  # --- f1 -> 2PIZPIPPIML, node XXX, PDG14 fit
+  BR_f1_2PIZPIpPIm      0.220        +-0.013
   #
   BRA_Kz_KS_KET		0.5	    +-0		# |<Kz | KS>|^2
   BRA_Kz_KL_KET		0.5         +-0         # |<Kz | KS>|^2

@@ -1,0 +1,3247 @@
+read file average2-aleph-hcorr_13.input 
+read file ./../Common-Mar2011/measurements-aleph-hcorr.input 
+read file ./../Common-Mar2011/measurements-babar.input 
+read file ./../Common-Mar2011/measurements-belle.input 
+read file ./../Common-Mar2012/measurements-belle.input 
+read file ./../Common-Mar2011/measurements-cleo.input 
+read file ./../Common-Mar2011/measurements-delphi.input 
+read file ./../Common-Mar2011/measurements-l3.input 
+read file ./../Common-Mar2011/measurements-opal.input 
+read file ./../Common-Mar2011/measurements-other.input 
+read file ./../Common_2013/measurements-babar_13.input 
+read file ./../Common-Mar2012/parameters.input 
+read file ./../Common_2013/parameters_13.input 
+read file ./../Common-Mar2012/quantities.input 
+read file ./../Common_2013/quantities.input 
+read file ./../Common-Mar2011/quantities-texdescr.input 
+read file ./../Common-Mar2012/quantities-texdescr.input 
+warning, BEGIN update measurement BaBar.Gamma903.pub.PHYS..REV..D.86.092010.(2012) 
+    value        
+old  8.4e-05     
+new  7.3e-05     
+    stat         
+old  4e-06       
+new  1.2e-05     
+    stat.p       
+old  4e-06       
+new  1.2e-05     
+    stat.n       
+old -4e-06       
+new -1.2e-05     
+    syst         
+old  6e-06       
+new  1.2e-05     
+    syst.p       
+old  6e-06       
+new  1.2e-05     
+    syst.n       
+old -6e-06       
+new -1.2e-05     
+syst.terms 
+    sigmataupmy4s BaBarLumi    
+old -2.52e-07     -8.4e-07     
+new -2.19e-07     -7.3e-07     
+warning, END update measurement BaBar.Gamma903.pub.PHYS..REV..D.86.092010.(2012) 
+
+##
+## averaging the following quantities
+##
+
+COMBINE
+  Gamma3       Gamma3by5    Gamma5       Gamma7       Gamma8      
+  Gamma9       Gamma9by5    Gamma10      Gamma10by5   Gamma13     
+  Gamma14      Gamma16      Gamma17      Gamma19      Gamma19by13 
+  Gamma20      Gamma23      Gamma25      Gamma26      Gamma26by13 
+  Gamma27      Gamma28      Gamma29      Gamma30      Gamma31     
+  Gamma33      Gamma34      Gamma35      Gamma37      Gamma38     
+  Gamma39      Gamma40      Gamma42      Gamma43      Gamma44     
+  Gamma46      Gamma47      Gamma48      Gamma49      Gamma53     
+  Gamma54      Gamma55      Gamma57      Gamma57by55  Gamma58     
+  Gamma60      Gamma62      Gamma66      Gamma69      Gamma70     
+  Gamma74      Gamma76      Gamma76by54  Gamma77      Gamma78     
+  Gamma80by60  Gamma81by69  Gamma82      Gamma85      Gamma88     
+  Gamma92      Gamma93      Gamma93by60  Gamma94      Gamma94by69 
+  Gamma96      Gamma102     Gamma103     Gamma104     Gamma110    
+  Gamma126     Gamma128     Gamma130     Gamma132     Gamma136    
+  Gamma150     Gamma150by66 Gamma151     Gamma152     Gamma152by76
+  Gamma800     Gamma801     Gamma802     Gamma803     Gamma804    
+  Gamma805     Gamma998     GammaAll     Gamma50      Gamma51     
+  Gamma806     Gamma900     Gamma901     Gamma902     Gamma903    
+  Gamma904    
+
+QUANTITY Gamma3 node "S035R1"
+QUANTITY Gamma3 descr "G(mu- nubar(mu) nu(tau)) / G(total)"
+QUANTITY Gamma3 texdescr "\mu^- \bar{\nu}_\mu \nu_\tau"
+
+QUANTITY Gamma3by5 node "S035R5"
+QUANTITY Gamma3by5 descr "G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))"
+
+QUANTITY Gamma5 node "S035R2"
+QUANTITY Gamma5 descr "G(e- nubar(e) nu(tau)) / G(total)"
+QUANTITY Gamma5 texdescr "e^- \bar{\nu}_e \nu_\tau"
+
+QUANTITY Gamma7 node "S035R43"
+QUANTITY Gamma7 descr "G(h- >=0 K(L)0 nu(tau)) / G(total)"
+
+QUANTITY Gamma8 node "S035B73"
+QUANTITY Gamma8 descr "G(h- nu(tau)) / G(total)"
+
+QUANTITY Gamma9 node "S035R6"
+QUANTITY Gamma9 descr "G(pi- nu(tau)) / G(total)"
+QUANTITY Gamma9 texdescr "\pi^- \nu_\tau"
+
+QUANTITY Gamma9by5 node "S035Y01"
+QUANTITY Gamma9by5 descr "G(pi- nu(tau)) / G(e- nubar(e) nu(tau))"
+
+QUANTITY Gamma10 node "S035R7"
+QUANTITY Gamma10 descr "G(K- nu(tau)) / G(total)"
+QUANTITY Gamma10 texdescr "K^- \nu_\tau"
+
+QUANTITY Gamma10by5 node "S035Y02"
+QUANTITY Gamma10by5 descr "G(K- nu(tau)) / G(e- nubar(e) nu(tau))"
+
+QUANTITY Gamma13 node "S035R84"
+QUANTITY Gamma13 descr "G(h- pi0 nu(tau)) / G(total)"
+
+QUANTITY Gamma14 node "S035R8"
+QUANTITY Gamma14 descr "G(pi- pi0 nu(tau)) / G(total)"
+QUANTITY Gamma14 texdescr "\pi^- \pi^0 \nu_\tau"
+
+QUANTITY Gamma16 node "S035B29"
+QUANTITY Gamma16 descr "G(K- pi0 nu(tau)) / G(total)"
+QUANTITY Gamma16 texdescr "K^- \pi^0 \nu_\tau"
+
+QUANTITY Gamma17 node "S035R44"
+QUANTITY Gamma17 descr "G(h- >=2 pi0 nu(tau)) / G(total)"
+
+QUANTITY Gamma19 node "S035R20"
+QUANTITY Gamma19 descr "G(h- 2pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma19by13 node "S035B21"
+QUANTITY Gamma19by13 descr "G(h- 2pi0 nu(tau) (ex. K0)) / G(h- pi0 nu(tau))"
+
+QUANTITY Gamma20 node "S035B55"
+QUANTITY Gamma20 descr "G(pi- 2pi0 nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma20 texdescr "\pi^- 2\pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
+
+QUANTITY Gamma23 node "S035B30"
+QUANTITY Gamma23 descr "G(K- 2pi0 nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma23 texdescr "K^- 2\pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
+
+QUANTITY Gamma25 node "S035C02"
+QUANTITY Gamma25 descr "G(h- >= 3pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma26 node "S035R21"
+QUANTITY Gamma26 descr "G(h- 3pi0 nu(tau)) / G(total)"
+
+QUANTITY Gamma26by13 node "S035B22"
+QUANTITY Gamma26by13 descr "G(h- 3pi0 nu(tau)) / G(h- pi0 nu(tau))"
+
+QUANTITY Gamma27 node "S035B56"
+QUANTITY Gamma27 descr "G(pi- 3pi0 nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma27 texdescr "\pi^- 3\pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
+
+QUANTITY Gamma28 node "S035B31"
+QUANTITY Gamma28 descr "G(K- 3pi0 nu(tau) (ex. K0, eta)) / G(total)"
+QUANTITY Gamma28 texdescr "K^- 3\pi^0 \nu_\tau ~(\mathrm{ex.~}K^0,\eta)"
+
+QUANTITY Gamma29 node "S035B79"
+QUANTITY Gamma29 descr "G(h- 4pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma30 node "S035B23"
+QUANTITY Gamma30 descr "G(h- 4pi0 nu(tau) (ex. K0, eta)) / G(total)"
+QUANTITY Gamma30 texdescr "h^- 4\pi^0 \nu_\tau ~(\mathrm{ex.~}K^0,\eta)"
+
+QUANTITY Gamma31 node "S035R26"
+QUANTITY Gamma31 descr "G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)"
+
+QUANTITY Gamma33 node "S035B43"
+QUANTITY Gamma33 descr "G(K(S)0 (particles)- nu(tau)) / G(total)"
+
+QUANTITY Gamma34 node "S035B67"
+QUANTITY Gamma34 descr "G(h- Kbar0 nu(tau)) / G(total)"
+
+QUANTITY Gamma35 node "S035B32"
+QUANTITY Gamma35 descr "G(pi- Kbar0 nu(tau)) / G(total)"
+QUANTITY Gamma35 texdescr "\pi^- \bar{K}^0 \nu_\tau"
+
+QUANTITY Gamma37 node "S035R46"
+QUANTITY Gamma37 descr "G(K- K0 nu(tau)) / G(total)"
+QUANTITY Gamma37 texdescr "K^- K^0 \nu_\tau"
+
+QUANTITY Gamma38 node "S035C38"
+QUANTITY Gamma38 descr "G(K- K0 >=0 pi0 nu(tau)) / G(total)"
+
+QUANTITY Gamma39 node "S035B68"
+QUANTITY Gamma39 descr "G(h- Kbar0 pi0 nu(tau)) / G(total)"
+
+QUANTITY Gamma40 node "S035B33"
+QUANTITY Gamma40 descr "G(pi- Kbar0 pi0 nu(tau)) / G(total)"
+QUANTITY Gamma40 texdescr "\pi^- \bar{K}^0 \pi^0 \nu_\tau"
+
+QUANTITY Gamma42 node "S035B34"
+QUANTITY Gamma42 descr "G(K- K0 pi0 nu(tau)) / G(total)"
+QUANTITY Gamma42 texdescr "K^- \pi^0 K^0 \nu_\tau"
+
+QUANTITY Gamma43 node "S035C37"
+QUANTITY Gamma43 descr "G(pi- Kbar0 >=1 pi0 nu(tau)) / G(total)"
+
+QUANTITY Gamma44 node "S035B98"
+QUANTITY Gamma44 descr "G(pi- Kbar0 2pi0 nu(tau)) / G(total)"
+QUANTITY Gamma44 texdescr "\pi^- \bar{K}^0 \pi^0 \pi^0 \nu_\tau"
+
+QUANTITY Gamma46 node "S035B51"
+QUANTITY Gamma46 descr "G(pi- K0 Kbar0 nu(tau)) / G(total)"
+
+QUANTITY Gamma47 node "S035B69"
+QUANTITY Gamma47 descr "G(pi- K(S)0 K(S)0 nu(tau)) / G(total)"
+QUANTITY Gamma47 texdescr "\pi^- K_S^0 K_S^0 \nu_\tau"
+
+QUANTITY Gamma48 node "S035C1"
+QUANTITY Gamma48 descr "G(pi- K(S)0 K(L)0 nu(tau)) / G(total)"
+QUANTITY Gamma48 texdescr "\pi^- K_S^0 K_L^0 \nu_\tau"
+
+QUANTITY Gamma49 node "S035C44"
+QUANTITY Gamma49 descr "G(pi- pi0 K0 Kbar0 nu(tau)) / G(total)"
+QUANTITY Gamma49 texdescr "\pi^- K^0 \bar{K}^0 \pi^0 \nu_\tau"
+
+QUANTITY Gamma53 node "S035C5"
+QUANTITY Gamma53 descr "G(Kbar0 h- h- h+ nu(tau)) / G(total)"
+QUANTITY Gamma53 texdescr "\bar{K}^0 h^- h^- h^+ \nu_\tau"
+
+QUANTITY Gamma54 node "S035R31"
+QUANTITY Gamma54 descr "G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)"
+
+QUANTITY Gamma55 node "S035B63"
+QUANTITY Gamma55 descr "G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)"
+
+QUANTITY Gamma57 node "S035B62"
+QUANTITY Gamma57 descr "G(h- h- h+ nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma57by55 node "S035B64"
+QUANTITY Gamma57by55 descr "G(h- h- h+ nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong''))"
+
+QUANTITY Gamma58 node "S035B71"
+QUANTITY Gamma58 descr "G(h- h- h+ nu(tau) (ex. K0, omega)) / G(total)"
+
+QUANTITY Gamma60 node "S035C19"
+QUANTITY Gamma60 descr "G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma62 node "S035C20"
+QUANTITY Gamma62 descr "G(pi- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)"
+QUANTITY Gamma62 texdescr "\pi^- \pi^- \pi^+ \nu_\tau ~(\mathrm{ex.~}K^0,\omega)"
+
+QUANTITY Gamma66 node "S035B53"
+QUANTITY Gamma66 descr "G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma69 node "S035C23"
+QUANTITY Gamma69 descr "G(pi- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma70 node "S035C24"
+QUANTITY Gamma70 descr "G(pi- pi- pi+ pi0 nu(tau) (ex. K0, omega)) / G(total)"
+QUANTITY Gamma70 texdescr "\pi^- \pi^- \pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0,\omega)"
+
+QUANTITY Gamma74 node "S035C03"
+QUANTITY Gamma74 descr "G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma76 node "S035B59"
+QUANTITY Gamma76 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma76by54 node "S035B25"
+QUANTITY Gamma76by54 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))"
+
+QUANTITY Gamma77 node "S035B72"
+QUANTITY Gamma77 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)"
+QUANTITY Gamma77 texdescr "h^- h^- h^+ 2\pi^0 \nu_\tau ~(\mathrm{ex.~}K^0,\omega,\eta)"
+
+QUANTITY Gamma78 node "S035B57"
+QUANTITY Gamma78 descr "G(h- h- h+ 3pi0 nu(tau)) / G(total)"
+QUANTITY Gamma78 texdescr "h^- h^- h^+ 3\pi^0 \nu_\tau"
+
+QUANTITY Gamma80by60 node "S035C32"
+QUANTITY Gamma80by60 descr "G(K- pi- h+ nu(tau) (ex. K0)) / G(pi- pi- pi+ nu(tau) (ex. K0))"
+
+QUANTITY Gamma81by69 node "S035C34"
+QUANTITY Gamma81by69 descr "G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))"
+
+QUANTITY Gamma82 node "S035R41"
+QUANTITY Gamma82 descr "G(K- pi- pi+ >=0 neutrals nu(tau)) / G(total)"
+
+QUANTITY Gamma85 node "S035C21"
+QUANTITY Gamma85 descr "G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma88 node "S035C25"
+QUANTITY Gamma88 descr "G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma92 node "S035B37"
+QUANTITY Gamma92 descr "G(pi- K- K+ >=0 neutrals nu(tau)) / G(total)"
+
+QUANTITY Gamma93 node "S035R40"
+QUANTITY Gamma93 descr "G(pi- K- K+ nu(tau)) / G(total)"
+QUANTITY Gamma93 texdescr "\pi^- K^- K^+ \nu_\tau"
+
+QUANTITY Gamma93by60 node "S035C35"
+QUANTITY Gamma93by60 descr "G(pi- K- K+ nu(tau)) / G(pi- pi- pi+ nu(tau) (ex. K0))"
+
+QUANTITY Gamma94 node "S035C8"
+QUANTITY Gamma94 descr "G(pi- K- K+ pi0 nu(tau)) / G(total)"
+QUANTITY Gamma94 texdescr "\pi^- K^- K^+ \pi^0 \nu_\tau"
+
+QUANTITY Gamma94by69 node "S035C36"
+QUANTITY Gamma94by69 descr "G(pi- K- K+ pi0 nu(tau)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))"
+
+QUANTITY Gamma96 node "S035C9"
+QUANTITY Gamma96 descr "G(K- K- K+ nu(tau)) / G(total)"
+
+QUANTITY Gamma102 node "S035R33"
+QUANTITY Gamma102 descr "G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)"
+
+QUANTITY Gamma103 node "S035R38"
+QUANTITY Gamma103 descr "G(3h- 2h+ nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma103 texdescr "3h^- 2h^+ \nu_\tau ~(\mathrm{ex.~}K^0)"
+
+QUANTITY Gamma104 node "S035R39"
+QUANTITY Gamma104 descr "G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma104 texdescr "3h^- 2h^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
+
+QUANTITY Gamma110 node "S035C47"
+QUANTITY Gamma110 descr "G(strange) / G(total)"
+QUANTITY Gamma110 texdescr "X_s^- \nu_\tau"
+
+QUANTITY Gamma126 node "S035R32"
+QUANTITY Gamma126 descr "G(pi- pi0 eta nu(tau)) / G(total)"
+QUANTITY Gamma126 texdescr "\pi^- \pi^0 \eta \nu_\tau"
+
+QUANTITY Gamma128 node "S035B20"
+QUANTITY Gamma128 descr "G(K- eta nu(tau)) / G(total)"
+QUANTITY Gamma128 texdescr "K^- \eta \nu_\tau"
+
+QUANTITY Gamma130 node "S035C27"
+QUANTITY Gamma130 descr "G(K- pi0 eta nu(tau)) / G(total)"
+QUANTITY Gamma130 texdescr "K^- \pi^0 \eta \nu_\tau"
+
+QUANTITY Gamma132 node "S035C28"
+QUANTITY Gamma132 descr "G(Kbar0 pi- eta nu(tau)) / G(total)"
+QUANTITY Gamma132 texdescr "\pi^- \bar{K}^0 \eta \nu_\tau"
+
+QUANTITY Gamma136 node "S035B89"
+QUANTITY Gamma136 descr "G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)"
+
+QUANTITY Gamma150 node "S035R23"
+QUANTITY Gamma150 descr "G(h- omega nu(tau)) / G(total)"
+
+QUANTITY Gamma150by66 node "S035R14"
+QUANTITY Gamma150by66 descr "G(h- omega nu(tau)) / G(h- h- h+ pi0 nu(tau) (ex. K0))"
+
+QUANTITY Gamma151 node "S035C61"
+QUANTITY Gamma151 descr "G(K- omega nu(tau)) / G(total)"
+QUANTITY Gamma151 texdescr "K^- \omega \nu_\tau"
+
+QUANTITY Gamma152 node "S035B58"
+QUANTITY Gamma152 descr "G(h- pi0 omega nu(tau)) / G(total)"
+QUANTITY Gamma152 texdescr "h^- \pi^0 \omega \nu_\tau"
+
+QUANTITY Gamma152by76 node "S035B27"
+QUANTITY Gamma152by76 descr "G(h- omega pi0 nu(tau)) / G(h- h- h+ 2pi0 nu(tau) (ex. K0))"
+
+QUANTITY Gamma800 node "S035Z01"
+QUANTITY Gamma800 descr "G(pi- omega nu(tau)) / G(total)"
+QUANTITY Gamma800 texdescr "\pi^- \omega \nu_\tau"
+
+QUANTITY Gamma801 node "S035Z02"
+QUANTITY Gamma801 descr "G(K- phi nu(tau) (phi->KK)) / G(total)"
+QUANTITY Gamma801 texdescr "K^- \phi \nu_\tau (\phi \to KK)"
+
+QUANTITY Gamma802 node "S035Z03"
+QUANTITY Gamma802 descr "G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)"
+QUANTITY Gamma802 texdescr "K^- \pi^- \pi^+ \nu_\tau ~(\mathrm{ex.~}K^0,\omega)"
+
+QUANTITY Gamma803 node "S035Z04"
+QUANTITY Gamma803 descr "G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)"
+QUANTITY Gamma803 texdescr "K^- \pi^- \pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0,\omega,\eta)"
+
+QUANTITY Gamma804 node "S035Z05"
+QUANTITY Gamma804 descr "G(pi- K(L)0 K(L)0 nu(tau)) / G(total)"
+QUANTITY Gamma804 texdescr "\pi^- K_L^0 K_L^0 \nu_\tau"
+
+QUANTITY Gamma805 node "S035Z06"
+QUANTITY Gamma805 descr "G(a1- (-> pi- gamma) nu(tau)) / G(total)"
+QUANTITY Gamma805 texdescr "a_1^- (\to \pi^- \gamma) \nu_\tau"
+
+QUANTITY Gamma998 texdescr "1 - \Gamma_{\text{All}}"
+
+QUANTITY GammaAll node "S035S01"
+QUANTITY GammaAll descr "G(total)"
+
+QUANTITY Gamma50 node "S035C2"
+QUANTITY Gamma50 descr "G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)"
+QUANTITY Gamma50 texdescr "\pi^- \pi^0 K_S^0 K_S^0 \nu_\tau"
+
+QUANTITY Gamma51 node "S035C3"
+QUANTITY Gamma51 descr "G(pi- K(S)0 K(L)0 pi0 nu(tau)) / G(total)"
+QUANTITY Gamma51 texdescr "\pi^- \pi^0 K_S^0 K_L^0 \nu_\tau"
+
+QUANTITY Gamma806 descr "G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)"
+
+
+QUANTITY Gamma9 seed 0.108
+QUANTITY Gamma14 seed 0.25
+QUANTITY Gamma20 seed 0.092
+QUANTITY Gamma27 seed 0.01
+QUANTITY Gamma58 seed 0.094
+QUANTITY Gamma62 seed 0.089
+QUANTITY Gamma70 seed 0.027
+QUANTITY Gamma77 seed 0.00097
+QUANTITY Gamma96 scale 5.435276
+QUANTITY Gamma110 seed 0.028
+QUANTITY Gamma800 seed 0.019
+QUANTITY Gamma801 seed 3.7e-05
+QUANTITY Gamma802 seed 0.0029
+QUANTITY Gamma803 seed 0.00041
+QUANTITY Gamma804 seed 0.00018
+QUANTITY Gamma998 seed 0
+QUANTITY GammaAll seed 1
+QUANTITY Gamma50 seed 1.6e-05
+QUANTITY Gamma51 seed 3.2e-05
+QUANTITY Gamma806 seed 1.6e-05
+
+##
+## quantities with no description
+##
+
+QUANTITY Gamma998 node "" descr ""
+QUANTITY Gamma900 node "" descr ""
+QUANTITY Gamma901 node "" descr ""
+QUANTITY Gamma902 node "" descr ""
+QUANTITY Gamma903 node "" descr ""
+QUANTITY Gamma904 node "" descr ""
+
+##
+## measurements as read from the cards
+##
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma103 pub SCHAEL 05C
+
+VALUE 0.00072 +-0.00015 +-0
+
+STAT_CORR_WITH -0.05725     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.07937     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH -0.03544     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.04295     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH +0.08812     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.04501     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH +0.00998     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.2447      ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH +0.09126     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH +0.03995     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma104 (PDG node = S035R39)
+# G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma104 pub SCHAEL 05C
+
+VALUE 0.00021 +-9.21954e-05 +-0
+
+STAT_CORR_WITH -0.03891     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH +0.02985     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH +0.02254     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH +0.04447     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.02976     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.01584     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.03844     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH +0.00679     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH -0.2447      ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.03345     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.04858     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma10 (PDG node = S035R7)
+# G(K- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma10 pub BARATE 99K
+
+VALUE 0.00696 +-0.0002865 +-0
+
+END
+
+#
+# Gamma126 (PDG node = S035R32)
+# G(pi- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma126 pub BUSKULIC 97C
+
+VALUE 0.0018 +-0.0004472 +-0
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma13 pub SCHAEL 05C
+
+VALUE 0.25924 +-0.00128973 +-0
+
+STAT_CORR_WITH -0.14946     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.37458     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH +0.02035     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.13989     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.04853     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.26209     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.11898     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.16228     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH +0.03995     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.04858     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH +0.02086     ALEPH Gamma8 pub SCHAEL 05C
+
+END
+
+#
+# Gamma150by66 (PDG node = S035R14)
+# G(h- omega nu(tau)) / G(h- h- h+ pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT ALEPH Gamma150by66 pub BUSKULIC 96
+
+VALUE 0.431 +-0.033 +-0
+
+END
+
+#
+# Gamma150 (PDG node = S035R23)
+# G(h- omega nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma150 pub BUSKULIC 97C
+
+VALUE 0.0191 +-0.000922 +-0
+
+END
+
+#
+# Gamma152 (PDG node = S035B58)
+# G(h- pi0 omega nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma152 pub BUSKULIC 97C
+
+VALUE 0.0043 +-0.000781 +-0
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma16 pub BARATE 99K
+
+VALUE 0.00444 +-0.0003538 +-0
+
+END
+
+#
+# Gamma19 (PDG node = S035R20)
+# G(h- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma19 pub SCHAEL 05C
+
+VALUE 0.09295 +-0.00121655 +-0
+
+STAT_CORR_WITH +0.19504     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.2745      ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH +0.03994     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.17255     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH +0.03766     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.05298     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.05235     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH -0.07937     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH +0.02985     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.16535     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.37458     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma23 (PDG node = S035B30)
+# G(K- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma23 pub BARATE 99K
+
+VALUE 0.00056 +-0.00025 +-0
+
+END
+
+#
+# Gamma26 (PDG node = S035R21)
+# G(h- 3pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma26 pub SCHAEL 05C
+
+VALUE 0.01082 +-0.000925581 +-0
+
+STAT_CORR_WITH -0.47493     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.2745      ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH +0.0981      ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.13705     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.0259      ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.03648     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH +0.00177     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH -0.03544     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH +0.02254     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.14789     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH +0.02035     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma28 (PDG node = S035B31)
+# G(K- 3pi0 nu(tau) (ex. K0, eta)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma28 pub BARATE 99K
+
+VALUE 0.00037 +-0.0002371 +-0
+
+END
+
+#
+# Gamma30 (PDG node = S035B23)
+# G(h- 4pi0 nu(tau) (ex. K0, eta)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma30 pub SCHAEL 05C
+
+VALUE 0.00112 +-0.000509313 +-0
+
+STAT_CORR_WITH +0.19504     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH -0.47493     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH +0.12669     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.08273     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH +0.1381      ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.03714     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.02459     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH -0.05725     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.03891     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.24392     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.14946     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma33 (PDG node = S035B43)
+# G(K(S)0 (particles)- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma33 pub BARATE 98E
+
+VALUE 0.0097 +-0.000849 +-0
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(pi- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma35 pub BARATE 99K
+
+VALUE 0.00928 +-0.000564 +-0
+
+END
+
+#
+# Gamma37 (PDG node = S035R46)
+# G(K- K0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma37 pub BARATE 98E
+
+VALUE 0.00158 +-0.0004531 +-0
+
+END
+
+#
+# Gamma37 (PDG node = S035R46)
+# G(K- K0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma37 pub BARATE 99K
+
+VALUE 0.00162 +-0.0002371 +-0
+
+END
+
+#
+# Gamma3 (PDG node = S035R1)
+# G(mu- nubar(mu) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma3 pub SCHAEL 05C
+
+VALUE 0.17319 +-0.000769675 +-0
+
+STAT_CORR_WITH -0.03714     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.05298     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH -0.03648     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.01894     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.08784     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.11273     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.20244     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH +0.00998     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.03844     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.0635      ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.11898     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma40 pub BARATE 98E
+
+VALUE 0.00294 +-0.0008184 +-0
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma40 pub BARATE 99K
+
+VALUE 0.00347 +-0.0006464 +-0
+
+END
+
+#
+# Gamma42 (PDG node = S035B34)
+# G(K- K0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma42 pub BARATE 98E
+
+VALUE 0.00152 +-0.0007885 +-0
+
+END
+
+#
+# Gamma42 (PDG node = S035B34)
+# G(K- K0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma42 pub BARATE 99K
+
+VALUE 0.00143 +-0.0002915 +-0
+
+END
+
+#
+# Gamma44 (PDG node = S035B98)
+# G(pi- Kbar0 2pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma44 pub BARATE 99R
+
+VALUE 0.00026 +-0.00024 +-0
+
+END
+
+#
+# Gamma46 (PDG node = S035B51)
+# G(pi- K0 Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma46 pub BARATE 98E
+
+VALUE 0.00153 +-0.00034 +-0
+
+END
+
+#
+# Gamma47 (PDG node = S035B69)
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma47 pub BARATE 98E
+
+VALUE 0.00026 +-0.0001118 +-0
+
+END
+
+#
+# Gamma48 (PDG node = S035C1)
+# G(pi- K(S)0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma48 pub BARATE 98E
+
+VALUE 0.00101 +-0.0002642 +-0
+
+END
+
+#
+# Gamma49 (PDG node = S035C44)
+# G(pi- pi0 K0 Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma49 pub BARATE 99R
+
+VALUE 0.00031 +-0.00023 +-0
+
+END
+
+#
+# Gamma53 (PDG node = S035C5)
+# G(Kbar0 h- h- h+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma53 pub BARATE 98E
+
+VALUE 0.00023 +-0.000202485 +-0
+
+END
+
+#
+# Gamma58 (PDG node = S035B71)
+# G(h- h- h+ nu(tau) (ex. K0, omega)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma58 pub SCHAEL 05C
+
+VALUE 0.09469 +-0.000957758 +-0
+
+STAT_CORR_WITH -0.08273     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.17255     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH -0.13705     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.05889     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.17895     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.08784     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.1448      ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH +0.08812     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.02976     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH +0.14098     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.04853     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma5 pub SCHAEL 05C
+
+VALUE 0.17837 +-0.000804984 +-0
+
+STAT_CORR_WITH -0.02459     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.05235     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH +0.00177     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH +0.00049     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.1448      ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.13167     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.20244     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH +0.00679     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.09294     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.16228     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma66 (PDG node = S035B53)
+# G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma66 pub SCHAEL 05C
+
+VALUE 0.04734 +-0.000766942 +-0
+
+STAT_CORR_WITH +0.1381      ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH +0.03766     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH -0.0259      ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.20589     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH -0.17895     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.11273     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.13167     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH -0.04501     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.01584     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.22103     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.26209     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma76 (PDG node = S035B59)
+# G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma76 pub SCHAEL 05C
+
+VALUE 0.00435 +-0.000460977 +-0
+
+STAT_CORR_WITH +0.12669     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH +0.03994     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH +0.0981      ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.05889     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.20589     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.01894     ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH +0.00049     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH -0.04295     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH +0.04447     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH -0.23472     ALEPH Gamma8 pub SCHAEL 05C
+STAT_CORR_WITH -0.13989     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma805 (PDG node = S035Z06)
+# G(a1- (-> pi- gamma) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma805 pub SCHAEL 05C
+
+VALUE 4e-04 +-2e-04 +-0
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma85 pub BARATE 98
+
+VALUE 0.00214 +-0.0004701 +-0
+
+END
+
+#
+# Gamma88 (PDG node = S035C25)
+# G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma88 pub BARATE 98
+
+VALUE 0.00061 +-0.0004295 +-0
+
+END
+
+#
+# Gamma8 (PDG node = S035B73)
+# G(h- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma8 pub SCHAEL 05C
+
+VALUE 0.11524 +-0.00104805 +-0
+
+STAT_CORR_WITH -0.24392     ALEPH Gamma30 pub SCHAEL 05C
+STAT_CORR_WITH -0.16535     ALEPH Gamma19 pub SCHAEL 05C
+STAT_CORR_WITH -0.14789     ALEPH Gamma26 pub SCHAEL 05C
+STAT_CORR_WITH -0.23472     ALEPH Gamma76 pub SCHAEL 05C
+STAT_CORR_WITH +0.14098     ALEPH Gamma58 pub SCHAEL 05C
+STAT_CORR_WITH -0.22103     ALEPH Gamma66 pub SCHAEL 05C
+STAT_CORR_WITH -0.0635      ALEPH Gamma3 pub SCHAEL 05C
+STAT_CORR_WITH -0.09294     ALEPH Gamma5 pub SCHAEL 05C
+STAT_CORR_WITH +0.09126     ALEPH Gamma103 pub SCHAEL 05C
+STAT_CORR_WITH -0.03345     ALEPH Gamma104 pub SCHAEL 05C
+STAT_CORR_WITH +0.02086     ALEPH Gamma13 pub SCHAEL 05C
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma93 pub BARATE 98
+
+VALUE 0.00163 +-0.0002702 +-0
+
+END
+
+#
+# Gamma94 (PDG node = S035C8)
+# G(pi- K- K+ pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT ALEPH Gamma94 pub BARATE 98
+
+VALUE 0.00075 +-0.0003265 +-0
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT ARGUS Gamma103 pub ALBRECHT 88B
+
+VALUE 0.00064 +-0.0002508 +-0
+
+END
+
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT ARGUS Gamma3by5 pub ALBRECHT 92D
+
+VALUE 0.997 +-0.05315 +-0
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma103 pub AUBERT,B 05W
+
+VALUE 0.000856 +-5e-06 +-4.2e-05
+
+SYSTEMATICS
+  -2.24719%        sigmataupmy4s    # -1.92359464e-05
+  -0.49%           BaBarLumi        # -4.1944e-06
+
+PARAMETERS
+  sigmataupmy4s    0.89         +-0.02
+
+END
+
+#
+# Gamma10by5 (PDG node = S035Y02)
+# G(K- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma10by5 pub AUBERT 10F
+
+VALUE 0.03882 +-0.000630207 +-0.000173608
+
+STAT_CORR_WITH +0.0885061   BaBar Gamma3by5 pub AUBERT 10F
+STAT_CORR_WITH +0.284953    BaBar Gamma9by5 pub AUBERT 10F
+
+SYSTEMATICS
+  -0.00015528      PimPimPipNu     
+  -0.00007764      BaBarLumi        # -7.764e-05
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma128 pub DEL-AMO-SANCHEZ 11E
+
+VALUE 0.000142 +-1.1e-05 +-7e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.26e-07
+  -0.8485281%      BaBarLumi        # -1.204909902e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma136 (PDG node = S035B89)
+# G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma136 pub ARXIV 1209 2734
+
+VALUE 0.000225 +-7e-06 +-1.2e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -6.75e-07
+  -1.0%            BaBarLumi        # -2.25e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma136 (PDG node = S035B89)
+# G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma136 pub AUBERT 08AE
+
+VALUE 0.00016 +-5e-06 +-1.1e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.8e-07
+  -0.9%            BaBarLumi        # -1.44e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma16 pub AUBERT 07AP
+
+VALUE 0.00416 +-3e-05 +-0.00018
+
+SYSTEMATICS
+  -0.31%           sigmataupmy4s    # -1.2896e-05
+  -0.94%           BaBarLumi        # -3.9104e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(pi- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma35 prelim ICHEP08
+
+VALUE 0.0084 +-4e-05 +-0.00023
+
+SYSTEMATICS
+  -0.0008%         PimPizNu         # -6.72e-08
+  -0.07581%        KmKzsNu          # -6.36804e-06
+  -0.70078%        PimPizKzsNu      # -5.886552e-05
+  -0.02744%        KmPizKzsNu       # -2.30496e-06
+  -0.01029%        PimKzsKzsNu      # -8.6436e-07
+  -0.05778%        PimPimPipNu      # -4.85352e-06
+  -0.01263%        PimPimPipPizNu   # -1.06092e-06
+  -0.02197%        PimKmPipNu       # -1.84548e-06
+  -0.00465%        PimKmKpNu        # -3.906e-07
+  -1.17299%        PimKzsKzlNu      # -9.853116e-05
+  -0.3958%         sigmataupmy4s    # -3.32472e-05
+  -0.7278%         BaBarLumi        # -6.11352e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+  PimPizNu         25.3754e-2   +-0.10e-2
+  KmKzsNu          0.08255e-2   +-0.008e-2
+  PimPizKzsNu      0.18835e-2   +-0.02e-2
+  KmPizKzsNu       0.0768e-2    +-0.013471e-2
+  PimKzsKzsNu      2.4e-4       +-0.5e-4
+  PimPimPipNu      9.1783e-2    +-0.08e-2
+  PimPimPipPizNu   4.3654e-2    +-0.06e-2
+  PimKmPipNu       0.3009e-2    +-0.04e-2
+  PimKmKpNu        0.1346e-2    +-0.003736e-2
+  PimKzsKzlNu      0.0673e-2    +-0.0070e-2
+
+END
+
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma3by5 pub AUBERT 10F
+
+VALUE 0.9796 +-0.00390406 +-0.00052753
+
+STAT_CORR_WITH +0.235119    BaBar Gamma9by5 pub AUBERT 10F
+STAT_CORR_WITH +0.0885061   BaBar Gamma10by5 pub AUBERT 10F
+
+SYSTEMATICS
+  -0.0004898       PimPimPipNu     
+  -0.00019592      BaBarLumi       
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma40 prelim DPF09
+
+VALUE 0.00342 +-6e-05 +-0.00015
+
+SYSTEMATICS
+  -0.3958%         sigmataupmy4s    # -1.353636e-05
+  -0.7278%         BaBarLumi        # -2.489076e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma60 pub AUBERT 08
+
+VALUE 0.088337 +-7.4e-05 +-0.00126724
+
+ERROR_CORR_WITH +5.4398e-01  BaBar Gamma85 pub AUBERT 08 # +0.54398
+ERROR_CORR_WITH +3.9181e-01  BaBar Gamma93 pub AUBERT 08 # +0.39181
+ERROR_CORR_WITH +3.1926e-02  BaBar Gamma96 pub AUBERT 08 # +0.031926
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -0.000265011
+  -0.9%            BaBarLumi        # -0.000795033
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma85 pub AUBERT 08
+
+VALUE 0.0027257 +-1.8e-05 +-9.2441e-05
+
+ERROR_CORR_WITH +5.4398e-01  BaBar Gamma60 pub AUBERT 08 # +0.54398
+ERROR_CORR_WITH +1.7888e-01  BaBar Gamma93 pub AUBERT 08 # +0.17888
+ERROR_CORR_WITH +9.4573e-02  BaBar Gamma96 pub AUBERT 08 # +0.094573
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -8.1771e-06
+  -0.9%            BaBarLumi        # -2.45313e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma900
+#
+BEGIN MEASUREMENT BaBar Gamma900 pub PHYS  REV  D 86 092010 (2012)
+
+VALUE 0.000201 +-3.4e-05 +-2.2e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -6.03e-07
+  -1.0%            BaBarLumi        # -2.01e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma901
+#
+BEGIN MEASUREMENT BaBar Gamma901 pub PHYS  REV  D 86 092010 (2012) f1(4pi)
+
+VALUE 4.73e-04 +-2.8e-05 +-4.5e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.419e-06
+  -1.0%            BaBarLumi        # -4.73e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma901
+#
+BEGIN MEASUREMENT BaBar Gamma901 pub PHYS  REV  D 86 092010 (2012) f1(pi pi eta)
+
+VALUE 3.60e-04 +-1.8e-05 +-2.3e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.08e-06
+  -1.0%            BaBarLumi        # -3.6e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma902
+#
+BEGIN MEASUREMENT BaBar Gamma902 pub PHYS  REV  D 86 092010 (2012) non resonant
+
+VALUE 7.68e-04 +-0.4e-05 +-4.0e-05  #  0.000768 +-4e-06 +-4e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.304e-06
+  -1.0%            BaBarLumi        # -7.68e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma903
+#
+BEGIN MEASUREMENT BaBar Gamma903 pub PHYS  REV  D 86 092010 (2012)
+
+VALUE 7.3e-05 +-1.2e-05 +-1.2e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.19e-07
+  -1.0%            BaBarLumi        # -7.3e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma93 pub AUBERT 08
+
+VALUE 0.0013461 +-1e-05 +-3.6413e-05
+
+ERROR_CORR_WITH +3.9181e-01  BaBar Gamma60 pub AUBERT 08 # +0.39181
+ERROR_CORR_WITH +1.7888e-01  BaBar Gamma85 pub AUBERT 08 # +0.17888
+ERROR_CORR_WITH +9.0128e-02  BaBar Gamma96 pub AUBERT 08 # +0.090128
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.0383e-06
+  -0.9%            BaBarLumi        # -1.21149e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma96 (PDG node = S035C9)
+# G(K- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma96 pub AUBERT 08
+
+VALUE 1.5777e-05 +-1.3e-06 +-1.2308e-06
+
+ERROR_CORR_WITH +3.1926e-02  BaBar Gamma60 pub AUBERT 08 # +0.031926
+ERROR_CORR_WITH +9.4573e-02  BaBar Gamma85 pub AUBERT 08 # +0.094573
+ERROR_CORR_WITH +9.0128e-02  BaBar Gamma93 pub AUBERT 08 # +0.090128
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.7331e-08
+  -0.9%            BaBarLumi        # -1.41993e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma9by5 (PDG node = S035Y01)
+# G(pi- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma9by5 pub AUBERT 10F
+
+VALUE 0.5945 +-0.00574448 +-0.00248413
+
+STAT_CORR_WITH +0.235119    BaBar Gamma3by5 pub AUBERT 10F
+STAT_CORR_WITH +0.284953    BaBar Gamma10by5 pub AUBERT 10F
+
+SYSTEMATICS
+  -0.00089175      PimPimPipNu     
+  -0.00231855      BaBarLumi       
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma126 (PDG node = S035R32)
+# G(pi- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma126 pub INAMI 09
+
+VALUE 0.00135 +-3e-05 +-7e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.05e-06
+  -1.4%            BelleLumi        # -1.89e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma128 pub INAMI 09
+
+VALUE 0.000158 +-5e-06 +-9e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.74e-07
+  -1.4%            BelleLumi        # -2.212e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma130 (PDG node = S035C27)
+# G(K- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma130 pub INAMI 09
+
+VALUE 4.6e-05 +-1.1e-05 +-4e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.38e-07
+  -1.4%            BelleLumi        # -6.44e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma132 (PDG node = S035C28)
+# G(Kbar0 pi- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma132 pub INAMI 09
+
+VALUE 8.8e-05 +-1.4e-05 +-6e-06
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.64e-07
+  -1.4%            BelleLumi        # -1.232e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma13 pub FUJIKAWA 08
+
+VALUE 0.2567 +-1e-04 +-0.0039
+
+SYSTEMATICS
+  +0.39e-2         BelleHmPizNu     # +0.0039
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(pi- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma35 pub EPIFANOV 07
+
+VALUE 0.00808 +-4e-05 +-0.00026
+
+SYSTEMATICS
+  -1.1%            PimPizKzsNu      # -8.888e-05
+  -0.8%            PimKzsKzlNu      # -6.464e-05
+  -0.6%            KmKzsNu          # -4.848e-05
+
+PARAMETERS
+  PimPizKzsNu      0.18e-2      +-0.02e-2
+  PimKzsKzlNu      0.078e-2     +-0.006e-2
+  KmKzsNu          0.079e-2     +-0.0085e-2
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma40 prelim PHIPSI11
+
+VALUE 0.00384 +-0.00004 +-0.00016  #  0.00384 +-4e-05 +-0.00016
+
+SYSTEMATICS
+  -1.8%            PimKzsPizPizNu   # -6.912e-05
+  -1.2%            KmKzsPizNu       # -4.608e-05
+  -0.3%            PimKzKzbarNu     # -1.152e-05
+  -0.3%            PimKzsNu         # -1.152e-05
+  -0.2%            PimKzKzbarPizNu  # -7.68e-06
+
+SYSTPAPER
+  +2.10%           tracking         # +8.064e-05
+  +1.57%           pi0efficiency    # +6.0288e-05
+  +1.63%           e_mu_selection   # +6.2592e-05
+  +1.03%           KS_efficiency    # +3.9552e-05
+  +0.15%           e_mu_normalization # +5.76e-06
+  +0.60%           energy_restriction_extra_photons # +2.304e-05
+
+PARAMETERS
+  PimKzsPizPizNu   0.013e-2     +-0.012e-2
+  KmKzsPizNu       0.079e-2     +-0.010e-2
+  PimKzKzbarNu     0.17e-2      +-0.04e-2
+  PimKzsNu         0.42e-2      +-0.02e-2
+  PimKzKzbarPizNu  0.031e-2     +-0.023e-2
+
+END
+
+#
+# Gamma42 (PDG node = S035B34)
+# G(K- K0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma42 prelim PHIPSI11
+
+VALUE 0.00148 +-0.00002 +-0.00008  #  0.00148 +-2e-05 +-8e-05
+
+SYSTEMATICS
+  -1.7%            PimKzsPizNu      # -2.516e-05
+  -0.4%            KmKzsNu          # -5.92e-06
+  -0.3%            PimKzsNu         # -4.44e-06
+  -0.2%            PimKzKzbarNu     # -2.96e-06
+
+SYSTPAPER
+  +2.10%           tracking         # +3.108e-05
+  +1.57%           pi0efficiency    # +2.3236e-05
+  +1.63%           e_mu_selection   # +2.4124e-05
+  +1.37%           KS_efficiency    # +2.0276e-05
+  +0.15%           e_mu_normalization # +2.22e-06
+  +0.67%           energy_restriction_extra_photons # +9.916e-06
+
+PARAMETERS
+  PimKzsPizNu      0.195e-2     +-0.02e-2
+  KmKzsNu          0.079e-2     +-0.08e-2
+  PimKzsNu         0.42e-2      +-0.02e-2
+  PimKzKzbarNu     0.17e-2      +-0.04e-2
+
+END
+
+#
+# Gamma47 (PDG node = S035B69)
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma47 prelim PHIPSI11
+
+VALUE 0.000235 +-0.000004 +-0.000013  #  0.000235 +-4e-06 +-1.3e-05
+
+SYSTEMATICS
+  -0.89%           PimKzsKzsPizNu   # -2.0915e-06
+
+PARAMETERS
+  PimKzsKzsPizNu   0.0078e-2    +-0.0058e-2
+
+END
+
+#
+# Gamma50 (PDG node = S035C2)
+# G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma50 prelim PHIPSI11
+
+VALUE 2.10e-5 +-0.24e-5 +-0.22e-5  #  2.1e-05 +-2.4e-06 +-2.2e-06
+
+SYSTEMATICS
+  -6.2%            PimKzsKzsNu      # -1.302e-06
+
+PARAMETERS
+  PimKzsKzsNu      0.043e-2     +-0.01e-2
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma60 pub LEE 10
+
+VALUE 0.0842 +-3.3211e-05 +-0.0025879
+
+ERROR_CORR_WITH +0.1749885   Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH +0.04948276  Belle Gamma93 pub LEE 10
+ERROR_CORR_WITH -0.05346557  Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma85 pub LEE 10
+
+VALUE 0.0033 +-1.274e-05 +-0.00016625
+
+ERROR_CORR_WITH +0.1749885   Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08026913  Belle Gamma93 pub LEE 10
+ERROR_CORR_WITH +0.03505142  Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma93 pub LEE 10
+
+VALUE 0.00155 +-6.575e-06 +-5.5579e-05
+
+ERROR_CORR_WITH +0.04948276  Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08026913  Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH -0.008312885 Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma96 (PDG node = S035C9)
+# G(K- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma96 pub LEE 10
+
+VALUE 3.29e-05 +-1.6941e-06 +-1.9621e-06
+
+ERROR_CORR_WITH -0.05346557  Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.03505142  Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH -0.008312885 Belle Gamma93 pub LEE 10
+
+END
+
+#
+# Gamma54 (PDG node = S035R31)
+# G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CELLO Gamma54 pub BEHREND 89B
+
+VALUE 0.15 +-0.005 +-0
+
+END
+
+#
+# Gamma151 (PDG node = S035C61)
+# G(K- omega nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma151 pub ARMS 05
+
+VALUE 0.00041 +-9.21954e-05 +-0
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma60 pub BRIERE 03
+
+VALUE 0.0913 +-0.004627 +-0
+
+STAT_CORR_WITH +0.47        CLEO3 Gamma85 pub BRIERE 03
+STAT_CORR_WITH +0.71        CLEO3 Gamma93 pub BRIERE 03
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma85 pub BRIERE 03
+
+VALUE 0.00384 +-0.000405 +-0
+
+STAT_CORR_WITH +0.47        CLEO3 Gamma60 pub BRIERE 03
+STAT_CORR_WITH +0.34        CLEO3 Gamma93 pub BRIERE 03
+
+END
+
+#
+# Gamma88 (PDG node = S035C25)
+# G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma88 pub ARMS 05
+
+VALUE 0.00074 +-0.000136 +-0
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma93 pub BRIERE 03
+
+VALUE 0.00155 +-0.0001082 +-0
+
+STAT_CORR_WITH +0.71        CLEO3 Gamma60 pub BRIERE 03
+STAT_CORR_WITH +0.34        CLEO3 Gamma85 pub BRIERE 03
+
+END
+
+#
+# Gamma94 (PDG node = S035C8)
+# G(pi- K- K+ pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma94 pub ARMS 05
+
+VALUE 5.5e-05 +-1.844e-05 +-0
+
+END
+
+#
+# Gamma102 (PDG node = S035R33)
+# G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma102 pub GIBAUT 94B
+
+VALUE 0.00097 +-0.0001208 +-0
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma103 pub GIBAUT 94B
+
+VALUE 0.00077 +-0.000103 +-0
+
+END
+
+#
+# Gamma104 (PDG node = S035R39)
+# G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma104 pub ANASTASSOV 01
+
+VALUE 0.00017 +-2.828e-05 +-0
+
+END
+
+#
+# Gamma10 (PDG node = S035R7)
+# G(K- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma10 pub BATTLE 94
+
+VALUE 0.0066 +-0.00114 +-0
+
+END
+
+#
+# Gamma126 (PDG node = S035R32)
+# G(pi- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma126 pub ARTUSO 92
+
+VALUE 0.0017 +-0.0002828 +-0
+
+END
+
+#
+# Gamma130 (PDG node = S035C27)
+# G(K- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma130 pub BISHAI 99
+
+VALUE 0.000177 +-9.04268e-05 +-0
+
+END
+
+#
+# Gamma132 (PDG node = S035C28)
+# G(Kbar0 pi- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma132 pub BISHAI 99
+
+VALUE 0.00022 +-7.33757e-05 +-0
+
+END
+
+#
+# Gamma136 (PDG node = S035B89)
+# G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma136 pub ANASTASSOV 01
+
+VALUE 0.00023 +-5e-05 +-0
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma13 pub ARTUSO 94
+
+VALUE 0.2587 +-0.004368 +-0
+
+END
+
+#
+# Gamma150by66 (PDG node = S035R14)
+# G(h- omega nu(tau)) / G(h- h- h+ pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma150by66 pub BALEST 95C
+
+VALUE 0.464 +-0.02335 +-0
+
+END
+
+#
+# Gamma150 (PDG node = S035R23)
+# G(h- omega nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma150 pub BARINGER 87
+
+VALUE 0.016 +-0.004909 +-0
+
+END
+
+#
+# Gamma152by76 (PDG node = S035B27)
+# G(h- omega pi0 nu(tau)) / G(h- h- h+ 2pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma152by76 pub BORTOLETTO 93
+
+VALUE 0.81 +-0.08485 +-0
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma16 pub BATTLE 94
+
+VALUE 0.0051 +-0.001221 +-0
+
+END
+
+#
+# Gamma19by13 (PDG node = S035B21)
+# G(h- 2pi0 nu(tau) (ex. K0)) / G(h- pi0 nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma19by13 pub PROCARIO 93
+
+VALUE 0.342 +-0.01709 +-0
+
+END
+
+#
+# Gamma23 (PDG node = S035B30)
+# G(K- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma23 pub BATTLE 94
+
+VALUE 9e-04 +-0.001044 +-0
+
+END
+
+#
+# Gamma26by13 (PDG node = S035B22)
+# G(h- 3pi0 nu(tau)) / G(h- pi0 nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma26by13 pub PROCARIO 93
+
+VALUE 0.044 +-0.005831 +-0
+
+END
+
+#
+# Gamma29 (PDG node = S035B79)
+# G(h- 4pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma29 pub PROCARIO 93
+
+VALUE 0.0016 +-0.0007071 +-0
+
+END
+
+#
+# Gamma31 (PDG node = S035R26)
+# G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma31 pub BATTLE 94
+
+VALUE 0.017 +-0.002247 +-0
+
+END
+
+#
+# Gamma34 (PDG node = S035B67)
+# G(h- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma34 pub COAN 96
+
+VALUE 0.00855 +-0.0008139 +-0
+
+END
+
+#
+# Gamma37 (PDG node = S035R46)
+# G(K- K0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma37 pub COAN 96
+
+VALUE 0.00151 +-0.0003041 +-0
+
+END
+
+#
+# Gamma39 (PDG node = S035B68)
+# G(h- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma39 pub COAN 96
+
+VALUE 0.00562 +-0.0006931 +-0
+
+END
+
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma3by5 pub ANASTASSOV 97
+
+VALUE 0.9777 +-0.01074 +-0
+
+STAT_CORR_WITH +0.07        CLEO Gamma8 pub ANASTASSOV 97
+STAT_CORR_WITH -0.42        CLEO Gamma5 pub ANASTASSOV 97
+
+END
+
+#
+# Gamma42 (PDG node = S035B34)
+# G(K- K0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma42 pub COAN 96
+
+VALUE 0.00145 +-0.0004118 +-0
+
+END
+
+#
+# Gamma47 (PDG node = S035B69)
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma47 pub COAN 96
+
+VALUE 0.00023 +-5.831e-05 +-0
+
+END
+
+#
+# Gamma57 (PDG node = S035B62)
+# G(h- h- h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma57 pub BALEST 95C
+
+VALUE 0.0951 +-0.002119 +-0
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma5 pub ANASTASSOV 97
+
+VALUE 0.1776 +-0.001803 +-0
+
+STAT_CORR_WITH +0.48        CLEO Gamma8 pub ANASTASSOV 97
+STAT_CORR_WITH -0.42        CLEO Gamma3by5 pub ANASTASSOV 97
+
+END
+
+#
+# Gamma66 (PDG node = S035B53)
+# G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma66 pub BALEST 95C
+
+VALUE 0.0423 +-0.00228 +-0
+
+END
+
+#
+# Gamma69 (PDG node = S035C23)
+# G(pi- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma69 pub EDWARDS 00A
+
+VALUE 0.0419 +-0.002326 +-0
+
+END
+
+#
+# Gamma76by54 (PDG node = S035B25)
+# G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma76by54 pub BORTOLETTO 93
+
+VALUE 0.034 +-0.003606 +-0
+
+END
+
+#
+# Gamma78 (PDG node = S035B57)
+# G(h- h- h+ 3pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma78 pub ANASTASSOV 01
+
+VALUE 0.00022 +-5e-05 +-0
+
+END
+
+#
+# Gamma80by60 (PDG node = S035C32)
+# G(K- pi- h+ nu(tau) (ex. K0)) / G(pi- pi- pi+ nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma80by60 pub RICHICHI 99
+
+VALUE 0.0544 +-0.005701 +-0
+
+END
+
+#
+# Gamma81by69 (PDG node = S035C34)
+# G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma81by69 pub RICHICHI 99
+
+VALUE 0.0261 +-0.006155 +-0
+
+END
+
+#
+# Gamma8 (PDG node = S035B73)
+# G(h- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma8 pub ANASTASSOV 97
+
+VALUE 0.1152 +-0.0013 +-0
+
+STAT_CORR_WITH +0.48        CLEO Gamma5 pub ANASTASSOV 97
+STAT_CORR_WITH +0.07        CLEO Gamma3by5 pub ANASTASSOV 97
+
+END
+
+#
+# Gamma93by60 (PDG node = S035C35)
+# G(pi- K- K+ nu(tau)) / G(pi- pi- pi+ nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma93by60 pub RICHICHI 99
+
+VALUE 0.016 +-0.003354 +-0
+
+END
+
+#
+# Gamma94by69 (PDG node = S035C36)
+# G(pi- K- K+ pi0 nu(tau)) / G(pi- pi- pi+ pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma94by69 pub RICHICHI 99
+
+VALUE 0.0079 +-0.004682 +-0
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma103 pub ABDALLAH 06A
+
+VALUE 0.00097 +-0.0001581 +-0
+
+STAT_CORR_WITH -0.03        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH -0.02        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH +0.03        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.57        DELPHI Gamma104 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma104 (PDG node = S035R39)
+# G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma104 pub ABDALLAH 06A
+
+VALUE 0.00016 +-0.0001342 +-0
+
+STAT_CORR_WITH +0.01        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH +0.05        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.57        DELPHI Gamma103 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma10 (PDG node = S035R7)
+# G(K- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma10 pub ABREU 94K
+
+VALUE 0.0085 +-0.0018 +-0
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma13 pub ABDALLAH 06A
+
+VALUE 0.2574 +-0.002438 +-0
+
+STAT_CORR_WITH -0.01        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH -0.08        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH -0.34        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH +0.38        DELPHI Gamma25 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.66        DELPHI Gamma19 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma103 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma19 (PDG node = S035R20)
+# G(h- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma19 pub ABDALLAH 06A
+
+VALUE 0.09498 +-0.004219 +-0
+
+STAT_CORR_WITH -0.03        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH +0.06        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH -0.86        DELPHI Gamma25 pub ABDALLAH 06A
+STAT_CORR_WITH +0.03        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.66        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma25 (PDG node = S035C02)
+# G(h- >= 3pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma25 pub ABDALLAH 06A
+
+VALUE 0.01403 +-0.003098 +-0
+
+STAT_CORR_WITH +0.03        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH -0.02        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH -0.06        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH -0.06        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.86        DELPHI Gamma19 pub ABDALLAH 06A
+STAT_CORR_WITH +0.38        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma31 (PDG node = S035R26)
+# G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma31 pub ABREU 94K
+
+VALUE 0.0154 +-0.0024 +-0
+
+END
+
+#
+# Gamma3 (PDG node = S035R1)
+# G(mu- nubar(mu) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma3 pub ABREU 99X
+
+VALUE 0.17325 +-0.001223 +-0
+
+END
+
+#
+# Gamma57 (PDG node = S035B62)
+# G(h- h- h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma57 pub ABDALLAH 06A
+
+VALUE 0.09317 +-0.001218 +-0
+
+STAT_CORR_WITH -0.53        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH -0.07        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH -0.02        DELPHI Gamma25 pub ABDALLAH 06A
+STAT_CORR_WITH +0.26        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.02        DELPHI Gamma103 pub ABDALLAH 06A
+STAT_CORR_WITH +0.01        DELPHI Gamma104 pub ABDALLAH 06A
+STAT_CORR_WITH -0.08        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma5 pub ABREU 99X
+
+VALUE 0.17877 +-0.001549 +-0
+
+END
+
+#
+# Gamma66 (PDG node = S035B53)
+# G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma66 pub ABDALLAH 06A
+
+VALUE 0.04545 +-0.001478 +-0
+
+STAT_CORR_WITH -0.53        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH -0.02        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH +0.03        DELPHI Gamma25 pub ABDALLAH 06A
+STAT_CORR_WITH -0.78        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH -0.03        DELPHI Gamma19 pub ABDALLAH 06A
+STAT_CORR_WITH -0.03        DELPHI Gamma103 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma74 (PDG node = S035C03)
+# G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma74 pub ABDALLAH 06A
+
+VALUE 0.00561 +-0.001168 +-0
+
+STAT_CORR_WITH -0.78        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH +0.26        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma8 pub ABDALLAH 06A
+STAT_CORR_WITH -0.06        DELPHI Gamma25 pub ABDALLAH 06A
+STAT_CORR_WITH +0.03        DELPHI Gamma19 pub ABDALLAH 06A
+STAT_CORR_WITH +0.03        DELPHI Gamma103 pub ABDALLAH 06A
+STAT_CORR_WITH +0.05        DELPHI Gamma104 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma7 (PDG node = S035R43)
+# G(h- >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma7 pub ABREU 92N
+
+VALUE 0.124 +-0.009899 +-0
+
+END
+
+#
+# Gamma8 (PDG node = S035B73)
+# G(h- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT DELPHI Gamma8 pub ABDALLAH 06A
+
+VALUE 0.11571 +-0.001655 +-0
+
+STAT_CORR_WITH -0.02        DELPHI Gamma66 pub ABDALLAH 06A
+STAT_CORR_WITH -0.07        DELPHI Gamma57 pub ABDALLAH 06A
+STAT_CORR_WITH -0.06        DELPHI Gamma25 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma74 pub ABDALLAH 06A
+STAT_CORR_WITH +0.06        DELPHI Gamma19 pub ABDALLAH 06A
+STAT_CORR_WITH -0.01        DELPHI Gamma103 pub ABDALLAH 06A
+STAT_CORR_WITH -0.34        DELPHI Gamma13 pub ABDALLAH 06A
+
+END
+
+#
+# Gamma102 (PDG node = S035R33)
+# G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)
+#
+BEGIN MEASUREMENT HRS Gamma102 pub BYLSMA 87
+
+VALUE 0.00102 +-0.00029 +-0
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT HRS Gamma103 pub BYLSMA 87
+
+VALUE 0.00051 +-2e-04 +-0
+
+END
+
+#
+# Gamma102 (PDG node = S035R33)
+# G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma102 pub ACHARD 01D
+
+VALUE 0.0017 +-0.0003406 +-0
+
+STAT_CORR_WITH -0.19        L3 Gamma55 pub ACHARD 01D
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma13 pub ACCIARRI 95
+
+VALUE 0.2505 +-0.006103 +-0
+
+END
+
+#
+# Gamma19 (PDG node = S035R20)
+# G(h- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma19 pub ACCIARRI 95
+
+VALUE 0.0888 +-0.005597 +-0
+
+END
+
+#
+# Gamma26 (PDG node = S035R21)
+# G(h- 3pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma26 pub ACCIARRI 95
+
+VALUE 0.017 +-0.004494 +-0
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(pi- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma35 pub ACCIARRI 95F
+
+VALUE 0.0095 +-0.001616 +-0
+
+END
+
+#
+# Gamma3 (PDG node = S035R1)
+# G(mu- nubar(mu) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma3 pub ACCIARRI 01F
+
+VALUE 0.17342 +-0.001288 +-0
+
+STAT_CORR_WITH +0.078       L3 Gamma5 pub ACCIARRI 01F
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma40 pub ACCIARRI 95F
+
+VALUE 0.0041 +-0.001237 +-0
+
+END
+
+#
+# Gamma54 (PDG node = S035R31)
+# G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma54 pub ADEVA 91F
+
+VALUE 0.144 +-0.006708 +-0
+
+END
+
+#
+# Gamma55 (PDG node = S035B63)
+# G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma55 pub ACHARD 01D
+
+VALUE 0.14556 +-0.001296 +-0
+
+STAT_CORR_WITH -0.19        L3 Gamma102 pub ACHARD 01D
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma5 pub ACCIARRI 01F
+
+VALUE 0.17806 +-0.001288 +-0
+
+STAT_CORR_WITH +0.078       L3 Gamma3 pub ACCIARRI 01F
+
+END
+
+#
+# Gamma7 (PDG node = S035R43)
+# G(h- >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT L3 Gamma7 pub ACCIARRI 95
+
+VALUE 0.1247 +-0.005025 +-0
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma103 pub ACKERSTAFF 99E
+
+VALUE 0.00091 +-0.0001523 +-0
+
+END
+
+#
+# Gamma104 (PDG node = S035R39)
+# G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma104 pub ACKERSTAFF 99E
+
+VALUE 0.00027 +-0.0002012 +-0
+
+END
+
+#
+# Gamma10 (PDG node = S035R7)
+# G(K- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma10 pub ABBIENDI 01J
+
+VALUE 0.00658 +-0.0003962 +-0
+
+STAT_CORR_WITH +0.6         OPAL Gamma31 pub ABBIENDI 01J
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma13 pub ACKERSTAFF 98M
+
+VALUE 0.2589 +-0.003362 +-0
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma16 pub ABBIENDI 04J
+
+VALUE 0.00471 +-0.0006332 +-0
+
+END
+
+#
+# Gamma17 (PDG node = S035R44)
+# G(h- >=2 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma17 pub ACKERSTAFF 98M
+
+VALUE 0.0991 +-0.004111 +-0
+
+END
+
+#
+# Gamma31 (PDG node = S035R26)
+# G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma31 pub ABBIENDI 01J
+
+VALUE 0.01528 +-0.0005587 +-0
+
+STAT_CORR_WITH +0.6         OPAL Gamma10 pub ABBIENDI 01J
+
+END
+
+#
+# Gamma33 (PDG node = S035B43)
+# G(K(S)0 (particles)- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma33 pub AKERS 94G
+
+VALUE 0.0097 +-0.001082 +-0
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(pi- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma35 pub ABBIENDI 00C
+
+VALUE 0.00933 +-0.0008382 +-0
+
+END
+
+#
+# Gamma38 (PDG node = S035C38)
+# G(K- K0 >=0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma38 pub ABBIENDI 00C
+
+VALUE 0.0033 +-0.0006742 +-0
+
+END
+
+#
+# Gamma3 (PDG node = S035R1)
+# G(mu- nubar(mu) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma3 pub ABBIENDI 03
+
+VALUE 0.1734 +-0.001082 +-0
+
+END
+
+#
+# Gamma43 (PDG node = S035C37)
+# G(pi- Kbar0 >=1 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma43 pub ABBIENDI 00C
+
+VALUE 0.00324 +-0.000991564 +-0
+
+END
+
+#
+# Gamma55 (PDG node = S035B63)
+# G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma55 pub AKERS 95Y
+
+VALUE 0.1496 +-0.002377 +-0
+
+END
+
+#
+# Gamma57by55 (PDG node = S035B64)
+# G(h- h- h+ nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong''))
+#
+BEGIN MEASUREMENT OPAL Gamma57by55 pub AKERS 95Y
+
+VALUE 0.66 +-0.01456 +-0
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma5 pub ABBIENDI 99H
+
+VALUE 0.1781 +-0.001082 +-0
+
+END
+
+#
+# Gamma7 (PDG node = S035R43)
+# G(h- >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma7 pub ALEXANDER 91D
+
+VALUE 0.121 +-0.008602 +-0
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma85 pub ABBIENDI 04J
+
+VALUE 0.00415 +-0.000664 +-0
+
+END
+
+#
+# Gamma8 (PDG node = S035B73)
+# G(h- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma8 pub ACKERSTAFF 98M
+
+VALUE 0.1198 +-0.002062 +-0
+
+END
+
+#
+# Gamma92 (PDG node = S035B37)
+# G(pi- K- K+ >=0 neutrals nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma92 pub ABBIENDI 00D
+
+VALUE 0.00159 +-0.0005665 +-0
+
+END
+
+#
+# Gamma54 (PDG node = S035R31)
+# G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT TPC Gamma54 pub AIHARA 87B
+
+VALUE 0.151 +-0.01 +-0
+
+END
+
+#
+# Gamma82 (PDG node = S035R41)
+# G(K- pi- pi+ >=0 neutrals nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT TPC Gamma82 pub BAUER 94
+
+VALUE 0.0058 +-0.001845 +-0
+
+END
+
+#
+# Gamma92 (PDG node = S035B37)
+# G(pi- K- K+ >=0 neutrals nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT TPC Gamma92 pub BAUER 94
+
+VALUE 0.0015 +-0.00085515 +-0
+
+END
+
+warning, cards require dropping non-existing measurements
+   BaBar.Gamma47.prelim.TAU12.Sobie.2
+   BaBar.Gamma50.prelim.TAU12.Sobie.2 
+
+##
+## dropping the following measurements according to cards
+##
+   Belle.Gamma47.prelim.PHIPSI11
+   Belle.Gamma50.prelim.PHIPSI11 
+
+##
+## using the following updated global parameters
+##
+
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+  PimPizNu         0.2551       +-0.0009
+  KmKzsNu          0.000795     +-8e-05
+  PimPizKzsNu      0.0017248    +-7.3636e-05
+  KmPizKzsNu       0.000795     +-0.0001
+  PimKzsKzsNu      0.00024      +-5e-05
+  PimPimPipNu      0.0902       +-0.0006
+  PimPimPipPizNu   0.0448       +-0.0006
+  PimKmPipNu       0.00294      +-0.00015
+  PimKmKpNu        0.00144      +-5e-05
+  PimKzsKzlNu      0.00097739   +-0.00010768
+  BR_eta_2gam      0.3931       +-0.002
+  BR_eta_neutral   0.719        +-0.0034
+  BR_eta_3piz      0.3257       +-0.0023
+  BR_eta_pimpippiz 0.2274       +-0.0028
+  BR_eta_charged   0.281        +-0.0034
+  BR_KS_2piz       0.3069       +-0.0005
+  BR_KS_pimpip     0.692        +-0.0005
+  BR_om_pimpippiz  0.892        +-0.007
+  BR_om_pimpip     0.0153       +0.0011     -0.0013
+  BR_om_pizgamma   0.0828       +-0.0028
+  BR_phi_KmKp      0.489        +-0.005
+  BR_phi_KSKL      0.342        +-0.004
+  BRA_Kz_KS_KET    0.5          +-0
+  BRA_Kz_KL_KET    0.5          +-0
+  BRA_Kzbar_KS_KET 0.5          +-0
+  BRA_Kzbar_KL_KET 0.5          +-0
+  sigmataupmy4s    0.919        +-0.0032165
+  PimPizNu         0.2552       +-0.0009
+  KmKzsNu          0.000795     +-8e-05
+  PimPizKzsNu      0.0017248    +-7.3636e-05
+  KmPizKzsNu       0.000795     +-0.0001
+  PimKzsKzsNu      0.000231     +-1.7e-05
+  PimPimPipNu      0.0902       +-0.0006
+  PimPimPipPizNu   0.0448       +-0.0006
+  PimKmPipNu       0.00294      +-0.00015
+  PimKmKpNu        0.00144      +-5e-05
+  PimKzsKzlNu      0.00097739   +-0.00010768
+  BR_eta_2gam      0.3941       +-0.002
+  BR_eta_neutral   0.7212       +-0.0034
+  BR_eta_3piz      0.3268       +-0.0023
+  BR_eta_pimpippiz 0.2292       +-0.0028
+  BR_eta_charged   0.281        +-0.0034
+  BR_KS_2piz       0.3069       +-0.0005
+  BR_KS_pimpip     0.692        +-0.0005
+  BR_om_pimpippiz  0.892        +-0.007
+  BR_om_pimpip     0.0153       +0.0011     -0.0013
+  BR_om_pizgamma   0.0828       +-0.0028
+  BR_phi_KmKp      0.489        +-0.005
+  BR_phi_KSKL      0.342        +-0.004
+  BR_f12PI2PIZ     0.220        +-0.013
+  BRA_Kz_KS_KET    0.5          +-0
+  BRA_Kz_KL_KET    0.5          +-0
+  BRA_Kzbar_KS_KET 0.5          +-0
+  BRA_Kzbar_KL_KET 0.5          +-0
+
+##
+## Constraint equations from cards
+##
+
+0 = -Gamma806 + Gamma50
+0 = -Gamma49 + (Gamma50 + Gamma51 + Gamma806)
+0 = -Gamma804 + (Gamma47 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))
+0 = -Gamma1 + (Gamma3 + Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma42 + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma47 + Gamma804 + Gamma48 + Gamma126*BR_eta_neutral + Gamma37 + Gamma10 + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral + Gamma132*(BRA_Kzbar_KS_KET*BR_eta_neutral) + Gamma44*BRA_Kzbar_KL_KET + Gamma801*(BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma2 + (Gamma3 + Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma40*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma42*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma47*BR_KS_2piz*BR_KS_2piz + Gamma48*BR_KS_2piz + Gamma804 + Gamma126*BR_eta_neutral + Gamma37*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma10 + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma44*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma801*(BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma3by5 + Gamma3 / Gamma5
+0 = -Gamma7 + (Gamma35*BRA_Kzbar_KL_KET + Gamma9 + Gamma804 + Gamma37*BRA_Kz_KL_KET + Gamma10)
+0 = -Gamma8 + (Gamma9 + Gamma10)
+0 = -Gamma8by5 + (Gamma9 + Gamma10) / Gamma5
+0 = -Gamma9by5 + Gamma9 / Gamma5
+0 = -Gamma10by5 + Gamma10 / Gamma5
+0 = -Gamma10by9 + Gamma10 / Gamma9
+0 = -Gamma11 + (Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma14 + Gamma16 + Gamma20 + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma48*BR_KS_2piz + Gamma126*BR_eta_neutral + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral)
+0 = -Gamma12 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma23 + Gamma28 + Gamma14 + Gamma16 + Gamma20 + Gamma27 + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz)
+0 = -Gamma13 + (Gamma14 + Gamma16)
+0 = -Gamma17 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma23 + Gamma28 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma20 + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma48*BR_KS_2piz + Gamma50*(BR_KS_2piz*BR_KS_2piz) + Gamma51*BR_KS_2piz + Gamma126*BR_eta_3piz + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma130*BR_eta_3piz)
+0 = -Gamma18 + (Gamma23 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma20 + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz))
+0 = -Gamma19 + (Gamma23 + Gamma20)
+0 = -Gamma19by13 + (Gamma23 + Gamma20) / (Gamma14 + Gamma16)
+0 = -Gamma24 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma28 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz)
+0 = -Gamma25 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma28 + Gamma27 + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz)
+0 = -Gamma26 + (Gamma128*BR_eta_3piz + Gamma28 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma27)
+0 = -Gamma26by13 + (Gamma128*BR_eta_3piz + Gamma28 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma27) / (Gamma14 + Gamma16)
+0 = -Gamma29 + (Gamma30 + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz)
+0 = -Gamma31 + (Gamma128*BR_eta_neutral + Gamma23 + Gamma28 + Gamma42 + Gamma16 + Gamma37 + Gamma10 + Gamma801*(BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma32 + (Gamma128*BR_eta_neutral + Gamma23 + Gamma28 + Gamma42 + Gamma16 + Gamma37 + Gamma801*(BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma33 + (Gamma35*BRA_Kzbar_KS_KET + Gamma40*BRA_Kzbar_KS_KET + Gamma42*BRA_Kz_KS_KET + Gamma47 + Gamma48 + Gamma50 + Gamma51 + Gamma37*BRA_Kz_KS_KET + Gamma132*(BRA_Kzbar_KS_KET*BR_eta_neutral) + Gamma44*BRA_Kzbar_KS_KET + Gamma801*BR_phi_KSKL/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma34 + (Gamma35 + Gamma37)
+0 = -Gamma38 + (Gamma42 + Gamma37)
+0 = -Gamma39 + (Gamma40 + Gamma42)
+0 = -Gamma43 + (Gamma40 + Gamma44)
+0 = -Gamma46 + (Gamma48 + Gamma47 + Gamma804)
+0 = -Gamma54 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma801*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma55 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma56 + (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma62 + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma57 + (Gamma62 + Gamma93 + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma57by55 + (Gamma62 + Gamma93 + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL)) / (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma58 + (Gamma62 + Gamma93 + Gamma802 + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma59 + (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma62 + Gamma800*BR_om_pimpip)
+0 = -Gamma60 + (Gamma62 + Gamma800*BR_om_pimpip)
+0 = -Gamma63 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma94 + Gamma70 + Gamma126*BR_eta_charged + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma801*(BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma64 + (Gamma128*BR_eta_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126*BR_eta_pimpippiz + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_pimpippiz)
+0 = -Gamma65 + (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)
+0 = -Gamma66 + (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)
+0 = -Gamma67 + (Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma70 + Gamma803 + Gamma151*BR_om_pimpippiz)
+0 = -Gamma68 + (Gamma152*BR_om_pimpip + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma70 + Gamma800*BR_om_pimpippiz)
+0 = -Gamma69 + (Gamma152*BR_om_pimpip + Gamma70 + Gamma800*BR_om_pimpippiz)
+0 = -Gamma74 + (Gamma152*BR_om_pimpippiz + Gamma78 + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)
+0 = -Gamma75 + (Gamma152*BR_om_pimpippiz + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)
+0 = -Gamma76 + (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)
+0 = -Gamma76by54 + (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz) / (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma801*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma79 + (Gamma128*BR_eta_charged + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma94 + Gamma802 + Gamma803 + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma801*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL) + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip))
+0 = -Gamma80 + (Gamma93 + Gamma802 + Gamma151*BR_om_pimpip)
+0 = -Gamma80by60 + (Gamma93 + Gamma802 + Gamma151*BR_om_pimpip) / (Gamma62 + Gamma800*BR_om_pimpip)
+0 = -Gamma81 + (Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma803 + Gamma151*BR_om_pimpippiz)
+0 = -Gamma81by69 + (Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma803 + Gamma151*BR_om_pimpippiz) / (Gamma152*BR_om_pimpip + Gamma70 + Gamma800*BR_om_pimpippiz)
+0 = -Gamma82 + (Gamma128*BR_eta_charged + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip))
+0 = -Gamma83 + (Gamma128*BR_eta_pimpippiz + Gamma802 + Gamma803 + Gamma151*(BR_om_pimpippiz+BR_om_pimpip))
+0 = -Gamma84 + (Gamma802 + Gamma151*BR_om_pimpip + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip))
+0 = -Gamma85 + (Gamma802 + Gamma151*BR_om_pimpip)
+0 = -Gamma87 + (Gamma128*BR_eta_pimpippiz + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma803 + Gamma151*BR_om_pimpippiz)
+0 = -Gamma88 + (Gamma128*BR_eta_pimpippiz + Gamma803 + Gamma151*BR_om_pimpippiz)
+0 = -Gamma89 + (Gamma803 + Gamma151*BR_om_pimpippiz)
+0 = -Gamma92 + (Gamma94 + Gamma93)
+0 = -Gamma93by60 + Gamma93 / (Gamma62 + Gamma800*BR_om_pimpip)
+0 = -Gamma94by69 + Gamma94 / (Gamma152*BR_om_pimpip + Gamma70 + Gamma800*BR_om_pimpippiz)
+0 = -Gamma96 + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL)
+0 = -Gamma102 + (Gamma103 + Gamma104)
+0 = -Gamma106 + (Gamma30 + Gamma152*BR_om_pimpippiz + Gamma47*(BR_KS_pimpip*BR_KS_pimpip) + Gamma77 + Gamma103 + Gamma126*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma130*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma53*(BRA_Kz_KS_KET*BR_KS_pimpip))
+0 = -Gamma110 + (Gamma10 + Gamma16 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma128 + Gamma802 + Gamma803 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma801)
+0 = -Gamma136 + (Gamma104*BR_eta_pimpippiz + Gamma78*BR_eta_3piz)
+0 = -Gamma149 + (Gamma152 + Gamma800 + Gamma151)
+0 = -Gamma150 + (Gamma800 + Gamma151)
+0 = -Gamma150by66 + (Gamma800 + Gamma151) / (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)
+0 = -Gamma152by54 + Gamma152 / (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma801*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL))
+0 = -Gamma152by76 + Gamma152 / (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)
+0 = -GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma46 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50*(1-2*BR_KS_pimpip*BR_KS_2piz) + Gamma51 + Gamma806 + Gamma805 + Gamma801 + Gamma152 + Gamma103 + Gamma900 + Gamma901 + Gamma902 + Gamma903)
+0 = -Gamma51 + 2*Gamma50
+1 = GammaAll + Gamma998
+
+##
+## Non-linear constraints dropped due to missing quantities
+##
+0 = -Gamma1 + (Gamma3 + Gamma128 * 0.719 + Gamma30 + Gamma152 * 0.0828 +Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma42 + Gamma9 +Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma47 +Gamma804 + Gamma48 + Gamma126 * 0.719 + Gamma37 + Gamma10 +Gamma800 * 0.0828 + Gamma151 * 0.0828 + Gamma130 * 0.719 +Gamma132 * (0.5 * 0.719) + Gamma44 * 0.5 + Gamma801 * (0.342 *0.3069)/(0.489 + 0.342))
+  missing vars: Gamma1
+0 = -Gamma2 + (Gamma3 + Gamma128 * 0.719 + Gamma30 + Gamma152 * 0.0828 +Gamma23 + Gamma28 + Gamma35 * (0.5 * 0.3069 + 0.5) + Gamma40 *(0.5 * 0.3069 + 0.5) + Gamma42 * (0.5 * 0.3069 + 0.5) + Gamma9 +Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma47 *0.3069 * 0.3069 + Gamma48 * 0.3069 + Gamma804 + Gamma126 *0.719 + Gamma37 * (0.5 * 0.3069 + 0.5) + Gamma10 + Gamma800 *0.0828 + Gamma151 * 0.0828 + Gamma130 * 0.719 + Gamma132 *(0.5 * 0.3069 + 0.5) + Gamma44 * (0.5 * 0.3069 + 0.5) + Gamma801 *(0.342 * 0.3069)/(0.489 + 0.342))
+  missing vars: Gamma2
+0 = -Gamma8by5 + (Gamma9 + Gamma10) / Gamma5
+  missing vars: Gamma8by5
+0 = -Gamma10by9 + Gamma10 / Gamma9
+  missing vars: Gamma10by9
+0 = -Gamma11 + (Gamma128 * 0.719 + Gamma30 + Gamma152 * 0.0828 +Gamma23 + Gamma28 + Gamma35 * (0.5 * 0.3069) + Gamma40 *(0.5 * 0.3069) + Gamma42 * (0.5 * 0.3069) + Gamma14 + Gamma16 +Gamma20 + Gamma27 + Gamma47 * (0.3069 * 0.3069) + Gamma48 *0.3069 + Gamma126 * 0.719 + Gamma37 * (0.5 * 0.3069) + Gamma800 *0.0828 + Gamma151 * 0.0828 + Gamma130 * 0.719)
+  missing vars: Gamma11
+0 = -Gamma12 + (Gamma128 * 0.3257 + Gamma30 + Gamma23 + Gamma28 +Gamma14 + Gamma16 + Gamma20 + Gamma27 + Gamma126 * 0.3257 +Gamma130 * 0.3257)
+  missing vars: Gamma12
+0 = -Gamma18 + (Gamma23 + Gamma35 * (0.5 * 0.3069) + Gamma20 + Gamma37 *(0.5 * 0.3069))
+  missing vars: Gamma18
+0 = -Gamma24 + (Gamma128 * 0.3257 + Gamma30 + Gamma28 + Gamma40 *(0.5 * 0.3069) + Gamma42 * (0.5 * 0.3069) + Gamma27 + Gamma47 *(0.3069 * 0.3069) + Gamma126 * 0.3257 + Gamma130 * 0.3257)
+  missing vars: Gamma24
+0 = -Gamma32 + (Gamma128 * 0.719 + Gamma23 + Gamma28 + Gamma42 +Gamma16 + Gamma37 + Gamma801 * (0.342 * 0.3069)/(0.489 +0.342))
+  missing vars: Gamma32
+0 = -Gamma56 + (Gamma35 * (0.5 * 0.692) + Gamma62 + Gamma93 + Gamma37 *(0.5 * 0.692) + Gamma802 + Gamma800 * 0.0153 + Gamma151 *0.0153 + Gamma801 * 0.489/(0.489 + 0.342))
+  missing vars: Gamma56
+0 = -Gamma59 + (Gamma35 * (0.5 * 0.692) + Gamma62 + Gamma800 * 0.0153)
+  missing vars: Gamma59
+0 = -Gamma63 + (Gamma128 * 0.281 + Gamma152 * (0.892 + 0.0153) +Gamma40 * (0.5 * 0.692) + Gamma42 * (0.5 * 0.692) + Gamma78 +Gamma47 * (2 * 0.692 * 0.3069) + Gamma77 + Gamma48 * 0.692 +Gamma94 + Gamma70 + Gamma126 * 0.281 + Gamma803 + Gamma800 *0.892 + Gamma151 * 0.892 + Gamma130 * 0.281 + Gamma132 *(0.5 * 0.2274 + 0.5 * 0.3069 * 0.2274 + 0.5 * 0.692 * 0.3257) +Gamma801 * (0.342 * 0.692)/(0.489 + 0.342))
+  missing vars: Gamma63
+0 = -Gamma64 + (Gamma128 * 0.2274 + Gamma152 * (0.892 + 0.0153) +Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126 * 0.2274 +Gamma803 + Gamma800 * 0.892 + Gamma151 * 0.892 + Gamma130 *0.2274)
+  missing vars: Gamma64
+0 = -Gamma65 + (Gamma128 * 0.2274 + Gamma152 * 0.0153 + Gamma40 *(0.5 * 0.692) + Gamma42 * (0.5 * 0.692) + Gamma94 + Gamma70 +Gamma803 + Gamma800 * 0.892 + Gamma151 * 0.892)
+  missing vars: Gamma65
+0 = -Gamma67 + (Gamma128 * 0.2274 + Gamma94 + Gamma70 + Gamma803 +Gamma151 * 0.892)
+  missing vars: Gamma67
+0 = -Gamma68 + (Gamma152 * 0.0153 + Gamma40 * (0.5 * 0.692) + Gamma70 +Gamma800 * 0.892)
+  missing vars: Gamma68
+0 = -Gamma75 + (Gamma152 * 0.892 + Gamma47 * (2 * 0.692 * 0.3069) +Gamma77 + Gamma126 * 0.2274 + Gamma130 * 0.2274)
+  missing vars: Gamma75
+0 = -Gamma79 + (Gamma128 * 0.281 + Gamma42 * (0.5 * 0.692) + Gamma94 +Gamma802 + Gamma803 + Gamma151 * (0.892 + 0.0153) + Gamma801 *(0.489 + 0.342 * 0.692)/(0.489 + 0.342) + Gamma93 + Gamma37 *(0.5 * 0.692))
+  missing vars: Gamma79
+0 = -Gamma80 + (Gamma93 + Gamma802 + Gamma151 * 0.0153)
+  missing vars: Gamma80
+0 = -Gamma81 + (Gamma128 * 0.2274 + Gamma94 + Gamma803 + Gamma151 *0.892)
+  missing vars: Gamma81
+0 = -Gamma83 + (Gamma128 * 0.2274 + Gamma802 + Gamma803 + Gamma151 *(0.892 + 0.0153))
+  missing vars: Gamma83
+0 = -Gamma84 + (Gamma802 + Gamma151 * 0.0153 + Gamma37 * (0.5 * 0.692))
+  missing vars: Gamma84
+0 = -Gamma87 + (Gamma128 * 0.2274 + Gamma42 * (0.5 * 0.692) + Gamma803 +Gamma151 * 0.892)
+  missing vars: Gamma87
+0 = -Gamma89 + (Gamma803 + Gamma151 * 0.892)
+  missing vars: Gamma89
+0 = -Gamma106 + (Gamma30 + Gamma152 * 0.892 + Gamma47 * (0.692 *0.692) + Gamma77 + Gamma103 + Gamma126 * (0.3257 + 0.2274) +Gamma130 * (0.3257 + 0.2274) + Gamma53 * (0.5 * 0.692))
+  missing vars: Gamma106
+0 = -Gamma149 + (Gamma152 + Gamma800 + Gamma151)
+  missing vars: Gamma149
+0 = -Gamma152by54 + Gamma152/(Gamma128 * 0.281 + Gamma152 * (0.892 +0.0153) + Gamma35 * (0.5 * 0.692) + Gamma40 * (0.5 * 0.692) +Gamma42 * (0.5 * 0.692) + Gamma78 + Gamma47 * (2 * 0.692 *0.3069) + Gamma77 + Gamma48 * 0.692 + Gamma50 * (2 * 0.692 *0.3069) + Gamma51 * 0.692 + Gamma94 + Gamma62 + Gamma70 +Gamma93 + Gamma126 * 0.281 + Gamma37 * (0.5 * 0.692) + Gamma802 +Gamma803 + Gamma800 * (0.892 + 0.0153) + Gamma151 * (0.892 +0.0153) + Gamma130 * 0.281 + Gamma132 * (0.5 * 0.2274 + 0.5 *0.3069 * 0.2274 + 0.5 * 0.692 * 0.3257) + Gamma53 * (0.5 *0.3069 + 0.5) + Gamma801 * (0.489 + 0.342 * 0.692)/(0.489 +0.342))
+  missing vars: Gamma152by54
+
+##
+## Linearized non-linear constraints
+##
+
+non-linear: 0 = -Gamma806 + Gamma50
+linearized: 0 = -1*Gamma806 + 1*Gamma50
+non-linear: 0 = -Gamma49 + (Gamma50 + Gamma51 + Gamma806)
+linearized: 0 = -1*Gamma49 + 1*Gamma50 + 1*Gamma51 + 1*Gamma806
+non-linear: 0 = -Gamma804 + (Gamma47 * (0.5 * 0.5)/(0.5 * 0.5))
+linearized: 0 = -1*Gamma804 + 1*Gamma47
+non-linear: 0 = -Gamma7 + (Gamma35 * 0.5 + Gamma9 + Gamma804 + Gamma37 * 0.5 +Gamma10)
+linearized: 0 = -1*Gamma7 + 0.5*Gamma35 + 1*Gamma9 + 1*Gamma804 + 0.5*Gamma37 + 1*Gamma10
+non-linear: 0 = -Gamma8 + (Gamma9 + Gamma10)
+linearized: 0 = -1*Gamma8 + 1*Gamma9 + 1*Gamma10
+non-linear: 0 = -Gamma13 + (Gamma14 + Gamma16)
+linearized: 0 = -1*Gamma13 + 1*Gamma14 + 1*Gamma16
+non-linear: 0 = -Gamma17 + (Gamma128 * 0.3257 + Gamma30 + Gamma23 + Gamma28 +Gamma35 * (0.5 * 0.3069) + Gamma40 * (0.5 * 0.3069) + Gamma42 *(0.5 * 0.3069) + Gamma20 + Gamma27 + Gamma47 * (0.3069 *0.3069) + Gamma48 * 0.3069 + Gamma50 * (0.3069 * 0.3069) +Gamma51 * 0.3069 + Gamma126 * 0.3257 + Gamma37 * (0.5 * 0.3069) +Gamma130 * 0.3257)
+linearized: 0 = -1*Gamma17 + 0.3257*Gamma128 + 1*Gamma30 + 1*Gamma23 + 1*Gamma28 + 0.15345*Gamma35 + 0.15345*Gamma40 + 0.15345*Gamma42 + 1*Gamma20 + 1*Gamma27 + 0.09418761*Gamma47 + 0.3069*Gamma48 + 0.09418761*Gamma50 + 0.3069*Gamma51 + 0.3257*Gamma126 + 0.15345*Gamma37 + 0.3257*Gamma130
+non-linear: 0 = -Gamma19 + (Gamma23 + Gamma20)
+linearized: 0 = -1*Gamma19 + 1*Gamma23 + 1*Gamma20
+non-linear: 0 = -Gamma25 + (Gamma128 * 0.3257 + Gamma30 + Gamma28 + Gamma27 +Gamma126 * 0.3257 + Gamma130 * 0.3257)
+linearized: 0 = -1*Gamma25 + 0.3257*Gamma128 + 1*Gamma30 + 1*Gamma28 + 1*Gamma27 + 0.3257*Gamma126 + 0.3257*Gamma130
+non-linear: 0 = -Gamma26 + (Gamma128 * 0.3257 + Gamma28 + Gamma40 * (0.5 * 0.3069) +Gamma42 * (0.5 * 0.3069) + Gamma27)
+linearized: 0 = -1*Gamma26 + 0.3257*Gamma128 + 1*Gamma28 + 0.15345*Gamma40 + 0.15345*Gamma42 + 1*Gamma27
+non-linear: 0 = -Gamma29 + (Gamma30 + Gamma126 * 0.3257 + Gamma130 * 0.3257)
+linearized: 0 = -1*Gamma29 + 1*Gamma30 + 0.3257*Gamma126 + 0.3257*Gamma130
+non-linear: 0 = -Gamma31 + (Gamma128 * 0.719 + Gamma23 + Gamma28 + Gamma42 +Gamma16 + Gamma37 + Gamma10 + Gamma801 * (0.342 * 0.3069)/(0.489 +0.342))
+linearized: 0 = -1*Gamma31 + 0.719*Gamma128 + 1*Gamma23 + 1*Gamma28 + 1*Gamma42 + 1*Gamma16 + 1*Gamma37 + 1*Gamma10 + 0.126305415162455*Gamma801
+non-linear: 0 = -Gamma33 + (Gamma35 * 0.5 + Gamma40 * 0.5 + Gamma42 * 0.5 + Gamma47 +Gamma48 + Gamma50 + Gamma51 + Gamma37 * 0.5 + Gamma132 *(0.5 * 0.719) + Gamma44 * 0.5 + Gamma801 * 0.342/(0.489 +0.342))
+linearized: 0 = -1*Gamma33 + 0.5*Gamma35 + 0.5*Gamma40 + 0.5*Gamma42 + 1*Gamma47 + 1*Gamma48 + 1*Gamma50 + 1*Gamma51 + 0.5*Gamma37 + 0.3595*Gamma132 + 0.5*Gamma44 + 0.411552346570397*Gamma801
+non-linear: 0 = -Gamma34 + (Gamma35 + Gamma37)
+linearized: 0 = -1*Gamma34 + 1*Gamma35 + 1*Gamma37
+non-linear: 0 = -Gamma38 + (Gamma42 + Gamma37)
+linearized: 0 = -1*Gamma38 + 1*Gamma42 + 1*Gamma37
+non-linear: 0 = -Gamma39 + (Gamma40 + Gamma42)
+linearized: 0 = -1*Gamma39 + 1*Gamma40 + 1*Gamma42
+non-linear: 0 = -Gamma43 + (Gamma40 + Gamma44)
+linearized: 0 = -1*Gamma43 + 1*Gamma40 + 1*Gamma44
+non-linear: 0 = -Gamma46 + (Gamma48 + Gamma47 + Gamma804)
+linearized: 0 = -1*Gamma46 + 1*Gamma48 + 1*Gamma47 + 1*Gamma804
+non-linear: 0 = -Gamma54 + (Gamma128 * 0.281 + Gamma152 * (0.892 + 0.0153) +Gamma35 * (0.5 * 0.692) + Gamma40 * (0.5 * 0.692) + Gamma42 *(0.5 * 0.692) + Gamma78 + Gamma47 * (2 * 0.692 * 0.3069) +Gamma77 + Gamma48 * 0.692 + Gamma50 * (2 * 0.692 * 0.3069) +Gamma51 * 0.692 + Gamma94 + Gamma62 + Gamma70 + Gamma93 +Gamma126 * 0.281 + Gamma37 * (0.5 * 0.692) + Gamma802 + Gamma803 +Gamma800 * (0.892 + 0.0153) + Gamma151 * (0.892 + 0.0153) +Gamma130 * 0.281 + Gamma132 * (0.5 * 0.2274 + 0.5 * 0.3069 *0.2274 + 0.5 * 0.692 * 0.3257) + Gamma53 * (0.5 * 0.3069 +0.5) + Gamma801 * (0.489 + 0.342 * 0.692)/(0.489 + 0.342))
+linearized: 0 = -1*Gamma54 + 0.281*Gamma128 + 0.9073*Gamma152 + 0.346*Gamma35 + 0.346*Gamma40 + 0.346*Gamma42 + 1*Gamma78 + 0.4247496*Gamma47 + 1*Gamma77 + 0.692*Gamma48 + 0.4247496*Gamma50 + 0.692*Gamma51 + 1*Gamma94 + 1*Gamma62 + 1*Gamma70 + 1*Gamma93 + 0.281*Gamma126 + 0.346*Gamma37 + 1*Gamma802 + 1*Gamma803 + 0.9073*Gamma800 + 0.9073*Gamma151 + 0.281*Gamma130 + 0.26128673*Gamma132 + 0.65345*Gamma53 + 0.873241877256318*Gamma801
+non-linear: 0 = -Gamma55 + (Gamma128 * 0.281 + Gamma152 * (0.892 + 0.0153) +Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 +Gamma126 * 0.281 + Gamma802 + Gamma803 + Gamma800 * (0.892 +0.0153) + Gamma151 * (0.892 + 0.0153) + Gamma130 * 0.281 +Gamma801 * 0.489/(0.489 + 0.342))
+linearized: 0 = -1*Gamma55 + 0.281*Gamma128 + 0.9073*Gamma152 + 1*Gamma78 + 1*Gamma77 + 1*Gamma94 + 1*Gamma62 + 1*Gamma70 + 1*Gamma93 + 0.281*Gamma126 + 1*Gamma802 + 1*Gamma803 + 0.9073*Gamma800 + 0.9073*Gamma151 + 0.281*Gamma130 + 0.588447653429603*Gamma801
+non-linear: 0 = -Gamma57 + (Gamma62 + Gamma93 + Gamma802 + Gamma800 * 0.0153 +Gamma151 * 0.0153 + Gamma801 * 0.489/(0.489 + 0.342))
+linearized: 0 = -1*Gamma57 + 1*Gamma62 + 1*Gamma93 + 1*Gamma802 + 0.0153*Gamma800 + 0.0153*Gamma151 + 0.588447653429603*Gamma801
+non-linear: 0 = -Gamma58 + (Gamma62 + Gamma93 + Gamma802 + Gamma801 * 0.489/(0.489 +0.342))
+linearized: 0 = -1*Gamma58 + 1*Gamma62 + 1*Gamma93 + 1*Gamma802 + 0.588447653429603*Gamma801
+non-linear: 0 = -Gamma60 + (Gamma62 + Gamma800 * 0.0153)
+linearized: 0 = -1*Gamma60 + 1*Gamma62 + 0.0153*Gamma800
+non-linear: 0 = -Gamma66 + (Gamma128 * 0.2274 + Gamma152 * 0.0153 + Gamma94 +Gamma70 + Gamma803 + Gamma800 * 0.892 + Gamma151 * 0.892)
+linearized: 0 = -1*Gamma66 + 0.2274*Gamma128 + 0.0153*Gamma152 + 1*Gamma94 + 1*Gamma70 + 1*Gamma803 + 0.892*Gamma800 + 0.892*Gamma151
+non-linear: 0 = -Gamma69 + (Gamma152 * 0.0153 + Gamma70 + Gamma800 * 0.892)
+linearized: 0 = -1*Gamma69 + 0.0153*Gamma152 + 1*Gamma70 + 0.892*Gamma800
+non-linear: 0 = -Gamma74 + (Gamma152 * 0.892 + Gamma78 + Gamma77 + Gamma126 *0.2274 + Gamma130 * 0.2274)
+linearized: 0 = -1*Gamma74 + 0.892*Gamma152 + 1*Gamma78 + 1*Gamma77 + 0.2274*Gamma126 + 0.2274*Gamma130
+non-linear: 0 = -Gamma76 + (Gamma152 * 0.892 + Gamma77 + Gamma126 * 0.2274 +Gamma130 * 0.2274)
+linearized: 0 = -1*Gamma76 + 0.892*Gamma152 + 1*Gamma77 + 0.2274*Gamma126 + 0.2274*Gamma130
+non-linear: 0 = -Gamma82 + (Gamma128 * 0.281 + Gamma42 * (0.5 * 0.692) + Gamma802 +Gamma803 + Gamma151 * (0.892 + 0.0153) + Gamma37 * (0.5 *0.692))
+linearized: 0 = -1*Gamma82 + 0.281*Gamma128 + 0.346*Gamma42 + 1*Gamma802 + 1*Gamma803 + 0.9073*Gamma151 + 0.346*Gamma37
+non-linear: 0 = -Gamma85 + (Gamma802 + Gamma151 * 0.0153)
+linearized: 0 = -1*Gamma85 + 1*Gamma802 + 0.0153*Gamma151
+non-linear: 0 = -Gamma88 + (Gamma128 * 0.2274 + Gamma803 + Gamma151 * 0.892)
+linearized: 0 = -1*Gamma88 + 0.2274*Gamma128 + 1*Gamma803 + 0.892*Gamma151
+non-linear: 0 = -Gamma92 + (Gamma94 + Gamma93)
+linearized: 0 = -1*Gamma92 + 1*Gamma94 + 1*Gamma93
+non-linear: 0 = -Gamma96 + Gamma801 * 0.489/(0.489 + 0.342)
+linearized: 0 = -1*Gamma96 + 0.588447653429603*Gamma801
+non-linear: 0 = -Gamma102 + (Gamma103 + Gamma104)
+linearized: 0 = -1*Gamma102 + 1*Gamma103 + 1*Gamma104
+non-linear: 0 = -Gamma110 + (Gamma10 + Gamma16 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma128 + Gamma802 + Gamma803 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma801)
+linearized: 0 = -1*Gamma110 + 1*Gamma10 + 1*Gamma16 + 1*Gamma23 + 1*Gamma28 + 1*Gamma35 + 1*Gamma40 + 1*Gamma128 + 1*Gamma802 + 1*Gamma803 + 1*Gamma151 + 1*Gamma130 + 1*Gamma132 + 1*Gamma44 + 1*Gamma53 + 1*Gamma801
+non-linear: 0 = -Gamma136 + (Gamma104 * 0.2274 + Gamma78 * 0.3257)
+linearized: 0 = -1*Gamma136 + 0.2274*Gamma104 + 0.3257*Gamma78
+non-linear: 0 = -Gamma150 + (Gamma800 + Gamma151)
+linearized: 0 = -1*Gamma150 + 1*Gamma800 + 1*Gamma151
+non-linear: 0 = -GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 +Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 +Gamma37 + Gamma40 + Gamma42 + Gamma46 + Gamma62 + Gamma70 +Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 +Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 +Gamma132 + Gamma44 + Gamma53 + Gamma50 * (1 - 2 * 0.692 *0.3069) + Gamma51 + Gamma806 + Gamma805 + Gamma801 + Gamma152 +Gamma103 + Gamma900 + Gamma901 + Gamma902 + Gamma903)
+linearized: 0 = -1*GammaAll + 1*Gamma3 + 1*Gamma5 + 1*Gamma9 + 1*Gamma10 + 1*Gamma14 + 1*Gamma16 + 1*Gamma20 + 1*Gamma23 + 1*Gamma27 + 1*Gamma28 + 1*Gamma30 + 1*Gamma35 + 1*Gamma37 + 1*Gamma40 + 1*Gamma42 + 1*Gamma46 + 1*Gamma62 + 1*Gamma70 + 1*Gamma77 + 1*Gamma78 + 1*Gamma93 + 1*Gamma94 + 1*Gamma104 + 1*Gamma126 + 1*Gamma128 + 1*Gamma802 + 1*Gamma803 + 1*Gamma800 + 1*Gamma151 + 1*Gamma130 + 1*Gamma132 + 1*Gamma44 + 1*Gamma53 + 0.5752504*Gamma50 + 1*Gamma51 + 1*Gamma806 + 1*Gamma805 + 1*Gamma801 + 1*Gamma152 + 1*Gamma103 + 1*Gamma900 + 1*Gamma901 + 1*Gamma902 + 1*Gamma903
+non-linear: 0 = -Gamma51 + 2*Gamma50
+linearized: 0 = -1*Gamma51 + 2*Gamma50
+non-linear: 1 = GammaAll + Gamma998
+linearized: 1 = 1*GammaAll + 1*Gamma998
+
+##
+## Constraint equations used
+##
+
+0 = -Gamma806 + Gamma50
+0 = -Gamma49 + (Gamma50 + Gamma51 + Gamma806)
+0 = -Gamma804 + (Gamma47 * (0.5 * 0.5)/(0.5 * 0.5))
+0 = -Gamma3by5 + Gamma3 / Gamma5
+0 = -Gamma7 + (Gamma35 * 0.5 + Gamma9 + Gamma804 + Gamma37 * 0.5 +Gamma10)
+0 = -Gamma8 + (Gamma9 + Gamma10)
+0 = -Gamma9by5 + Gamma9 / Gamma5
+0 = -Gamma10by5 + Gamma10 / Gamma5
+0 = -Gamma13 + (Gamma14 + Gamma16)
+0 = -Gamma17 + (Gamma128 * 0.3257 + Gamma30 + Gamma23 + Gamma28 +Gamma35 * (0.5 * 0.3069) + Gamma40 * (0.5 * 0.3069) + Gamma42 *(0.5 * 0.3069) + Gamma20 + Gamma27 + Gamma47 * (0.3069 *0.3069) + Gamma48 * 0.3069 + Gamma50 * (0.3069 * 0.3069) +Gamma51 * 0.3069 + Gamma126 * 0.3257 + Gamma37 * (0.5 * 0.3069) +Gamma130 * 0.3257)
+0 = -Gamma19 + (Gamma23 + Gamma20)
+0 = -Gamma19by13 + (Gamma23 + Gamma20) / (Gamma14 + Gamma16)
+0 = -Gamma25 + (Gamma128 * 0.3257 + Gamma30 + Gamma28 + Gamma27 +Gamma126 * 0.3257 + Gamma130 * 0.3257)
+0 = -Gamma26 + (Gamma128 * 0.3257 + Gamma28 + Gamma40 * (0.5 * 0.3069) +Gamma42 * (0.5 * 0.3069) + Gamma27)
+0 = -Gamma26by13 + (Gamma128 * 0.3257 + Gamma28 + Gamma40 * (0.5 *0.3069) + Gamma42 * (0.5 * 0.3069) + Gamma27)/(Gamma14 +Gamma16)
+0 = -Gamma29 + (Gamma30 + Gamma126 * 0.3257 + Gamma130 * 0.3257)
+0 = -Gamma31 + (Gamma128 * 0.719 + Gamma23 + Gamma28 + Gamma42 +Gamma16 + Gamma37 + Gamma10 + Gamma801 * (0.342 * 0.3069)/(0.489 +0.342))
+0 = -Gamma33 + (Gamma35 * 0.5 + Gamma40 * 0.5 + Gamma42 * 0.5 + Gamma47 +Gamma48 + Gamma50 + Gamma51 + Gamma37 * 0.5 + Gamma132 *(0.5 * 0.719) + Gamma44 * 0.5 + Gamma801 * 0.342/(0.489 +0.342))
+0 = -Gamma34 + (Gamma35 + Gamma37)
+0 = -Gamma38 + (Gamma42 + Gamma37)
+0 = -Gamma39 + (Gamma40 + Gamma42)
+0 = -Gamma43 + (Gamma40 + Gamma44)
+0 = -Gamma46 + (Gamma48 + Gamma47 + Gamma804)
+0 = -Gamma54 + (Gamma128 * 0.281 + Gamma152 * (0.892 + 0.0153) +Gamma35 * (0.5 * 0.692) + Gamma40 * (0.5 * 0.692) + Gamma42 *(0.5 * 0.692) + Gamma78 + Gamma47 * (2 * 0.692 * 0.3069) +Gamma77 + Gamma48 * 0.692 + Gamma50 * (2 * 0.692 * 0.3069) +Gamma51 * 0.692 + Gamma94 + Gamma62 + Gamma70 + Gamma93 +Gamma126 * 0.281 + Gamma37 * (0.5 * 0.692) + Gamma802 + Gamma803 +Gamma800 * (0.892 + 0.0153) + Gamma151 * (0.892 + 0.0153) +Gamma130 * 0.281 + Gamma132 * (0.5 * 0.2274 + 0.5 * 0.3069 *0.2274 + 0.5 * 0.692 * 0.3257) + Gamma53 * (0.5 * 0.3069 +0.5) + Gamma801 * (0.489 + 0.342 * 0.692)/(0.489 + 0.342))
+0 = -Gamma55 + (Gamma128 * 0.281 + Gamma152 * (0.892 + 0.0153) +Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 +Gamma126 * 0.281 + Gamma802 + Gamma803 + Gamma800 * (0.892 +0.0153) + Gamma151 * (0.892 + 0.0153) + Gamma130 * 0.281 +Gamma801 * 0.489/(0.489 + 0.342))
+0 = -Gamma57 + (Gamma62 + Gamma93 + Gamma802 + Gamma800 * 0.0153 +Gamma151 * 0.0153 + Gamma801 * 0.489/(0.489 + 0.342))
+0 = -Gamma57by55 + (Gamma62 + Gamma93 + Gamma802 + Gamma800 * 0.0153 +Gamma151 * 0.0153 + Gamma801 * 0.489/(0.489 + 0.342))/(Gamma128 *0.281 + Gamma152 * (0.892 + 0.0153) + Gamma78 + Gamma77 +Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126 * 0.281 +Gamma802 + Gamma803 + Gamma800 * (0.892 + 0.0153) + Gamma151 *(0.892 + 0.0153) + Gamma130 * 0.281 + Gamma801 * 0.489/(0.489 +0.342))
+0 = -Gamma58 + (Gamma62 + Gamma93 + Gamma802 + Gamma801 * 0.489/(0.489 +0.342))
+0 = -Gamma60 + (Gamma62 + Gamma800 * 0.0153)
+0 = -Gamma66 + (Gamma128 * 0.2274 + Gamma152 * 0.0153 + Gamma94 +Gamma70 + Gamma803 + Gamma800 * 0.892 + Gamma151 * 0.892)
+0 = -Gamma69 + (Gamma152 * 0.0153 + Gamma70 + Gamma800 * 0.892)
+0 = -Gamma74 + (Gamma152 * 0.892 + Gamma78 + Gamma77 + Gamma126 *0.2274 + Gamma130 * 0.2274)
+0 = -Gamma76 + (Gamma152 * 0.892 + Gamma77 + Gamma126 * 0.2274 +Gamma130 * 0.2274)
+0 = -Gamma76by54 + (Gamma152 * 0.892 + Gamma77 + Gamma126 * 0.2274 +Gamma130 * 0.2274)/(Gamma128 * 0.281 + Gamma152 * (0.892 +0.0153) + Gamma35 * (0.5 * 0.692) + Gamma40 * (0.5 * 0.692) +Gamma42 * (0.5 * 0.692) + Gamma78 + Gamma47 * (2 * 0.692 *0.3069) + Gamma77 + Gamma48 * 0.692 + Gamma50 * (2 * 0.692 *0.3069) + Gamma51 * 0.692 + Gamma94 + Gamma62 + Gamma70 +Gamma93 + Gamma126 * 0.281 + Gamma37 * (0.5 * 0.692) + Gamma802 +Gamma803 + Gamma800 * (0.892 + 0.0153) + Gamma151 * (0.892 +0.0153) + Gamma130 * 0.281 + Gamma132 * (0.5 * 0.2274 + 0.5 *0.3069 * 0.2274 + 0.5 * 0.692 * 0.3257) + Gamma53 * (0.5 *0.3069 + 0.5) + Gamma801 * (0.489 + 0.342 * 0.692)/(0.489 +0.342))
+0 = -Gamma80by60 + (Gamma93 + Gamma802 + Gamma151 * 0.0153)/(Gamma62 +Gamma800 * 0.0153)
+0 = -Gamma81by69 + (Gamma128 * 0.2274 + Gamma94 + Gamma803 + Gamma151 *0.892)/(Gamma152 * 0.0153 + Gamma70 + Gamma800 * 0.892)
+0 = -Gamma82 + (Gamma128 * 0.281 + Gamma42 * (0.5 * 0.692) + Gamma802 +Gamma803 + Gamma151 * (0.892 + 0.0153) + Gamma37 * (0.5 *0.692))
+0 = -Gamma85 + (Gamma802 + Gamma151 * 0.0153)
+0 = -Gamma88 + (Gamma128 * 0.2274 + Gamma803 + Gamma151 * 0.892)
+0 = -Gamma92 + (Gamma94 + Gamma93)
+0 = -Gamma93by60 + Gamma93/(Gamma62 + Gamma800 * 0.0153)
+0 = -Gamma94by69 + Gamma94/(Gamma152 * 0.0153 + Gamma70 + Gamma800 *0.892)
+0 = -Gamma96 + Gamma801 * 0.489/(0.489 + 0.342)
+0 = -Gamma102 + (Gamma103 + Gamma104)
+0 = -Gamma110 + (Gamma10 + Gamma16 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma128 + Gamma802 + Gamma803 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma801)
+0 = -Gamma136 + (Gamma104 * 0.2274 + Gamma78 * 0.3257)
+0 = -Gamma150 + (Gamma800 + Gamma151)
+0 = -Gamma150by66 + (Gamma800 + Gamma151)/(Gamma128 * 0.2274 + Gamma152 *0.0153 + Gamma94 + Gamma70 + Gamma803 + Gamma800 * 0.892 +Gamma151 * 0.892)
+0 = -Gamma152by76 + Gamma152/(Gamma152 * 0.892 + Gamma77 + Gamma126 *0.2274 + Gamma130 * 0.2274)
+0 = -GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 +Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 +Gamma37 + Gamma40 + Gamma42 + Gamma46 + Gamma62 + Gamma70 +Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 +Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 +Gamma132 + Gamma44 + Gamma53 + Gamma50 * (1 - 2 * 0.692 *0.3069) + Gamma51 + Gamma806 + Gamma805 + Gamma801 + Gamma152 +Gamma103 + Gamma900 + Gamma901 + Gamma902 + Gamma903)
+0 = -Gamma51 + 2*Gamma50
+1 = GammaAll + Gamma998
+
+##
+## warning: quantities discarded (not in measurements & constraints)
+##
+   Gamma904 
+
+##
+## warning: syst. terms do not match total syst. error, Combos requires that
+##
+                                                                     total
+BaBar.Gamma103.pub.AUBERT,B.05W                                4.20000e-05
+BaBar.Gamma128.pub.DEL-AMO-SANCHEZ.11E                         7.00000e-06
+BaBar.Gamma136.pub.ARXIV.1209.2734                             1.20000e-05
+BaBar.Gamma136.pub.AUBERT.08AE                                 1.10000e-05
+BaBar.Gamma16.pub.AUBERT.07AP                                  1.80000e-04
+BaBar.Gamma35.prelim.ICHEP08                                   2.30000e-04
+BaBar.Gamma40.prelim.DPF09                                     1.50000e-04
+BaBar.Gamma60.pub.AUBERT.08                                    1.26724e-03
+BaBar.Gamma85.pub.AUBERT.08                                    9.24410e-05
+BaBar.Gamma900.pub.PHYS..REV..D.86.092010.(2012)               2.20000e-05
+BaBar.Gamma901.pub.PHYS..REV..D.86.092010.(2012).f1(4pi)       4.50000e-05
+BaBar.Gamma901.pub.PHYS..REV..D.86.092010.(2012).f1(pi.pi.eta) 2.30000e-05
+BaBar.Gamma902.pub.PHYS..REV..D.86.092010.(2012).non.resonant  4.00000e-05
+BaBar.Gamma903.pub.PHYS..REV..D.86.092010.(2012)               1.20000e-05
+BaBar.Gamma93.pub.AUBERT.08                                    3.64130e-05
+BaBar.Gamma96.pub.AUBERT.08                                    1.23080e-06
+Belle.Gamma126.pub.INAMI.09                                    7.00000e-05
+Belle.Gamma128.pub.INAMI.09                                    9.00000e-06
+Belle.Gamma130.pub.INAMI.09                                    4.00000e-06
+Belle.Gamma132.pub.INAMI.09                                    6.00000e-06
+Belle.Gamma35.pub.EPIFANOV.07                                  2.60000e-04
+Belle.Gamma40.prelim.PHIPSI11                                  1.60000e-04
+Belle.Gamma42.prelim.PHIPSI11                                  8.00000e-05
+Belle.Gamma60.pub.LEE.10                                       2.58790e-03
+Belle.Gamma85.pub.LEE.10                                       1.66250e-04
+Belle.Gamma93.pub.LEE.10                                       5.55790e-05
+Belle.Gamma96.pub.LEE.10                                       1.96210e-06
+                                                               sum of terms
+BaBar.Gamma103.pub.AUBERT,B.05W                                1.968793e-05
+BaBar.Gamma128.pub.DEL-AMO-SANCHEZ.11E                         1.278000e-06
+BaBar.Gamma136.pub.ARXIV.1209.2734                             2.349069e-06
+BaBar.Gamma136.pub.AUBERT.08AE                                 1.517893e-06
+BaBar.Gamma16.pub.AUBERT.07AP                                  4.117560e-05
+BaBar.Gamma35.prelim.ICHEP08                                   1.345038e-04
+BaBar.Gamma40.prelim.DPF09                                     2.833343e-05
+BaBar.Gamma60.pub.AUBERT.08                                    8.380384e-04
+BaBar.Gamma85.pub.AUBERT.08                                    2.585826e-05
+BaBar.Gamma900.pub.PHYS..REV..D.86.092010.(2012)               2.098502e-06
+BaBar.Gamma901.pub.PHYS..REV..D.86.092010.(2012).f1(4pi)       4.938265e-06
+BaBar.Gamma901.pub.PHYS..REV..D.86.092010.(2012).f1(pi.pi.eta) 3.758510e-06
+BaBar.Gamma902.pub.PHYS..REV..D.86.092010.(2012).non.resonant  8.018155e-06
+BaBar.Gamma903.pub.PHYS..REV..D.86.092010.(2012)               7.621424e-07
+BaBar.Gamma93.pub.AUBERT.08                                    1.277023e-05
+BaBar.Gamma96.pub.AUBERT.08                                    1.496738e-07
+Belle.Gamma126.pub.INAMI.09                                    1.932906e-05
+Belle.Gamma128.pub.INAMI.09                                    2.262216e-06
+Belle.Gamma130.pub.INAMI.09                                    6.586198e-07
+Belle.Gamma132.pub.INAMI.09                                    1.259968e-06
+Belle.Gamma35.pub.EPIFANOV.07                                  1.201178e-04
+Belle.Gamma40.prelim.PHIPSI11                                  1.529998e-04
+Belle.Gamma42.prelim.PHIPSI11                                  5.743487e-05
+Belle.Gamma60.pub.LEE.10                                       0.000000e+00
+Belle.Gamma85.pub.LEE.10                                       0.000000e+00
+Belle.Gamma93.pub.LEE.10                                       0.000000e+00
+Belle.Gamma96.pub.LEE.10                                       0.000000e+00
+
+##
+## measurements updates due to updated parameters
+##
+
+BaBar.Gamma103.pub.AUBERT,B.05W
+           value         syst
+old 0.0008560000 4.200000e-05
+new 0.0008281079 3.746397e-05
+           sigmataupmy4s
+params.old  8.900000e-01
+delta.old   2.000000e-02
+params.new  9.190000e-01
+delta.new   3.216500e-03
+syst.old   -1.923595e-05
+syst.new   -3.093621e-06
+
+BaBar.Gamma10by5.pub.AUBERT.10F
+         value         syst
+old 0.03882000 0.0001736080
+new 0.03859372 0.0001055173
+             PimPimPipNu
+params.old  8.830000e-02
+delta.old   1.303840e-03
+params.new  9.020000e-02
+delta.new   6.000000e-04
+syst.old   -1.552800e-04
+syst.new   -7.145662e-05
+
+BaBar.Gamma35.prelim.ICHEP08
+          value         syst
+old 0.008400000 0.0002300000
+new 0.008027043 0.0002513043
+               PimPizNu      KmKzsNu   PimPizKzsNu    KmPizKzsNu PimKzsKzsNu
+params.old  2.53754e-01  8.25500e-04  1.883500e-03  7.680000e-04  2.4000e-04
+delta.old   1.00000e-03  8.00000e-05  2.000000e-04  1.347100e-04  5.0000e-05
+params.new  2.55100e-01  7.95000e-04  1.724800e-03  7.950000e-04  2.4000e-04
+delta.new   9.00000e-04  8.00000e-05  7.363600e-05  1.000000e-04  5.0000e-05
+syst.old   -6.72000e-08 -6.36804e-06 -5.886552e-05 -2.304960e-06 -8.6436e-07
+syst.new   -6.04800e-08 -6.36804e-06 -2.167311e-05 -1.711053e-06 -8.6436e-07
+            PimPimPipNu PimPimPipPizNu   PimKmPipNu     PimKmKpNu   PimKzsKzlNu
+params.old  9.17830e-02    4.36540e-02  3.00900e-03  1.346000e-03  6.730000e-04
+delta.old   8.00000e-04    6.00000e-04  4.00000e-04  3.736000e-05  7.000000e-05
+params.new  9.02000e-02    4.48000e-02  2.94000e-03  1.440000e-03  9.773900e-04
+delta.new   6.00000e-04    6.00000e-04  1.50000e-04  5.000000e-05  1.076800e-04
+syst.old   -4.85352e-06   -1.06092e-06 -1.84548e-06 -3.906000e-07 -9.853116e-05
+syst.new   -3.64014e-06   -1.06092e-06 -6.92055e-07 -5.227516e-07 -1.515691e-04
+           sigmataupmy4s
+params.old   9.19000e-01
+delta.old    3.21650e-03
+params.new   9.19000e-01
+delta.new    3.21650e-03
+syst.old    -3.32472e-05
+syst.new    -3.32472e-05
+
+BaBar.Gamma3by5.pub.AUBERT.10F
+        value         syst
+old 0.9796000 0.0005275300
+new 0.9788862 0.0002986421
+             PimPimPipNu
+params.old  0.0883000000
+delta.old   0.0013038400
+params.new  0.0902000000
+delta.new   0.0006000000
+syst.old   -0.0004898000
+syst.new   -0.0002253958
+
+BaBar.Gamma9by5.pub.AUBERT.10F
+        value        syst
+old 0.5945000 0.002484130
+new 0.5932005 0.002354588
+             PimPimPipNu
+params.old  0.0883000000
+delta.old   0.0013038400
+params.new  0.0902000000
+delta.new   0.0006000000
+syst.old   -0.0008917500
+syst.new   -0.0004103648
+
+Belle.Gamma35.pub.EPIFANOV.07
+          value         syst
+old 0.008080000 0.0002600000
+new 0.007897912 0.0002641632
+             PimPizKzsNu   PimKzsKzlNu       KmKzsNu
+params.old  1.800000e-03  0.0007800000  7.900000e-04
+delta.old   2.000000e-04  0.0000600000  8.500000e-05
+params.new  1.724800e-03  0.0009773900  7.950000e-04
+delta.new   7.363600e-05  0.0001076800  8.000000e-05
+syst.old   -8.888000e-05 -0.0000646400 -4.848000e-05
+syst.new   -3.272384e-05 -0.0001160073 -4.562824e-05
+
+Belle.Gamma42.prelim.PHIPSI11
+          value         syst
+old 0.001480000 8.000000e-05
+new 0.001479963 7.978286e-05
+             KmKzsNu
+params.old  7.90e-04
+delta.old   8.00e-04
+params.new  7.95e-04
+delta.new   8.00e-05
+syst.old   -5.92e-06
+syst.new   -5.92e-07
+
+applying s-factor = 5.435276 for quantity Gamma96 in measurements:
+BaBar.Gamma96.pub.AUBERT.08
+Belle.Gamma96.pub.LEE.10
+
+##
+## linearized constraint equations (1st iteration)
+##
+
+-0.97218 = -1*Gamma3by5 + 5.6071*Gamma3 + -5.4511*Gamma5 
+-0.60557 = -1*Gamma9by5 + 5.6071*Gamma9 + -3.3955*Gamma5 
+-0.038452 = -1*Gamma10by5 + 5.6071*Gamma10 + -0.21561*Gamma5 
+-0.36409 = -1*Gamma19by13 + 3.9328*Gamma23 + 3.9328*Gamma20 + -1.4319*Gamma14 + -1.4319*Gamma16 
+-0.044022 = -1*Gamma26by13 + 1.2809*Gamma128 + 3.9328*Gamma28 + 0.60348*Gamma40 + 0.60348*Gamma42 + 3.9328*Gamma27 + -0.17313*Gamma14 + -0.17313*Gamma16 
+-0.65047 = -1*Gamma57by55 + 2.428*Gamma62 + 2.428*Gamma93 + 2.428*Gamma802 + -3.9933*Gamma800 + -3.9933*Gamma151 + 1.4288*Gamma801 + -1.2697*Gamma128 + -4.0996*Gamma152 + -4.5185*Gamma78 + -4.5185*Gamma77 + -4.5185*Gamma94 + -4.5185*Gamma70 + -1.2697*Gamma126 + -4.5185*Gamma803 + -1.2697*Gamma130 
+-0.034185 = -1*Gamma76by54 + 5.7359*Gamma152 + 6.4343*Gamma77 + 1.4509*Gamma126 + 1.4509*Gamma130 + -0.063994*Gamma128 + -0.078797*Gamma35 + -0.078797*Gamma40 + -0.078797*Gamma42 + -0.22774*Gamma78 + -0.096732*Gamma47 + -0.15759*Gamma48 + -0.096732*Gamma50 + -0.15759*Gamma51 + -0.22774*Gamma94 + -0.22774*Gamma62 + -0.22774*Gamma70 + -0.22774*Gamma93 + -0.078797*Gamma37 + -0.22774*Gamma802 + -0.22774*Gamma803 + -0.20663*Gamma800 + -0.20663*Gamma151 + -0.059505*Gamma132 + -0.14882*Gamma53 + -0.19887*Gamma801 
+-0.048462 = -1*Gamma80by60 + 11.199*Gamma93 + 11.199*Gamma802 + 0.17135*Gamma151 + -0.54275*Gamma62 + -0.0083041*Gamma800 
+-0.019711 = -1*Gamma81by69 + 5.1666*Gamma128 + 22.72*Gamma94 + 22.72*Gamma803 + 20.266*Gamma151 + -0.006852*Gamma152 + -0.44784*Gamma70 + -0.39948*Gamma800 
+-0.015914 = -1*Gamma93by60 + 11.199*Gamma93 + -0.17823*Gamma62 + -0.0027269*Gamma800 
+-0.0012998 = -1*Gamma94by69 + 22.72*Gamma94 + -0.00045184*Gamma152 + -0.029532*Gamma70 + -0.026343*Gamma800 
+-0.43247 = -1*Gamma150by66 + 13.686*Gamma800 + 13.686*Gamma151 + -2.1912*Gamma128 + -0.14743*Gamma152 + -9.6359*Gamma94 + -9.6359*Gamma70 + -9.6359*Gamma803 
+-0.838 = -1*Gamma152by76 + 49.209*Gamma152 + -163.31*Gamma77 + -37.137*Gamma126 + -37.137*Gamma130 
+
+##
+## constraint percent change summaries
+##
+
+   Gamma3by5.c    Gamma9by5.c   Gamma10by5.c  Gamma19by13.c  Gamma26by13.c 
+      1.69e-05       3.41e-06       2.89e-06       1.05e-03       1.93e-03 
+ Gamma57by55.c  Gamma76by54.c  Gamma80by60.c  Gamma81by69.c  Gamma93by60.c 
+      1.38e-03       5.89e-03       2.88e-04       3.55e-03       2.79e-04 
+ Gamma94by69.c Gamma150by66.c Gamma152by76.c 
+      5.17e-03       2.24e-03       4.74e-03 
+
+   Gamma3by5.c    Gamma9by5.c   Gamma10by5.c  Gamma19by13.c  Gamma26by13.c 
+      7.02e-11       3.94e-11       7.56e-11       1.22e-09       9.14e-10 
+ Gamma57by55.c  Gamma76by54.c  Gamma80by60.c  Gamma81by69.c  Gamma93by60.c 
+      4.61e-09       9.86e-08       6.18e-10       1.31e-07       5.99e-10 
+ Gamma94by69.c Gamma150by66.c Gamma152by76.c 
+      1.83e-07       9.42e-07       1.27e-06 
+
+   Gamma3by5.c    Gamma9by5.c   Gamma10by5.c  Gamma19by13.c  Gamma26by13.c 
+      8.62e-15       6.61e-15       1.29e-14       3.62e-14       7.68e-14 
+ Gamma57by55.c  Gamma76by54.c  Gamma80by60.c  Gamma81by69.c  Gamma93by60.c 
+      9.30e-12       1.04e-11       1.21e-12       5.50e-11       1.17e-12 
+ Gamma94by69.c Gamma150by66.c Gamma152by76.c 
+      7.97e-11       7.60e-11       1.83e-10 
+
+##
+## linearized constraint equations (after convergence)
+##
+
+-0.97603 = -1*Gamma3by5 + 5.6118*Gamma3 + -5.4773*Gamma5 
+-0.60658 = -1*Gamma9by5 + 5.6118*Gamma9 + -3.404*Gamma5 
+-0.039029 = -1*Gamma10by5 + 5.6118*Gamma10 + -0.21902*Gamma5 
+-0.35876 = -1*Gamma19by13 + 3.8554*Gamma23 + 3.8554*Gamma20 + -1.3832*Gamma14 + -1.3832*Gamma16 
+-0.044643 = -1*Gamma26by13 + 1.2557*Gamma128 + 3.8554*Gamma28 + 0.59161*Gamma40 + 0.59161*Gamma42 + 3.8554*Gamma27 + -0.17212*Gamma14 + -0.17212*Gamma16 
+-0.64734 = -1*Gamma57by55 + 2.4199*Gamma62 + 2.4199*Gamma93 + 2.4199*Gamma802 + -3.9252*Gamma800 + -3.9252*Gamma151 + 1.424*Gamma801 + -1.2482*Gamma128 + -4.0302*Gamma152 + -4.442*Gamma78 + -4.442*Gamma77 + -4.442*Gamma94 + -4.442*Gamma70 + -1.2482*Gamma126 + -4.442*Gamma803 + -1.2482*Gamma130 
+-0.032269 = -1*Gamma76by54 + 5.674*Gamma152 + 6.3646*Gamma77 + 1.4359*Gamma126 + 1.4359*Gamma130 + -0.059636*Gamma128 + -0.073431*Gamma35 + -0.073431*Gamma40 + -0.073431*Gamma42 + -0.21223*Gamma78 + -0.090144*Gamma47 + -0.14686*Gamma48 + -0.090144*Gamma50 + -0.14686*Gamma51 + -0.21223*Gamma94 + -0.21223*Gamma62 + -0.21223*Gamma70 + -0.21223*Gamma93 + -0.073431*Gamma37 + -0.21223*Gamma802 + -0.21223*Gamma803 + -0.19256*Gamma800 + -0.19256*Gamma151 + -0.055453*Gamma132 + -0.13868*Gamma53 + -0.18533*Gamma801 
+-0.04851 = -1*Gamma80by60 + 11.117*Gamma93 + 11.117*Gamma802 + 0.17009*Gamma151 + -0.53928*Gamma62 + -0.008251*Gamma800 
+-0.019325 = -1*Gamma81by69 + 5.0377*Gamma128 + 22.153*Gamma94 + 22.153*Gamma803 + 19.761*Gamma151 + -0.0065502*Gamma152 + -0.42812*Gamma70 + -0.38188*Gamma800 
+-0.015938 = -1*Gamma93by60 + 11.117*Gamma93 + -0.17718*Gamma62 + -0.0027108*Gamma800 
+-0.0013542 = -1*Gamma94by69 + 22.153*Gamma94 + -0.00045902*Gamma152 + -0.030001*Gamma70 + -0.026761*Gamma800 
+-0.43342 = -1*Gamma150by66 + 13.331*Gamma800 + 13.331*Gamma151 + -2.1421*Gamma128 + -0.14412*Gamma152 + -9.4198*Gamma94 + -9.4198*Gamma70 + -9.4198*Gamma803 
+-0.82469 = -1*Gamma152by76 + 53.883*Gamma152 + -168.08*Gamma77 + -38.222*Gamma126 + -38.222*Gamma130 
+
+##
+## alucomb2 solution, chisq/d.o.f. = 168.793/120, CL = 0.002229271
+## ( 163 measurements, 95 fitted quantities, 52 constraints )
+##
+
+      Gamma3        Gamma3by5     Gamma5        Gamma7        Gamma8       
+value  0.173923      0.976029      0.178195      0.120172      0.115045    
+error  0.000396156   0.00277621    0.000409333   0.000551881   0.000536441 
+      Gamma9        Gamma9by5     Gamma10       Gamma10by5    Gamma13      
+value  0.10809       0.606582      0.00695475    0.0390289     0.259375    
+error  0.000527107   0.00320919    9.62921e-05   0.000542847   0.000904744 
+      Gamma14       Gamma16       Gamma17       Gamma19       Gamma19by13  
+value  0.25506       0.00431588    0.1081        0.0930547     0.358765    
+error  0.000917305   0.000149276   0.000949539   0.000972421   0.004418    
+      Gamma20       Gamma23       Gamma25       Gamma26       Gamma26by13  
+value  0.0924225     0.000632277   0.012355      0.0115793     0.044643    
+error  0.000997306   0.000222065   0.000650126   0.000717075   0.00276737  
+      Gamma27       Gamma28       Gamma29       Gamma30       Gamma31      
+value  0.0103273     0.000421202   0.00155676    0.00108982    0.015473    
+error  0.000749333   0.000217611   0.000391009   0.000390758   0.000310419 
+      Gamma33       Gamma34       Gamma35       Gamma37       Gamma38      
+value  0.00916957    0.00977698    0.00819032    0.00158666    0.00303443  
+error  0.000291966   0.000233227   0.000181645   0.000157216   0.000168124 
+      Gamma39       Gamma40       Gamma42       Gamma43       Gamma44      
+value  0.00509027    0.00364251    0.00144776    0.00389819    0.000255682 
+error  0.000146004   0.000107839   7.09379e-05   0.000250657   0.000230526 
+      Gamma46       Gamma47       Gamma48       Gamma49       Gamma53      
+value  0.00153977    0.000239281   0.00106121    0.000345021   0.000221975 
+error  0.000209389   5.02604e-05   0.000203815   0.000223644   0.000202356 
+      Gamma54       Gamma55       Gamma57       Gamma57by55   Gamma58      
+value  0.152048      0.145732      0.0943384     0.64734       0.0940332   
+error  0.000608554   0.000564887   0.000530076   0.0029361     0.000530742 
+      Gamma60       Gamma62       Gamma66       Gamma69       Gamma70      
+value  0.089953      0.0896541     0.046012      0.0451397     0.0276546   
+error  0.000509906   0.000510573   0.000513472   0.000523696   0.000710064 
+      Gamma74       Gamma76       Gamma76by54   Gamma77       Gamma78      
+value  0.00529698    0.00490647    0.0322691     0.000971142   0.000390503 
+error  0.000311024   0.000310353   0.00202278    0.000353908   2.73943e-05 
+      Gamma80by60   Gamma81by69   Gamma82       Gamma85       Gamma88      
+value  0.04851       0.0193251     0.00479929    0.00292999    0.000811198 
+error  0.000808598   0.00266081    0.00014695    6.8457e-05    0.000116793 
+      Gamma92       Gamma93       Gamma93by60   Gamma94       Gamma94by69  
+value  0.00149476    0.00143363    0.0159375     6.11299e-05   0.00135424  
+error  3.29089e-05   2.74018e-05   0.000304994   1.82933e-05   0.000405953 
+      Gamma96       Gamma102      Gamma103      Gamma104      Gamma110     
+value  2.17342e-05   0.00103189    0.000820993   0.0002109     0.0287105   
+error  8.00546e-06   3.69319e-05   3.05996e-05   2.42205e-05   0.000497769 
+      Gamma126      Gamma128      Gamma130      Gamma132      Gamma136     
+value  0.00138541    0.000152711   4.82343e-05   9.3585e-05    0.000175145 
+error  7.24844e-05   8.07565e-06   1.16072e-05   1.49119e-05   7.96211e-06 
+      Gamma150      Gamma150by66  Gamma151      Gamma152      Gamma152by76 
+value  0.0199427     0.433424      0.00041       0.00404632    0.824691    
+error  0.000640478   0.013896      9.21954e-05   0.000417962   0.0757608   
+      Gamma800      Gamma801      Gamma802      Gamma803      Gamma804     
+value  0.0195327     3.69348e-05   0.00292372    0.000410752   0.000239281 
+error  0.000647079   1.36044e-05   6.84716e-05   0.000142853   5.02604e-05 
+      Gamma805      Gamma998      GammaAll      Gamma50       Gamma51      
+value  0.0004       -0.000707508   1.00071       8.62552e-05   0.00017251  
+error  0.0002        0.00105077    0.00105077    5.5911e-05    0.000111822 
+      Gamma806      Gamma900      Gamma901      Gamma902      Gamma903     
+value  8.62552e-05   0.00020346    0.000390887   0.0007774     7.38935e-05 
+error  5.5911e-05    4.04729e-05   2.55682e-05   3.98443e-05   1.6963e-05  
+
+## end
+
+file average2-aleph-hcorr_13.rdata produced
+
+## end
