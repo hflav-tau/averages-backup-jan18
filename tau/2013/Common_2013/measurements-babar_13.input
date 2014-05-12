@@ -17,7 +17,7 @@ END
 
 #
 # Gamma900 
-# G(pi- pi0 pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total) # agree with the numbering sheame
+# G(pi- pi0 pi0 eta nu(tau) (ex. K0)) / G(total) # agree with the numbering sheame
 #
 BEGIN MEASUREMENT BaBar Gamma900 pub PHYS. REV. D 86 092010 (2012)
 
@@ -34,9 +34,9 @@ END
 
 #
 # Gamma901
-# G(pi- f1(2pi+ 2pi-) nu(tau) ) / G(total) # agree with the numbering sheame
+# G(pi- f1 nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma901 pub PHYS. REV.	D 86 092010 (2012)
+BEGIN MEASUREMENT BaBar Gamma901 pub PHYS. REV.	D 86 092010 (2012) f1(4pi)
 
 VALUE 4.73e-04 +-2.8e-05 +-4.5e-05
 
@@ -50,10 +50,10 @@ PARAMETERS
 END
 
 #
-# Gamma902
-# G(pi- f1(pi+ pi- eta) nu(tau) ) / G(total) # agree with the numbering sheame
+# Gamma901
+# G(pi- f1 nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma902 pub PHYS. REV.	D 86 092010 (2012)
+BEGIN MEASUREMENT BaBar Gamma901 pub PHYS. REV.	D 86 092010 (2012) f1(pi pi eta)
 
 VALUE 3.60e-04 +-1.8e-05 +-2.3e-05
 
@@ -66,4 +66,54 @@ PARAMETERS
 
 END
 
+#
+# Gamma902
+# G(pi- pi- pi- pi+ pi+ nu(tau) ) / G(total) # agree with the numbering sheame
+#
+BEGIN MEASUREMENT BaBar Gamma902 pub PHYS. REV. D 86 092010 (2012) non resonant
+
+VALUE 7.68e-04 +-0.4e-05 +-4.0e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.30e-06
+  -1.0%            BaBarLumi        # -7.68e-06
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma903
+# G(pi- pi- pi+ omega nu(tau) ) / G(total) # agree with the numbering sheame
+#
+BEGIN MEASUREMENT BaBar Gamma903 pub PHYS. REV. D 86 092010 (2012) 
+
+VALUE 8.4e-05 +-0.4e-05 +-0.6e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.5e-07
+  -1.0%            BaBarLumi        # -8.4e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma904
+# G(pi- pi0 pi0 omega nu(tau) ) / G(total) # agree with the numbering sheame
+#
+BEGIN MEASUREMENT BaBar Gamma903 pub PHYS. REV. D 86 092010 (2012)
+
+VALUE 7.3e-05 +-1.2e-05 +-1.2e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -2.2e-07
+  -1.0%            BaBarLumi        # -7.3e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
 
