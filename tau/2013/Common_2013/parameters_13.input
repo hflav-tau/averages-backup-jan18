@@ -2,6 +2,9 @@
 # parameters used for possibly updating systematic terms
 # use PDG 2013 when possible
 #
+# all values updated to PDG 2013, "PDG11" comments left unchanged in
+# order to facilitate finding differences w.r.t. the 2012 average
+#
 PARAMETERS
   # --- e+e- -> tau+tau- cross section from Swagato et al. paper
   sigmataupmy4s    0.919        +-0.0032165
@@ -60,7 +63,7 @@ PARAMETERS
   BR_phi_KmKp      0.489        +-0.005
   # --- phi -> K0SK0L, node M004R2, PDG11 fit
   BR_phi_KSKL      0.342        +-0.004
-  # --- f1 -> 2PIZPIPPIML, node XXX, PDG14 fit
+  # --- f1 -> 2PIZPIPPIML, node XXX, PDG13 fit
   BR_f1_2PIZPIpPIm      0.220        +-0.013
   #
   BRA_Kz_KS_KET		0.5	    +-0		# |<Kz | KS>|^2
