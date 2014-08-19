@@ -1,0 +1,35 @@
+#//////////////////////////////////////////////////////////////////////////////
+#
+# HFAG - Tau repository
+#
+#//////////////////////////////////////////////////////////////////////////////
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# how to create your private working area
+#
+
+svn --username <google username> co https://hfag.googlecode.com/svn/trunk hfag
+cd hfag
+
+#//////////////////////////////////////////////////////////////////////////////
+#
+# organization of the working space
+#
+
+- the subversion repository contains code and cards
+- log files and plots are stored in a data directory
+
+a reference working space is kept at SLAC at:
+/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-googlecode/
+
+a reference data directory is kept at SLAC at:
+/afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data
+
+the must be a "Data" directory at the root of the working space,
+i.e. hfag/Data in you private working space
+at SLAC you can set "Data" to a link to the reference data directory:
+
+cd /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-googlecode/
+ls -l Data
+... Data -> /afs/slac.stanford.edu/www/xorg/hfag/tau/hfag-data
