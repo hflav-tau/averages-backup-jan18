@@ -23,6 +23,12 @@ BEGIN MEASUREMENT Belle Gamma910 1402.5213
                                                     
 VALUE 4.16e-03 +-0.01e-03 +-0.08e-03      	              
 
+ERROR_CORR_WITH -0.230	  Belle Gamma911 1402.5213 # -0.230
+ERROR_CORR_WITH	-0.132	  Belle Gamma912 1402.5213 # -0.132
+ERROR_CORR_WITH 0.023	  Belle Gamma913 1402.5213 # 0.023
+ERROR_CORR_WITH -0.019	  Belle Gamma914 1402.5213 # -0.019
+ERROR_CORR_WITH 0.004	  Belle Gamma915 1402.5213 # 0.004
+
 SYSTEMATICS                                           
   -0.3%            sigmataupmy4s    # -1.25e-05
                                                       
@@ -38,6 +44,12 @@ END
 BEGIN MEASUREMENT Belle Gamma911 1402.5213               
                                                          
 VALUE 7.40e-04 +-0.07e-04 +-0.27e-04                     
+
+ERROR_CORR_WITH -0.230	  Belle Gamma910 1402.5213 # -0.230
+ERROR_CORR_WITH 0.0430    Belle Gamma911 1402.5213 # -0.215 
+ERROR_CORR_WITH -0.204    Belle Gamma913 1402.5213 # -0.204   
+ERROR_CORR_WITH -0.063    Belle Gamma914 1402.5213 # -0.063
+ERROR_CORR_WITH -0.006    Belle Gamma915 1402.5213 # -0.006 
                                                          
 SYSTEMATICS                                              
   -0.3%            sigmataupmy4s    # -2.22e-06          
@@ -54,6 +66,13 @@ END
 BEGIN MEASUREMENT Belle Gamma912 1402.5213               
                                                          
 VALUE 1.93e-03 +-0.02e-03 +-0.07e-03                     
+
+ERROR_CORR_WITH -0.132    Belle Gamma910 1402.5213 # -0.132
+ERROR_CORR_WITH 0.0430    Belle Gamma912 1402.5213 # -0.043
+ERROR_CORR_WITH 0.215     Belle Gamma913 1402.5213 # 0.215 
+ERROR_CORR_WITH -0.001    Belle Gamma914 1402.5213 # -0.001
+ERROR_CORR_WITH 0.000     Belle Gamma914 1402.5213 # 0.000 
+
                                                          
 SYSTEMATICS                                              
   -0.3%            sigmataupmy4s    # -5.79e-06          
