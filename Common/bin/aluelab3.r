@@ -54,10 +54,10 @@ StatComb = setRefClass("StatComb",
   fields = list(
     .val = "numeric",
     .cov = "matrix",
-    .param = "list"
+    .param = "numeric"
     ),
   methods=list(
-    initialize = function(quant.val=numeric(), quant.cov=matrix(numeric(0),0,0), parameters=list()) {
+    initialize = function(quant.val=numeric(), quant.cov=matrix(numeric(0),0,0), parameters=numeric()) {
       ## callSuper(...)
       .self$.val = quant.val
       .self$.cov = quant.cov
@@ -67,39 +67,50 @@ StatComb = setRefClass("StatComb",
   )
 
 rc = StatComb$methods(
-  param.add.list = function(param) {
-    .self$.param = c(.param, as.list(param))
+  param.add = function(param) {
+    .self$.param = c(.param, param)
   })
 
 rc = StatComb$methods(
-  param = function() {
-    unlist(.param)
+  param = function(name=NULL) {
+    if (is.null(name)) return(.param)
+    .param[name]
   })
 
 rc = StatComb$methods(
-  param.err = function() {
-    return(unlist(.param) * 0)
+  param.err = function(name=NULL) {
+    if (is.null(name)) return(.param * 0)
+    .param[name] * 0
   })
 
 rc = StatComb$methods(
-  val = function() {
-    .val
+  val = function(name=NULL) {
+    if (is.null(name)) return(.val)
+    .val[name]
   })
 
 rc = StatComb$methods(
-  cov = function() {
-    .cov
+  cov = function(rows=NULL, cols=NULL) {
+    if (is.null(cols)) cols=rows
+    if (is.null(rows)) return(.cov)
+    .cov[rows, cols]
   })
 
 rc = StatComb$methods(
-  corr = function() {
+  corr = function(rows=NULL, cols=NULL) {
+    if (is.null(cols)) cols=rows
     err = sqrt(diag(.cov))
-    .cov / (err %o% err)
+    corr = .cov / (err %o% err)
+    if (is.null(rows)) {
+      return(corr)
+    }
+    corr[rows, cols]
   })
 
 rc = StatComb$methods(
-  err = function() {
-    sqrt(diag(.cov))
+  err = function(name=NULL) {
+    if (is.null(name)) return(sqrt(diag(.cov)))
+    sqrt(diag(.cov))[name]
   })
 
 rc = StatComb$methods(
@@ -109,17 +120,19 @@ rc = StatComb$methods(
   })
 
 rc = StatComb$methods(
-  all.val = function() {
-    c(.val, .param)
+  vals = function(name=NULL) {
+    if (is.null(name)) return(c(.val, .param))
+    c(.val, .param)[name]
   })
 
 rc = StatComb$methods(
-  all.err = function() {
-    c(err(), param.err())
+  errs = function(name=NULL) {
+    if (is.null(name)) return(c(err(), param.err()))
+    c(err(), param.err())[name]
   })
 
 rc = StatComb$methods(
-  all.name = function() {
+  vnames = function() {
     c(names(.val), names(.param))
   })
 
@@ -141,20 +154,20 @@ rc = StatComb$methods(
 ##
 rc = StatComb$methods(
   meas.add = function(add.val, add.err, add.corr=NULL) {
-    ##
-    ## if a correlation matrix is found, use it to determine which quantities where averaged
-    ## and which quantities are non-averaged combined quantities
-    ## retain only averaged quantities and their correlation
-    ##
+    if (length(add.val) != length(add.err)) stop("mismatch of dimensions of add.val and add.err")
+    quant.names = names(add.val)
+
     if (!is.null(add.corr)) {
-      quant.names.averaged = rownames(add.corr)
+      if (length(add.val) != dim(add.corr)[1] || length(add.val) != dim(add.corr)[2]) {
+        stop("mismatch of dimensions of add.val and add.corr")
+      }
+      ##--- don't check for now if names match
     } else {
-      quant.names.averaged = names(add.val)
       add.corr = as.matrix(diag.m(rep(1, length(add.val))))
       rownames(add.corr) = names(add.val)
       colnames(add.corr) = names(add.val)
+      ##--- don't check for now if names match
     }
-    
     add.cov = add.corr * (add.err %o% add.err)
     
     ##--- assemble covariance matrix
@@ -166,9 +179,8 @@ rc = StatComb$methods(
     cov.bottom = cbind(cov.left, add.cov)
     .self$.cov = rbind(cov.top, cov.bottom)
     
-    ##--- assemble averaged quantities
-    quant.averaged.sel = names(add.val) %in% quant.names.averaged
-    .self$.val = c(.val, add.val[quant.averaged.sel])
+    ##--- assemble values
+    .self$.val = c(.val, add.val)
     return(invisible(NULL))
   })
 
@@ -279,8 +291,9 @@ rc = StatComb$methods(
 ##
 rc = StatComb$methods(
   meas.expr.add = function(add.name, add.expr) {
+    add.expr = substitute(add.expr)
     ##--- substitute parameters
-    add.expr = esub.expr(add.expr, .param)
+    add.expr = esub.expr(add.expr, list(.param))
     add.deriv.expr = deriv(add.expr, all.vars(add.expr))
     add.val = eval(add.deriv.expr, as.list(.val))
     add.grad = attr(add.val, "gradient")
