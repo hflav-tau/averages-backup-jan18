@@ -31,8 +31,8 @@ quadrature = function(x) {
 ## substitute after evaluating arg
 ## copied from alucomb2-utils.r
 ##
-esub = function(expr, sublist) do.call("substitute", list(expr, sublist))
-esub.expr = function(expr, sublist) {
+esub = function(expr, sublist=NULL) do.call("substitute", list(expr, sublist))
+esub.expr = function(expr, sublist=NULL) {
   sapply(as.expression(expr), function(call) as.expression(esub(call, sublist)))
 }
 
@@ -57,7 +57,7 @@ StatComb = setRefClass("StatComb",
     .param = "list"
     ),
   methods=list(
-    initialize = function(quant.val=numeric(), quant.cov=matrix(), parameters=list()) {
+    initialize = function(quant.val=numeric(), quant.cov=matrix(numeric(0),0,0), parameters=list()) {
       ## callSuper(...)
       .self$.val = quant.val
       .self$.cov = quant.cov
