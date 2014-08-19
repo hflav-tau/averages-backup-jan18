@@ -1,0 +1,121 @@
+#                                                                   
+# Gamma33 (PDG node = S035B43)                                      
+# G(K(S)0 (particles)- nu(tau)) / G(total)                          
+#                                                                   
+BEGIN MEASUREMENT Belle Gamma33 1402.5213 
+                                                                    
+VALUE 9.15e-03 +-0.01e-03 +-0.15e-03
+                                
+SYSTEMATICS                                         
+  -0.3%            sigmataupmy4s    # -2.75e-05     
+  -1.3%            BelleLumi        # -1.19e-04     
+                                                    
+PARAMETERS                                          
+  sigmataupmy4s    0.919        +-0.003             
+
+                                    
+END                                                                 
+
+#                                                   
+# Gamma910 (PDG node = NONE)                      
+# G(pi- K(S)0  nu(tau)) / G(total)             
+#                                                   
+BEGIN MEASUREMENT Belle Gamma910 1402.5213
+                                                    
+VALUE 4.16e-03 +-0.01e-03 +-0.08e-03      	              
+
+SYSTEMATICS                                           
+  -0.3%            sigmataupmy4s    # -1.25e-05
+  -1.3%            BelleLumi        # -5.41e-05
+                                                      
+PARAMETERS                                            
+  sigmataupmy4s    0.919        +-0.003
+                                                      
+END                                                   
+
+#                                                        
+# Gamma911 (PDG node = NONE)                             
+# G(K- K(S)0  nu(tau)) / G(total)                    
+#                                                        
+BEGIN MEASUREMENT Belle Gamma911 1402.5213               
+                                                         
+VALUE 7.40e-04 +-0.07e-04 +-0.27e-04                     
+                                                         
+SYSTEMATICS                                              
+  -0.3%            sigmataupmy4s    # -2.22e-06          
+  -1.3%            BelleLumi        # -9.62e-06          
+                                                         
+PARAMETERS                                               
+  sigmataupmy4s    0.919        +-0.003                  
+                                                         
+END                                                      
+
+#                                                        
+# Gamma912 (PDG node = NONE)                             
+# G(pi- K(S)0 pi0 nu(tau)) / G(total)                     
+#                                                        
+BEGIN MEASUREMENT Belle Gamma912 1402.5213               
+                                                         
+VALUE 1.93e-03 +-0.02e-03 +-0.07e-03                     
+                                                         
+SYSTEMATICS                                              
+  -0.3%            sigmataupmy4s    # -5.79e-06          
+  -1.3%            BelleLumi        # -2.51e-05          
+                                                         
+PARAMETERS                                               
+  sigmataupmy4s    0.919        +-0.003                  
+                                                         
+END                                                      
+         
+#                                                
+# Gamma913 (PDG node = NONE)                     
+# G(K- K(S)0 pi0 nu(tau)) / G(total)            
+#                                                
+BEGIN MEASUREMENT Belle Gamma913 1402.5213       
+                                                 
+VALUE 7.48e-04 +-0.10e-04 +-0.37e-04             
+                                                 
+SYSTEMATICS                                      
+  -0.3%            sigmataupmy4s    # -2.24e-06  
+  -1.3%            BelleLumi        # -9.72e-06  
+                                                 
+PARAMETERS                                       
+  sigmataupmy4s    0.919        +-0.003          
+                                                 
+END                                              
+                                                 
+#                                                    
+# Gamma914 (PDG node = NONE)                         
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)                 
+#                                                    
+BEGIN MEASUREMENT Belle Gamma914 1402.5213           
+                                                     
+VALUE 2.33e-04 +-0.03e-04 +-0.09e-04                 
+                                                     
+SYSTEMATICS                                          
+  -0.3%            sigmataupmy4s    # -7.00e-07      
+  -1.3%            BelleLumi        # -3.03e-06      
+                                                     
+PARAMETERS                                           
+  sigmataupmy4s    0.919        +-0.003              
+                                                     
+END                                            	           
+                                                 
+#                                                     
+# Gamma915 (PDG node = NONE)                          
+# G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)               
+#                                                     
+BEGIN MEASUREMENT Belle Gamma915 1402.5213            
+                                                      
+VALUE 2.00e-05 +-0.22e-05 +-0.20e-05                  
+                                                      
+SYSTEMATICS                                           
+  -0.3%            sigmataupmy4s    # -6.00e-08       
+  -1.3%            BelleLumi        # -2.60e-07       
+                                                      
+PARAMETERS                                            
+  sigmataupmy4s    0.919        +-0.003               
+                                                      
+END                                                   
+                                                      
+
