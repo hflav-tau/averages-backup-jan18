@@ -156,21 +156,26 @@ alucomb2.eol.first.time = list(
   }
 )
 
+##--- print single parameter
+alucomb2.format.param = function(label, value) {
+  input = attr(value, "input")
+  rc.out = paste(format(label, width=16), format(input[1], width=12))
+  if (input[2] == "" && value[3] == -value[4]) {
+    input[2] = substr(input[4], 2, nchar(input[4]))
+  }
+  if (input[2] == "") {
+    rc.out = paste(rc.out, format(paste(" ", input[3], sep=""), width=12),  " ", input[4], sep="")
+  } else {
+    rc.out = paste(rc.out, " +-", input[2], sep="")
+  }
+}
+
 ##--- print parameters
 alucomb2.print.params = function(params) {
   if (length(params) > 0) {
     cat("\nPARAMETERS\n")
     mapply(function(label, value) {
-      input = attr(value, "input")
-      cat(" ", format(label, width=16), format(input[1], width=12))
-      if (input[2] == "" && value[3] == -value[4]) {
-        input[2] = substr(input[4], 2, nchar(input[4]))
-      }
-      if (input[2] == "") {
-        cat(format(paste(" ", input[3], sep=""), width=12),  paste(" ", input[4], sep=""), "\n", sep="")
-      } else {
-        cat(paste(" +-", input[2], sep=""), "\n", sep="")
-      }
+      cat("  ", alucomb2.format.param(label, value), "\n", sep="")
     }, names(params), params)
   }
 }
@@ -675,15 +680,24 @@ alucomb.read = function(file = "") {
         param.deltas = clause$values[seq(2, 2*length(clause$labels), by=2)]
 
         ##--- add defined parameters, each is an array with value and excursions
-        block$params = c(block$params, mapply(
+        params = mapply(
           function(value, delta) {
             rc = alucomb2.handle.asymm.excurs(value, delta)
             param.list = list(value=value, delta=rc[[1]], delta.p=rc[[2]], delta.n=rc[[3]])
             param = unlist(param.list)
             attr(param, "input") = sapply(param.list, function(el) attr(el, "input"))
             return(param)
-          }, param.values, param.deltas, SIMPLIFY=FALSE))
-
+          }, param.values, param.deltas, SIMPLIFY=FALSE)
+        
+        matched = clause$labels %in% names(block$params)
+        rc = mapply(
+          function(label, old, new) {
+            cat("\nPARAMETER overridden\n")
+            cat("old: ", alucomb2.format.param(label, old), "\n", sep="")
+            cat("new: ", alucomb2.format.param(label, new), "\n", sep="")
+          }, clause$labels[matched], params[matched], block$params[clause$labels[matched]])
+        block$params[clause$labels] = params
+        
       } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
         ##
         ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
