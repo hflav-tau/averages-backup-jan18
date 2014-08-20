@@ -11,6 +11,11 @@ SYSTEMATICS
    0.1108%         EmNuNumb         # e-mu normalization, Be contr.
    0.1162%         MumNuNumb        # e-mu normalization, Bmu contr.
 
+SYSTPAPER
+   0.4735%         e_mu_norm        # e-mu normalization, non Bl contr.
+   0.7%            TrackFinding     #
+   1.4%            KS_reco          #
+
 PARAMETERS
   EmNuNumb          0.1783          +-0.0004
   MumNuNumb         0.1741          +-0.0004
@@ -38,6 +43,11 @@ SYSTEMATICS
    0.1108%         EmNuNumb         # e-mu normalization, Be contr.
    0.1162%         MumNuNumb        # e-mu normalization, Bmu contr.
 
+SYSTPAPER
+   0.4735%         e_mu_norm        # e-mu normalization, non Bl contr.
+   0.7%            TrackFinding     #
+   1.4%            KS_reco          #
+
 PARAMETERS
   EmNuNumb          0.1783          +-0.0004
   MumNuNumb         0.1741          +-0.0004
@@ -64,6 +74,11 @@ SYSTEMATICS
    0.1108%         EmNuNumb         # e-mu normalization, Be contr.
    0.1162%         MumNuNumb        # e-mu normalization, Bmu contr.
 
+SYSTPAPER
+   0.4735%         e_mu_norm        # e-mu normalization, non Bl contr.
+   0.8%            TrackFinding     #
+   1.5%            KS_reco          #
+
 PARAMETERS
   EmNuNumb          0.1783          +-0.0004
   MumNuNumb         0.1741          +-0.0004
@@ -89,6 +104,11 @@ ERROR_CORR_WITH +0.006    Belle Gamma50 1402.5213 # +0.006
 SYSTEMATICS
    0.1108%         EmNuNumb         # e-mu normalization, Be contr.
    0.1162%         MumNuNumb        # e-mu normalization, Bmu contr.
+
+SYSTPAPER
+   0.4735%         e_mu_norm        # e-mu normalization, non Bl contr.
+   0.7%            TrackFinding     #
+   1.4%            KS_reco          #
 
 PARAMETERS
   EmNuNumb          0.1783          +-0.0004
@@ -117,6 +137,11 @@ SYSTEMATICS
    0.1108%         EmNuNumb         # e-mu normalization, Be contr.
    0.1162%         MumNuNumb        # e-mu normalization, Bmu contr.
 
+SYSTPAPER
+   0.4735%         e_mu_norm        # e-mu normalization, non Bl contr.
+   0.7%            TrackFinding     #
+   1.4%            KS_reco          #
+
 PARAMETERS
   EmNuNumb          0.1783          +-0.0004
   MumNuNumb         0.1741          +-0.0004
@@ -141,6 +166,10 @@ SYSTEMATICS
   -0.3%            sigmataupmy4s    # -7.00e-07
   -1.345%          BelleLumi_14     # -3.03e-06, L = (669 ± 9) fb−1
 
+SYSTPAPER
+   2.1%            TrackFinding     #
+   1.8%            KS_reco          #
+
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
 
@@ -163,6 +192,10 @@ ERROR_CORR_WITH -0.230    Belle Gamma47 1402.5213 # -0.230
 SYSTEMATICS
   -0.3%            sigmataupmy4s    # -6.00e-08
   -1.345%          BelleLumi_14     # -2.60e-07, L = (669 ± 9) fb−1
+
+SYSTPAPER
+   2.7%            TrackFinding     #
+   2.3%            KS_reco          #
 
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
