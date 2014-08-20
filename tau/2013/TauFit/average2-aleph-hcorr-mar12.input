@@ -68,8 +68,6 @@ QUANTITY Gamma801 seed 3.7e-05
 QUANTITY Gamma50 seed 1.60e-5
 QUANTITY Gamma51 seed 3.20e-5
 QUANTITY Gamma806 seed 1.60e-5
-NLCONSTRAINT Gamma51.c 0 "-Gamma51 + 2*Gamma50"
-NLCONSTRAINT Gamma806.c 0 "-Gamma806 + Gamma50"
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
