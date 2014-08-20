@@ -689,13 +689,18 @@ alucomb.read = function(file = "") {
             return(param)
           }, param.values, param.deltas, SIMPLIFY=FALSE)
         
+        ##--- get which parameters where already input
         matched = clause$labels %in% names(block$params)
+
+        ##--- warn about overridden parameters
         rc = mapply(
           function(label, old, new) {
-            cat("\nPARAMETER overridden\n")
+            cat("\nwarning, override PARAMETER\n")
             cat("old: ", alucomb2.format.param(label, old), "\n", sep="")
             cat("new: ", alucomb2.format.param(label, new), "\n", sep="")
           }, clause$labels[matched], params[matched], block$params[clause$labels[matched]])
+
+        ##--- override matched parameters and add the unmatched ones
         block$params[clause$labels] = params
         
       } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
@@ -759,7 +764,7 @@ alucomb.read = function(file = "") {
           labels.exist = names(block$quantities[[meas.name]])
           labels.override = clause$labels[clause$labels %in% labels.exist]
           if (length(labels.override) > 0) {
-            cat("warning, override quantity", meas.name, "\n")
+            cat("\nwarning, override QUANTITY", meas.name, "\n")
             rc = print(rbind(
               unlist(block$quantities[[meas.name]][labels.override]),
               unlist(clause$values[clause$labels %in% labels.override])
@@ -971,6 +976,23 @@ alucomb.read = function(file = "") {
         constr.name = clause$labels[1]
         constr.val = as.vector(clause$values[[1]])
         constr.expr = paste(clause$labels[-1], collapse=" ")
+        rc = suppressWarnings(try(parse(text=constr.expr), silent=TRUE))
+        if (inherits(rc, "try-error")) {
+          stop("error, malformed NLCONSTRAINT\n", constr.name, " ", constr.val, " \"", constr.expr, "\"")
+        }
+        ##--- warn about overridden NLCONSTRAINT
+        if (!is.null(block$constr.nl.str.val[[constr.name]])) {
+          cat("\nwarning, override NLCONSTRAINT\n")
+          old.str =
+            paste("old: ", block$constr.nl.str.val[[constr.name]], " = ", block$constr.nl.str.expr[[constr.name]], "\n", sep="")
+          new.str = paste("new: ", constr.val, " = ", constr.expr, "\n", sep="")
+          if (nchar(old.str) > 78 || nchar(new.str) > 78) {
+            old.str = paste("\n", old.str, sep="")
+            new.str = paste("\n", new.str, sep="")
+          }
+          cat(old.str)
+          cat(new.str)
+        }
         block$constr.nl.str.val[[constr.name]] = constr.val
         block$constr.nl.str.expr[[constr.name]] = constr.expr
 
