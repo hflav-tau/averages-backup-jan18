@@ -1,5 +1,5 @@
 #
-# unconstrained fit for Winter 2012 report
+# unconstrained fit for 2014 report
 #
 # - uses ALEPH measurements for tau -> h X rather than tau -> pi X
 # - no unitarity constraint
@@ -13,10 +13,9 @@ INCLUDE ../Common-Mar2011/measurements-delphi.input
 INCLUDE ../Common-Mar2011/measurements-l3.input
 INCLUDE ../Common-Mar2011/measurements-opal.input
 INCLUDE ../Common-Mar2011/measurements-other.input
-#####################################################
-## 2013
-#####################################################
-INCLUDE ../Common_2013/measurements-babar_13.input
+# --- for 2014 average
+# INCLUDE ../Common_2013/measurements-babar_13.input
+INCLUDE ../Common_2013/measurements-belle_13.input
 
 BEGIN COMBINATION
 
@@ -35,20 +34,29 @@ COMBINE
   Gamma802 Gamma803 Gamma804 Gamma805
   Gamma998 GammaAll
   Gamma50 Gamma51 Gamma806
-  Gamma900 Gamma901 Gamma902 Gamma903 Gamma904
-##--- drop not yet public Belle results
+
+#  Gamma900 Gamma901 Gamma902 Gamma903 Gamma904
+
+##--- drop not yet public Belle KS results (2012)
 MODMEAS DROP Belle Gamma47 prelim PHIPSI11
 MODMEAS DROP Belle Gamma50 prelim PHIPSI11
+
+##--- drop prelim. Belle KS results in favour of published ones
+MODMEAS DROP Belle Gamma40 prelim PHIPSI11
+MODMEAS DROP Belle Gamma42 prelim PHIPSI11
+
+##--- superseeded in Belle KS results paper 1402.5213
+MODMEAS DROP Belle Gamma35 pub EPIFANOV 07
 
 ##--- drop BaBar results introduced for Tau12
 MODMEAS DROP BaBar Gamma47 prelim TAU12 Sobie.2
 MODMEAS DROP BaBar Gamma50 prelim TAU12 Sobie.2
 
 INCLUDE ../Common-Mar2012/parameters.input
-# UPDATED PARAMETERS (overwriting the old ones)
+# --- update parameters to PDG 2013
 INCLUDE ../Common_2013/parameters_13.input
 
-#INCLUDE ../Common-Mar2011/quantities.input
+INCLUDE ../Common-Mar2011/quantities.input
 INCLUDE ../Common-Mar2012/quantities.input
 INCLUDE  ../Common_2013/quantities.input
 INCLUDE ../Common-Mar2011/quantities-texdescr.input
@@ -72,12 +80,10 @@ QUANTITY Gamma800 seed 0.019
 QUANTITY Gamma804 seed 0.00018
 QUANTITY Gamma801 seed 3.7e-05
 
-# --- extra to cope with Tau12 changes
+# --- added since Tau12 for BaBar KSKS paper
 QUANTITY Gamma50 seed 1.60e-5
 QUANTITY Gamma51 seed 3.20e-5
 QUANTITY Gamma806 seed 1.60e-5
-NLCONSTRAINT Gamma51.c 0 "-Gamma51 + 2*Gamma50"
-NLCONSTRAINT Gamma806.c 0 "-Gamma806 + Gamma50"
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
