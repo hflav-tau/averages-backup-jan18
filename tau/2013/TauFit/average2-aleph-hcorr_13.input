@@ -14,7 +14,7 @@ INCLUDE ../Common-Mar2011/measurements-l3.input
 INCLUDE ../Common-Mar2011/measurements-opal.input
 INCLUDE ../Common-Mar2011/measurements-other.input
 # --- for 2014 average
-# INCLUDE ../Common_2013/measurements-babar_13.input
+INCLUDE ../Common_2013/measurements-babar.input
 INCLUDE ../Common_2013/measurements-belle_13.input
 
 BEGIN COMBINATION
@@ -37,13 +37,11 @@ COMBINE
 
 #  Gamma900 Gamma901 Gamma902 Gamma903 Gamma904
 
-##--- drop not yet public Belle KS results (2012)
-MODMEAS DROP Belle Gamma47 prelim PHIPSI11
-MODMEAS DROP Belle Gamma50 prelim PHIPSI11
-
 ##--- drop prelim. Belle KS results in favour of published ones
 MODMEAS DROP Belle Gamma40 prelim PHIPSI11
 MODMEAS DROP Belle Gamma42 prelim PHIPSI11
+MODMEAS DROP Belle Gamma47 prelim PHIPSI11
+MODMEAS DROP Belle Gamma50 prelim PHIPSI11
 
 ##--- superseeded in Belle KS results paper 1402.5213
 MODMEAS DROP Belle Gamma35 pub EPIFANOV 07
@@ -58,7 +56,8 @@ INCLUDE ../Common_2013/parameters_13.input
 
 INCLUDE ../Common-Mar2011/quantities.input
 INCLUDE ../Common-Mar2012/quantities.input
-INCLUDE  ../Common_2013/quantities.input
+# --- added quantities and revised constraints for 2014 average
+# INCLUDE ../Common_2013/quantities.input
 INCLUDE ../Common-Mar2011/quantities-texdescr.input
 INCLUDE ../Common-Mar2012/quantities-texdescr.input
 
