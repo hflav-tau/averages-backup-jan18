@@ -136,16 +136,18 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   meas.drop.cards = combination$meas.drop.cards
   if (is.null(meas.drop.cards)) meas.drop.cards = character(0)
   meas.drop.cards.existing = meas.drop.cards %in% meas.names
-  if (any(!meas.drop.cards.existing)) {
-    cat("\nwarning, cards require dropping non-existing measurements\n")
-    cat(paste("  ", meas.drop.cards[!meas.drop.cards.existing], collapse="\n"), "\n")
-  }
   if (any(meas.drop.cards.existing)) {
     cat("\n##\n")
-    cat("## dropping the following measurements according to cards\n")
+    cat("## drop the following measurements according to cards\n")
     cat("##\n")
     cat(paste("  ", meas.drop.cards[meas.drop.cards.existing], collapse="\n"), "\n")
     meas.names = setdiff(meas.names, meas.drop.cards[meas.drop.cards.existing])
+  }
+  if (any(!meas.drop.cards.existing)) {
+    cat("\n##\n")
+    cat("## drop the following measurements according to cards (but non-existing)\n")
+    cat("##\n")
+    cat(paste("  ", meas.drop.cards[!meas.drop.cards.existing], collapse="\n"), "\n")
   }
   
   ##--- discard measurements that are not associated to a declared fitted quantity
@@ -171,7 +173,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   cat("\n##\n")
   cat("## using the following updated global parameters\n")
-  cat("##\n\n")
+  cat("##\n")
   alucomb2.print.params(combination$params)
   
   ##
@@ -384,7 +386,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   for (mn in meas.names) {
     ##--- check that the sum of syst. terms does not exceed the syst. error
     syst.contribs = sqrt(sum(measurements[[mn]]$syst.terms^2))
-    if (syst.contribs > (1+1e-3)*measurements[[mn]]$syst) {
+    if (syst.contribs > (1+1e-2)*measurements[[mn]]$syst) {
       larger = rbind(larger, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
     } else if (syst.contribs > (1+1e-5)*measurements[[mn]]$syst) {
       slightly.larger = rbind(slightly.larger, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
