@@ -173,7 +173,7 @@ alucomb2.format.param = function(label, value) {
 ##--- print parameters
 alucomb2.print.params = function(params) {
   if (length(params) > 0) {
-    cat("\nPARAMETERS\n")
+    cat("PARAMETERS\n")
     mapply(function(label, value) {
       cat("  ", alucomb2.format.param(label, value), "\n", sep="")
     }, names(params), params)
@@ -273,8 +273,10 @@ alucomb2.print.meas = function(meas, quantities) {
   alucomb2.print.meas.syst.terms("SYSTEMATICS", meas$syst.terms, !(syst.local.mask | syst.paper.mask))
   alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
   alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
-
-  alucomb2.print.params(meas$params)
+  if (length(meas$params)>0) {
+    cat("\n")
+    alucomb2.print.params(meas$params)
+  }
 
   cat("\n")
   cat("END\n")
