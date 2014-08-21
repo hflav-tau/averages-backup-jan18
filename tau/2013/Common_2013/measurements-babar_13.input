@@ -2,7 +2,7 @@
 # Gamma136 (PDG node = S035B89)
 # G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma136 pub ARXIV 1209.2734
+BEGIN MEASUREMENT BaBar Gamma136 pub 1209.2734
 
 VALUE 0.000225 +-7e-06 +-1.2e-05
 
@@ -16,11 +16,10 @@ PARAMETERS
 END
 
 #
-# Gamma900 
+# Gamma900
 # G(pi- pi0 pi0 eta nu(tau) (ex. K0)) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma900 pub PHYS. REV. D 86 092010 (2012)
-
+BEGIN MEASUREMENT BaBar Gamma900 pub 1209.2734
 
 VALUE 0.000201  +-3.4e-05 +-2.2e-05
 SYSTEMATICS
@@ -36,7 +35,7 @@ END
 # Gamma901
 # G(pi- f1 nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma901 pub PHYS. REV.	D 86 092010 (2012) f1(4pi)
+BEGIN MEASUREMENT BaBar Gamma901 pub 1209.2734
 
 VALUE 4.73e-04 +-2.8e-05 +-4.5e-05
 
@@ -53,7 +52,7 @@ END
 # Gamma901
 # G(pi- f1 nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma901 pub PHYS. REV.	D 86 092010 (2012) f1(pi pi eta)
+BEGIN MEASUREMENT BaBar Gamma901 pub 1209.2734
 
 VALUE 3.60e-04 +-1.8e-05 +-2.3e-05
 
@@ -70,7 +69,7 @@ END
 # Gamma902
 # G(pi- pi- pi- pi+ pi+ nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma902 pub PHYS. REV. D 86 092010 (2012) non resonant
+BEGIN MEASUREMENT BaBar Gamma902 pub 1209.2734
 
 VALUE 7.68e-04 +-0.4e-05 +-4.0e-05
 
@@ -87,7 +86,7 @@ END
 # Gamma903
 # G(pi- pi- pi+ omega nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma903 pub PHYS. REV. D 86 092010 (2012) 
+BEGIN MEASUREMENT BaBar Gamma903 pub 1209.2734
 
 VALUE 8.4e-05 +-0.4e-05 +-0.6e-05
 
@@ -104,7 +103,7 @@ END
 # Gamma904
 # G(pi- pi0 pi0 omega nu(tau) ) / G(total) # agree with the numbering sheame
 #
-BEGIN MEASUREMENT BaBar Gamma903 pub PHYS. REV. D 86 092010 (2012)
+BEGIN MEASUREMENT BaBar Gamma903 pub 1209.2734
 
 VALUE 7.3e-05 +-1.2e-05 +-1.2e-05
 
@@ -117,19 +116,19 @@ PARAMETERS
 
 END
 
-#                                                                            
-# Gamma904                                                                   
-# G(3pi- 2pi+ pi0  nu(tau) ) / G(total) # agree with the numbering sheame 
-#                                                                            
-BEGIN MEASUREMENT BaBar Gamma904 pub PHYS. REV. D 86 092010 (2012)           
-                                                                             
-VALUE 3.6e-05 +-0.3e-05 +-0.9e-05                                            
-                                                                             
-SYSTEMATICS                                                                  
-  -0.3%            sigmataupmy4s    # -1.1e-07                               
-  -1.0%            BaBarLumi        # -3.6e-07                               
-                                                                             
-PARAMETERS                                                                   
-  sigmataupmy4s    0.919        +-0.0032165                                  
+#
+# Gamma904
+# G(3pi- 2pi+ pi0  nu(tau) ) / G(total) # agree with the numbering sheame
+#
+BEGIN MEASUREMENT BaBar Gamma904 pub 1209.2734
 
-END                                                           
+VALUE 3.6e-05 +-0.3e-05 +-0.9e-05
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -1.1e-07
+  -1.0%            BaBarLumi        # -3.6e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
