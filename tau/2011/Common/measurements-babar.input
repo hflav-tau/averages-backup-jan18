@@ -1,33 +1,38 @@
-#
-# Gamma47 (PDG node = S035B69)
-# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
-#
-BEGIN MEASUREMENT BaBar Gamma47 prelim TAU12 Sobie.2
+##
+## has been used for Tau12, later commented because final
+## published results are in the 2014 averare area
+##
 
-VALUE 2.31e-4 +-0.04e-4 +-0.08e-4
-
-STAT_CORR_WITH -0.21	BaBar Gamma50 prelim TAU12 Sobie.2
-
-SYSTPAPER
-  0.034&	    common
-
-END
-
-#
-# Gamma50 (PDG node = S035C2)
-# G(pi- K(S) K(S) pi0 nu(tau)) / G(total)
-#
-BEGIN MEASUREMENT BaBar Gamma50 prelim TAU12 Sobie.2
-
-VALUE 1.60e-5 +-0.20e-5 +-0.22e-5
-
-STAT_CORR_WITH -0.21	BaBar Gamma47 prelim TAU12 Sobie.2
-
-SYSTPAPER
-  0.03&		    common
-
-END
-
+# #
+# # Gamma47 (PDG node = S035B69)
+# # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+# #
+# BEGIN MEASUREMENT BaBar Gamma47 prelim TAU12 Sobie.2
+# 
+# VALUE 2.31e-4 +-0.04e-4 +-0.08e-4
+# 
+# STAT_CORR_WITH -0.21	BaBar Gamma50 prelim TAU12 Sobie.2
+# 
+# SYSTPAPER
+#   0.034&	    common
+# 
+# END
+# 
+# #
+# # Gamma50 (PDG node = S035C2)
+# # G(pi- K(S) K(S) pi0 nu(tau)) / G(total)
+# #
+# BEGIN MEASUREMENT BaBar Gamma50 prelim TAU12 Sobie.2
+# 
+# VALUE 1.60e-5 +-0.20e-5 +-0.22e-5
+# 
+# STAT_CORR_WITH -0.21	BaBar Gamma47 prelim TAU12 Sobie.2
+# 
+# SYSTPAPER
+#   0.03&		    common
+# 
+# END
+# 
 #
 # # Gamma807
 # # G(3pi- 2pi+ nu(tau) (ex. K0)) / G(total)
