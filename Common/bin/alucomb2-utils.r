@@ -985,9 +985,9 @@ alucomb.read = function(file = "") {
         ##--- warn about overridden NLCONSTRAINT
         if (!is.null(block$constr.nl.str.val[[constr.name]])) {
           cat("\nwarning, override NLCONSTRAINT\n")
-          old.str =
-            paste("old: ", block$constr.nl.str.val[[constr.name]], " = ", block$constr.nl.str.expr[[constr.name]], "\n", sep="")
-          new.str = paste("new: ", constr.val, " = ", constr.expr, "\n", sep="")
+          old.str = paste("old: ", constr.name, " ",
+            block$constr.nl.str.val[[constr.name]], " = ", block$constr.nl.str.expr[[constr.name]], "\n", sep="")
+          new.str = paste("new: ", constr.name, " ", constr.val, " = ", constr.expr, "\n", sep="")
           if (nchar(old.str) > 78 || nchar(new.str) > 78) {
             old.str = paste("\n", old.str, sep="")
             new.str = paste("\n", new.str, sep="")
@@ -1199,6 +1199,11 @@ alucomb.read = function(file = "") {
       break
     }
   }
+  ##--- remove NLCONSTRAINTs with null string (provide method to remove constraints)
+  nlconstraints.sel = !(combination$constr.nl.str.expr == "")
+  combination$constr.nl.str.expr = combination$constr.nl.str.expr[nlconstraints.sel]
+  combination$constr.nl.str.val = combination$constr.nl.str.val[nlconstraints.sel]
+  ##--- return
   invisible(list(combination=combination, measurements=measurements))
 } ##--- end of alucomb.read
 
