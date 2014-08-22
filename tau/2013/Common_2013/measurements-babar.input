@@ -96,34 +96,118 @@ PARAMETERS
 END
 
 #
-# Gamma810
-# G(2pi- pi+ eta nu(tau) (ex. K0)) / G(total)
+# Gamma900
+# G(2pi- pi+ eta(gamma gamma)  nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma810 prelim TAU12 Sobie.1
+BEGIN MEASUREMENT BaBar Gamma900 prelim TAU12 Sobie.1
 
-VALUE 2.25e-4 +- 0.07e-4 +- 0.12e-4
+VALUE 2.10e-4 +- 0.09e-4 +- 0.12e-4
 
 SYSTEMATICS
   -0.3%		   sigmataupmy4s
   -0.9539392%      BaBarLumiR24
-  3.8%		   BaBarTrackingR24
-  3.0%		   BaBarPizeroEffR24
-
+  
 SYSTPAPER
-  1.6%		   tagLeptonPid
-  2.0%		   pionPid
+  2.7%             BaBarTrackingR24     
+  3.0%             BaBarPizeroEffR24    
+  3.0%             pionPid
+  1.6%             tagLeptonPid
+  3.9%		   SelEff
+  1.0%		   Backgroud
+  1.0%		   EtaBFgam
+
 
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
-
+  
 END
+
+#                                                            
+# Gamma901                                                   
+# G(2pi- pi+ eta(pi+ pi- pi0)  nu(tau) (ex. K0)) / G(total)  
+#                                                            
+BEGIN MEASUREMENT BaBar Gamma901 prelim TAU12 Sobie.1        
+                                                             
+VALUE 2.37e-4 +- 0.12e-4 +- 0.18e-4                          
+                                                             
+SYSTEMATICS                                                  
+  -0.3%            sigmataupmy4s                             
+  -0.9539392%      BaBarLumiR24                              
+                                                             
+SYSTPAPER                                                    
+  3.8%             BaBarTrackingR24                          
+  3.0%             BaBarPizeroEffR24                         
+  2.5%             pionPid                                   
+  1.6%             tagLeptonPid                              
+  4.0%             SelEff                                    
+  2.8%             Backgroud                                 
+  1.8%             EtaBF3pi                                     
+                                                             
+                                                             
+PARAMETERS                                                   
+  sigmataupmy4s    0.919        +-0.003                      
+                                                             
+END                                                          
+#                                                                     
+# Gamma902                                                            
+# G(2pi- pi+ eta(3pi0)  nu(tau) (ex. K0)) / G(total)           
+#                                                                     
+BEGIN MEASUREMENT BaBar Gamma902 prelim TAU12 Sobie.1                 
+                                                                      
+VALUE 2.54e-4 +- 0.27e-4 +- 0.25e-4                                   
+                                                                      
+SYSTEMATICS                                                           
+  -0.3%            sigmataupmy4s                                      
+  -0.9539392%      BaBarLumiR24                                       
+                                                                      
+SYSTPAPER                                                             
+  2.7%             BaBarTrackingR24                                   
+  9.0%             BaBarPizeroEffR24                                  
+  1.5%             pionPid                                            
+  1.6%             tagLeptonPid                                       
+  2.8%             SelEff                                             
+  2.3%             Backgroud                                          
+  0.9%             EtaBF3pi0                                           
+                                                                      
+                                                                      
+PARAMETERS                                                            
+  sigmataupmy4s    0.919        +-0.003                               
+                                                                      
+END                                                                   
+                                                                      
+#                                                        
+# Gamma810                                               
+# G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)          
+#                                                        
+BEGIN MEASUREMENT BaBar Gamma810 prelim TAU12 Sobie.1    
+                                                         
+VALUE 2.01e-4 +-0.34e-4 +-0.22e-4                           
+                                                         
+SYSTEMATICS                               
+  -0.3%            sigmataupmy4s          
+  -0.9539392%      BaBarLumiR24           
+                                          
+SYSTPAPER                                 
+  2.7%             BaBarTrackingR24       
+  9.0%             BaBarPizeroEffR24      
+  1.5%             pionPid                
+  1.6%             tagLeptonPid           
+  2.7%             SelEff                 
+  4.0%             Backgroud              
+  1.8%             EtaBF3pi
+                                          
+PARAMETERS                                               
+  sigmataupmy4s    0.919        +-0.003                  
+                                                         
+END                                                      
+                                                         
 
 #
 # Gamma811
 # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma811 prelim TAU12 Sobie.1
-
+ 
 VALUE 8.4e-5 +-0.4e-5 +-0.6e-5
 
 SYSTEMATICS
@@ -140,3 +224,18 @@ PARAMETERS
   sigmataupmy4s    0.919        +-0.003
 
 END
+
+#
+# Gamma812
+# G(pi- f1(1285) nu(tau) (ex. K0)) / G(total)  
+#                                                
+BEGIN MEASUREMENT BaBar Gamma812 prelim TAU12 Sobie.1   
+
+VALUE 7.3e-05 +-1.2e-05 +-1.2e-05
+
+SYSTEMATICS                            
+  -0.3%            sigmataupmy4s       
+  -0.9539392%      BaBarLumiR24        
+  3.8%             BaBarTrackingR24     
+  3.0%             BaBarPizeroEffR24    
+
