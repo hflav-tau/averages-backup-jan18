@@ -308,9 +308,9 @@ SYSTEMATICS
   -0.9539392%      BaBarLumiR24                                         
                                                                         
 SYSTPAPER                                                               
-  2.7%             BaBarTrackingR24                                     
+  3.8%             BaBarTrackingR24                                     
   3.0%             BaBarPizeroEffR24                                    
-  1.5%             pionPid                                              
+  2.5%             pionPid                                              
   1.6%             tagLeptonPid                                         
                                                                         
                                                                         
@@ -334,7 +334,7 @@ SYSTEMATICS
                                                                               
 SYSTPAPER                                                                     
   2.7%             BaBarTrackingR24                                           
-  3.0%             BaBarPizeroEffR24                                          
+  9.0%             BaBarPizeroEffR24                                          
   1.5%             pionPid                                                    
   1.6%             tagLeptonPid                                               
                                                                               
