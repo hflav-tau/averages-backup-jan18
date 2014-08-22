@@ -176,7 +176,7 @@ PARAMETERS
 END
 
 #
-# Gamma50 (PDG node = NONE)
+# Gamma50 (PDG node = S035C2)
 # G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
 #
 BEGIN MEASUREMENT Belle Gamma50 1402.5213
