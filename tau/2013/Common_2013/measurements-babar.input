@@ -304,7 +304,7 @@ END
 
 #
 # Gamma907
-# G(pi- f1(pi- pi+ eta(pi- pi+ pi0 )) nu(tau) (ex. K0)) / G(total)
+# G(pi- f1(pi- pi+ eta(3pi0 )) nu(tau) (ex. K0)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma907 pub 1209.2734
 
