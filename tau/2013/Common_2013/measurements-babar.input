@@ -40,11 +40,11 @@ PARAMETERS
 
 END
 
-
-# Gamma807
-# G(3pi- 2pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma807 prelim TAU12 Sobie.1
+# Gamma807
+# G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma807 pub 1209.2734
 
 VALUE 8.33e-04 +-0.04e-04 +-0.43e-04
 
@@ -66,7 +66,7 @@ END
 # Gamma808
 # G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma808 prelim TAU12 Sobie.1
+BEGIN MEASUREMENT BaBar Gamma808 pub 1209.2734
 
 VALUE 0.6e-06 +-0.5e-06 +-1.1e-06
 
@@ -76,7 +76,7 @@ END
 # Gamma809
 # G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma809 prelim TAU12 Sobie.1
+BEGIN MEASUREMENT BaBar Gamma809 pub 1209.2734
 
 VALUE 1.65e-4 +- 0.05e-4 +- 0.09e-4
 
@@ -107,290 +107,265 @@ VALUE 8.28e-5 +- 0.37e-5 +- 0.51e-5
 SYSTEMATICS
   -0.3%		   sigmataupmy4s
   -0.9539392%      BaBarLumiR24
-  
+
 SYSTPAPER
-  2.7%             BaBarTrackingR24     
-  3.0%             BaBarPizeroEffR24    
+  2.7%             BaBarTrackingR24
+  3.0%             BaBarPizeroEffR24
   3.0%             pionPid
   1.6%             tagLeptonPid
-  
 
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
-  
+
 END
 
-#                                                            
-# Gamma901                                                   
-# G(2pi- pi+ eta(pi+ pi- pi0)  nu(tau) (ex. K0)) / G(total)  
-#                                                            
+#
+# Gamma901
+# G(2pi- pi+ eta(pi+ pi- pi0)  nu(tau) (ex. K0)) / G(total)
+#
 BEGIN MEASUREMENT BaBar Gamma901 pub 1209.2734
-                                                             
-VALUE 5.39e-5 +- 0.27e-5 +- 0.39e-4                          
-                                                             
-SYSTEMATICS                                                  
-  -0.3%            sigmataupmy4s                             
-  -0.9539392%      BaBarLumiR24                              
-                                                             
-SYSTPAPER                                                    
-  3.8%             BaBarTrackingR24                          
-  3.0%             BaBarPizeroEffR24                         
-  2.5%             pionPid                                   
-  1.6%             tagLeptonPid                              
-  
-                                                             
-                                                             
-PARAMETERS                                                   
-  sigmataupmy4s    0.919        +-0.003                      
-                                                             
-END                                                          
-#                                                                     
-# Gamma902                                                            
-# G(2pi- pi+ eta(3pi0)  nu(tau) (ex. K0)) / G(total)           
-#                                                                     
+
+VALUE 5.39e-5 +- 0.27e-5 +- 0.39e-4
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  3.8%             BaBarTrackingR24
+  3.0%             BaBarPizeroEffR24
+  2.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma902
+# G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
+#
 BEGIN MEASUREMENT BaBar Gamma902 pub 1209.2734
-                                                                      
-VALUE 8.62e-5 +- 0.91e-5 +- 0.87e-5                                   
-                                                                      
-SYSTEMATICS                                                           
-  -0.3%            sigmataupmy4s                                      
-  -0.9539392%      BaBarLumiR24                                       
-                                                                      
-SYSTPAPER                                                             
-  2.7%             BaBarTrackingR24                                   
-  9.0%             BaBarPizeroEffR24                                  
-  1.5%             pionPid                                            
-  1.6%             tagLeptonPid                                       
-  
-                                                                      
-                                                                      
-PARAMETERS                                                            
-  sigmataupmy4s    0.919        +-0.003                               
-                                                                      
-END                                                                   
-         
-#                                                            
-# Gamma903                                                   
-# G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)   
-#                                                            
-BEGIN MEASUREMENT BaBar Gamma903 pub 1209.2734
-                                                             
-VALUE 4.56e-5 +-0.781e-5 +-0.55e-5                            
-                                                             
-SYSTEMATICS                                                  
-  -0.3%            sigmataupmy4s                             
-  -0.9539392%      BaBarLumiR24                              
-                                                             
-SYSTPAPER                                                    
-  2.7%             BaBarTrackingR24                          
-  9.0%             BaBarPizeroEffR24                         
-  1.5%             pionPid                                   
-  1.6%             tagLeptonPid                              
-  
 
-                                                             
-PARAMETERS                                                   
-  sigmataupmy4s    0.919        +-0.003                      
-                                                             
-END                                                          
-                                                             
-                                                             
-#                                                            
-# Gamma810                                                   
-# G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)              
-#                                                            
-BEGIN MEASUREMENT BaBar Gamma810 pub 1209.2734
-                                                             
-VALUE 8.4e-5 +-0.4e-5 +-0.6e-5                               
-                                                             
-SYSTEMATICS                                                  
-  -0.3%            sigmataupmy4s                             
-  -0.9539392%      BaBarLumiR24                              
+VALUE 8.62e-5 +- 0.91e-5 +- 0.87e-5
 
-                                                           
-SYSTPAPER                                                    
-  3.8%             BaBarTrackingR24       
-  3.0%             BaBarPizeroEffR24      
-  2.5%             pionPid                
-  1.6%             tagLeptonPid           
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
 
-                                                             
-PARAMETERS                                                   
-  sigmataupmy4s    0.919        +-0.003                      
-                                                             
-END                                                          
-
-
-#                                                       
-# Gamma811                                              
-# G(pi- 2pi0 omega nu(tau) (ex. K0)) / G(total)         
-#                                                       
-BEGIN MEASUREMENT BaBar Gamma811 pub 1209.2734          
-                                                        
-VALUE 7.3e-5 +-1.2e-5 +-1.2e-5                          
-                                                        
-SYSTEMATICS                                             
-  -0.3%            sigmataupmy4s                        
-  -0.9539392%      BaBarLumiR24                         
-                                                        
-                                                        
-SYSTPAPER                                               
-  2.7%             BaBarTrackingR24                     
-  9.0%             BaBarPizeroEffR24                    
-  1.5%             pionPid                              
-  1.6%             tagLeptonPid                         
-                                                        
-                                                        
-PARAMETERS                                              
-  sigmataupmy4s    0.919        +-0.003                 
-                                                        
-END                                                     
-                                                        
-          
-                                              
-#                                                             
-# Gamma904                                                    
-# G(pi- f1(2pi- 2pi+) nu(tau) (ex. K0)) / G(total)    
-#                                                             
-BEGIN MEASUREMENT BaBar Gamma904 pub 1209.2734                
-                                                              
-VALUE 5.20e-5 +-0.31e-5 +-0.37e-5                            
-                                                              
-SYSTEMATICS                                                   
-  -0.3%            sigmataupmy4s                              
-  -0.9539392%      BaBarLumiR24                               
-                                                              
-SYSTPAPER                                                     
-  3.8%             BaBarTrackingR24                           
-  2.5%             pionPid                                    
-  1.6%             tagLeptonPid                               
-                                                              
-                                                              
-PARAMETERS                                                    
-  sigmataupmy4s    0.919        +-0.003                       
-                                                              
-END                                                           
-
-#                                                                     
-# Gamma905                                                            
-# G(pi- f1(pi- pi+ eta(gamma gamma ) )nu(tau) (ex. K0)) / G(total)                    
-#                                                                     
-BEGIN MEASUREMENT BaBar Gamma905 pub 1209.2734                        
-                                                                      
-VALUE 4.91e-5 +-0.31e-5 +-0.27e-5                                     
-                                                                      
-SYSTEMATICS                                                           
-  -0.3%            sigmataupmy4s                                      
-  -0.9539392%      BaBarLumiR24                                       
-                                                                      
-SYSTPAPER                                                             
+SYSTPAPER
   2.7%             BaBarTrackingR24
-  3.0%             BaBarPizeroEffR24  
-  1.5%             pionPid                                            
-  1.6%             tagLeptonPid                                       
-   
-                                                                      
-PARAMETERS                                                            
-  sigmataupmy4s    0.919        +-0.003                               
-                                                                      
-END                                                                   
-                                                                      
-#                                                                       
-# Gamma906                                                              
-# G(pi- f1(pi- pi+ eta(pi- pi+ pi0 )) nu(tau) (ex. K0)) / G(total)       
-#                                                                       
-BEGIN MEASUREMENT BaBar Gamma906 pub 1209.2734                          
-                                                                        
-VALUE 2.87e-5 +-0.25e-5 +-0.18e-5                                       
-                                                                        
-SYSTEMATICS                                                             
-  -0.3%            sigmataupmy4s                                        
-  -0.9539392%      BaBarLumiR24                                         
-                                                                        
-SYSTPAPER                                                               
-  3.8%             BaBarTrackingR24                                     
-  3.0%             BaBarPizeroEffR24                                    
-  2.5%             pionPid                                              
-  1.6%             tagLeptonPid                                         
-                                                                        
-                                                                        
-PARAMETERS                                                              
-  sigmataupmy4s    0.919        +-0.003                                 
-                                                                        
-END                                                                     
-                                                                        
+  9.0%             BaBarPizeroEffR24
+  1.5%             pionPid
+  1.6%             tagLeptonPid
 
-#                                                                             
-# Gamma907                                                                    
-# G(pi- f1(pi- pi+ eta(pi- pi+ pi0 )) nu(tau) (ex. K0)) / G(total)             
-#                                                                             
-BEGIN MEASUREMENT BaBar Gamma907 pub 1209.2734                                
-                                                                              
-VALUE 4.33e-5 +-0.13e-5 +-0.06e-5                                             
-                                                                              
-SYSTEMATICS                                                                   
-  -0.3%            sigmataupmy4s                                              
-  -0.9539392%      BaBarLumiR24                                               
-                                                                              
-SYSTPAPER                                                                     
-  2.7%             BaBarTrackingR24                                           
-  9.0%             BaBarPizeroEffR24                                          
-  1.5%             pionPid                                                    
-  1.6%             tagLeptonPid                                               
-                                                                              
-                                                                              
-PARAMETERS                                                                    
-  sigmataupmy4s    0.919        +-0.003                                       
-                                                                              
-END                                                                           
-                                                                              
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
 
-#                                                                    
-# Gamma812                                                           
-# G(3pi- 2pi+ (tau) (ex. K0, non REZONANT)) / G(total)   
-#                                                                    
-BEGIN MEASUREMENT BaBar Gamma812 pub 1209.2734                       
-                                                                     
-VALUE 7.68e-4 +-0.04e-4 +-0.40e-4                                    
-                                                                     
-SYSTEMATICS                                                          
-  -0.3%            sigmataupmy4s                                     
-  -0.9539392%      BaBarLumiR24                                      
-                                                                     
-SYSTPAPER                                                            
-  3.8%             BaBarTrackingR24                                  
-  2.5%             pionPid                                           
-  1.6%             tagLeptonPid                                      
-                                                                     
-                                                                     
-PARAMETERS                                                           
-  sigmataupmy4s    0.919        +-0.003                              
-                                                                     
-END                                                                  
-                                                                     
-#                                                           
-# Gamma813                                                  
-# G(3pi- 2pi+ pi0 (tau) (ex. K0, non REZONANT)) / G(total)      
-#                                                           
-BEGIN MEASUREMENT BaBar Gamma813 pub 1209.2734              
-                                                            
-VALUE 0.36e-4 +-0.03e-4 +-0.09e-4                           
-                                                            
-SYSTEMATICS                                                 
-  -0.3%            sigmataupmy4s                            
-  -0.9539392%      BaBarLumiR24                             
-                                                            
-SYSTPAPER                                                   
-  3.8%             BaBarTrackingR24                         
-  3.0%             BaBarPizeroEffR24    
-  2.5%             pionPid                                  
-  1.6%             tagLeptonPid                             
-                                                            
-                                                            
-PARAMETERS                                                  
-  sigmataupmy4s    0.919        +-0.003                     
-                                                            
-END                                                         
-                                                                   
-  
-        							   
+END
+
+#
+# Gamma903
+# G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma903 pub 1209.2734
+
+VALUE 4.56e-5 +-0.781e-5 +-0.55e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  2.7%             BaBarTrackingR24
+  9.0%             BaBarPizeroEffR24
+  1.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma810
+# G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma810 pub 1209.2734
+
+VALUE 8.4e-5 +-0.4e-5 +-0.6e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  3.8%             BaBarTrackingR24
+  3.0%             BaBarPizeroEffR24
+  2.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma811
+# G(pi- 2pi0 omega nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma811 pub 1209.2734
+
+VALUE 7.3e-5 +-1.2e-5 +-1.2e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  2.7%             BaBarTrackingR24
+  9.0%             BaBarPizeroEffR24
+  1.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma904
+# G(pi- f1(2pi- 2pi+) nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma904 pub 1209.2734
+
+VALUE 5.20e-5 +-0.31e-5 +-0.37e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  3.8%             BaBarTrackingR24
+  2.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma905
+# G(pi- f1(pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma905 pub 1209.2734
+
+VALUE 4.91e-5 +-0.31e-5 +-0.27e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  2.7%             BaBarTrackingR24
+  3.0%             BaBarPizeroEffR24
+  1.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma906
+# G(pi- f1(pi- pi+ eta(pi- pi+ pi0 )) nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma906 pub 1209.2734
+
+VALUE 2.87e-5 +-0.25e-5 +-0.18e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  3.8%             BaBarTrackingR24
+  3.0%             BaBarPizeroEffR24
+  2.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma907
+# G(pi- f1(pi- pi+ eta(pi- pi+ pi0 )) nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma907 pub 1209.2734
+
+VALUE 4.33e-5 +-0.13e-5 +-0.06e-5
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  2.7%             BaBarTrackingR24
+  9.0%             BaBarPizeroEffR24
+  1.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma812
+# G(3pi- 2pi+ (tau) (ex. K0, non-resonant)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma812 pub 1209.2734
+
+VALUE 7.68e-4 +-0.04e-4 +-0.40e-4
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  3.8%             BaBarTrackingR24
+  2.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
+
+#
+# Gamma813
+# G(3pi- 2pi+ pi0 (tau) (ex. K0, non-resonant)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma813 pub 1209.2734
+
+VALUE 0.36e-4 +-0.03e-4 +-0.09e-4
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  3.8%             BaBarTrackingR24
+  3.0%             BaBarPizeroEffR24
+  2.5%             pionPid
+  1.6%             tagLeptonPid
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.003
+
+END
