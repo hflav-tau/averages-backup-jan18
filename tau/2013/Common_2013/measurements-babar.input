@@ -413,7 +413,7 @@ END
                               
 #                                                         
 # Gamma818 
-# G(3pi- 2pi+ pi0 (tau) (ex. K0, non-resonant)) / G(total)
+# G(2pi- pi+ 3pi0 (tau) (ex. K0, non-resonant)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma818 pub 1209.2734 
 VALUE 0.1e-4 +-0.08e-4 +-0.30e-4 
