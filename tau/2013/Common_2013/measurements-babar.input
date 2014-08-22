@@ -304,7 +304,7 @@ END
 
 #
 # Gamma907
-# G(pi- f1(pi- pi+ eta(3pi0 )) nu(tau) (ex. K0)) / G(total)
+# G(pi- f1(pi- pi+ eta(3pi0)) nu(tau) (ex. K0)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma907 pub 1209.2734
 
@@ -327,7 +327,7 @@ END
 
 #
 # Gamma812
-# G(3pi- 2pi+ (tau) (ex. K0, non-resonant)) / G(total)
+# G(3pi- 2pi+ nu(tau) (ex. K0, non-resonant)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma812 pub 1209.2734
 
@@ -371,67 +371,64 @@ PARAMETERS
 END
 
 #
-# Gamma814  
-# G(K+ 3pi- pi+ nu(tau) (ex. K0)) / G(total)  
+# Gamma814
+# G(K+ 3pi- pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma814 pub 1209.2734 
+BEGIN MEASUREMENT BaBar Gamma814 pub 1209.2734
 
-VALUE 1.6e-6 +-0.6e-6 +-2.4e-6 
+VALUE 1.6e-6 +-0.6e-6 +-2.4e-6
 
 END
 
-# 
-# Gamma815                                                
+#
+# Gamma815
 # G(K- K+ 2pi- pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma815 pub 1209.2734 
+BEGIN MEASUREMENT BaBar Gamma815 pub 1209.2734
 
-VALUE 0.30e-6 +-0.10e-6 +-0.07e-6 
+VALUE 0.30e-6 +-0.10e-6 +-0.07e-6
 
 END
 
 #
-# Gamma816 
-# G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total) 
+# Gamma816
+# G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma816 pub 1209.2734  
+BEGIN MEASUREMENT BaBar Gamma816 pub 1209.2734
 
-VALUE 1.1e-6 +-0.4e-6 +-0.4e-6  
+VALUE 1.1e-6 +-0.4e-6 +-0.4e-6
 
-END                                                      
-                             
-                           
-#                                                               
+END
+
+
+#
 # Gamma817
-# G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total) 
-# 
-BEGIN MEASUREMENT BaBar Gamma817 pub 1209.2734 
+# G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma817 pub 1209.2734
 
-VALUE -0.6e-6 +-0.5e-6 +-0.7e-6 
-  
-END                                                                  
-                              
-#                                                         
-# Gamma818 
+VALUE -0.6e-6 +-0.5e-6 +-0.7e-6
+
+END
+
+#
+# Gamma818
 # G(2pi- pi+ 3pi0 (tau) (ex. K0, non-resonant)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma818 pub 1209.2734 
-VALUE 0.1e-4 +-0.08e-4 +-0.30e-4 
-                                                          
+BEGIN MEASUREMENT BaBar Gamma818 pub 1209.2734
+VALUE 0.1e-4 +-0.08e-4 +-0.30e-4
+
 SYSTEMATICS
-  -0.3%            sigmataupmy4s 
-  -0.9539392%      BaBarLumiR24 
-                                                          
-SYSTPAPER  
-  2.0%             BaBarTrackingR24  
-  9.0%             BaBarPizeroEffR24 
+  -0.3%            sigmataupmy4s
+  -0.9539392%      BaBarLumiR24
+
+SYSTPAPER
+  2.0%             BaBarTrackingR24
+  9.0%             BaBarPizeroEffR24
   1.0%             pionPid
   1.6%             tagLeptonPid
-      
-PARAMETERS    
+
+PARAMETERS
   sigmataupmy4s    0.919        +-0.003
 
 END
-                                                                    
-                                                                    
-
