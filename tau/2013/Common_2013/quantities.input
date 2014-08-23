@@ -161,8 +161,6 @@ QUANTITY Gamma946 texdescr "2\pi^- \pi^+ \eta \nu_\tau ~(\mathrm{ex.~}K^0)"
 # revised constraints due to babar high-multi paper
 #
 
-NLCONSTRAINT Gamma103.c0”-Gamma103 + Gamma920 + Gamma821+ Gamma831*(omega->pipi)+ Gamma950 + Gamma951 + Gamma822”
-
 #
 # Gamma103 = G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
 #
