@@ -172,39 +172,16 @@ QUANTITY Gamma946 texdescr "2\pi^- \pi^+ \eta \nu_\tau ~(\mathrm{ex.~}K^0)"
 #
 NLCONSTRAINT Gamma103.c 0 ”-Gamma103 + (Gamma820 + Gamma822 + Gamma831*BR_om_pimpip)"
 
-
-
-#                                                  
+#
 # Gamma104 = G(3h- 2h+ pi0  nu(tau) (ex. K0)) / G(total)
-#         
+#
 # Gamma104 = Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz
-# Gamma830 = G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)  
-# Gamma833 G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+# Gamma830 = G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
+# Gamma833 = G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 # Gamma831 = G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
-
-NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz)" 
-
-
 #
-# integration of Sobie.1 paper results
-# 
-# constraints and base measurements
-# 
-# Gamma104 = G(3h- 2h+ pi0 nu(tau) =
-#   3pi eta nu (ex. f1) * (eta -> pi+pi-pi0) +
-#   3pi omega nu * (omega -> pi+pi-pi0) +
-#   pi f1 nu * (f1 -> pi+pi-eta) * (eta -> pi+pi-pi0) +
-#   3pi- 2pi+ pi0 nu (ex. eta, omega, f1)
-# 
-# G(3h- 3pi0 nu(tau) =
-#   pi- 2pi0 eta nu * (omega -> pi+pi-pi0) +
-#   pi- 2pi0 omega nu * (eta -> pi+pi-pi0) +
-#   pi- f1 nu * (f1 -> pi+pi-eta) * (eta -> 3pi0) +
-#   2pi- pi+ 3pi0 nu (ex. eta, omega, f1)
-#
-
-
-
+NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz)"
 
 #
 # Gamma55 = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
