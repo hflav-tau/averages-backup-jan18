@@ -183,37 +183,42 @@ NLCONSTRAINT Gamma103.c 0 ”-Gamma103 + (Gamma820 + Gamma822 + Gamma831*BR_om_p
 #
 NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz)"
 
-#                                                                                                                                  
-# Gamma76 = G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)                                                                           
-#                                                                                                                                  
-QUANTITY Gamma76 node S035B59 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)"                                                 
-#                                                                                                                                  
+#
+# Gamma76 = G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+# QUANTITY Gamma76 node S035B59 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)"
+#
 # Gamma76 = Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)
-#                                                                                                                                  
-# Gamma77 = G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)                                                               
-# Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)                                                                                     
-# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)                                                                                      
+#
+# Gamma77 = G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
+# Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)
+# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
-#                                                                                                                                  
+#
 # NLCONSTRAINT Gamma76.c 0 "-Gamma76 + (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)"
 #
 # +++ unchanged, f1 contribution already in Gamma77
 # Gamma920 = G(pi- f1(2pi- 2pi+) nu(tau)) / G(total) *BR_f1_2PIZPIpPIm/BR_f1_2PIP2PIM
 #
-                                                                                                                                   
+
 #
 # Gamma78 = G(h- h- h+ 3pi0 nu(tau)) / G(total)
 #
-# Gamma78 = Gamma910 + Gamma911 + Gamma811 + Gamma812
+# Gamma78 = Gamma910 + Gamma911 + Gamma811 + Gamma812 + Gamma50*2*BR_KS_pimpip*BR_KS_pimpip + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma136*BR_eta_3piz
 #
 # Gamma910 = G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 # Gamma911 = G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
 # Gamma811 = G(pi- 2pi0 omega nu(tau) (ex. K0)) / G(total)
 # Gamma812 = G(2pi- pi+ 3pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
+# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+# Gamma132 = G(Kbar0 pi- eta nu(tau)) / G(total)
+# Gamma136 = G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)
 #
 # we assume that modes with K are negligible (no measurement exists)
+# KS(pi+pi-) pi- 3pi0
+# KS(pi+pi)- K-  3pi0
 #
-NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma910 + Gamma911 + Gamma811 + Gamma812)"
+NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma910 + Gamma911 + Gamma811 + Gamma812 + Gamma50*2*BR_KS_pimpip*BR_KS_pimpip + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma136*BR_eta_3piz)"
 
 #
 # Gamma55 = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
