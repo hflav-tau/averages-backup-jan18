@@ -41,6 +41,11 @@ PARAMETERS
 END
 
 #
+# Gamma810
+# G(2pi- pi+ 3pi0 nu(tau) (ex. K0, omega)) / G(total)
+#
+
+#
 # Gamma910
 # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
