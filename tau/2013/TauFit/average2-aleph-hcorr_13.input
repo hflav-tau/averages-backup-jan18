@@ -50,9 +50,6 @@ MODMEAS DROP Belle Gamma35 pub EPIFANOV 07
 MODMEAS DROP BaBar Gamma47 prelim TAU12 Sobie.2
 MODMEAS DROP BaBar Gamma50 prelim TAU12 Sobie.2
 
-##--- superseeded in Belle KS results paper 1402.5213
-MODMEAS DROP Belle Gamma35 pub EPIFANOV 07
-
 ##--- superseeded in BaBar high-multiplicity BRs paper 1209.2734
 MODMEAS DROP BaBar Gamma136 pub AUBERT 08AE
 
