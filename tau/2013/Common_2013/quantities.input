@@ -223,7 +223,9 @@ NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma910 + Gamma911 + Gamma811 + Gamma812 
 #
 # Gamma55 = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
 #
-# Gamma55 = Gamma62 + Gamma70 + Gamma810 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma126*BR_eta_charged + Gamma128*BR_eta_charged + Gamma130*BR_eta_charged + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip)
+# QUANTITY Gamma55 node S035B63 descr "G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)"
+#
+# Gamma55 = (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))
 #
 # Gamma62 = G(pi- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 # Gamma70 = G(pi- pi- pi+ pi0 nu(tau) (ex. K0, omega)) / G(total)
@@ -240,8 +242,8 @@ NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma910 + Gamma911 + Gamma811 + Gamma812 
 # Gamma801 = G(K- phi nu(tau) (phi->KK)) / G(total)
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
-# Gamma800 = G(pi- omega nu(tau)) / G(total)
 #
+# NLCONSTRAINT Gamma55.c 0 "-Gamma55 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL))"
 
 #
 # Gamma74 = G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)
