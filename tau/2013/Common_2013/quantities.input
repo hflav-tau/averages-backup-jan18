@@ -172,6 +172,19 @@ QUANTITY Gamma946 texdescr "2\pi^- \pi^+ \eta \nu_\tau ~(\mathrm{ex.~}K^0)"
 #
 NLCONSTRAINT Gamma103.c 0 ”-Gamma103 + (Gamma820 + Gamma822 + Gamma831*BR_om_pimpip)"
 
+
+
+#                                                  
+# Gamma104 = G(3h- 2h+ pi0  nu(tau) (ex. K0)) / G(total)
+#         
+# Gamma104 = Gamma830 + Gamma952 + Gamma831*BR_om_pimpippiz
+# Gamma830 = G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)  
+# Gamma952 = G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total) 
+# Gamma831 = G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
+
+NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma952 + Gamma831*BR_om_pimpippiz)" 
+
+
 #
 # integration of Sobie.1 paper results
 # 
