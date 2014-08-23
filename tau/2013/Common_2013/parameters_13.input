@@ -24,7 +24,7 @@ PARAMETERS
   BR_eta_3piz      0.3268       +-0.0023
   # --- eta -> pi+pi-pi0, node S014R53, PDG13 fit
   BR_eta_pimpippiz 0.2292       +-0.0028
-  # --- f1 -> 2PIZPIPPIML, node XXX, PDG13 fit
-  BR_f1_2PIZPIpPIm      0.220        +-0.013
-  # --- f1 -> 2PIP2PIM, node XXX, PDG13 fit       
-  BR_f1_2PIP2PIM      0.110        +-0.007         
+  # --- f1 -> 2pizpippim, node XXX, PDG13 fit
+  BR_f1_2pizpippim      0.220        +-0.013
+  # --- f1 -> 2pip2pim, node XXX, PDG13 fit       
+  BR_f1_2pip2pim      0.110        +-0.007         
