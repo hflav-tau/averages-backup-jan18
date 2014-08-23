@@ -160,7 +160,7 @@ END
 
 #
 # Gamma920
-# G(pi- f1(2pi- 2pi+) nu(tau) (ex. K0)) / G(total)
+# G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma920 pub 1209.2734
 
@@ -316,7 +316,7 @@ END
 
 #
 # Gamma941
-# G(pi- f1(pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total)
+# G(pi- f1(pi- pi+ eta(gamma gamma)) nu(tau) (ex. K0)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma941 pub 1209.2734
 
