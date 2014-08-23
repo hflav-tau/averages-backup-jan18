@@ -337,7 +337,7 @@ NLCONSTRAINT Gamma74.c 0 "-Gamma74 + (Gamma152*BR_om_pimpippiz + Gamma78 + Gamma
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 # Gamma805 = G(a1- (-> pi- gamma) nu(tau)) / G(total)
 #
-# NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma46 + Gamma51 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma103 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma152 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50*(1-2*BR_KS_pimpip*BR_KS_2piz) + Gamma806 + Gamma805 + Gamma801 + Gamma900 + Gamma901 + Gamma902 + Gamma903)"
+# NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma46 + Gamma51 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma103 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma152 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50*(1-2*BR_KS_pimpip*BR_KS_2piz) + Gamma806 + Gamma805 + Gamma801)"
 #
 # added:
 # + Gamma900 + Gamma901 + Gamma902 + Gamma903
