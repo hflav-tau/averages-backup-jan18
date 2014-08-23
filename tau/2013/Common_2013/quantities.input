@@ -183,6 +183,24 @@ NLCONSTRAINT Gamma103.c 0 ”-Gamma103 + (Gamma820 + Gamma822 + Gamma831*BR_om_p
 #
 NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz)"
 
+#                                                                                                                                  
+# Gamma76 = G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)                                                                           
+#                                                                                                                                  
+QUANTITY Gamma76 node S035B59 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total)"                                                 
+#                                                                                                                                  
+# Gamma76 = (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz) + Gamma920*BR_f1_2PIZPIpPIm/BR_f1_2PIZPIpPIm 
+#                                                                                                                                  
+# Gamma77 = G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)                                                               
+# Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)                                                                                     
+# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)                                                                                      
+# Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
+# Gamma920 = G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
+#                                                                                                                                  
+NLCONSTRAINT Gamma76.c 0 "-Gamma76 + (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz + Gamma920*BR_f1_2PIZPIpPIm/BR_f1_2PIZPIpPIm)" 
+                                                                                                                                   
+
+
+
 #
 # Gamma55 = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
 #
