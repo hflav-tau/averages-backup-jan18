@@ -196,7 +196,7 @@ QUANTITY Gamma76 node S035B59 descr "G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(total
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma920 = G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
 #                                                                                                                                  
-NLCONSTRAINT Gamma76.c 0 "-Gamma76 + (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz + Gamma920*BR_f1_2PIZPIpPIm/BR_f1_2PIZPIpPIm)" 
+NLCONSTRAINT Gamma76.c 0 "-Gamma76 + (Gamma152*BR_om_pimpippiz + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz + Gamma920*BR_f1_2PIZPIpPIm/BR_f1_2PIP2PIM)" 
                                                                                                                                    
 
 
