@@ -177,12 +177,12 @@ NLCONSTRAINT Gamma103.c 0 ”-Gamma103 + (Gamma820 + Gamma822 + Gamma831*BR_om_p
 #                                                  
 # Gamma104 = G(3h- 2h+ pi0  nu(tau) (ex. K0)) / G(total)
 #         
-# Gamma104 = Gamma830 + Gamma952 + Gamma831*BR_om_pimpippiz
+# Gamma104 = Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz
 # Gamma830 = G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)  
-# Gamma952 = G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total) 
+# Gamma833 G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 # Gamma831 = G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
 
-NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma952 + Gamma831*BR_om_pimpippiz)" 
+NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma833 + Gamma831*BR_om_pimpippiz)" 
 
 
 #
@@ -202,10 +202,6 @@ NLCONSTRAINT Gamma104.c0”-Gamma104 + (Gamma830 + Gamma952 + Gamma831*BR_om_pim
 #   pi- f1 nu * (f1 -> pi+pi-eta) * (eta -> 3pi0) +
 #   2pi- pi+ 3pi0 nu (ex. eta, omega, f1)
 #
-
-
-
-
 
 
 
