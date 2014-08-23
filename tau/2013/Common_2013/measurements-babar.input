@@ -116,7 +116,8 @@ END
 
 #
 # Gamma812
-# G(2pi- pi+ 3pi0 (tau) (ex. K0, non-resonant)) / G(total)
+# G(2pi- pi+ 3pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
+# (non-resonant)
 #
 BEGIN MEASUREMENT BaBar Gamma812 pub 1209.2734
 VALUE 0.1e-4 +-0.08e-4 +-0.30e-4
