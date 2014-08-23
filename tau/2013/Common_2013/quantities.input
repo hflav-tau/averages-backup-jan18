@@ -239,20 +239,6 @@ NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma910 + Gamma911 + Gamma811 + Gamma812)
 #
 
 #
-# Gamma55 = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
-#
-# QUANTITY Gamma55 node S035B63 descr "G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)"
-#
-# Gamma55 = (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL) + + Gamma136*BR_eta_neutral + Gamma901*BR_f1_2PIZPIpPIm + Gamma903*BR_om_pimpip)
-#
-#
-# NLCONSTRAINT Gamma55.c 0 "-Gamma55 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma801*BR_phi_KmKp/(BR_phi_KmKp+BR_phi_KSKL) + Gamma136*BR_eta_neutral + Gamma901*BR_f1_2PIZPIpPIm + Gamma903*BR_om_pimpip)"
-#
-# added:
-# + Gamma136*BR_eta_neutral + Gamma901*BR_f1_2PIZPIpPIm + Gamma903*BR_om_pimpip
-#
-
-#
 # Gamma74 = G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)
 #
 # QUANTITY Gamma74 node S035C03 descr "G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)"
@@ -265,10 +251,10 @@ NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma910 + Gamma911 + Gamma811 + Gamma812)
 # Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma74.c 0 "-Gamma74 + (Gamma152*BR_om_pimpippiz + Gamma78 + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz + Gamma901*BR_f1_2PIZPIpPIm)"
+# NLCONSTRAINT Gamma74.c 0 "-Gamma74 + (Gamma152*BR_om_pimpippiz + Gamma78 + Gamma77 + Gamma126*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz)"
 #
-# added:
-# + Gamma901*BR_f1_2PIZPIpPIm
+# +++ unchanged, f1 contribution already in Gamma77
+# Gamma920 = G(pi- f1(2pi- 2pi+) nu(tau)) / G(total) *BR_f1_2PIZPIpPIm/BR_f1_2PIP2PIM
 #
 
 #
