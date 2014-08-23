@@ -117,8 +117,7 @@ QUANTITY Gamma950 descr "G(K+ 3pi- pi+ nu(tau) (ex. K0)) / G(total)"
 QUANTITY Gamma951 descr "G(K- K+ 2pi- pi+ nu(tau) (ex. K0)) / G(total)"
 
 #
-# Gamma952
-# G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
+# Gamma952 = # G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
 QUANTITY Gamma952 descr "G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)"
 
@@ -133,7 +132,6 @@ QUANTITY Gamma945 texdescr "\pi^- 2\pi^0 \eta \nu_\tau ~(\mathrm{ex.~}K^0)"
 #
 QUANTITY Gamma946 descr "G(2pi- pi+ eta nu(tau) (ex. K0)) / G(total)"
 QUANTITY Gamma946 texdescr "2\pi^- \pi^+ \eta \nu_\tau ~(\mathrm{ex.~}K^0)"
-
 
 
 
