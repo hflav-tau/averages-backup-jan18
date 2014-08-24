@@ -16,6 +16,7 @@ INCLUDE ../Common-Mar2011/measurements-other.input
 # --- for 2014 average
 INCLUDE ../Common_2013/measurements-babar.input
 INCLUDE ../Common_2013/measurements-belle_13.input
+INCLUDE ../Common_2013/measurements-cleo.input
 
 BEGIN COMBINATION
 
@@ -37,6 +38,7 @@ COMBINE
   Gamma810 Gamma910 Gamma911 Gamma811 Gamma812
   Gamma820 Gamma920 Gamma821 Gamma822
   Gamma830 Gamma930 Gamma831 Gamma832 Gamma833
+  Gamma944 Gamma945
 
 ##--- drop prelim. Belle KS results in favour of published ones
 MODMEAS DROP Belle Gamma40 prelim PHIPSI11
