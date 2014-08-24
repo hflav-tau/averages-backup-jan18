@@ -145,7 +145,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   }
   if (any(!meas.drop.cards.existing)) {
     cat("\n##\n")
-    cat("## drop the following measurements according to cards (but non-existing)\n")
+    cat("## warning, cards require dropping non-included measurements\n")
     cat("##\n")
     cat(paste("  ", meas.drop.cards[!meas.drop.cards.existing], collapse="\n"), "\n")
   }
