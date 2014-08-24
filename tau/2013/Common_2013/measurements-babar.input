@@ -41,6 +41,30 @@ PARAMETERS
 END
 
 #
+# Gamma807
+# G(K- K K0bar nu(tau)) / G(total)
+#
+# BaBar measures K KS KS which is 1/4 of this
+#
+BEGIN MEASUREMENT BaBar Gamma807 pub 1208.0376
+
+VALUE 7.6e-7 +-12e-7 +- 1.2e-7
+
+END
+
+#
+# Gamma808
+# G(K- K K0bar pi0 nu(tau)) / G(total)
+#
+# BaBar measures K KS KS pi0 which is 1/4 of this
+#
+BEGIN MEASUREMENT BaBar Gamma807 pub 1208.0376
+
+VALUE (6.0 +-7.1 +-0.4) × 10−7
+
+END
+
+#
 # Gamma810
 # G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
 # (2.07 +-0.18 +-0.37) x10−4
@@ -109,6 +133,7 @@ SYSTPAPER
   1.5%             pionPid
   1.6%             tagLeptonPid
   0.8%		   BR_om_pimpippiz
+
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
   BR_om_pimpippiz  0.892	+-0.007
@@ -143,21 +168,21 @@ END
 # G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
 #
 # BEGIN MEASUREMENT BaBar Gamma820 pub 1209.2734
-# 
+#
 # VALUE 8.33e-04 +-0.04e-04 +-0.43e-04
-# 
+#
 # SYSTEMATICS
 #   -0.3%		   sigmataupmy4s
 #   -0.9539392%      BaBarLumiR24
 #   3.8%		   BaBarTrackingR24
-# 
+#
 # SYSTPAPER
 #   1.6%		   tagLeptonPid
 #   2.5%		   pionPid
-# 
+#
 # PARAMETERS
 #   sigmataupmy4s    0.919        +-0.003
-# 
+#
 # END
 
 #
@@ -219,22 +244,22 @@ END
 # G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
 # BEGIN MEASUREMENT BaBar Gamma830 pub 1209.2734
-# 
+#
 # VALUE 1.65e-4 +- 0.05e-4 +- 0.09e-4
-# 
+#
 # SYSTEMATICS
 #   -0.3%		   sigmataupmy4s
 #   -0.9539392%      BaBarLumiR24
 #   3.8%		   BaBarTrackingR24
 #   3.0%		   BaBarPizeroEffR24
-# 
+#
 # SYSTPAPER
 #   1.6%		   tagLeptonPid
 #   2.0%		   pionPid
-# 
+#
 # PARAMETERS
 #   sigmataupmy4s    0.919        +-0.003
-# 
+#
 # END
 
 #
@@ -279,11 +304,12 @@ SYSTPAPER
   2.5%             pionPid
   1.6%             tagLeptonPid
   0.8%             BR_om_pimpippiz
+
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
   BR_om_pimpippiz  0.892	+-0.007
-END
 
+END
 
 #
 # Gamma832
@@ -291,7 +317,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma832 pub 1209.2734
 
-VALUE 0.36e-4 +-0.03e-4 +-0.09e-4 
+VALUE 0.36e-4 +-0.03e-4 +-0.09e-4
 # VALUE 0.27e-4 +-0.03e-4 +-0.09e-4 supp. doc.
 
 SYSTEMATICS
