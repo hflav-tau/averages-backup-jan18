@@ -42,7 +42,7 @@ END
 
 #
 # Gamma807
-# G(K- K K0bar nu(tau)) / G(total)
+# G(K- K Kbar0 nu(tau)) / G(total)
 #
 # BaBar measures K KS KS which is 1/4 of this
 #
@@ -54,11 +54,11 @@ END
 
 #
 # Gamma808
-# G(K- K K0bar pi0 nu(tau)) / G(total)
+# G(K- K Kbar0 pi0 nu(tau)) / G(total)
 #
 # BaBar measures K KS KS pi0 which is 1/4 of this
 #
-BEGIN MEASUREMENT BaBar Gamma807 pub 1208.0376
+BEGIN MEASUREMENT BaBar Gamma808 pub 1208.0376
 
 VALUE 6.0e-7 +-7.1e-7 +-0.4e-7
 
