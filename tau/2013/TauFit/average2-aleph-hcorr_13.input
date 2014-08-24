@@ -34,8 +34,9 @@ COMBINE
   Gamma802 Gamma803 Gamma804 Gamma805
   Gamma998 GammaAll
   Gamma50 Gamma51 Gamma806
-
-#  Gamma900 Gamma901 Gamma902 Gamma903 Gamma904
+  Gamma810 Gamma910 Gamma911 Gamma811 Gamma812
+  Gamma820 Gamma920 Gamma821 Gamma822
+  Gamma830 Gamma930 Gamma831 Gamma832 Gamma833
 
 ##--- drop prelim. Belle KS results in favour of published ones
 MODMEAS DROP Belle Gamma40 prelim PHIPSI11
@@ -60,9 +61,11 @@ INCLUDE ../Common_2013/parameters_13.input
 INCLUDE ../Common-Mar2011/quantities.input
 INCLUDE ../Common-Mar2012/quantities.input
 # --- added quantities and revised constraints for 2014 average
-# INCLUDE ../Common_2013/quantities.input
+INCLUDE ../Common_2013/quantities.input
+
 INCLUDE ../Common-Mar2011/quantities-texdescr.input
 INCLUDE ../Common-Mar2012/quantities-texdescr.input
+INCLUDE ../Common_2013/quantities-texdescr.input
 
 #
 # seed to set a feed value for quantities without measurements
@@ -82,10 +85,10 @@ QUANTITY Gamma800 seed 0.019
 QUANTITY Gamma804 seed 0.00018
 QUANTITY Gamma801 seed 3.7e-05
 
-# --- added since Tau12 for BaBar KSKS paper
-QUANTITY Gamma50 seed 1.60e-5
-QUANTITY Gamma51 seed 3.20e-5
-QUANTITY Gamma806 seed 1.60e-5
+# --- added for 2014 average
+QUANTITY Gamma810 seed 2.07e-4
+QUANTITY Gamma820 seed 8.33e-04
+QUANTITY Gamma830 seed 1.65e-4
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
@@ -101,5 +104,65 @@ QUANTITY Gamma96 scale 5.435276
 
 # --- unitarity constraint NOT applied (sum of base nodes with dummy node)
 NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# --- extra to cope with Tau12 changes (addition of pi KS KS pi0)
+QUANTITY Gamma50 seed 1.60e-5
+QUANTITY Gamma51 seed 3.20e-5
+QUANTITY Gamma806 seed 1.60e-5
+
+#
+# restore 2012 average set of constraints for pi KS KS nu
+# where there was no connection for pi KL KS nu
+#
+NLCONSTRAINT Gamma47.c 0 ""
+# Gamma804 = Gamma47 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET)
+NLCONSTRAINT Gamma804.c 0 "-Gamma804 + (Gamma47 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))"
+
+#
+# after Ta12 changes (addition of pi KS KS pi0) the constraints
+# were updated to use these quantities. In the following revert
+# to previous constraints to reproduce the original result
+# 
+NLCONSTRAINT Gamma1.c 0 "-Gamma1 + (Gamma3 + Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma42 + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma47 + Gamma804 + Gamma48 + Gamma126*BR_eta_neutral + Gamma37 + Gamma10 + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral + Gamma132*(BRA_Kzbar_KS_KET*BR_eta_neutral) + Gamma44*BRA_Kzbar_KL_KET + Gamma801*(BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL))"
+
+NLCONSTRAINT Gamma2.c 0 "-Gamma2 + (Gamma3 + Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma40*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma42*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma47*BR_KS_2piz*BR_KS_2piz + Gamma48*BR_KS_2piz + Gamma804 + Gamma126*BR_eta_neutral + Gamma37*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma10 + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma44*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma801*(BR_phi_KSKL*BR_KS_2piz)/(BR_phi_KmKp+BR_phi_KSKL))"
+
+NLCONSTRAINT Gamma11.c 0 "-Gamma11 + (Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma14 + Gamma16 + Gamma20 + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma48*BR_KS_2piz + Gamma126*BR_eta_neutral + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral)"
+
+NLCONSTRAINT Gamma17.c 0 "-Gamma17 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma23 + Gamma28 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma20 + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma48*BR_KS_2piz + Gamma126*BR_eta_3piz + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma130*BR_eta_3piz)"
+
+NLCONSTRAINT Gamma24.c 0 "-Gamma24 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma28 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz)"
+
+NLCONSTRAINT Gamma33.c 0 "-Gamma33 + (Gamma35*BRA_Kzbar_KS_KET + Gamma40*BRA_Kzbar_KS_KET + Gamma42*BRA_Kz_KS_KET + Gamma47 + Gamma48 + Gamma37*BRA_Kz_KS_KET + Gamma132*(BRA_Kzbar_KS_KET*BR_eta_neutral) + Gamma44*BRA_Kzbar_KS_KET + Gamma801*BR_phi_KSKL/(BR_phi_KmKp+BR_phi_KSKL))"
+
+NLCONSTRAINT Gamma54.c 0 "-Gamma54 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma801*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL))"
+
+NLCONSTRAINT Gamma63.c 0 "-Gamma63 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma94 + Gamma70 + Gamma126*BR_eta_charged + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma801*(BR_phi_KSKL*BR_KS_pimpip)/(BR_phi_KmKp+BR_phi_KSKL))"
+
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma46 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma805 + Gamma801 + Gamma152 + Gamma103)"
+
+# NLCONSTRAINT Gamma810.c 0 ""
+# NLCONSTRAINT Gamma820.c 0 ""
+# NLCONSTRAINT Gamma830.c 0 ""
+NLCONSTRAINT Gamma103.c 0 ""
+NLCONSTRAINT Gamma104.c 0 ""
+NLCONSTRAINT Gamma78.c 0 ""
 
 END
