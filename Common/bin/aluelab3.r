@@ -68,7 +68,7 @@ StatComb = setRefClass("StatComb",
 
 rc = StatComb$methods(
   param.add = function(param) {
-    .self$.param = c(.param, param)
+    .self$.param = c(.param, unlist(param, use.names=TRUE))
   })
 
 rc = StatComb$methods(
@@ -288,16 +288,26 @@ rc = StatComb$methods(
 
 ##
 ## add quantity defined as expression of existing quantities
+## let the arg be resolved before entering this function
 ##
 rc = StatComb$methods(
-  meas.expr.add = function(add.name, add.expr) {
-    add.expr = substitute(add.expr)
+  meas.qexpr.add = function(add.name, add.expr) {
     ##--- substitute parameters
-    add.expr = esub.expr(add.expr, list(.param))
+    add.expr = esub.expr(add.expr, as.list(.param))
     add.deriv.expr = deriv(add.expr, all.vars(add.expr))
     add.val = eval(add.deriv.expr, as.list(.val))
     add.grad = attr(add.val, "gradient")
     meas.val.grad.add(add.name, add.val, add.grad)
+    return(invisible())
+  })
+
+##
+## add quantity defined as expression of existing quantities
+##
+rc = StatComb$methods(
+  meas.expr.add = function(add.name, add.expr) {
+    add.expr = substitute(add.expr)
+    meas.qexpr.add(add.name, add.expr)
     return(invisible())
   })
 
