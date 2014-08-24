@@ -161,8 +161,8 @@ NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gam
 # NLCONSTRAINT Gamma810.c 0 ""
 # NLCONSTRAINT Gamma820.c 0 ""
 # NLCONSTRAINT Gamma830.c 0 ""
-NLCONSTRAINT Gamma103.c 0 ""
-NLCONSTRAINT Gamma104.c 0 ""
-NLCONSTRAINT Gamma78.c 0 ""
+# NLCONSTRAINT Gamma103.c 0 ""
+# NLCONSTRAINT Gamma104.c 0 ""
+# NLCONSTRAINT Gamma78.c 0 ""
 
 END
