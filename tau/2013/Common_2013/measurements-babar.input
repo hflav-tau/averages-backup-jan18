@@ -60,7 +60,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma807 pub 1208.0376
 
-VALUE (6.0 +-7.1 +-0.4) × 10−7
+VALUE 6.0e-7 +-7.1e-7 +-0.4e-7
 
 END
 
