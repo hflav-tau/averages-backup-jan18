@@ -108,9 +108,10 @@ SYSTPAPER
   9.0%             BaBarPizeroEffR24
   1.5%             pionPid
   1.6%             tagLeptonPid
-
+  0.8%		   BR_om_pimpippiz
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
+  BR_om_pimpippiz               0.892   +-0.007
 
 END
 
@@ -277,10 +278,10 @@ SYSTPAPER
   3.0%             BaBarPizeroEffR24
   2.5%             pionPid
   1.6%             tagLeptonPid
-
+  0.8%             BR_om_pimpippiz
 PARAMETERS
   sigmataupmy4s    0.919        +-0.003
-
+  BR_om_pimpippiz		0.892	+-0.007
 END
 
 #
