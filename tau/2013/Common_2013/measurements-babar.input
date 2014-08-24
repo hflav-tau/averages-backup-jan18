@@ -43,7 +43,7 @@ END
 #
 # Gamma810
 # G(2pi- pi+ 3pi0 nu(tau) (ex. K0, omega)) / G(total)
-#
+# (2.07 +-0.18 +-0.37) x10−4
 
 #
 # Gamma910
@@ -242,7 +242,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma930 pub 1209.2734
 
-VALUE 5.39e-5 +- 0.27e-5 +- 0.39e-4
+VALUE 5.39e-5 +- 0.27e-5 +- 0.39e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -266,6 +266,7 @@ END
 BEGIN MEASUREMENT BaBar Gamma831 pub 1209.2734
 
 VALUE 8.4e-5 +-0.4e-5 +-0.6e-5
+# VALUE 9.6e-5 +-0.5e-5 +-0.6e-5 supp. doc.
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -284,11 +285,12 @@ END
 
 #
 # Gamma832
-# G(3pi- 2pi+ pi0 (tau) (ex. K0, non-resonant)) / G(total)
+# G(3pi- 2pi+ pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma832 pub 1209.2734
 
-VALUE 0.36e-4 +-0.03e-4 +-0.09e-4
+VALUE 0.36e-4 +-0.03e-4 +-0.09e-4 
+# VALUE 0.27e-4 +-0.03e-4 +-0.09e-4 supp. doc.
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
