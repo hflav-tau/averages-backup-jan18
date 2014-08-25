@@ -202,8 +202,8 @@ aluelab.results = function(args) {
   ##
 
   ##--- from PDG 2009, 2011 +++upd12
-  quant$meas.add.single("m_e", 0.510998910, 0.000000013)
-  quant$meas.add.single("m_mu", 105.658367, 0.000004)
+  quant$meas.add.single("m_e",0.510998928 ±0.000000011 )
+  quant$meas.add.single("m_mu", 105.6583715, 0.0000035	)
   quant$meas.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
   ##--- m_tau HFAG 2009
@@ -218,8 +218,9 @@ aluelab.results = function(args) {
   quant$meas.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
   ##--- from PDG 2010, 2011 +++upd12
-  quant$meas.add.single("m_W", 80.399*1e3, 0.023*1e3)
-  quant$meas.add.single("tau_mu", 2.197034e-6, 0.000021e-6)
+  quant$meas.add.single("m_W", 80.399385e3, 0.015*1e3)    
+  quant$meas.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
+  
 
   ##
   ## Be, from unitarity = 1 - Bmu - B_VA - B_s
@@ -354,7 +355,7 @@ aluelab.results = function(args) {
   ##
 
   ##--- s quark mass, PhysRevD.74.074009 +++upd12
-  quant$meas.add.single("m_s", 94, 6)
+  quant$meas.add.single("m_s", 935, 2.5)
   ##--- PDG 2011
   ## quant$meas.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
 
@@ -447,7 +448,7 @@ aluelab.results = function(args) {
   ##
   quant$meas.add.single("pitoENu", 1.230e-4, 0.004e-4)
   quant$meas.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
-  quant$meas.add.single("KtoENu", 1.584e-5, 0.020e-5)
+  quant$meas.add.single("KtoENu", 1.581e-5, 0.008e-5)
   quant$meas.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
 
   ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd +++upd12
@@ -489,7 +490,9 @@ aluelab.results = function(args) {
   ##
 
   ##--- QCD lattice inputs +++upd12
-  lattice.2012 = TRUE
+  lattice.2012 = FALSE
+  lattice.2014 = TRUE  
+
   if (lattice.2012) {
     ##
     ## Lattice averages from http://arxiv.org/abs/0910.2928 and
@@ -499,7 +502,13 @@ aluelab.results = function(args) {
     quant$meas.add.single("f_K", 156.1, 1.1)
     ##--- check effect of lattice correlations
     ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
-  } else {
+  } 
+  if (lattice.2014) {
+     quant$meas.add.single("f_K_by_f_pi", 1.194, 0.005)          
+     quant$meas.add.single("f_K", 156.3, 0.9)                      
+
+
+  }else {
     ##--- http://arxiv.org/abs/1101.5138
     quant$meas.add.single("f_K_by_f_pi", 1.189, 0.007)
     quant$meas.add.single("f_K", 157, 2)
