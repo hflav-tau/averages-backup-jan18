@@ -25,10 +25,10 @@ rc = quant$meas.add.single("Bmu", 0.1741, 0.0004)
 quant$meas.expr.add("e_mu_norm", (Be * Bmu) / (Be + Bmu))
 
 ##--- rel. error due to normalization
-e_mu_norm.rel.syst.perc =  quant$err()["e_mu_norm"] / quant$val()["e_mu_norm"] * 100
+e_mu_norm.rel.syst.perc =  quant$err.contrib.perc("e_mu_norm")
 
-e_mu_norm.rel.syst.Be.perc = quant$syst.contrib.perc("e_mu_norm", "Be")
-e_mu_norm.rel.syst.Bmu.perc = quant$syst.contrib.perc("e_mu_norm", "Bmu")
+e_mu_norm.rel.syst.Be.perc = quant$err.contrib.perc("e_mu_norm", "Be")
+e_mu_norm.rel.syst.Bmu.perc = quant$err.contrib.perc("e_mu_norm", "Bmu")
 
 ##
 ## Belle KS paper results

@@ -404,22 +404,22 @@ aluelab.results = function(args) {
 
   ##--- add Vus
   quant$meas.expr.add("Vus", sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
-  quant$meas.add.single("Vus_err_perc", quant$err()["Vus"]/quant$val()["Vus"]*100, 0)
+  quant$meas.add.single("Vus_err_perc", quant$err("Vus")/quant$val("Vus")*100, 0)
 
   ##--- theory, exp errors, with percent
-  quant$meas.add.single("Vus_err_th", quant$syst.contrib("Vus", "deltaR_su3break"), 0)
-  quant$meas.add.single("Vus_err_th_perc", quant$syst.contrib.perc("Vus", "deltaR_su3break"), 0)
+  quant$meas.add.single("Vus_err_th", quant$err.contrib("Vus", "deltaR_su3break"), 0)
+  quant$meas.add.single("Vus_err_th_perc", quant$err.contrib.perc("Vus", "deltaR_su3break"), 0)
 
-  Vus.err.exp = sqrt(quant$err()["Vus"]^2 - quant$param()["Vus_err_th"]^2)
+  Vus.err.exp = sqrt(quant$err("Vus")^2 - quant$param("Vus_err_th")^2)
   quant$meas.add.single("Vus_err_exp", Vus.err.exp, 0)
-  quant$meas.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val()["Vus"]*100, 0)
+  quant$meas.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val("Vus")*100, 0)
 
   ##--- Vus from Vud using CKM unitarity
   quant$meas.expr.add("Vus_uni", sqrt(1-Vud^2))
 
   ##--- Vus vs <Vus from CKM unitarity>
   quant$meas.expr.add("Vus_mism", Vus - Vus_uni)
-  Vus_mism_sigma = quant$val()["Vus_mism"] / quant$err()["Vus_mism"]
+  Vus_mism_sigma = quant$val("Vus_mism") / quant$err("Vus_mism")
   quant$meas.add.single("Vus_mism_sigma", Vus_mism_sigma, 0)
   quant$meas.add.single("Vus_mism_sigma_abs", abs(Vus_mism_sigma), 0)
 
@@ -537,17 +537,17 @@ aluelab.results = function(args) {
 
   ##--- Vus_tauKpi vs Vus-from-CKM-unitarity
   quant$meas.expr.add("Vus_tauKpi_mism", Vus_tauKpi - Vus_uni)
-  Vus_tauKpi_mism_sigma = quant$val()["Vus_tauKpi_mism"] / quant$err()["Vus_tauKpi_mism"]
+  Vus_tauKpi_mism_sigma = quant$val("Vus_tauKpi_mism") / quant$err("Vus_tauKpi_mism")
   quant$meas.add.single("Vus_tauKpi_mism_sigma", Vus_tauKpi_mism_sigma, 0)
   quant$meas.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma), 0)
 
   ##--- theory error contribution
-  rc = quant$syst.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu")
+  rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu")
   quant$meas.add.single("Vus_tauKpi_err_th_perc", rc, 0)
 
   lapply(c("f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu"), function(val) {
     quant$meas.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
-                          quant$syst.contrib.perc("Vus_tauKpi", val), 0)
+                          quant$err.contrib.perc("Vus_tauKpi", val), 0)
   })
 
   ## ////////////////////////////////////////
@@ -582,12 +582,12 @@ aluelab.results = function(args) {
   
   ##--- Vus_tauKnu vs Vus-from-CKM-unitarity
   quant$meas.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
-  Vus_tauKnu_mism_sigma = quant$val()["Vus_tauKnu_mism"] / quant$err()["Vus_tauKnu_mism"]
+  Vus_tauKnu_mism_sigma = quant$val("Vus_tauKnu_mism") / quant$err("Vus_tauKnu_mism")
   quant$meas.add.single("Vus_tauKnu_mism_sigma", Vus_tauKnu_mism_sigma, 0)
   quant$meas.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma), 0)
 
   ##--- theory error contribution
-  quant$meas.add.single("Vus_tauKnu_err_th_perc", quant$syst.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"), 0)
+  quant$meas.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"), 0)
 
   ## ////////////////////////////////////////
   ##
@@ -597,7 +597,7 @@ aluelab.results = function(args) {
 
   ##--- Vus_tau vs Vus-from-CKM-unitarity
   quant$meas.expr.add("Vus_tau_mism", Vus_tau - Vus_uni)
-  Vus_tau_mism_sigma = quant$val()["Vus_tau_mism"] / quant$err()["Vus_tau_mism"]
+  Vus_tau_mism_sigma = quant$val("Vus_tau_mism") / quant$err("Vus_tau_mism")
   quant$meas.add.single("Vus_tau_mism_sigma", Vus_tau_mism_sigma, 0)
   quant$meas.add.single("Vus_tau_mism_sigma_abs", abs(Vus_tau_mism_sigma), 0)
 
@@ -621,7 +621,7 @@ aluelab.results = function(args) {
     )
 
   ##--- show selection of quantities
-  print(rbind(cbind(val=quant$vals()[display.names], err=quant$errs()[display.names])))
+  print(rbind(cbind(val=quant$vals(display.names), err=quant$errs(display.names))))
 
   ##--- translate quantity names to get a valid LaTeX command
   toTex = TrStr.num2tex$new()
@@ -670,14 +670,14 @@ aluelab.results = function(args) {
       rc = c(rc, paste("\\htdef{", name, sprintf(fmt.valerr, val, err), "% ", name, sep=""))
     }
     rc = c(rc, paste("\\htdef{", name, ".val", sprintf(fmt.val, val), "% ", name, sep=""))
-  }, quant$vnames()[quant.all.order], quant$vals()[quant.all.order], quant$errs()[quant.all.order])
+  }, quant$vnames(quant.all.order), quant$vals(quant.all.order), quant$errs(quant.all.order))
 
   ##--- print correlation of universality results
   quant.list = c(
     "gtaubygmu_tau", "gtaubyge_tau", "gmubyge_tau",
     "gtaubygmu_pi", "gtaubygmu_K"
     )
-  univ.corr = quant$corr()[quant.list, quant.list]
+  univ.corr = quant$corr(quant.list, quant.list)
   univ.corr = 100*univ.corr
   ## print(univ.corr)
 

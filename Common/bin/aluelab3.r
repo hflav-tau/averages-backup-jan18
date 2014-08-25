@@ -1,6 +1,6 @@
 ## ////////////////////////////////////////////////////////////////////////////
 ##
-## aluelab2.r
+## aluelab3.r
 ##
 ## utility functions to elaborate alucomb2.r results
 ##
@@ -132,8 +132,9 @@ rc = StatComb$methods(
   })
 
 rc = StatComb$methods(
-  vnames = function() {
-    c(names(.val), names(.param))
+  vnames = function(name=NULL) {
+    if (is.null(name)) return(c(names(.val), names(.param)))
+    c(names(.val), names(.param))[name]
   })
 
 ##
@@ -342,26 +343,26 @@ rc = StatComb$methods(
 ## compute systematic contribution
 ##
 rc = StatComb$methods(
-  syst.contrib = function(quant.name, ...) {
-    syst.contrib.list = list(...)
-    if (length(syst.contrib.list) == 0) {
-      return(0);
-    } else if (length(syst.contrib.list) == 1) {
-      syst.name = syst.contrib.list[[1]]
-      return(.cov[quant.name, syst.name]/err()[syst.name])
+  err.contrib = function(quant.name, ...) {
+    err.contrib.list = list(...)
+    if (length(err.contrib.list) == 0) {
+      return(err(quant.name));
+    } else if (length(err.contrib.list) == 1) {
+      syst.name = err.contrib.list[[1]]
+      return(.cov[quant.name, syst.name]/err(syst.name))
     } else {
-      return(sqrt(sum(sapply(syst.contrib.list, function(syst.name) {.cov[quant.name, syst.name]/err()[syst.name]})^2)))
+      return(sqrt(sum(sapply(err.contrib.list, function(syst.name) {.cov[quant.name, syst.name]/err(syst.name)})^2)))
     }
   })
 
 rc = StatComb$methods(
-  syst.contrib.rel = function(quant.name, ...) {
-    syst.contrib(quant.name, ...) / .val[quant.name]
+  err.contrib.rel = function(quant.name, ...) {
+    err.contrib(quant.name, ...) / .val[quant.name]
   })
 
 rc = StatComb$methods(
-  syst.contrib.perc = function(quant.name, ...) {
-    syst.contrib(quant.name, ...) / .val[quant.name] * 100
+  err.contrib.perc = function(quant.name, ...) {
+    err.contrib(quant.name, ...) / .val[quant.name] * 100
   })
   
 ## ////////////////////////////////////////////////////////////////////////////
