@@ -6,7 +6,7 @@
 
 require("optparse", quietly=TRUE)
 require("stringr", quietly=TRUE)
-source("../../../Common/bin/alucomb2-hfag-tau.r")
+source("../../../Common/bin/alureport.r")
 source("../../../Common/bin/alucomb2-fit.r")
 source("../../../Common/bin/aluelab2.r")
 
@@ -467,7 +467,7 @@ get.meas.quant = function(quant.name, delta) {
 ##
 ## return tex label such as \Gamma_1 or \frac{\Gamma_1}{\Gamma_2}
 ##
-alucomb2.gamma.texlabel.nv = function(gamma.name) {
+alurep.gamma.texlabel.nv = function(gamma.name) {
   if (gamma.name == "GammaAll") return("1")
   str = str_match(gamma.name, "Gamma(\\d+)(by(\\d+))?")[1,]
   if (is.na(str[1])) return(gamma.name)
@@ -476,7 +476,7 @@ alucomb2.gamma.texlabel.nv = function(gamma.name) {
   }
   return(paste("\\frac{\\Gamma_{", str[2], "}}{\\Gamma_{", str[4], "}}", sep=""))
 }
-alucomb2.gamma.texlabel = Vectorize(alucomb2.gamma.texlabel.nv)
+alurep.gamma.texlabel = Vectorize(alurep.gamma.texlabel.nv)
 
 ##
 ## for the spec vector of measurement, compute the
@@ -540,7 +540,7 @@ get.precision.order.quant = function(quant.name) {
 ## - list of experimental measurements, with reference
 ##
 get.tex.table = function(quant.names, with.meas=TRUE) {
-  quant.order = order(alucomb2.gamma.num.id(quant.names))
+  quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(function(quant.name, quant) {
     rc = get.precision.order.quant(quant.name)
@@ -548,7 +548,7 @@ get.tex.table = function(quant.names, with.meas=TRUE) {
     order = rc[2]
 
     quant.descr = get.tex.quant.descr(quant)
-    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
     rc = paste(
@@ -584,11 +584,11 @@ get.tex.table = function(quant.names, with.meas=TRUE) {
 ## - quantity description and HFAG average
 ##
 get.tex.table.simple = function(quant.names, precision, order) {
-  quant.order = order(alucomb2.gamma.num.id(quant.names))
+  quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(function(quant.name, quant) {
     quant.descr = get.tex.quant.descr(quant)
-    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")    
     rc = paste(
       quant.descr, "&",
@@ -612,7 +612,7 @@ get.tex.meas.by.collab = function() {
 }
 
 ##
-## return measurements by collaboration
+## output latex cmds with tex description for all quantities
 ##
 get.tex.def.quant.descr = function() {
   toTex = TrStr.num2tex$new()
@@ -637,7 +637,7 @@ get.tex.meas.by.ref = function() {
     quant.name = meas$quant
     quant = combination$quantities[[quant.name]]
     quant.descr = get.tex.quant.descr(quant)
-    quant.descr = paste(alucomb2.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
     quant.descr = paste("\\begin{ensuredisplaymath}\n\\;\\;", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
     if (is.null(meas.paper[[paper]])) {
@@ -661,7 +661,7 @@ get.tex.meas.by.ref = function() {
   }, combination$measurements, measurements[combination$measurements])
 
   rc = sapply(meas.paper, function(x) {
-    meas.order = order(alucomb2.gamma.num.id(names(x$meas)))
+    meas.order = order(alurep.gamma.num.id(names(x$meas)))
     rc = paste(
       paste("\\multicolumn{2}{l}{", x$ref, "} \\\\", sep=""),
       paste(unlist(x$meas[meas.order]), collapse=" \\\\\n"),
@@ -685,7 +685,7 @@ get.tex.base.nodes.corr = function() {
   ##--- also remove the unitarity complement
   quant.names = setdiff(quant.names, "Gamma998")
   ##--- sort by ascending Gamma number
-  quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
+  quant.names = quant.names[order(alurep.gamma.num.id(quant.names))]
 
   ##--- tex code preceding the correlation table content
   corr.pre = c(
@@ -733,13 +733,13 @@ get.tex.base.nodes.corr = function() {
       for(ii in i:min(i+coeff.per.row-1, length(quant.names))) {
         if (ii<=j) next
         maxcol = min(ii-1,j+coeff.per.col-1)
-        row.txt = paste("\\(", alucomb2.gamma.texlabel(quant.names[ii]), "\\)")
+        row.txt = paste("\\(", alurep.gamma.texlabel(quant.names[ii]), "\\)")
         row.txt = c(row.txt, sprintf("%4.0f", quant.corr.base[ii, j:maxcol]))
         row.txt = c(row.txt, rep("", length.out=min(j+coeff.per.col-1, length(quant.names))-j+1-(maxcol-j+1)))
         submat.txt = c(submat.txt, paste(row.txt, collapse=" & "))
       }
       if (is.null(submat.txt)) next
-      label.txt = alucomb2.gamma.texlabel(quant.names[j:min(j+coeff.per.col-1, length(quant.names))])
+      label.txt = alurep.gamma.texlabel(quant.names[j:min(j+coeff.per.col-1, length(quant.names))])
       label.num = min(j+coeff.per.col-1, length(quant.names)) - j + 1
       label.txt = paste("\\(", label.txt, "\\)", sep=" ", collapse=" & ")
       label.txt = paste("", label.txt, sep=" & ")
@@ -761,7 +761,7 @@ get.tex.base.nodes.corr = function() {
 get.tex.constraint.equations = function() {
   constr.used = combination$constr.all.lin | combination$constr.all.nl
   constr.used.names = names(combination$constr.all.str.expr[constr.used])
-  constr.order = order(alucomb2.gamma.num.id(constr.used.names))
+  constr.order = order(alurep.gamma.num.id(constr.used.names))
   comb.str = combination$constr.all.str.expr[constr.used.names[constr.order]]
   comb.str = comb.str[grep("Gamma\\d+by\\d+.*|Unitarity", names(comb.str), perl=TRUE, invert=TRUE)]
   comb.str.nl = intersect(names(comb.str), names(combination$constr.nl.str.expr))
