@@ -15,6 +15,7 @@
 
 require(stringr, quietly=TRUE)
 source("../../../Common/bin/aluelab3.r")
+source("../../../Common/bin/alureport.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## functions
@@ -118,7 +119,10 @@ aluelab.results = function(args) {
   quant$param.add(comb.params)
   quant$param.add(c(pi=pi))
 
-  quant$texdescr.add(sapply(combination$quantities, function(x) {if (is.null(x$texdescr)) {""} else {x$texdescr}}))
+  quant.texdescr = sapply(combination$quantities, function(x) {if (is.null(x$texdescr)) {""} else {x$texdescr}})
+  quant.descr = sapply(combination$quantities, function(x) {if (is.null(x$descr)) {""} else {x$descr}})
+
+  quant$texdescr.add(alurep.get.texdescr(quant.descr, quant.texdescr))
   
   ##
   ## recover some BRs as function of others
@@ -664,14 +668,26 @@ aluelab.results = function(args) {
   quant.all.sorted = quant$vnames(order(quant$vnames()))
 
   rc = mapply(function(name, val, err, texdescr) {
-    cat("name = ", name, texdescr, "\n")
-    fmt = ifelse(is.na(specialFormat[name]), "%.4f", specialFormat[name])
-    val = ifelse(is.na(specialFactor[name]), val, val*specialFactor[name])
-    err = ifelse(is.na(specialFactor[name]), err, err*specialFactor[name])
-    fmt.val = paste("}{", fmt, "\\xspace}", sep="")
-    fmt.valerr = paste("}{\\ensuremath{", fmt, " \\pm ", fmt, "}\\xspace}", sep="")
+    if (!is.na(specialFactor[name])) {
+      val = val*specialFactor[name]
+      err = err*specialFactor[name]
+    }
+    if (is.na(specialFormat[name])) {
+      rc = alurep.precision.order(c(val, err))
+      precision = rc[1]
+      order = rc[2]
+      val.str = alurep.tex.val.prec.ord(val, precision, order)
+      err.str = alurep.tex.val.prec.ord(err, precision, order)
+    } else {
+      fmt = specialFormat[name]
+      val.str =  sprintf(fmt, val)
+      err.str =  sprintf(fmt, err)
+    }
+    if (err == 0) err.str = "0"
+    gammaname = alurep.gamma.texlabel(name)
     if (is.na(texdescr)) {texdescr = ""}
-    rc = paste("\\htquantdef{", name, "}{", "", "}{", texdescr, "}{", sprintf(fmt, val), "}{", sprintf(fmt, err), "}%", sep="")
+    rc = paste("\\htquantdef{", name, "}{",
+      gammaname, "}{", texdescr, "}{", val.str, "}{", err.str, "}%", sep="")
   },
     quant.all.sorted,
     quant$vals(quant.all.sorted),
