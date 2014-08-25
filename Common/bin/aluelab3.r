@@ -54,21 +54,79 @@ StatComb = setRefClass("StatComb",
   fields = list(
     .val = "numeric",
     .cov = "matrix",
-    .param = "numeric"
+    .param = "numeric",
+    .gamma = "character",
+    .texdescr = "character"
     ),
   methods=list(
-    initialize = function(quant.val=numeric(), quant.cov=matrix(numeric(0),0,0), parameters=numeric()) {
+    initialize = function(
+      quant.val=numeric(),
+      quant.cov=matrix(numeric(0),0,0),
+      parameters=numeric()
+      ) {
       ## callSuper(...)
       .self$.val = quant.val
       .self$.cov = quant.cov
       .self$.param = parameters
+      .self$.gamma = character(0)
+      .self$.texdescr = character(0)
       .self
     })
   )
 
 rc = StatComb$methods(
-  param.add = function(param) {
+  gamma.add = function(gamma) {
+    gamma = unlist(gamma, use.names=TRUE)
+    .self$.gamma[names(gamma)] = gamma
+    return(invisible())
+  })
+
+rc = StatComb$methods(
+  texdescr.add = function(texdescr) {
+    texdescr = unlist(texdescr, use.names=TRUE)
+    .self$.texdescr[names(texdescr)] = texdescr
+    return(invisible())
+  })
+
+rc = StatComb$methods(
+  gamma.add.single = function(label, gamma=NULL) {
+    if (!is.null(gamma)) {
+      .self$.gamma[label] = gamma
+    }
+    return(invisible())
+  })
+
+rc = StatComb$methods(
+  texdescr.add.single = function(label, texdescr=NULL) {
+    if (!is.null(texdescr)) {
+      .self$.texdescr[label] = texdescr
+    }
+    return(invisible())
+  })
+
+rc = StatComb$methods(
+  param.add = function(param, gamma = NULL, texdescr=NULL) {
     .self$.param = c(.param, unlist(param, use.names=TRUE))
+    if (!is.null(gamma)) {
+      gamma = unlist(gamma, use.names=TRUE)
+      .self$.gamma[names(gamma)] = gamma
+    }
+    if (!is.null(texdescr)) {
+      texdescr = unlist(texdescr, use.names=TRUE)
+      .self$.texdescr[names(texdescr)] = texdescr
+    }
+  })
+
+rc = StatComb$methods(
+  gamma = function(name=NULL) {
+    if (is.null(name)) return(.gamma)
+    .gamma[name]
+  })
+
+rc = StatComb$methods(
+  texdescr = function(name=NULL) {
+    if (is.null(name)) return(.texdescr)
+    .texdescr[name]
   })
 
 rc = StatComb$methods(
@@ -154,7 +212,7 @@ rc = StatComb$methods(
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
 rc = StatComb$methods(
-  meas.add = function(add.val, add.err, add.corr=NULL) {
+  quant.add = function(add.val, add.err, add.corr=NULL, gamma=NULL, texdescr=NULL) {
     if (length(add.val) != length(add.err)) stop("mismatch of dimensions of add.val and add.err")
     quant.names = names(add.val)
 
@@ -182,6 +240,17 @@ rc = StatComb$methods(
     
     ##--- assemble values
     .self$.val = c(.val, add.val)
+
+    if (!is.null(gamma)) {
+      gamma = unlist(gamma, use.names=TRUE)
+      .self$.gamma[names(gamma)] = gamma
+    }
+
+    if (!is.null(texdescr)) {
+      texdescr = unlist(texdescr, use.names=TRUE)
+      .self$.texdescr[names(texdescr)] = texdescr
+    }
+    
     return(invisible(NULL))
   })
 
@@ -189,11 +258,13 @@ rc = StatComb$methods(
 ## add a single additional parameter
 ##
 rc = StatComb$methods(
-  param.add.single = function(label, val) {
+  param.add.single = function(label, val, gamma=NULL, texdescr=NULL) {
     val = as.numeric(val)
     names(val) = label
     .self$.param = c(.param, val)
-    return(val)
+    gamma.add.single(label, gamma)
+    texdescr.add.single(label, texdescr)
+    return(invisible())
   })
 
 ##
@@ -201,14 +272,22 @@ rc = StatComb$methods(
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
 rc = StatComb$methods(
-  meas.add.single = function(label, val, err=0) {
+  quant.add.single = function(label, val, err=0, gamma=NULL, texdescr=NULL) {
     val = as.numeric(val)
     err = as.numeric(err)
     if (err == 0) return(param.add.single(label, val))
     names(val) = label
     names(err) = label
-    meas.add(val, err)
-    return(c(val, err))
+    if (!is.null(gamma)) {
+      names(gamma) = label
+    }
+    if (!is.null(texdescr)) {
+      names(texdescr) = label
+    }
+    quant.add(val, err, gamma, texdescr)
+    gamma.add.single(label, gamma)
+    texdescr.add.single(label, texdescr)
+    return(invisible())
   })
 
 ##
@@ -220,7 +299,7 @@ rc = StatComb$methods(
     cov = corr*sqrt(.cov[label.1, label.1] * .cov[label.2, label.2])
     .self$.cov[label.1, label.2] = cov
     .self$.cov[label.2, label.1] = cov
-    return(corr)
+    return(invisible())
   })
 
 ##
@@ -244,8 +323,8 @@ rc = StatComb$methods(
     if (length(diff) > 0) {
       stop("error: following quantities were not loaded: ", diff)
     }
-    meas.lc = names(lc)
-  return(linear.comb.with.cov(lc, .val[meas.lc], .cov[meas.lc, meas.lc]))
+    quant.lc = names(lc)
+  return(linear.comb.with.cov(lc, .val[quant.lc], .cov[quant.lc, quant.lc]))
   })
 
 ##
@@ -253,7 +332,7 @@ rc = StatComb$methods(
 ## - add value, error, covariamce, correlation
 ##
 rc = StatComb$methods(
-  meas.val.grad.add = function(add.name, add.val, add.grad) {
+  quant.val.grad.add = function(add.name, add.val, add.grad, gamma=NULL, texdescr=NULL) {
     names(add.val) = add.name
     add.comb = drop(add.grad)
     add.comb.full = .val * 0
@@ -264,6 +343,8 @@ rc = StatComb$methods(
       cbind(.cov, matrix(.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
       matrix(c(add.comb.full %*% .cov, add.cov), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
     .self$.val = c(.val, add.val)
+    gamma.add.single(add.name, gamma)
+    texdescr.add.single(add.name, texdescr)
     return(invisible())
   })
 
@@ -272,7 +353,7 @@ rc = StatComb$methods(
 ## - add value, error, covariamce, correlation
 ##
 rc = StatComb$methods(
-  meas.comb.add = function(add.name, add.comb) {
+  quant.comb.add = function(add.name, add.comb, gamma=NULL, texdescr=NULL) {
     add.comb = drop(add.comb)
     add.comb.full = .val * 0
     add.comb.full[names(add.comb)] = add.comb
@@ -284,6 +365,8 @@ rc = StatComb$methods(
     .self$.cov = rbind(
       cbind(.cov, matrix(.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
       matrix(c(add.comb.full %*% .cov, add.err^2), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
+    gamma.add.single(add.name, gamma)
+    texdescr.add.single(add.name, texdescr)
     return(invisible())
   })
 
@@ -292,13 +375,15 @@ rc = StatComb$methods(
 ## let the arg be resolved before entering this function
 ##
 rc = StatComb$methods(
-  meas.qexpr.add = function(add.name, add.expr) {
+  quant.qexpr.add = function(add.name, add.expr, gamma=NULL, texdescr=NULL) {
     ##--- substitute parameters
     add.expr = esub.expr(add.expr, as.list(.param))
     add.deriv.expr = deriv(add.expr, all.vars(add.expr))
     add.val = eval(add.deriv.expr, as.list(.val))
     add.grad = attr(add.val, "gradient")
-    meas.val.grad.add(add.name, add.val, add.grad)
+    quant.val.grad.add(add.name, add.val, add.grad)
+    gamma.add.single(add.name, gamma)
+    texdescr.add.single(add.name, texdescr)
     return(invisible())
   })
 
@@ -306,9 +391,11 @@ rc = StatComb$methods(
 ## add quantity defined as expression of existing quantities
 ##
 rc = StatComb$methods(
-  meas.expr.add = function(add.name, add.expr) {
+  quant.expr.add = function(add.name, add.expr, gamma=NULL, texdescr=NULL) {
     add.expr = substitute(add.expr)
-    meas.qexpr.add(add.name, add.expr)
+    quant.qexpr.add(add.name, add.expr)
+    gamma.add.single(add.name, gamma)
+    texdescr.add.single(add.name, texdescr)
     return(invisible())
   })
 
@@ -333,9 +420,11 @@ rc = StatComb$methods(
 ## add the result to the quantities
 ##
 rc = StatComb$methods(
-  meas.fit.add = function(add.name, add.model.matrix) {
+  quant.fit.add = function(add.name, add.model.matrix, gamma=NULL, texdescr=NULL) {
     fit.comb = model.matrix.fit(add.model.matrix)
-    meas.comb.add(add.name, fit.comb)
+    quant.comb.add(add.name, fit.comb)
+    gamma.add.single(add.name, gamma)
+    texdescr.add.single(add.name, texdescr)
     return(invisible())
   })
 

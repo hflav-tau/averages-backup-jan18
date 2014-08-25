@@ -12,8 +12,8 @@ source("../../../Common/bin/aluelab3.r")
 quant = StatComb$new()
 
 ##--- constants used by Belle for arXiv:1402.5213
-rc = quant$meas.add.single("Be", 0.1783, 0.0004)
-rc = quant$meas.add.single("Bmu", 0.1741, 0.0004)
+rc = quant$quant.add.single("Be", 0.1783, 0.0004)
+rc = quant$quant.add.single("Bmu", 0.1741, 0.0004)
 
 ##
 ## Belle KS paper results
@@ -22,7 +22,7 @@ rc = quant$meas.add.single("Bmu", 0.1741, 0.0004)
 ## and have syst. contr. from Be and Bmu
 ## the BR expression has the following factor
 ##
-quant$meas.expr.add("e_mu_norm", (Be * Bmu) / (Be + Bmu))
+quant$quant.expr.add("e_mu_norm", (Be * Bmu) / (Be + Bmu))
 
 ##--- rel. error due to normalization
 e_mu_norm.rel.syst.perc =  quant$err.contrib.perc("e_mu_norm")
