@@ -217,8 +217,9 @@ NLCONSTRAINT Gamma104.c 0 "-Gamma104 + (Gamma930 + Gamma833 + Gamma831*BR_om_pim
 # we assume that modes with K are negligible (no measurement exists)
 # KS(pi+pi-) pi- 3pi0
 # KS(pi+pi)- K-  3pi0
+# +++ should add Gamma132*BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz if pi- 2pi0 eta does not include KS -> 2piz
 #
-NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma810 + Gamma50*2*BR_KS_pimpip*BR_KS_pimpip + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz))"
+NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma810 + Gamma50*2*BR_KS_pimpip*BR_KS_2piz + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz))"
 
 #
 # Gamma74 = G(h- h- h+ >= 2pi0 nu(tau) (ex. K0)) / G(total)
