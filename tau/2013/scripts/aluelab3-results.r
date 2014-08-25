@@ -289,14 +289,13 @@ aluelab.results = function(args) {
   quant$meas.expr.add("Be_from_Bmu", phspf_mebymtau/phspf_mmubymtau *Bmu_fit)
 
   ##
-  ## +++upd12
   ## rad. corrections from to get Be from tau lifetime
   ## values from 10.1103/RevModPhys.78.1043 p.1047, arXiv:hep-ph/0507078v2 p.7, could be recomputed
   ## - delta^L_gamma = 1 + alpha(mL)/2pi * (25/4 - pi^2)
   ## - delta^L_W = 1 + 3/5* m_L^2/M_W^2
+  ## +++upd12
   ##
   quant$param.add(c(delta_mu_gamma=(1 - 42.4e-4), delta_tau_gamma=(1 - 43.2e-4)))
-
   quant$meas.expr.add("delta_mu_W", 1 + 3/5*m_mu^2/m_W^2)
   quant$meas.expr.add("delta_tau_W", 1 + 3/5*m_tau^2/m_W^2)
 
