@@ -4,7 +4,7 @@
 ##
 
 require(methods, quietly=TRUE)
-require(stringr)
+require(stringr, quietly=TRUE)
 
 ## ////////////////////////////////////////////////////////////////////////////
 ##
@@ -166,21 +166,27 @@ alurep.get.meas.val = function(meas) {
 ## appropriate precision and power-of-ten order
 ##
 
-alurep.precision.order = function(vals) {
+alurep.precision.order = function(vals, perc=FALSE, signif=4, signif.min=2) {
   vals = vals[vals != 0]
   vals.str = sprintf("%.4g", vals)
   order.str = gsub("^[^eE]+(|[eE]((-[0-9]+)+|[+]([0-9]+)))$", "\\2",
     sprintf("%.4e", vals), perl=TRUE)
   order = ifelse(order.str == "", 0, as.numeric(order.str))
   order.max = max(order)
-  order.min = min(order)
-  precision = 1 + 1 * max(3, order.max - order.min)
+  order.min = min(order)  
+  precision = signif.min - 1 + 1 * max(signif-signif.min, order.max - order.min)
+  ## print(cbind(order.max, order.min, precision))
   if (order.max == -1) {
-    order.max = 0
-    precision = precision+1
+    if (!perc) {
+      order.max = 0
+      precision = precision+1
+    } else {
+      order.max = -2
+      precision = precision-1
+    }
   } else if (order.max == -3) {
     order.max = -2
-    precision = precision
+    precision = precision+1
   } else if (order.max == 1) {
     order.max = 0
     precision = precision-1
@@ -198,7 +204,7 @@ alurep.precision.order = function(vals) {
 ## use automatic precision and order of magnitude
 ##
 alurep.tex.val.auto = function(vals, width=0, perc=FALSE) {
-  rc = alurep.precision.order(vals)
+  rc = alurep.precision.order(vals, perc)
   precision = rc[1]
   order = rc[2]
   vals = vals / 10^order
@@ -252,7 +258,7 @@ alurep.tex.val.err.prec.ord = function(quant.val, quant.err, precision, order, w
 ## according to the self-determined optimal precision and power-of-ten order
 ##
 alurep.tex.val.err.prec.ord.auto = function(quant.val, quant.err, width=0, perc=FALSE) {
-  rc = alurep.precision.order(c(quant.val, quant.err))
+  rc = alurep.precision.order(c(quant.val, quant.err), perc)
   precision = rc[1]
   order = rc[2]
   return(alurep.tex.val.err.prec.ord(quant.val, quant.err, precision, order, width, perc))
@@ -299,11 +305,11 @@ alurep.meas.quant = function(quant.name, delta) {
 ## get all measurements related to a quantity
 ## compute appropriate precision and order of magnitude
 ##
-alurep.precision.order.quant = function(quant.name) {
+alurep.precision.order.quant = function(quant.name, perc=FALSE) {
   meas.names = alurep.meas.quant(quant.name, delta)
   
   vals = unlist(lapply(measurements[meas.names], function(m)
     c(m$value.orig, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
   vals = c(vals, quant.val[quant.name], quant.err[quant.name])
-  return(alurep.precision.order(vals))
+  return(alurep.precision.order(vals, perc))
 }
