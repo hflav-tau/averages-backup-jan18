@@ -201,23 +201,23 @@ aluelab.results = function(args) {
   ## add measurements to compute universality improved Be
   ##
 
-  ##--- from PDG 2009, 2011 +++upd12
+  ##--- from PDG 2009, 2011 
   quant$meas.add.single("m_e",0.510998928 ±0.000000011 )
   quant$meas.add.single("m_mu", 105.6583715, 0.0000035	)
   quant$meas.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
   ##--- m_tau HFAG 2009
   ## quant$meas.add.single("m_tau", 1776.7673082, 0.1507259)
-  ##--- m_tau PDG 2011 +++upd12
+  ##--- m_tau PDG 2011 
   quant$meas.add.single("m_tau", 1776.82, 0.16)
 
-  ##+++upd12
+  ##
   quant$meas.add.single("m_pi", 139.57018, 0.00035)
   quant$meas.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
   quant$meas.add.single("m_K", 493.677, 0.016)
   quant$meas.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
-  ##--- from PDG 2010, 2011 +++upd12
+  ##--- from PDG 2010, 2011 
   quant$meas.add.single("m_W", 80.399385e3, 0.015*1e3)    
   quant$meas.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
   
@@ -296,7 +296,11 @@ aluelab.results = function(args) {
   ## - delta^L_W = 1 + 3/5* m_L^2/M_W^2
   ## +++upd12
   ##
-  quant$param.add(c(delta_mu_gamma=(1 - 42.4e-4), delta_tau_gamma=(1 - 43.2e-4)))
+  ## alpha(m_L)=alpha_0/(1-(alpha_0/3pi)*ln(m_tau/lambda))
+  ## More complicated way: Three-loop on-shell charge renormalization without integration : ΛM¯¯¯S¯QED to four loops
+  ## But be sirious this is the smallest systematics here!
+  ## Corrections <0.05%
+  quant$param.add(c(delta_mu_gamma=(1 - 42.4e-4), delta_tau_gamma=(1 - 43.2e-4))) 
   quant$meas.expr.add("delta_mu_W", 1 + 3/5*m_mu^2/m_W^2)
   quant$meas.expr.add("delta_tau_W", 1 + 3/5*m_tau^2/m_W^2)
 
@@ -327,7 +331,6 @@ aluelab.results = function(args) {
   quant$meas.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
   ##
-  ## Vud +++upd12
   ##
   ## arXiv:0710.3181v1 [nucl-th], 10.1103/PhysRevC.77.025501
   ## I.S.Towner, J.C.Hardy, An improved calculation of the isospin-symmetry-breaking corrections to superallowed Fermi beta decay
@@ -444,7 +447,7 @@ aluelab.results = function(args) {
   ## display.names = c(Gamma110.names, display.names)
 
   ##
-  ## gtau/gmu using tau -> hnu / h -> mu nu +++upd12
+  ## gtau/gmu using tau -> hnu / h -> mu nu 
   ##
   quant$meas.add.single("pitoENu", 1.230e-4, 0.004e-4)
   quant$meas.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
@@ -518,7 +521,7 @@ aluelab.results = function(args) {
   ## Marciano:2004uf
   ## W. J. Marciano, "Precise determination of |V(us)| from lattice calculations of pseudoscalar decay constants",
   ## Phys. Rev. Lett. 93:231803, 2004, doi:10.1103/PhysRevLett.93.231803, arXiv:hep-ph/0402299.
-  ## +++upd12
+  ## NO UPDATE FOUND
   ##
   quant$meas.add.single("rrad_LD_kmu_pimu", 0.9930, 0.0035)
 
@@ -527,8 +530,9 @@ aluelab.results = function(args) {
   ## R. Decker and M. Finkemeier, "Short and long distance effects in the decay tau -> pi nu_tau (gamma)",
   ## Nucl. Phys. B438:17-53, 1995, doi:10.1016/0550-3213(95)00597-L, arXiv:hep-ph/9403385.
   ## delta_LD(tau -> h nu / h -> mu nu)
-  ## +++upd12
+  ## No update..
   ##
+
   quant$meas.add.single("delta_LD_taupi_pimu", 0.16/100, 0.14/100)
   quant$meas.add.single("delta_LD_tauK_Kmu", 0.90/100, 0.22/100)
 
@@ -567,7 +571,7 @@ aluelab.results = function(args) {
   ##
   ## J. Erler, “Electroweak radiative corrections to semileptonic tau decays”,
   ## Rev. Mex. Fis. 50:200–202, 2004, arXiv:hep-ph/0211345.
-  ## +++upd12
+  ## 
   ##
   quant$meas.add.single("rrad_tau_Knu", 1.0201, 0.0003)
 
@@ -579,10 +583,13 @@ aluelab.results = function(args) {
   ## +++upd12
   ##
   ## --- G_F / (hcut c)^3 from PGD11 in GeV^-2, converted to MeV^-2
-  quant$meas.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
+  
+  quant$meas.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 1.1663787e-5*1e-6 *9e3/1e9)
+  ## 2011 :quant$meas.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
   ## --- Plack h/ in MeV s
-  quant$meas.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
-
+  quant$meas.add.single("hcut", 6.58211928e-22, 0.00000015e-22) 
+  ## 2011:quant$meas.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
+  
   ##
   ## Vus from tau -> K nu
   ##
