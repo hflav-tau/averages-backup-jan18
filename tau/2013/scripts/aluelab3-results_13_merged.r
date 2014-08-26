@@ -113,7 +113,7 @@ aluelab.results = function(args) {
   }
 
   quant = StatComb$new(quant.val, quant.cov)
-  
+
   quant.names = names(quant.val)
   comb.params = lapply(combination$params, function(x) unname(x["value"]))
   quant$param.add(comb.params)
@@ -123,7 +123,7 @@ aluelab.results = function(args) {
   quant.descr = sapply(combination$quantities, function(x) {if (is.null(x$descr)) {""} else {x$descr}})
 
   quant$texdescr.add(alurep.get.texdescr(quant.descr, quant.texdescr))
-  
+
   ##
   ## recover some BRs as function of others
   ##
@@ -209,10 +209,9 @@ aluelab.results = function(args) {
   ##
 
   ##--- from PDG 2009, 2011 +++upd12
-  quant$meas.add.single("m_e",0.510998928 ±0.000000011 )    
-  quant$meas.add.single("m_mu", 105.6583715, 0.0000035  )   
-  quant$meas.add.single("tau_tau", 290.6e-15, 1.0e-15)      
-
+  quant$quant.add.single("m_e",0.510998928 ±0.000000011 )
+  quant$quant.add.single("m_mu", 105.6583715, 0.0000035  )
+  quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
   ##--- m_tau HFAG 2009
   ## quant$quant.add.single("m_tau", 1776.7673082, 0.1507259)
@@ -220,16 +219,14 @@ aluelab.results = function(args) {
   quant$quant.add.single("m_tau", 1776.82, 0.16)
 
   ##+++upd12
-  quant$meas.add.single("m_pi", 139.57018, 0.00035)     
-  quant$meas.add.single("tau_pi", 2.6033e-8, 0.0005e-8) 
-  quant$meas.add.single("m_K", 493.677, 0.016)          
-  quant$meas.add.single("tau_K", 1.2380e-8, 0.0021e-8)  
-
+  quant$quant.add.single("m_pi", 139.57018, 0.00035)
+  quant$quant.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
+  quant$quant.add.single("m_K", 493.677, 0.016)
+  quant$quant.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
   ##--- from PDG 2010, 2011 +++upd12
-  quant$meas.add.single("m_W", 80.399385e3, 0.015*1e3)        
-  quant$meas.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)  
-
+  quant$quant.add.single("m_W", 80.399385e3, 0.015*1e3)
+  quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
 
   ##
   ## Be, from unitarity = 1 - Bmu - B_VA - B_s
@@ -364,7 +361,7 @@ aluelab.results = function(args) {
   ##
 
   ##--- s quark mass, PhysRevD.74.074009 +++upd12
-  quant$meas.add.single("m_s", 93.5, 2.5) 
+  quant$quant.add.single("m_s", 93.5, 2.5)
   ##--- PDG 2011
   ## quant$quant.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
 
@@ -455,11 +452,10 @@ aluelab.results = function(args) {
   ##
   ## gtau/gmu using tau -> hnu / h -> mu nu +++upd12
   ##
-  quant$meas.add.single("pitoENu", 1.230e-4, 0.004e-4)         
-  quant$meas.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)   
-  quant$meas.add.single("KtoENu", 1.581e-5, 0.008e-5)          
-  quant$meas.add.single("KtoMuNu", 63.55e-2, 0.11e-2)          
-
+  quant$quant.add.single("pitoENu", 1.230e-4, 0.004e-4)
+  quant$quant.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
+  quant$quant.add.single("KtoENu", 1.581e-5, 0.008e-5)
+  quant$quant.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
 
   ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd +++upd12
   quant$quant.add.single("delta_pi", 0.16e-2, 0.14e-2)
@@ -499,32 +495,31 @@ aluelab.results = function(args) {
   ## Vus from tau -> Knu
   ##
 
-  ##--- QCD lattice inputs +++upd12                                         
-  lattice.2012 = FALSE                                                      
-  lattice.2014 = TRUE                                                       
-                                                                          
-  if (lattice.2012) {                                                       
-  ##                                                                      
-  ## Lattice averages from http://arxiv.org/abs/0910.2928 and             
-  ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
-  ##                                                                      
-  quant$meas.add.single("f_K_by_f_pi", 1.192, 0.005)                    
-  quant$meas.add.single("f_K", 156.1, 1.1)                                
-  ##--- check effect of lattice correlations                              
-  ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)                 
-  }                                                                         
-  if (lattice.2014) {                                                       
-   quant$meas.add.single("f_K_by_f_pi", 1.194, 0.005)                     
-   quant$meas.add.single("f_K", 156.3, 0.9)                               
-                                                                         
-                                                                          
-  }else {
-  ##--- http://arxiv.org/abs/1101.5138                                    
-  quant$meas.add.single("f_K_by_f_pi", 1.189, 0.007)                      
-  quant$meas.add.single("f_K", 157, 2)                                    
-  }                                                                         
+  ##--- QCD lattice inputs +++upd12
+  lattice.2012 = FALSE
+  lattice.2014 = TRUE
 
-  
+  if (lattice.2012) {
+    ##
+    ## Lattice averages from http://arxiv.org/abs/0910.2928 and
+    ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
+    ##
+    quant$quant.add.single("f_K_by_f_pi", 1.192, 0.005)
+    quant$quant.add.single("f_K", 156.1, 1.1)
+    ##--- check effect of lattice correlations
+    ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
+  }
+  if (lattice.2014) {
+    quant$quant.add.single("f_K_by_f_pi", 1.194, 0.005)
+    quant$quant.add.single("f_K", 156.3, 0.9)
+    
+    
+  } else {
+    ##--- http://arxiv.org/abs/1101.5138
+    quant$quant.add.single("f_K_by_f_pi", 1.189, 0.007)
+    quant$quant.add.single("f_K", 157, 2)
+  }
+
   ##
   ## Marciano:2004uf
   ## W. J. Marciano, "Precise determination of |V(us)| from lattice calculations of pseudoscalar decay constants",
@@ -590,19 +585,19 @@ aluelab.results = function(args) {
   ## +++upd12
   ##
   ## --- G_F / (hcut c)^3 from PGD11 in GeV^-2, converted to MeV^-2
-  quant$meas.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 1.1663787e-5*1e-6 *9e3/1e9)      
-  ## 2011 :quant$meas.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9) 
-  ## --- Plack h/ in MeV s                                                                     
-  quant$meas.add.single("hcut", 6.58211928e-22, 0.00000015e-22)                                
-  ## 2011:quant$meas.add.single("hcut", 6.58211899e-22, 0.00000016e-22)                        
+  quant$quant.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 1.1663787e-5*1e-6 *9e3/1e9)
+  ## 2011 :quant$quant.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
+  ## --- Plack h/ in MeV s
+  quant$quant.add.single("hcut", 6.58211928e-22, 0.00000015e-22)
+  ## 2011:quant$quant.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
 
 
   ##
   ## Vus from tau -> K nu
   ##
-  rc = quant$quant.expr.add("Vus_tauKnu", 
+  rc = quant$quant.expr.add("Vus_tauKnu",
     sqrt(Gamma10 * 16*pi * hcut / (m_tau^3*tau_tau*rrad_tau_Knu)) / (G_F_by_hcut3_c3 * f_K * (1 - m_K^2/m_tau^2)))
-  
+
   ##--- Vus_tauKnu vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
   Vus_tauKnu_mism_sigma = quant$val("Vus_tauKnu_mism") / quant$err("Vus_tauKnu_mism")
@@ -745,7 +740,7 @@ aluelab.results = function(args) {
 
   tex.corr = c(tex.corr, paste(
     "",
-    "$\\left( \\frac{g_\\tau}{g_\\mu} \\right)$", 
+    "$\\left( \\frac{g_\\tau}{g_\\mu} \\right)$",
     "$\\left( \\frac{g_\\tau}{g_e} \\right)$",
     "$\\left( \\frac{g_\\mu}{g_e} \\right)$",
     "$\\left( \\frac{g_\\tau}{g_\\mu} \\right)_\\pi$",
@@ -753,7 +748,7 @@ aluelab.results = function(args) {
      sep=" & ", collapse=" & "))
 
   rc = c(rc, paste("\\newcommand{\\couplingsCorr}{", paste(tex.corr, collapse="\\\\\n"), "}", sep=""))
-  
+
   ##--- make file name for report .tex output
   fname.short = gsub("average[^-]*-*", "", file.name)
   fname.short = gsub("[.]rdata", "", fname.short)
