@@ -508,7 +508,7 @@ aluelab.results = function(args) {
   ## Lattice averages from http://arxiv.org/abs/0910.2928 and             
   ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
   ##                                                                      
-  quant$meas.add.single("f_K_by_f_pi", 1.1936, 0.0053)                    
+  quant$meas.add.single("f_K_by_f_pi", 1.192, 0.005)                    
   quant$meas.add.single("f_K", 156.1, 1.1)                                
   ##--- check effect of lattice correlations                              
   ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)                 
