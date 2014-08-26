@@ -141,10 +141,14 @@ alurep.tex.cmd.short = function(cmd, body) {
 }
 
 ##
-## return value +- stat +- syst original values
-## convert exponential format for latex
+## return measurement value, stat, syst original values
+## all properly formatted for latex printing, separately for
+## - quant = val +- stat +- syst
+## - val
+## - stat
+## - syst
 ##
-alurep.get.meas.val = function(meas) {
+alurep.tex.meas.val.card.fields = function(meas) {
   if (attr(meas$stat, "input") != "") {
     stat.txt = paste("\\pm", attr(meas$stat, "input"))
   } else {
@@ -155,9 +159,50 @@ alurep.get.meas.val = function(meas) {
   } else {
     syst.txt = paste("{}^{", attr(meas$syst.p, "input"), "}_{", attr(meas$syst.n, "input"), "}", sep="")
   }
-  rc = paste(attr(meas$value.orig, "input"), stat.txt, syst.txt)
-  rc = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", rc, ignore.case=TRUE)
-  return(rc)
+  val.txt = attr(meas$value.orig, "input")
+
+  order = gsub("^[^e]+(|e[+]?([-])?0*(\\d+))$", "\\2\\3", c(val.txt, stat.txt, syst.txt), perl=TRUE)
+  order = ifelse(order == "", 0, as.numeric(order))
+
+  if(max(order) == -2) stop()
+  
+  val.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", val.txt, ignore.case=TRUE)
+  stat.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", stat.txt, ignore.case=TRUE)
+  syst.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", syst.txt, ignore.case=TRUE)
+  
+  if (max(order) == min(order)) {
+    if (max(order) == 0) {
+      if (syst.txt == "\\pm 0") {
+        quant = paste(val.tex, stat.tex)
+      } else {
+        quant = paste(val.tex, stat.tex, syst.tex)
+      }
+    } else {
+      if (syst.txt == "\\pm 0") {
+        rc = c(val.txt, stat.txt)
+      } else {
+        rc = c(val.txt, stat.txt, syst.txt)
+      }
+      quant = paste(gsub("^([^e]+)(|e[+]?([-])?0*(\\d+))$", "\\1", rc, perl=TRUE), collapse=" ")
+      quant = paste("(", quant, ") \\cdot 10^{", max(order), "}")
+    }
+  } else {
+    if (syst.txt == "\\pm 0") {
+      quant = paste(val.txt, stat.txt)
+    } else {
+      quant = paste(val.txt, stat.txt, syst.txt)
+    }
+  }
+  return(list(quant=quant, val=val.txt, stat=stat.txt, syst=syst.txt))
+}
+
+##
+## return value +- stat +- syst original values
+## convert exponential format for latex
+##
+alurep.tex.meas.val.card = function(meas) {
+  rc = alurep.tex.meas.val.card.fields(meas)
+  return(rc$quant)
 }
 
 ##
@@ -301,12 +346,30 @@ alurep.meas.quant = function(quant.name, delta) {
 }
 
 ##
+## compute appropriate precision and order of magnitude for printing a measurement
+##
+alurep.precision.order.meas = function(meas, perc=FALSE) {
+  vals = c(meas$value.orig, meas$stat.p, meas$stat.n, meas$syst.p, meas$syst.n)
+  return(alurep.precision.order(vals, perc))
+}
+
+##
+## return measurement formatted val +- stat +- syst in a string
+## according to the specified precision and power-of-ten order
+##
+alurep.tex.meas.val.auto = function(meas, width=0, perc=FALSE) {
+  rc = alurep.precision.order.meas(meas, perc)
+  precision = rc[1]
+  order = rc[2]
+  return(alurep.tex.meas.val(meas, precision, order, width, perc))
+}
+
+##
 ## get all measurements related to a quantity
 ## compute appropriate precision and order of magnitude
 ##
 alurep.precision.order.quant = function(quant.name, perc=FALSE) {
   meas.names = alurep.meas.quant(quant.name, delta)
-  
   vals = unlist(lapply(measurements[meas.names], function(m)
     c(m$value.orig, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
   vals = c(vals, quant.val[quant.name], quant.err[quant.name])
