@@ -27,7 +27,7 @@ NLCONSTRAINT Gamma810.c 0 "-Gamma810 + (Gamma910 + Gamma911 + Gamma811 + Gamma81
 # Gamma910 = G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
 QUANTITY Gamma910 descr "G(2pi- pi+ eta(3pi0) nu(tau), (ex. K0)) / G(total)"
-QUANTITY Gamma910 texdescr "2\pi^- \pi^+ \eta \nu_\tau (\eta \to \3\pi^0) ~(\mathrm{ex.~}K^0)"
+QUANTITY Gamma910 texdescr "2\pi^- \pi^+ \eta \nu_\tau (\eta \to 3\pi^0) ~(\mathrm{ex.~}K^0)"
 
 #
 # Gamma911 = G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total)
