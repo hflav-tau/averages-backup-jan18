@@ -202,7 +202,7 @@ alurep.tex.meas.val.card.fields = function(meas) {
 ##
 alurep.tex.meas.val.card = function(meas) {
   rc = alurep.tex.meas.val.card.fields(meas)
-  return(rc$quant)
+  return(paste("\\ensuremath{", rc$quant, "}", sep=""))
 }
 
 ##
@@ -294,7 +294,7 @@ alurep.tex.val.err.prec.ord = function(quant.val, quant.err, precision, order, w
     rc = sprintf(paste("(%", width, ".", precision, "f \\pm %", width, ".", precision, "f) \\cdot 10^{%d}", sep=""),
       quant.val, quant.err, order)
   }
-  return(rc)
+  return(paste("\\ensuremath{", rc, "}", sep=""))
 }
 
 ##
@@ -333,7 +333,7 @@ alurep.tex.meas.val = function(meas, precision, order, width=0, perc=FALSE) {
   } else {
     rc = sprintf(paste("(", str.meas, ") \\cdot 10^{%d} ", sep=""), order)
   }
-  return(rc)
+  return(paste("\\ensuremath{", rc, "}", sep=""))
 }
 
 ##
