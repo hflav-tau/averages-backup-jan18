@@ -121,7 +121,7 @@ aluelab.results = function(args) {
   ## recover some BRs as function of others
   ##
   if (!any("Gamma89" == quant.names)) {
-    rc = quant$meas.expr.add("Gamma89", Gamma803 + BR_om_pimpippiz*Gamma151)
+    rc = quant$quant.expr.add("Gamma89", Gamma803 + BR_om_pimpippiz*Gamma151)
   }
 
   ##
@@ -193,41 +193,41 @@ aluelab.results = function(args) {
   ##--- list of all tau BRs that are not leptonic and not strange, i.e. not-strange-hadronic
   B.tau.VA.names = setdiff(aluelab.get.quant.names("GammaAll", combination), Gamma110.names)
   B.tau.VA.names = setdiff(B.tau.VA.names, c("Gamma5", "Gamma3", "Gamma998"))
-  quant$meas.qexpr.add("B_tau_VA", parse(text=paste(B.tau.VA.names, collapse="+")))
-  quant$meas.expr.add("B_tau_VA_unitarity", 1-Gamma5-Gamma3-Gamma110)
-  quant$meas.expr.add("B_tau_s_unitarity", 1-Gamma5-Gamma3-B_tau_VA)
+  quant$quant.qexpr.add("B_tau_VA", parse(text=paste(B.tau.VA.names, collapse="+")))
+  quant$quant.expr.add("B_tau_VA_unitarity", 1-Gamma5-Gamma3-Gamma110)
+  quant$quant.expr.add("B_tau_s_unitarity", 1-Gamma5-Gamma3-B_tau_VA)
 
   ##
   ## add measurements to compute universality improved Be
   ##
 
   ##--- from PDG 2009, 2011 
-  quant$meas.add.single("m_e",0.510998928 ±0.000000011 )
-  quant$meas.add.single("m_mu", 105.6583715, 0.0000035	)
-  quant$meas.add.single("tau_tau", 290.6e-15, 1.0e-15)
+  quant$quant.add.single("m_e",0.510998928 ±0.000000011 )
+  quant$quant.add.single("m_mu", 105.6583715, 0.0000035	)
+  quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
   ##--- m_tau HFAG 2009
-  ## quant$meas.add.single("m_tau", 1776.7673082, 0.1507259)
+  ## quant$quant.add.single("m_tau", 1776.7673082, 0.1507259)
   ##--- m_tau PDG 2011 
-  quant$meas.add.single("m_tau", 1776.82, 0.16)
+  quant$quant.add.single("m_tau", 1776.82, 0.16)
 
   ##
-  quant$meas.add.single("m_pi", 139.57018, 0.00035)
-  quant$meas.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
-  quant$meas.add.single("m_K", 493.677, 0.016)
-  quant$meas.add.single("tau_K", 1.2380e-8, 0.0021e-8)
+  quant$quant.add.single("m_pi", 139.57018, 0.00035)
+  quant$quant.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
+  quant$quant.add.single("m_K", 493.677, 0.016)
+  quant$quant.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
   ##--- from PDG 2010, 2011 
-  quant$meas.add.single("m_W", 80.399385e3, 0.015*1e3)    
-  quant$meas.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
+  quant$quant.add.single("m_W", 80.399385e3, 0.015*1e3)    
+  quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
   
 
   ##
   ## Be, from unitarity = 1 - Bmu - B_VA - B_s
   ## Bmu, from unitarity = 1 - Be - B_VA - B_s
   ##
-  quant$meas.expr.add("Be_unitarity", 1 - Gamma3 - B_tau_VA - Gamma110)
-  quant$meas.expr.add("Bmu_unitarity", 1 - Gamma5 - B_tau_VA - Gamma110)
+  quant$quant.expr.add("Be_unitarity", 1 - Gamma3 - B_tau_VA - Gamma110)
+  quant$quant.expr.add("Bmu_unitarity", 1 - Gamma5 - B_tau_VA - Gamma110)
 
   ##--- understand if there was no unitarity constraint
   no.unit.constr.flag =
@@ -242,18 +242,18 @@ aluelab.results = function(args) {
     ##
     if (flag.unitarity) {
       ##--- use unitarity constraint to compute Be, Bmu, B_tau_VA/s
-      quant$meas.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
-      quant$meas.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
-      quant$meas.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
-      quant$meas.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
+      quant$quant.fit.add("Be_fit", c(Gamma5=1, Be_unitarity=1))
+      quant$quant.fit.add("Bmu_fit", c(Gamma3=1, Bmu_unitarity=1))
+      quant$quant.fit.add("B_tau_VA_fit", c(B_tau_VA=1, B_tau_VA_unitarity=1))
+      quant$quant.fit.add("B_tau_s_fit", c(Gamma110=1, B_tau_s_unitarity=1))
     } else {
       ##--- direct measurements for leptonic BRs and strange hadronic BR
-      quant$meas.expr.add("Be_fit", Gamma5)
-      quant$meas.expr.add("Bmu_fit", Gamma3)
-      quant$meas.expr.add("B_tau_s_fit", Gamma110)
+      quant$quant.expr.add("Be_fit", Gamma5)
+      quant$quant.expr.add("Bmu_fit", Gamma3)
+      quant$quant.expr.add("B_tau_s_fit", Gamma110)
       if (flag.vadirect) {
         ##--- direct measurement for non-strange hadronic BR
-        quant$meas.expr.add("B_tau_VA_fit", B_tau_VA)
+        quant$quant.expr.add("B_tau_VA_fit", B_tau_VA)
       } else {
         ##
         ## non-strange hadronic BR by subtraction, however note that
@@ -261,7 +261,7 @@ aluelab.results = function(args) {
         ## (a Be fit using Be, Bmu and tau lifetime) as in
         ## M.Davier et al, RevModPhys.78.1043, arXiv:hep-ph/0507078
         ##
-        quant$meas.expr.add("B_tau_VA_fit", 1-Gamma5-Gamma3-Gamma110)
+        quant$quant.expr.add("B_tau_VA_fit", 1-Gamma5-Gamma3-Gamma110)
       }
     }
   } else {
@@ -269,10 +269,10 @@ aluelab.results = function(args) {
     ## unitarity constrained fit
     ## the fitted values have the unitarity constraint already
     ##
-    rc = quant$meas.expr.add("Be_fit", Gamma5)
-    rc = quant$meas.expr.add("Bmu_fit", Gamma3)
-    rc = quant$meas.expr.add("B_tau_VA_fit", B_tau_VA)
-    rc = quant$meas.expr.add("B_tau_s_fit", Gamma110)
+    rc = quant$quant.expr.add("Be_fit", Gamma5)
+    rc = quant$quant.expr.add("Bmu_fit", Gamma3)
+    rc = quant$quant.expr.add("B_tau_VA_fit", B_tau_VA)
+    rc = quant$quant.expr.add("B_tau_s_fit", Gamma110)
   }
 
   ##
@@ -281,13 +281,13 @@ aluelab.results = function(args) {
   ##--- phase space factor, function of lepton masses
   phspf = quote(1 -8*x + 8*x^3 - x^4 - 12*x^2*log(x))
   ##--- phase space factors for e/tau, mu/tau, e/mu
-  rc = quant$meas.qexpr.add("phspf_mebymtau",  esub.expr(phspf, list(x=quote(m_e^2/m_tau^2))))
-  rc = quant$meas.qexpr.add("phspf_mmubymtau", esub.expr(phspf, list(x=quote(m_mu^2/m_tau^2))))
-  rc = quant$meas.qexpr.add("phspf_mebymmu", esub.expr(phspf, list(x=quote(m_e^2/m_mu^2))))
-  rc = quant$meas.expr.add("Bmu_by_Be_th", phspf_mmubymtau/phspf_mebymtau)
+  rc = quant$quant.qexpr.add("phspf_mebymtau",  esub.expr(phspf, list(x=quote(m_e^2/m_tau^2))))
+  rc = quant$quant.qexpr.add("phspf_mmubymtau", esub.expr(phspf, list(x=quote(m_mu^2/m_tau^2))))
+  rc = quant$quant.qexpr.add("phspf_mebymmu", esub.expr(phspf, list(x=quote(m_e^2/m_mu^2))))
+  rc = quant$quant.expr.add("Bmu_by_Be_th", phspf_mmubymtau/phspf_mebymtau)
 
   ##--- Be from Bmu
-  quant$meas.expr.add("Be_from_Bmu", phspf_mebymtau/phspf_mmubymtau *Bmu_fit)
+  quant$quant.expr.add("Be_from_Bmu", phspf_mebymtau/phspf_mmubymtau *Bmu_fit)
 
   ##
   ## rad. corrections from to get Be from tau lifetime
@@ -301,21 +301,21 @@ aluelab.results = function(args) {
   ## But be sirious this is the smallest systematics here!
   ## Corrections <0.05%
   quant$param.add(c(delta_mu_gamma=(1 - 42.4e-4), delta_tau_gamma=(1 - 43.2e-4))) 
-  quant$meas.expr.add("delta_mu_W", 1 + 3/5*m_mu^2/m_W^2)
-  quant$meas.expr.add("delta_tau_W", 1 + 3/5*m_tau^2/m_W^2)
+  quant$quant.expr.add("delta_mu_W", 1 + 3/5*m_mu^2/m_W^2)
+  quant$quant.expr.add("delta_tau_W", 1 + 3/5*m_tau^2/m_W^2)
 
   ##
   ## Be from tau lifetime
   ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
-  quant$meas.expr.add("Be_from_taulife",
+  quant$quant.expr.add("Be_from_taulife",
                       tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mebymtau/phspf_mebymmu
                       * (delta_tau_gamma*delta_tau_W) / (delta_mu_gamma*delta_mu_W))
   ##
   ## Bmu from tau lifetime
   ## Bmu= tau_tau/tau_mu (m_tau/m_mu)^5 f(m^2_mu/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
-  quant$meas.expr.add("Bmu_from_taulife",
+  quant$quant.expr.add("Bmu_from_taulife",
                       tau_tau/tau_mu * (m_tau/m_mu)^5 * phspf_mmubymtau/phspf_mebymmu
                       * (delta_tau_gamma*delta_tau_W) / (delta_mu_gamma*delta_mu_W))
 
@@ -328,7 +328,7 @@ aluelab.results = function(args) {
   ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
   ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
   ##
-  quant$meas.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
+  quant$quant.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
   ##
   ##
@@ -338,7 +338,7 @@ aluelab.results = function(args) {
   ##
   Vud.val = 0.97425
   Vud.err = 0.00022
-  quant$meas.add.single("Vud", Vud.val, Vud.err)
+  quant$quant.add.single("Vud", Vud.val, Vud.err)
 
   ##
   ## SU3 breaking correction, straight from papers +++upd12
@@ -350,7 +350,7 @@ aluelab.results = function(args) {
   ##--- E. Gamiz et al., Nucl.Phys.Proc.Suppl.169:85-89,2007, arXiv:hep-ph/0612154v1
   ## deltaR.su3break.val = 0.240
   ## deltaR.su3break.err = 0.032
-  ## quant$meas.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
+  ## quant$quant.add.single("deltaR_su3break", deltaR.su3break.val, deltaR.su3break.err)
 
   ##
   ## SU3 breaking correction, recompute from data following
@@ -358,15 +358,15 @@ aluelab.results = function(args) {
   ##
 
   ##--- s quark mass, PhysRevD.74.074009 +++upd12
-  quant$meas.add.single("m_s", 93.5, 2.5)
+  quant$quant.add.single("m_s", 935, 2.5)
   ##--- PDG 2011
-  ## quant$meas.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
+  ## quant$quant.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
 
   ##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
-  quant$meas.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
-  quant$meas.add.single("deltaR_su3break_msd2", 9.3, 3.4)
-  quant$meas.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
-  quant$meas.expr.add("deltaR_su3break", deltaR_su3break_pheno + deltaR_su3break_msd2*(m_s/1000)^2 + deltaR_su3break_remain)
+  quant$quant.add.single("deltaR_su3break_pheno", 0.1544, 0.0037)
+  quant$quant.add.single("deltaR_su3break_msd2", 9.3, 3.4)
+  quant$quant.add.single("deltaR_su3break_remain", 0.0034, 0.0028)
+  quant$quant.expr.add("deltaR_su3break", deltaR_su3break_pheno + deltaR_su3break_msd2*(m_s/1000)^2 + deltaR_su3break_remain)
 
   if (no.unit.constr.flag) {
     ##
@@ -374,19 +374,19 @@ aluelab.results = function(args) {
     ##
     if (flag.lepuniv) {
       ##--- determine R_tau using leptonic BRs and universality
-      quant$meas.expr.add("R_tau", 1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau)
-      quant$meas.expr.add("R_tau_s", B_tau_s_fit/Be_univ)
-      quant$meas.expr.add("R_tau_VA", R_tau - R_tau_s)
+      quant$quant.expr.add("R_tau", 1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau)
+      quant$quant.expr.add("R_tau_s", B_tau_s_fit/Be_univ)
+      quant$quant.expr.add("R_tau_VA", R_tau - R_tau_s)
     } else {
       ##
       ## use "fit" values computed in this script (possibly incorporating unitarity constraint)
       ##
       ##--- add R_tau_VA = R - R_tau_s
-      quant$meas.expr.add("R_tau_VA", B_tau_VA_fit/Be_univ)
+      quant$quant.expr.add("R_tau_VA", B_tau_VA_fit/Be_univ)
       ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-      quant$meas.expr.add("R_tau_s", B_tau_s_fit/Be_univ)
+      quant$quant.expr.add("R_tau_s", B_tau_s_fit/Be_univ)
       ##--- add R_tau as function of quantities
-      quant$meas.expr.add("R_tau", R_tau_VA+R_tau_s)
+      quant$quant.expr.add("R_tau", R_tau_VA+R_tau_s)
     }
   } else {
     ##
@@ -395,37 +395,37 @@ aluelab.results = function(args) {
     ##--- add R_tau as function of quantities
     if (flag.lepuniv) {
       ##--- determine R_tau using leptonic BRs and universality
-      quant$meas.expr.add("R_tau", 1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau)
+      quant$quant.expr.add("R_tau", 1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau)
     } else {
       ##--- use values computed in the alucomb.r fit, incorporating unitarity constraints
-      quant$meas.expr.add("R_tau", (B_tau_VA+Gamma110)/Be_univ)
+      quant$quant.expr.add("R_tau", (B_tau_VA+Gamma110)/Be_univ)
     }
     ##--- add R_tau_s = B(tau -> Xs nu) / Be_univ
-    quant$meas.expr.add("R_tau_s", Gamma110/Be_univ)
+    quant$quant.expr.add("R_tau_s", Gamma110/Be_univ)
     ##--- add R_tau_VA = R_tau - R_tau_s
-    quant$meas.expr.add("R_tau_VA", R_tau - R_tau_s)
+    quant$quant.expr.add("R_tau_VA", R_tau - R_tau_s)
   }
 
   ##--- add Vus
-  quant$meas.expr.add("Vus", sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
-  quant$meas.add.single("Vus_err_perc", quant$err()["Vus"]/quant$val()["Vus"]*100, 0)
+  quant$quant.expr.add("Vus", sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
+  quant$quant.add.single("Vus_err_perc", quant$err()["Vus"]/quant$val()["Vus"]*100, 0)
 
   ##--- theory, exp errors, with percent
-  quant$meas.add.single("Vus_err_th", quant$syst.contrib("Vus", "deltaR_su3break"), 0)
-  quant$meas.add.single("Vus_err_th_perc", quant$syst.contrib.perc("Vus", "deltaR_su3break"), 0)
+  quant$quant.add.single("Vus_err_th", quant$err.contrib("Vus", "deltaR_su3break"), 0)
+  quant$quant.add.single("Vus_err_th_perc", quant$err.contrib.perc("Vus", "deltaR_su3break"), 0)
 
   Vus.err.exp = sqrt(quant$err()["Vus"]^2 - quant$param()["Vus_err_th"]^2)
-  quant$meas.add.single("Vus_err_exp", Vus.err.exp, 0)
-  quant$meas.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val()["Vus"]*100, 0)
+  quant$quant.add.single("Vus_err_exp", Vus.err.exp, 0)
+  quant$quant.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val()["Vus"]*100, 0)
 
   ##--- Vus from Vud using CKM unitarity
-  quant$meas.expr.add("Vus_uni", sqrt(1-Vud^2))
+  quant$quant.expr.add("Vus_uni", sqrt(1-Vud^2))
 
   ##--- Vus vs <Vus from CKM unitarity>
-  quant$meas.expr.add("Vus_mism", Vus - Vus_uni)
+  quant$quant.expr.add("Vus_mism", Vus - Vus_uni)
   Vus_mism_sigma = quant$val()["Vus_mism"] / quant$err()["Vus_mism"]
-  quant$meas.add.single("Vus_mism_sigma", Vus_mism_sigma, 0)
-  quant$meas.add.single("Vus_mism_sigma_abs", abs(Vus_mism_sigma), 0)
+  quant$quant.add.single("Vus_mism_sigma", Vus_mism_sigma, 0)
+  quant$quant.add.single("Vus_mism_sigma_abs", abs(Vus_mism_sigma), 0)
 
   ##--- select quantities to print
   display.names = c(
@@ -449,36 +449,36 @@ aluelab.results = function(args) {
   ##
   ## gtau/gmu using tau -> hnu / h -> mu nu 
   ##
-  quant$meas.add.single("pitoENu", 1.230e-4, 0.004e-4)
-  quant$meas.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
-  quant$meas.add.single("KtoENu", 1.581e-5, 0.008e-5)
-  quant$meas.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
+  quant$quant.add.single("pitoENu", 1.230e-4, 0.004e-4)
+  quant$quant.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
+  quant$quant.add.single("KtoENu", 1.581e-5, 0.008e-5)
+  quant$quant.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
 
   ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd +++upd12
-  quant$meas.add.single("delta_pi", 0.16e-2, 0.14e-2)
-  quant$meas.add.single("delta_K", 0.90e-2, 0.22e-2)
+  quant$quant.add.single("delta_pi", 0.16e-2, 0.14e-2)
+  quant$quant.add.single("delta_K", 0.90e-2, 0.22e-2)
 
   ##--- gtau/gmu using tau -> pi nu / pi -> mu nu
-  quant$meas.expr.add("gtaubygmu_pi",
+  quant$quant.expr.add("gtaubygmu_pi",
                       sqrt(Gamma9/pitoMuNu *(2*m_pi*m_mu^2*tau_pi) /((1+delta_pi)*m_tau^3*tau_tau)*
                            ((1-m_mu^2/m_pi^2)/(1-m_pi^2/m_tau^2))^2))
 
   ##--- gtau/gmu using tau -> K nu / K -> mu nu
-  quant$meas.expr.add("gtaubygmu_K",
+  quant$quant.expr.add("gtaubygmu_K",
                       sqrt(Gamma10/KtoMuNu *(2*m_K*m_mu^2*tau_K) /((1+delta_K)*m_tau^3*tau_tau)*
                            ((1-m_mu^2/m_K^2)/(1-m_K^2/m_tau^2))^2))
 
   ##--- gtau/gmu using tau lifetime
-  quant$meas.expr.add("gtaubygmu_tau", sqrt(Gamma5/Be_from_taulife))
+  quant$quant.expr.add("gtaubygmu_tau", sqrt(Gamma5/Be_from_taulife))
 
   ##--- gtau/gmu average
-  quant$meas.fit.add("gtaubygmu_fit", c(gtaubygmu_tau=1, gtaubygmu_pi=1, gtaubygmu_K=1))
+  quant$quant.fit.add("gtaubygmu_fit", c(gtaubygmu_tau=1, gtaubygmu_pi=1, gtaubygmu_K=1))
 
   ##--- gtau/ge using tau lifetime
-  quant$meas.expr.add("gtaubyge_tau", sqrt(Gamma3/Bmu_from_taulife))
+  quant$quant.expr.add("gtaubyge_tau", sqrt(Gamma3/Bmu_from_taulife))
 
   ##--- gmu / ge from tau -> mu / tau -> e
-  quant$meas.expr.add("gmubyge_tau", sqrt(Gamma3/Gamma5 * phspf_mebymtau/phspf_mmubymtau))
+  quant$quant.expr.add("gmubyge_tau", sqrt(Gamma3/Gamma5 * phspf_mebymtau/phspf_mmubymtau))
 
   ##--- select quantities to print
   display.names = c(
@@ -501,20 +501,20 @@ aluelab.results = function(args) {
     ## Lattice averages from http://arxiv.org/abs/0910.2928 and
     ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
     ##
-    quant$meas.add.single("f_K_by_f_pi", 1.192, 0.005)
-    quant$meas.add.single("f_K", 156.1, 1.1)
+    quant$quant.add.single("f_K_by_f_pi", 1.1936, 0.0053)
+    quant$quant.add.single("f_K", 156.1, 1.1)
     ##--- check effect of lattice correlations
     ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
   } 
   if (lattice.2014) {
-     quant$meas.add.single("f_K_by_f_pi", 1.194, 0.005)          
-     quant$meas.add.single("f_K", 156.3, 0.9)                      
+     quant$quant.add.single("f_K_by_f_pi", 1.194, 0.005)          
+     quant$quant.add.single("f_K", 156.3, 0.9)                      
 
 
   }else {
     ##--- http://arxiv.org/abs/1101.5138
-    quant$meas.add.single("f_K_by_f_pi", 1.189, 0.007)
-    quant$meas.add.single("f_K", 157, 2)
+    quant$quant.add.single("f_K_by_f_pi", 1.189, 0.007)
+    quant$quant.add.single("f_K", 157, 2)
   }
   
   ##
@@ -523,7 +523,7 @@ aluelab.results = function(args) {
   ## Phys. Rev. Lett. 93:231803, 2004, doi:10.1103/PhysRevLett.93.231803, arXiv:hep-ph/0402299.
   ## NO UPDATE FOUND
   ##
-  quant$meas.add.single("rrad_LD_kmu_pimu", 0.9930, 0.0035)
+  quant$quant.add.single("rrad_LD_kmu_pimu", 0.9930, 0.0035)
 
   ##
   ## Decker:1994ea
@@ -532,35 +532,34 @@ aluelab.results = function(args) {
   ## delta_LD(tau -> h nu / h -> mu nu)
   ## No update..
   ##
-
-  quant$meas.add.single("delta_LD_taupi_pimu", 0.16/100, 0.14/100)
-  quant$meas.add.single("delta_LD_tauK_Kmu", 0.90/100, 0.22/100)
+  quant$quant.add.single("delta_LD_taupi_pimu", 0.16/100, 0.14/100)
+  quant$quant.add.single("delta_LD_tauK_Kmu", 0.90/100, 0.22/100)
 
   ##--- compute delta_LD_tauK_taupi = delta_LD_tauK_Kmu/delta_LD_taupi_pimu * delta_LD_kmu_pimu
-  quant$meas.expr.add("rrad_LD_tauK_taupi", (1+delta_LD_tauK_Kmu)/(1+delta_LD_taupi_pimu) * rrad_LD_kmu_pimu)
+  quant$quant.expr.add("rrad_LD_tauK_taupi", (1+delta_LD_tauK_Kmu)/(1+delta_LD_taupi_pimu) * rrad_LD_kmu_pimu)
 
   ##--- compute intermediate B_tau_K / B_tau_pi
-  quant$meas.expr.add("Gamma10by9", Gamma10/Gamma9);
+  quant$quant.expr.add("Gamma10by9", Gamma10/Gamma9);
 
   ##
   ## Vus^2 = Vud^2 * B(tau -> Knu)/B(tau -> pinu) * f_pi^2/f_K^2 * (1-m_pi^2/m_tau*2)/(1-m_K^2/m_tau*2) /(1+delta_LD)
   ##
-  quant$meas.expr.add("Vus_tauKpi", Vud*sqrt(Gamma10/Gamma9) /f_K_by_f_pi
+  quant$quant.expr.add("Vus_tauKpi", Vud*sqrt(Gamma10/Gamma9) /f_K_by_f_pi
                       * (1-m_pi^2/m_tau^2)/(1-m_K^2/m_tau^2) / sqrt(rrad_LD_tauK_taupi))
 
   ##--- Vus_tauKpi vs Vus-from-CKM-unitarity
-  quant$meas.expr.add("Vus_tauKpi_mism", Vus_tauKpi - Vus_uni)
+  quant$quant.expr.add("Vus_tauKpi_mism", Vus_tauKpi - Vus_uni)
   Vus_tauKpi_mism_sigma = quant$val()["Vus_tauKpi_mism"] / quant$err()["Vus_tauKpi_mism"]
-  quant$meas.add.single("Vus_tauKpi_mism_sigma", Vus_tauKpi_mism_sigma, 0)
-  quant$meas.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma), 0)
+  quant$quant.add.single("Vus_tauKpi_mism_sigma", Vus_tauKpi_mism_sigma, 0)
+  quant$quant.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma), 0)
 
   ##--- theory error contribution
-  rc = quant$syst.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu")
-  quant$meas.add.single("Vus_tauKpi_err_th_perc", rc, 0)
+  rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu")
+  quant$quant.add.single("Vus_tauKpi_err_th_perc", rc, 0)
 
   lapply(c("f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu"), function(val) {
-    quant$meas.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
-                          quant$syst.contrib.perc("Vus_tauKpi", val), 0)
+    quant$quant.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
+                          quant$err.contrib.perc("Vus_tauKpi", val), 0)
   })
 
   ## ////////////////////////////////////////
@@ -573,7 +572,7 @@ aluelab.results = function(args) {
   ## Rev. Mex. Fis. 50:200–202, 2004, arXiv:hep-ph/0211345.
   ## 
   ##
-  quant$meas.add.single("rrad_tau_Knu", 1.0201, 0.0003)
+  quant$quant.add.single("rrad_tau_Knu", 1.0201, 0.0003)
 
   ##
   ## EW constants
@@ -583,39 +582,40 @@ aluelab.results = function(args) {
   ## +++upd12
   ##
   ## --- G_F / (hcut c)^3 from PGD11 in GeV^-2, converted to MeV^-2
-  
-  quant$meas.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 1.1663787e-5*1e-6 *9e3/1e9)
+  quant$quant.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
   ## 2011 :quant$meas.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
+
   ## --- Plack h/ in MeV s
+  quant$quant.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
   quant$meas.add.single("hcut", 6.58211928e-22, 0.00000015e-22) 
   ## 2011:quant$meas.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
   
   ##
   ## Vus from tau -> K nu
   ##
-  rc = quant$meas.expr.add("Vus_tauKnu", 
+  rc = quant$quant.expr.add("Vus_tauKnu", 
     sqrt(Gamma10 * 16*pi * hcut / (m_tau^3*tau_tau*rrad_tau_Knu)) / (G_F_by_hcut3_c3 * f_K * (1 - m_K^2/m_tau^2)))
   
   ##--- Vus_tauKnu vs Vus-from-CKM-unitarity
-  quant$meas.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
+  quant$quant.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
   Vus_tauKnu_mism_sigma = quant$val()["Vus_tauKnu_mism"] / quant$err()["Vus_tauKnu_mism"]
-  quant$meas.add.single("Vus_tauKnu_mism_sigma", Vus_tauKnu_mism_sigma, 0)
-  quant$meas.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma), 0)
+  quant$quant.add.single("Vus_tauKnu_mism_sigma", Vus_tauKnu_mism_sigma, 0)
+  quant$quant.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma), 0)
 
   ##--- theory error contribution
-  quant$meas.add.single("Vus_tauKnu_err_th_perc", quant$syst.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"), 0)
+  quant$quant.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"), 0)
 
   ## ////////////////////////////////////////
   ##
   ## Vus from tau fit
   ##
-  quant$meas.fit.add("Vus_tau", c(Vus=1, Vus_tauKpi=1, Vus_tauKnu=1))
+  quant$quant.fit.add("Vus_tau", c(Vus=1, Vus_tauKpi=1, Vus_tauKnu=1))
 
   ##--- Vus_tau vs Vus-from-CKM-unitarity
-  quant$meas.expr.add("Vus_tau_mism", Vus_tau - Vus_uni)
+  quant$quant.expr.add("Vus_tau_mism", Vus_tau - Vus_uni)
   Vus_tau_mism_sigma = quant$val()["Vus_tau_mism"] / quant$err()["Vus_tau_mism"]
-  quant$meas.add.single("Vus_tau_mism_sigma", Vus_tau_mism_sigma, 0)
-  quant$meas.add.single("Vus_tau_mism_sigma_abs", abs(Vus_tau_mism_sigma), 0)
+  quant$quant.add.single("Vus_tau_mism_sigma", Vus_tau_mism_sigma, 0)
+  quant$quant.add.single("Vus_tau_mism_sigma_abs", abs(Vus_tau_mism_sigma), 0)
 
   ##
   ## summary
