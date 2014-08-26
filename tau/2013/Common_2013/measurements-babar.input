@@ -2,11 +2,11 @@
 # Gamma47 (PDG node = S035B69)
 # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma47 pub 1208.0376
+BEGIN MEASUREMENT BaBar Gamma47 pub LEES 2012Y
 
 VALUE 2.31e-4 +-0.04e-4 +-0.08e-4
 
-STAT_CORR_WITH -0.21	BaBar Gamma50 pub 1208.0376
+STAT_CORR_WITH -0.21	BaBar Gamma50 pub LEES 2012Y
 
 SYSTEMATICS
      -0.3%         sigmataupmy4s
@@ -23,11 +23,11 @@ END
 # Gamma50 (PDG node = S035C2)
 # G(pi- K(S) K(S) pi0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma50 pub 1208.0376
+BEGIN MEASUREMENT BaBar Gamma50 pub LEES 2012Y
 
 VALUE 1.60e-5 +-0.20e-5 +-0.22e-5
 
-STAT_CORR_WITH -0.21	BaBar Gamma47 pub 1208.0376
+STAT_CORR_WITH -0.21	BaBar Gamma47 pub LEES 2012Y
 
 SYSTEMATICS
      -0.3%         sigmataupmy4s
@@ -46,7 +46,7 @@ END
 #
 # BaBar measures K KS KS which is 1/4 of this
 #
-BEGIN MEASUREMENT BaBar Gamma807 pub 1208.0376
+BEGIN MEASUREMENT BaBar Gamma807 pub LEES 2012Y
 
 VALUE 7.6e-7 +-12e-7 +- 1.2e-7
 
@@ -58,7 +58,7 @@ END
 #
 # BaBar measures K KS KS pi0 which is 1/4 of this
 #
-BEGIN MEASUREMENT BaBar Gamma808 pub 1208.0376
+BEGIN MEASUREMENT BaBar Gamma808 pub LEES 2012Y
 
 VALUE 6.0e-7 +-7.1e-7 +-0.4e-7
 
@@ -73,7 +73,7 @@ END
 # Gamma910
 # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma910 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma910 pub LEES 2012X
 
 VALUE 8.62e-5 +- 0.91e-5 +- 0.87e-5
 
@@ -96,7 +96,7 @@ END
 # Gamma911
 # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma911 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma911 pub LEES 2012X
 
 VALUE 4.56e-5 +-0.781e-5 +-0.55e-5
 
@@ -119,7 +119,7 @@ END
 # Gamma811
 # G(pi- 2pi0 omega nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma811 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma811 pub LEES 2012X
 
 VALUE 7.3e-5 +-1.2e-5 +-1.2e-5
 
@@ -145,7 +145,7 @@ END
 # G(2pi- pi+ 3pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
 # (non-resonant)
 #
-BEGIN MEASUREMENT BaBar Gamma812 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma812 pub LEES 2012X
 VALUE 0.1e-4 +-0.08e-4 +-0.30e-4
 
 SYSTEMATICS
@@ -167,7 +167,7 @@ END
 # Gamma820
 # G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
 #
-# BEGIN MEASUREMENT BaBar Gamma820 pub 1209.2734
+# BEGIN MEASUREMENT BaBar Gamma820 pub LEES 2012X
 #
 # VALUE 8.33e-04 +-0.04e-04 +-0.43e-04
 #
@@ -189,7 +189,7 @@ END
 # Gamma920
 # G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma920 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma920 pub LEES 2012X
 
 VALUE 5.20e-5 +-0.31e-5 +-0.37e-5
 
@@ -211,7 +211,7 @@ END
 # Gamma821
 # G(3pi- 2pi+ nu(tau) (ex. K0, non-resonant)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma821 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma821 pub LEES 2012X
 
 VALUE 7.68e-4 +-0.04e-4 +-0.40e-4
 
@@ -233,7 +233,7 @@ END
 # Gamma822
 # G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma822 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma822 pub LEES 2012X
 
 VALUE 0.6e-06 +-0.5e-06 +-1.1e-06
 
@@ -243,7 +243,7 @@ END
 # Gamma830
 # G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-# BEGIN MEASUREMENT BaBar Gamma830 pub 1209.2734
+# BEGIN MEASUREMENT BaBar Gamma830 pub LEES 2012X
 #
 # VALUE 1.65e-4 +- 0.05e-4 +- 0.09e-4
 #
@@ -266,7 +266,7 @@ END
 # Gamma930
 # G(2pi- pi+ eta(pi+ pi- pi0)  nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma930 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma930 pub LEES 2012X
 
 VALUE 5.39e-5 +- 0.27e-5 +- 0.39e-5
 
@@ -289,7 +289,7 @@ END
 # Gamma831
 # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma831 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma831 pub LEES 2012X
 
 VALUE 8.4e-5 +-0.4e-5 +-0.6e-5
 # VALUE 9.6e-5 +-0.5e-5 +-0.6e-5 supp. doc.
@@ -315,7 +315,7 @@ END
 # Gamma832
 # G(3pi- 2pi+ pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma832 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma832 pub LEES 2012X
 
 VALUE 0.36e-4 +-0.03e-4 +-0.09e-4
 # VALUE 0.27e-4 +-0.03e-4 +-0.09e-4 supp. doc.
@@ -339,7 +339,7 @@ END
 # Gamma833
 # G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma833 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma833 pub LEES 2012X
 
 VALUE 1.1e-6 +-0.4e-6 +-0.4e-6
 
@@ -349,7 +349,7 @@ END
 # Gamma941
 # G(pi- f1(pi- pi+ eta(gamma gamma)) nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma941 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma941 pub LEES 2012X
 
 VALUE 4.91e-5 +-0.31e-5 +-0.27e-5
 
@@ -372,7 +372,7 @@ END
 # Gamma942
 # G(pi- f1(pi- pi+ eta(pi- pi+ pi0)) nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma942 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma942 pub LEES 2012X
 
 VALUE 2.87e-5 +-0.25e-5 +-0.18e-5
 
@@ -395,7 +395,7 @@ END
 # Gamma943
 # G(pi- f1(pi- pi+ eta(3pi0)) nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma943 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma943 pub LEES 2012X
 
 VALUE 4.33e-5 +-0.13e-5 +-0.06e-5
 
@@ -419,7 +419,7 @@ END
 # G(2pi- pi+ eta(gamma gamma)  nu(tau) (ex. K0)) / G(total)
 # We assume that Pi0 and eta systematics are 100% correlated
 #
-BEGIN MEASUREMENT BaBar Gamma944 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma944 pub LEES 2012X
 
 VALUE 8.28e-5 +- 0.37e-5 +- 0.51e-5
 
@@ -442,7 +442,7 @@ END
 # Gamma950
 # G(K+ 3pi- pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma950 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma950 pub LEES 2012X
 
 VALUE 1.6e-6 +-0.6e-6 +-2.4e-6
 
@@ -452,7 +452,7 @@ END
 # Gamma951
 # G(K- K+ 2pi- pi+ nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma951 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma951 pub LEES 2012X
 
 VALUE 0.30e-6 +-0.10e-6 +-0.07e-6
 
@@ -462,7 +462,7 @@ END
 # Gamma952
 # G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma952 pub 1209.2734
+BEGIN MEASUREMENT BaBar Gamma952 pub LEES 2012X
 
 VALUE -0.6e-6 +-0.5e-6 +-0.7e-6
 

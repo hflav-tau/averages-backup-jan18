@@ -289,7 +289,11 @@ get.reference = function(tags) {
     "BARISH.88" = "Barish:1987nj",
     "GAN.88" = "Gan:1987zi",
     "HAYES.88" = "Hayes:1988ut",
-    "PERL.80" = "not found"
+    "PERL.80" = "not found",
+    "LEES.2012X" = "Lees:2012de",
+    "LEES.2012Y" = "Lees:2012ks",
+    "1310.8503" = "Belous:2013dba",
+    "1402.5213" = "Ryu:2014vpc"
     )
 
   bib.conf.table = list(
@@ -301,7 +305,8 @@ get.reference = function(tags) {
   ref.conf = bib.conf.table[[paste(tags[1], tail(tags, -3), collapse=".", sep=".")]]
   if (!is.null(ref.conf)) return(ref.conf)
 
-  ref.insp = bib.pdg.table[[paste(tail(tags, -3), collapse=".")]]
+  tag = paste(tail(tags, -3), collapse=".")
+  ref.insp = bib.pdg.table[[tag]]
   if (is.null(ref.insp) || ref.insp=="not found") {
     ref.insp = paste("not found:", paste(tags, collapse="."))
   }
