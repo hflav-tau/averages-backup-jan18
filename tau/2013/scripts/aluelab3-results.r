@@ -676,18 +676,20 @@ aluelab.results = function(args) {
       rc = alurep.precision.order(c(val, err))
       precision = rc[1]
       order = rc[2]
+      val.err = alurep.tex.val.err.prec.ord(val, err, precision, order)
       val.str = alurep.tex.val.prec.ord(val, precision, order)
       err.str = alurep.tex.val.prec.ord(err, precision, order)
     } else {
       fmt = specialFormat[name]
-      val.str =  sprintf(fmt, val)
-      err.str =  sprintf(fmt, err)
+      val.str = sprintf(fmt, val)
+      err.str = sprintf(fmt, err)
+      val.err = paste(val.str, "\\pm", err.str)
     }
     if (err == 0) err.str = "0"
     gammaname = alurep.gamma.texlabel(name)
     if (is.na(texdescr)) {texdescr = ""}
     rc = paste("\\htquantdef{", name, "}{",
-      gammaname, "}{", texdescr, "}{", val.str, "}{", err.str, "}%", sep="")
+      gammaname, "}{", texdescr, "}{", val.err, "}{", val.str, "}{", err.str, "}%", sep="")
   },
     quant.all.sorted,
     quant$vals(quant.all.sorted),

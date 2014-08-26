@@ -157,7 +157,6 @@ alurep.get.meas.val = function(meas) {
   }
   rc = paste(attr(meas$value.orig, "input"), stat.txt, syst.txt)
   rc = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", rc, ignore.case=TRUE)
-  rc = paste("\\(", rc, "\\)", sep="")
   return(rc)
 }
 
@@ -212,9 +211,9 @@ alurep.tex.val.auto = function(vals, width=0, perc=FALSE) {
     rc = sprintf(paste("%", width, ".", precision, "f", sep=""), vals)
   } else if (perc && order == -2) {
     ##--- will act depending on  alurep.precision.order()
-    rc = sprintf(paste("%", width, ".", precision, "f%%", sep=""), vals)
+    rc = sprintf(paste("%", width, ".", precision, "f\\%%", sep=""), vals)
   } else {
-    rc = sprintf(paste("\\ensuremath{%", width, ".", precision, "f\\cdot 10^{%d}}", sep=""), vals, order)
+    rc = sprintf(paste("%", width, ".", precision, "f\\cdot 10^{%d}", sep=""), vals, order)
   }
   return(rc)
 }
@@ -231,7 +230,7 @@ alurep.tex.val.prec.ord = function(quant.val, precision, order, width=0, perc=FA
     ##--- will act depending on  alurep.precision.order()
     rc = sprintf(paste("%", width, ".", precision, "f%%", sep=""), quant.val)
   } else {
-    rc = sprintf(paste("\\ensuremath{%", width, ".", precision, "f\\cdot 10^{%d}}", sep=""), quant.val, order)
+    rc = sprintf(paste("%", width, ".", precision, "f\\cdot 10^{%d}", sep=""), quant.val, order)
   }
   return(rc)
 }
@@ -244,10 +243,10 @@ alurep.tex.val.err.prec.ord = function(quant.val, quant.err, precision, order, w
   quant.val = quant.val/10^order
   quant.err = quant.err/10^order
   if (order == 0) {
-    rc = sprintf(paste("\\(%", width, ".", precision, "f \\pm %", width, ".", precision, "f\\)", sep=""),
+    rc = sprintf(paste("%", width, ".", precision, "f \\pm %", width, ".", precision, "f", sep=""),
       quant.val, quant.err)
   } else {
-    rc = sprintf(paste("\\((%", width, ".", precision, "f \\pm %", width, ".", precision, "f) \\cdot 10^{%d}\\)", sep=""),
+    rc = sprintf(paste("(%", width, ".", precision, "f \\pm %", width, ".", precision, "f) \\cdot 10^{%d}", sep=""),
       quant.val, quant.err, order)
   }
   return(rc)
@@ -285,9 +284,9 @@ alurep.tex.meas.val = function(meas, precision, order, width=0, perc=FALSE) {
   }
   str.meas = paste(str.val, str.stat, str.syst)
   if (order == 0) {
-    rc = paste("\\(", str.meas, "\\)", sep="")
+    rc = paste("", str.meas, "", sep="")
   } else {
-    rc = sprintf(paste("\\((", str.meas, ") \\cdot 10^{%d}\\) ", sep=""), order)
+    rc = sprintf(paste("(", str.meas, ") \\cdot 10^{%d} ", sep=""), order)
   }
   return(rc)
 }
