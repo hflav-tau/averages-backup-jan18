@@ -378,7 +378,7 @@ get.tex.table = function(quant.names, with.meas=TRUE) {
     rc = paste(
       quant.descr, "&",
       alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order),
-      "& HFAG & Winter 2012 fit"
+      "& \\hfagFitLabel"
       )
 
     if (with.meas) {
