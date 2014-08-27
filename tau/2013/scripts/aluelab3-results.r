@@ -208,14 +208,14 @@ aluelab.results = function(args) {
   ## add measurements to compute universality improved Be
   ##
 
-  ##--- from PDG 2012,  +++upd14
+  ##--- from PDG 2013,  +++upd14
   quant$quant.add.single("m_e",0.510998928, 0.000000011)
   quant$quant.add.single("m_mu", 105.6583715, 0.0000035)
   quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
   ##--- m_tau HFAG 2009
   ## quant$quant.add.single("m_tau", 1776.7673082, 0.1507259)
-  ##--- m_tau PDG 2012 +++upd14
+  ##--- m_tau PDG 2013 +++upd14
   quant$quant.add.single("m_tau", 1776.82, 0.16)
 
   ##+++upd14
@@ -224,7 +224,7 @@ aluelab.results = function(args) {
   quant$quant.add.single("m_K", 493.677, 0.016)
   quant$quant.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
-  ##--- from PDG 2012, 2011 +++upd14
+  ##--- from PDG 2013, 2011 +++upd14
   quant$quant.add.single("m_W", 80.399385e3, 0.015*1e3)
   quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
 
@@ -337,7 +337,7 @@ aluelab.results = function(args) {
   ##
   ## arXiv:0710.3181v1 [nucl-th], 10.1103/PhysRevC.77.025501
   ## I.S.Towner, J.C.Hardy, An improved calculation of the isospin-symmetry-breaking corrections to superallowed Fermi beta decay
-  ## also PDG 2012 review
+  ## also PDG 2013 review
   ##
   Vud.val = 0.97425
   Vud.err = 0.00022
@@ -360,7 +360,7 @@ aluelab.results = function(args) {
   ## E. Gamiz et al., Nucl.Phys.Proc.Suppl.169:85-89,2007, arXiv:hep-ph/0612154v1
   ##
 
-  ##--- s quark mass, PDG2012 +++upd14
+  ##--- s quark mass, PDG2013 +++upd14
   quant$quant.add.single("m_s", 93.5, 2.5)
   ##--- PDG 2011
   ## quant$quant.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
@@ -451,7 +451,7 @@ aluelab.results = function(args) {
 
   ##
   ## gtau/gmu using tau -> hnu / h -> mu nu +++upd14
-  ## PDG 2012
+  ## PDG 2013
   ##
   quant$quant.add.single("pitoENu", 1.230e-4, 0.004e-4)
   quant$quant.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
