@@ -628,6 +628,9 @@ get.tex.constraint.equations = function() {
   constr.right = gsub("BRA_Kzbar_KL_KET", "\\Gamma_{<\\bar{K}^0|K_L>}", constr.right, fixed=TRUE)
   constr.right = gsub("BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET", "R_{0\\bar{0}SS/LL}", constr.right, fixed=TRUE)
 
+  constr.right = gsub("BR_f1_2pizpippim" "\\Gamma_{f_1\\to\\pi^+\\pi^-2\pi^0}", constr.right, fixed=TRUE)
+  constr.right = gsub("BR_f1_2pip2pim" "\\Gamma_{f_1\\to2\\pi^+2\\pi^-}", constr.right, fixed=TRUE)
+
   return(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}", sep="", collapse="\n"))
 }
 
