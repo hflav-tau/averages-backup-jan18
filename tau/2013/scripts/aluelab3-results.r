@@ -687,8 +687,8 @@ aluelab.results = function(args) {
     }
     if (is.na(specialFormat[name])) {
       rc = alurep.precision.order(c(val, err))
-      precision = rc[1]
-      order = rc[2]
+      precision = rc$precision
+      order = rc$order
       val.err = alurep.tex.val.err.prec.ord(val, err, precision, order)
       val.str = alurep.tex.val.prec.ord(val, precision, order)
       err.str = alurep.tex.val.prec.ord(err, precision, order)

@@ -67,17 +67,12 @@ alurep.gamma.num.id = function(gamma.name) {
 ##
 ## return tex label such as \Gamma_1 or \frac{\Gamma_1}{\Gamma_2}
 ##
-alurep.gamma.texlabel.nv = function(gamma.name) {
-  if (gamma.name == "GammaAll") return("1")
-  if (regexpr("^Gamma\\d+(|by\\d+)$", gamma.name, perl=TRUE) == -1) return("")
-  str = str_match(gamma.name, "Gamma(\\d+)(by(\\d+))?")[1,]
-  if (is.na(str[1])) return(gamma.name)
-  if (str[4] == "") {
-    return(paste("\\Gamma_{", str[2], "}", sep=""))
-  }
-  return(paste("\\frac{\\Gamma_{", str[2], "}}{\\Gamma_{", str[4], "}}", sep=""))
+alurep.gamma.texlabel = function(str) {
+  str = gsub("GammaAll", "\\\\Gamma_{\\\\text{All}}", str, perl=TRUE)
+  str = gsub("Gamma(\\d+)by(\\d+)", "\\\\frac{\\\\Gamma_{\\1}}{\\\\Gamma_{\\2}}", str, perl=TRUE)
+  str = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", str, perl=TRUE)
+  return(str)
 }
-alurep.gamma.texlabel = Vectorize(alurep.gamma.texlabel.nv)
 
 ##
 ## get tex description of a quantity in alucomb2 structure
@@ -94,13 +89,19 @@ alurep.get.texdescr.nv = function(descr, texdescr) {
       texdescr = ""
       break
     }
+
+    ##--- transform text description into TeX
     descr = sub("\\s+/\\s+G\\(total\\)\\s*", "", descr)
     descr = gsub("ex[.]\\s+K\\(S\\)0 --> pi- pi[+]", "ex. K0", descr, perl=TRUE)
     descr = gsub("\\s*\\(``\\d-prong''\\)", "", descr, perl=TRUE)
     descr = gsub("-->", "\\to", descr, fixed=TRUE)
     descr = gsub("([+-])", "^\\1", descr)
     descr = gsub("\\^-prong", "\\\\text{-prong}", descr)
+
+    ##--- convert <decay mode> into \BRF{\tau}{<decay mode>}
     descr = gsub("G(\\(((?:[^()]++|(?1))+)*+\\))", "\\\\BRF{tau^-}{\\2}", descr, perl=TRUE)
+
+    ##--- transform text description into TeX
     descr = gsub(">=", "\\\\ge{}", descr)
     descr = gsub("nubar\\((mu|tau|e)\\)", "\\\\bar{nu}_\\1", descr)
     descr = gsub("nu\\((mu|tau|e)\\)", "nu_\\1", descr)
@@ -114,14 +115,17 @@ alurep.get.texdescr.nv = function(descr, texdescr) {
     descr = gsub("\\s+\\(ex[.]", "\\\\;(\\\\text{ex.}", descr)
     descr = gsub("(neutrals)", "\\\\text{\\1}", descr)
     descr = gsub("(particles|strange|total)", "\\\\text{\\1}", descr)
-    descr = gsub("(.*\\S)\\s*/\\s*(\\S.*)$", "\\\\frac{\\1}{\\2}", descr, perl=TRUE)
+
+    ##--- transform division of BR into a TeX fraction
+    descr = gsub("^(.*\\S)\\s*/\\s*(\\S.*)$", "\\\\frac{\\1}{\\2}", descr, perl=TRUE)
+
     texdescr = descr
     break
   }
 
   return(texdescr)
 }
-alurep.get.texdescr = Vectorize(alurep.get.texdescr.nv)
+alurep.get.texdescr = Vectorize(alurep.get.texdescr.nv, USE.NAMES=TRUE)
 
 ##
 ## get tex description of a quantity in alucomb2 structure
@@ -129,6 +133,8 @@ alurep.get.texdescr = Vectorize(alurep.get.texdescr.nv)
 alurep.tex.quant.descr = function(quant) {
   alurep.get.texdescr.nv(quant$descr, quant$texdescr)
 }
+
+
 
 ##--- return latex command def with specified multi-line body
 alurep.tex.cmd = function(cmd, body) {
@@ -240,59 +246,50 @@ alurep.precision.order = function(vals, perc=FALSE, signif=4, signif.min=2) {
   }
   else {
   }
-  return(c(precision=precision, order=order.max))
+  return(list(precision=precision, order=order.max))
+}
+
+##
+## return numeric value formatted val +- stat in a string
+## according to the specified precision and power-of-ten order
+##
+alurep.tex.val.prec.ord = function(val, precision, order, width=0, perc=FALSE) {
+  val = val/10^order
+  if (order == 0) {
+    rc = sprintf(paste("%", width, ".", precision, "f", sep=""), val)
+  } else if (perc && order == -2) {
+    ##--- will act depending on  alurep.precision.order()
+    rc = sprintf(paste("%", width, ".", precision, "f\\%%", sep=""), val)
+  } else {
+    rc = sprintf(paste("%", width, ".", precision, "f\\cdot 10^{%d}", sep=""), val, order)
+  }
+  return(rc)
 }
 
 ##
 ## return numeric value formatted val +- stat in a string
 ## use automatic precision and order of magnitude
 ##
-alurep.tex.val.auto = function(vals, width=0, perc=FALSE) {
-  rc = alurep.precision.order(vals, perc)
-  precision = rc[1]
-  order = rc[2]
-  vals = vals / 10^order
-  if (order == 0) {
-    rc = sprintf(paste("%", width, ".", precision, "f", sep=""), vals)
-  } else if (perc && order == -2) {
-    ##--- will act depending on  alurep.precision.order()
-    rc = sprintf(paste("%", width, ".", precision, "f\\%%", sep=""), vals)
-  } else {
-    rc = sprintf(paste("%", width, ".", precision, "f\\cdot 10^{%d}", sep=""), vals, order)
-  }
-  return(rc)
-}
-
-##
-## return numeric value formatted val +- stat in a string
-## according to the specified precision and power-of-ten order
-##
-alurep.tex.val.prec.ord = function(quant.val, precision, order, width=0, perc=FALSE) {
-  quant.val = quant.val/10^order
-  if (order == 0) {
-    rc = sprintf(paste("%", width, ".", precision, "f", sep=""), quant.val)
-  } else if (perc && order == -2) {
-    ##--- will act depending on  alurep.precision.order()
-    rc = sprintf(paste("%", width, ".", precision, "f%%", sep=""), quant.val)
-  } else {
-    rc = sprintf(paste("%", width, ".", precision, "f\\cdot 10^{%d}", sep=""), quant.val, order)
-  }
-  return(rc)
+alurep.tex.val.auto = function(val, width=0, perc=FALSE) {
+  rc = alurep.precision.order(val, perc=perc)
+  precision = rc$precision
+  order = rc$order
+  return(alurep.tex.val.prec.ord(val, precision, order, width=width, perc=perc))
 }
 
 ##
 ## return quantity formatted val +- stat in a string
 ## according to the specified precision and power-of-ten order
 ##
-alurep.tex.val.err.prec.ord = function(quant.val, quant.err, precision, order, width=0, perc=FALSE) {
-  quant.val = quant.val/10^order
-  quant.err = quant.err/10^order
+alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc=FALSE) {
+  val = val/10^order
+  err = err/10^order
   if (order == 0) {
     rc = sprintf(paste("%", width, ".", precision, "f \\pm %", width, ".", precision, "f", sep=""),
-      quant.val, quant.err)
+      val, err)
   } else {
     rc = sprintf(paste("(%", width, ".", precision, "f \\pm %", width, ".", precision, "f) \\cdot 10^{%d}", sep=""),
-      quant.val, quant.err, order)
+      val, err, order)
   }
   return(paste("\\ensuremath{", rc, "}", sep=""))
 }
@@ -301,11 +298,11 @@ alurep.tex.val.err.prec.ord = function(quant.val, quant.err, precision, order, w
 ## return quantity formatted val +- stat in a string
 ## according to the self-determined optimal precision and power-of-ten order
 ##
-alurep.tex.val.err.prec.ord.auto = function(quant.val, quant.err, width=0, perc=FALSE) {
-  rc = alurep.precision.order(c(quant.val, quant.err), perc)
-  precision = rc[1]
-  order = rc[2]
-  return(alurep.tex.val.err.prec.ord(quant.val, quant.err, precision, order, width, perc))
+alurep.tex.val.err.prec.ord.auto = function(val, err, width=0, perc=FALSE) {
+  rc = alurep.precision.order(c(val, err), perc=perc)
+  precision = rc$precision
+  order = rc$order
+  return(alurep.tex.val.err.prec.ord(val, err, precision, order, width=width, perc=perc))
 }
 
 ##
@@ -350,7 +347,7 @@ alurep.meas.quant = function(quant.name, delta) {
 ##
 alurep.precision.order.meas = function(meas, perc=FALSE) {
   vals = c(meas$value.orig, meas$stat.p, meas$stat.n, meas$syst.p, meas$syst.n)
-  return(alurep.precision.order(vals, perc))
+  return(alurep.precision.order(vals, perc=perc))
 }
 
 ##
@@ -358,22 +355,24 @@ alurep.precision.order.meas = function(meas, perc=FALSE) {
 ## according to the specified precision and power-of-ten order
 ##
 alurep.tex.meas.val.auto = function(meas, width=0, perc=FALSE) {
-  rc = alurep.precision.order.meas(meas, perc)
-  precision = rc[1]
-  order = rc[2]
-  return(alurep.tex.meas.val(meas, precision, order, width, perc))
+  rc = alurep.precision.order.meas(meas, perc=perc)
+  precision = rc$precision
+  order = rc$order
+  return(alurep.tex.meas.val(meas, precision, order, width, perc=perc))
 }
 
 ##
 ## get all measurements related to a quantity
 ## compute appropriate precision and order of magnitude
 ##
-alurep.precision.order.quant = function(quant.name, perc=FALSE) {
-  meas.names = alurep.meas.quant(quant.name, delta)
-  vals = unlist(lapply(measurements[meas.names], function(m)
-    c(m$value.orig, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
-  vals = c(vals, quant.val[quant.name], quant.err[quant.name])
-  return(alurep.precision.order(vals, perc))
+alurep.precision.order.quant = function(quant.name, perc=FALSE, with.meas=FALSE) {
+  vals = c(quant.val[quant.name], quant.err[quant.name])
+  if (with.meas) {
+    meas.names = alurep.meas.quant(quant.name, delta)
+    meas.vals = unlist(lapply(measurements[meas.names], function(m) c(m$value.orig, m$stat.p, m$stat.n, m$syst.p, m$syst.n)))
+    vals = c(vals, meas.vals)
+  }
+  return(alurep.precision.order(vals, perc=perc))
 }
 
 ##
@@ -405,23 +404,49 @@ alurep.subst.params = function(str) {
 ##
 ## get left and right elements of a constraint equation as TeX expressions
 ##
-alurep.tex.constraint = function(str) {
-  rc = str_match(unlist(str), "-([[:alnum:]]+)\\s+[+]\\s+(.*\\S)\\s*$")
-  constr.left = rc[,2]
-  constr.right = rc[,3]
-  constr.left = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", constr.left, perl=TRUE)
-  constr.left = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.left, fixed=TRUE)
-  constr.right = sub("\\s*[+]\\s*", " + ", constr.right, perl=TRUE)
-  constr.right = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", constr.right, perl=TRUE)
-  constr.right = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.right, fixed=TRUE)
-
+alurep.tex.constraint.zeroval = function(constr.str) {
+  ##--- replace "0 = -x + y" into "x = y"
+  rc = str_match(unlist(constr.str), "-([[:alnum:]]+)\\s+[+]\\s+(.*\\S)\\s*$")
+  constr.left = ifelse(!is.na(rc[,2]), rc[,2], "")
+  constr.right = ifelse(!is.na(rc[,3]), rc[,3], "")
   ##--- remove outer braces
   constr.right = gsub("^\\s*(\\(((?:[^()]++|(?1))+)*+\\))\\s*$", "\\2", constr.right, perl=TRUE)
-  ##--- split long eqs
-  constr.right = gsub("(([^+]+[+*]){4}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
 
+  ##--- force GammaXbyY constraint to be GammaX/GammaY
+  constr.right = ifelse(regexpr("^Gamma(\\d+)by(\\d+)$", constr.left, perl=TRUE) != -1, constr.left, constr.right)
+
+  ##--- convert Gamma# notation for TeX
+  constr.left = alurep.gamma.texlabel(constr.left)
+  constr.right = alurep.gamma.texlabel(constr.right)
+  return(list(left=constr.left, right=constr.right))
+}
+alurep.tex.constraint.nonzeroval = function(constr.val, constr.str) {
+  constr.left = as.character(constr.val)
+  constr.right = constr.str
+  ##--- convert Gamma# notation for TeX
+  constr.right = alurep.gamma.texlabel(constr.right)
+  return(list(left=constr.left, right=constr.right))
+}
+alurep.tex.constraint = function(constr.val, constr.str) {
+  sel.zero = which(constr.val == 0)
+  sel.nonzero = which(constr.val != 0)
+  rc.zero = alurep.tex.constraint.zeroval(constr.str[sel.zero])
+  rc.nonzero = alurep.tex.constraint.nonzeroval(constr.val[sel.nonzero], constr.str[sel.nonzero])
+
+  constr.left = character(0)
+  constr.right = character(0)
+  constr.left[c(sel.zero, sel.nonzero)] = c(rc.zero$left, rc.nonzero$left)
+  constr.right[c(sel.zero, sel.nonzero)] = c(rc.zero$right, rc.nonzero$right)
+  names(constr.left) = names(constr.val)
+  names(constr.right) = names(constr.val)
+  
+  ##--- split long eqs
+  constr.right.split = gsub("(([^+]+[+*]){4}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
+  
   constr.right = gsub("*", "\\cdot{}", constr.right, fixed=TRUE)
   constr.right = alurep.subst.params(constr.right)
-
-  return(list(left = constr.left, right=constr.right))
+  constr.right.split = gsub("*", "\\cdot{}", constr.right.split, fixed=TRUE)
+  constr.right.split = alurep.subst.params(constr.right.split)
+  
+  return(list(left = constr.left, right=constr.right, right.split=constr.right.split))
 }
