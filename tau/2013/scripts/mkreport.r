@@ -337,16 +337,12 @@ get.text.meas.defs = function() {
   meas.used = measurements[combination$measurements]
   meas.used.names = names(meas.used)
   meas.used.names = meas.used.names[order(meas.used.names)]
-  
+
   rc = mapply(function(meas.name, meas) {
     exp = meas$tags[1]
     ref = get.reference(meas$tags)
     type = meas$tags[3]
     quant = meas$quant
-    ## rc = alurep.precision.order.meas(meas)
-    ## precision = rc[1]
-    ## order = rc[2]
-    ## value = alurep.tex.meas.val(meas, precision, order)
     rc2 = alurep.tex.meas.val.card.fields(meas)
     paste("\\htmeasdef{", meas.name, "}{",
           quant, "}{", exp, "}{", ref, "}{",
@@ -363,21 +359,22 @@ get.text.meas.defs = function() {
 ## - quantity description, HFAG average
 ## - list of experimental measurements, with reference
 ##
-get.tex.table = function(quant.names, with.meas=TRUE) {
+get.tex.table = function(quant.names, perc=FALSE, with.meas=TRUE) {
   quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(function(quant.name, quant) {
-    rc = alurep.precision.order.quant(quant.name)
-    precision = rc[1]
-    order = rc[2]
+    rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=with.meas)
+    precision = rc$precision
+    order = rc$order
 
-    quant.descr = alurep.tex.quant.descr(quant)
-    quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
+    ##--- TeX expr for quantity definition
+    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
-    
+
+    ##--- quantity value according to precision / order found for quantity and its measurements
     rc = paste(
       quant.descr, "&",
-      alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order),
+      alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order, perc=FALSE),
       "& \\hfagFitLabel"
       )
 
@@ -415,7 +412,7 @@ get.tex.table.simple = function(quant.names, precision, order) {
   rc = mapply(function(quant.name, quant) {
     quant.descr = alurep.tex.quant.descr(quant)
     quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
-    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")    
+    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
     rc = paste(
       quant.descr, "&",
        alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order)
@@ -438,33 +435,17 @@ get.tex.meas.by.collab = function() {
 }
 
 ##
-## output latex cmds with tex description for all quantities
-## +++obsolete
-##
-get.tex.def.quant.descr = function() {
-  toTex = TrStr.num2tex$new()
-  rc = mapply(function(quant.name, quant) {
-    quant.texdescr = paste("\\ensuremath{", alurep.tex.quant.descr(quant), "}", sep="")
-    quant.texnam = paste("qdescr", toTex$trN(quant.name), sep="")
-    rc = alurep.tex.cmd.short(quant.texnam, quant.texdescr)
-    return(rc)
-  },
-    combination$combine, combination$quantities[combination$combine])
-  return(paste(rc, collapse=""))
-}
-
-##
 ## return table body with measurements by reference
 ##
 get.tex.meas.by.ref = function() {
   meas.paper = list()
   rc = mapply(function(meas.name, meas) {
     paper = paste(meas$tags[-2], collapse=".")
-    
+
     quant.name = meas$quant
     quant = combination$quantities[[quant.name]]
-    quant.descr = alurep.tex.quant.descr(quant)
-    quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
+
+    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
     quant.descr = paste("\\begin{ensuredisplaymath}\n\\;\\;", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
     if (is.null(meas.paper[[paper]])) {
@@ -502,7 +483,7 @@ get.tex.meas.by.ref = function() {
 ## return latex code with the base node correlation coefficients
 ##
 get.tex.base.nodes.corr = function() {
-  tex.all.tau.br.corr = NULL  
+  tex.all.tau.br.corr = NULL
   ##--- names of all quantities
   quant.names = combination$combine
   ##--- get quantity names defined via constraint
@@ -546,7 +527,7 @@ get.tex.base.nodes.corr = function() {
     "\\fi",
     "\\end{center}",
     "\\ifhevea\\end{table}\\fi")
-  
+
   ##--- correlation of base nodes in percent
   quant.corr.base = quant.corr[quant.names, quant.names] * 100
 
@@ -582,32 +563,60 @@ get.tex.base.nodes.corr = function() {
   return(paste(tex.all.tau.br.corr, collapse="\n"))
 }
 
+##--- get all constraints names that were used in the fit
+get.constraints.used.names = function() {
+  constr.used = combination$constr.all.lin | combination$constr.all.nl
+  constr.used.names = names(constr.used[constr.used])
+  constr.order = order(alurep.gamma.num.id(constr.used.names))
+  constr.used.names = constr.used.names[constr.order]
+  return(constr.used.names)
+}
+
+##--- get all used constraint equations
+get.tex.constraints.used = function() {
+  constr.used.names = get.constraints.used.names()
+  comb.str = combination$constr.all.str.expr[constr.used.names]
+  comb.val = combination$constr.all.val[constr.used.names]
+  comb.nl = intersect(constr.used.names, names(combination$constr.nl.str.expr))
+  if (length(comb.nl) > 0) {
+    comb.str[comb.nl] = combination$constr.nl.str.expr[comb.nl]
+    comb.val[comb.nl] = combination$constr.nl.str.val[comb.nl]
+  }
+  return(alurep.tex.constraint(unlist(comb.val), unlist(comb.str)))
+}
+
 ##
 ## return latex code with constraint equations
+## (only constraints not corresponding to ratio of BRs)
+##
+get.tex.constraint.defs = function() {
+  rc = get.tex.constraints.used()
+  return(paste("\\htconstrdef{", names(rc$left), "}{", rc$left, "}{", rc$right, "}{", rc$right.split, "}%", sep="", collapse="\n"))
+}
+
+##
+## return latex code with constraint equations
+## (only constraints not corresponding to ratio of BRs)
 ##
 get.tex.constraint.equations = function() {
-  constr.used = combination$constr.all.lin | combination$constr.all.nl
-  constr.used.names = names(combination$constr.all.str.expr[constr.used])
-  constr.order = order(alurep.gamma.num.id(constr.used.names))
-  comb.str = combination$constr.all.str.expr[constr.used.names[constr.order]]
+  rc = get.tex.constraints.used()
+  constr.used.names = names(rc$left)
 
+  constr.used.names = get.constraints.used.names()
+  
   ##
   ## selection of constraints related to BRs that are ratios of 2 BRs
   ## in the report, these constraints are listed in the definition of the BRs not in the list of constraints
   ## also select the dummy constraint to compute the Unitarity discrepancy
   ##
-  sel = grepl("Gamma\\d+by\\d+.*|Unitarity", names(comb.str), perl=TRUE)
+  sel = grepl("Gamma\\d+by\\d+.*|Unitarity", constr.used.names, perl=TRUE)
+  constr.names = constr.used.names[!sel]
 
-  ##--- select only constraints not already illustrated in the BR listing
-  comb.str = comb.str[!sel]
-
-  ##--- restore non-linear constraint expressions as input from the cards
-  comb.str.nl = intersect(names(comb.str), names(combination$constr.nl.str.expr))
-  comb.str[comb.str.nl] = combination$constr.nl.str.expr[comb.str.nl]
-
-  rc = alurep.tex.constraint(unlist(comb.str))
-  
-  return(paste("\\begin{align*}\n", rc$left, " ={}& ", rc$right, "\n\\end{align*}", sep="", collapse="\n"))
+  return(paste("\\begin{align*}\n",
+               "\\htuse{", constr.names, ".left}",
+               " ={}& ",
+               "\\htuse{", constr.names, ".right.split}",
+               "\n\\end{align*}", sep="", collapse="\n"))
 }
 
 ##
@@ -649,19 +658,6 @@ mkreport = function(fname) {
   cat("file '", fname, "', initial defs\n", sep="")
 
   ##
-  ## write tex macro containing BR fit data
-  ##
-  quant.names = combination$combine
-  quant.names = setdiff(quant.names, "GammaAll")
-
-  ##
-  ## define quantities descriptions
-  ##
-  ## rc = get.tex.def.quant.descr()
-  ## cat(rc, file=fname, append=TRUE)
-  ## cat("file '", fname, "', quantities description defs\n", sep="")
-  
-  ##
   ## define measurements
   ##
   rc = get.text.meas.defs()
@@ -672,6 +668,8 @@ mkreport = function(fname) {
   ##
   ## write tex macro containing BR fit data
   ##
+  quant.names = combination$combine
+  quant.names = setdiff(quant.names, "GammaAll")
   tex.all.tau.br.val = alurep.tex.cmd("HfagTauBrVal", get.tex.table(quant.names))
   cat(tex.all.tau.br.val, file=fname, append=TRUE)
   cat("file '", fname, "', BR val table content\n", sep="")
@@ -718,6 +716,14 @@ mkreport = function(fname) {
   tex.all.tau.br.corr = alurep.tex.cmd("HfagTauBrCorr", get.tex.base.nodes.corr())
   cat(tex.all.tau.br.corr, file=fname, append=TRUE)
   cat("file '", fname, "', BR correlations table content\n", sep="")
+
+  ##
+  ## write TeX definitions for all constraint equations
+  ##
+  tex.constr.defs = get.tex.constraint.defs()
+  cat(tex.constr.defs, file=fname, append=TRUE)
+  cat("\n", file=fname, append=TRUE)
+  cat("file '", fname, "', constraint definitions\n", sep="")
   
   ##
   ## write text macro containing constraint equations
@@ -729,7 +735,7 @@ mkreport = function(fname) {
   ##
   ## measurements by collaboration
   ##
-  tex.num.meas.per.collab = get.tex.meas.by.collab()  
+  tex.num.meas.per.collab = get.tex.meas.by.collab()
   cat(tex.num.meas.per.collab, file=fname, append=TRUE)
   cat("file '", fname, "', measurements per collaboration\n", sep="")
 }
