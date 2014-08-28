@@ -590,48 +590,24 @@ get.tex.constraint.equations = function() {
   constr.used.names = names(combination$constr.all.str.expr[constr.used])
   constr.order = order(alurep.gamma.num.id(constr.used.names))
   comb.str = combination$constr.all.str.expr[constr.used.names[constr.order]]
-  comb.str = comb.str[grep("Gamma\\d+by\\d+.*|Unitarity", names(comb.str), perl=TRUE, invert=TRUE)]
-  comb.str.nl = intersect(names(comb.str), names(combination$constr.nl.str.expr))
 
+  ##
+  ## selection of constraints related to BRs that are ratios of 2 BRs
+  ## in the report, these constraints are listed in the definition of the BRs not in the list of constraints
+  ## also select the dummy constraint to compute the Unitarity discrepancy
+  ##
+  sel = grepl("Gamma\\d+by\\d+.*|Unitarity", names(comb.str), perl=TRUE)
+
+  ##--- select only constraints not already illustrated in the BR listing
+  comb.str = comb.str[!sel]
+
+  ##--- restore non-linear constraint expressions as input from the cards
+  comb.str.nl = intersect(names(comb.str), names(combination$constr.nl.str.expr))
   comb.str[comb.str.nl] = combination$constr.nl.str.expr[comb.str.nl]
 
-  rc = str_match(unlist(comb.str), "-([[:alnum:]]+)\\s+[+]\\s+(.*\\S)\\s*$")
-  constr.left = rc[,2]
-  constr.right = rc[,3]
-  constr.left = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", constr.left, perl=TRUE)
-  constr.left = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.left, fixed=TRUE)
-  constr.right = sub("\\s*[+]\\s*", " + ", constr.right, perl=TRUE)
-  constr.right = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", constr.right, perl=TRUE)
-  constr.right = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.right, fixed=TRUE)
-
-  ##--- remove outer braces
-  constr.right = gsub("^\\s*(\\(((?:[^()]++|(?1))+)*+\\))\\s*$", "\\2", constr.right, perl=TRUE)
-  ##--- split long eqs
-  constr.right = gsub("(([^+]+[+*]){4}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
-
-  constr.right = gsub("*", "\\cdot{}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_eta_2gam", "\\Gamma_{\\eta\\to\\gamma\\gamma}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_eta_neutral", "\\Gamma_{\\eta\\to\\text{neutral}}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_eta_3piz", "\\Gamma_{\\eta\\to3\\pi^0}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_eta_pimpippiz", "\\Gamma_{\\eta\\to\\pi^+\\pi^-\\pi^0}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_eta_charged", "\\Gamma_{\\eta\\to\\text{charged}}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_KS_2piz", "\\Gamma_{K_S\\to\\pi^0\\pi^0}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_KS_pimpip", "\\Gamma_{K_S\\to\\pi^+\\pi^-}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_om_pimpippiz", "\\Gamma_{\\omega\\to\\pi^+\\pi^-\\pi^0}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_om_pimpip", "\\Gamma_{\\omega\\to\\pi^+\\pi^-}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_om_pizgamma", "\\Gamma_{\\omega\\to\\pi^0\\gamma}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_phi_KmKp", "\\Gamma_{\\phi\\to K^+K^-}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_phi_KSKL", "\\Gamma_{\\phi\\to K_S K_L}", constr.right, fixed=TRUE)
-  constr.right = gsub("BRA_Kz_KS_KET", "\\Gamma_{<K^0|K_S>}", constr.right, fixed=TRUE)
-  constr.right = gsub("BRA_Kz_KL_KET", "\\Gamma_{<K^0|K_L>}", constr.right, fixed=TRUE)
-  constr.right = gsub("BRA_Kzbar_KS_KET", "\\Gamma_{<\\bar{K}^0|K_S>}", constr.right, fixed=TRUE)
-  constr.right = gsub("BRA_Kzbar_KL_KET", "\\Gamma_{<\\bar{K}^0|K_L>}", constr.right, fixed=TRUE)
-  constr.right = gsub("BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET", "R_{0\\bar{0}SS/LL}", constr.right, fixed=TRUE)
-
-  constr.right = gsub("BR_f1_2pizpippim" "\\Gamma_{f_1\\to\\pi^+\\pi^-2\pi^0}", constr.right, fixed=TRUE)
-  constr.right = gsub("BR_f1_2pip2pim" "\\Gamma_{f_1\\to2\\pi^+2\\pi^-}", constr.right, fixed=TRUE)
-
-  return(paste("\\begin{align*}\n", constr.left, "={}&", constr.right, "\n\\end{align*}", sep="", collapse="\n"))
+  rc = alurep.tex.constraint(unlist(comb.str))
+  
+  return(paste("\\begin{align*}\n", rc$left, " ={}& ", rc$right, "\n\\end{align*}", sep="", collapse="\n"))
 }
 
 ##
