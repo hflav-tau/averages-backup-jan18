@@ -74,11 +74,14 @@ END
 # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
 # Comment:
-# Paper reports: 2.65 ± 0.28 ± 0.27 e-4
-# In the cards we report Br(2pi- pi+ eta)*Br(eta->3pi0)
-# Number is taken from internal note 2328, line 233
-# X-check this number with reported Br, everything ok!
-# X-check: 8.62e-5/0.3256(PDG 2008!) = 2.6474e-4=2.65e-4
+# Paper reports:  2.54 ± 0.27 ± 0.25 e-04
+# Note:           2.65 ± 0.28 ± 0.27 e-04 ( CLARIFY! )   
+# Note reports (Br_tau*Br_eta): 8.62 +-0.27 +- 0.25 e-4                    
+# In the cards we report Br(2pi- pi+ eta)*Br(eta->3pi0)                   
+# Number is taken from internal note 2328, line 233                       
+# X-check this number with reported Br, everything ok!                    
+# X-check: 8.62e-5/0.3256(PDG 2008!) = 2.6474e-4=2.65e-4 (NOTE consistent)
+
 #
 BEGIN MEASUREMENT BaBar Gamma910 pub LEES 2012X
 
@@ -102,6 +105,16 @@ END
 #
 # Gamma911
 # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
+# 
+# Comment:                                                                   
+# Paper reports:  2.01 ± 0.34 ± 0.22 e-05
+# Note:           20.1 ± 3.4 ± 2.4 e-04 (last error different!)
+# Note reports (Br_tau*Br_eta): 4.56 ± 0.781 ± 0.55 e-05
+# In the cards we report Br(pi- 2pi+ eta)*Br(eta-> pi- pi+ pi0)                      
+# Number is taken from internal note 2328, line 268
+# X-check this number with reported Br, everything ok!                       
+# X-check: 4.56e-5/0.2273(PDG 2008) = 0.0002006 
+#
 #
 BEGIN MEASUREMENT BaBar Gamma911 pub LEES 2012X
 
