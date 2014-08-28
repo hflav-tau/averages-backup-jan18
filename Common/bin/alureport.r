@@ -375,3 +375,53 @@ alurep.precision.order.quant = function(quant.name, perc=FALSE) {
   vals = c(vals, quant.val[quant.name], quant.err[quant.name])
   return(alurep.precision.order(vals, perc))
 }
+
+##
+## substitute parameter labes with TeX printable names
+##
+alurep.subst.params = function(str) {
+  str = gsub("BR_eta_2gam", "\\Gamma_{\\eta\\to\\gamma\\gamma}", str, fixed=TRUE)
+  str = gsub("BR_eta_neutral", "\\Gamma_{\\eta\\to\\text{neutral}}", str, fixed=TRUE)
+  str = gsub("BR_eta_3piz", "\\Gamma_{\\eta\\to3\\pi^0}", str, fixed=TRUE)
+  str = gsub("BR_eta_pimpippiz", "\\Gamma_{\\eta\\to\\pi^+\\pi^-\\pi^0}", str, fixed=TRUE)
+  str = gsub("BR_eta_charged", "\\Gamma_{\\eta\\to\\text{charged}}", str, fixed=TRUE)
+  str = gsub("BR_KS_2piz", "\\Gamma_{K_S\\to\\pi^0\\pi^0}", str, fixed=TRUE)
+  str = gsub("BR_KS_pimpip", "\\Gamma_{K_S\\to\\pi^+\\pi^-}", str, fixed=TRUE)
+  str = gsub("BR_om_pimpippiz", "\\Gamma_{\\omega\\to\\pi^+\\pi^-\\pi^0}", str, fixed=TRUE)
+  str = gsub("BR_om_pimpip", "\\Gamma_{\\omega\\to\\pi^+\\pi^-}", str, fixed=TRUE)
+  str = gsub("BR_om_pizgamma", "\\Gamma_{\\omega\\to\\pi^0\\gamma}", str, fixed=TRUE)
+  str = gsub("BR_phi_KmKp", "\\Gamma_{\\phi\\to K^+K^-}", str, fixed=TRUE)
+  str = gsub("BR_phi_KSKL", "\\Gamma_{\\phi\\to K_S K_L}", str, fixed=TRUE)
+  str = gsub("BRA_Kz_KS_KET", "\\Gamma_{<K^0|K_S>}", str, fixed=TRUE)
+  str = gsub("BRA_Kz_KL_KET", "\\Gamma_{<K^0|K_L>}", str, fixed=TRUE)
+  str = gsub("BRA_Kzbar_KS_KET", "\\Gamma_{<\\bar{K}^0|K_S>}", str, fixed=TRUE)
+  str = gsub("BRA_Kzbar_KL_KET", "\\Gamma_{<\\bar{K}^0|K_L>}", str, fixed=TRUE)
+  str = gsub("BRA_KzKzbar_KLKL_KET_by_BRA_KzKzbar_KSKS_KET", "R_{0\\bar{0}SS/LL}", str, fixed=TRUE)
+
+  str = gsub("BR_f1_2pizpippim", "\\Gamma_{f_1\\to\\pi^+\\pi^-2\\pi^0}", str, fixed=TRUE)
+  str = gsub("BR_f1_2pip2pim", "\\Gamma_{f_1\\to2\\pi^+2\\pi^-}", str, fixed=TRUE)
+}
+
+##
+## get left and right elements of a constraint equation as TeX expressions
+##
+alurep.tex.constraint = function(str) {
+  rc = str_match(unlist(str), "-([[:alnum:]]+)\\s+[+]\\s+(.*\\S)\\s*$")
+  constr.left = rc[,2]
+  constr.right = rc[,3]
+  constr.left = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", constr.left, perl=TRUE)
+  constr.left = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.left, fixed=TRUE)
+  constr.right = sub("\\s*[+]\\s*", " + ", constr.right, perl=TRUE)
+  constr.right = gsub("Gamma(\\d+)", "\\\\Gamma_{\\1}", constr.right, perl=TRUE)
+  constr.right = gsub("GammaAll", "\\Gamma_{\\text{All}}", constr.right, fixed=TRUE)
+
+  ##--- remove outer braces
+  constr.right = gsub("^\\s*(\\(((?:[^()]++|(?1))+)*+\\))\\s*$", "\\2", constr.right, perl=TRUE)
+  ##--- split long eqs
+  constr.right = gsub("(([^+]+[+*]){4}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
+
+  constr.right = gsub("*", "\\cdot{}", constr.right, fixed=TRUE)
+  constr.right = alurep.subst.params(constr.right)
+
+  return(list(left = constr.left, right=constr.right))
+}
