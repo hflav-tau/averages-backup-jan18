@@ -138,12 +138,12 @@ alurep.tex.quant.descr = function(quant) {
 
 ##--- return latex command def with specified multi-line body
 alurep.tex.cmd = function(cmd, body) {
-  paste("\\newcommand{\\", cmd, "}{%\n", body, "%\n}\n", sep="")
+  paste("\\newcommand{\\", cmd, "}{%\n", body, "\n}%\n", sep="")
 }
 
 ##--- return latex command def with specified one-line body
 alurep.tex.cmd.short = function(cmd, body) {
-  paste("\\newcommand{\\", cmd, "}{", body, "\\xspace}\n", sep="")
+  paste("\\newcommand{\\", cmd, "}{", body, "\\xspace}%\n", sep="")
 }
 
 ##
