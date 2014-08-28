@@ -73,6 +73,13 @@ END
 # Gamma910
 # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
+# Comment:
+# Paper reports: 2.65 ± 0.28 ± 0.27 e-4
+# In the cards we report Br(2pi- pi+ eta)*Br(eta->3pi0)
+# Number is taken from internal note 2328, line 233
+# X-check this number with reported Br, everything ok!
+# X-check: 8.62e-5/0.3256(PDG 2008!) = 2.6474e-4=2.65e-4
+#
 BEGIN MEASUREMENT BaBar Gamma910 pub LEES 2012X
 
 VALUE 8.62e-5 +- 0.91e-5 +- 0.87e-5
