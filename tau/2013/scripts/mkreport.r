@@ -292,8 +292,8 @@ get.reference = function(tags) {
     "PERL.80" = "not found",
     "LEES.2012X" = "Lees:2012de",
     "LEES.2012Y" = "Lees:2012ks",
-    "1310.8503" = "Belous:2013dba",
-    "1402.5213" = "Ryu:2014vpc"
+    "Belous:2013dba" = "Belous:2013dba",
+    "Ryu:2014vpc" = "Ryu:2014vpc"
     )
 
   bib.conf.table = list(
@@ -333,7 +333,7 @@ get.tex.meas = function(meas, precision, order) {
 ##
 ## latex defs for all measurements
 ##
-get.text.meas.defs = function() {
+get.tex.meas.defs = function() {
   meas.used = measurements[combination$measurements]
   meas.used.names = names(meas.used)
   meas.used.names = meas.used.names[order(meas.used.names)]
@@ -440,43 +440,81 @@ get.tex.meas.by.collab = function() {
 get.tex.meas.by.ref = function() {
   meas.paper = list()
   rc = mapply(function(meas.name, meas) {
-    paper = paste(meas$tags[-2], collapse=".")
-
     quant.name = meas$quant
-    quant = combination$quantities[[quant.name]]
 
-    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
-    quant.descr = paste("\\begin{ensuredisplaymath}\n\\;\\;", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
-
-    if (is.null(meas.paper[[paper]])) {
-      meas.paper[[paper]] = list()
-      ref.txt = paste(meas$tags[-2], collapse=" ")
-      ref.txt = sub("BaBar", "\\\\babar", ref.txt, ignore.case=TRUE)
-      ref.txt = paste(ref.txt, paste("\\cite{", get.reference(meas$tags), "}", sep=""))
-      meas.paper[[paper]]$ref <<- ref.txt
-      meas.paper[[paper]]$meas <<- list()
+    pub.flag = (regexpr("^pub", meas$tags[3], ignore.case=TRUE) != -1)
+    if (pub.flag) {
+      pub = "pub"
+      cit = paste(meas$tags[-(1:3)], collapse=" ")
+    } else {
+      pub = ""
+      cit = paste(meas$tags[1], "prelim.", meas$tags[-(1:3)], sep=" ")
     }
-
-    index = 1
-    repeat {
-      if (is.null(meas.paper[[paper]]$meas[[quant.name]])) break
-      quant.name = sub("([.]\\d+)?$", paste(".", as.character(index), sep=""), quant.name)
-      index=index+1
-    }
-
-    meas.paper[[paper]]$meas[[quant.name]] <<- paste(quant.descr, "&", alurep.tex.meas.val.card(meas))
-    return(invisible(NULL))
+    expnt = meas$tags[1]
+    ref = get.reference(meas$tags)
+    
+    return(list(cit=cit, pub.flag=pub, expnt=expnt, ref=ref, quant=quant.name, meas=meas.name))
   }, combination$measurements, measurements[combination$measurements])
 
-  rc = sapply(meas.paper, function(x) {
-    meas.order = order(alurep.gamma.num.id(names(x$meas)))
-    rc = paste(
-      paste("\\multicolumn{2}{l}{", x$ref, "} \\\\", sep=""),
-      paste(unlist(x$meas[meas.order]), collapse=" \\\\\n"),
-      sep="\n")
+  ##--- convert to data.frame
+  rc = do.call(rbind.data.frame, apply(rc, 2, function(x) {as.data.frame(t(unlist(x)))}))
+
+  ##--- get citations grouped by experiment
+  expnt = unique(rc$expnt)
+  ##--- sort experiments alphabetically
+  expnt = expnt[order(expnt)]
+  cits = lapply(expnt, function(x) {
+    df = subset(rc, expnt == x & pub.flag == "pub")
+    cits = as.character(unique(df$cit))
+    cits = cits[order(cits)]
+    df = subset(rc, expnt == x & pub.flag != "pub")
+    cits.prelim = as.character(unique((df$cit)))
+    cits.prelim = cits.prelim[order(cits.prelim)]
+    return(c(cits, cits.prelim))
+  })
+  cits = unlist(cits, recursive = TRUE)
+  
+  meas.by.ref = lapply(cits, function(x) {
+    df = subset(rc, cit == x)
+    ##--- reorder measurements according to quantity
+    quant.order = order(alurep.gamma.num.id(df$quant))
+    df = df[quant.order,]
+
+    expnt = df$expnt[1]
+    if (df$pub.flag[1] == "pub") {
+      expnt = sub("^BaBar$", "\\\\babar", expnt, perl=TRUE, ignore.case=TRUE)
+      ref.tex = paste(df$cit[1], " (", expnt, ") \\cite{", df$ref[1], "}", sep="")
+    } else {
+      cit = df$cit[1]
+      cit = sub("^BaBar", "\\\\babar", cit, perl=TRUE, ignore.case=TRUE)
+      ref.tex = paste(cit, " \\cite{", df$ref[1], "}", sep="")
+    }
+
+    quant.descr = paste("\\htuse{", df$quant, ".gn}", " = ", "\\htuse{", df$quant, ".td}", sep="")
+    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}", sep="")
+
+    val.lines = paste(quant.descr, " & ", "\\htuse{", df$meas, "}", sep="")
+    val.tex = paste(val.lines, collapse="\n\\\\\n")
+
+    list(cit=x, ref.tex=ref.tex, val.tex=val.tex)
   })
 
-  return(rc)
+  meas.by.ref.defs = lapply(meas.by.ref, function(x) {
+    def.ref = paste("\\htdef{", x$cit, ".ref", "}{%\n", x$ref.tex, "}%", sep="")
+    def.meas = paste("\\htdef{", x$cit, ".meas", "}{%\n", x$val.tex, "}%", sep="")
+    paste(def.ref, def.meas, sep="\n")
+  })
+  meas.by.ref.defs.tex = paste(meas.by.ref.defs, collapse="\n")
+
+  meas.by.ref.tex = lapply(meas.by.ref, function(x) {
+    rc = paste(
+      "\\multicolumn{2}{l}{\\htuse{", x$cit, ".ref", "}} \\\\\n",
+      "\\htuse{", x$cit, ".meas", "}",
+      sep="")
+  })
+  meas.by.ref.tex = paste(meas.by.ref.tex, collapse=" \\\\\\hline\n")
+
+  list(defs=meas.by.ref.defs.tex, table=meas.by.ref.tex)
 }
 
 ##
@@ -660,7 +698,7 @@ mkreport = function(fname) {
   ##
   ## define measurements
   ##
-  rc = get.text.meas.defs()
+  rc = get.tex.meas.defs()
   cat(rc, file=fname, append=TRUE)
   cat("\n", file=fname, append=TRUE)
   cat("file '", fname, "', measurement description defs\n", sep="")
@@ -678,10 +716,14 @@ mkreport = function(fname) {
   ## write tex macro containing all measurements by reference
   ##
   rc = get.tex.meas.by.ref()
-  tex.meas.paper = alurep.tex.cmd("HfagTauMeasPaper", paste(rc, collapse=" \\\\\\hline\n"))
-  rm(rc)
+  cat(rc$defs, file=fname, append=TRUE)
+  cat("\n", file=fname, append=TRUE)
+  cat("file '", fname, "', BR meas by ref definitions\n", sep="")
+  ##
+  tex.meas.paper = alurep.tex.cmd("HfagTauMeasPaper", rc$table)
   cat(tex.meas.paper, file=fname, append=TRUE)
   cat("file '", fname, "', BR meas by ref table content\n", sep="")
+  rm(rc)
 
   ##
   ## write text macro containing all strange BR values and refs
