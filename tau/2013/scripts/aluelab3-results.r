@@ -698,7 +698,10 @@ aluelab.results = function(args) {
       err.str = sprintf(fmt, err)
       val.err = paste(val.str, "\\pm", err.str)
     }
-    if (err == 0) err.str = "0"
+    if (err == 0) {
+      err.str = "0"
+      val.err = val.str
+    }
     gammaname = alurep.gamma.texlabel(name)
     if (is.na(texdescr)) {texdescr = ""}
     rc = paste("\\htquantdef{", name, "}{",

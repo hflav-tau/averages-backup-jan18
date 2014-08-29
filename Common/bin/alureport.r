@@ -138,7 +138,7 @@ alurep.tex.quant.descr = function(quant) {
 
 ##--- return latex command def with specified multi-line body
 alurep.tex.cmd = function(cmd, body) {
-  paste("\\newcommand{\\", cmd, "}{%\n", body, "\n}%\n", sep="")
+  paste("\\newcommand{\\", cmd, "}{%\n", body, "}%\n", sep="")
 }
 
 ##--- return latex command def with specified one-line body
@@ -167,39 +167,29 @@ alurep.tex.meas.val.card.fields = function(meas) {
   }
   val.txt = attr(meas$value.orig, "input")
 
-  order = gsub("^[^e]+(|e[+]?([-])?0*(\\d+))$", "\\2\\3", c(val.txt, stat.txt, syst.txt), perl=TRUE)
-  order = ifelse(order == "", 0, as.numeric(order))
+  if (syst.txt == "\\pm 0") {
+    quant.tex = c(val.txt, stat.txt)
+  } else {
+    quant.tex = c(val.txt, stat.txt, syst.txt)
+  }
 
-  if(max(order) == -2) stop()
+  order = gsub("^[^e]+(|e[+]?([-])?0*(\\d+))$", "\\2\\3", quant.tex, perl=TRUE)
+  order = ifelse(order == "", 0, as.numeric(order))
+  
+  quant.tex = paste(quant.tex, collapse=" ")
+  if (max(order) == min(order)) {
+    if (max(order) != 0) {
+      quant.tex = gsub("(\\S+)e[+-]*\\d+", "\\1", quant.tex, perl=TRUE, ignore.case=TRUE)
+      quant.tex = paste("(", quant.tex, ") \\cdot 10^{", max(order), "}")
+    }
+  }
   
   val.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", val.txt, ignore.case=TRUE)
   stat.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", stat.txt, ignore.case=TRUE)
   syst.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", syst.txt, ignore.case=TRUE)
-  
-  if (max(order) == min(order)) {
-    if (max(order) == 0) {
-      if (syst.txt == "\\pm 0") {
-        quant = paste(val.tex, stat.tex)
-      } else {
-        quant = paste(val.tex, stat.tex, syst.tex)
-      }
-    } else {
-      if (syst.txt == "\\pm 0") {
-        rc = c(val.txt, stat.txt)
-      } else {
-        rc = c(val.txt, stat.txt, syst.txt)
-      }
-      quant = paste(gsub("^([^e]+)(|e[+]?([-])?0*(\\d+))$", "\\1", rc, perl=TRUE), collapse=" ")
-      quant = paste("(", quant, ") \\cdot 10^{", max(order), "}")
-    }
-  } else {
-    if (syst.txt == "\\pm 0") {
-      quant = paste(val.txt, stat.txt)
-    } else {
-      quant = paste(val.txt, stat.txt, syst.txt)
-    }
-  }
-  return(list(quant=quant, val=val.txt, stat=stat.txt, syst=syst.txt))
+  quant.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", quant.tex, ignore.case=TRUE)
+
+  return(list(quant=quant.tex, val=val.tex, stat=stat.tex, syst=syst.tex))
 }
 
 ##
