@@ -2,7 +2,7 @@
 # Gamma33 (PDG node = S035B43)
 # G(K(S)0 (particles)- nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma33 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma33 pub Ryu:2014vpc
 
 VALUE 9.15e-03 +-0.01e-03 +-0.15e-03
 
@@ -28,15 +28,15 @@ END
 #
 # Kbar0 result is 2x K(S) result 4.16e-03 +-0.01e-03 +-0.08e-03
 #
-BEGIN MEASUREMENT Belle Gamma35 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma35 pub Ryu:2014vpc
 
 VALUE 8.32e-03 +-0.02e-03 +-0.16e-03
 
-ERROR_CORR_WITH -0.230    Belle Gamma37 pub 1402.5213 # -0.230
-ERROR_CORR_WITH -0.132    Belle Gamma40 pub 1402.5213 # -0.132
-ERROR_CORR_WITH +0.023    Belle Gamma42 pub 1402.5213 # +0.023
-ERROR_CORR_WITH -0.019    Belle Gamma47 pub 1402.5213 # -0.019
-ERROR_CORR_WITH +0.004    Belle Gamma50 pub 1402.5213 # +0.004
+ERROR_CORR_WITH -0.230    Belle Gamma37 pub Ryu:2014vpc # -0.230
+ERROR_CORR_WITH -0.132    Belle Gamma40 pub Ryu:2014vpc # -0.132
+ERROR_CORR_WITH +0.023    Belle Gamma42 pub Ryu:2014vpc # +0.023
+ERROR_CORR_WITH -0.019    Belle Gamma47 pub Ryu:2014vpc # -0.019
+ERROR_CORR_WITH +0.004    Belle Gamma50 pub Ryu:2014vpc # +0.004
 
 # total systematic contr. for e-mu normalization: 0.1606%
 SYSTEMATICS
@@ -59,15 +59,15 @@ END
 #
 # K0 result is 2x K(S) result 7.40e-04 +-0.07e-04 +-0.27e-04
 #
-BEGIN MEASUREMENT Belle Gamma37 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma37 pub Ryu:2014vpc
 
 VALUE 14.8e-04 +-0.14e-04 +-0.54e-04
 
-ERROR_CORR_WITH -0.230    Belle Gamma35 pub 1402.5213 # -0.230
-ERROR_CORR_WITH +0.043    Belle Gamma40 pub 1402.5213 # +0.043 
-ERROR_CORR_WITH -0.215    Belle Gamma42 pub 1402.5213 # -0.215   
-ERROR_CORR_WITH -0.001    Belle Gamma47 pub 1402.5213 # -0.001
-ERROR_CORR_WITH +0.000    Belle Gamma50 pub 1402.5213 # +0.000 
+ERROR_CORR_WITH -0.230    Belle Gamma35 pub Ryu:2014vpc # -0.230
+ERROR_CORR_WITH +0.043    Belle Gamma40 pub Ryu:2014vpc # +0.043 
+ERROR_CORR_WITH -0.215    Belle Gamma42 pub Ryu:2014vpc # -0.215   
+ERROR_CORR_WITH -0.001    Belle Gamma47 pub Ryu:2014vpc # -0.001
+ERROR_CORR_WITH +0.000    Belle Gamma50 pub Ryu:2014vpc # +0.000 
 
 # total systematic contr. for e-mu normalization: 0.1606%
 SYSTEMATICS
@@ -90,15 +90,15 @@ END
 #
 # K0 result is 2x K(S) result 1.93e-03 +-0.02e-03 +-0.07e-03
 #
-BEGIN MEASUREMENT Belle Gamma40 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma40 pub Ryu:2014vpc
 
 VALUE 3.86e-03 +-0.04e-03 +-0.14e-03
 
-ERROR_CORR_WITH -0.132    Belle Gamma35 pub 1402.5213 # -0.132
-ERROR_CORR_WITH +0.043    Belle Gamma37 pub 1402.5213 # -0.043
-ERROR_CORR_WITH -0.204    Belle Gamma42 pub 1402.5213 # -0.204 
-ERROR_CORR_WITH -0.063    Belle Gamma47 pub 1402.5213 # -0.063
-ERROR_CORR_WITH +0.006    Belle Gamma50 pub 1402.5213 # +0.006 
+ERROR_CORR_WITH -0.132    Belle Gamma35 pub Ryu:2014vpc # -0.132
+ERROR_CORR_WITH +0.043    Belle Gamma37 pub Ryu:2014vpc # -0.043
+ERROR_CORR_WITH -0.204    Belle Gamma42 pub Ryu:2014vpc # -0.204 
+ERROR_CORR_WITH -0.063    Belle Gamma47 pub Ryu:2014vpc # -0.063
+ERROR_CORR_WITH +0.006    Belle Gamma50 pub Ryu:2014vpc # +0.006 
 
 # total systematic contr. for e-mu normalization: 0.1606%
 SYSTEMATICS
@@ -122,15 +122,15 @@ END
 #
 # K0 result is 2x K(S) result 7.48e-04 +-0.10e-04 +-0.37e-04
 #
-BEGIN MEASUREMENT Belle Gamma42 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma42 pub Ryu:2014vpc
 
 VALUE 14.96e-04 +-0.20e-04 +-0.74e-04
 
-ERROR_CORR_WITH +0.023    Belle Gamma35 pub 1402.5213 # +0.023  
-ERROR_CORR_WITH -0.215    Belle Gamma37 pub 1402.5213 # -0.215  
-ERROR_CORR_WITH -0.204    Belle Gamma40 pub 1402.5213 # -0.204   
-ERROR_CORR_WITH +0.002    Belle Gamma47 pub 1402.5213 # +0.002  
-ERROR_CORR_WITH +0.000    Belle Gamma50 pub 1402.5213 # +0.000   
+ERROR_CORR_WITH +0.023    Belle Gamma35 pub Ryu:2014vpc # +0.023  
+ERROR_CORR_WITH -0.215    Belle Gamma37 pub Ryu:2014vpc # -0.215  
+ERROR_CORR_WITH -0.204    Belle Gamma40 pub Ryu:2014vpc # -0.204   
+ERROR_CORR_WITH +0.002    Belle Gamma47 pub Ryu:2014vpc # +0.002  
+ERROR_CORR_WITH +0.000    Belle Gamma50 pub Ryu:2014vpc # +0.000   
                                                  
 # total systematic contr. for e-mu normalization: 0.1606%
 SYSTEMATICS
@@ -152,15 +152,15 @@ END
 # Gamma47 (PDG node = S035B69)
 # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma47 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma47 pub Ryu:2014vpc
 
 VALUE 2.33e-04 +-0.03e-04 +-0.09e-04
 
-ERROR_CORR_WITH -0.019    Belle Gamma35 pub 1402.5213 # -0.019     
-ERROR_CORR_WITH -0.001    Belle Gamma37 pub 1402.5213 # -0.001   
-ERROR_CORR_WITH -0.063    Belle Gamma40 pub 1402.5213 # -0.063  
-ERROR_CORR_WITH +0.002    Belle Gamma42 pub 1402.5213 # +0.002     
-ERROR_CORR_WITH -0.230    Belle Gamma50 pub 1402.5213 # -0.230
+ERROR_CORR_WITH -0.019    Belle Gamma35 pub Ryu:2014vpc # -0.019     
+ERROR_CORR_WITH -0.001    Belle Gamma37 pub Ryu:2014vpc # -0.001   
+ERROR_CORR_WITH -0.063    Belle Gamma40 pub Ryu:2014vpc # -0.063  
+ERROR_CORR_WITH +0.002    Belle Gamma42 pub Ryu:2014vpc # +0.002     
+ERROR_CORR_WITH -0.230    Belle Gamma50 pub Ryu:2014vpc # -0.230
                               
 SYSTEMATICS
   -0.3%            sigmataupmy4s    # -7.00e-07
@@ -179,15 +179,15 @@ END
 # Gamma50 (PDG node = S035C2)
 # G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma50 pub 1402.5213
+BEGIN MEASUREMENT Belle Gamma50 pub Ryu:2014vpc
 
 VALUE 2.00e-05 +-0.22e-05 +-0.20e-05
 
-ERROR_CORR_WITH +0.004    Belle Gamma35 pub 1402.5213 # 0.004    
-ERROR_CORR_WITH +0.000    Belle Gamma37 pub 1402.5213 # 0.000    
-ERROR_CORR_WITH +0.006    Belle Gamma40 pub 1402.5213 # 0.006    
-ERROR_CORR_WITH +0.000    Belle Gamma42 pub 1402.5213 # 0.000     
-ERROR_CORR_WITH -0.230    Belle Gamma47 pub 1402.5213 # -0.230    
+ERROR_CORR_WITH +0.004    Belle Gamma35 pub Ryu:2014vpc # 0.004    
+ERROR_CORR_WITH +0.000    Belle Gamma37 pub Ryu:2014vpc # 0.000    
+ERROR_CORR_WITH +0.006    Belle Gamma40 pub Ryu:2014vpc # 0.006    
+ERROR_CORR_WITH +0.000    Belle Gamma42 pub Ryu:2014vpc # 0.000     
+ERROR_CORR_WITH -0.230    Belle Gamma47 pub Ryu:2014vpc # -0.230    
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s    # -6.00e-08
