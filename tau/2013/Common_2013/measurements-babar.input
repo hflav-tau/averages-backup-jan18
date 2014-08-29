@@ -85,7 +85,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma910 pub LEES 2012X
 
-VALUE 8.62e-5 +- 0.91e-5 +- 0.87e-5
+VALUE 8.27e-5 +- 0.88e-5 +- 0.81e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -118,7 +118,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma911 pub LEES 2012X
 
-VALUE 4.56e-5 +-0.781e-5 +-0.55e-5
+VALUE 4.57e-5 +-0.77e-5 +-0.50e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -229,7 +229,7 @@ END
 
 #
 # Gamma821
-# G(3pi- 2pi+ nu(tau) (ex. K0, non-resonant)) / G(total)
+# G(3pi- 2pi+ nu(tau) (ex. K0, f1, non-resonant)) / G(total)
 #
 BEGIN MEASUREMENT BaBar Gamma821 pub LEES 2012X
 
@@ -288,7 +288,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma930 pub LEES 2012X
 
-VALUE 5.39e-5 +- 0.27e-5 +- 0.39e-5
+VALUE 5.39e-5 +- 0.27e-5 +- 0.41e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -394,7 +394,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma942 pub LEES 2012X
 
-VALUE 2.87e-5 +-0.25e-5 +-0.18e-5
+VALUE 2.86e-5 +-0.25e-5 +-0.18e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -417,7 +417,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma943 pub LEES 2012X
 
-VALUE 4.33e-5 +-0.13e-5 +-0.06e-5
+VALUE 4.33e-5 +-1.27e-5 +-0.65e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -441,7 +441,7 @@ END
 #
 BEGIN MEASUREMENT BaBar Gamma944 pub LEES 2012X
 
-VALUE 8.28e-5 +- 0.37e-5 +- 0.51e-5
+VALUE 8.26e-5 +- 0.35e-5 +- 0.51e-5
 
 SYSTEMATICS
   -0.3%		   sigmataupmy4s
