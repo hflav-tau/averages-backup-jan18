@@ -1,6 +1,10 @@
 #
-# not used in PDG 2011 and earlier fits
-# correlated with Ks particles- of same paper
+# ALEPH measurement not used in 2010 and 2012, in order
+# to use the ALEPH estimate for Gamma49 = Gamma50+Gamma51+Gamma806
+# that relies on an upper limit for Gamma50, Gamma806=Gamma50, and
+# a measurement for Gamma51. Since we have now measurements of Gamma50
+# we can rather use the direct ALEPH measurement of Gamma51
+#
 # was temporarily used at end of March 2011 and then commented
 # 
 # Gamma51 (PDG node = S035C3)
