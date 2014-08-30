@@ -431,7 +431,7 @@ alurep.tex.constraint = function(constr.val, constr.str) {
   names(constr.right) = names(constr.val)
   
   ##--- split long eqs
-  constr.right.split = gsub("(([^+]+[+*]){4}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
+  constr.right.split = gsub("(([^+*]+[+*]){6}[^+]+)[+]", "\\1 \\\\\\\\ \n  {}& +", constr.right, perl=TRUE)
   
   constr.right = gsub("*", "\\cdot{}", constr.right, fixed=TRUE)
   constr.right = alurep.subst.params(constr.right)
