@@ -1362,8 +1362,7 @@ QUANTITY Gamma804 node S035Z05 descr "G(pi- K(L)0 K(L)0 nu(tau)) / G(total)"
 # Gamma48 = G(pi- K(S)0 K(L)0 nu(tau)) / G(total)
 # Gamma804 = G(pi- K(L)0 K(L)0 nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma47.c 0 "-Gamma47 + (Gamma48 * (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET)/(BRA_Kz_KL_KET*BRA_Kzbar_KS_KET + BRA_Kz_KS_KET*BRA_Kzbar_KL_KET))"
-NLCONSTRAINT Gamma804.c 0 "-Gamma804 + (Gamma48 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET)/(BRA_Kz_KL_KET*BRA_Kzbar_KS_KET + BRA_Kz_KS_KET*BRA_Kzbar_KL_KET))"
+NLCONSTRAINT Gamma804.c 0 "-Gamma804 + (Gamma47)"
 
 #
 # Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
@@ -1389,8 +1388,7 @@ QUANTITY Gamma806 descr "G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)"
 # Gamma806 = Gamma50 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET)
 #
 NLCONSTRAINT Gamma49.c 0 "-Gamma49 + (Gamma50 + Gamma51 + Gamma806)"
-NLCONSTRAINT Gamma50.c 0 "-Gamma50 + (Gamma51 * (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET)/(BRA_Kz_KL_KET*BRA_Kzbar_KS_KET + BRA_Kz_KS_KET*BRA_Kzbar_KL_KET))"
-NLCONSTRAINT Gamma806.c 0 "-Gamma806 + (Gamma51 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET)/(BRA_Kz_KL_KET*BRA_Kzbar_KS_KET + BRA_Kz_KS_KET*BRA_Kzbar_KL_KET))"
+NLCONSTRAINT Gamma806.c 0 "-Gamma806 + (Gamma50)"
 
 #
 # Gamma805 = G(a1- (-> pi- gamma) nu(tau)) / G(total)
