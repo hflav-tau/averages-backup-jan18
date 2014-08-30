@@ -23,7 +23,7 @@ aluelab.dump = function(args) {
 
   ## print(quant.corr)
 
-  corr.flag = abs(quant.corr) > 1.0001
+  corr.flag = abs(quant.corr) >= 1.005
   gamma.flag = apply(corr.flag, 2, function(x) {sum(x)}) != 0
   gamma.flag = gamma.flag[gamma.flag]
   gamma.flag.names = names(gamma.flag)
