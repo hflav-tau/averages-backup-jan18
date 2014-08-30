@@ -41,7 +41,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     "meas.val",   "meas.err",   "meas.cov",  "meas.cov.stat", "meas.cov.syst", "meas.corr",
     "quant.val",  "quant.err",  "quant.cov", "quant.corr",
     "constr.m", "constr.v",
-    "solve.cov.m"
+    "solve.cov.m", "full.m", "full.v.m"
     )
   
   ##
@@ -678,7 +678,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
 
   ##--- total covariance and total correlation
   meas.cov = meas.cov.stat + meas.cov.syst
-  meas.corr = meas.cov / diag(meas.cov) %o% diag(meas.cov)
+  meas.corr = meas.cov / (sqrt(diag(meas.cov)) %o% sqrt(diag(meas.cov)))
   
   ##
   ## error scaling using the "scale" parameter for fitted quantities
@@ -964,7 +964,10 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       
       ##--- matrix that applied to c(meas.val, constr. values) gives c(quant.val, lagr.mult.)
       solve.m = solve(full.m) %*% full.v.m
-      
+      ##--- alternative way, perhaps computationally better
+      ## weim = diag(c(diag(quant.cov), rep(1, constr.num)))
+      ## solve.m = solve(weim %*% full.m) %*% (weim %*% full.v.m)
+
       ##--- solve for both quantities and lagrange multipliers
       ## quant.constr.val = solve(full.m, (full.v.m %*% full.v))
       quant.constr.val = solve.m %*% full.v
