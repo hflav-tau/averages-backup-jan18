@@ -1,0 +1,14 @@
+#
+# unconstrained fit for 2014 report
+# Life Time
+#
+INCLUDE measurements.input
+
+
+BEGIN COMBINATION
+
+COMBINE
+  Gamma001
+
+
+END

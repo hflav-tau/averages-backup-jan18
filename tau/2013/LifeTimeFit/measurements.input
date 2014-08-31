@@ -1,0 +1,63 @@
+#
+# Gamma001 (PDG node = S035T)
+# Tau Life Time
+#
+BEGIN MEASUREMENT DELPHI Gamma001 DOI:10.1140/epjc/s2004-01953-7 
+
+VALUE 290.9e-15 +-1.4e-15 +-1.0e-15
+
+END
+
+
+#                                                                               
+# Gamma001 (PDG node = S035T)                                                        
+# Tau Life Time                                                                 
+#                                                                               
+BEGIN MEASUREMENT L3 Gamma001 DOI:10.1016/S0370-2693(00)00347-6 
+                                                                                
+VALUE 293.2e-15 +-2.0e-15 +-1.5e-15                                             
+                                                                                
+END                            							
+
+#                                                             
+# Gamma001 (PDG node = S035T)                                      
+# Tau Life Time                                               
+#                                                             
+BEGIN MEASUREMENT ALEPH Gamma001 DOI:10.1016/S0370-2693(97)01116-7 
+                                                              
+VALUE 290.1e-15 +-1.5e-15 +-1.1e-15                           
+                                                              
+END                                                           
+                                                              
+ 
+#                                                                         
+# Gamma001 (PDG node = S035T)                                                  
+# Tau Life Time                                                           
+#                                                                         
+BEGIN MEASUREMENT OPAL Gamma001 DOI:10.1016/0370-2693(96)00255-9
+                                                                          
+VALUE 289.2e-15 +-1.7e-15 +-1.2e-15                                       
+                                                                          
+END                                                                       
+                               
+#                                                                
+# Gamma001 (PDG node = S035T)                                         
+# Tau Life Time                                                  
+#                                                                
+BEGIN MEASUREMENT CLEO Gamma001 DOI:10.1016/S0370-2693(96)01163-X
+                                                                 
+VALUE 289.0e-15 +-2.8e-15 +-4.0e-15                              
+                                                                 
+END                                                              
+                               
+                                  
+                                           
+                                                                          
+                               
+
+                                                 
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+
