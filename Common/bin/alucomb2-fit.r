@@ -397,7 +397,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       not.matching = rbind(not.matching, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
     }
   }
-  
+
   if (length(slightly.larger) > 0) {
     cat("\n##\n")
     cat("## warning: syst. terms sum slightly larger than total syst. error\n")
@@ -662,12 +662,16 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   syst.terms = unique(unlist(lapply(measurements[meas.names], function(m)  names(m$syst.terms)), use.names=FALSE))
   names(syst.terms) = syst.terms
 
-  ##--- get dependence of measurements from syst.terms
-  dm.by.dp = alucomb2.meas.by.syst.term(measurements[meas.names], syst.terms)
+  if (length(syst.terms) > 0) {
+    ##--- get dependence of measurements from syst.terms
+    dm.by.dp = alucomb2.meas.by.syst.term(measurements[meas.names], syst.terms)
+    
+    ##--- get total systematic covariance due to syst.terms
+    meas.cov.syst = dm.by.dp %*% t(dm.by.dp)
+  } else {
+    meas.cov.syst = rep(0, length(meas.names)) %o% rep(0, length(meas.names))
+  }
   
-  ##--- get total systematic covariance due to syst.terms
-  meas.cov.syst = dm.by.dp %*% t(dm.by.dp)
-
   ##--- if total correlation specified, get stat. correlation by subtraction (term-by-term)
   meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
 
