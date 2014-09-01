@@ -1,5 +1,5 @@
 #
-# root -b -q "aluAverPlot.cc+(\"plot-vus-hfag-end2011.input\")"
+# root -b -q "aluAverPlot.cc+(\"plot-vus-hfag-summer2014.input\")"
 #
 # i       - xmin, xmax, precision, title
 # m       - measurement with symmetric stat & syst errors
