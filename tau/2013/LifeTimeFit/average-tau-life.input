@@ -4,12 +4,13 @@
 #
 INCLUDE measurements.input
 
-
 BEGIN COMBINATION
 
-COMBINE
-  Gamma001
+# --- reproduce PDG average
+# MODMEAS DROP Belle tau_tau pub 1310.8503v1
 
+COMBINE
+  tau_tau
 
 QUANTITY Gamma001 seed 290.0e-15
 
