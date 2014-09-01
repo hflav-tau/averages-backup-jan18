@@ -1,4 +1,4 @@
-void HFAGTauLabel(const TString& label="Summer 2013",
+void HFAGTauLabel(const TString& label="Summer 2014",
 		  // Double_t xpos=0.6, Double_t ypos=0.2,
 		  Double_t xpos=0, Double_t ypos=0,
 		  Double_t scale=1);
