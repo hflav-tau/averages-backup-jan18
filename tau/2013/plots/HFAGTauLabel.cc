@@ -63,7 +63,7 @@ void HFAGTauLabel(const TString& label,
   tbox2->SetShadowColor(kWhite);
   tbox2->SetTextColor(kBlack);
   tbox2->SetTextFont(76);
-  tbox2->SetTextSize(20*scale);
+  tbox2->SetTextSize(18*scale);
   tbox2->SetTextAlign(22); //center-adjusted and vertically centered
   tbox2->AddText(label);
   tbox2->Draw();
