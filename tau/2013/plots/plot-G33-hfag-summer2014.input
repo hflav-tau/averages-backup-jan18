@@ -7,13 +7,11 @@
 # mt, mat - like m, ma but for "this work"
 # p       - PDG average, sets band
 # h       - other averages
-#
-#i   0.2130 0.2280    6.4    |V_{us}|
-i   0  0    6.4    B(#tau^{-} #rightarrow #pi^{-} K^{0} #nu) [x 10^{-3}]
-mt  8.38 0.12 0.00  HFAG 2014
-mt  8.40 0.4  0.00  PDG 2013 Fit
-m   9.28 0.56 0.00  ALEPH
-m   8.40 0.04 0.23  BaBar 2009
-m   8.32 0.02 0.16  Belle 2014
-m   9.50 1.62 0.00  L3
-m   9.33 0.84 0.00  OPAL
+#  
+i   0  0    6.4    B(#tau^{-} #rightarrow  K^{0} (X) #nu) [x 10^{-3}]
+mt  9.01 0.08 0.00  HFAG 2014  
+mt  9.20 0.4  0.00  PDG 2013 Fit
+m   9.7  0.85 0.00  ALEPH 
+m   9.15 0.01 0.15  Belle 2013 
+m   9.7 1.08 0.00   OPAL
+

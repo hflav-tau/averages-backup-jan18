@@ -9,14 +9,13 @@
 # h       - other averages
 #  
 #i   0.2130 0.2280    6.4    |V_{us}|
-i   0  0    6.4    B(#tau^{-} #rightarrow #pi^{-} K^{0} #pi^{0} #nu) [x 10^{-3}]
-mt  3.68 0.10 0.00  HFAG 2014  
-mt  4.0	 0.4  0.00  PDG 2013 Fit
-m   3.47 0.65 0.00  ALEPH 1999  
-m   2.94 0.82 0.00  ALEPH 1998  
-m   3.42 0.06 0.15  BaBar 2009    
-m   3.86 0.04 0.14  Belle 2014
-m   4.10 1.24 0.00  L3
+i   0  0    6.4    B(#tau^{-} #rightarrow K^{- }#pi^{0} K^{0} #nu) [x 10^{-3}]
+mt  1.52 0.07 0.00  HFAG 2014  
+mt  1.59 0.16 0.00  PDG 2013 Fit
+m   1.52 0.79 0.00  ALEPH
+m   1.43 0.29 0.00  ALEPH
+m   1.50 0.02 0.07  Belle 2013
+m   1.45 0.41 0.00  CLEO   
 
 
 
