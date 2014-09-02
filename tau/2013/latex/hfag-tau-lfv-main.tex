@@ -1,0 +1,67 @@
+%%
+%% HFAG tau LFV limits
+%%
+\documentclass[a4paper,10pt,fleqn]{article}
+\usepackage{hevea}
+%%\usepackage{hevea-fix}
+\usepackage[hmargin=2.0cm,vmargin={2.5cm,2.5cm},dvips]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{caption}
+\usepackage{parskip}
+\usepackage[%
+  bookmarks=false,
+  citecolor=blue,
+  colorlinks=true,
+  urlcolor={blue},
+  linkcolor={blue},
+  pdfstartview={XYZ null null 1.22}
+  ]{hyperref}
+\usepackage{amstext}
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{ifthen}
+
+\makeatletter
+\DeclareRobustCommand\bfseries{%
+  \not@math@alphabet\bfseries\mathbf
+  \fontseries\bfdefault\selectfont\boldmath}
+\DeclareRobustCommand*{\bm}[1]{%
+    \mathchoice{\bmbox{\displaystyle}{#1}}%
+               {\bmbox{\textstyle}{#1}}%
+               {\bmbox{\scriptstyle}{#1}}%
+               {\bmbox{\scriptscriptstyle}{#1}}}
+\DeclareRobustCommand*{\bmbox}[2]{\mbox{\bfseries$#1 #2$}}
+\makeatother
+
+\newenvironment{ensuredisplaymath}
+{\(\displaystyle}
+{\)}
+
+\providecommand{\babar}{\mbox{\slshape B{\smaller A}B{\smaller AR}}\xspace}
+
+\providecommand{\cutname}{}
+\providecommand{\tausection}{\section}
+
+\bibliographystyle{abuser-unsrt-alu}
+
+%%
+%% ///////////////////////////////////////////////////////////////////////////
+%%
+%% begin document
+%%
+\begin{document}
+
+\input{hfag-tau-lfv}
+
+\bibliography{%
+  pdg-tau-refs,%
+  hfag-tau-refs%
+}%
+
+\end{document}
