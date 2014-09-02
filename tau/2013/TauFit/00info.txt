@@ -15,7 +15,7 @@ reproduce Early 2012 results
 2014 average
 
 ../../../Common/bin/alucomb2.r average2-aleph-hcorr_13.input
-../scripts/aluelab3-results.r -vadirect average2-aleph-hcorr_13.input
+../scripts/aluelab3-results.r -vadirect average2-aleph-hcorr_13.rdata
 ../scripts/mkreport.r average2-aleph-hcorr_13.rdata
 
 ///////////////////////////////////////////////////////////////////////////////
