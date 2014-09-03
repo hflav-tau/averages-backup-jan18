@@ -1,0 +1,2 @@
+ls -1 *input | xargs -i echo "root -b -q \"aluAverPlot.cc+(\\\"{}\\\")\"" | sh -v
+
