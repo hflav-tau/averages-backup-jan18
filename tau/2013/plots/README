@@ -1,5 +1,0 @@
-###################3
-# To create all plots:
- bash plot_all.sh
-# this ctakes all plot-*-hfag-summer2014.input files and makes plots
-
