@@ -396,6 +396,8 @@ get.tex.table = function(quant.names, perc=FALSE) {
   qm.defs = paste(qm.defs, collapse=" \n")
 
   qm.defs2 = mapply(function(quant.name, quant) {
+
+    ##+++ must be simplified, define meas.ref as \cite{ref} and use the def
     ##--- quantity value according to precision / order found for quantity and its measurements
     rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=TRUE)
     precision = rc$precision
@@ -407,6 +409,7 @@ get.tex.table = function(quant.names, perc=FALSE) {
       rc = paste(
         paste("\\htuse{", meas.name, ",qt}", sep=""),
         paste("\\htuse{", meas.name, ",exp}", sep=""),
+        ##+++ must simplify
         meas.item$ref,
         sep=" & ")
       return(rc)
