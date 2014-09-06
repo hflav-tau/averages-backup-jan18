@@ -359,46 +359,87 @@ get.tex.meas.defs = function() {
 ## - quantity description, HFAG average
 ## - list of experimental measurements, with reference
 ##
-get.tex.table = function(quant.names, perc=FALSE, with.meas=TRUE) {
+get.tex.table = function(quant.names, perc=FALSE) {
   quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
-  rc = mapply(function(quant.name, quant) {
-    rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=with.meas)
+
+  ##--- get TeX defs
+  qm.defs = mapply(function(quant.name, quant) {
+    ##--- quantity value according to precision / order found for quantity and its measurements
+    rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=TRUE)
     precision = rc$precision
     order = rc$order
 
+    rc = paste(
+      "\\htdef{", quant.name, ".qt}{",
+      alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order, perc=FALSE),
+      "}%", sep=""
+      )
+    
+    meas.names = alurep.meas.quant(quant.name, delta)
+    meas.lines = sapply(meas.names, function(meas.name) {
+      meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
+      rc = paste(
+        "\\htdef{", meas.name, ",qt}{", meas.item$value, "}%",
+        sep=""
+        )
+    })
+    
+    if (length(meas.lines) > 0) {
+      meas.lines = paste(meas.lines, collapse="\n")
+      rc = paste(rc, meas.lines, sep=" \n")
+    }
+
+    return(rc)
+  },
+    quant.names, combination$quantities[quant.names])
+  qm.defs = paste(qm.defs, collapse=" \n")
+
+  qm.defs2 = mapply(function(quant.name, quant) {
+    ##--- quantity value according to precision / order found for quantity and its measurements
+    rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=TRUE)
+    precision = rc$precision
+    order = rc$order
+
+    meas.names = alurep.meas.quant(quant.name, delta)
+    meas.lines = sapply(meas.names, function(meas.name) {
+      meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
+      rc = paste(
+        paste("\\htuse{", meas.name, ",qt}", sep=""),
+        paste("\\htuse{", meas.name, ",exp}", sep=""),
+        meas.item$ref,
+        sep=" & ")
+      return(rc)
+    })
+    meas.lines = paste(meas.lines, collapse=" \\\\\n")
+    quant.meas.tex = paste("\\htdef{", quant.name, ".qm}{", meas.lines, "}%", sep="")
+    return(quant.meas.tex)
+  },
+    quant.names, combination$quantities[quant.names])
+  qm.defs2 = paste(qm.defs2, collapse=" \n")
+
+  qm.defs = paste(qm.defs, qm.defs2, sep="\n")
+  
+  qm.table = mapply(function(quant.name, quant) {
     ##--- TeX expr for quantity definition
     quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
     ##--- quantity value according to precision / order found for quantity and its measurements
-    rc = paste(
-      quant.descr, "&",
-      alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order, perc=FALSE),
-      "& \\hfagFitLabel"
-      )
-
-    if (with.meas) {
-      meas.names = alurep.meas.quant(quant.name, delta)
-      meas.lines = sapply(meas.names, function(meas.name) {
-        meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
-        return(paste(c(meas.item$value,
-                       meas.item$exp,
-                       meas.item$ref), collapse=" & "))
-      })
-      if (length(meas.lines) > 0) {
-        meas.lines = paste(meas.lines, collapse=" \\\\\n")
-        rc = paste(rc, meas.lines, sep=" \\\\\n")
-      }
-    }
+    rc = paste(quant.descr, " & \\htuse{", quant.name, ".qt} & \\hfagFitLabel", sep="")
+    rc = paste(rc, paste("\\htuse{", quant.name, ".qm}", sep=""), sep=" \\\\\n")
     return(rc)
   },
     quant.names, combination$quantities[quant.names])
+  
+  with.meas = TRUE
   if (with.meas) {
-    return(invisible(paste(rc, collapse=" \\\\\n\\hline\n")))
+    qm.table = paste(qm.table, collapse=" \\\\\n\\hline\n")
   } else {
-    return(invisible(paste(rc, collapse=" \\\\\n")))
+    qm.table = paste(qm.table, collapse=" \\\\\n")
   }
+
+  return(list(defs=qm.defs, table=qm.table))
 }
 
 ##
@@ -708,9 +749,14 @@ mkreport = function(fname) {
   ##
   quant.names = combination$combine
   quant.names = setdiff(quant.names, "GammaAll")
-  tex.all.tau.br.val = alurep.tex.cmd("HfagTauBrVal", get.tex.table(quant.names))
+  rc = get.tex.table(quant.names)
+
+  cat(rc$defs, "\n", sep="", file=fname, append=TRUE)
+  cat("file '", fname, "', quantity - measurements defs\n", sep="")
+
+  tex.all.tau.br.val = alurep.tex.cmd("HfagTauBrVal", rc$table)
   cat(tex.all.tau.br.val, file=fname, append=TRUE)
-  cat("file '", fname, "', BR val table content\n", sep="")
+  cat("file '", fname, "', quantity - measurements table\n", sep="")
 
   ##
   ## write tex macro containing all measurements by reference
