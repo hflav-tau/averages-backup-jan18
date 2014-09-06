@@ -87,7 +87,9 @@ enum DECAY {
   PILAMBAR = 45,
   KLAM = 46,
   KLAMBAR = 47,
-  NDECAY = 48
+  PMUMUOS = 49,
+  PMUMUSS = 50,
+  NDECAY = 51
 };
 
 void fillBelle_2009001(double * array)
@@ -585,7 +587,9 @@ void fillCLEO(double * array)
 void fillLHCb(double * array)
 {   
   // at 10^-8
-  array[MMM]     = 8.0;
+  array[MMM]     = 4.6;
+  array[PMUMUOS]   = 33.;
+  array[PMUMUSS]   = 44.;
 }
 
 
@@ -644,6 +648,8 @@ void setLabels(TH1* hist)
   axis->SetBinLabel(label_offs + PILAMBAR,"#pi^{-} #bar{#Lambda}");
   axis->SetBinLabel(label_offs + KLAM   , "K^{-} #Lambda");
   axis->SetBinLabel(label_offs + KLAMBAR, "K^{-} #bar{#Lambda}");
+  axis->SetBinLabel(label_offs + PMUMUOS, "#bar{p} #mu^{-} #mu^{+}");
+  axis->SetBinLabel(label_offs + PMUMUSS, "p #mu^{-} #mu^{-}"); 
 }
 
 void SetUp()
@@ -793,8 +799,8 @@ void TauLFV_UL_plot(Int_t when=2013001)
   TLine l6(KMUK+0.5,ul_min,KMUK+0.5,ul_max); l6.SetLineColor(kGray); l6.Draw();
   TLatex t6(((KMUK-EPIPI)*1.0/2.0)+EPIPI*1.0,y_latex,"lhh"); t6.SetTextAlign(21); t6.SetTextFont(42); t6.Draw();
   
-  TLine l7(KLAMBAR+0.5,ul_min,KLAMBAR+0.5,ul_max); l7.SetLineColor(kGray); l7.Draw();
-  TLatex t7(((KLAMBAR-PILAM)*1.0/2.0)+PILAM*1.0,y_latex,"#Lambdah"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
+  TLine l7(PMUMUSS+0.5,ul_min,PMUMUSS+0.5,ul_max); l7.SetLineColor(kGray); l7.Draw();
+  TLatex t7(((KLAMBAR-PMUMUSS)*1.0/2.0)+PMUMUSS*1.0,y_latex,"BNV"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
   
   TLegend *leg = new TLegend(0.88,0.3,0.95,0.5);
   leg->SetBorderSize(0);
