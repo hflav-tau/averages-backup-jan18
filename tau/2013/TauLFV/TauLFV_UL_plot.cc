@@ -87,9 +87,9 @@ enum DECAY {
   PILAMBAR = 45,
   KLAM = 46,
   KLAMBAR = 47,
-  PMUMUOS = 49,
-  PMUMUSS = 50,
-  NDECAY = 51
+  PMUMUOS = 48,
+  PMUMUSS = 49,
+  NDECAY = 50
 };
 
 void fillBelle_2009001(double * array)
@@ -591,7 +591,30 @@ void fillLHCb(double * array)
   array[PMUMUOS]   = 33.;
   array[PMUMUSS]   = 44.;
 }
-
+void fillHFAG_CLs(double * array)        
+{                                     
+  array[EGAMMA] = 3.4;
+  array[MUGAMMA] = 2.1;
+  array[ERHO] = 1.3;
+  array[MURHO] = 1.5;
+  array[EKSTAR]= 1.7;
+  array[MUKSTAR]=2.5;
+  array[EAKSTAR]=1.7;
+  array[MUAKSTAR]= 2.5;
+  array[EPHI]=1.9;
+  array[MUPHI]=2.4;
+  array[EEE] = 1.4;
+  array[MEE]= 1.1;
+  array[EMM]= 1.6;
+  array[MMM] = 1.2;
+  array[EME] = 0.83;
+  array[MEM] = 1.0;
+  array[PILAM]= 1.9;
+  array[PILAMBAR]= 1.8;
+  array[KLAM] = 2.5;
+  array[KLAMBAR] =2.0;
+   
+}
 
 void setLabels(TH1* hist)
 {
@@ -706,7 +729,9 @@ void TauLFV_UL_plot(Int_t when=2013001)
   
   double LHCb[NDECAY];
   for (ibin = 0; ibin < NDECAY; ++ibin) LHCb[ibin] = 0;
-  
+  double HFAG_CLs[NDECAY];
+  for (ibin = 0; ibin < NDECAY; ++ibin) HFAG_CLs[ibin] = 0; 
+
   double histbins[NDECAY];
   for (ibin = 0; ibin < NDECAY; ++ibin) histbins[ibin] = ibin;
   
@@ -726,6 +751,7 @@ void TauLFV_UL_plot(Int_t when=2013001)
     fillBelle_2012001(Belle);
     fillBaBar_2010001(BaBar);
     fillLHCb(LHCb);
+    fillHFAG_CLs(HFAG_CLs);
   }
   fillCLEO(CLEO);
   
@@ -733,17 +759,20 @@ void TauLFV_UL_plot(Int_t when=2013001)
   TH1F * hBaBar = new TH1F("hBaBar", "", NDECAY+2, -1.5, float(NDECAY)+0.5);
   TH1F * hCLEO  = new TH1F("hCLEO",  "", NDECAY+2, -1.5, float(NDECAY)+0.5);
   TH1F * hLHCb  = new TH1F("hLHCb",  "", NDECAY+2, -1.5, float(NDECAY)+0.5); 
+  TH1F * hHFAG_CLs = new TH1F("hFAG_CLs",  "", NDECAY+2, -1.5, float(NDECAY)+0.5);
 
   hBelle->FillN(NDECAY, histbins, Belle);
   hBaBar->FillN(NDECAY, histbins, BaBar);
   hCLEO-> FillN(NDECAY, histbins, CLEO);
   hLHCb-> FillN(NDECAY, histbins, LHCb);
-  
+  hHFAG_CLs-> FillN(NDECAY, histbins, HFAG_CLs);  
+
   hBelle->Scale(1.e-8);
   hBaBar->Scale(1.e-8);
   hCLEO->Scale(1.e-6);
   hLHCb->Scale(1.e-8);
-  
+  hHFAG_CLs->Scale(1.e-8); 
+
   setLabels(hBelle);
   
   hBelle->GetYaxis()->SetTitle("90% C.L. upper limits for LFV #tau decays");
@@ -758,8 +787,9 @@ void TauLFV_UL_plot(Int_t when=2013001)
   hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(2.0);
   hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(2.0);
   hLHCb->SetMarkerStyle(kFullSquare); hLHCb->SetMarkerColor(kBlack); hLHCb->SetMarkerSize(1.8); 
-  
-  TCanvas *c1 = new TCanvas("c1","",1500,800); 
+  hHFAG_CLs->SetMarkerStyle(34); hHFAG_CLs->SetMarkerColor(kGreen); hHFAG_CLs-> SetMarkerSize(2.0); 
+
+  TCanvas *c1 = new TCanvas("c1","",1600,800); 
   c1->SetBottomMargin(0.17);
   c1->SetTopMargin(0.02);
   c1->SetLeftMargin(0.10);
@@ -775,6 +805,7 @@ void TauLFV_UL_plot(Int_t when=2013001)
   hBaBar->Draw("p,same");
   hCLEO->Draw("p,same");
   hLHCb->Draw("p,same"); 
+  hHFAG_CLs->Draw("p,same");
   c1->Update();
   
   double y_latex=2.e-5;
@@ -800,7 +831,7 @@ void TauLFV_UL_plot(Int_t when=2013001)
   TLatex t6(((KMUK-EPIPI)*1.0/2.0)+EPIPI*1.0,y_latex,"lhh"); t6.SetTextAlign(21); t6.SetTextFont(42); t6.Draw();
   
   TLine l7(PMUMUSS+0.5,ul_min,PMUMUSS+0.5,ul_max); l7.SetLineColor(kGray); l7.Draw();
-  TLatex t7(((KLAMBAR-PMUMUSS)*1.0/2.0)+PMUMUSS*1.0,y_latex,"BNV"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
+  TLatex t7(((PILAM-PMUMUSS)*1.0/2.0)+PMUMUSS*1.0,y_latex,"BNV"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
   
   TLegend *leg = new TLegend(0.88,0.3,0.95,0.5);
   leg->SetBorderSize(0);
@@ -812,6 +843,7 @@ void TauLFV_UL_plot(Int_t when=2013001)
   leg->AddEntry(hBaBar,"BaBar","p");
   leg->AddEntry(hBelle,"Belle","p");
   leg->AddEntry(hLHCb,"LHCb","p");
+  leg->AddEntry(hHFAG_CLs, "HFAG CLs", "p");
   leg->Draw();
   c1->Update();
   //
