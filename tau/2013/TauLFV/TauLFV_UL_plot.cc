@@ -789,11 +789,11 @@ void TauLFV_UL_plot(Int_t when=2013001)
   hLHCb->SetMarkerStyle(kFullSquare); hLHCb->SetMarkerColor(kBlack); hLHCb->SetMarkerSize(1.8); 
   hHFAG_CLs->SetMarkerStyle(34); hHFAG_CLs->SetMarkerColor(kGreen); hHFAG_CLs-> SetMarkerSize(2.0); 
 
-  TCanvas *c1 = new TCanvas("c1","",1600,800); 
+  TCanvas *c1 = new TCanvas("c1","",1700,800); 
   c1->SetBottomMargin(0.17);
   c1->SetTopMargin(0.02);
   c1->SetLeftMargin(0.10);
-  c1->SetRightMargin(0.12);
+  c1->SetRightMargin(0.2);
   c1->SetLogy(1) ;
   
   double ul_min=4.e-5;
@@ -833,7 +833,7 @@ void TauLFV_UL_plot(Int_t when=2013001)
   TLine l7(PMUMUSS+0.5,ul_min,PMUMUSS+0.5,ul_max); l7.SetLineColor(kGray); l7.Draw();
   TLatex t7(((PILAM-PMUMUSS)*1.0/2.0)+PMUMUSS*1.0,y_latex,"BNV"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
   
-  TLegend *leg = new TLegend(0.88,0.3,0.95,0.5);
+  TLegend *leg = new TLegend(0.8,0.3,0.95,0.5);
   leg->SetBorderSize(0);
   leg->SetFillStyle(4000);
   leg->SetFillColor(0);
