@@ -396,26 +396,29 @@ get.tex.table = function(quant.names, perc=FALSE) {
   qm.defs = paste(qm.defs, collapse=" \n")
 
   qm.defs2 = mapply(function(quant.name, quant) {
+    ##--- TeX expr for quantity definition
+    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
+    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
-    ##+++ must be simplified, define meas.ref as \cite{ref} and use the def
     ##--- quantity value according to precision / order found for quantity and its measurements
-    rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=TRUE)
-    precision = rc$precision
-    order = rc$order
+    rc = paste(quant.descr, " & \\htuse{", quant.name, ".qt} & \\hfagFitLabel", sep="")
 
     meas.names = alurep.meas.quant(quant.name, delta)
     meas.lines = sapply(meas.names, function(meas.name) {
-      meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
       rc = paste(
         paste("\\htuse{", meas.name, ",qt}", sep=""),
         paste("\\htuse{", meas.name, ",exp}", sep=""),
-        ##+++ must simplify
-        meas.item$ref,
+        paste("\\htuse{", meas.name, ",ref}", sep=""),
         sep=" & ")
       return(rc)
     })
     meas.lines = paste(meas.lines, collapse=" \\\\\n")
-    quant.meas.tex = paste("\\htdef{", quant.name, ".qm}{", meas.lines, "}%", sep="")
+    
+    quant.meas.tex = paste("\\htdef{", quant.name, ".qm}{%\n", rc, sep="")
+    if (nchar(meas.lines) > 0) {
+      quant.meas.tex = paste(quant.meas.tex, "\\\\\n", meas.lines, "\n", sep="")
+    }
+    quant.meas.tex = paste(quant.meas.tex, "}%", sep="")
     return(quant.meas.tex)
   },
     quant.names, combination$quantities[quant.names])
@@ -424,13 +427,7 @@ get.tex.table = function(quant.names, perc=FALSE) {
   qm.defs = paste(qm.defs, qm.defs2, sep="\n")
   
   qm.table = mapply(function(quant.name, quant) {
-    ##--- TeX expr for quantity definition
-    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
-    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
-
-    ##--- quantity value according to precision / order found for quantity and its measurements
-    rc = paste(quant.descr, " & \\htuse{", quant.name, ".qt} & \\hfagFitLabel", sep="")
-    rc = paste(rc, paste("\\htuse{", quant.name, ".qm}", sep=""), sep=" \\\\\n")
+    rc = paste("\\htuse{", quant.name, ".qm}", sep="")
     return(rc)
   },
     quant.names, combination$quantities[quant.names])
