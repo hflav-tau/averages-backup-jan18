@@ -208,25 +208,25 @@ aluelab.results = function(args) {
   ## add measurements to compute universality improved Be
   ##
 
-  ##--- from PDG 2013,  +++upd14
-  quant$quant.add.single("m_e",0.510998928, 0.000000011)
-  quant$quant.add.single("m_mu", 105.6583715, 0.0000035)
+  ##--- from PDG 2013 ---upd14
+  quant$quant.add.single("m_e",0.510998928, 0.000000011) ## changed14
+  quant$quant.add.single("m_mu", 105.6583715, 0.0000035) ## changed14
   quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
   ##--- m_tau HFAG 2009
   ## quant$quant.add.single("m_tau", 1776.7673082, 0.1507259)
-  ##--- m_tau PDG 2013 +++upd14
+  ##--- m_tau PDG 2013 ---upd14
   quant$quant.add.single("m_tau", 1776.82, 0.16)
 
-  ##+++upd14
+  ##---upd14
   quant$quant.add.single("m_pi", 139.57018, 0.00035)
   quant$quant.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
   quant$quant.add.single("m_K", 493.677, 0.016)
   quant$quant.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
-  ##--- from PDG 2013, 2011 +++upd14
-  quant$quant.add.single("m_W", 80.399385e3, 0.015*1e3)
-  quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6)
+  ##--- from PDG 2013, 2011 ---upd14
+  quant$quant.add.single("m_W", 80.399385e3, 0.015*1e3) ## changed14
+  quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6) ## changed14
 
   ##
   ## Be, from unitarity = 1 - Bmu - B_VA - B_s
@@ -300,8 +300,8 @@ aluelab.results = function(args) {
   ## values from 10.1103/RevModPhys.78.1043 p.1047, arXiv:hep-ph/0507078v2 p.7, could be recomputed
   ## - delta^L_gamma = 1 + alpha(mL)/2pi * (25/4 - pi^2)
   ## - delta^L_W = 1 + 3/5* m_L^2/M_W^2
-  ## +++upd14
-  ## NO UPDATE AVAIBLE
+  ## ---upd14
+  ## - 2014: no update available
   quant$param.add(c(delta_mu_gamma=(1 - 42.4e-4), delta_tau_gamma=(1 - 43.2e-4)))
   quant$quant.expr.add("delta_mu_W", 1 + 3/5*m_mu^2/m_W^2)
   quant$quant.expr.add("delta_tau_W", 1 + 3/5*m_tau^2/m_W^2)
@@ -333,15 +333,22 @@ aluelab.results = function(args) {
   quant$quant.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
   ##
-  ## Vud +++upd14
+  ## Vud ---upd14
+  ## PDG13: no change vs PDG11
   ##
   ## arXiv:0710.3181v1 [nucl-th], 10.1103/PhysRevC.77.025501
   ## I.S.Towner, J.C.Hardy, An improved calculation of the isospin-symmetry-breaking corrections to superallowed Fermi beta decay
   ## also PDG 2013 review
   ##
-  Vud.val = 0.97425
-  Vud.err = 0.00022
-  quant$quant.add.single("Vud", Vud.val, Vud.err)
+  ## Vud= 0.97425 (8)exp. (10)nucl.dep. (18)RC
+  ## only superallowed Beta decays, Hardy & Towner
+  ##
+  ## Vud = 0.9774 (5)tau-n (16)gA (2)RC
+  ## including neutron lifetime
+  ##
+  ## PDG11: quant$quant.add.single("Vud", 0.97425, 0.00022)
+  ## PDG13 with neutron lifetime: quant$quant.add.single("Vud", 0.9774, 0.0001*sqrt(5^2 + 16^2 + 2^2))
+  quant$quant.add.single("Vud", 0.97425, 0.00001*sqrt(8^2 + 10^2 + 18^2))
 
   ##
   ## SU3 breaking correction, straight from papers
@@ -360,9 +367,9 @@ aluelab.results = function(args) {
   ## E. Gamiz et al., Nucl.Phys.Proc.Suppl.169:85-89,2007, arXiv:hep-ph/0612154v1
   ##
 
-  ##--- s quark mass, PDG2013 +++upd14
-  quant$quant.add.single("m_s", 93.5, 2.5)
-  ##--- PDG 2011
+  ##--- s quark mass, PDG2013 ---upd14
+  quant$quant.add.single("m_s", 93.5, 2.5) ## changed14
+  ##--- s quark mass, PDG2011
   ## quant$quant.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
 
   ##--- E.Gamiz, M.Jamin, A.Pich, J.Prades, F.Schwab, |V_us| and m_s from hadronic tau decays
@@ -450,15 +457,15 @@ aluelab.results = function(args) {
   ## display.names = c(Gamma110.names, display.names)
 
   ##
-  ## gtau/gmu using tau -> hnu / h -> mu nu +++upd14
+  ## gtau/gmu using tau -> hnu / h -> mu nu ---upd14
   ## PDG 2013
   ##
   quant$quant.add.single("pitoENu", 1.230e-4, 0.004e-4)
   quant$quant.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
-  quant$quant.add.single("KtoENu", 1.581e-5, 0.008e-5)
+  quant$quant.add.single("KtoENu", 1.581e-5, 0.008e-5) ## changed14
   quant$quant.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
 
-  ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd +++upd14
+  ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd ---upd14
   quant$quant.add.single("delta_pi", 0.16e-2, 0.14e-2)
   quant$quant.add.single("delta_K", 0.90e-2, 0.22e-2)
 
@@ -496,37 +503,36 @@ aluelab.results = function(args) {
   ## Vus from tau -> Knu
   ##
 
-  ##--- QCD lattice inputs +++upd14
-  lattice.2012 = FALSE
-  lattice.2014 = TRUE
+  ##
+  ## QCD lattice
+  ##
+  ## ---upd14
+  ## Lattice averages FLAG 2013 Aoki et al.
+  ## http://arxiv.org/abs/1310.8555
+  ## http://inspirehep.net/record/1262813, Aoki:2013ldr
+  ##
+  quant$quant.add.single("f_K_by_f_pi", 1.194, 0.005) ## changed14
+  quant$quant.add.single("f_K", 156.3, 0.9) ## changed14
 
-  if (lattice.2012) {
-    ##
-    ## Lattice averages from http://arxiv.org/abs/0910.2928 and
-    ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
-    ##
-    quant$quant.add.single("f_K_by_f_pi", 1.192, 0.005)
-    quant$quant.add.single("f_K", 156.1, 1.1)
-    ##--- check effect of lattice correlations
-    ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
-  }
-  ## 1310.8555 +++upd14   
-  if (lattice.2014) {
-    quant$quant.add.single("f_K_by_f_pi", 1.194, 0.005)
-    quant$quant.add.single("f_K", 156.3, 0.9)
-    
-    
-  } else {
-    ##--- http://arxiv.org/abs/1101.5138
-    quant$quant.add.single("f_K_by_f_pi", 1.189, 0.007)
-    quant$quant.add.single("f_K", 157, 2)
-  }
+  ##
+  ## Lattice averages from http://arxiv.org/abs/0910.2928 and
+  ## http://krone.physik.unizh.ch/~lunghi/webpage/LatAves/page7/page7.html
+  ##
+  ## quant$quant.add.single("f_K_by_f_pi", 1.192, 0.005)
+  ## quant$quant.add.single("f_K", 156.1, 1.1)
+
+  ##--- http://arxiv.org/abs/1101.5138
+  ## quant$quant.add.single("f_K_by_f_pi", 1.189, 0.007)
+  ## quant$quant.add.single("f_K", 157, 2)
+  
+  ##+++ check effect of lattice correlations
+  ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
 
   ##
   ## Marciano:2004uf
   ## W. J. Marciano, "Precise determination of |V(us)| from lattice calculations of pseudoscalar decay constants",
   ## Phys. Rev. Lett. 93:231803, 2004, doi:10.1103/PhysRevLett.93.231803, arXiv:hep-ph/0402299.
-  ## +++upd14
+  ## ---upd14
   ##
   quant$quant.add.single("rrad_LD_kmu_pimu", 0.9930, 0.0035)
 
@@ -535,7 +541,7 @@ aluelab.results = function(args) {
   ## R. Decker and M. Finkemeier, "Short and long distance effects in the decay tau -> pi nu_tau (gamma)",
   ## Nucl. Phys. B438:17-53, 1995, doi:10.1016/0550-3213(95)00597-L, arXiv:hep-ph/9403385.
   ## delta_LD(tau -> h nu / h -> mu nu)
-  ## +++upd14
+  ## ---upd14
   ##
   quant$quant.add.single("delta_LD_taupi_pimu", 0.16/100, 0.14/100)
   quant$quant.add.single("delta_LD_tauK_Kmu", 0.90/100, 0.22/100)
@@ -575,24 +581,25 @@ aluelab.results = function(args) {
   ##
   ## J. Erler, “Electroweak radiative corrections to semileptonic tau decays”,
   ## Rev. Mex. Fis. 50:200–202, 2004, arXiv:hep-ph/0211345.
-  ## +++upd14
+  ## ---upd14
   ##
   quant$quant.add.single("rrad_tau_Knu", 1.0201, 0.0003)
 
   ##
-  ## EW constants
   ## Mohr:2008fa, codata 2006, http://inspirehep.net/record/791091
   ## CODATA Recommended Values of the Fundamental Physical Constants: 2006.
-  ## e-Print: arXiv:0801.0028 [physics.atom-ph]
-  ## +++upd14
   ##
-  ## --- G_F / (hcut c)^3 from PGD11 in GeV^-2, converted to MeV^-2
-  quant$quant.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 1.1663787e-5*1e-6 *9e3/1e9)
-  ## 2011 :quant$quant.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
+  ## CODATA 2010 https://inspirehep.net/record/1095471/
+  ## Mohr:2008fa CODATA Recommended Values of the Fundamental Physical Constants: 2010
+  ##
   ## --- Plack h/ in MeV s
+  ## h/ = 6.58211928(15)e-16 eV s
   quant$quant.add.single("hcut", 6.58211928e-22, 0.00000015e-22)
   ## 2011:quant$quant.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
 
+  ## --- G_F / (hcut c)^3 from PGD11 [1.1663787(6)] in GeV^-2, converted to MeV^-2 ---PDG13
+  quant$quant.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 0.0000006e-5*1e-6)
+  ## 2011: quant$quant.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
 
   ##
   ## Vus from tau -> K nu
