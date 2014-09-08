@@ -350,6 +350,12 @@ aluelab.results = function(args) {
   ## PDG13 with neutron lifetime: quant$quant.add.single("Vud", 0.9774, 0.0001*sqrt(5^2 + 16^2 + 2^2))
   quant$quant.add.single("Vud", 0.97425, 0.00001*sqrt(8^2 + 10^2 + 18^2))
 
+  ## values of Moulson CKM 2014
+  quant$quant.add.single("Vud_moulson_ckm14", 0.97417, 0.00001*21)
+  quant$quant.add.single("Vus_kl3_moulson_ckm14", 0.2232, 0.0001*9)
+  quant$quant.add.single("VusbyVud_moulson_ckm14", 0.2308, 0.0001*6)
+  quant$quant.expr.add("Vus_kl2_moulson_ckm14", VusbyVud_moulson_ckm14 * Vud_moulson_ckm14)
+  
   ##
   ## SU3 breaking correction, straight from papers
   ##
@@ -644,7 +650,11 @@ aluelab.results = function(args) {
     "Vus_tauKnu_mism_sigma",
     "Vus_tauKnu_err_th_perc",
     "Vus_tau",
-    "Vus_tau_mism_sigma"
+    "Vus_tau_mism_sigma",
+    "Vud_moulson_ckm14",
+    "Vus_kl3_moulson_ckm14",
+    "VusbyVud_moulson_ckm14",
+    "Vus_kl2_moulson_ckm14"
     )
 
   ##--- show selection of quantities
