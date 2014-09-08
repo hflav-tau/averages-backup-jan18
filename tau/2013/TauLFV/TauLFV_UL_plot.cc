@@ -613,6 +613,11 @@ void fillHFAG_CLs(double * array)
   array[PILAMBAR]= 1.8;
   array[KLAM] = 2.5;
   array[KLAMBAR] =2.0;
+  array[EOMEGA]=3.2;
+  array[MUOMEGA]=3.9;
+  array[EKS0] =1.1;
+  array[MUKS0] =1.2;
+  
    
 }
 
