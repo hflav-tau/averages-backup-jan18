@@ -354,6 +354,11 @@ get.tex.meas.defs = function() {
 }
 
 ##
+## return TeX defs for listing a quantity and its measurements
+## with the same precision and order
+##
+## - create TeX defs for the quantiy and all its measurements
+## - create a
 ## return body of latex tabular environment for the requested quantities
 ## include
 ## - quantity description, HFAG average
@@ -363,19 +368,21 @@ get.tex.table = function(quant.names, perc=FALSE) {
   quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
 
-  ##--- get TeX defs
+  ##--- get TeX defs for quantities and their measurements
   qm.defs = mapply(function(quant.name, quant) {
     ##--- quantity value according to precision / order found for quantity and its measurements
     rc = alurep.precision.order.quant(quant.name, perc=perc, with.meas=TRUE)
     precision = rc$precision
     order = rc$order
 
+    ##--- TeX def for the quantity
     rc = paste(
       "\\htdef{", quant.name, ".qt}{",
       alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order, perc=FALSE),
       "}%", sep=""
       )
     
+    ##--- TeX defs for the quantity measurements
     meas.names = alurep.meas.quant(quant.name, delta)
     meas.lines = sapply(meas.names, function(meas.name) {
       meas.item = get.tex.meas(measurements[[meas.name]], precision, order)
@@ -385,6 +392,7 @@ get.tex.table = function(quant.names, perc=FALSE) {
         )
     })
     
+    ##--- join all defs into one string
     if (length(meas.lines) > 0) {
       meas.lines = paste(meas.lines, collapse="\n")
       rc = paste(rc, meas.lines, sep=" \n")
@@ -395,14 +403,16 @@ get.tex.table = function(quant.names, perc=FALSE) {
     quant.names, combination$quantities[quant.names])
   qm.defs = paste(qm.defs, collapse=" \n")
 
+  ##--- get TeX defs for a tabular body listing a quantity and its measurements (using previous defs)
   qm.defs2 = mapply(function(quant.name, quant) {
-    ##--- TeX expr for quantity definition
+    ##--- TeX expr for quantity
     quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
 
-    ##--- quantity value according to precision / order found for quantity and its measurements
+    ##--- get quantity value with proper precision and order
     rc = paste(quant.descr, " & \\htuse{", quant.name, ".qt} & \\hfagFitLabel", sep="")
 
+    ##--- get measurements value, experiment and citation
     meas.names = alurep.meas.quant(quant.name, delta)
     meas.lines = sapply(meas.names, function(meas.name) {
       rc = paste(
@@ -414,7 +424,9 @@ get.tex.table = function(quant.names, perc=FALSE) {
     })
     meas.lines = paste(meas.lines, collapse=" \\\\\n")
     
+    ##--- define macro for tabular body
     quant.meas.tex = paste("\\htdef{", quant.name, ".qm}{%\n", rc, sep="")
+    ##--- add measurements if there are any
     if (nchar(meas.lines) > 0) {
       quant.meas.tex = paste(quant.meas.tex, "\\\\\n", meas.lines, "\n", sep="")
     }
@@ -424,8 +436,10 @@ get.tex.table = function(quant.names, perc=FALSE) {
     quant.names, combination$quantities[quant.names])
   qm.defs2 = paste(qm.defs2, collapse=" \n")
 
+  ##--- join the two previous blocks of definitions
   qm.defs = paste(qm.defs, qm.defs2, sep="\n")
   
+  ##--- build complete tabular body of all quantities and measurements
   qm.table = mapply(function(quant.name, quant) {
     rc = paste("\\htuse{", quant.name, ".qm}", sep="")
     return(rc)
@@ -451,8 +465,7 @@ get.tex.table.simple = function(quant.names, precision, order) {
   quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(function(quant.name, quant) {
-    quant.descr = alurep.tex.quant.descr(quant)
-    quant.descr = paste(alurep.gamma.texlabel(quant.name), "=", quant.descr)
+    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
     quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
     rc = paste(
       quant.descr, "&",
