@@ -1,12 +1,12 @@
 #
-# Gamma807 = G(K- K Kbar0 nu(tau)) / G(total)
+# Gamma807 = G(K- K0 Kbar0 nu(tau)) / G(total)
 #
-QUANTITY Gamma807 descr "G(K- K Kbar0 nu(tau))) / G(total)"
+QUANTITY Gamma807 descr "G(K- K0 Kbar0 nu(tau))) / G(total)"
 
 #
-# Gamma808 = G(K- K Kbar0 pi0 nu(tau)) / G(total)
+# Gamma808 = G(K- K0 Kbar0 pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma808 descr "G(K- K Kbar0 pi0 nu(tau))) / G(total)"
+QUANTITY Gamma808 descr "G(K- K0 Kbar0 pi0 nu(tau))) / G(total)"
 
 #
 # Gamma810 = G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
@@ -278,6 +278,8 @@ NLCONSTRAINT Gamma110.c 0 "-Gamma110 + (Gamma10 + Gamma16 + Gamma23 + Gamma28 + 
 NLCONSTRAINT Gamma910.c 0 "-Gamma910 + (Gamma136*BR_eta_3piz)"
 NLCONSTRAINT Gamma930.c 0 "-Gamma930 + (Gamma136*BR_eta_pimpippiz)"
 NLCONSTRAINT Gamma944.c 0 "-Gamma944 + (Gamma136*BR_eta_2gam)"
+# --- remove wrong constraint used untill 2012 average
+NLCONSTRAINT Gamma136.c 0 ""
 
 #
 # pi- 2pi0 eta constraints
