@@ -73,10 +73,10 @@ QUANTITY Gamma821 descr "G(3pi- 2pi+ nu(tau) (ex. K0, omega, f1)) / G(total)"
 QUANTITY Gamma821 texdescr "3\pi^- 2\pi^+ \nu_\tau ~(\mathrm{ex.~}K^0, \omega, f_1)"
 
 #
-# Gamma822 = G(K 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
+# Gamma822 = G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
 #
-QUANTITY Gamma822 descr "G(K 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)"
-QUANTITY Gamma822 texdescr "K 2\pi^- 2\pi^+ \nu_\tau ~(\mathrm{ex.~}K^0)"
+QUANTITY Gamma822 descr "G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma822 texdescr "K^- 2\pi^- 2\pi^+ \nu_\tau ~(\mathrm{ex.~}K^0)"
 
 #
 # Gamma830 = G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
@@ -111,10 +111,10 @@ QUANTITY Gamma832 descr "G(3pi- 2pi+ pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(t
 QUANTITY Gamma832 texdescr "3\pi^- 2\pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0, \eta, \omega, f_1)"
 
 #
-# Gamma833 = G(K 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+# Gamma833 = G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-QUANTITY Gamma833 descr "G(K 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)"
-QUANTITY Gamma833 texdescr "K 2\pi^- 2\pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
+QUANTITY Gamma833 descr "G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma833 texdescr "K^- 2\pi^- 2\pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
 
 #
 # Gamma941 = G(pi- f1(pi- pi+ eta(gamma gamma)) nu(tau)) / G(total)
@@ -171,7 +171,7 @@ QUANTITY Gamma945 texdescr "\pi^- 2\pi^0 \eta \nu_\tau"
 # Gamma103 = Gamma820 + Gamma822 + Gamma831*BR_om_pimpip
 #
 # Gamma820 = G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
-# Gamma822 = G(K 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
+# Gamma822 = G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
 # Gamma831 = G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
 #
 NLCONSTRAINT Gamma103.c 0 "-Gamma103 + (Gamma820 + Gamma822 + Gamma831*BR_om_pimpip)"
@@ -262,8 +262,8 @@ NLCONSTRAINT Gamma78.c 0 "-Gamma78 + (Gamma810 + Gamma50*2*BR_KS_pimpip*BR_KS_2p
 # Gamma801 = G(K- phi nu(tau) (phi->KK)) / G(total)
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
-# Gamma822 = G(K 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
-# Gamma833 = G(K 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+# Gamma822 = G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
+# Gamma833 = G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
 NLCONSTRAINT Gamma110.c 0 "-Gamma110 + (Gamma10 + Gamma16 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma128 + Gamma802 + Gamma803 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma801 + Gamma822 + Gamma833)"
 
