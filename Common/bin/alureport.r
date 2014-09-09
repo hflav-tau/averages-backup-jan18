@@ -257,7 +257,7 @@ alurep.tex.val.prec.ord = function(val, precision, order, width=0, perc=FALSE) {
 }
 
 ##
-## return numeric value formatted val +- stat in a string
+## return numeric value formatted val in a string
 ## use automatic precision and order of magnitude
 ##
 alurep.tex.val.auto = function(val, width=0, perc=FALSE) {
@@ -277,6 +277,9 @@ alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc
   if (order == 0) {
     rc = sprintf(paste("%", width, ".", precision, "f \\pm %", width, ".", precision, "f", sep=""),
       val, err)
+  } else if (perc && order == -2) {
+    rc = sprintf(paste("(%", width, ".", precision, "f \\pm %", width, ".", precision, "f)\\%%", sep=""),
+      val, err)
   } else {
     rc = sprintf(paste("(%", width, ".", precision, "f \\pm %", width, ".", precision, "f) \\cdot 10^{%d}", sep=""),
       val, err, order)
@@ -288,7 +291,7 @@ alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc
 ## return quantity formatted val +- stat in a string
 ## according to the self-determined optimal precision and power-of-ten order
 ##
-alurep.tex.val.err.prec.ord.auto = function(val, err, width=0, perc=FALSE) {
+alurep.tex.val.err.auto = function(val, err, width=0, perc=FALSE) {
   rc = alurep.precision.order(c(val, err), perc=perc)
   precision = rc$precision
   order = rc$order
