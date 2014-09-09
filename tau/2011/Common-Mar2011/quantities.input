@@ -1253,12 +1253,14 @@ QUANTITY Gamma132 node S035C28 descr "G(Kbar0 pi- eta nu(tau)) / G(total)"
 #
 QUANTITY Gamma136 node S035B89 descr "G(pi- pi- pi+ eta nu(tau) (ex. K0)) / G(total)"
 #
-# +++ Gamma136 = (Gamma104*BR_eta_pimpippiz + Gamma78*BR_eta_3piz)
+# +++ the following constraint found to be wrong preparing the 2014 average
 #
-# +++ Gamma78 = G(h- h- h+ 3pi0 nu(tau)) / G(total)
-# +++ Gamma104 = G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+# Gamma136 = (Gamma104*BR_eta_pimpippiz + Gamma78*BR_eta_3piz)
 #
-# +++ NLCONSTRAINT Gamma136.c 0 "-Gamma136 + (Gamma104*BR_eta_pimpippiz + Gamma78*BR_eta_3piz)"
+# Gamma78 = G(h- h- h+ 3pi0 nu(tau)) / G(total)
+# Gamma104 = G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+NLCONSTRAINT Gamma136.c 0 "-Gamma136 + (Gamma104*BR_eta_pimpippiz + Gamma78*BR_eta_3piz)"
 
 #
 # Gamma149 = G(h- omega >=0 neutrals nu(tau)) / G(total)
@@ -1362,7 +1364,7 @@ QUANTITY Gamma804 node S035Z05 descr "G(pi- K(L)0 K(L)0 nu(tau)) / G(total)"
 # Gamma48 = G(pi- K(S)0 K(L)0 nu(tau)) / G(total)
 # Gamma804 = G(pi- K(L)0 K(L)0 nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma804.c 0 "-Gamma804 + (Gamma47)"
+NLCONSTRAINT Gamma804.c 0 "-Gamma804 + (Gamma47 * (BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))"
 
 #
 # Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
