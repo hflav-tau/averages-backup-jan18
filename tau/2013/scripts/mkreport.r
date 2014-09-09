@@ -736,6 +736,10 @@ mkreport = function(fname) {
   ## write tex defs of some quantities
   ##
   tex.defs = paste(
+    ##--- unitarity check
+    alurep.tex.cmd.short("HfagUnitarityResid",
+                         alurep.tex.val.err.auto(quant.val["Gamma998"], quant.err["Gamma998"], perc=TRUE)),
+    ##--- measurements
     alurep.tex.cmd.short("HfagTauMeasNum", as.character(meas.num)),
     ##--- quantities corresponding to measurements
     alurep.tex.cmd.short("HfagTauQuantNum", as.character(quant.num-dummy.quant.num)),
@@ -745,7 +749,8 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("HfagTauConstrNum", as.character(constr.num - dummy.quant.num)),
     alurep.tex.cmd.short("HfagTauChisq", sprintf("%.1f", chisq)),
     alurep.tex.cmd.short("HfagDof", as.character(dof)),
-    alurep.tex.cmd.short("HfagTauChisqProb", alurep.tex.val.auto(chisq.prob, perc=TRUE)), sep="")
+    alurep.tex.cmd.short("HfagTauChisqProb", alurep.tex.val.auto(chisq.prob, perc=TRUE)),
+    sep="")
   cat(tex.defs, file=fname, append=TRUE)
   cat("file '", fname, "', initial defs\n", sep="")
 
