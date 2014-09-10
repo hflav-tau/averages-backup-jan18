@@ -852,7 +852,8 @@ void TauLFV_UL_plot(Int_t when=2013001)
   leg->Draw();
   c1->Update();
   //
-    HFAGTauLabel("Summer 2013", -0.01, -0.02, 1.3);
+  HFAGTauLabel("2014, prelim.", -0.01, -0.02, 1.3);
+  //    HFAGTauLabel("Summer 2013", -0.01, -0.02, 1.3);
     c1->Update();  
   //  HFAGTauLabel("Winter 2012", -0.01, -0.02, 1.3);
   //  c1->Update();  
