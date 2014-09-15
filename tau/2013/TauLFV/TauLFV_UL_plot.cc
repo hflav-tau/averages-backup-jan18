@@ -788,11 +788,11 @@ void TauLFV_UL_plot(Int_t when=2013001)
   // hBaBar->SetMarkerStyle(kOpenDiamond); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.3);
   // hCLEO->SetMarkerStyle(kOpenSquare);  hCLEO->SetMarkerColor(kGreen);  hCLEO->SetMarkerSize(0.8);
   
-  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(2.0);
-  hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(2.0);
-  hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(2.0);
-  hLHCb->SetMarkerStyle(kFullSquare); hLHCb->SetMarkerColor(kBlack); hLHCb->SetMarkerSize(1.8); 
-  hHFAG_CLs->SetMarkerStyle(34); hHFAG_CLs->SetMarkerColor(kGreen); hHFAG_CLs-> SetMarkerSize(2.0); 
+  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.5);
+  hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.5);
+  hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(1.5);
+  hLHCb->SetMarkerStyle(kFullSquare); hLHCb->SetMarkerColor(kBlack); hLHCb->SetMarkerSize(1.2); 
+  hHFAG_CLs->SetMarkerStyle(34); hHFAG_CLs->SetMarkerColor(kGreen); hHFAG_CLs-> SetMarkerSize(1.5); 
 
   TCanvas *c1 = new TCanvas("c1","",1700,800); 
   c1->SetBottomMargin(0.17);
