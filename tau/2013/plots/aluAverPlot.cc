@@ -488,7 +488,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   }
 
   canvas->SaveAs(std::string(basefname + ".pdf").c_str());
-  // canvas->SaveAs(std::string(basefname + ".eps").c_str());
+  canvas->SaveAs(std::string(basefname + ".eps").c_str());
   // canvas->SaveAs(std::string(basefname + ".gif").c_str());
   canvas->SaveAs(std::string(basefname + ".png").c_str());
   // canvas->Clear();
