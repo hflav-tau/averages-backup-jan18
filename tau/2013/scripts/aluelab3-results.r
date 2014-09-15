@@ -516,9 +516,11 @@ aluelab.results = function(args) {
   ## Lattice averages FLAG 2013 Aoki et al.
   ## http://arxiv.org/abs/1310.8555
   ## http://inspirehep.net/record/1262813, Aoki:2013ldr
+  ## use values for Nf = 2+1 (compatible with Nf = 2+1+1
   ##
-  quant$quant.add.single("f_K_by_f_pi", 1.194, 0.005) ## changed14
+  quant$quant.add.single("f_K_by_f_pi", 1.192, 0.005) ## unchanged12
   quant$quant.add.single("f_K", 156.3, 0.9) ## changed14
+  quant$quant.add.single("fp0_Kpi", 0.9661, 0.0032) ## new since 2014
 
   ##
   ## Lattice averages from http://arxiv.org/abs/0910.2928 and
