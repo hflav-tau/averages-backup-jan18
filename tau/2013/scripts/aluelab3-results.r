@@ -212,8 +212,9 @@ aluelab.results = function(args) {
   quant$quant.add.single("m_e",0.510998928, 0.000000011) ## changed14
   quant$quant.add.single("m_mu", 105.6583715, 0.0000035) ## changed14
 
+  quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
   ##--- use HFAG 2014 average for tau lifetime (= PDG14)
-  quant$quant.add.single("tau_tau", 290.29e-15, 0.52e-15) ## changed14 
+  ## quant$quant.add.single("tau_tau", 290.29e-15, 0.52e-15) ## changed14 
 
   ##--- m_tau HFAG 2009
   ## quant$quant.add.single("m_tau", 1776.7673082, 0.1507259)
