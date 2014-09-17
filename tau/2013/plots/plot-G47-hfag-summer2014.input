@@ -10,7 +10,7 @@
 #
 #i   0.2130 0.2280    6.4    |V_{us}|
 i   0  0    6.4    B(#tau^{-} #rightarrow #pi^{-} K_{s} K_{s} #nu) [x 10^{-4}]
-mt  2.36 0.06 0.00  HFAG 2014
+mt  2.36 0.06 0.00  HFAG 2014, prelim.
 mt  2.31 0.17 0.00  PDG 2013 Fit
 m   2.60 1.12 0.00  ALEPH
 m   2.31 0.04 0.08  Babar 2012

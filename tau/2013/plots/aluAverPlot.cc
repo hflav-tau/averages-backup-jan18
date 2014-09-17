@@ -72,9 +72,9 @@ void PlotStyleSetup(Float_t scale = 1, Int_t canvas_width = 560)
   gStyle->SetLabelColor(kWhite, "y");
   gStyle->SetTickLength(0, "y");
 
-  gStyle->SetTextSize(0.05*scale);
-  gStyle->SetTitleSize(0.06*scale, "x");
-  gStyle->SetLabelSize(0.05*scale, "x");
+  gStyle->SetTextSize(0.04*scale);
+  gStyle->SetTitleSize(0.05*scale, "x");
+  gStyle->SetLabelSize(0.04*scale, "x");
 
   const Int_t plotFont(42);
   gStyle->SetLabelFont(plotFont, "xyz");
@@ -407,7 +407,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
 
   //--- result value
   TLatex  tlval;
-  tlval.SetTextSize(gStyle->GetLabelSize()*0.9);
+  tlval.SetTextSize(gStyle->GetLabelSize()*1.00);
 
   Int_t color;
   for (Int_t i=0; i<nPoints; ++i) {
