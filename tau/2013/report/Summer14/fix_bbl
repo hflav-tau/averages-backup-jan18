@@ -1,0 +1,53 @@
+#!/bin/sh
+##########################################
+# Script to fix the *.bbl output of bibtex
+##########################################
+# O. Schneider, April 18, 2010
+#
+sed -e '
+#
+# Replace ". " with ".\ "
+s/\. /\.\\ /g
+#
+# Replace "." at the end of a line with ".\"
+s/\.$/\.\\/
+#
+# Remove any punctation before "(",
+# leaving possible space between punctuation and "(" unchanged
+s/[,.;:]\( *(\)/\1/g
+#
+# Remove any punctation before "@";
+# if punctuation is removed, remove also "@" and possible space between punctuation and "@"
+s/[,.;:] *@//g
+' | sed -e '
+#
+# Redo the same, but looking for punctation at the end of a line
+# and "(" or "@" at the beginning of the next line
+/[,.;:] *$/ {
+          N
+          s/[,.;:]\( *\n *(\)/\1/
+          s/[,.;:] *\n *@/%\n/
+          s/\([,.;:]\)\( *\n\)/{\1}\2/
+}' | sed -e '
+/[,.;:] *$/ {
+          N
+          s/[,.;:]\( *\n *(\)/\1/
+          s/[,.;:] *\n *@/%\n/
+          s/\([,.;:]\)\( *\n\)/{\1}\2/
+}' | sed -e '
+#
+# Remove "@" and any punctuation just after it
+s/@[,;:.]//g
+s/@//g
+' | sed -e '
+#
+# If there is a "%" at the end of a line,
+# delete the "%" and append the next line.
+/%$/ {
+          N
+          s/%\n//g
+}' | sed -e '
+/%$/ {
+          N
+          s/%\n//g
+}'

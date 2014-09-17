@@ -1,0 +1,275 @@
+% -- \include{b2cincl.tex}
+% ======================================================================
+\subsection{Inclusive CKM-favored decays}
+\label{slbdecays_b2cincl}
+% -------------------------------------------
+
+\subsubsection{Global analysis of $\bar B\to X_c\ell^-\bar\nu_\ell$}
+
+The semileptonic width $\Gamma(\bar B\to X_c\ell^-\bar\nu_\ell)$ has
+been calculated in the framework of the Operator Product
+Expansion. The result is a double-expansion in $\Lambda_{\rm QCD}/m_b$
+and $\alpha_s$, which depends on a number of non-perturbative
+parameters. These parameters can be measured using other observables
+in $\bar B\to X_c\ell^-\bar\nu_\ell$ decays, such as the moments of
+the lepton energy and the hadronic mass spectrum.
+
+Two independent sets of theoretical expressions, referred to as
+kinetic~\cite{Benson:2003kp,Gambino:2004qm,Gambino:2011cq} and 1S
+schemes~\cite{Bauer:2004ve} are available for this kind of
+analysis. The non-perturbative parameters in the kinetic scheme
+are: the quark masses $m_b$ and $m_c$, $\mu^2_\pi$ and
+$\mu^2_G$ at $O(1/m^2_b)$, and $\rho^3_D$ and $\rho^3_{LS}$ at
+$O(1/m^3_b)$. In the 1S scheme, the parameters are: $m_b$, $\lambda_1$
+at $O(1/m^2_b)$, and $\rho_1$, $\tau_1$, $\tau_2$ and $\tau_3$ at
+$O(1/m^3_b)$. Note that due to the different definitions, the results
+for the quark masses cannot be compared directly between the two
+schemes.
+
+Our analysis uses all available measurements of moments in $\bar B\to
+X_c\ell^-\bar\nu_\ell$, excluding only points with too high
+correlation to avoid numerical issues. The list of included
+measurements is given in
+Table~\ref{tab:gf_input}. The only external input is the average
+lifetime~$\tau_B$ of neutral and charged $B$~mesons, taken to be
+$(1.582\pm 0.007)$~ps (Sect.~\ref{sec:life_mix}).
+\begin{table}[!htb]
+\caption{Experimental inputs used in the global analysis of $\bar B\to
+  X_c\ell^-\bar\nu_\ell$. $n$ is the order of the moment, $c$ is the
+  threshold value in GeV. In total, there are 29 measurements from
+  \babar, 25 measurements from Belle and 12 from other
+  experiments.} \label{tab:gf_input}
+\begin{center}
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  Experiment
+  & Hadron moments $\langle M^n_X\rangle$
+  & Lepton moments $\langle E^n_\ell\rangle$
+  & Photons moment $\langle E^n_\gamma\rangle$\\
+  \hline \hline
+  \babar & $n=2$, $c=0.9,1.1,1.3,1.5$ & $n=0$, $c=0.6,1.2,1.5$ & $n=1$,
+  $c=1.9,2.0$\\
+  & $n=4$, $c=0.8,1.0,1.2,1.4$ & $n=1$, $c=0.6,0.8,1.0,1.2,1.5$ & $n=2$,
+  $c=1.9$~\cite{Aubert:2005cua,Aubert:2006gg}\\
+  & $n=6$, $c=0.9,1.3$~\cite{Aubert:2009qda} & $n=2$, $c=0.6,1.0,1.5$
+  & \\
+  & & $n=3$, $c=0.8,1.2$~\cite{Aubert:2009qda,Aubert:2004td} & \\
+  \hline
+  Belle & $n=2$, $c=0.7,1.1,1.3,1.5$ & $n=0$, $c=0.6,1.0,1.4$ & $n=1$,
+  $c=1.8,1.9$\\
+  & $n=4$, $c=0.7,0.9,1.3$~\cite{Schwanda:2006nf} & $n=1$,
+  $c=0.6,0.8,1.0,1.2,1.4$ & $n=2$, $c=1.8,2.0$~\cite{Limosani:2009qg}\\
+  & & $n=2$, $c=0.6,1.0,1.4$ & \\
+  & & $n=3$, $c=0.8,1.0, 1.2$~\cite{Urquijo:2006wd} & \\
+  \hline
+  CDF & $n=2$, $c=0.7$ & & \\
+  & $n=4$, $c=0.7$~\cite{Acosta:2005qh} & & \\
+  \hline
+  CLEO & $n=2$, $c=1.0,1.5$ & & $n=1$, $c=2.0$~\cite{Chen:2001fja}\\
+  & $n=4$, $c=1.0,1.5$~\cite{Csorna:2004kp} & & \\
+  \hline
+  DELPHI & $n=2$, $c=0.0$ & $n=1$, $c=0.0$ & \\
+  & $n=4$, $c=0.0$~\cite{Abdallah:2005cx} & $n=2$, $c=0.0$ & \\
+  & & $n=3$, $c=0.0$~\cite{Abdallah:2005cx} & \\
+  \hline
+\end{tabular}
+}
+\end{center}
+\end{table}
+
+Both in the kinetic and 1S scheme, the moments in $\bar B\to
+X_c\ell^-\bar\nu_\ell$ are not sufficient to constrain the $b$-quark
+mass precisely, which limits the precision of the determination of
+$\vcb$. This limitation can be overcome:
+\begin{itemize}
+  \item by including the photon energy moments in $B\to X_s\gamma$
+    into the fit, or
+  \item by applying a precise constraint on the $c$-quark mass.
+\end{itemize}
+For the former, calculations of the $B\to X_s\gamma$~moments are
+available both in the kinetic~\cite{Benson:2004sg} and the
+1S~scheme~\cite{Bauer:2004ve}. For the latter, we use the $c$-quark
+mass calculated in Ref.~\cite{Dehnadi:2011gc} in the kinetic scheme
+analysis,
+\begin{equation}
+  m_c^{\overline{\rm MS}}(3~{\rm GeV})=(0.998\pm 0.029)~{\rm GeV}~.
+\end{equation}
+
+\subsubsection{Analysis in the kinetic scheme}
+\label{globalfitsKinetic}
+
+The fit relies on the calculations of the spectral moments in $\bar
+B\to X_c\ell^-\bar\nu_\ell$~decays described in
+Ref.~\cite{Gambino:2011cq}. The
+photon energy moments are calculated in
+Ref.~\cite{Benson:2004sg}. The theoretical uncertainties and
+correlations are estimated as explained in
+Ref.~\cite{Schwanda:2008kw}. Namely, we assume 100\% correlation
+between calculations of the same moment at different threshold values
+and no theory correlation between different moments. The fit
+determines $\vcb$ and the 6 non-perturbative parameters mentioned
+above.
+
+The result of the fit using the $c$-quark mass constraint is
+\begin{eqnarray}
+  \vcb & = & (41.88\pm 0.73)\times 10^{-3}~, \\
+  m_b^{\rm kin} & = & 4.560\pm 0.023~{\rm GeV}~, \\
+  \mu^2_\pi & = & 0.453\pm 0.036~{\rm GeV^2}~,
+\end{eqnarray}
+with a $\chi^2$ of 33.4 for $55-7$ degrees of freedom. The detailed
+result of the fit is given in Table~\ref{tab:gf_res_mc_kin}. This
+result is also consistent with the fit using the $B\to
+X_s\gamma$~constraint (Table~\ref{tab:gf_res_kin}). An illustration of
+the fit is given in Fig.~\ref{fig:gf_res_kin}.
+\begin{table}[!htb]
+\caption{Fit result in the kinetic scheme, using a precise $c$-quark
+  mass constraint. The error matrix of the fit ($\sigma_{\rm fit}$) contains
+  experimental and theoretical contributions. The expression for
+  calculating $\vcb$ has an additional uncertainty of 1.4\%
+  ($\sigma_{\rm th}$). In the lower part of the table, the
+  correlation matrix of the parameters is given.} \label{tab:gf_res_mc_kin}
+\begin{center}
+\resizebox{0.99\textwidth}{!}{
+\begin{tabular}{|l|ccccccc|}
+  \hline
+  & \vcb\ [10$^{-3}$] & $m_b^{\rm kin}$ [GeV] &
+  $m_c^{\overline{\rm MS}}$ [GeV] & $\mu^2_\pi$ [GeV$^2$]
+  & $\rho^3_D$ [GeV$^3$] & $\mu^2_G$ [GeV$^2$] & $\rho^3_{LS}$ [GeV$^3$]\\
+  \hline \hline
+  value & 41.88 & \phantom{$-$}4.560 & \phantom{$-$}1.010 &
+  \phantom{$-$}0.453 & \phantom{$-$}0.164 & \phantom{$-$}0.229 &
+  $-$0.140\\
+  $\sigma_{\rm fit}$ & 0.44 & \phantom{$-$}0.023 &
+  \phantom{$-$}0.027 & \phantom{$-$}0.036 & \phantom{$-$}0.020 &
+  \phantom{$-$}0.043 & \phantom{$-$}0.086\\
+  $\sigma_{\rm th}$ & 0.59 & & & & & & \\
+  \hline
+  $|V_{cb}|$ & 1.000 & $-$0.164 & \phantom{$-$}0.137 &
+  \phantom{$-$}0.089 & \phantom{$-$}0.328 & $-$0.324 &
+  \phantom{$-$}0.146\\
+  $m_b^{\rm kin}$ & & \phantom{$-$}1.000 & \phantom{$-$}0.745 &
+  $-$0.117 & $-$0.177 & \phantom{$-$}0.128 & $-$0.179\\
+  $m_c^{\overline{\rm MS}}$ & & & \phantom{$-$}1.000
+  & $-$0.199 & $-$0.006 & $-$0.433 & \phantom{$-$}0.258\\
+  $\mu^2_\pi$ & & & & \phantom{$-$}1.000 & \phantom{$-$}0.335 &
+  $-$0.109 & $-$0.078\\
+  $\rho^3_D$ & & & & & \phantom{$-$}1.000 & $-$0.308 & $-$0.238\\
+  $\mu^2_G$ & & & & & & \phantom{$-$}1.000 & $-$0.323\\
+  $\rho^3_{LS}$ & & & & & & & \phantom{$-$}1.000\\
+  \hline
+\end{tabular}
+}
+\end{center}
+\end{table}
+\begin{table}[!htb]
+\caption{Fit result in the kinetic scheme for different
+  constraints. Refer to the text for more
+  details.} \label{tab:gf_res_kin}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Constraint & $\vcb$ [10$^{-3}$] & $m_b^{\rm kin}$ [GeV] &
+  $\mu^2_\pi$ [GeV$^2$] & $\chi^2/$d.o.f.\\
+  \hline \hline
+  $B\to X_s\gamma$ & $41.94\pm 0.43_{\rm fit}\pm 0.59_{\rm th}$ &
+  $4.574\pm 0.032$ & $0.459\pm 0.037$ & $27.0/(66-7)$\\
+  $m_c^{\overline{\rm MS}}(3~{\rm GeV})$ & $41.88\pm 0.44_{\rm fit}\pm
+  0.59_{\rm th}$ & $4.560\pm 0.023$ & $0.453\pm 0.036$ &
+  $33.4/(55-7)$\\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+\begin{figure}
+\begin{center}
+  \includegraphics[width=0.45\columnwidth]{figures/slb/mbmu2pi_kin.eps}
+  \includegraphics[width=0.45\columnwidth]{figures/slb/mbvcb_kin.eps}
+\end{center}
+\caption{$\Delta\chi^2=1$~contours of the fit result in the kinetic mass
+  scheme.} \label{fig:gf_res_kin}
+\end{figure}
+
+The fit using the $c$-quark mass constraint yields a $\bar B\to
+X_c\ell^-\bar\nu_\ell$ branching fraction of
+\begin{equation}
+  \cbf(\bar B\to X_c\ell^-\bar\nu_\ell)=(10.51\pm 0.13)\%~.
+\end{equation}
+Correcting for charmless semileptonic decays
+(Sect.~\ref{slbdecays_b2uincl}), $\cbf(\bar B\to
+X_u\ell^-\bar\nu_\ell)=(2.08\pm 0.30)\times 10^{-3}$, we obtain the
+semileptonic branching fraction,
+\begin{equation}
+  \cbf(\bar B\to X\ell^-\bar\nu_\ell)=(10.72\pm 0.13)\%~.
+\end{equation}
+
+\subsubsection{Analysis in the 1S scheme}
+\label{globalfits1S}
+
+The fit relies on the calculations of the spectral moments described in
+Ref.~\cite{Bauer:2004ve}. The theoretical uncertainties are estimated
+as explained in Ref.~\cite{Schwanda:2008kw}. Only trivial theory
+correlations, {\it i.e.}, between the same moment at the same
+threshold are included in the analysis. The fit determines $\vcb$ and
+the 6 non-perturbative parameters mentioned above.
+
+The result of the fit using the $B\to X_s\gamma$ constraint is
+\begin{eqnarray}
+  \vcb & = & (41.96\pm 0.45)\times 10^{-3}~, \\
+  m_b^{1S} & = & 4.691\pm 0.037~{\rm GeV}~, \\
+  \lambda_1 & = & -0.362\pm 0.067~{\rm GeV^2}~,
+\end{eqnarray}
+with a $\chi^2$ of 23.0 for $66-7$ degrees of freedom. The detailed
+result of the fit is given in Table~\ref{tab:gf_res_xsgamma_1s}. This
+result is consistent with the fit using the $\bar B\to
+X_c\ell^-\bar\nu_\ell$~data only (Table~\ref{tab:gf_res_1s}).
+\begin{table}[!htb]
+\caption{Fit result in the 1S scheme, using $B\to X_s\gamma$~moments
+  as a constraint. In the lower part of the table, the correlation
+  matrix of the parameters is given.} \label{tab:gf_res_xsgamma_1s}
+\begin{center}
+\begin{tabular}{|l|ccccccc|}
+  \hline
+  & $m_b^{1S}$ [GeV] & $\lambda_1$ [GeV$^2$] & $\rho_1$ [GeV$^3$] &
+  $\tau_1$ [GeV$^3$] & $\tau_2$ [GeV$^3$] & $\tau_3$ [GeV$^3$] &
+  $\vcb$ [10$^{-3}$]\\
+  \hline \hline
+  value & 4.691 & $-0.362$ & \phantom{$-$}0.043 &
+  \phantom{$-$}0.161 & $-0.017$ & \phantom{$-$}0.213 &
+  \phantom{$-$}41.96\\
+  error & 0.037 & \phantom{$-$}0.067 & \phantom{$-$}0.048 &
+  \phantom{$-$}0.122 & \phantom{$-$}0.062 & \phantom{$-$}0.102 &
+  \phantom{$-$}0.45\\
+  \hline
+  $m_b^{1S}$ & 1.000 & \phantom{$-$}0.434 & \phantom{$-$}0.213 &
+  $-0.058$ & $-0.629$ & $-0.019$ & $-0.215$\\
+  $\lambda_1$ & & \phantom{$-$}1.000 & $-0.467$ & $-0.602$ & $-0.239$
+  & $-0.547$ & $-0.403$\\
+  $\rho_1$ & & & \phantom{$-$}1.000 & \phantom{$-$}0.129 & $-0.624$ &
+  \phantom{$-$}0.494 & \phantom{$-$}0.286\\
+  $\tau_1$ & & & & \phantom{$-$}1.000 & \phantom{$-$}0.062 & $-0.148$ &
+  \phantom{$-$}0.194\\
+  $\tau_2$ & & & & & \phantom{$-$}1.000 & $-0.009$ & $-0.145$\\
+  $\tau_3$ & & & & & & \phantom{$-$}1.000 & \phantom{$-$}0.376\\
+  $\vcb$ & & & & & & & \phantom{$-$}1.000\\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+\begin{table}[!htb]
+\caption{Fit result in the 1S scheme for different data
+  sets.} \label{tab:gf_res_1s}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Data & $\vcb$ [10$^{-3}$] & $m_b^{1S}$ [GeV] &
+  $\lambda_1$ [GeV$^2$] & $\chi^2/$d.o.f.\\
+  \hline \hline
+  $X_c\ell\nu$ and $X_s\gamma$ & $41.96\pm 0.45$ & $4.691\pm 0.037$ &
+  $-0.362\pm 0.067$ & $23.0/(66-7)$\\
+  $X_c\ell\nu$ only & $42.37\pm 0.65$ & $4.622\pm 0.085$ & $-0.412\pm
+  0.084$ & $13.7/(55-7)$\\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}

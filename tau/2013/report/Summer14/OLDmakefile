@@ -1,0 +1,36 @@
+DOC = Summer14
+FIGURES = $(wildcard figures/*/*.eps)
+TEXFILES = $(wildcard *.tex)
+
+all:	$(DOC).ps 
+
+$(DOC).ps : $(DOC).dvi
+pdf: $(DOC).pdf
+gv : $(DOC).gv
+
+
+%.ps : %.dvi
+	@echo Remaking $@
+	@dvips -o $(DOC).ps $< 
+
+$(DOC).bbl $(DOC).dvi : $(DOC).bib  $(FIGURES)
+	@echo Remaking $@
+	@latex $(DOC)
+	@bibtex $(DOC) 
+	@./fix_bbl < $(DOC).bbl > $(DOC).bbl.fixed; mv $(DOC).bbl{.fixed,}
+	@latex $(DOC)
+	@latex $(DOC)
+
+
+%.lpr: %.ps
+	@echo Printing $<
+	lpr $<
+
+%.pdf: %.ps
+	@ps2pdf $<
+ 
+%.gv : %.ps
+	@gv $<
+
+clean:
+	$(RM) $(addprefix $(DOC), .aux .cb .dvi .lof .log .lot .ps .toc .bbl .blg .pdf)  $(wildcard *~)

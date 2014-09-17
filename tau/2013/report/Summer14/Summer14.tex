@@ -1,0 +1,183 @@
+\documentclass[12pt,twoside]{article}
+%% \usepackage[utf8]{inputenc}
+%% \usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[pdftex]{graphicx} % PN ADDED pdftex option, as dvips is the default for this package
+ %\usepackage{epsfig} % COMMENTED BY PN as we are not using eps anymore
+\usepackage[figuresright]{rotating}
+% \usepackage{pstcol} % G. Cibinetto
+\usepackage{cite}    % G. Cibinetto
+ %\usepackage{pstricks} % COMMENTED BY PN as pstricks is not made for pdflatex (there may be a hack, but I did not explore this)
+\usepackage{auto-pst-pdf} % E. Ben-Haim: for compilation with pdflatex (instead of pstricks)
+\usepackage{mciteplus}
+\usepackage{authblk}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{longtable}
+
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{color, colortbl}
+
+\definecolor{Gray}{gray}{0.9}
+\definecolor{LightGray}{gray}{0.97}
+
+\setlength{\oddsidemargin}{-0.4cm}
+\setlength{\evensidemargin}{-0.4cm}
+\setlength{\textwidth}{17cm}  %<- {16cm}
+\setlength{\textheight}{23.5cm}
+\setlength{\topmargin}{-2.0cm}  %better for Letter (-1.0 is better for A4)
+
+\usepackage{hyperref} %PN REMOVED [dvips] option as we have moved to pdflatex              %SCB should come late in the packages http://www.tug.org/applications/hyperref/manual.html
+\usepackage[all]{hypcap} % Internal hyperlinks to floats.
+%\hypersetup{ pdfborder=0 0 0, urlbordercolor=1 0 0 }      %SCB 
+\usepackage{relsize}                                      %SCB for Babar
+%\input{b2charm-symbols}                                %SCB
+                                                          %SCB
+\def\hfurl#1{http://hfag.phys.ntu.edu.tw/b2charm/#1} %SCB disable links from caption 
+% 
+% the version of the hyperref package at SLAC, 2000/07/02 v6.70m ,
+% seems to be incompatible with hyperlinks from within captions 
+% ( version 2000/11/05 v6.71a does not have this limitation )
+%
+\input{symbols.tex}
+\renewcommand{\mysection}[1]{\section[#1]{#1}} % SCB override the mysection definition for hyperref compatibility
+
+%\def\hfhref#1#2{\href{http://hfag.phys.ntu.edu.tw/b2charm/#1}{#2}} %SCB
+%\def\hftabletype{sidewaystable}                           %SCB
+%\def\hftableposn{!htbp}                                   %SCB
+%\def\hfmetadata#1{}                                       %SCB kill the metadata in the table captions
+
+\begin{document}
+
+\setcounter{page}{1}
+\thispagestyle{empty}
+\renewcommand\Affilfont{\itshape\small} 
+
+\title{
+  Averages of $b$-hadron, $c$-hadron, and $\tau$-lepton properties 
+  as of summer 2014
+\vskip0.20in
+\large{\it Heavy Flavor Averaging Group (HFAG):}
+%%\author{set one author to remove the spurious ``immediate''}
+\vspace*{-0.20in}}
+\author[1]{Y.~Amhis}\affil[1]{LAL, Universit\'{e} Paris-Sud, France}
+\author[2]{Sw.~Banerjee}\affil[2]{University of Victoria, Canada}
+\author[3]{R.~Bernhard}\affil[3]{University of Freiburg, Germany}
+\author[4]{S.~Blyth}\affil[4]{National United University, Taiwan}
+\author[5]{A.~Bozek}\affil[5]{H. Niewodniczanski Institute of Nuclear Physics, Krakow, Poland}
+\author[6]{C.~Bozzi}\affil[6]{INFN Ferrara, Italy} 
+\author[7,8]{A.~Carbone}\affil[7]{INFN Bologna, Italy}\affil[8]{Universit\'{a} di Bologna, Italy}
+\author[9]{A.~Oyanguren Campos}\affil[9]{IFIC, University of Valencia, Spain}
+\author[10]{R.~Chistov}\affil[10]{Institute for Theoretical and Experimental Physics, Russia}
+\author[6]{G.~Cibinetto} 
+\author[11]{J.~Coleman} \affil[11]{University of Liverpool, UK}
+\author[12]{J.~Dingfelder}\affil[12]{Bonn University, Germany}
+\author[13]{W.~Dungel}\affil[13]{Austrian Academy of Sciences, Austria}
+\author[14]{M.~Gersabeck}\affil[14]{European Organization for Nuclear Research (CERN), Switzerland}
+\author[14,15]{T.~J.~Gershon}\affil[15]{University of Warwick, UK}
+\author[16]{L.~Gibbons}\affil[16]{Cornell University, USA}
+\author[17]{B.~Golob}\affil[17]{University of Ljubljana, Slovenia}
+\author[18]{R.~Harr}\affil[18]{Wayne State University, USA}
+\author[19]{K.~Hayasaka} \affil[19]{Nagoya University, Japan}
+\author[20]{H.~Hayashii} \affil[20]{Nara Women's University, Japan}
+\author[21]{O.~Leroy}\affil[21]{CPPM, Aix-Marseille Universit\'{e}, CNRS/IN2P3, Marseille, France}
+\author[22]{D.~Lopes Pegna}\affil[22]{Princeton University, USA}
+\author[23]{R.~Louvot}\affil[23]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+
+\author[24]{A.~Lusiani} \affil[24]{Scuola Normale Superiore and INFN, Pisa, Italy}
+\author[25]{V.~L\"{u}th}\affil[25]{SLAC National Accelerator Laboratory, USA}
+\author[26]{B.~Meadows} \affil[26]{University of Cincinnati, USA}
+\author[27]{S.~Nishida}\affil[27]{KEK, Tsukuba, Japan}
+\author[28]{M.~Patel}\affil[28]{Imperial College London, UK}
+\author[29]{D.~Pedrini} \affil[29]{INFN Milano-Bicocca, Italy}
+\author[30]{M.~Rama}\affil[30]{INFN Frascati, Italy}
+\author[2]{M.~Roney}
+\author[31]{M.~Rotondo}\affil[31]{INFN Padova, Italy}
+\author[23]{O.~Schneider}
+\author[13]{C.~Schwanda}
+\author[25]{A.~J.~Schwartz}
+\author[32]{B.~Shwartz}\affil[32]{Budker Institute of Nuclear Physics, Russia}
+\author[33]{J.~G.~Smith}\affil[33]{University of Colorado, USA}
+\author[34]{R.~Tesarek}\affil[34]{Fermilab, USA}
+\author[14,34]{D.~Tonelli}
+\author[26]{K.~Trabelsi}
+\author[12]{P.~Urquijo}
+\author[35]{R.~Van Kooten}\affil[35]{Indiana University, USA}
+
+\date{\today} % replace \date{\today} at arXiv submission time
+\maketitle
+
+\begin{abstract}
+This article reports world averages of measurements of $b$-hadron, $c$-hadron, 
+and $\tau$-lepton properties obtained by the Heavy Flavor Averaging Group (HFAG) 
+using results available through summer 2014. 
+For the averaging, common input parameters used in the various analyses 
+are adjusted (rescaled) to common values, and known correlations are taken 
+into account. 
+The averages include branching fractions, lifetimes, 
+neutral meson mixing parameters, \CP~violation parameters,
+parameters of semileptonic decays and CKM matrix elements.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% Introduction
+\input{hfag_intro.tex}
+
+% Methodology
+\input{methods.tex}
+
+%% \clearpage
+%% % b-hadron production fractions, lifetimes and mixing parameters
+%% this can be removed once life_mix tex is included
+\input{life_mix_definitions}
+%% \input{life_mix.tex}
+ 
+%% \clearpage
+%% % Measurements related to the Unitarity Triangle
+%% \input{cp_uta.tex}
+
+%% \clearpage
+%% % Semileptonic B decays
+\input{slbdecays/slbdecays.tex} 
+ 
+%% \clearpage
+%% % Branching fractions for B decays to charm
+%% \input{b2charm/b2charm.tex}
+
+\clearpage 
+% Charmless B-decay branching fractions and their asymmetries
+\input{rare/rare.tex}
+
+%% \clearpage
+%% %Charm decays 
+%% \input{charm/charm_all.tex} 
+
+%% \clearpage
+%% %Tau decays
+%% \input{tau/tau_all.tex}
+ 
+% Summary and Acknowledgements
+
+\def\babar{\mbox{\slshape B\kern-0.1em{\smaller A}\kern-0.1em
+    B\kern-0.1em{\smaller A\kern-0.2em R}}\xspace}
+
+\input{hfag_summary}
+\input{hfag_acknowledge}
+\clearpage
+
+%\appendix
+%\input{slbdecays/slb_app.tex}
+
+\bibliographystyle{HFAGutphys}
+\raggedright
+\bibliography{Summer14}
+%\bibliography{EndOfYear11,life_mix,cp_uta,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}
+% \bibliography{EndOfYear09,life_mix,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}}{}
+
+\end{document}
+
