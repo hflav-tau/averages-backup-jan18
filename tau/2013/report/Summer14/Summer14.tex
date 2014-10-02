@@ -3,12 +3,12 @@
 %% \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage[pdftex]{graphicx} % PN ADDED pdftex option, as dvips is the default for this package
-%%\usepackage{epsfig} % COMMENTED BY PN as we are not using eps anymore
+ %\usepackage{epsfig} % COMMENTED BY PN as we are not using eps anymore
 \usepackage[figuresright]{rotating}
-%%\usepackage{pstcol} % G. Cibinetto
+% \usepackage{pstcol} % G. Cibinetto
 \usepackage{cite}    % G. Cibinetto
-%%\usepackage{pstricks} % COMMENTED BY PN as pstricks is not made for pdflatex (there may be a hack, but I did not explore this)
-%%\usepackage{auto-pst-pdf} % E. Ben-Haim: for compilation with pdflatex (instead of pstricks)
+ %\usepackage{pstricks} % COMMENTED BY PN as pstricks is not made for pdflatex (there may be a hack, but I did not explore this)
+%\usepackage{auto-pst-pdf} % E. Ben-Haim: for compilation with pdflatex (instead of pstricks)
 \usepackage{mciteplus}
 \usepackage{authblk}
 \usepackage{caption}
@@ -143,7 +143,7 @@ parameters of semileptonic decays and CKM matrix elements.
 
 %% \clearpage
 %% % Semileptonic B decays
-%%\input{slbdecays/slbdecays.tex}
+\input{slbdecays/slbdecays.tex}
 
 %% \clearpage
 %% % Branching fractions for B decays to charm
@@ -151,7 +151,7 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \clearpage
 % Charmless B-decay branching fractions and their asymmetries
-%%\input{rare/rare.tex}
+\input{rare/rare.tex}
 
 %% \clearpage
 %% %Charm decays
@@ -175,8 +175,8 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \bibliographystyle{HFAGutphys}
 \raggedright
-\bibliography{Summer14,tau/hfag-tau-refs,tau/pdg-tau-refs}
+\bibliography{Summer14,slbdecays/slb_ref.bib,tau/pdg-tau-refs}
 %\bibliography{EndOfYear11,life_mix,cp_uta,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}
-% \bibliography{EndOfYear09,life_mix,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}}{}
+%\bibliography{EndOfYear09,life_mix,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}}{}
 
 \end{document}

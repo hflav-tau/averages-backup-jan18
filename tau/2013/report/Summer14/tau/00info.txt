@@ -1,0 +1,7 @@
+##
+## alu notes
+##
+
+diff -r --brief ../Summer14-hfag/. . | egrep -v "converted|CVS|[.]svn"
+
+cvs -d :ext:iris.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/cvs co Papers/Summer14
