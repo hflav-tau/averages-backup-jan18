@@ -1,0 +1,180 @@
+\documentclass[12pt,twoside]{article}
+\makeatletter
+\providecommand*{\input@path}{}%
+\g@addto@macro\input@path{{../}}
+\makeatother
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[fleqn]{amsmath}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage[figuresright]{rotating}
+%\usepackage{pstcol}
+\usepackage{pstricks}
+\usepackage{mciteplus}
+\usepackage{authblk}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{dcolumn}
+\newcolumntype{.}{D{.}{.}{-1}}
+\usepackage{longtable}
+
+\setlength{\oddsidemargin}{-0.4cm}
+\setlength{\evensidemargin}{-0.4cm}
+\setlength{\textwidth}{17cm}  %<- {16cm}
+\setlength{\textheight}{23.5cm}
+\setlength{\topmargin}{-2.0cm}  %better for Letter (-1.0 is better for A4)
+
+\usepackage[dvips]{hyperref}                              %SCB should come late in the packages http://www.tug.org/applications/hyperref/manual.html
+%\hypersetup{ pdfborder=0 0 0, urlbordercolor=1 0 0 }      %SCB
+\usepackage{relsize}                                      %SCB for Babar
+%\input{b2charm-symbols}                                %SCB
+                                                          %SCB
+\def\hfurl#1{http://hfag.phys.ntu.edu.tw/b2charm/#1} %SCB disable links from caption
+%
+% the version of the hyperref package at SLAC, 2000/07/02 v6.70m ,
+% seems to be incompatible with hyperlinks from within captions
+% ( version 2000/11/05 v6.71a does not have this limitation )
+%
+\input{symbols.tex}
+\renewcommand{\mysection}[1]{\section[#1]{#1}} % SCB override the mysection definition for hyperref compatibility
+
+%\def\hfhref#1#2{\href{http://hfag.phys.ntu.edu.tw/b2charm/#1}{#2}} %SCB
+%\def\hftabletype{sidewaystable}                           %SCB
+%\def\hftableposn{!htbp}                                   %SCB
+%\def\hfmetadata#1{}                                       %SCB kill the metadata in the table captions
+
+\begin{document}
+
+\setcounter{page}{1}
+\thispagestyle{empty}
+\renewcommand\Affilfont{\itshape\small}
+
+\title{
+  Averages of $b$-hadron, $c$-hadron, and $\tau$-lepton Properties at the End of 2011 \\
+  \vskip0.20in
+  \large{\it Heavy Flavor Averaging Group (HFAG):}
+\author{set one author to remove the spurious ``immediate''}
+%%\vspace*{-0.20in}}
+%% \author[1]{D.~Asner}\affil[1]{Pacific Northwest National Laboratory, USA}
+%% \author[2]{Sw.~Banerjee} \affil[2]{University of Victoria, Canada}
+%% \author[3]{R.~Bernhard}\affil[3]{University of Z\"{u}rich, Switzerland}
+%% \author[4]{S.~Blyth}\affil[4]{National United University, Taiwan}
+%% \author[5]{A.~Bozek}\affil[5]{University of Krakow, Poland}
+%% \author[6]{C.~Bozzi}\affil[6]{INFN Ferrara, Italy}
+%% \author[7]{D.~G.~Cassel} \affil[7]{Cornell University, USA}
+%% \author[8]{G.~Cavoto}\affil[8]{INFN Rome, Italy}
+%% \author[6]{G.~Cibinetto}
+%% \author[9]{J.~Coleman} \affil[9]{University of Liverpool, UK}
+%% \author[10]{W.~Dungel}\affil[10]{Austrian Academy of Sciences, Austria}
+%% \author[11]{T.~J.~Gershon}\affil[11]{University of Warwick, UK}
+%% \author[7]{L.~Gibbons}
+%% \author[12]{B.~Golob}\affil[12]{University of Ljubljana, Slovenia}
+%% \author[13]{R.~Harr}\affil[13]{Wayne State University, USA}
+%% \author[14]{K.~Hayasaka} \affil[14]{Nagoya University, Japan}
+%% \author[15]{H.~Hayashii} \affil[15]{Nara Women's University, Japan}
+%% \author[16]{C.-J.~ Lin}\affil[16]{Lawrence Berkeley National Laboratory, USA}
+%% \author[17]{D.~Lopes Pegna}\affil[17]{Princeton University, USA}
+%% \author[18]{R.~Louvot}\affil[18]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+%% \author[19]{A.~Lusiani} \affil[19]{Scuola Normale Superiore and INFN, Pisa, Italy}
+%% \author[20]{V.~L\"{u}th}\affil[20]{SLAC National Accelerator Laboratory, USA}
+%% \author[21]{B.~Meadows} \affil[21]{University of Cincinnati, USA}
+%% \author[22]{S.~Nishida}\affil[22]{KEK, Tsukuba, Japan}
+%% \author[23]{D.~Pedrini} \affil[23]{INFN Milano-Bicocca, Italy}
+%% \author[24]{M.~Purohit}\affil[24]{University of South Carolina, USA}
+%% \author[25]{M.~Rama}\affil[25]{INFN Frascati, Italy}
+%% \author[2]{M.~Roney}
+%% \author[18]{O.~Schneider}
+%% \author[10]{C.~Schwanda}
+%% \author[21]{A.~J.~Schwartz}
+%% \author[26]{B.~Shwartz}\affil[26]{Budker Institute of Nuclear Physics, Russia}
+%% \author[27]{J.~G.~Smith}\affil[27]{University of Colorado, USA}
+%% \author[28]{R.~Tesarek}\affil[28]{Fermilab, USA}
+%% \author[28]{D.~Tonelli}
+%% \author[22]{K.~Trabelsi}
+%% \author[29]{P.~Urquijo}\affil[29]{Syracuse University, USA}
+%% \author[30]{R.~Van Kooten}\affil[30]{Indiana University, USA}
+}
+
+\date{\today}
+\maketitle
+
+\begin{abstract}
+This article reports world averages for measurements of $b$-hadron, $c$-hadron,
+and $\tau$ lepton properties obtained by the Heavy Flavor Averaging Group (HFAG)
+using results available before the end of 2011.
+For the averaging, common input parameters used in the various analyses
+are adjusted (rescaled) to common values, and known correlations are taken
+into account.
+The averages include branching fractions, lifetimes,
+neutral meson mixing parameters, \CP~violation parameters,
+and parameters of semileptonic decays.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+%%/////////////////////////////////////////////////////////////////////////////
+\iffalse
+%%/////////////////////////////////////////////////////////////////////////////
+
+% Introduction
+\input{hfag_intro.tex}
+
+% Methodology
+%\input{methods.tex}
+
+\clearpage
+% b-hadron production fractions, lifetimes and mixing parameters
+%% this can be removed once life_mix tex is included
+\input{life_mix_definitions}
+% \input{life_mix.tex}
+
+\clearpage
+% Measurements related to the Unitarity Triangle
+\input{cp_uta.tex}
+
+\clearpage
+% Semileptonic B decays
+% \input{slbdecays/slbdecays.tex}
+
+\clearpage
+% Branching fractions for B decays to charm
+% \input{b2charm/b2charm.tex}    %SCB
+
+\clearpage
+% Charmless B-decay branching fractions and their asymmetries
+\input{rare/rare.tex}
+
+\clearpage
+%Charm decays
+% \input{charm/charm_all.tex}
+
+%%/////////////////////////////////////////////////////////////////////////////
+\fi
+%%/////////////////////////////////////////////////////////////////////////////
+
+\clearpage
+%Tau decays
+\input{tau/tau_all.tex}
+
+% Summary and Acknowledgements
+
+\def\babar{\mbox{\slshape B\kern-0.1em{\smaller A}\kern-0.1em
+    B\kern-0.1em{\smaller A\kern-0.2em R}}\xspace}
+
+%\input{hfag_summary}
+\input{hfag_acknowledge}
+\clearpage
+
+%\appendix
+%\input{slbdecays/slb_app.tex}
+
+\bibliographystyle{../HFAGutphys}
+\raggedright
+\bibliography{../Summer14,../tau/pdg-tau-refs,../tau/hfag-tau-refs}
+
+\end{document}
+

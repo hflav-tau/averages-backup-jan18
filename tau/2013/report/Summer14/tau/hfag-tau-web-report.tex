@@ -1,0 +1,413 @@
+%%
+%% HFAG Tau 2014 report
+%%
+\documentclass[a4paper,10pt,fleqn]{article}
+\usepackage{hevea}
+%%\usepackage{hevea-fix}
+\usepackage[hmargin=2.0cm,vmargin={2.5cm,2.5cm},dvips]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[T1experimental,AlphT1experimental]{sfmath}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{caption}
+\usepackage{parskip}
+
+\iffalse
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\let\cite\citep
+\else
+\bibliographystyle{abuser-unsrt-alu}
+\ifhevea
+\newstyle{.dt-thebibliography}{
+  float: left;
+  clear: left;
+  width: 3em;
+  text-align: right;
+}
+\newstyle{.dd-thebibliography}{
+  margin: 0 0 0 4em;
+  padding: 0 0 1ex 0;
+}
+\fi
+\fi
+
+\usepackage[%
+  bookmarks=false,
+  citecolor=blue,
+  colorlinks=true,
+  urlcolor={blue},
+  linkcolor={blue},
+  pdfstartview={XYZ null null 1.22}
+  ]{hyperref}
+\usepackage{amstext}
+\usepackage{relsize}
+\usepackage{xspace}
+\usepackage{ifthen}
+
+\ifhevea\else
+\makeatletter
+\providecommand*{\input@path}{}%
+\g@addto@macro\input@path{{../}}%
+\makeatother
+\usepackage{graphicx}
+%%
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+%%
+\AtBeginDocument{%
+  \renewcommand{\familydefault}{\sfdefault}
+  \sffamily
+}
+\fi
+%%
+%% Hevea configuration
+%%
+%%--- prevent hevea footer
+%HEVEA \footerfalse % Disable hevea advertisement in footer
+%%--- \ifmath only defined in hevea, must comment to work with latex
+%HEVEA \renewcommand{\cal}{\ifmath\ifmathml\@style{font-family: cursive}\else\it\fi\else\it\fi}
+%HEVEA\@addimagenopt{-mag 1000}
+%%
+\ifhevea
+%%
+%% Hevea
+%%
+\let\expinput\input
+\providecommand{\text}{\mbox}
+\providecommand{\smaller}{\@styleattr{SPAN}{STYLE="font-size:90\%"}}%
+\providecommand{\larger}{\@styleattr{SPAN}{STYLE="font-size:110\%"}}%
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\toprule}{\hline}
+\providecommand{\bottomrule}{\hline}
+\providecommand{\midrule}{\hline}
+\renewcommand{\sl}{\it}
+\makeatletter
+\renewcommand{\@figrule}{{\@nostyle
+    \@print{<hr class="figrule" style="height:1px;border:none;color:black;background-color:black;width=100\%"}}}
+\renewcommand{\@figrule}{\begin{center}\@hr{1\linewidth}{2pt}\end{center}}
+\makeatother
+%%\loadcssfile{hfag-tau-winter-2012-style.css}
+%% navigation links
+\setlinkstext
+  {Previous}%
+  {%
+    \@print{<h3 style="display: inline; margin: 0.5em;">}%
+    HFAG-Tau Early 2012 Report%
+    \@print{</h3>}%
+  }%
+  {Next}
+%% per section notes
+\flushdef{section}
+%% page titles
+\htmlprefix{HFAG-Tau Winter 2012 - }
+%% \externalcsstrue
+%% \htmlfoot{}
+%% \htmlhead{\bfseries HFAG-Tau end of 2011 report}
+%% \newenvironment{flashyverbatim}
+%%  {\setenvclass{verbatim}{myverbatim}\verbatim}
+%%  {\endverbatim}
+\else
+%%
+%% latex compatibility with Hevea
+%%
+\newcommand*\expinput[1]{\@@input#1 }
+\newenvironment{ensuredisplaymath}
+  {\(\displaystyle}
+  {\)}
+\makeatletter
+\DeclareRobustCommand\bfseries{%
+  \not@math@alphabet\bfseries\mathbf
+  \fontseries\bfdefault\selectfont\boldmath}
+\DeclareRobustCommand*{\bm}[1]{%
+    \mathchoice{\bmbox{\displaystyle}{#1}}%
+               {\bmbox{\textstyle}{#1}}%
+               {\bmbox{\scriptstyle}{#1}}%
+               {\bmbox{\scriptscriptstyle}{#1}}}
+\DeclareRobustCommand*{\bmbox}[2]{\mbox{\bfseries$#1 #2$}}
+\makeatother
+\fi
+
+\makeatletter
+%%--- define HFAG tau quantity
+\newcommand{\htdef}[2]{%
+  \@namedef{hfagtau@#1}{#2}%
+}
+
+%%--- retrieve HFAG tau quantity
+\ifhevea
+\newcommand{\htuse}[1]{%
+  \@nameuse{hfagtau@#1}\xspace
+}
+\else
+\newcommand{\htuse}[1]{%
+  \ifcsname hfagtau@#1\endcsname
+  \@nameuse{hfagtau@#1}\xspace
+  \else
+  \@latex@error{Undefined name hfagtau@#1}\@eha
+  \fi
+}
+\fi
+
+%% \htconstrdef{name}{left}{right}
+\newcommand{\htconstrdef}[4]{%
+  \@namedef{hfagtau@#1.left}{\ensuremath{#2}}%
+  \@namedef{hfagtau@#1.right}{\ensuremath{#3}}%
+  \@namedef{hfagtau@#1.right.split}{\ensuremath{#4}}%
+}
+
+%% \htquantdef{name}{gammaname}{texdescr}{valerr}{val}{err}
+\ifhevea
+\newcommand{\htquantdef}[6]{%
+  \@namedef{hfagtau@#1.gn}{\ensuremath{#2}}%
+  \@namedef{hfagtau@#1.td}{\ensuremath{#3}}%
+  \@namedef{hfagtau@#1}{\ensuremath{#4}}%
+  \@namedef{hfagtau@#1.v}{\ensuremath{#5}}%
+  \@namedef{hfagtau@#1.e}{\ensuremath{#6}}%
+}
+\else
+\newcommand{\htquantdef}[6]{%
+  \ifx&#2&\else
+  \@namedef{hfagtau@#1.gn}{\ensuremath{#2}}%
+  \fi
+  \ifx&#3&\else
+  \@namedef{hfagtau@#1.td}{\ensuremath{#3}}%
+  \fi
+  \ifx&#6&%
+    \@namedef{hfagtau@#1}{\ensuremath{#5}}%
+  \else
+    \ifthenelse{\equal{#6}{0}}{%
+      \@namedef{hfagtau@#1}{\ensuremath{#5}}%
+    }{%
+      \@namedef{hfagtau@#1}{\ensuremath{#4}}%
+      \@namedef{hfagtau@#1.v}{\ensuremath{#5}}%
+      \@namedef{hfagtau@#1.e}{\ensuremath{#6}}%
+    }%
+  \fi
+}
+\fi
+
+%% \htmeasdef{name}{quant}{exp}{ref}{valerr}{val}{err}{syst}
+\newcommand{\htmeasdef}[8]{%
+  \@namedef{hfagtau@#1,quant}{\ensuremath{#2}}%
+  \@namedef{hfagtau@#1,exp}{#3}%
+  \@namedef{hfagtau@#1,ref}{\cite{#4}}%
+  \@namedef{hfagtau@#1}{\ensuremath{#5}}%
+  \@namedef{hfagtau@#1,val}{\ensuremath{#6}}%
+  \@namedef{hfagtau@#1,stat}{\ensuremath{#7}}%
+  \@namedef{hfagtau@#1,syst}{\ensuremath{#8}}%
+}
+
+\makeatother
+
+%%--- set caption size to normalsize
+\ifhevea
+\makeatletter
+\newtokens{\@ateof}%
+\let\hva@caption@save\hva@caption
+\renewcommand{\hva@caption}[2]{{\normalsize\hva@caption@save#1#2}}
+\makeatother
+\else
+\makeatletter
+\def\LT@makecaption#1#2#3{%
+  \LT@mcol\LT@cols c{\hbox to\z@{\hss\parbox[t]\LTcapwidth{%
+    \sbox\@tempboxa{\normalsize#1{#2: }#3}%
+    \ifdim\wd\@tempboxa>\hsize
+      \normalsize#1{#2: }#3%
+    \else
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \endgraf\vskip\baselineskip}%
+  \hss}}}
+\makeatother
+\fi
+
+%%
+%% environment with small text font
+%%
+\ifhevea
+\makeatletter
+\newenvironment{envsmall}{%
+  \@open{div}{class="envsmall"}%
+}{%
+  \@close{div}%
+}
+\newstyle{.envsmall}{
+  font-size: small;
+}
+\makeatother
+\else
+\newenvironment{envsmall}%
+  {\small}%
+  {}
+\fi
+
+%%
+%% Hevea HTML styles
+%%
+\ifhevea
+\newstyle{html}{
+  background: \#A0C544;
+}
+\newstyle{body}{
+  position: relative;
+  z-index: 1;
+  width: 800px;
+  margin: 2px auto;
+  padding: 10px;
+  border: solid 2px \#806517;
+  background-color: \#ffffff;
+  color: \#000000;
+}
+\newstyle{body}{
+  font-family: Helvetica, DejaVu LGC Sans, Bitstream Vera Sans, Tahoma, Verdana, sans-serif;
+  font-size: 85\%;
+  /* line-height: 1.125em; */
+}
+\newstyle{p}{ /*line-height: 1.2em;*/ }
+\newstyle{sub, sup}{
+  font-size: 80\%; /* until <span> is used in hevea */
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+\newstyle{sup}{
+  top: -0.4em;
+}
+\newstyle{sub}{
+  bottom: -0.3em;
+}
+\iffalse
+\newstyle{sup, sub}{
+  font-size: 100\%; /* until <span> is used in hevea */
+  height: 0px;
+  line-height: 1px;
+  vertical-align: baseline;
+  _vertical-align: bottom;
+  position: relative;  
+}
+\newstyle{sup}{
+  bottom: 1ex;
+}
+\newstyle{sub}{
+  top: 0.5ex;
+}
+\fi
+\newstyle{table}{
+  /* border-spacing: 0.4em 2px; */
+  /* border-collapse: collapse; */
+  /* border-spacing: 0px 0px; */
+}
+\newstyle{td}{
+   margin: 0px;
+   padding: 0px;
+}
+\newstyle{td.hbar}{
+  padding: 0px;
+  height: 1px;
+}
+\newstyle{table.display}{
+  padding: 0px;
+  margin: 0px;
+  border-spacing: 2px 5px;
+  /* border-collapse: collapse; */
+}
+\fi
+
+%% ////////////////////////////////////////////////////////////////////////
+%%
+%% defs
+%%
+\input{../symbols}
+\ifhevea
+\renewcommand{\mev}{\ensuremath{\text{MeV}}\xspace}
+\renewcommand{\mevc}{\ensuremath{{\text{MeV}/c}}\xspace}
+\renewcommand{\mevcc}{\ensuremath{{\text{MeV}/c^2}}\xspace}
+\fi
+%\htquantdef{B_tau_s_fit}{}{}{2.895}{0}
+\input{tau-defs}
+\input{tau-br-fit-aleph-hcorr_13}
+\input{tau-br-fit-aleph-hcorr_13-vadirect-elab}
+%%
+%% author, title
+%%
+\title{HFAG web report Summer 2014}
+\author{%
+  \ifhevea
+  \let\smallSave\small
+  \let\small\footnotesize
+  \centering
+  \fi
+  Sw.~Banerjee, {\smaller University of Victoria, Canada} \\
+  M.~Chrz\k{a}szcz, {\smaller Institute of Nuclear Physics, Polish Academy of Science, Poland} \\
+  K.~Hayasaka, {\smaller Nagoya University, Japan} \\
+  H.~Hayashii, {\smaller Nara Women's University, Japan} \\
+  A.~Lusiani, { \smaller Scuola Normale Superiore and INFN, Pisa, Italy} \\
+  M.~Roney, {\smaller University of Victoria, Canada} \\
+  B.~Shwartz, {\smaller Budker Institute of Nuclear Physics, Russia}
+%%   \begin{tabular}{c@{\hspace{2em}}c}
+%%     Sw.~Banerjee & K.~Hayasaka \\
+%%     \smaller University of Victoria, Canada & \smaller Nagoya University, Japan \\[1.5ex]
+%%     H.~Hayashii & A.~Lusiani \\
+%%     \smaller Nara Women's University, Japan & \smaller Scuola Normale Superiore and INFN, Pisa, Italy \\[1.5ex]
+%%     M.~Roney & B.~Shwartz \\
+%%     \smaller University of Victoria, Canada & \smaller Budker Institute of Nuclear Physics, Russia \\[1.5ex]
+%%     M.~Chrz\k{a}szcz & \\
+%%     \smaller Institute of Nuclear Physics, Polish Academy of Science, Poland & 
+%%   \end{tabular}
+  \ifhevea
+  \let\small\smallSave
+  \fi
+}
+\date{31 August 2014}
+%%
+\newcommand{\hfagFitLabel}{HFAG prelim.{} 2014 fit}
+%%
+%% ///////////////////////////////////////////////////////////////////////////
+%%
+%% begin document
+%%
+\begin{document}
+\ifhevea
+\begin{center}\large
+[\ahref{..}{HFAG-Tau Web Home}]
+--
+[\ahref{hfag-tau-winter-2012.pdf}{This report in PDF}]
+\end{center}
+\fi
+\maketitle
+%% ///////////////////////////////////////////////////////////////////////////
+\section{Introduction}
+\cutname{introduction.html}
+\let\tausection\section
+\let\tausubsection\subsection
+\input{tau-sections}
+
+%% 1 \htuse{Gamma96} \\
+%% 2 \htuse{Gamma96.gn} \\
+%% 3 \htuse{Gamma96.td} \\
+%% 4 \htuse{Gamma96.v} \\
+%% 5 \htuse{Gamma96.e} \\
+%% 6 \htuse{Belle.Gamma40.pub.1402.5213} \\
+%% 7 \htuse{Belle.Gamma40.pub.1402.5213,ref} \\
+
+%%
+%%
+%%
+\input{hfag-tau-lfv}
+\appendix
+\input{tau-br-fit-meas-byref}
+\input{tau-lvf-limits-plot}
+%%
+%% bib
+%%
+\bibliography{%
+  ../EndOfYear11,%
+  pdg-tau-refs,%
+  hfag-tau-refs%
+}%
+\cutname{references.html}
+\end{document}
