@@ -7,13 +7,14 @@ all:	$(DOC).pdf
 
 $(DOC).bbl $(DOC).pdf : $(DOC).bib $(BIBS) $(FIGURES) $(DOC).tex
 	@echo Remaking $@
-	@pdflatex -shell-escape $(DOC)
-	@pdflatex -shell-escape $(DOC)
+	@pdflatex $(DOC)
+	@pdflatex $(DOC)
 	@bibtex $(DOC) 
 	@./fix_bbl < $(DOC).bbl > $(DOC).bbl.fixed; mv $(DOC).bbl{.fixed,}
-	@pdflatex -shell-escape $(DOC)
-	@pdflatex -shell-escape $(DOC)
+	@pdflatex $(DOC)
+	@pdflatex $(DOC)
 
 clean:
-	$(RM) $(addprefix $(DOC), .aux .cb .dvi .lof .log .lot .ps .toc .bbl .blg .pdf)  $(wildcard *~)
-
+	$(RM) $(addprefix $(DOC), .aux .cb .dvi .lof .log .lot .ps .toc .bbl .blg .pdf)
+	@$(RM) $(wildcard *~)
+	$(RM) $(addprefix $(DOC), -pics.pdf .out .fls .fdb_latexmk -autopp.toc -autopp.out)
