@@ -1,0 +1,207 @@
+%-----------------------------------------------------------------------
+% Fixes for some bugs and misfeatures in Hevea.
+%-----------------------------------------------------------------------
+
+%--------
+% The "hacha" application has a bug/misfeature that causes it to
+% process <!--- TOC part --> comments (in the HTML file) badly.
+% This redefinition of the \cuthere command is a hack that replaces
+% those comments with <!-- TOC chapter -->. This results in better
+% behaviour by "hacha".
+%--------
+\renewcommand{\cuthere}[2]{%
+  \@footnoteflush{#1}%
+  \ifthenelse{\equal{part}{#1}}{
+    {\@out@par{{\@nostyle\@print{<!--TOC }\@getprint{chapter}\@print{ }}%
+    \begin{@norefs}#2\end{@norefs}{\@nostyle\@print{-->
+    }}}}
+  }{
+    {\@out@par{{\@nostyle\@print{<!--TOC }\@getprint{#1}\@print{ }}%
+    \begin{@norefs}#2\end{@norefs}{\@nostyle\@print{-->
+    }}}}
+  }
+}
+
+%--------
+% The Hevea implementation of the hyperref package neglects to implement
+% the \phantomsection command.
+%--------
+\newcommand{\phantomsection}{}
+
+%--------
+% Implement dummy versions of a few LaTeX commands
+%--------
+\newcommand{\topfraction}{}
+\newcommand{\bottomfraction}{}
+\newcommand{\textfraction}{}
+\newcommand{\floatpagefraction}{}
+\newcommand{\parindent}[1]{}
+
+
+%--------
+% Internally, Hevea calls \@figrule to put horizontal rules above
+% and below figures. You may think that whether these look nice or
+% not is subjective. My dislike of these horizontal rules is that
+% some authors use, say, a framed environment to separate a figure
+% from surrounding text, so having the additional horizontal lines
+% is unnecessary and can actually be ugly. For this reason, I
+% redefine \@figrule to be an empty command.
+%
+% If you want to revert to Heve'a definition, then use the following:
+%
+% \renewcommand{\@figrule}{\begin{center}\@hr{.8\linewidth}{2pt}\end{center}}
+%--------
+\renewcommand{\@figrule}{}
+
+
+%--------
+% LaTeX has a "verse" environment, but Hevea does not support it.
+% We fake it here by defining it similarly to the definition of the
+% "quote" environment. This is not perfect, but it is "good enough"
+% for common use cases.
+%--------
+\newenvironment{verse}
+{\@close{}\@open{BLOCKQUOTE}{\envclass@attr{verse}}}
+{\@close{BLOCKQUOTE}\@open{}{}}%
+\setenvclass{verse}{verse}
+
+
+%--------
+% Hevea omits support for the \frontmatter, \mainmatter and \backmatter
+% commands. If \frontmatter or \backmatter is in effect, then
+% chapters and sections should appear in the table of contents but
+% be unnumbered.
+%
+% The code below implements the missing functionality as follows:
+%
+% 1. A boolean variable called @inMainMatter is defined. The value of
+%    this is modified via the \frontmatter, \mainmatter and \backmatter
+%    commands. Its initial value is "true".
+%
+% 2. The low-level \@doaddtoc command is re-implemented so that it
+%    does NOT print a \quad if its second argument (normally a string
+%    of the form "Chapter 1", "Section 4.2") is empty. This argument
+%    will be empty if @inMainMatter is false. Note that for some
+%    reason, the re-implementation of this command causes the "hacha"
+%    utility to completely screw up when generating its pseudo table
+%    of contents (it appears as a bullet-point list without much/any
+%    text). This is unfortunate, but I have written a utility
+%    (scripts/remove_pseudo_toc.tcl) that can remove the pseudo
+%    table of contents and replace it with a link to the real table
+%    of contents.
+%
+% 3. The low-level \@makesection comamnd is re-implemented so the
+%    behaviour of the commands it defines depends on the value of
+%    @inMainMatter. To avoid having massively nested if-then-else
+%    constructs in this command, some of the logic is factored out
+%    via the \@<sectional-name>@Helper command.
+%
+% 4. Having redefined \@makesection, that command is invoked several
+%    times to (re)define the \part, \chapter, \section, \subsection,
+%    \subsubsection, \paragraph and \subparagraph commands.
+%--------
+
+\newboolean{@inMainMatter}
+\setboolean{@inMainMatter}{true}
+\newcommand{\frontmatter}{\setboolean{@inMainMatter}{false}}
+\newcommand{\mainmatter}{\setboolean{@inMainMatter}{true}}
+\newcommand{\backmatter}{\setboolean{@inMainMatter}{false}}
+
+\renewcommand{\@doaddtoc}[3]
+{
+\stepcounter{tocanchor}%
+\ifthenelse{\equal{}{#2}}{
+\@auxdowrite{\@print{\@addtocsec{htoc}}\{\thetocanchor\}\{#1\}\{\@checkdepth{#1}{\@print{\@print}\{#2\}\@print{}}\@subst{#3}\}\@print{
+}}
+}{
+\@auxdowrite{\@print{\@addtocsec{htoc}}\{\thetocanchor\}\{#1\}\{\@checkdepth{#1}{\@print{\@print}\{#2\}\@print{\quad{}}}\@subst{#3}\}\@print{
+}}
+}
+}
+
+\renewcommand{\@makesection}[7]{%
+\renewcommand{\csname @#3@level\endcsname}{#2}%
+\renewcommand{#1}[2][]{
+  \ifthenelse{\boolean{@inMainMatter}}{%
+    \@checkdepth{#2}{\refstepcounter{#3}}
+    \csname @#3@Helper\endcsname{##1}{##2}{#5}{#6}
+  }{%
+    \csname @#3@Helper\endcsname{##1}{##2}{}{}
+  }
+}
+\newcommand{\csname @#3@Helper\endcsname}[4]{%
+  \@secbegin%
+  \ifoptarg\@checktocdepth{#2}{\@doaddtoc{#2}{##3}{##1}}\else
+  \@checktocdepth{#2}{\@doaddtoc{#2}{##3}{##2{}}}\fi
+  \ifoptarg\cuthere{#3}{\@addsecnumber{#2}{##3}{##1}}\else
+  \cuthere{#3}{\@addsecnumber{#2}{##3}{\begin{@norefs}##2{}\end{@norefs}}}\fi
+  #4\@secanchor%
+  \@altdepth{#2}
+  {\@alttocdepth{#2}{\@locname{htoc\thetocanchor}{##3}##4}{##3##4}}
+  {\@checktocdepth{#2}{\@locname{htoc\thetocanchor}{}}}%
+  ##2{}#7\@secend%
+}%
+\renewcommand{#1*}[1]{%
+  \@secbegin\cuthere{#3}{##1}%
+  #4\@secanchor{}##1{}#7\@secend
+}%
+}%
+
+\ifthenelse{\equal{\@base}{article}}{
+  \@makesection
+    {\part}{-1}{part}
+    {\@opencell{CLASS="center"}{}{}\@open{H1}{\envclass@attr{part}}}
+    {\partname~\thepart}{\\}
+    {\@close{H1}\@closecell}
+}{}
+\ifthenelse{\equal{\@base}{book}}{
+  \@makesection
+    {\part}{-2}{part}
+    {\@opencell{CLASS="center"}{}{}\@open{H1}{\envclass@attr{part}}}
+    {\partname~\thepart}
+    {\\}
+    {\@close{H1}\@closecell}
+
+  \@makesection
+    {\chapter}{-1}{chapter}
+    {\@open{H1}{\envclass@attr{chapter}}}
+    {\chaptername~\thechapter}
+    {\quad}
+    {\@close{H1}}
+}{}
+
+\@makesection
+{\section}{0}{section}
+{\@open{H2}{\envclass@attr{section}}}
+{\thesection}
+{\quad}
+{\@close{H2}}
+
+\@makesection
+{\subsection}{1}{subsection}
+{\@open{H3}{\envclass@attr{subsection}}}
+{\thesubsection}
+{\quad}
+{\@close{H3}}
+
+\@makesection
+{\subsubsection}{2}{subsubsection}
+{\@open{H4}{\envclass@attr{subsubsection}}}
+{\thesubsubsection}
+{\quad}
+{\@close{H4}}
+
+\@makesection
+{\paragraph}{3}{paragraph}
+{\@open{H5}{\envclass@attr{paragraph}}}
+{\theparagraph}
+{\quad}
+{\@close{H5}}
+
+\@makesection
+{\subparagraph}{4}{subparagraph}
+{\@open{H6}{\envclass@attr{subparagraph}}}
+{\thesubparagraph}
+{\quad}
+{\@close{H6}}
+

@@ -1,0 +1,39 @@
+\ProvidesPackage{framed}
+\RequirePackage{color}
+
+\newenvironment{framed}{%
+  \@open{div}{class="framed"}%
+}{%
+  \@close{div}%
+}
+\newstyle{.framed}{
+  border: 1px solid black; 
+  padding-left: 8pt;
+  padding-right: 8pt;
+  padding-top: 0pt;
+  padding-bottom: 0pt;
+}
+
+\newenvironment{leftbar}{%
+  \@open{div}{class="leftbar"}
+}{%
+  \@close{div}
+}
+\newstyle{.leftbar}{
+  border-left: 4px solid black; 
+  padding-left: 6pt;
+  padding-right: 6pt;
+  padding-top: 0pt;
+  padding-bottom: 0pt;
+}
+
+\newenvironment{shaded}{%
+  \@open{TABLE}{BORDER="0" CELLPADDING="8" WIDTH="100\%"
+    BGCOLOR=\@getcolor{shadecolor}}
+  \@open{TR}{}
+  \@open{TD}{}
+}{
+  \@close{TD}
+  \@close{TR}
+  \@close{TABLE}
+}

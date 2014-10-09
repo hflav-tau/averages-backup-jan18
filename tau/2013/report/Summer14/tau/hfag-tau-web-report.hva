@@ -1,0 +1,18 @@
+\renewcommand{\maketitle}{%
+  \bgroup
+  \newcommand{\checkcmd}[4]
+    {\@ifundefined{@##3}{##4{No ##3 given}}
+     {\@open{##1}{\class@attr{##2}{}}%
+      \@fmt@title{\csname @##3\endcsname}%
+      \@close{##1}}}%
+  \@opencell{class="title"}{}{style="padding:1ex"}%
+  \checkcmd{h1}{titlemain}{title}{\hva@warn}%
+  \checkcmd{h3}{titlerest}{author}{\hva@warn}%
+  \vspace*{1em}%
+  \checkcmd{h3}{titlerest}{date}{\@gooble}%
+  \@closecell%
+  \egroup%
+  \ifthenelse{\equal{\@footnotelevel}{document}}{}
+  {\@footnotesub%
+   \gdef\title@flush@hook{\@endfootnotesub\@footnoteflush@sticky{document}}}%
+\let\maketitle\relax}%
