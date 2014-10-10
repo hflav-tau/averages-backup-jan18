@@ -16,11 +16,11 @@ DOCINCL = \
   tau-br-fit-aleph-hcorr_13.tex \
   tau-br-fit-aleph-hcorr_13-vadirect-elab.tex \
   tau-sections.tex \
-  ../tau/hfag-tau-vus-plot.pdf \
+  ../figures/tau/hfag-tau-vus-plot.pdf \
   hfag-tau-lfv.tex \
   tau-br-fit-meas-byref.tex \
   tau-lvf-limits-plot.tex \
-  ../tau/hfag-tau-lfv-plot.pdf
+  ../figures/tau/hfag-tau-lfv-plot.pdf
 
 BASE = $(DIR)/$(DOC)
 INSTALLDIR = www-slac/summer-2014
@@ -38,8 +38,8 @@ $(BASE).html: $(DOC).hva $(DOC).tex $(DOCINCL)
 	$(HEVEA) $(HEVEAOPTS) png.hva $(DOC).hva -o $(BASE).html $(DOC).tex
 	$(BIBHVA) $(BASE)
 	$(HEVEA) $(HEVEAOPTS) png.hva $(DOC).hva -o $(BASE).html $(DOC).tex
-	/bin/cp -f hfag-tau-vus-plot.pdf hfag-tau-vus-plot.png $(DIR)/
-	/bin/cp -f hfag-tau-lfv-plot.pdf hfag-tau-lfv-plot.png $(DIR)/
+	/bin/cp -f ../figures/tau/hfag-tau-vus-plot.pdf ../figures/tau/hfag-tau-vus-plot.png $(DIR)/
+	/bin/cp -f ../figures/tau/hfag-tau-lfv-plot.pdf ../figures/tau/hfag-tau-lfv-plot.png $(DIR)/
 
 $(DIR)/%-style.css: %-style.css
 	/bin/cp $< $@
@@ -77,7 +77,7 @@ clean: slac_umount
 .PHONY: slac_mount
 slac_mount:
 	/bin/mkdir -p www-slac
-	sshfs -oworkaround=rename flora.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau www-slac
+	sshfs -oworkaround=rename iris.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/tau www-slac
 
 .PHONY: slac_umount
 slac_umount:
