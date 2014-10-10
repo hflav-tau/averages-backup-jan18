@@ -2,3 +2,12 @@
 ## HFAG tau notes
 ##
 
+##
+## compile in tau subdir
+##
+
+##--- tau chapter of HFAG report
+latexmk -pdf hfag-report-tau.tex
+
+##--- HFAG-tau web report in PDF
+latexmk -pdf Summer14-svn/tau/hfag-tau-web-report.tex
