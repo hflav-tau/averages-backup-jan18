@@ -78,21 +78,21 @@ The BLNP calculation uses the shape function renormalization scheme; the heavy q
 from the global fit in the kinetic scheme, described in \ref{globalfitsKinetic}, were therefore 
 translated into the shape function scheme by using a prescription by Neubert 
 \cite{Neubert:2004sp,Neubert:2005nt}. The resulting parameters are 
-$m_b(SF)=(4.569 \pm 0.023 \pm 0.011)$ GeV, 
+$m_b(SF)=(4.569 \pm 0.023 \pm 0.018)$ GeV, 
 $\mu_\pi^2(SF)=(0.145 \pm 0.089 ^{+0.020}_{-0.040})$ GeV$^2$, 
 where the second uncertainty is due to the scheme translation. 
 The extracted values of \vub\, for each measurement along with their average are given in
-Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:BLNP}. 
-The total uncertainty is $^{+5.7}_{-5.9}\%$ and is due to:
+Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:BLNP_DGE}(a). 
+The total uncertainty is $^{+5.8}_{-5.9}\%$ and is due to:
 statistics ($^{+2.0}_{-2.1}\%$),
-detector ($^{+1.8}_{-1.9}\%$),
+detector ($^{+1.7}_{-1.8}\%$),
 $B\to X_c \ell^+ \nul$ model ($^{+1.2}_{-1.2}\%$),
-$B\to X_u \ell^+ \nul$ model ($^{+1.8}_{-1.7}\%$),
-heavy quark parameters ($^{+2.4}_{-2.4}\%$),
-SF functional form ($^{+0.2}_{-0.3}\%$),
-sub-leading shape functions ($^{+0.6}_{-0.7}\%$),
+$B\to X_u \ell^+ \nul$ model ($^{+1.9}_{-1.8}\%$),
+heavy quark parameters ($^{+2.6}_{-2.7}\%$),
+SF functional form ($^{+0.1}_{-0.3}\%$),
+sub-leading shape functions ($^{+0.6}_{-0.6}\%$),
 BLNP theory: matching scales $\mu,\mu_i,\mu_h$ ($^{+3.8}_{-3.8}\%$), and
-weak annihilation ($^{+0.0}_{-1.5}\%$).
+weak annihilation ($^{+0.0}_{-1.4}\%$).
 The error on the HQE parameters ($b$-quark mass and $\mu_\pi^2)$ 
 is the source of the largest uncertainty, while the
 uncertainty assigned for the matching scales is a close second. The uncertainty due to 
@@ -100,16 +100,57 @@ weak annihilation has been assumed to be asymmetric, i.e. it only tends to decre
 
 \input{tables/slb/VubIncl.tex}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_twomu_asym_BLNP.pdf}
-\end{center}
-\caption{Measurements of $\vub$ from inclusive semileptonic decays 
-and their average based on the BLNP prescription.
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_twomu_asym_BLNP.pdf}
+%\end{center}
+%\caption{Measurements of $\vub$ from inclusive semileptonic decays 
+%and their average based on the BLNP prescription.
+%``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'', ``$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
+%distributions and cuts used for the measurement of the partial decay rates.}
+%\label{fig:BLNP}
+%\end{figure}
+
+\begin{figure}[!ht]
+ \begin{center}
+  \unitlength1.0cm % coordinates in cm
+  \begin{picture}(14.,8.0)  %ys(25.,6.0)
+   \put( -0.5,  0.0){\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_twomu_asym_BLNP.pdf}
+   }
+   \put(  8.0,  0.0){\includegraphics[width=0.47\textwidth]{figures/slb/vub_clnu_mc_asym_DGE.pdf}
+   }
+   \put(  5.7,  7.8){{\large\bf a)}}
+   \put( 14.2,  7.8){{\large\bf b)}}
+  \end{picture}
+  \caption{Measurements of $\vub$ from inclusive semileptonic decays 
+and their average based on the BLNP (a) and DGE (b) prescription.
 ``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'', ``$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
 distributions and cuts used for the measurement of the partial decay rates.}
-\label{fig:BLNP}
+  \label{fig:BLNP_DGE}
+ \end{center}
 \end{figure}
+
+
+\begin{figure}[!ht]
+ \begin{center}
+  \unitlength1.0cm % coordinates in cm
+  \begin{picture}(14.,8.0)  %ys(25.,6.0)
+   \put( -0.5,  0.0){\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_GGOU.pdf}
+   }
+   \put(  8.0,  0.0){\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_ADFR.pdf}
+   }
+   \put(  5.7,  7.8){{\large\bf a)}}
+   \put( 14.2,  7.8){{\large\bf b)}}
+  \end{picture}
+  \caption{Measurements of $\vub$ from inclusive semileptonic decays 
+and their average based on the GGOU (a) and ADFR (b) prescription.
+``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'', ``$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
+distributions and cuts used for the measurement of the partial decay rates.}
+  \label{fig:GGOU_ADFR}
+ \end{center}
+\end{figure}
+
+
 
 \subsubsection{DGE}
 J.R.~Andersen and E.~Gardi (Dressed Gluon Exponentiation, DGE)~\cite{ref:DGE} provide
@@ -124,7 +165,7 @@ translated into the $\overline{MS}$ scheme by using a calculation by Gardi, givi
 $m_b({\overline{MS}})=(4.177 \pm 0.043)$ GeV.
 The extracted values
 of \vub\, for each measurement along with their average are given in
-Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:DGE}.
+Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:BLNP_DGE}(b).
 The total error is $^{+4.8}_{-5.0}\%$, whose breakdown is:
 statistics ($^{+1.8}_{-1.8}\%$),
 detector ($^{+1.7}_{-1.7}\%$),
@@ -143,16 +184,16 @@ on $m_b$.
 The uncertainty due to 
 weak annihilation has been assumed to be asymmetric, i.e. it only tends to decrease \vub.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_asym_DGE.pdf}
-\end{center}
-\caption{Measurements of $\vub$ from inclusive semileptonic decays 
-and their average based on the DGE prescription.
-``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'' `$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
-analysis type and applied cut.}
-\label{fig:DGE}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_asym_DGE.pdf}
+%\end{center}
+%\caption{Measurements of $\vub$ from inclusive semileptonic decays 
+%and their average based on the DGE prescription.
+%``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'' `$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
+%analysis type and applied cut.}
+%\label{fig:DGE}
+%\end{figure}
 
 \subsubsection{GGOU}
 Gambino, Giordano, Ossola and Uraltsev (GGOU)~\cite{Gambino:2007rp} 
@@ -170,7 +211,7 @@ $m_b(kin)=(4.541 \pm 0.023)$ GeV,
 $\mu_\pi^2(kin)=(0.414 \pm 0.078)$ GeV$^2$. 
 The extracted values
 of \vub\, for each measurement along with their average are given in
-Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:GGOU}.
+Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:GGOU_ADFR}(a).
 The total error is $^{+4.3}_{-4.8}\%$ whose breakdown is:
 statistics ($^{+1.9}_{-1.9}\%$),
 detector ($^{+1.7}_{-1.7}\%$),
@@ -187,16 +228,16 @@ parameters and the modelling of the $q^2$ tail and choice of the scale $q^{2*}$.
 The uncertainty due to 
 weak annihilation has been assumed to be asymmetric, i.e. it only tends to decrease \vub.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_GGOU.pdf}
-\end{center}
-\caption{Measurements of $\vub$ from inclusive semileptonic decays 
-and their average based on the GGOU prescription.
-``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'' `$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)''  indicate the
-analysis type and applied cut.}
-\label{fig:GGOU}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_GGOU.pdf}
+%\end{center}
+%\caption{Measurements of $\vub$ from inclusive semileptonic decays 
+%and their average based on the GGOU prescription.
+%``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'' `$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)''  indicate the
+%analysis type and applied cut.}
+%\label{fig:GGOU}
+%\end{figure}
 
 \subsubsection{ADFR}
 Aglietti, Di Lodovico, Ferrera and Ricciardi (ADFR)~\cite{Aglietti:2007ik}
@@ -216,7 +257,7 @@ translated into the $\overline{MS}$ scheme by using a calculation by Gardi, givi
 $m_b({\overline{MS}})=(4.177 \pm 0.043)$ GeV.
 The extracted values
 of \vub\, for each measurement along with their average are given in
-Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:AC}.
+Table~\ref{tab:bulnu} and illustrated in Figure~\ref{fig:GGOU_ADFR}(b).
 The total error is $^{+5.4}_{-5.3}\%$ whose breakdown is:
 statistics ($^{+1.8}_{-1.8}\%$),
 detector ($^{+1.8}_{-2.0}\%$),
@@ -231,18 +272,16 @@ theory model ($^{+3.5}_{-3.5}\%$).
 The leading
 uncertainty, from theory, is due to the theory model.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_ADFR.pdf}
-\end{center}
-\caption{Measurements of $\vub$ from inclusive semileptonic decays 
-and their average based on the ADFR prescription.
-``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'' `$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
-analysis type and applied cut.}
-\label{fig:AC}
-\end{figure}
-
-
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=0.48\textwidth]{figures/slb/vub_clnu_mc_ADFR.pdf}
+%\end{center}
+%\caption{Measurements of $\vub$ from inclusive semileptonic decays 
+%and their average based on the ADFR prescription.
+%``$E_e$'', ``$M_X$'', ``$(M_X,q^2)$'' `$P^+$'', ``$p^*$ and ``($E_e,s^{max}_h$)'' indicate the 
+%analysis type and applied cut.}
+%\label{fig:AC}
+%\end{figure}
 
 \subsubsection{BLL}
 Bauer, Ligeti, and Luke (BLL)~\cite{ref:BLL} give a
@@ -273,7 +312,7 @@ experimental uncertainty is due to statistics.
 
 \begin{figure}
 \begin{center}
-%\includegraphics[width=0.48\textwidth]{figures/slb/vub_mxq2_allMoments.eps}
+\includegraphics[width=0.48\textwidth]{figures/slb/vub_mxq2_allMoments.pdf}
 \end{center}
 \caption{Measurements of $\vub$ from inclusive semileptonic decays 
 and their average in the BLL prescription.
