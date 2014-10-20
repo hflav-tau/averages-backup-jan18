@@ -11,3 +11,14 @@ latexmk -pdf hfag-report-tau.tex
 
 ##--- HFAG-tau web report in PDF
 latexmk -pdf Summer14-svn/tau/hfag-tau-web-report.tex
+
+##
+## notes
+##
+
+superseeded results
+- Epifanov:2007rf Belle 2007 tau -> pi ks nu
+- Aubert:2008nj BaBar 2008 $\tau^{-} \to \eta \pi^{-} \pi \pi^{-} \nu_{tau}$
+
+to make the best use of the new results on tau BRs with two Ks in the final state, we don't use any more in the fit ALEPH
+inclusive \htuse{Gamma49.td} result with exclusive \htuse{Gamma51.td}

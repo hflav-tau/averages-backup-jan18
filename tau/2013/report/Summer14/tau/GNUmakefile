@@ -6,21 +6,30 @@ BIBHVA = bibhva
 HACHA = hacha
 DIR = hfag-tau-web-report
 DOC = hfag-tau-web-report
+
+PLOTS = \
+  plot-taulife-hfag-summer2014.pdf \
+  hfag-tau-vus-plot.pdf \
+  hfag-tau-lfv-plot.pdf
+
+PLOTSPDF = $(patsubst %.pdf, ../figures/tau/%.pdf, $(PLOTS))
+PLOTSPNG = $(patsubst %.pdf, ../figures/tau/%.png, $(PLOTS))
+
 #
 # latex -recorder hfag-tau-web-report.tex
 # grep INPUT hfag-tau-web-report.fls | grep -v "INPUT /" | grep -v aux | grep -v bbl | sed -e "s/INPUT //g" | uniq
 #
+
 DOCINCL = \
   ../symbols.tex \
   tau-defs.tex \
   tau-br-fit-aleph-hcorr_13.tex \
   tau-br-fit-aleph-hcorr_13-vadirect-elab.tex \
   tau-sections.tex \
-  ../figures/tau/hfag-tau-vus-plot.pdf \
   hfag-tau-lfv.tex \
   tau-br-fit-meas-byref.tex \
   tau-lvf-limits-plot.tex \
-  ../figures/tau/hfag-tau-lfv-plot.pdf
+  $(PLOTSPDF)
 
 BASE = $(DIR)/$(DOC)
 INSTALLDIR = www-slac/summer-2014
@@ -38,8 +47,7 @@ $(BASE).html: $(DOC).hva $(DOC).tex $(DOCINCL)
 	$(HEVEA) $(HEVEAOPTS) png.hva $(DOC).hva -o $(BASE).html $(DOC).tex
 	$(BIBHVA) $(BASE)
 	$(HEVEA) $(HEVEAOPTS) png.hva $(DOC).hva -o $(BASE).html $(DOC).tex
-	/bin/cp -f ../figures/tau/hfag-tau-vus-plot.pdf ../figures/tau/hfag-tau-vus-plot.png $(DIR)/
-	/bin/cp -f ../figures/tau/hfag-tau-lfv-plot.pdf ../figures/tau/hfag-tau-lfv-plot.png $(DIR)/
+	/bin/cp -f $(PLOTSPDF) $(PLOTSPNG) $(DIR)/
 
 $(DIR)/%-style.css: %-style.css
 	/bin/cp $< $@

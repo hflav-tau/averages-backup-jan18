@@ -152,13 +152,6 @@
 }
 \fi
 
-%% \htconstrdef{name}{left}{right}
-\newcommand{\htconstrdef}[4]{%
-  \@namedef{hfagtau@#1.left}{\ensuremath{#2}}%
-  \@namedef{hfagtau@#1.right}{\ensuremath{#3}}%
-  \@namedef{hfagtau@#1.right.split}{\ensuremath{#4}}%
-}
-
 %% \htquantdef{name}{gammaname}{texdescr}{valerr}{val}{err}
 \ifhevea
 \newcommand{\htquantdef}[6]{%
@@ -199,6 +192,14 @@
   \@namedef{hfagtau@#1,val}{\ensuremath{#6}}%
   \@namedef{hfagtau@#1,stat}{\ensuremath{#7}}%
   \@namedef{hfagtau@#1,syst}{\ensuremath{#8}}%
+}
+
+%% \htconstrdef{name}{left}{right}
+\newcommand{\htconstrdef}[4]{%
+  \@namedef{hfagtau@#1.left}{\ensuremath{#2}}%
+  \@namedef{hfagtau@#1.right}{\ensuremath{#3}}%
+  \@namedef{hfagtau@#1.right.split}{\ensuremath{#4}}%
+  \@namedef{hfagtau@#1.constr.eq}{\htuse{#1.left} ={}& \htuse{#1.right}}%
 }
 
 \makeatother

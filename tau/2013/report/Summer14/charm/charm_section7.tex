@@ -8,7 +8,7 @@ State Radiation (FSR) must be treated correctly and consistently across
 the input measurements for the accuracy of the averages to match the 
 precision.  The sensitivity of measurements to FSR arises because of 
 a tail in the distribution of radiated energy that extends to the 
-kinematic limit.  The tail beyond $E_\gamma \approx 30$ MeV causes 
+kinematic limit.  The tail beyond $\sum{E_\gamma} \approx 30$ MeV causes 
 typical selection variables like the hadronic invariant mass to 
 shift outside the selection range dictated by experimental 
 resolution (see Fig.~\ref{fig:FSR_mass_shift}).  While the 
@@ -24,9 +24,11 @@ PHOTOS~\cite{Barberio:1990ms,Barberio:1993qi,Golonka:2005pn,Golonka:2006tw}
 within the experiment's Monte Carlo simulation.  
 PHOTOS itself, however, has evolved, over the period spanning the set of
 measurements.  In particular, the incorporation of interference between
-radiation off of the two separate mesons has proceeded in stages: it was first
-available for particle--antiparticle pairs in version 2.00 (1993), and extended 
-to any two body, all charged, final states in version 2.02 (1999).  
+radiation off %of 
+the two separate mesons has proceeded in stages: it was first
+available for particle--antiparticle pairs in version 2.00 (1993), extended 
+to any two-body, all-charged, final states in version 2.02 (1999), and 
+further extended to multi-body final states in version 2.15 (2005).
 The effects of interference are clearly visible 
 (Figure~\ref{fig:FSR_mass_shift}), and cause a 
 roughly 30\% increase in the integrated rate into 
@@ -36,25 +38,25 @@ we must therefore note whether any correction was
 made, the version of PHOTOS used in correction, 
 and whether the interference terms in PHOTOS were 
 turned on.  
-
-\subsubsection{Branching fraction corrections}
-
-\begin{figure}[bt]
+\begin{figure}[bh]
 \begin{center}
-\includegraphics[width=0.5\textwidth,angle=0.]{figures/charm/FSR_mkpi.pdf}
+\includegraphics[width=0.48\textwidth,angle=0.]{figures/charm/FSR_mkpi.pdf}
 \caption{The $K\pi$ invariant mass distribution for 
 $D^0\to K^-\pi^+ (n\gamma)$ decays. The 3 curves correspond 
 to three different configurations of PHOTOS for modeling FSR: 
-version 2.02 without interference (blue), version 2.02 with 
+version 2.02 without interference (blue/grey), version 2.02 with 
 interference (red dashed) and version 2.15 with interference (black).  
 The true invariant mass has been smeared with a typical experimental 
 resolution of 10 MeV${}/c^2$.  Inset: The corresponding spectrum of 
-total energy radiated per event.  The arrow indicates the $E_\gamma$ 
+total energy radiated per event.  The arrow indicates the $\sum E_\gamma$ 
 value that begins to shift kinematic quantities outside of the range 
 typically accepted in a measurement.}
 \label{fig:FSR_mass_shift}
 \end{center}
 \end{figure}
+
+
+\subsubsection{Branching fraction corrections}
 
 Before averaging the measured branching fractions, the published 
 results are updated, as necessary, to the FSR prediction of 
@@ -70,8 +72,9 @@ analyses at the $\psi(3770)$, this variable was $\Delta E$, the
 difference between the candidate $D^0$ energy and the beam energy 
 ({\em e.g.}, $E_K + E_\pi - E_{\rm beam}$ for $D^0\to K^-\pi^+$).  
 In the remainder of the analyses, the relevant quantity was the 
-reconstructed hadronic two-body mass $m_{h^+h^-}$.  To make the correction, 
-we need only to evaluate the fraction of decays that FSR moves 
+reconstructed hadronic two-body mass $m_{h^+h^-}$.  To make the 
+correction, 
+we  only need to evaluate the fraction of decays that FSR moves 
 outside of the range accepted for the analysis.  
 
 The corrections were evaluated using an event generator (EvtGen 
@@ -92,7 +95,10 @@ efficiency loss for both the PHOTOS version and configuration
 used in the analysis and our nominal version 2.15 with interference.  
 For measurements that published their sensitivity to FSR, our 
 generator-level predictions for the original efficiency loss 
-agreed to within a few percent (of the correction).  This agreement 
+agreed to within a few percent %( 
+of the correction. 
+%).
+This agreement 
 lends additional credence to the procedure.
 
 Once the event loss from FSR in the most sensitive kinematic 
@@ -102,11 +108,11 @@ little sensitivity to FSR in the reconstructed $D^*-D^0$ mass
 difference: for example, in $m_{K^-\pi^+\pi^+}-m_{K^-\pi^+}$. 
 Because the effect of FSR tends to cancel in the difference of 
 the reconstructed masses, this difference showed a much smaller 
-sensitivity than the two body mass even before a two body mass 
+sensitivity than the two-body mass even before a two-body mass 
 requirement. In the $\psi(3770)$ analyses, the beam-constrained 
-mass distributions ($\sqrt{E_{\rm beam}^2 - |\vec{p}_K + \vec{p}_\pi|^2}$)  
-showed little further sensitivity.
-
+mass distributions 
+($\sqrt{E_{\rm beam}^2 - |\vec{p}_K + \vec{p}_\pi|^2}$)  
+also show much smaller sensitivity than the two-body mass.
 \begin{figure}
 \begin{center}
 \includegraphics[width=1.00\textwidth]{figures/charm/FocusFits.pdf}
@@ -120,7 +126,7 @@ $D^0\to \pi^+\pi^-$ (center), and $D^0\to \pi^+\pi^-$ (right).}
 The FOCUS \cite{Link:2002hi} analysis of the branching ratios 
 ${\cal B}(D^0\to \pi^+\pi^-)/{\cal B}(D^0\to K^-\pi^+)$ and 
 ${\cal B}(D^0\to K^+ K^-)/{\cal B}(D^0\to K^-\pi^+)$ obtained 
-yields using fits to the two body mass distributions.  FSR will 
+yields using fits to the two-body mass distributions.  FSR will 
 both distort the low end of the signal mass peak, and will 
 contribute a signal component to the low side tail used to 
 estimate the background.  The fitting procedure is not sensitive 
@@ -170,9 +176,15 @@ Experiment & result (rescaled) & correction [\%] & PHOTOS \\ \hline
 The toy MC samples for the first iteration were based on the generator-level 
 distribution of $m_{K^-\pi^+}$, $m_{\pi^+\pi^-}$, and $m_{K^+K^-}$, including 
 the effects of FSR, smeared according to the original FOCUS resolution 
-function,  and on backgrounds thrown using the parameterization from the final
-FOCUS fits.  For each iteration, 400 to 1600 individual data-sized samples were 
-thrown and fit. The means of the parameters from these fits determined the 
+function,  and on backgrounds 
+generated 
+%thrown 
+using the parameterization from the final
+FOCUS fits.  For each iteration, 400 to 1600 individual 
+data-sized samples were 
+generated 
+%thrown 
+and fit. The means of the parameters from these fits determined the 
 corrections to the generator parameters for the following iteration.  The 
 ratio between the number of signal events generated and the final signal 
 yield provides the required FSR correction in the final iteration.  Only a 
@@ -194,7 +206,8 @@ new, common, estimate based on the assumption that the dominant uncertainty
 in the FSR corrections come from the fact that the mesons are treated like 
 structureless particles. No contributions from structure-dependent terms in 
 the decay process (eg. radiation off individual quarks) are included in PHOTOS. 
-Internal studies done by various experiments have indicated that in $K\pi$ decay, 
+Internal studies done by various experiments have indicated that 
+in $K\pi$ decays, 
 the PHOTOS corrections agree with data at the 20-30\% level. 
 We therefore attribute a 25\% uncertainty to the FSR prediction from potential 
 structure-dependent contributions. For the other two modes, the only difference 
@@ -210,9 +223,10 @@ real with constructive interference.  The uncertainties largely cancel
 in the branching fraction ratios. For the final average branching 
 fractions, the FSR uncertainty on $K\pi$ dominates. Note that because 
 of the relative sizes of FSR in the different modes, the $\pi\pi/K\pi$ 
-branching ratio uncertainty from FSR is positively correlated with that 
-for $K\pi$ branching, while the $KK/K\pi$ branching ratio FSR uncertainty 
-is negatively correlated.
+branching ratio uncertainty from FSR is 
+positively correlated with that 
+for the $K\pi$ branching fraction, while the $KK/K\pi$ branching ratio FSR
+uncertainty is negatively correlated.
 
 The ${\cal B}(D^0\to K^-\pi^+)$ measurement of reference~\cite{Coan:1997ye}, the  
 ${\cal B}(D^0\to \pi^+\pi^-)/{\cal B}(D^0\to K^-\pi^+)$ measurements of 
@@ -221,7 +235,7 @@ and~\cite{Csorna:2001ww}, and the
 ${\cal B}(D^0\to K^+ K^-)/{\cal B}(D^0\to K^-\pi^+)$ measurement
 of reference~\cite{Csorna:2001ww} are excluded from the branching 
 fraction averages presented here.
-The measurements appear not to have incorporated any FSR corrections, 
+These measurements appear not to have incorporated any FSR corrections, 
 and insufficient information
 is available to determine the 2-3\% corrections that would be required.
 
@@ -265,7 +279,6 @@ CC10 &-0&085 &-0&051 &-0&021 &-0&031 &-0&011 &-0&012 &-0&009 &-0&026 &-0&038 &-0
 
 
 \subsubsection{Average branching fractions}
-
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.6\textwidth,angle=0.]{figures/charm/D0Kpi_2014.pdf}
@@ -310,13 +323,13 @@ Table~\ref{tab:correlations} presents the correlation matrix for
 the nominal fit (stat.+syst.+FR).
 
 The averaging procedure results in a 
-final $\chi^2$ of 11.0 for 13-3 degrees 
+final $\chi^2$ of $11.0$ for $10$ ($13-3$) degrees 
 of freedom.  The branching
 fractions obtained are
 \begin{eqnarray*}
   {\cal B}(D^0\to K^-\pi^+)   & = & 3.962 \pm 0.017 \pm 0.038 \pm 0.027 \\
   {\cal B}(D^0\to \pi^+\pi^-) & = & 0.144 \pm 0.002 \pm 0.002 \pm 0.002 \\
-  {\cal B}(D^0\to K^+ K^-)    & = & 0.399 \pm 0.003 \pm 0.005 \pm 0.002. \\
+  {\cal B}(D^0\to K^+ K^-)    & = & 0.399 \pm 0.003 \pm 0.005 \pm 0.002. 
 \end{eqnarray*}The uncertainties, estimated as described above, are statistical, 
 systematic (excluding FSR), and
 FSR modeling.  The correlation coefficients from the fit using the 
@@ -357,10 +370,15 @@ uncertainty in the FSR modeling used here,
 the FSR uncertainty dominates the statistical uncertainty 
 in the average, suggesting that experimental
 work in the near future should focus on verification of FSR with 
-$E_\gamma \simge 100$ MeV.  The ${\cal B}(D^0\to K^+K^-)$ and 
-${\cal B}(D^0\to \pi^+\pi^-)$ measurements inferred
+$\sum E_\gamma \simge 100$ MeV.  Note that the systematic uncertainty 
+excluding FSR
+is still larger than the FSR uncertainty; in the most 
+precise measurements of these branching fractions, the 
+largest systematic
+uncertainty is the uncertainty on the tracking efficiency. The ${\cal B}(D^0\to
+K^+K^-)$ and ${\cal B}(D^0\to \pi^+\pi^-)$ measurements inferred
 from the branching ratio measurements also agree well 
-(Fig.~\ref{fig:kkpipi}).
+(Fig.~\ref{fig:kkpipi}). 
 
 The ${\cal B}(D^0\to K^-\pi^+)$ average obtained here is 
 approximately two statistical standard deviations higher than the
@@ -374,9 +392,8 @@ There are three main contributions to the difference. The branching
 fraction in reference~\cite{Coan:1997ye} is
 low, and its exclusion shifts the result upwards. The dominant shifts
 ($+0.017\%$ each) are due to the FSR corrections, which as
-expected shift the result upwards, and the precise result from
+expected shift the result upwards, and the more precise result from
 reference~\cite{Bonvicini:2013vxi}.
-
 %Finally, including the CLEO-c
 %absolute $D^0\to K^+ K^-$ branching fraction contributes the 
 %final shift of $+0.009\%$.  As Fig.~\ref{fig:D0KK}
@@ -387,11 +404,10 @@ reference~\cite{Bonvicini:2013vxi}.
 %the CLEO-c absolute measurement.  The fit, therefore, 
 %exerts an upward pressure on the $K^-\pi^+$ result
 %to improve the agreement in the $K^+ K^-$ sector.
-
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.45\textwidth,angle=0.]{figures/charm/D0KK_2014.pdf}\hfill
-\includegraphics[width=0.45\textwidth,angle=0.]{figures/charm/D0pipi_2014.pdf}
+\includegraphics[width=0.47\textwidth,angle=0.]{figures/charm/D0KK_2014.pdf}\hfill
+\includegraphics[width=0.47\textwidth,angle=0.]{figures/charm/D0pipi_2014.pdf}
 \caption{The ${\cal B}(D^0\to K^+K^-)$ (left) and ${\cal B}(D^0\to \pi^+\pi^-)$ (right) 
 values obtained by scaling the measured branching ratios with the ${\cal B}(D^0\to K^-\pi^+)$ branching fraction
 average obtained here.  For the measurements (blue points), the error bars correspond to the statistical, systematic
