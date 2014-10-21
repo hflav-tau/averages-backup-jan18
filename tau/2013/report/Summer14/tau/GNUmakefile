@@ -27,6 +27,7 @@ DOCINCL = \
   tau-br-fit-aleph-hcorr_13-vadirect-elab.tex \
   tau-sections.tex \
   hfag-tau-lfv.tex \
+  hfag-tau-lfv-combinations.tex \
   tau-br-fit-meas-byref.tex \
   tau-lvf-limits-plot.tex \
   $(PLOTSPDF)

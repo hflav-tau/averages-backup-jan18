@@ -8,8 +8,11 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[T1experimental,AlphT1experimental]{sfmath}
+\usepackage{calc}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{ltablex}
 \usepackage{longtable}
 \usepackage{amsmath}
 \usepackage{xspace}
@@ -96,14 +99,14 @@
   {Previous}%
   {%
     \@print{<h3 style="display: inline; margin: 0.5em;">}%
-    HFAG-Tau Early 2012 Report%
+    HFAG-Tau Summer 2014 Report%
     \@print{</h3>}%
   }%
   {Next}
 %% per section notes
 \flushdef{section}
 %% page titles
-\htmlprefix{HFAG-Tau Winter 2012 - }
+\htmlprefix{HFAG-Tau Summer 2014 - }
 %% \externalcsstrue
 %% \htmlfoot{}
 %% \htmlhead{\bfseries HFAG-Tau end of 2011 report}
@@ -363,7 +366,7 @@
   \let\small\smallSave
   \fi
 }
-\date{31 August 2014}
+\date{1 October 2014}
 %%
 \newcommand{\hfagFitLabel}{HFAG prelim.{} 2014 fit}
 %%
@@ -376,7 +379,7 @@
 \begin{center}\large
 [\ahref{..}{HFAG-Tau Web Home}]
 --
-[\ahref{hfag-tau-winter-2012.pdf}{This report in PDF}]
+[\ahref{hfag-tau-web-report.pdf}{This report in PDF}]
 \end{center}
 \fi
 \maketitle
@@ -399,6 +402,7 @@
 %%
 %%
 \input{hfag-tau-lfv}
+\input{hfag-tau-lfv-combinations}
 \appendix
 \input{tau-br-fit-meas-byref}
 \input{tau-lvf-limits-plot}
