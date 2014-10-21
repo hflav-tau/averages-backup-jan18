@@ -4,8 +4,8 @@ HEVEAOPTS = -fix -O
 BIBTEX = bibtex
 BIBHVA = bibhva
 HACHA = hacha
-DIR = hfag-tau-web-report
-DOC = hfag-tau-web-report
+DIR = tau-report-web
+DOC = tau-report-web
 
 PLOTS = \
   plot-taulife-hfag-summer2014.pdf \
@@ -26,8 +26,8 @@ DOCINCL = \
   tau-br-fit-aleph-hcorr_13.tex \
   tau-br-fit-aleph-hcorr_13-vadirect-elab.tex \
   tau-sections.tex \
-  hfag-tau-lfv.tex \
-  hfag-tau-lfv-combinations.tex \
+  tau-lfv.tex \
+  tau-lfv-combinations.tex \
   tau-br-fit-meas-byref.tex \
   tau-lvf-limits-plot.tex \
   $(PLOTSPDF)
