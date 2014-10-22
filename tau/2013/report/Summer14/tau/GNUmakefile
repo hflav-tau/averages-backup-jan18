@@ -10,7 +10,8 @@ DOC = tau-report-web
 PLOTS = \
   plot-taulife-hfag-summer2014.pdf \
   hfag-tau-vus-plot.pdf \
-  hfag-tau-lfv-plot.pdf
+  hfag-tau-lfv-plot.pdf \
+  TauLFV_UL_2013001_averaged.pdf
 
 PLOTSPDF = $(patsubst %.pdf, ../figures/tau/%.pdf, $(PLOTS))
 PLOTSPNG = $(patsubst %.pdf, ../figures/tau/%.png, $(PLOTS))
@@ -29,7 +30,8 @@ DOCINCL = \
   tau-lfv.tex \
   tau-lfv-combinations.tex \
   tau-br-fit-meas-byref.tex \
-  tau-lvf-limits-plot.tex \
+  tau-lfv-limits-plot.tex \
+  tau-lfv-combinations-plot.tex \
   $(PLOTSPDF)
 
 BASE = $(DIR)/$(DOC)
@@ -43,7 +45,7 @@ $(DIR)/index.html: $(BASE).html
 	/bin/rm -f $(DIR)/{previous_motif,next_motif,contents_motif}.gif
 	/bin/rm -f $(DOC).image.out
 
-$(BASE).html: $(DOC).hva $(DOC).tex $(DOCINCL)
+$(BASE).html: $(DOC).hva $(DOC).tex $(DOCINCL) $(PLOTSPNG)
 	@/bin/mkdir -p $(DIR)
 	$(HEVEA) $(HEVEAOPTS) png.hva $(DOC).hva -o $(BASE).html $(DOC).tex
 	$(BIBHVA) $(BASE)

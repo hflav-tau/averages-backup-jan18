@@ -1,0 +1,25 @@
+%% -*- mode: LaTeX; TeX-master: "../Summer14.tex" -*-
+%% ///////////////////////////////////////////////////////////////////////////
+\ifhevea
+\tausection{Upper Limits on \mtau LFV Branching Fractions: Summary Plot}
+\cutname{lfv-limits-plot.html}
+\fi
+
+\begin{figure}[tb]
+  \begin{center}
+    \ifhevea
+    \begin{tabular}{@{}cc@{}}
+      \larger\bfseries\ahref{hfag-tau-lfv-plot.png}{full size PNG} &
+      \larger\bfseries\ahref{hfag-tau-lfv-plot.pdf}{PDF format} \\
+      \multicolumn{2}{c}{\ahref{hfag-tau-lfv-plot.png}{%
+          \imgsrc[alt="Tau LFV limits combinations plot" width=720]{hfag-tau-lfv-plot.png}}}
+    \end{tabular}
+    \else
+    \includegraphics[angle=270,totalheight=0.9\textheight,clip]{figures/tau/hfag-tau-lfv-plot}
+    \fi
+    \caption{Tau lepton-flavor-violating branching fraction upper
+      limits summary plot.
+      \label{fig:tau:lfv-limits-plot}
+    }
+  \end{center}
+\end{figure}
