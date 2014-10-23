@@ -10,8 +10,8 @@ DOC = tau-report-web
 PLOTS = \
   plot-taulife-hfag-summer2014.pdf \
   hfag-tau-vus-plot.pdf \
-  hfag-tau-lfv-plot.pdf \
-  TauLFV_UL_2013001_averaged.pdf
+  TauLFV_UL_2014001.pdf \
+  TauLFV_UL_2014001_averaged.pdf
 
 PLOTSPDF = $(patsubst %.pdf, ../figures/tau/%.pdf, $(PLOTS))
 PLOTSPNG = $(patsubst %.pdf, ../figures/tau/%.png, $(PLOTS))

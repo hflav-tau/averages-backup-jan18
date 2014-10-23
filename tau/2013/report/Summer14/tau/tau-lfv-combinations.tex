@@ -2,9 +2,40 @@
 \tausection{Combination of Upper Limits on \mtau LFV Branching Fractions}
 \cutname{lfv-limits-combinations.html}
 \label{sec:tau:lfv_com}
-\def\cls{$CL_s$}
+\newcommand{\cls}{\ensuremath{CL_s}\xspace}
 
+<<<<<<< .mine
+There is no standard and generally agreed method of combining experimental upper
+limits on branching fractions. The available results on \mtau LFV branching
+fractions upper limits are determined with a variety of methods and there is
+no straightforward way to combine the upper limits as quoted in the papers
+acccordingly. We propose and implement in this section a combination of the
+published upper limits that is based on the following procedure:
+\begin{itemize}
+
+\item
+  a new 90\% confidence level upper limit is computed for each result using
+  the \cls method \cite{Mistlberger:2012rs} with the published
+  information on the observed events, the expected background, the signal
+  efficiency, and the sample size;
+
+\item
+  the re-computed \cls limits are combined to provide the HFAG average.
+
+\end{itemize}
+The \cls method 
+
+In this section we report on our combination of upper limits of tau LFV
+branching fractions. We would like stress out that most of the searches
+listed in~\ref{tab:tau:lfv-upper-limits} observed a downward
+fluctuation. Since downward fluctuations in
+Feldmann-Cousinus~\cite{PhysRevD.57.3873} can lead to artificial low
+exclusions~\cite{PhysRevD.86.010001} on branching fractions we choose to
+\cls \cite{Mistlberger:2012rs} method which alleviates this effect.
+
+=======
 In this section we report on our combination of upper limits of tau LFV branching fractions. We would like stress out that most of the searches listed in~\ref{tab:tau:lfv-upper-limits} observed a downward fluctuation. Since downward fluctuations in Feldmann-Cousinus~\cite{Feldman:1998} can lead to artificial low exclusions~\cite{PDG_2013} on branching fractions we choose to \cls \cite{Mistlberger:2012rs} method which alleviates this effect. \\
+>>>>>>> .r1082
 \cls method is based on two hypothesis: signal + background and background only. We calculate observed confidence levels for the two hypothesis:
 \begin{align}
 CL_{s+b} = P_{s+b}(Q \leq Q_{obs}) = \int_{- \infty}^{Q_{obs}} \frac{dP_{s+b}}{dQ} dQ,\\
@@ -243,16 +274,3 @@ are grouped in categories labelled according to their particle content. The labe
 \hline 
 \end{longtable}
 \end{center}
-
-
-
-\begin{figure}[tb]
-  \begin{center}
-
-    \includegraphics[angle=270,totalheight=0.9\textheight,clip]{figures/tau/TauLFV_UL_2013001_averaged.pdf}
-        \caption{Tau lepton-flavor-violating branching fraction recalculated upper
-      limits summary plot.
-      \label{fig:tau:lfv-limits-plot_average}
-    }
-  \end{center}
-\end{figure}
