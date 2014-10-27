@@ -1,3 +1,4 @@
+\pdfoutput=1
 \documentclass[12pt,twoside]{article}
 %% \usepackage[utf8]{inputenc}
 %% \usepackage[T1]{fontenc}
@@ -16,6 +17,7 @@
 \usepackage{array}
 \usepackage{longtable}
 
+\usepackage{adjustbox}
 \usepackage{tabularx}
 \usepackage{ltablex}
 \usepackage{multirow}
@@ -128,7 +130,7 @@ parameters of semileptonic decays and CKM matrix elements.
 \newpage
 
 % Introduction
-\input{hfag_intro.tex}
+%%\input{hfag_intro.tex}
 
 % Methodology
 %\input{methods.tex}
@@ -141,11 +143,11 @@ parameters of semileptonic decays and CKM matrix elements.
 
 %% \clearpage
 %% % Measurements related to the Unitarity Triangle
-%% \input{cp_uta.tex}
+\input{cp_uta.tex}
 
 %% \clearpage
 %% % Semileptonic B decays
-\input{slbdecays/slbdecays.tex}
+% \input{slbdecays/slbdecays.tex}
 
 %% \clearpage
 %% % Branching fractions for B decays to charm
@@ -153,7 +155,7 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \clearpage
 % Charmless B-decay branching fractions and their asymmetries
-\input{rare/rare.tex}
+% \input{rare/rare.tex}
 
 %% \clearpage
 %% %Charm decays
@@ -161,7 +163,7 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \clearpage
 %Tau decays
-\input{tau/tau_all.tex}
+% \input{tau/tau_all.tex}
 
 % Summary and Acknowledgements
 
@@ -177,8 +179,8 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \bibliographystyle{HFAGutphys}
 \raggedright
-\bibliography{Summer14,slbdecays/slb_ref,tau/tau-refs-pdg,tau/tau-refs}
-%\bibliography{EndOfYear11,life_mix,cp_uta,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/tau-refs-pdg,tau/tau-refs}
-%\bibliography{EndOfYear09,life_mix,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/tau-refs-pdg,tau/tau-refs}}{}
+\bibliography{Summer14,life_mix,cp_uta,charm/charm_refs}
+%\bibliography{EndOfYear11,life_mix,cp_uta,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}
+%\bibliography{EndOfYear09,life_mix,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}}{}
 
 \end{document}

@@ -4,54 +4,67 @@
 \label{sec:tau:lfv_com}
 \newcommand{\cls}{\ensuremath{CL_s}\xspace}
 
-<<<<<<< .mine
 There is no standard and generally agreed method of combining experimental upper
-limits on branching fractions. The available results on \mtau LFV branching
-fractions upper limits are determined with a variety of methods and there is
-no straightforward way to combine the upper limits as quoted in the papers
-acccordingly. We propose and implement in this section a combination of the
-published upper limits that is based on the following procedure:
+limits on branching fractions. The published \mtau LFV searches upper
+limits are extracted from the data with a variety of methods and there is
+no straightforward way to combine them with a uniform simple procedure.
+Therefore we re-compute the published limits with a suitable
+method to provide a way to combine the experimental findings with a uniform
+procedure. We proceed as follows:
 \begin{itemize}
 
 \item
-  a new 90\% confidence level upper limit is computed for each result using
-  the \cls method \cite{Mistlberger:2012rs} with the published
-  information on the observed events, the expected background, the signal
-  efficiency, and the sample size;
+  for each published limit, a new limit is
+  computed with the \cls method \cite{Mistlberger:2012rs} using the published
+  information on the observed candidates, the expected background, the signal
+  efficiency, and the number of recorded \mtau decays.
 
 \item
-  the re-computed \cls limits are combined to provide the HFAG average.
+  the newly computed limits are combined to provide the HFAG combined limits.
 
 \end{itemize}
-The \cls method 
+The \cls method is a well known and widely used method for extracting upper
+limits (see the Statistics review of PDG 2013~\cite{PDG_2013}). Limits
+computed with the \cls method are easily combined (see below) and are
+resilient and conservative in presence of a downward fluctuation of the
+number of detected signal candidates. This is observed for several
+published \mtau LFV searches, with the consequence that the published
+limits are better than the experimental sensitivity when computed with
+methods like Feldman-Cousins~\cite{Feldman:1998}.
 
-In this section we report on our combination of upper limits of tau LFV
-branching fractions. We would like stress out that most of the searches
-listed in~\ref{tab:tau:lfv-upper-limits} observed a downward
-fluctuation. Since downward fluctuations in
-Feldmann-Cousinus~\cite{PhysRevD.57.3873} can lead to artificial low
-exclusions~\cite{PhysRevD.86.010001} on branching fractions we choose to
-\cls \cite{Mistlberger:2012rs} method which alleviates this effect.
-
-=======
-In this section we report on our combination of upper limits of tau LFV branching fractions. We would like stress out that most of the searches listed in~\ref{tab:tau:lfv-upper-limits} observed a downward fluctuation. Since downward fluctuations in Feldmann-Cousinus~\cite{Feldman:1998} can lead to artificial low exclusions~\cite{PDG_2013} on branching fractions we choose to \cls \cite{Mistlberger:2012rs} method which alleviates this effect. \\
->>>>>>> .r1082
-\cls method is based on two hypothesis: signal + background and background only. We calculate observed confidence levels for the two hypothesis:
+The \cls method is based on two hypothesis: signal plus background and
+background only. We calculate the observed confidence levels for the two
+hypothesis:
 \begin{align}
-CL_{s+b} = P_{s+b}(Q \leq Q_{obs}) = \int_{- \infty}^{Q_{obs}} \frac{dP_{s+b}}{dQ} dQ,\\
-CL_{b} = P_{b}(Q \leq Q_{obs}) = \int_{- \infty}^{Q_{obs}} \frac{dP_{b}}{dQ} dQ,
-\label{pdfs}
+&CL_{s+b} = P_{s+b}(Q \leq Q_{obs}) = \int_{- \infty}^{Q_{obs}} \frac{dP_{s+b}}{dQ} dQ,
+\label{eq:tau:clspdf1} \\
+&CL_{b} = P_{b}(Q \leq Q_{obs}) = \int_{- \infty}^{Q_{obs}} \frac{dP_{b}}{dQ} dQ,
+\label{eq:tau:clspdf2}
 \end{align}
-where $CL_{s+b}$ is confidence level observed for signal + background hypothesis, $CL_{b}$ is confidence level observed for background only hypothesis, $\frac{dP_{s+b}}{dQ}$ and $\frac{dP_{b}}{dQ}$ are probability distribution functions (p.d.f.'s) for the two corresponding hypothesis and $Q$ is so called test statistics. \cls value is defined as normalized confidence level observed for signal plus background hypothesis to confidence level observed for background hypothesis:
+where $CL_{s+b}$ is the confidence level observed for the signal plus background
+hypothesis, $CL_{b}$ is the confidence level observed for the background only
+hypothesis, $\frac{dP_{s+b}}{dQ}$ and $\frac{dP_{b}}{dQ}$ are the probability
+distribution functions (p.d.f.'s) for the two corresponding hypothesis and
+$Q$ is called the test statistics. The \cls value is defined as the ratio
+between the confidence level for the signal plus background hypothesis to
+the confidence level for the background hypothesis:
 \begin{equation}
 CL_s=\dfrac{CL_{s+b}}{CL_{b}}.
-\end{equation}\\
-For multichannel searches the p.d.f.'s from~\ref{pdfs} become a product of individual p.d.f.'s for given experiment. One can write the \cls value explicit:
-\begin{equation}
-CL_s = \dfrac{\prod_{i=1}^{N_{chan}}\sum_{n=0}^{n_i} \dfrac{e^{-(s_i+b_i)} (s_i+b_i)^{n}}{n!} }{\prod_{i=1}^{n_{chan}}  \sum_{n=0}^{n_i} \dfrac{e^{-b_i} b_i^{n}}{n!}}    \dfrac{\prod_{j=1}^{n} s_iS_i(x_{ij})+b_iB_i(x_{ij})}{\prod_{j=1}^{n_i}B_i(x_{ij})},
 \end{equation}
-where $N_{chan}$ are number of channels, $n_i$ is the number of observed candidates in the $i^{th}$ channel, $x_{ij}$ are the values of discriminating variables, $s_i$ and $b_i$ are the number of signal and background events in the $i^{th}$ channel and $S_i$, $B_i$ are the probability distribution functions of the discriminating variables. \\
-For the technical implementation we used an implementation provided by Tom Junk\cite{tjunk}. For each experiment we estimated the number of expected signal events using the formula:
+When multiple results are combined, the p.d.f.'s in
+Equations~\ref{eq:tau:clspdf1} and \ref{eq:tau:clspdf2} are the
+product of the individual p.d.f.'s,
+\begin{equation}
+CL_s = \dfrac{\prod_{i=1}^{N_{chan}}\sum_{n=0}^{n_i} \dfrac{e^{-(s_i+b_i)} (s_i+b_i)^{n}}{n!} }{\prod_{i=1}^{n_{chan}}  \sum_{n=0}^{n_i} \dfrac{e^{-b_i} b_i^{n}}{n!}}    \dfrac{\prod_{j=1}^{n} s_iS_i(x_{ij})+b_iB_i(x_{ij})}{\prod_{j=1}^{n_i}B_i(x_{ij})}~,
+\end{equation}
+where $N_{chan}$ is the number of results (or channels), and, for each channel $i$,
+$n_i$ is the number of observed candidates, $x_{ij}$ are the values of the
+discriminating variables (with index $j$), $s_i$ and $b_i$ are the number
+of signal and background events and $S_i$, $B_i$ are the probability
+distribution functions of the discriminating variables.
+
+The extraction of the upper limits is performed using code 
+For the technical implementation we used an implementation provided by Tom Junk~\cite{junk:2007:cdfnote}. For each experiment we estimated the number of expected signal events using the formula:
 \begin{equation}
 \begin{split}
 s_i & =2\mathcal{L}_i\sigma_{\tau\tau}Br(\tau \rightarrow LFV) \\
