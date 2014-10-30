@@ -1,0 +1,1875 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is file life_mix.tex
+% containing the chapter on b-hadron fractions,
+% lifetimes and mixing parameters
+%
+% Olivier Schneider, EPFL
+%   - first version Jun 23, 2004
+%   - updated Dec 16, 2004
+%   - updated Apr 17, 2005
+%   - updated Nov 15, 2005
+%   - updated Nov 26, 2006
+%   - updated Mar 28, 2007
+%   - updated Mar 30, 2007 (RvK)
+%   - updated Dec 21, 2007 (RvK)
+%   - updated Mar 26, 2010 (RJT) (fractions)
+%   - updated Jun 12, 2010 (RvK) 
+%   - updated Jun 21, 2010 (Remi Louvot, EPFL) (fs with fit)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% -----------------------------
+% LaTeX macros for this chapter
+% -----------------------------
+%
+% There are some conflicts with Urs' definitions (to be resolved at  some point)
+
+\input{life_mix/life_mix_definitions}
+\input{life_mix/life_mix_averages}
+
+% ---------------------
+% Title of this chapter
+% ---------------------
+
+\mysection{\b-hadron production fractions, lifetimes and mixing parameters}
+\labs{life_mix}
+
+% ----------------------------
+% Introduction to this chapter
+% ----------------------------
+
+Quantities such as \b-hadron production fractions, \b-hadron lifetimes, 
+and neutral \B-meson oscillation frequencies have been studied
+in the nineties at LEP and SLC %%% for many years at high-energy colliders, namely at LEP and SLC 
+(\ee colliders at $\sqrt{s}=m_{\particle{Z}}$) 
+as well as at the 
+first version of the Tevatron
+(\particle{p\bar{p}} collider at $\sqrt{s}=1.8\TeV$). 
+Since then 
+precise measurements of the \Bd and \Bu mesons
+% lifetimes, as well as of the \Bd oscillation frequency,
+have also been performed at the 
+asymmetric \B factories, KEKB and PEPII
+(\ee colliders at $\sqrt{s}=m_{\Ups}$) while measurements related 
+to the other \b-hadrons, in particular \Bs, \Bc and \Lb, 
+have been performed at the upgraded Tevatron ($\sqrt{s}=1.96\TeV$)
+and are continuing at the LHC ($pp$ collider at $\sqrt{s}=7\TeV$).
+In most cases, these basic quantities, although interesting by themselves,
+became necessary ingredients for the more complicated and 
+refined analyses at the asymmetric \B factories, 
+the Tevatron and the LHC,
+in particular the time-dependent \CP asymmetry measurements.
+It is therefore important that the best experimental
+values of these quantities continue to be kept up-to-date and improved. 
+
+In several cases, the averages presented in this chapter are 
+needed and used as input for the results given in the subsequent chapters. 
+Within this chapter, some averages need the knowledge of other 
+averages in a circular way. This coupling, which appears through the 
+\b-hadron fractions whenever inclusive or semi-exclusive measurements 
+have to be considered, has reduced drastically in the past several years 
+with increasingly precise exclusive measurements becoming available
+and dominating practically all averages. 
+
+In addition to \b-hadron fractions, lifetimes and 
+mixing parameters, this chapter also deals with the 
+\CP-violating phase $\phiccbars\simeq -2\beta_s$, which is the phase 
+difference between the \Bs mixing amplitude and the 
+$b\to c\bar{c}s$ decay amplitude. The angle $\beta$, 
+which is the equivalent of $\beta_s$ for the \Bd 
+system, is discussed in Chapter~\ref{sec:cp_uta}. 
+
+% ----------------------------------------
+\mysubsection{\b-hadron production fractions}
+% ----------------------------------------
+\labs{fractions}
+ 
+We consider here the relative fractions of the different \b-hadron 
+species found in an unbiased sample of weakly-decaying \b hadrons 
+produced under some specific conditions. The knowledge of these fractions
+is useful to characterize the signal composition in inclusive \b-hadron 
+analyses, to predict the background composition in exclusive analyses, 
+or to convert (relative) observe rates into (relative) branching fraction 
+measurements. 
+Many \B-physics analyses need these fractions as input. We distinguish 
+here the following three conditions: \Ups decays, \Upsfive decays, and 
+high-energy collisions (including \Z decays). 
+
+% -------------------------------------------------------------
+\mysubsubsection{\b-hadron production fractions in \Ups decays}
+% -------------------------------------------------------------
+\labs{fraction_Ups4S}
+
+Only pairs of the two lightest (charged and neutral) \B mesons 
+can be produced in \Ups decays, 
+and it is enough to determine the following branching 
+fractions:
+\begin{eqnarray}
+f^{+-} & = & \Gamma(\Ups \to \particle{B^+B^-})/
+             \Gamma_{\rm tot}(\Ups)  \,, \\
+f^{00} & = & \Gamma(\Ups \to \particle{B^0\bar{B}^0})/
+             \Gamma_{\rm tot}(\Ups) \,.
+\end{eqnarray}
+In practice, most analyses measure their ratio
+\begin{equation}
+R^{+-/00} = f^{+-}/f^{00} = \Gamma(\Ups \to \particle{B^+B^-})/
+             \Gamma(\Ups \to \particle{B^0\bar{B}^0}) \,,
+\end{equation}
+which is easier to access experimentally.
+Since an inclusive (but separate) reconstruction of 
+\Bu and \Bd is difficult, specific exclusive decay modes, 
+${\Bu} \to x^+$ and ${\Bd} \to x^0$, are usually considered to perform 
+a measurement of $R^{+-/00}$, whenever they can be related by 
+isospin symmetry (for example \particle{\Bu \to \jpsi K^+} and 
+\particle{\Bd \to \jpsi K^0}).
+Under the assumption that $\Gamma(\Bu \to x^+) = \Gamma(\Bd \to x^0)$, 
+\ie\ that isospin invariance holds in these \B decays,
+the ratio of the number of reconstructed
+$\Bu \to x^+$ and $\Bd \to x^0$ mesons is proportional to
+\begin{equation}
+\frac{f^{+-}\, \BR{\Bu\to x^+}}{f^{00}\, \BR{\Bd\to x^0}}
+= \frac{f^{+-}\, \Gamma({\Bu}\to x^+)\, \tau(\Bu)}%
+{f^{00}\, \Gamma({\Bd}\to x^0)\,\tau(\Bd)}
+= \frac{f^{+-}}{f^{00}} \, \frac{\tau(\Bu)}{\tau(\Bd)}  \,, 
+\end{equation} 
+where $\tau(\Bu)$ and $\tau(\Bd)$ are the \Bu and \Bd 
+lifetimes respectively.
+Hence the primary quantity measured in these analyses 
+is $R^{+-/00} \, \tau(\Bu)/\tau(\Bd)$, 
+and the extraction of $R^{+-/00}$ with this method therefore 
+requires the knowledge of the $\tau(\Bu)/\tau(\Bd)$ lifetime ratio. 
+
+\begin{table}
+\caption{Published measurements of the $\Bu/\Bd$ production ratio
+in \Ups decays, together with their average (see text).
+Systematic uncertainties due to the imperfect knowledge of 
+$\tau(\Bu)/\tau(\Bd)$ are included. The latest \babar result~\cite{Aubert:2004rz}
+supersedes the earlier \babar measurements \cite{Aubert:2001xs,Aubert:2004ur}.}
+\labt{R_data}
+\begin{center}
+%\begin{tabular}{@{}l@{}c@{\,}cll@{}}
+\begin{tabular}{lccll}
+\hline
+Experiment & Ref. & Decay modes & Published value of & Assumed value \\
+and year & & or method & $R^{+-/00}=f^{+-}/f^{00}$ & of $\tau(\Bu)/\tau(\Bd)$ \\
+\hline
+%OS Note than an old and imprecise CLEO measurement from 1995, 
+%OS B. Barish et al (CLEO), PRD 51 (1995) 407, is not listed here 
+CLEO,   2001 & \cite{Alexander:2000tb}  & \particle{\jpsi K^{(*)}} 
+             & $1.04 \pm0.07 \pm0.04$ & $1.066 \pm0.024$ \\
+\babar, 2002 & \cite{Aubert:2001xs} & \particle{(c\bar{c})K^{(*)}}
+             & $1.10 \pm0.06 \pm0.05$ & $1.062 \pm0.029$\\ 
+CLEO,   2002 & \cite{Athar:2002mr}  & \particle{D^*\ell\nu}
+             & $1.058 \pm0.084 \pm0.136$ & $1.074 \pm0.028$\\
+\belle, 2003 & \cite{Hastings:2002ff} & dilepton events 
+             & $1.01 \pm0.03 \pm0.09$ & $1.083 \pm0.017$\\
+\babar, 2004 & \cite{Aubert:2004ur} & \particle{\jpsi K}
+             & $1.006 \pm0.036 \pm0.031$ & $1.083 \pm0.017$ \\
+\babar, 2005 & \cite{Aubert:2004rz} & \particle{(c\bar{c})K^{(*)}}
+             & $1.06 \pm0.02 \pm0.03$ & $1.086 \pm0.017$\\ 
+\hline
+Average      & & & \hfagFF~(tot) & \hfagRTAUBU \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The published measurements of $R^{+-/00}$ are listed 
+in \Table{R_data} together with the corresponding assumed values of 
+$\tau(\Bu)/\tau(\Bd)$.
+All measurements are based on the above-mentioned method, 
+except the one from \belle, which is a by-product of the 
+\Bd mixing frequency analysis using dilepton events
+(but note that it also assumes isospin invariance, 
+namely $\Gamma(\Bu \to \ell^+{\rm X}) = \Gamma(\Bd \to \ell^+{\rm X})$).
+The latter is therefore treated in a slightly different 
+manner in the following procedure used to combine 
+these measurements:
+\begin{itemize} 
+\item each published value of $R^{+-/00}$ from CLEO and \babar
+      is first converted back to the original measurement of 
+      $R^{+-/00} \, \tau(\Bu)/\tau(\Bd)$, using the value of the 
+      lifetime ratio assumed in the corresponding analysis;
+\item a simple weighted average of these original
+      measurements of $R^{+-/00} \, \tau(\Bu)/\tau(\Bd)$ from 
+      CLEO and \babar (which do not depend on the assumed value 
+      of the lifetime ratio) is then computed, assuming no 
+      statistical or systematic correlations between them;
+
+% {\em ***** this may not be true in the case of \babar;
+% waiting for more information 
+% from David about averaging of the two \babar results ****}
+% \marginpar{David}
+
+\item the weighted average of $R^{+-/00} \, \tau(\Bu)/\tau(\Bd)$ 
+      is converted into a value of $R^{+-/00}$, using the latest 
+      average of the lifetime ratios, $\tau(\Bu)/\tau(\Bd)=\hfagRTAUBU$ 
+      (see \Sec{lifetime_ratio});
+\item the \belle measurement of $R^{+-/00}$ is adjusted to the 
+      current values of $\tau(\Bd)=\hfagTAUBD$ and 
+      $\tau(\Bu)/\tau(\Bd)=\hfagRTAUBU$ (see \Sec{lifetime_ratio}),
+      using the quoted systematic uncertainties due to these parameters;
+\item the combined value of $R^{+-/00}$ from CLEO and \babar is averaged 
+      with the adjusted value of $R^{+-/00}$ from \belle, assuming a 100\% 
+      correlation of the systematic uncertainty due to the limited 
+      knowledge on $\tau(\Bu)/\tau(\Bd)$; no other correlation is considered. 
+\end{itemize} 
+The resulting global average, 
+\begin{equation}
+R^{+-/00} = \frac{f^{+-}}{f^{00}} =  \hfagFF \,,
+\labe{Rplusminus}
+\end{equation}
+is consistent with an equal production of charged and neutral \B mesons, 
+although only at the $\hfagNSIGMAFF\,\sigma$ level.
+
+On the other hand, the \babar collaboration has 
+performed a direct measurement of the $f^{00}$ fraction 
+using an original method, which does not rely on isospin symmetry nor requires 
+the knowledge of $\tau(\Bu)/\tau(\Bd)$. Its analysis, 
+based on a comparison between the number of events where a single 
+$B^0 \to D^{*-} \ell^+ \nu$ decay could be reconstructed and the number 
+of events where two such decays could be reconstructed, yields~\cite{Aubert:2005bq}
+\begin{equation}
+f^{00}= 0.487 \pm 0.010\,\mbox{(stat)} \pm 0.008\,\mbox{(syst)} \,.
+% f^{00}= \hfagFNN \,.
+\labe{fzerozero}
+\end{equation}
+
+The two results of \Eqss{Rplusminus}{fzerozero} are of very different natures 
+and completely independent of each other. 
+Their product is equal to $f^{+-} = \hfagFPROD$, 
+while another combination of them gives $f^{+-} + f^{00}= \hfagFSUM$, 
+compatible with unity.
+Assuming\footnote{A few non-$\B\bar{B}$
+decay modes of the $\Upsilon(4S)$ 
+($\Upsilon(1S)\pi^+\pi^-$,
+$\Upsilon(2S)\pi^+\pi^-$, $\Upsilon(1S)\eta$) 
+have been observed with branching fractions
+of the order of $10^{-4}$~\cite{Aubert:2006bm,*Sokolov:2006sd,*Aubert_mod:2008bv},
+corresponding to a partial
+width several times larger than that in the \ee channel.
+However, this can still be
+neglected and the assumption $f^{+-}+f^{00}=1$ remains valid
+in the present context of the determination of $f^{+-}$ and $f^{00}$.}
+ $f^{+-}+f^{00}= 1$, also consistent with 
+CLEO's observation that the fraction of \Ups decays 
+to \BB pairs is larger than 0.96 at \CL{95}~\cite{Barish:1995cx},
+the results of \Eqss{Rplusminus}{fzerozero}
+can be averaged (first converting \Eq{Rplusminus} 
+into a value of $f^{00}=1/(R^{+-/00}+1)$) 
+to yield the following more precise estimates:
+\begin{equation}
+f^{00} = \hfagFNW  \,,~~~ f^{+-} = 1 -f^{00} =  \hfagFCW \,,~~~
+\frac{f^{+-}}{f^{00}} =  \hfagFFW \,.
+\end{equation}
+The latter ratio differs from one by $\hfagNSIGMAFFW\,\sigma$.
+
+% -------------------------------------------------------------
+\mysubsubsection{\b-hadron production fractions in \Upsfive decays}
+% -------------------------------------------------------------
+\labs{fraction_Ups5S}
+
+\newcommand{\fsfive}{\ensuremath{f^{\Upsfive}_{s}}}
+\newcommand{\fudfive}{\ensuremath{f^{\Upsfive}_{u,d}}}
+\newcommand{\fnBfive}{\ensuremath{f^{\Upsfive}_{B\!\!\!\!/}}}
+
+Hadronic events produced in $e^+e^-$ collisions at the \Upsfive energy
+can be classified into three categories: 
+light-quark ($u$, $d$, $s$, $c$) continuum events, $b\bar{b}$ continuum events,
+and \Upsfive events. The latter two cannot be distinguished and will be called
+$b\bar{b}$ events in the following. These $b\bar{b}$ events, which also include 
+$b\bar{b}\gamma$ events because of possible initial-state radiation, 
+can hadronize in different final states.
+We define \fudfive\ as
+the fraction of $b\bar{b}$ events with a pair of non-strange 
+bottom mesons 
+($B\bar{B}$, $B\bar{B}^*$, $B^*\bar{B}$, $B^*\bar{B}^*$,
+$B\bar{B}\pi$, $B\bar{B}^*\pi$, $B^*\bar{B}\pi$,
+$B^*\bar{B}^*\pi$, and $B\bar{B}\pi\pi$ final states, 
+where
+$B$ denotes a $B^0$ or $B^+$ meson and 
+$\bar{B}$ denotes a $\bar{B}^0$ or $B^-$ meson), \fsfive\ as
+the fraction of $b\bar{b}$ events with a pair of strange bottom mesons
+($B_s^0\bar{B}_s^0$, $B_s^0\bar{B}_s^{0*}$, $B_s^{0*}\bar{B}_s^0$, and
+$B_s^{0*}\bar{B}_s^{0*}$ final states), and 
+\fnBfive\ as the fraction of $b\bar{b}$ events without 
+bottom meson in the final state.
+Note that the excited bottom-meson states decay via $B^* \to B \gamma$ and
+$B_s^{0*} \to B_s^0 \gamma$.
+These fractions satisfy
+\begin{equation}
+\fudfive + \fsfive + \fnBfive = 1 \,.
+\labe{sum_frac_five}
+\end{equation} 
+
+\begin{table}
+\caption{Published measurements of \fsfive.
+All values have been obtained assuming $\fnBfive=0$. 
+They are quoted 
+as in the original publications, except for the most
+recent measurement which is quoted as 
+$1-\fudfive$, with \fudfive\ from \Ref{Drutskoy:2010an}.
+The last line gives our average of \fsfive\ assuming $\fnBfive=0$.}
+\labt{fsFiveS}
+\begin{center}
+\begin{tabular}{lll}
+\hline
+Experiment, year, dataset                 & Decay mode or method    & Value of \fsfive\  \\
+\hline
+CLEO, 2006, 0.42\invfb~\cite{Huang:2006em_mod}     & $\Upsfive\to D_{s}X$     & $0.168 \pm 0.026^{+0.067}_{-0.034}$  \\
+             & $\Upsfive \to \phi X$    & $0.246 \pm 0.029^{+0.110}_{-0.053}$ \\
+             & $\Upsfive \to B\bar{B}X$ & $0.411 \pm 0.100 \pm 0.092$ \\  
+             & CLEO average of above 3  & $0.21^{+0.06}_{-0.03}$      \\  \hline
+Belle, 2006, 1.86\invfb~\cite{Drutskoy:2006fg} & $\Upsfive \to D_s X$     & $0.179 \pm 0.014 \pm 0.041$ \\
+             & $\Upsfive \to D^0 X$     & $0.181 \pm 0.036 \pm 0.075$ \\  
+             & Belle average of above 2 & $0.180 \pm 0.013 \pm 0.032$ \\  \hline 
+Belle, 2010, 23.6\invfb~\cite{Drutskoy:2010an} & $\Upsfive \to B\bar{B}X$ & $0.263 \pm 0.032 \pm 0.051$ % \,$^a$
+\\ \hline
+\multicolumn{2}{l}{Average of all above %%RL
+after adjustments to inputs of \Table{fsFiveS_external}} & %%RL
+\hfagFSFIVERL             \\  \hline 
+%%%\multicolumn{4}{l}{$^a$ {\footnotesize 
+%%%We quote here $1-\fudfive$, with \fudfive\ from \Ref{Drutskoy:2010an}.}}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}
+\caption{External inputs on which the \fsfive\ averages are based.}
+\labt{fsFiveS_external}
+\begin{center}
+\begin{tabular}{lcl}
+\hline
+Branching fraction   & Value     & Explanation and reference \\
+\hline
+${\cal B}(B\to D_s X)\times {\cal B}(D_s \to \phi\pi)$ & 
+$0.00374\pm 0.00014$ & derived from~\cite{PDG_2012} \\
+${\cal B}(B^0_s \to D_s X)$ & 
+$0.92\pm0.11$ & model-dependent estimate~\cite{Artuso:2005xw} \\
+${\cal B}(D_s \to \phi\pi)$ & 
+$0.045\pm0.004$ & \cite{PDG_2012} \\
+${\cal B}(B\to D^0 X)\times {\cal B}(D^0 \to K\pi)$ & 
+$0.0243\pm0.0011$ & derived from~\cite{PDG_2012} \\
+${\cal B}(B^0_s \to D^0 X)$ & 
+$0.08\pm0.07$ & model-dependent estimate~\cite{Drutskoy:2006fg,Artuso:2005xw} \\
+${\cal B}(D^0 \to K\pi)$ & 
+$0.0387\pm0.0005$ & \cite{PDG_2012} \\
+${\cal B}(B \to \phi X)$ & 
+$0.0343\pm0.0012$ & world average~\cite{PDG_2012,Huang:2006em_mod} \\
+${\cal B}(B^0_s \to \phi X)$ &
+$0.161\pm0.024$ & model-dependent estimate~\cite{Huang:2006em_mod} \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+The CLEO and Belle collaborations have published in 2006
+measurements of several inclusive \Upsfive branching fractions, 
+${\cal B}(\Upsfive\to D_s X)$, 
+${\cal B}(\Upsfive\to \phi X)$ and 
+${\cal B}(\Upsfive\to D^0 X)$, %and%%RL 
+%${\cal B}(\Upsfive\to B\bar{B} X)$, %%RL
+from which they extracted the
+model-dependent estimates of \fsfive\
+reported in \Table{fsFiveS}\footnote{%
+It was realized just before finalizing this document that
+more recent results from Belle~\cite{Esen:2012yz_mod}, 
+$\fsfive = 0.172 \pm 0.030$, have been overlooked. These results are 
+not included in \Table{fsFiveS} nor in the averages presented here. 
+}. % end footnote
+This extraction was performed 
+under the implicit assumption  
+$\fnBfive=0$, using the relation 
+\begin{equation}
+\frac12{\cal B}(\Upsfive\to D_s X)=\fsfive\times{\cal B}(B_s^0\to D_s X) + 
+\left(1-\fsfive-\fnBfive\right)\times{\cal B}(B\to D_s X) \,,
+\labe{Ds_correct}
+\end{equation}
+and similar relations for
+${\cal B}(\Upsfive\to D^0 X)$ and ${\cal B}(\Upsfive\to \phi X)$.
+%%For completeness, %RL
+We list also in \Table{fsFiveS} 
+the values of \fsfive\ derived from measurements of
+$\fudfive={\cal B}(\Upsfive\to B\bar BX)$~\cite{Huang:2006em_mod,Drutskoy:2010an}, as well as our average value of  \fsfive,
+all obtained under the assumption $\fnBfive=0$.
+
+However, the assumption $\fnBfive=0$ is no longer valid since the observation of
+the following final states in $e^+e^-$ collisions at the \Upsfive\ energy:
+$\Upsilon(1S)\pi^+\pi^-$,
+$\Upsilon(2S)\pi^+\pi^-$,
+$\Upsilon(3S)\pi^+\pi^-$
+and
+$\Upsilon(1S)K^+K^-$~\cite{Abe:2007tk,Garmash:2014dhx_mod},
+$h_b(1P)\pi^+\pi^-$ and 
+$h_b(2P)\pi^+\pi^-$~\cite{Adachi:2011ji},
+and more recently 
+$\Upsilon(1S)\pi^0\pi^0$,
+$\Upsilon(2S)\pi^0\pi^0$ 
+and
+$\Upsilon(3S)\pi^0\pi^0$~\cite{Krokovny:2013mgx}.
+The sum of the mesaurements of the corresponding visible cross-sections,
+adding also the contributions of the unmeasured
+$\Upsilon(1S)K^0\bar{K}^0$, $h_b(1P)\pi^0\pi^0$ and $h_b(2P)\pi^0\pi^0$ final states
+assuming isospin conservation, amounts to
+$$
+\sigma^{\rm vis}(e^+e^-\to (\b\bar{\b})hh) = 13.2\pm1.4~{\rm pb} \,,
+~~\mbox{for $(\b\bar{\b})=\Upsilon(1S,2S,3S),h_b(1P,2P)$ and $hh=\pi\pi,KK$}\,.
+$$
+We divide this by the $\b\bar{\b}$ production cross section, 
+$\sigma(e^+e^- \to \b\bar{\b} X) = 337 \pm 15$~pb, obtained as the average of the 
+CLEO~\cite{Artuso:2005xw} and Belle~\cite{Esen:2012yz_mod} measurements, to obtain
+$$
+{\cal B}(\Upsfive\to (\b\bar{\b})hh) = 0.039\pm0.004 \,,
+~~\mbox{for $(\b\bar{\b})=\Upsilon(1S,2S,3S),h_b(1P,2P)$ and $hh=\pi\pi,KK$}\,,
+$$
+which is to be considered as a lower bound for \fnBfive. 
+
+%old% However, the assumption $\fnBfive=0$ is no longer valid since the 
+%old% observation of \Upsfive\ decays to $\Upsilon(1S)\pi^+\pi^-$,
+%old% $\Upsilon(2S)\pi^+\pi^-$,
+%old% $\Upsilon(3S)\pi^+\pi^-$ and
+%old% $\Upsilon(1S)K^+K^-$~\cite{Abe:2007tk},
+%old% and more recently to 
+%old% $h_b(1P)\pi^+\pi^-$ and 
+%old% $h_b(2P)\pi^+\pi^-$~\cite{Adachi:2011ji}.
+%old% The sum of these measured branching fractions, adding also the 
+%old% contributions of the 
+%old% $\Upsilon(1S)\pi^0\pi^0$, $\Upsilon(2S)\pi^0\pi^0$, $\Upsilon(3S)\pi^0\pi^0$,
+%old% $\Upsilon(1S)K^0\bar{K}^0$, $h_b(1P)\pi^0\pi^0$ and $h_b(2P)\pi^0\pi^0$ final states
+%old% assuming isospin conservation, amounts to
+%old% $$
+%old% {\cal B}(\Upsfive\to (\b\bar{\b})hh) = 0.042\pm0.006 \,,
+%old% ~~~\mbox{for $(\b\bar{\b})=\Upsilon(1S,2S,3S),h_b(1P,2P)$ and $hh=\pi\pi,KK$}\,,
+%old% $$
+%old% which is to be considered as a lower bound for \fnBfive. 
+
+%% Since the observation of \Upsfive\ decays to final states without 
+%% bottom hadrons~\cite{Abe:2007tk},
+%% the assumption $\fnBfive=0$ is no longer valid. The measured \Upsfive\ decays
+%% to final states without bottom meson are summarized in \Table{fnonB}, together with 
+%% our estimate of the $\Upsfive \to (\b\bar{\b}) hh$ branching fraction, where 
+%% $(\b\bar{\b})$ is a $\Upsilon(1S)$, $\Upsilon(2S)$,
+%% $\Upsilon(3S)$, $h_b(1P)$ or $h_b(2P)$ mesons, 
+%% and $hh$ is a pair of neutral or oppositely-charged pions or kaons. 
+Following the method described in \Ref{thesis_Louvot}, 
+we perform a $\chi^2$ fit of the original 
+measurements of the \Upsfive\ branching fractions of
+\Refs{Huang:2006em_mod,Drutskoy:2006fg,Drutskoy:2010an},
+using the inputs of \Table{fsFiveS_external},
+the relations of \Eqss{sum_frac_five}{Ds_correct} and the
+one-sided Gaussian constraint $\fnBfive \ge {\cal B}(\Upsfive \to (\b\bar{\b}) hh)$,
+to simultaneously extract \fudfive, \fsfive\ and \fnBfive. Taking all known 
+correlations into account, the best fit values are
+\begin{eqnarray}
+\fudfive &=& \hfagFUDFIVE \,, \labe{fudfive} \\
+\fsfive  &=& \hfagFSFIVE  \,, \labe{fsfive}  \\
+\fnBfive &=& \hfagFNBFIVE \,, \labe{fnBfive}
+\end{eqnarray}
+where the strongly asymmetric uncertainty on \fnBfive\ is due to the one-sided constraint
+from the observed $(\b\bar{\b}) hh$ decays. These results, together with their correlation, 
+imply
+\begin{eqnarray}
+\fsfive/\fudfive  &=& \hfagFSFUDFIVE  \,, \labe{fsfudfive} 
+\end{eqnarray}
+in fair agreement with the results of a \babar
+analysis~\cite{Lees:2011ji} performed as a function 
+of centre-of-mass energy\footnote{
+This has not been included in the average, since 
+no numerical value is given for $\fsfive/\fudfive$ in 
+\Ref{Lees:2011ji}.}.
+
+The production of $B^0_s$ mesons at the \Upsfive
+is observed to be dominated by the $B_s^{0*}\bar{B}_s^{0*}$
+channel, %~\cite{Bonvicini:2005ci,Drutskoy:2006xc,Louvot:2008sc},
+with $\sigma(e^+e^- \to B_s^{0*}\bar{B}_s^{0*})/%
+\sigma(e^+e^- \to B_s^{0(*)}\bar{B}_s^{0(*)})
+= (87.0\pm 1.7)\%$~\cite{Li:2011pg,Louvot:2008sc}.
+% = (90.1^{+3.8}_{-4.0}\pm 0.2)\%$~\cite{Louvot:2008sc}.
+The proportion of the various production channels 
+for non-strange $B$ mesons have also been measured~\cite{Drutskoy:2010an}.
+
+%--------------------------------------------------------------
+\mysubsubsection{\b-hadron production fractions at high energy}
+%--------------------------------------------------------------
+\labs{fractions_high_energy}
+\labs{chibar}
+
+At high energy, all species of weakly-decaying \b hadrons 
+may be produced, either directly or in strong and electromagnetic 
+decays of excited \b hadrons. It is often assumed that the fractions 
+of these different species are the same in unbiased samples of 
+high-$p_{\rm T}$ \b jets originating from \particle{Z^0} decays, 
+from \particle{p\bar{p}} collisions at the Tevatron, or from 
+\particle{p p} collisions at the LHC.
+This hypothesis is plausible under the condition that the square of
+the momentum transfer to the produced \b quarks, $Q^2$, is large compared 
+with the square of the hadronization energy scale, 
+$Q^2 \gg \Lambda_{\rm QCD}^2$.
+On the other hand, there is no strong argument to claim that the
+fractions at different machines should be strictly equal, so 
+this assumption should be checked experimentally. Although the 
+available data is not sufficient at this time to perform a definitive
+check, it is expected that more refined analyses of the Tevatron Run~II data 
+and new analyses from LHC 
+experiments may improve this situation and allow one to confirm or 
+disprove this assumption with reasonable confidence. Meanwhile, the 
+attitude adopted here is that these fractions are assumed to be equal 
+at all high-energy colliders until demonstrated otherwise by 
+experiment.
+%%% \footnote{Both CDF and 
+%%% LHCb report a $p_{\rm T}$ dependence for $\Lambda_b$ production relative to
+%%% ${\Bu}$ and ${\Bd}$.  The reported $p_{\rm T}$ dependence enhances the 
+%%% number of $\Lambda_b$s observed at low-$p_{\rm T}$ compared with the
+%%% LEP results.}
+%%% However, as explained below, the measurements performed at LEP, at 
+%%% the Tevatron and from LHCb show discrepancies.
+Both CDF and LHCb report a $p_{\rm T}$ dependence for $\Lambda_b$
+production relative to \Bu and \Bd; the number of $\Lambda_b$ baryons
+observed at low $p_{\rm T}$ is enhanced with respect to that 
+seen at LEP's higher $p_{\rm T}$.
+Therefore we present 
+three sets of complete averages: one set including only measurements 
+performed at LEP, a second set including only measurements performed 
+at the Tevatron, a third  set including measurements performed at LEP, 
+Tevatron and LHCb.  The LHCb production fractions results, by themselves, 
+are still incomplete, lacking measurements on the production of other weakly 
+decaying heavy flavour baryons, $\Xi_b$ and $\Omega_b$, and a measurement of 
+$\overline{\chi}$ giving an extra constraint between \fBd and \fBs.
+
+Contrary to what happens in the charm sector where the fractions of 
+\particle{D^+} and \particle{D^0} are different, the relative amount 
+of \Bu and \Bd is not affected by the electromagnetic decays of 
+excited ${\Bu}^*$ and ${\Bd}^*$ states and strong decays of excited 
+${\Bu}^{**}$ and ${\Bd}^{**}$ states. Decays of the type 
+\particle{{\Bs}^{**} \to B^{(*)}K} also contribute to the \Bu and \Bd rates, 
+but with the same magnitude if mass effects can be neglected.  
+We therefore assume equal production of \Bu and \Bd. We also  
+neglect the production of weakly-decaying states
+made of several heavy quarks (like \Bc and other heavy baryons) 
+which is known to be very small. Hence, for the purpose of determining 
+the \b-hadron fractions, we use the constraints
+\begin{equation}
+\fBu = \fBd ~~~~\mbox{and}~~~ \fBu + \fBd + \fBs + \fbb = 1 \,,
+\labe{constraints}
+\end{equation}
+where \fBu, \fBd, \fBs and \fbb
+are the unbiased fractions of \Bu, \Bd, \Bs and \b baryons, respectively.
+
+The LEP experiments have measured
+$\fBs \times \BR{\Bs\to\particle{D_s^-} \ell^+ \nu_\ell \mbox{$X$}}$~\cite{Abreu:1992rv,*Acton:1992zq,*Buskulic:1995bd}, 
+$\BR{\b\to\Lb} \times \BR{\Lb\to\Lc\ell^-\bar{\nu}_\ell \mbox{$X$}}$~\cite{Abreu:1995me,Barate:1997if}
+and $\BR{\b\to\Xib^-} \times \BR{\Xi_b^- \to \Xi^-\ell^-\overline\nu_\ell 
+\mbox{$X$}}$~\cite{Buskulic:1996sm,Abdallah:2005cw}\footnote{The DELPHI result 
+of \Ref{Abdallah:2005cw} is considered to supersede an older 
+one~\cite{Abreu:1995kt}.} 
+from partially reconstructed final states including a lepton, \fbb
+from protons identified in \b events~\cite{Barate:1997ty}, and the 
+production rate of charged \b hadrons~\cite{Abdallah:2003xp}. 
+Ratios of \b-hadron fractions have been measured at CDF using 
+lepton+charm final 
+states~\cite{Affolder:1999iq,Aaltonen:2008zd,Aaltonen:2008eu}\footnote{CDF 
+updated their measurement of \fLb/\fBd~\cite{Affolder:1999iq} to account 
+for a measured $p_{\rm T}$ dependence between exclusively reconstructed 
+$\Lambda_b$ and $B^0$~\cite{Aaltonen:2008eu}.}, double semileptonic decays 
+with \particle{K^*\mu\mu} and \particle{\phi\mu\mu}
+final states~\cite{Abe:1999ta},
+and fully reconstructed $\Bs\to\jpsi\phi$ decays~\cite{CDFnote10795:2012}.
+Measurements of the production of other heavy 
+flavour baryons at the Tevatron are included in the determination of 
+\fbb~\cite{Abazov_mod:2007ub,Abazov:2008qm,Aaltonen:2009ny}\footnote{\dzero reports 
+$f_{\Omega_b^-}/f_{\Xi_b^-}$.  We use the CDF+\dzero average of 
+$f_{\Xi_b^-}/f_{\Lambda_b}$ to obtain $f_{\Omega_b^-}/f_{\Lambda_b}$ and then 
+combine with the CDF result.} using the constraint
+\begin{eqnarray}
+\fbb & = & f_{\Lambda_b} + f_{\Xi_b^0} + f_{\Xi_b^-} + f_{\Omega_b^-} 
+     \nonumber \\
+     & = & f_{\Lambda_b}\left(1 + 2\frac{f_{\Xi_b^-}}{f_{\Lambda_b}} 
+           + \frac{f_{\Omega_b^-}}{f_{\Lambda_b}}\right),
+\end{eqnarray}
+where isospin invariance is assumed in the production of $\Xi_b^0$ and 
+$\Xi_b^-$. Other \b-baryons are expected to decay strongly or 
+electromagnetically to those baryons listed. For the production 
+measurements, both CDF and \dzero\ reconstruct their \b-baryons exclusively 
+to final states which include a $\jpsi$ and a hyperon 
+($\Lambda_b\rightarrow \jpsi \Lambda$, 
+$\Xi_b^- \rightarrow \jpsi \Xi^-$ and 
+$\Omega_b^- \rightarrow \jpsi \Omega^-$).  
+We assume that the partial decay width of a \b-baryon to a $\jpsi$ and the 
+corresponding hyperon is equal to the partial width of any other \b-baryon to 
+a $\jpsi$ and the corresponding hyperon.  LHCb has also measured
+ratios of \b-hadron fractions in charm+lepton final states~\cite{Aaij:2011jp} 
+and in fully reconstructed hadronic two-body decays $\Bd \to D^+\pi^-$, $\Bs \to \Ds \pi^-$ and 
+$\Lambda_b^0 \to \Lambda_c^+ \pi^-$~\cite{Aaij:2013qqa,*Aaij:2011hi_mod,Aaij:2014jyk}.
+
+Both CDF and LHCb observe that the ratio $\fLb/\fBd$ depends on the $p_{\rm T}$
+of the charm+lepton system~\cite{Aaltonen:2008eu,Aaij:2011jp}%
+\footnote{CDF compares the $p_{\rm T}$ distribution of fully reconstructed 
+$\Lambda_b\rightarrow\Lambda_c^+ \pi^-$ 
+with $\overline{B^0}\rightarrow\D^+\pi^-$ which 
+compares $\fLb/\fBd$ up to a scale factor. LHCb compares the $p_{\rm T}$ 
+in the charm+lepton system between $\Lambda_b$ and \Bd and \Bu comparing 
+$R_{\Lambda_b}/2 = \fLb/(\fBu+\fBd) = \fLb/2\fBd$.}. 
+CDF chose to correct an older result to account for the $p_{\rm T}$ dependence.
+In a second result, CDF binned their data in $p_{\rm T}$ of the charm+electron 
+system~\cite{Aaltonen:2008zd}.
+The more recent LHCb measurement using hadronic decays~\cite{Aaij:2014jyk} 
+obtains the scale for $R_{\Lambda_b} = \fLb/\fBd$ from their previous 
+charm + lepton data~\cite{Aaij:2011jp}.  The LHCb measurement using hadronic
+data also bins those same data in pseudorapidity ($\eta$) and sees a 
+linear dependence of $R_{\Lambda_b}$.  Since $\eta$ is not entirely
+independent of $p_{\rm T}$ it is impossible at this time to tell whether 
+this dependence just an artifact of the $p_{\rm T}$ dependence.
+\Figure{rlb_comb} shows the ratio $R_{\Lambda_b}$ as a function of 
+$p_{\rm T}$ for the \b hadron, as measured by LHCb.  LHCb fits their
+scaled hadronic data to obtain,
+\begin{equation}
+R_{\Lambda_b} = (0.151\pm 0.030) + 
+  \exp{\left\{-(0.57\pm 0.11) - 
+  (0.095\pm 0.016)[{\rm GeV}/c]^{-1} \times p_{\rm T}\right\}}.
+\end{equation}
+A value of
+$R_{\Lambda_b}$ is also calculated for LEP and placed at the approximate $p_{\rm T}$ for the charm+lepton
+system, but this value does not participate in any fit\footnote{The CDF 
+semileptonic data would require significant corrections to obtain the $p_{\rm T}$ of
+the \b hadron and be included on the same plot with the LHCb data.
+We do not have these corrections at this time.}.
+Because the two LHCb results for $R_{\Lambda_b}$ are not 
+independent, we use only their semileptonic data for the averages.
+Note that the $p_{\rm T}$ dependence
+of $R_{\Lambda_b}$ combined with the constraint in \Eq{constraints} implies
+a compensating $p_{\rm T}$ dependence in one or more of the production fractions, \fBu, \fBd,
+or \fBs.
+
+\begin{figure}
+ \begin{center}
+  \epsfig{figure=figures/life_mix/rlb_comb.pdf,width=\textwidth}
+  \caption{Ratio of production fractions $\fLb/\fBd$ as 
+   a function of $p_{\rm T}$ of the \b hadron from
+   LHCb data for \b hadrons decaying semileptonically~\cite{Aaij:2011jp}
+   and fully reconstructed in hadronic decays~\cite{Aaij:2014jyk}. 
+%   A scale uncertainty due to the common systematic uncertainty 
+%   from the $\Lambda_c^+ \rightarrow pK^-\pi^+$ branching fraction
+%   is omitted.
+   The curve represents a fit to the LHCb hadronic data~\cite{Aaij:2014jyk}.
+   The computed LEP ratio is included at an approximate $p_{\rm T}$ 
+   in $Z$ decays, but does not participate in any fit.}
+  \labf{rlb_comb}
+ \end{center}
+\end{figure}
+
+Both CDF and LHCb have investigated the $p_{\rm T}$ dependence of $\fBs/\fBd$ using fully 
+reconstructed $\Bs$ and $\Bd$ decays.  The CDF analysis reconstructed decays that include 
+a $J/\psi$ in the final state~\cite{CDFnote10795:2012} and reports no significant $p_{\rm T}$ dependence 
+on the ratio.  However, their result is dominated by an $18$\% scale uncertainty
+from preliminary measurements of the branching ratios of the $\BR{\Bs\to J/\psi \phi}$ and 
+$\BR{\Bd\to J\psi K^{*}(892)}$.
+LHCb reported $3\sigma$ evidence that the ratio $\fBs/\fBd$ decreases with 
+$p_{\rm T}$ using fully reconstructed $\Bs$ and $\Bd$ decays and theoretical predictions
+for branching ratios~\cite{Aaij:2013qqa,*Aaij:2011hi_mod}. \Figure{rs_comb} shows
+the ratio $R_s = \fBs/\fBu$ as a function of $p_{\rm T}$ measured by CDF and LHCb.
+Two fits are performed similar to the result for $R_{\Lambda_b}$ above.  The first
+fit using a linear parameterization yields
+$R_s = (0.2760\pm 0.0068) - (0.00191\pm 0.00059)\times p_{\rm T}$.  
+A second fit using a simple exponential yields
+$R_s = \exp\left\{(-1.293\pm 0.028) - (0.0077\pm 0.0025)\times p_{\rm T}\right\}$.  
+The two fits are nearly indistinguisible over the $p_{\rm T}$ range of the results
+but the second gives a physical value for all $p_{\rm T}$.  $R_s$ is also calculated
+for LEP and placed at the approximate $p_{\rm T}$ for the $b$ hadron, though the LEP result
+doesn't participate in the fit.  The PDG world average for $R_s$ is also included in the
+figure for reference.
+
+\begin{figure}
+ \begin{center}
+  \epsfig{figure=figures/life_mix/rs_comb.pdf,width=\textwidth}
+  \caption{Ratio of production fractions $\fBs/\fBd$ as 
+   a function of $p_{\rm T}$ of the reconstructed $b$-hadrons for the 
+   CDF~\cite{CDFnote10795:2012} and LHCb~\cite{Aaij:2013qqa,*Aaij:2011hi_mod} 
+   data. Note the suppressed zero for the vertical axis.
+   The curves represent fits to the data:
+   a linear fit (solid), and an exponential fit described in the text (dotted).
+   The $p_{\rm T}$ independent value average of $R_s$ (dashed) is shown for 
+   comparison.
+   The computed LEP ratio is included at an 
+   approximate $p_{\rm T}$ in $Z$ decays, but does not participate in any fit.}
+  \labf{rs_comb}
+ \end{center}
+\end{figure}
+
+In order to combine or compare LHCb results with other experiments,
+the $p_{\rm T}$-dependent $\fLb/(\fBu + \fBd)$ is weighted by the $p_{\rm T}$ spectrum\footnote{In
+practice the LHCb data are given in 14 bins in $p_{\rm T}$ and $\eta$ with a full covariance
+matrix~\cite{Aaij:2011jp}. The weighted average is calculated as
+$D^T C^{-1} M/\sigma$, where $\sigma = D^T C^{-1} D$, $M$ is a vector 
+of measurements, $C^{-1}$ is the inverse covariance matrix and $D^T$ is the 
+transpose of the design matrix (vector of 1's)}. \Table{LHCBcomp} compares 
+the $p_{\rm T}$-weighted LHCb data with comparable averages from CDF. 
+The average CDF 
+and LHCb data are in good agreement despite the \b hadrons being produced 
+in different kinematic regimes.
+
+\begin{table}
+ \caption{Comparison of average production fraction ratios from CDF and LHCb.
+ The kinematic regime of the charm+lepton system reconstructed in each
+ experiment is also shown.}
+ \labt{LHCBcomp}
+ \begin{center}
+  \begin{tabular}{lccc}
+   \hline
+   Quantity                         & CDF               & LHCb \\
+   \hline
+   $\fBs/(\fBu + \fBd)$             & \hfagRBSTEVNOCON  & \hfagRBSLHCBNOCON   \\
+   $\fLb/(\fBu + \fBd)$             & \hfagRLBTEVNOCON  & \hfagRLBLHCBNOCON   \\
+   Average charm+lepton $p_{\rm T}$ & $\sim 13$~GeV/$c$ & $\sim 7$~GeV/$c$ \\
+   Pseudo-rapidity range             & $-1 < \eta < 1$   & $2 < \eta < 5$      \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+All these published results have been combined
+%\footnote{%
+%The latest preliminary results from CDF using $\Bs\to\jpsi\phi$ decays~\cite{CDFnote10795:2012}
+%have not been included yet in our averages.
+%}
+following the procedure and 
+assumptions described in \Ref{Abbaneo:2000ej_mod,*Abbaneo:2001bv_mod_cont},
+to yield $\fBu=\fBd=\hfagWFBDNOMIX$, 
+$\fBs=\hfagWFBSNOMIX$ and $\fbb=\hfagWFBBNOMIX$
+under the constraints of \Eq{constraints}.  
+%Following the PDG prescription, we have scaled the combined uncertainties 
+%on these fractions by \hfagWFSFACTOR to account for slight discrepancies 
+%in the input data. 
+Repeating the combinations, for LEP and the Tevatron, we obtain 
+$\fBu=\fBd=\hfagZFBDNOMIX$,
+$\fBs=\hfagZFBSNOMIX$ and $\fbb=\hfagZFBBNOMIX$ when using the LEP data only,
+$\fBu=\fBd=\hfagTFBDNOMIX$, $\fBs=\hfagTFBSNOMIX$ 
+$\fbb = \hfagTFBBNOMIX$ when using the Tevatron data only.  As noted previously,
+the LHCb data are insufficient to determine a complete set of \b-hadron production
+fractions. The world averages (LEP, Tevatron and LHCb) for the various fractions 
+are presented here for comparison with previous averages.  Significant differences
+exist between the LEP and Tevatron fractions, therefore use of the world averages
+should be taken with some care.
+%When the Tevatron, 
+%LHCb and LEP data are separated, we find no need to scale the uncertainties of 
+%any combination.  
+For these combinations other external inputs are used, 
+\eg\ the branching ratios of \B mesons to final states with a \particle{D}, 
+\particle{D^*} or \particle{D^{**}} in semileptonic decays, which are needed 
+to evaluate the fraction of semileptonic \Bs decays with a \particle{D_s^-} 
+in the final state.
+
+
+Time-integrated mixing analyses performed with lepton pairs 
+from \particle{b\bar{b}} 
+events produced at high-energy colliders measure the quantity 
+\begin{equation}
+\chibar = f'_{\particle{d}} \,\chid + f'_{\particle{s}} \,\chis \,,
+\labe{chibar}
+\end{equation}
+where $f'_{\particle{d}}$ and $f'_{\particle{s}}$ are 
+the fractions of \Bd and \Bs hadrons 
+in a sample of semileptonic \b-hadron decays, and where \chid and \chis 
+are the \Bd and \Bs time-integrated mixing probabilities.
+Assuming that all \b hadrons have the same semileptonic decay width implies 
+$f'_i = f_i R_i$, where $R_i = \tau_i/\tau_{\b}$ is the ratio of the lifetime 
+$\tau_i$ of species $i$ to the average \b-hadron lifetime 
+$\tau_{\b} = \sum_i f_i \tau_i$.
+Hence measurements of the mixing probabilities
+\chibar, \chid and \chis can be used to improve our 
+knowledge of \fBu, \fBd, \fBs and \fbb.
+In practice, the above relations yield another determination of 
+\fBs obtained from \fbb and mixing information, 
+\begin{equation}
+\fBs = \frac{1}{R_{\particle{s}}}
+\frac{(1+r)\overline{\chi}-(1-\fbb R_{\rm baryon}) \chid}{(1+r)\chis - \chid} \,,
+\labe{fBs-mixing}
+\end{equation}
+where $r=R_{\particle{u}}/R_{\particle{d}} = \tau(\Bu)/\tau(\Bd)$.
+
+The published measurements of \chibar performed by the LEP
+experiments have been combined by the LEP Electroweak Working Group to yield 
+$\chibar = \hfagCHIBARLEP$~\cite{LEPEWWG:2005ema_mod}.
+This can be compared with the Tevatron average, $\chibar = \hfagCHIBARTEV$,
+obtained from \dzero~\cite{Abazov:2006qw} and CDF~\cite{CDFnote10335:2011}
+measurements with Run~II data.\footnote{
+As explained in \Ref{CDFnote10335:2011}, a previous CDF analysis~\cite{Acosta:2003ie_mod}
+performed with Run~I data overlooked a background component, so the corresponding result is not 
+included in the average.}
+%old% The two averages deviate
+%old% from each other by $\hfagCHIBARSFACTOR\,\sigma$; 
+%old% this could be an indication that the production fractions of \b hadrons 
+%old% at the \particle{Z} peak or at the Tevatron are not the same. 
+%old% Although this discrepancy 
+%old% is not very significant it should be carefully monitored in the future. 
+%old% We choose to combine these two results in a simple weighted average,
+%old% assuming no correlations, and, following the PDG prescription, we 
+%old% multiply the combined uncertainty by \hfagCHIBARSFACTOR to account 
+%old% for the discrepancy. Our world average is then $\chibar = \hfagCHIBAR$.
+The two averages agree, showing no evidence that the production fractions
+of \Bd and \Bs mesons at the \particle{Z} peak or at the Tevatron are different.
+We combine these two results in a simple weighted average,
+assuming no correlations, and obtain 
+$\chibar = \hfagCHIBAR$.
+
+\begin{table}
+\caption{Time-integrated mixing probability \chibar (defined in \Eq{chibar}), 
+and fractions of the different \b-hadron species in an unbiased sample of 
+weakly-decaying \b hadrons, obtained from both direct
+and mixing measurements. The correlation coefficients between the fractions are 
+also given.
+The last column includes measurements performed at LEP, Tevatron and LHCb.}
+\labt{fractions}
+\begin{center}
+\begin{tabular}{@{}l@{~}l@{~}cccc@{}}
+\hline
+Quantity            &                      & $Z$ decays      & Tevatron       & LHCb~\cite{Aaij:2013qqa,*Aaij:2011hi_mod} & all    \\
+\hline
+Mixing probability  & $\overline{\chi}$    & \hfagCHIBARLEP  & \hfagCHIBARTEV &         & \hfagCHIBAR \\
+\Bu or \Bd fraction & $\fBu = \fBd$        & \hfagZFBD       & \hfagTFBD      &         & \hfagWFBD   \\
+\Bs fraction        & $\fBs$               & \hfagZFBS       & \hfagTFBS      &         & \hfagWFBS   \\
+\b-baryon fraction  & $\fbb$               & \hfagZFBB       & \hfagTFBB      &         & \hfagWFBB   \\
+$\Bs/\Bd$ ratio     & $\fBs/\fBd$          & \hfagZFBSBD     & \hfagTFBSBD    & $0.256 \pm 0.020$ & \hfagWFBSBD \\
+\multicolumn{2}{@{}l}{$\rho(\fBs,\fBu) = \rho(\fBs,\fBd)$} & \hfagZRHOFBDFBS & \hfagTRHOFBDFBS &         & \hfagWRHOFBDFBS \\
+\multicolumn{2}{@{}l}{$\rho(\fbb,\fBu) = \rho(\fbb,\fBd)$} & \hfagZRHOFBDFBB & \hfagTRHOFBDFBB &         & \hfagWRHOFBDFBB \\
+\multicolumn{2}{@{}l}{$\rho(\fbb,\fBs)$}                   & \hfagZRHOFBBFBS & \hfagTRHOFBBFBS &         & \hfagWRHOFBBFBS \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Introducing the \chibar average in \Eq{fBs-mixing}, together with our world average 
+$\chid = \hfagCHIDWU$ (see \Eq{chid} of \Sec{dmd}), the assumption $\chis= 1/2$ 
+(justified by \Eq{chis} in \Sec{dms}), the 
+best knowledge of the lifetimes (see \Sec{lifetimes}) and the estimate of \fbb given above, 
+yields $\fBs = \hfagWFBSMIX$ 
+(or $\fBs = \hfagZFBSMIX$ using only LEP data, 
+or $\fBs = \hfagTFBSMIX$ using only Tevatron data),
+an estimate dominated by the mixing information. 
+Taking into account all known correlations (including the one introduced by \fbb), 
+this result is then combined with the set of fractions obtained from direct measurements 
+(given above), to yield the % following improved estimates, 
+improved estimates of \Table{fractions}, 
+still under the constraints of \Eq{constraints}.
+%%% \footnote{%
+%%% The combined value of \fbb is smaller than the  
+%%% results from either LEP, the Tevatron and LHCb separately.
+%%% This seemingly surprising result  
+%%% arises from the smaller uncertainties on the other fractions 
+%%% and the application of the unitarity constraint of \Eq{constraints}.}
+As can be seen, our knowledge on the mixing parameters 
+substantially reduces the uncertainty on \fBs.
+% , and this even in the case of the world averages where a rather strong deweighting was introduced in the computation of \chibar.
+It should be noted that the results % of \Eqsss{fBd}{fBs}{fbb} 
+are correlated, as indicated in \Table{fractions}.
+
+%------------------------------------------------
+%\mysubsection{\b-hadron lifetimes}
+%------------------------------------------------
+
+% Introduction, b-hadron lifetime, B0 lifetime, B+ lifetime, B+/B0 lifetime ratio
+\input{life_mix/life_mix_tau1}  % from Konstantin
+% Bs lifetime, Bc lifetime, Lambda_b and b-baryon lifetimes, theoretical predictions
+\input{life_mix/life_mix_tau2}  % from Rick
+
+%------------------------------------------------
+\mysubsection{Neutral \B-meson mixing}
+%------------------------------------------------
+\labs{mixing}
+
+The $\Bd-\Bdbar$ and $\Bs-\Bsbar$ systems
+both exhibit the phenomenon of particle-antiparticle mixing. For each of them, 
+there are two mass eigenstates which are linear combinations of the two flavour states,
+\B and $\bar{\B}$. 
+The heaviest (lightest) of the these mass states is denoted
+$\B_{\rm H}$ ($\B_{\rm L}$),
+with mass $m_{\rm H}$ ($m_{\rm L}$)
+and total decay width $\Gamma_{\rm H}$ ($\Gamma_{\rm L}$). We define
+\begin{eqnarray}
+\Delta m = m_{\rm H} - m_{\rm L} \,, &~~~~&  x = \Delta m/\Gamma \,, \labe{dm} \\
+\Delta \Gamma \, = \Gamma_{\rm L} - \Gamma_{\rm H} \,, ~ &~~~~&  y= \Delta\Gamma/(2\Gamma) \,, \labe{dg}
+\end{eqnarray}
+where 
+$\Gamma = (\Gamma_{\rm H} + \Gamma_{\rm L})/2 =1/\bar{\tau}(\B)$ 
+is the average decay width.
+$\Delta m$ is positive by definition, and 
+$\Delta \Gamma$ is expected to be positive within
+the Standard Model.\footnote{For reason of symmetry in 
+\Eqss{dm}{dg}, $\Delta \Gamma$ is sometimes defined with 
+the opposite sign. The definition adopted here, \ie\
+\Eq{dg}, is the one used by most experimentalists and many
+phenomenologists in \B physics.}
+
+There are four different time-dependent probabilities describing the 
+case of a neutral \B meson produced 
+as a flavour state and decaying to a flavour-specific final state.
+If \CPT is conserved (which  
+will be assumed throughout), they can be written as 
+\begin{equation}
+\left\{
+\begin{array}{rcl}
+{\cal P}(\B\to\B) & = &  \frac{e^{-\Gamma t}}{2} 
+\left[ \cosh\!\left(\frac{\Delta\Gamma}{2}t\right) + \cos\!\left(\Delta m t\right)\right]  \\
+{\cal P}(\B\to\bar{\B}) & = &  \frac{e^{-\Gamma t}}{2} 
+\left[ \cosh\!\left(\frac{\Delta\Gamma}{2}t\right) - \cos\!\left(\Delta m t\right)\right] 
+\left|\frac{q}{p}\right|^2 \\
+{\cal P}(\bar{\B}\to\B) & = &  \frac{e^{-\Gamma t}}{2} 
+\left[ \cosh\!\left(\frac{\Delta\Gamma}{2}t\right) - \cos\!\left(\Delta m t\right)\right] 
+\left|\frac{p}{q}\right|^2 \\
+{\cal P}(\bar{\B}\to\bar{\B}) & = &  \frac{e^{-\Gamma t}}{2} 
+\left[ \cosh\!\left(\frac{\Delta\Gamma}{2}t\right) + \cos\!\left(\Delta m t\right)\right] 
+\end{array} \right. \,,
+\labe{oscillations}
+\end{equation}
+where $t$ is the proper time of the system (\ie\ the time interval between the production 
+and the decay in the rest frame of the \B meson). 
+At the \B factories, only the proper-time difference $\Delta t$ between the decays
+of the two neutral \B mesons from the \Ups can be determined, but, 
+because the two \B mesons evolve coherently (keeping opposite flavours as long as
+none of them has decayed), the 
+above formulae remain valid 
+if $t$ is replaced with $\Delta t$ and the production flavour is replaced by the flavour 
+at the time of the decay of the accompanying \B meson in a flavour-specific state.
+As can be seen in the above expressions,
+the mixing probabilities 
+depend on three mixing observables:
+$\Delta m$, $\Delta\Gamma$,
+and $|q/p|^2$ which signals \CP violation in the mixing if $|q/p|^2 \ne 1$.
+
+In the next sections we review in turn the experimental knowledge
+on the \Bd decay-width and mass differences, 
+the \Bs decay-width and mass differences,  
+\CP violation in \Bd and \Bs mixing, and mixing-induced \CP violation in \Bs decays. 
+% these three parameters, separately 
+% for the \Bd meson (\dmd, \DGd, $|q/p|_{\particle{d}}$) 
+% and the \Bs meson (\dms, \DGs, $|q/p|_{\particle{s}}$). 
+
+%------------------------------------------------
+\mysubsubsection{\Bd mixing parameters \DGd and \dmd}
+%\mysubsubsection{Mass and decay width differences \dmd and \DGd}
+%------------------------------------------------
+\labs{DGd} \labs{dmd}
+
+\begin{table}
+\caption{Time-dependent measurements included in the \dmd average.
+The results obtained from multi-dimensional fits involving also 
+the \Bd (and \Bu) lifetimes
+as free parameter(s)~\cite{Aubert:2002sh,Aubert:2005kf,Abe:2004mz} 
+have been converted into one-dimensional measurements of \dmd.
+All the measurements have then been adjusted to a common set of physics
+parameters before being combined.}
+\labt{dmd}
+\begin{center}
+\begin{tabular}{@{}rc@{}cc@{}c@{}cc@{}c@{}c@{}}
+\hline
+%Experiment & \multicolumn{2}{c}{Method} & \multicolumn{3}{l}{Published value}   
+%                                        & \multicolumn{3}{l}{Adjusted value}     \\
+%and Ref.   &  rec. & tag                & \multicolumn{3}{l}{of \dmd in\invps} 
+%                                        & \multicolumn{3}{l}{of \dmd in\invps} \\
+Experiment & \multicolumn{2}{c}{Method} & \multicolumn{3}{l}{\dmd in\invps}   
+                                        & \multicolumn{3}{l}{\dmd in\invps}     \\
+and Ref.   &  rec. & tag                & \multicolumn{3}{l}{before adjustment} 
+                                        & \multicolumn{3}{l}{after adjustment} \\
+\hline
+\input{life_mix/dmd_W_table.tex}
+%\hline  \\[-2.0ex]
+%\multicolumn{6}{l}{World average (all above measurements included):}
+%    & \hfagDMDWval & \hfagDMDWsta & \hfagDMDWsys \\
+\\[-2.0ex]
+\multicolumn{6}{l}{~~~ -- ALEPH, DELPHI, L3, OPAL and CDF1 only:}
+     & \hfagDMDHval & \hfagDMDHsta & \hfagDMDHsys \\
+\multicolumn{6}{l}{~~~ -- \babar and \belle only:}
+     & \hfagDMDBval & \hfagDMDBsta & \hfagDMDBsys \\
+\multicolumn{6}{l}{~~~ -- LHCb only:} & \hfagDMDLval & \hfagDMDLsta & \hfagDMDLsys \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Many time-dependent \Bd--\Bdbar oscillation analyses have been performed by the 
+ALEPH, \babar, \belle, CDF, \dzero, DELPHI, LHCb, L3 and OPAL collaborations. 
+The corresponding measurements of \dmd are summarized in 
+\Table{dmd},
+%\Tabless{dmd}{dmd2D}, 
+where only the most recent results
+are listed (\ie\ measurements superseded by more recent ones are omitted)\footnote{
+Two old unpublished CDF2 measurements~\cite{CDFnote8235:2006,CDFnote7920:2005}
+are also omitted from our averages, \Table{dmd} and \Fig{dmd}.}.
+Although a variety of different techniques have been used, the 
+individual \dmd
+results obtained at the LEP and Tevatron energy colliders have remarkably similar precision.
+The systematic uncertainties are not negligible; 
+they are often dominated by sample composition, mistag probability,
+or \b-hadron lifetime contributions.
+Their average is compatible with the recent and more precise measurements 
+from the asymmetric \B factories and the LHCb experiment.
+Before being combined, the measurements are adjusted on the basis of a 
+common set of input values, including the averages of the 
+\b-hadron fractions and lifetimes given in this report 
+(see \Secss{fractions}{lifetimes}).
+Some measurements are statistically correlated. 
+Systematic correlations arise both from common physics sources 
+(fractions, lifetimes, branching ratios of \b hadrons), and from purely 
+experimental or algorithmic effects (efficiency, resolution, flavour tagging, 
+background description). Combining all published measurements
+listed in \Table{dmd}
+% ~%\cite{Abdallah:2002mr,CDF_dmd,Buskulic:1996qt,BABAR_dmd,Belle_dmd,Abreu:1997xq,Acciarri:1998pq,OPAL_dmd} 
+and accounting for all identified correlations
+as described in \Ref{Abbaneo:2000ej_mod,*Abbaneo:2001bv_mod_cont} yields $\dmd = \hfagDMDWfull$.
+
+On the other hand, ARGUS and CLEO have published 
+measurements of the time-integrated mixing probability 
+\chid~\cite{Albrecht:1992yd,*Albrecht:1993gr_cont,Bartelt:1993cf,Behrens:2000qu}, 
+which average to $\chid =\hfagCHIDU$.
+Following \Ref{Behrens:2000qu}, 
+the width difference \DGd could 
+in principle be extracted from the
+measured value of $\Gd=1/\tau(\Bd)$ and the above averages for 
+\dmd and \chid 
+(provided that \DGd has a negligible impact on 
+the \dmd $\tau(\Bd)$ analyses that have assumed $\DGd=0$), 
+using the relation
+\begin{equation}
+\chid = \frac{\xd^2+\yd^2}{2(\xd^2+1)} ~~~ \mbox{with} ~~ \xd=\frac{\dmd}{\Gd} 
+~~ \mbox{and} ~~ \yd=\frac{\DGd}{2\Gd} \,.
+\labe{chid_definition}
+\end{equation}
+However, direct time-dependent studies provide much stronger constraints: 
+%%% DELPHI obtained
+%%% $|\DGd|/\Gd < 18\%$ at \CL{95}~\cite{Abdallah:2002mr}, 
+%%% while \babar obtained 
+%%% % $-8.4\% < -{\rm sign}({\rm Re} \lambda_{\CP}) \DGGd < 6.8\%$ % closer to what \babar quoted
+%%% $-6.8\% < {\rm sign}({\rm Re} \lambda_{\CP}) \DGGd < 8.4\%$
+%%% at \CL{90}~\cite{Aubert:2003hd,*Aubert:2004xga_mod_cont}, 
+$|\DGd|/\Gd < 18\%$ at \CL{95} from DELPHI~\cite{Abdallah:2002mr},
+$-6.8\% < {\rm sign}({\rm Re} \lambda_{\CP}) \DGGd < 8.4\%$
+at \CL{90} from \babar~\cite{Aubert:2003hd,*Aubert:2004xga_mod_cont},
+and ${\rm sign}({\rm Re} \lambda_{\CP})\DGGd = (1.7 \pm 1.8 \pm 1.1)\%$~\cite{Higuchi:2012kx}
+from Belle, 
+where $\lambda_{\CP} = (q/p)_{\particle{d}} (\bar{A}_{\CP}/A_{\CP})$
+is defined for a \CP-even final state 
+%%% and where \DGd is defined as\footnote{This sign convention for 
+%%% \DGd, taken from \Ref{Aubert:2003hd,*Aubert:2004xga_mod_cont},
+%%% is opposite to that used for \DGs in \Secss{taubs}{DGs}.}
+%%% $\DGd = \Gamma(\Bd_{\rm H})-\Gamma(\Bd_{\rm L})$
+(the sensitivity to the overall sign of 
+${\rm sign}({\rm Re} \lambda_{\CP}) \DGGd$ comes
+from the use of \Bd decays to \CP final states).
+In addition, the \dzero collaboration have recently extracted a value of 
+$\DGGd=(0.50 \pm 1.38)\%$\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}
+from their measurements of the same-sign dimuon charge asymmetry, 
+under the interpretation that 
+the observed asymmetries are due to \CP violation in neutral $B$-meson mixing and interference.
+More recently LHCb has obtained $\DGGd=(-0.044 \pm 0.025 \pm 0.011)\%$~\cite{Aaij:2014owa}
+by comparing measurements of the $\Bd \to \jpsi K^{*0}$ and $\Bd \to \jpsi K^0_{\rm S}$
+decays, following the method of Ref.~\cite{Gershon:2010wx}.
+Assuming ${\rm Re} \lambda_{\CP} > 0$, as expected from the global fits
+of the Unitarity Triangle within the Standard Model~\cite{Charles:2011va_mod,*Bona:2006ah},
+a combination of these five results (after adjusting the DELPHI and \babar ones to  
+$1/\Gd=\tau(\Bd)=\hfagTAUBD$) yields
+\begin{equation}
+%%% {\rm sign}({\rm Re} \lambda_{\CP}) 
+\DGGd  = \hfagSDGDGD \,.
+\end{equation}
+%%% The sign of ${\rm Re} \lambda_{\CP}$ is not measured,
+%%% but expected to be positive from the global fits
+%%% of the Unitarity Triangle within the Standard Model~\cite{Charles:2011va_mod,*Bona:2006ah}.
+
+Assuming $\DGd=0$ 
+% and no \CP violation in mixing, and using the measured \Bd lifetime,
+and using $1/\Gd=\tau(\Bd)=\hfagTAUBD$,
+the \dmd and \chid results are combined through \Eq{chid_definition} 
+to yield the 
+world average
+\begin{equation} 
+\dmd = \hfagDMDWU \,,
+\labe{dmd}
+\end{equation} 
+or, equivalently,
+\begin{equation} 
+\xd= \hfagXDWU ~~~ \mbox{and} ~~~ \chid=\hfagCHIDWU \,.  
+\labe{chid}
+\end{equation}
+\Figure{dmd} compares the \dmd values obtained by the different experiments.
+
+\begin{figure}
+\begin{center}
+\epsfig{figure=figures/life_mix/dmd_expt_bw.pdf,width=\textwidth}
+\caption{The \Bd--\Bdbar oscillation frequency \dmd as measured by the different experiments. 
+The averages quoted for ALEPH, L3 and OPAL are taken from the original publications, while the 
+ones for DELPHI, CDF, \babar, \belle and LHCb have been computed from the individual results 
+listed in \Table{dmd} without performing any adjustments. The time-integrated measurements 
+of \chid from the symmetric \B factory experiments ARGUS and CLEO have been converted 
+to a \dmd value using $\tau(\Bd)=\hfagTAUBD$. The two global averages have been obtained 
+after adjustments of all the individual \dmd results of \Table{dmd} (see text).}
+\labf{dmd}
+\end{center}
+\end{figure}
+
+The \Bd mixing averages given in \Eqss{dmd}{chid}
+and the \b-hadron fractions of \Table{fractions} have been obtained in a fully 
+consistent way, taking into account the fact that the fractions are computed using 
+the \chid value of \Eq{chid} and that many individual measurements of \dmd
+at high energy depend on the assumed values for the \b-hadron fractions.
+Furthermore, this set of averages is consistent with the lifetime averages 
+of \Sec{lifetimes}.
+
+\begin{table}
+\caption{Simultaneous measurements of \dmd and $\tau(\Bd)$, and their average.
+The \belle analysis also 
+measures $\tau(\Bu)$ at the same time, but it is converted here into a two-dimensional measurement 
+of \dmd and $\tau(\Bd)$, for an assumed value of $\tau(\Bu)$. 
+The first quoted error on the measurements is statistical
+and the second one systematic; in the case of adjusted measurements, the 
+latter includes a contribution obtained from the variation of $\tau(\Bu)$ or 
+$\tau(\Bu)/\tau(\Bd)$ in the indicated range. Units are\invps\ for \dmd
+and\unit{ps} for lifetimes. 
+The three different values of $\rho(\dmd,\tau(\Bd))$ correspond 
+to the statistical, systematic and total correlation coefficients
+between the adjusted measurements of \dmd and $\tau(\Bd)$.}
+\labt{dmd2D}
+\begin{center}
+\begin{tabular}{@{}r@{~}c@{}c@{}c@{~}c@{}c@{}c@{~}c@{}c@{}c@{\hspace{0ex}}c@{}}
+\hline
+Exp.\ \& Ref.
+& \multicolumn{3}{c}{Measured \dmd}   
+& \multicolumn{3}{c}{Measured $\tau(\Bd)$}   
+& \multicolumn{3}{c}{Measured $\tau(\Bu)$}   
+&  Assumed $\tau(\Bu)$ \\
+\hline
+\babar \cite{Aubert:2002sh}  %{BABAR_dmd_dstarlnu}
+      & $0.492$ & $\pm 0.018$ & $\pm 0.013$ 
+      & $1.523$ & $\pm 0.024$ & $\pm 0.022$ 
+      & \multicolumn{3}{c}{---}
+      & $(1.083\pm 0.017)\tau(\Bd)$ \\  
+\babar \cite{Aubert:2005kf}  %{BABAR_dmd_preliminary}
+      & $0.511$ & $\pm 0.007$ & $^{+0.007}_{-0.006}$ 
+      & $1.504$ & $\pm 0.013$ & $^{+0.018}_{-0.013}$
+      & \multicolumn{3}{c}{---}
+      & $1.671\pm 0.018$ \\  
+\belle \cite{Abe:2004mz}  %{BELLE_dmd_full_dstarlnu}
+      & $0.511$ & $\pm 0.005$ & $\pm 0.006$
+      & $1.534$ & $\pm 0.008$ & $\pm 0.010$
+      & $1.635$ & $\pm 0.011$ & $\pm 0.011$
+      & --- \\  
+\cline{2-10}
+& \multicolumn{3}{c}{Adjusted \dmd}   
+& \multicolumn{3}{c}{Adjusted $\tau(\Bd)$}   
+& \multicolumn{3}{c}{$\rho(\dmd,\Bd)$} 
+&  Assumed $\tau(\Bu)$ \\
+%----------------------------------------------------------------------------------------
+% Numbers below (second part of the table) updated by OS on Mar 23, 2010 based on
+% http://lepbosc.web.cern.ch/LEPBOSC/combined_results/mar21/2D/dmd_taubd.results 
+%----------------------------------------------------------------------------------------
+\cline{2-10}
+\babar \cite{Aubert:2002sh}  
+      & $0.492$ & $\pm 0.018$ & $\pm 0.013$  % updated Mar 25, 2010
+      & $1.523$ & $\pm 0.024$ & $\pm 0.022$  % updated Mar 25, 2010
+      & $-0.22$ & $+0.71$ & $+0.16$ % rho_stat,syst,tot % updated Mar 25, 2010
+      & $(\hfagRTAUBUval$$\hfagRTAUBUerr)\tau(\Bd)$ \\  
+\babar \cite{Aubert:2005kf} 
+      & $0.512$ & $\pm 0.007$ & $\pm 0.007$  % updated Mar 25, 2010
+      & $1.506$ & $\pm 0.013$ & $\pm 0.018$ % updated Mar 25, 2010
+      & $+0.01$ & $-0.85$ & $-0.48$ % rho_stat,syst,tot % updated Mar 25, 2010
+      & $\hfagTAUBUval$$\hfagTAUBUerr$ \\  
+\belle \cite{Abe:2004mz}  %{BELLE_dmd_full_dstarlnu}
+      & $0.511$ & $\pm 0.005$ & $\pm 0.006$ % updated Mar 25, 2010
+      & $1.535$ & $\pm 0.008$ & $\pm 0.011$ % updated Mar 25, 2010
+      & $-0.27$ & $-0.14$ & $-0.19$ % rho_stat,syst,tot % updated Mar 25, 2010
+      & $\hfagTAUBUval$$\hfagTAUBUerr$ \\  
+\hline
+\multicolumn{1}{l}{Average} 
+      & \hfagDMDTWODval   & \hfagDMDTWODsta   & \hfagDMDTWODsys
+      & \hfagTAUBDTWODval & \hfagTAUBDTWODsta & \hfagTAUBDTWODsys
+      & \hfagRHOstaDMDTAUBD & \hfagRHOsysDMDTAUBD & \hfagRHODMDTAUBD % rho_stat,syst,tot
+      & $\hfagTAUBUval$$\hfagTAUBUerr$ \\  
+\hline 
+\end{tabular}
+\end{center}
+\end{table}
+\begin{figure}
+\begin{center}
+\vspace{-0.5cm}
+\epsfig{figure=figures/life_mix/dmd_taubd.pdf,width=0.6\textwidth}
+\vspace{-0.5cm}
+\caption{Simultaneous measurements of
+\dmd and $\tau(\Bd)$~\cite{Aubert:2002sh,Aubert:2005kf,Abe:2004mz}, 
+after adjustment to a common set of parameters (see text). 
+Statistical and total uncertainties are represented as dashed and
+solid contours respectively.
+The average of the three measurements
+is indicated by a hatched ellipse.}
+\labf{dmd2D}
+\end{center}
+\end{figure}
+
+It should be noted that the most recent (and precise) analyses at the 
+asymmetric \B factories measure \dmd
+as a result of a multi-dimensional fit. 
+Two \babar analyses~\cite{Aubert:2002sh,Aubert:2005kf},  
+based on fully and partially reconstructed $\Bd \to D^*\ell\nu$ decays
+respectively, 
+extract simultaneously \dmd and $\tau(\Bd)$
+while the latest \belle analysis~\cite{Abe:2004mz},  %-{BELLE_dmd_full_dstarlnu}, 
+based on fully reconstructed hadronic \Bd decays and $\Bd \to D^*\ell\nu$ decays, 
+extracts simultaneously \dmd, $\tau(\Bd)$ and $\tau(\Bu)$.
+The measurements of \dmd and $\tau(\Bd)$ of these three analyses 
+are displayed in \Table{dmd2D} and in \Fig{dmd2D}. Their two-dimensional average, 
+taking into account all statistical and systematic correlations, and expressed
+at $\tau(\Bu)=\hfagTAUBU$, is
+\begin{equation}
+\left.
+\begin{array}{r@{}l}
+\dmd = \hfagDMDTWODnounit & \invps \\
+\tau(\Bd) = \hfagTAUBDTWODnounit & \ps
+\end{array}
+\right\}
+~\mbox{with a total correlation of \hfagRHODMDTAUBD.}
+\end{equation}
+
+%------------------------------------------------
+\mysubsubsection{\Bs mixing parameters \DGs and \dms}
+%\mysubsubsection{Mass and decay width differences \dms and \DGs}
+%------------------------------------------------
+\labs{DGs} \labs{dms}
+
+\input{life_mix/life_mix_dgs} 
+
+%--------------------------------------
+%\subsubsubsection{\boldmath Mass difference \dms}
+%--------------------------------------
+
+The strength of \Bs mixing is known to be large since more than 20 years. 
+Indeed the time-integrated measurements of \chibar (see \Sec{chibar}),
+when compared to our knowledge
+of \chid and the \b-hadron fractions, indicated that 
+\chis should be close to its maximal possible value of $1/2$.
+Many searches of the time dependence of this mixing 
+were performed by ALEPH~\cite{Heister:2002gk},
+CDF (Run~I)~\cite{Abe:1998qj},
+DELPHI~\cite{Abreu:2000sh,Abreu:2000ev,Abdallah:2002mr,Abdallah:2003we},
+OPAL~\cite{Abbiendi:1999gm,Abbiendi:2000bh} and
+SLD~\cite{Abe:2002ua,Abe:2002wfa,Abe:2000gp},
+%(we omit references to searches that have been superseded
+%by more recent ones).
+but did not have enough statistical power
+and proper time resolution to resolve 
+the small period of the \Bs\ oscillations.
+
+\Bs oscillations have been observed for the first time in 2006
+by the CDF collaboration~\cite{Abulencia:2006ze,*Abulencia:2006mq_mod_cont},
+based on samples of flavour-tagged hadronic and semileptonic \Bs decays
+(in flavour-specific final states), partially or fully reconstructed in 
+$1\invfb$ of data collected during Tevatron's Run~II. 
+% From the proper-time dependence of these \Bs candidates, CDF
+% observe \Bs oscillations with a significance of at least $5\,\sigma$ 
+% and measure $\dms = 17.77 \pm 0.10 \pm 0.07\invps$~\cite{Abulencia:2006ze,*Abulencia:2006mq_mod_cont}.
+This was shortly followed by an independent evidence obtained by the \dzero collaboration
+with $2.4\invfb$ of
+data~\cite{D0note5618:2008,*D0note5474:2007,*D0note5254:2006,*Abazov:2006dm_mod_cont}.
+More recently the LHCb collaboration obtained the most precise results using fully reconstructed 
+$\Bs \to D_s^-\pi^+$ and $\Bs \to D_s^-\pi^+\pi^-\pi^+$ decays at the 
+LHC~\cite{Aaij:2011qx,Aaij:2013mpa}.
+LHCb has also observed \Bs oscillations with 
+$\Bs\to\jpsi K^+K^-$ decays~\cite{LHCB-PAPER-2014-059,*Aaij:2013oba_supersede2}
+and with semileptonic $\Bs \to D_s^-\mu^+ X$ decays~\cite{Aaij:2013gja}.
+The measurements of \dms are summarized in \Table{dms}. 
+
+\begin{table}[t]
+\caption{Measurements of \dms.}
+\labt{dms}
+\begin{center}
+\begin{tabular}{l@{}c@{}crl@{\,}l@{\,}ll} \hline
+Experiment & Method           & \multicolumn{2}{c}{Data set} & \multicolumn{3}{c}{\dms (\!\!\invps)} & Ref. \\
+\hline
+CDF2   & \particle{D_s^{(*)-} \ell^+ \nu}, \particle{D_s^{(*)-} \pi^+}, \particle{D_s^{-} \rho^+}
+       & & 1 \invfb & $17.77$ & $\pm 0.10$ & $\pm 0.07~$
+       & \cite{Abulencia:2006ze,*Abulencia:2006mq_mod_cont} \\
+\dzero & \particle{D_s^- \ell^+ X}, \particle{D_s^- \pi^+ X}
+       &  & 2.4 \invfb & $18.53$ & $\pm 0.93$ & $\pm 0.30~$ 
+       & \cite{D0note5618:2008,*D0note5474:2007,*D0note5254:2006,*Abazov:2006dm_mod_cont}$^u$ \\
+LHCb   & \particle{D_s^- \pi^+}, \particle{D_s^- \pi^+\pi^-\pi^+}
+       & 2010 & 0.034 \invfb & $17.63$ & $\pm 0.11$ & $\pm 0.02~$   
+       & \cite{Aaij:2011qx} \\
+LHCb   & \particle{D_s^- \mu^+ X}
+       & 2011 & 1.0 \invfb & $17.93$ & $\pm 0.22$ & $\pm 0.15$ 
+       & \cite{Aaij:2013gja}  \\
+LHCb   & \particle{D_s^- \pi^+}
+       & 2011 & 1.0 \invfb & $17.768$ & $\pm 0.023$ & $\pm 0.006$ 
+       & \cite{Aaij:2013mpa}  \\
+LHCb   & \particle{\jpsi K^+K^-}
+       & 2011--2012 & 3.0 \invfb & $17.711$ & $^{+0.055}_{-0.057}$ & $\pm 0.011$ 
+       & \cite{LHCB-PAPER-2014-059,*Aaij:2013oba_supersede2}  \\
+\hline
+\multicolumn{4}{l}{Average of CDF and LHCb measurements} & $\hfagDMSval$ & $\hfagDMSsta$ & $\hfagDMSsys$ & \\  
+\hline
+\multicolumn{5}{l}{$^u$ \footnotesize Unpublished.} % ~~~ $^p$ \footnotesize Preliminary.} 
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}
+\begin{center}
+\epsfig{figure=figures/life_mix/dms_W_bw.pdf,width=0.8\textwidth}
+\caption{Published % and recent preliminary
+measurements of \dms, together with their average.} 
+\labf{dms}
+\end{center}
+\end{figure}
+
+A simple average of the CDF and LHCb results\footnote{We do not
+include the old unpublished
+\dzero~\cite{D0note5618:2008,*D0note5474:2007,*D0note5254:2006,*Abazov:2006dm_mod_cont}
+result in the average.},
+taking into account the correlated systematic uncertainties between the three 
+LHCb measurements, yields 
+\begin{equation}
+\dms = \hfagDMSfull = \hfagDMS \labe{dms}
+\end{equation}
+and is illustrated in \Figure{dms}.
+Multiplying this result with the 
+mean \Bs lifetime of \Eq{oneoverGs}, $1/\Gs=\hfagTAUBSMEANCON$,
+yields
+\begin{equation}
+\xs = \frac{\dms}{\Gs} = \hfagXS \,. \labe{xs}
+\end{equation}
+With $2\ys = \DGGs=\hfagDGSGSCON$ 
+%(see \Eqss{DGGs_ave}{corrDGGs})
+%(see \Eq{DGGs_ave})
+(see \Eq{DGs_DGsGs})
+and under the assumption of no \CP violation in \Bs mixing,
+this corresponds to
+\begin{equation}
+\chis = \frac{\xs^2+\ys^2}{2(\xs^2+1)} = \hfagCHIS \,. \labe{chis}
+\end{equation}
+The ratio of the \Bd and \Bs oscillation frequencies, 
+obtained from \Eqss{dmd}{dms}, 
+\begin{equation}
+\frac{\dmd}{\dms} = \hfagRATIODMDDMS \,, \labe{dmd_over_dms}
+\end{equation}
+can be used to extract the following ratio of CKM matrix elements, 
+\begin{equation}
+\left|\frac{V_{td}}{V_{ts}}\right| =
+\xi \sqrt{\frac{\dmd}{\dms}\frac{m(\Bs)}{m(\Bd)}} = 
+\hfagVTDVTSfull \,, \labe{Vtd_over_Vts}
+\end{equation}
+where the first quoted error is from experimental uncertainties 
+(with the masses $m(\Bs)$ and $m(\Bd)$ taken from \Ref{PDG_2012}),
+and where the second quoted error is from theoretical uncertainties 
+in the estimation of the SU(3) flavour-symmetry breaking factor
+$\xi %= (f_{B_s} \sqrt{B_{B_s}})/(f_{B_d} \sqrt{B_{B_d}})
+= \hfagXI$
+obtained from unquenched lattice QCD calculations~\cite{Aoki:2013ldr_mod}.
+%2014% \cite{Laiho:2009eu_mod,*Evans:2008zzg_mod,*Gamiz:2009ku,*Albertus:2010nm}.
+
+%------------------------------------------------
+\mysubsubsection{\CP violation in \Bd and \Bs mixing}
+%------------------------------------------------
+\labs{qpd} \labs{qps}
+
+%---------------------------------------------------------------
+% \subsubsubsection{\boldmath \CP violation parameter $|q/p|_{\particle{d}}$}
+%---------------------------------------------------------------
+
+Evidence for \CP violation in \Bd mixing
+%, which is predicted to be very small in the Standard Model,
+has been searched for,
+both with flavour-specific and inclusive \Bd decays, 
+in samples where the initial 
+flavour state is tagged. In the case of semileptonic 
+(or other flavour-specific) decays, 
+where the final state tag is 
+also available, the following asymmetry
+\begin{equation} 
+\ASLd = \frac{
+N(\hbox{\Bdbar}(t) \to \ell^+      \nu_{\ell} X) -
+N(\hbox{\Bd}(t)    \to \ell^- \bar{\nu}_{\ell} X) }{
+N(\hbox{\Bdbar}(t) \to \ell^+      \nu_{\ell} X) +
+N(\hbox{\Bd}(t)    \to \ell^- \bar{\nu}_{\ell} X) } 
+= \frac{|p/q|_{\particle{d}}^2 - |q/p|_{\particle{d}}^2}%
+{|p/q|_{\particle{d}}^2 + |q/p|_{\particle{d}}^2}
+% \simeq 1 - |q/p|^2_{\particle{d}} 
+\labe{ASL}
+\end{equation} 
+has been measured, either in time-integrated analyses at 
+CLEO~\cite{Behrens:2000qu,Jaffe:2001hz,*Jaffe:2001hz_cont},
+CDF~\cite{Abe:1996zt}% 
+\footnote{We do not include the unpublished measurement of Ref.~\cite{CDFnote9015:2007} in our average.}
+and \dzero~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont,Abazov:2012uia},
+or in time-dependent analyses at 
+OPAL~\cite{Ackerstaff:1997vd}, ALEPH~\cite{Barate:2000uk}, 
+\babar~\cite{Aubert:2003hd,*Aubert:2004xga_mod_cont,Aubert:2006nf,*Aubert:2002mn_mod_cont,Lees:2013sua,*Margoni:2013qx,*Aubert:2006sa_mod}
+and \belle~\cite{Nakano:2005jb}.
+In the inclusive case, also investigated and published
+% at LEP~\cite{DELPHIconf:1997,Barate:2000uk,Abbiendi:1998av},
+at ALEPH~\cite{Barate:2000uk} and OPAL~\cite{Abbiendi:1998av},
+no final state tag is used, and the asymmetry~\cite{Beneke:1996hv,*Dunietz:1998av}
+\begin{equation} 
+\frac{
+N(\hbox{\Bd}(t) \to {\rm all}) -
+N(\hbox{\Bdbar}(t) \to {\rm all}) }{
+N(\hbox{\Bd}(t) \to {\rm all}) +
+N(\hbox{\Bdbar}(t) \to {\rm all}) } 
+\simeq
+\ASLd \left[ \frac{\dmd}{2\Gd} \sin(\dmd \,t) - 
+\sin^2\left(\frac{\dmd \,t}{2}\right)\right] 
+\labe{ASLincl}
+\end{equation} 
+must be measured as a function of the proper time to extract information 
+on \CP violation.
+
+On the other hand, LHCb has studied the time-dependence of the 
+charge asymmetry of $B^0 \to D^{(*)-}\mu^+\nu_{\mu}X$ decays
+without tagging the initial state~\cite{Aaij:2014nxa}, 
+which would be equal to 
+\begin{equation} 
+\frac{N(D^{(*)-}\mu^+\nu_{\mu}X)-N(D^{(*)+}\mu^-\bar{\nu}_{\mu}X)}%
+{N(D^{(*)-}\mu^+\nu_{\mu}X)+N(D^{(*)+}\mu^-\bar{\nu}_{\mu}X)} =
+\ASLd \left[ 1- \cos(\dmd \,t)\right]
+\label{eq:untagged_ASL}
+\end{equation}
+in absence of detection and production asymmetries.
+
+\Table{qoverp} summarized the different measurements: 
+in all cases asymmetries compatible with zero have been found,  
+with a precision limited by the available statistics. 
+
+\begin{table}
+\caption{Measurements\addtocounter{footnote}{0}\protect\footnotemark\addtocounter{footnote}{-1}
+of \CP violation in \Bd mixing and their average
+in terms of both \ASLd and $|q/p|_{\particle{d}}$.
+The individual results are listed as quoted in the original publications, 
+or converted\addtocounter{footnote}{4}\protect\footnotemark\addtocounter{footnote}{-5}
+to an \ASLd value.
+% (except in the case of CDF2, where 
+% the quoted value of \ASLd has been derived from the original measurement 
+% assuming that $\ASLs = 0$). 
+When two errors are quoted, the first one is statistical and the 
+second one systematic. The ALEPH and OPAL % and CDF2
+results assume no \CP violation in \Bs mixing.}
+% \ie\ $|q/p|_{\particle{s}}=1$.}
+\labt{qoverp}
+\begin{center}
+\begin{tabular}{@{}rcl@{$\,\pm$}l@{$\pm$}ll@{$\,\pm$}l@{$\pm$}l@{}}
+\hline
+%Experiment & {Method} & \multicolumn{3}{c}{\ASLd} 
+%                      & \multicolumn{3}{c}{$|q/p|_{\particle{d}}$} \\
+%Exp.\ \& Ref. & Method & ~~~\ASLd & stat & syst
+%                       & $|q/p|_{\particle{d}}$ & stat & syst \\
+Exp.\ \& Ref. & Method & \multicolumn{3}{c}{Measured \ASLd} 
+                       & \multicolumn{3}{c}{Measured $|q/p|_{\particle{d}}$} \\
+\hline
+% CLEO   \cite{Behrens:2000qu} & $D^{*\pm}\pi^{\mp}$, $D^{*\pm}\rho^{\mp}$ (part.\ rec.) 
+CLEO   \cite{Behrens:2000qu} & partial hadronic rec. 
+                             & $+0.017$ & 0.070 & 0.014 
+                             & \multicolumn{3}{c}{} \\
+CLEO   \cite{Jaffe:2001hz,*Jaffe:2001hz_cont}   & dileptons 
+                             & $+0.013$ & 0.050 & 0.005 
+                             & \multicolumn{3}{c}{} \\
+CLEO   \cite{Jaffe:2001hz,*Jaffe:2001hz_cont}   & average of above two 
+                             & $+0.014$ & 0.041 & 0.006 
+                             & \multicolumn{3}{c}{} \\
+% \babar \cite{Aubert:2002mn}  & dileptons                 % superseded by \cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}
+%                              & $+0.005$ & 0.012 & 0.014  % superseded by \cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}
+%                              & 0.998 & 0.006 & 0.007 \\  % superseded by \cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}
+\babar \cite{Aubert:2003hd,*Aubert:2004xga_mod_cont}   & full hadronic rec. 
+                             & \multicolumn{3}{c}{}  
+                             & 1.029 & 0.013 & 0.011  \\
+\babar \cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}  & dileptons
+                             & \multicolumn{3}{c}{}
+                             & 0.9992 & 0.0027 & 0.0019 \\ 
+\babar \cite{Lees:2013sua,*Margoni:2013qx,*Aubert:2006sa_mod} & part.\ rec.\ $D^{*}X\ell\nu$ 
+                             & $+0.0006$ & \multicolumn{2}{@{}l}{$0.0017 ^{+0.0038}_{-0.0032}$} 
+                             & $0.99971$ & $0.00084$ & $0.00175$ \\ 
+\belle \cite{Nakano:2005jb}  & dileptons 
+                             & $-0.0011$ & 0.0079 & 0.0085 
+                             & 1.0005 & 0.0040 & 0.0043 \\
+%\hline
+\multicolumn{2}{l}{Average of above 6 \B factory results} & \multicolumn{3}{l}{\hfagASLDB\ (tot)} 
+                             & \multicolumn{3}{l}{\hfagQPDB\  (tot)} \\ 
+\hline
+\dzero \cite{Abazov:2012uia} & $B^0 \to D^{(*)-}\mu+X$
+                            & $+0.0068$ & 0.0045 & 0.0014 & \multicolumn{3}{c}{} \\
+LHCb \cite{Aaij:2014nxa} & $B^0 \to D^{(*)-}\mu+X$
+                            & $-0.0002$ & 0.0019 & 0.0030 & \multicolumn{3}{c}{} \\
+\multicolumn{2}{l}{Average of above 8 pure $B^0$ results} & \multicolumn{3}{l}{\hfagASLDD\ (tot)}
+                             & \multicolumn{3}{l}{\hfagQPDD\  (tot)} \\
+\hline
+\dzero  \cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}  & dimuons  
+                             & $-0.0062$ & \multicolumn{2}{@{\hspace{0.26em}}l}{0.0043 (tot)}
+                             & \multicolumn{3}{c}{} \\
+%\hline
+\multicolumn{2}{l}{Average of above 9 direct measurements} & \multicolumn{3}{l}{\hfagASLDW\ (tot)} 
+                             & \multicolumn{3}{l}{\hfagQPDW\  (tot)} \\ 
+\hline
+OPAL   \cite{Ackerstaff:1997vd}   & leptons     
+                             & $+0.008$ & 0.028 & 0.012 
+                             & \multicolumn{3}{c}{} \\
+OPAL   \cite{Abbiendi:1998av}   & inclusive (\Eq{ASLincl}) 
+                             & $+0.005$ & 0.055 & 0.013 
+                             & \multicolumn{3}{c}{} \\
+ALEPH  \cite{Barate:2000uk}       & leptons 
+                             & $-0.037$ & 0.032 & 0.007 
+                             & \multicolumn{3}{c}{} \\
+ALEPH  \cite{Barate:2000uk}       & inclusive (\Eq{ASLincl}) 
+                             & $+0.016$ & 0.034 & 0.009 
+                             & \multicolumn{3}{c}{} \\
+ALEPH  \cite{Barate:2000uk}       & average of above two 
+                             & $-0.013$ & \multicolumn{2}{@{\hspace{0.26em}}l}{0.026 (tot)} 
+                             & \multicolumn{3}{c}{} \\
+%CDF2    \cite{CDFnote9015:2007}$^p$ & dimuons  
+%                             & $+0.0136$ & 0.0151 & 0.0115
+%                             & \multicolumn{3}{c}{} \\
+\multicolumn{2}{l}{Average of above 14 results} & \multicolumn{3}{l}{\hfagASLDA\ (tot)} 
+                             & \multicolumn{3}{l}{\hfagQPDA\  (tot)} \\ 
+\hline
+\multicolumn{5}{l}{Best fit value from 2D combination of} \\
+\multicolumn{2}{l}{\ASLd and \ASLs results (see \Eq{ASLD})} & \multicolumn{3}{l}{\hfagASLD\ (tot)} 
+                             & \multicolumn{3}{l}{\hfagQPD\  (tot)} \\ 
+\hline
+% \multicolumn{8}{l}{$^p$ {\footnotesize Preliminary.}}
+\end{tabular}
+\end{center}
+\end{table}
+
+A simple average of all measurements performed at 
+%pre-2012% \B factories~\cite{Behrens:2000qu,Jaffe:2001hz,*Jaffe:2001hz_cont,Aubert:2003hd,*Aubert:2004xga_mod_cont,Aubert:2006nf,*Aubert:2002mn_mod_cont,Aubert:2006sa,Nakano:2005jb}
+\B factories~\cite{Behrens:2000qu,Jaffe:2001hz,*Jaffe:2001hz_cont,Aubert:2003hd,*Aubert:2004xga_mod_cont,Aubert:2006nf,*Aubert:2002mn_mod_cont,Lees:2013sua,*Margoni:2013qx,*Aubert:2006sa_mod,Nakano:2005jb}
+yields $\ASLd = \hfagASLDB$; adding also the \dzero~\cite{Abazov:2012uia}
+and LHCb~\cite{Aaij:2014nxa} measurements obtained with reconstructed 
+semileptonic \Bd decays yields
+\begin{equation}
+\ASLd = \hfagASLDD  ~~~ \Longleftrightarrow ~~~ |q/p|_{\particle{d}} = \hfagQPDD \,,
+\labe{ASLDD}
+\end{equation}
+where the relation between \ASLd and $|q/p|_{\particle{d}}$ is given in \Eq{ASL}.
+The latest dimuon \dzero analysis~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}
+separates the \Bd and \Bs contributions by exploiting the dependence on the muon impact parameter cut; combining the 
+\ASLd result quoted by \dzero with the above \Bd average of \Eq{ASLDD} yields
+%%% \begin{equation}
+%%%\ASLd = \hfagASLDW ~~~ \Longleftrightarrow ~~~ |q/p|_{\particle{d}} = \hfagQPDW \,.
+%%% \labe{ASLDW}
+%%% \end{equation}
+$\ASLd = \hfagASLDW$. % and $|q/p|_{\particle{d}} = \hfagQPDW$.
+
+All the other \Bd analyses performed at high energy, either at LEP or at the Tevatron,
+did not separate the contributions from the \Bd and \Bs mesons.
+Under the assumption of no \CP violation in \Bs mixing, a number of 
+these analyses~\cite{Abazov:2006qw,Ackerstaff:1997vd,Barate:2000uk,Abbiendi:1998av}
+quote a measurement of $\ASLd$ or $|q/p|_{\particle{d}}$ for the \Bd meson. Including also 
+these results%
+\footnote{A low-statistics result published by CDF using the Run I data~\cite{Abe:1996zt} and 
+an unpublished result by CDF using Run II data~\cite{CDFnote9015:2007} 
+are not included in our averages, nor in \Table{qoverp}.}
+in the previous average % with the average of \Eq{ASLDW}
+leads to 
+$\ASLd = \hfagASLDA$ % and $|q/p|_{\particle{d}} = \hfagQPDA$
+under the assumption $\ASLs =0$. The latter assumption makes sense within the Standard Model, 
+since \ASLs is predicted to be much smaller than \ASLd~\cite{Lenz:2011ti,*Lenz:2006hd}, but may not be suitable
+in presence of New Physics. 
+
+%---------------------------------------------------------------
+% \subsubsubsection{\boldmath \CP violation parameter $|q/p|_{\particle{s}}$}
+%---------------------------------------------------------------
+
+The following constraints on a combination of \ASLd and \ASLs
+(or equivalently $|q/p|_{\particle{d}}$ and $|q/p|_{\particle{s}}$)
+have been obtained by the Tevatron 
+experiments, using inclusive semileptonic decays of \b hadrons:
+\begin{eqnarray}
+\frac{1}{4}\left(f'_{\particle{d}} \,\chid \ASLd +
+                 f'_{\particle{s}} \,\chis \ASLs \right) &=& 
++0.0015 \pm 0.0038 \mbox{(stat)} \pm 0.0020 \mbox{(syst)}
+%f'_{\particle{d}} \,\chid(1-|q/p|^2_{\particle{d}})+
+% f'_{\particle{s}} \,\chis(1-|q/p|^2_{\particle{s}}) = +0.006\pm 0.017
+~~~ \mbox{CDF1~\cite{Abe:1996zt}} \,, ~
+\labe{CDF_ASLDS} \\
+% RvK
+%\frac{1}{4}\left(\ASLd +
+%\ASLs \frac{f'_\particle{s}\chis}{f'_\particle{d}\chid} \right) =
+%-0.0023 \pm 0.0011 \mbox{(stat)} \pm 0.0008 \mbox{(syst)}
+%&& \mbox{\dzero~\cite{Abazov:2006qw}} \,,
+%%2012%%\ASLb = \frac{f'_{\particle{d}}Z_{\particle{d}} \ASLd + f'_{\particle{s}}Z_{\particle{s}} \ASLs}%
+%%2012%%{f'_{\particle{d}}Z_{\particle{d}} + f'_{\particle{s}}Z_{\particle{s}}} &=&
+%%2012%% -0.00787 \pm 0.00172 \mbox{(stat)} \pm 0.00093 \mbox{(syst)}
+%%2012%%~~~ \mbox{\dzero~\cite{Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}} \,, ~
+\ASLb = \frac{f'_{\particle{d}}\chid \ASLd + f'_{\particle{s}}\chis \ASLs}%
+{f'_{\particle{d}}\chid + f'_{\particle{s}}\chis} &=&
+ -0.00496 \pm 0.00153 \mbox{(stat)} \pm 0.00072 \mbox{(syst)}
+~~ \mbox{\dzero~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}} \,. ~
+\labe{Dzero_ASLDS}
+\end{eqnarray}
+%%2012%% where\footnote{In \Ref{Abazov:2007zj}, the \dzero result
+%%2012%% $\frac{1}{4}\left(\ASLd +
+%%2012%% \ASLs \frac{f'_\particle{s}\chis}{f'_\particle{d}\chid} \right) =
+%%2012%% -0.0023 \pm 0.0011 \mbox{(stat)} \pm 0.0008 \mbox{(syst)}$~\cite{Abazov:2006qw}
+%%2012%% (now superseded by that of \Ref{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont})
+%%2012%% was reinterpreted by replacing $\chi_{\particle{s}}/\chi_{\particle{d}}$
+%%2012%% with $Z_{\particle{s}}/Z_{\particle{d}}$.
+%%2012%% For simplicity, and since this has anyway a negligible numerical effect on our
+%%2012%% combined result of \Fig{ASLs}, % \Eq{ASLSW},
+%%2012%% we follow the same interpretation and set
+%%2012%% $\chi_{\particle{q}}=Z_{\particle{q}}/2$ in \Eq{CDF_ASLDS}.
+%%2012%% We also set $f'_{\particle{q}}=f_{\particle{q}}$.}
+%%2012%% $Z_{\particle{q}} = 1/(1-y_{\particle{q}}^2)-1/(1+x_{\particle{q}}^2)
+%%2012%% = 2 \chi_{\particle{q}}/(1-y_{\particle{q}}^2)$, $q=d,s$.
+While the imprecise CDF1 result is compatible with no \CP violation%
+\footnote{A measurement from CDF2, 
+$ \ASLb = +0.0080 \pm 0.0090 \mbox{(stat)} \pm 0.0068 \mbox{(syst)}$~\cite{CDFnote9015:2007},
+more precise than the \dzero measurement,
+is also compatible with no \CP violation,
+but since it is unpublished since 2007 
+we no longer include it in our averages, nor in \Fig{ASLs}.},
+the \dzero result of \Eq{Dzero_ASLDS}, obtained by measuring
+the charge asymmetry of like-sign dimuons, differs by 2.8 standard
+deviations from the Standard Model expectation of
+%\begin{eqnarray}
+%\mbox{\hspace{3cm}}
+$\ASLb({\mathrm{SM}}) = (-2.3\pm 0.4) \times 10^{-4}$%
+~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont,Lenz:2011ti,*Lenz:2006hd}.
+%&~~& \mbox{\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont,Lenz:2011ti,*Lenz:2006hd}}\,.
+%\end{eqnarray}
+With a more sophisticated analysis in bins of the
+muon impact parameters, \dzero conclude that the overall deviation of the 
+their measurements from the SM is at the level of $3.6\,\sigma$.
+
+Using the average $\ASLd = \hfagASLDD$ of \Eq{ASLDD},
+obtained from pure \Bd measurements,
+%%2012%% the averages 
+%%2012%% of the Tevatron $b$-hadron fractions and their correlations listed in \Table{fractions},
+%%2012%% and the averages of the mixing parameters 
+%%2012%% presented in this chapter,
+the two results of \Eqss{CDF_ASLDS}{Dzero_ASLDS}
+are turned\footnote{For simplicity, we set $f'_{\particle{q}}=f_{\particle{q}}$.} 
+into the measurements of \ASLs displayed in the top part of \Fig{ASLs}.
+\begin{figure}[t]
+\begin{center}
+\epsfig{figure=figures/life_mix/asls_bw.pdf,width=0.8\textwidth}
+\caption{Measurements of \ASLs,
+derived from CDF~\cite{Abe:1996zt}\addtocounter{footnote}{-2}\protect\footnotemark\addtocounter{footnote}{1},
+\dzero~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont,Abazov:2012zz,*Abazov:2009wg_mod_cont,*Abazov:2007nw_mod_cont}
+and LHCb~\cite{Aaij:2013gta}
+analyses, adjusted to the pure \Bd 
+average of \ASLd. 
+%%2012%%, the Tevatron averages of the \b-hadron fractions, and the latest averages of the mixing parameters. 
+The combined value of \ASLs is also shown.}
+\labf{ASLs}
+\end{center}
+\end{figure}
+Taking into account the uncertainties on
+%%2012%% $f'_{\particle{d}}, f'_{\particle{s}}, Z_{\particle{d}},$ and $Z_{\particle{s}}$,
+the \b-hadron fractions and mixing parameters, 
+the value derived from the \dzero analysis does not show evidence
+of \CP violation in the \Bs system.
+In addition, the third and fourth lines of \Fig{ASLs} show direct determination of \ASLs
+% and hence $|q/p|_{\particle{s}}$ 
+obtained by \dzero~\cite{Abazov:2012zz,*Abazov:2009wg_mod_cont,*Abazov:2007nw_mod_cont}
+and LHCb~\cite{Aaij:2013gta}
+by measuring the time-integrated charge asymmetry of
+untagged $\Bs \to D_s \mu X$ decays.
+The four results of \Fig{ASLs} are
+combined to yield
+%%% \begin{equation}
+%%% \ASLs = \hfagASLSWval\hfagASLSWsta\mbox{(stat)}\hfagASLSWsys\mbox{(syst)} = \hfagASLSW
+%%% \labe{ASLSW}
+%%% \end{equation}
+$\ASLs = \hfagASLSWval\hfagASLSWsta\mbox{(stat)}\hfagASLSWsys\mbox{(syst)} = \hfagASLSW$
+or, equivalently through \Eq{ASL},
+%%% \begin{equation}
+%%% |q/p|_{\particle{s}} = \hfagQPSWval\hfagQPSWsta\mbox{(stat)}\hfagQPSWsys\mbox{(syst)} = \hfagQPSW \,.
+%%% \labe{QPSW}
+%%% \end{equation}
+$|q/p|_{\particle{s}} = \hfagQPSWval\hfagQPSWsta\mbox{(stat)}\hfagQPSWsys\mbox{(syst)} = \hfagQPSW$.
+The quoted systematic errors include experimental systematics as well as the correlated dependence on external 
+parameters. 
+%%% These results are compatible with no \CP violation in \Bs mixing.
+
+As mentioned above, the \dzero like-sign dimuon analysis investigates 
+the dependence of the charge asymmetry 
+as a function of the muon impact parameters. 
+%%2012%%, allowing the separation of the 
+%%2012%%\Bd and \Bs contributions to the result of \Eq{Dzero_ASLDS}.
+Interpreting the observed asymmetries in terms of \CP violation in $B$ meson mixing and interference, 
+and using 
+the mixing parameters and the world $b$-hadron fractions 
+of \Ref{Amhis:2012bh}, the \dzero collaboration
+extracts~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}
+values for \ASLd and \ASLs and their correlationr
+coefficient\footnote{They also extract at the same time a value for \DGGd (see \Sec{DGd}).}, 
+as shown in the first line of \Table{ASLs_ASLd}.
+However, the individual 
+contributions to the total quoted errors from this analysis and from the
+external inputs are not given, so the adjustment of these results to different
+or more recent values of the external inputs cannot (easily) be done. 
+Using a two-dimensional fit, these values are combined with the pure
+\Bd average of \Eq{ASLDD} and with the results from the 
+$\Bs \to D_s \mu X$ analyses~\cite{Abazov:2012zz,*Abazov:2009wg_mod_cont,*Abazov:2007nw_mod_cont,Aaij:2013gta},
+assumed to be independent and also shown in \Table{ASLs_ASLd}.
+The result, shown graphically in \Fig{ASLs_ASLd}, is 
+\begin{table}
+\caption{Direct measurements of \CP violation in \Bs and \Bd mixing, together 
+with their two-dimensional average. Only total errors are quoted.}
+\labt{ASLs_ASLd}
+\begin{center}
+\begin{tabular}{ccccc}
+\hline
+Exp.\ \& Ref.\ & Method & Measured \ASLs & Measured \ASLd & $\rho(\ASLs,\ASLd)$ \\
+\hline
+\dzero  \cite{Abazov:2012zz,*Abazov:2009wg_mod_cont,*Abazov:2007nw_mod_cont}  & $\Bs \to D_s \mu X$ 
+       & $-0.0112 \pm 0.0076$ % ASLs = -0.0112 +-0.0074(stat) +0.0017(syst)
+       & & \\
+LHCb \cite{Aaij:2013gta} & $\Bs \to D_s \mu X$ & $-0.0006 \pm 0.0062$ & & \\
+\hline
+\multicolumn{2}{l}{Average of above \Bs results}
+       & \hfagASLSD & & \\ 
+\multicolumn{2}{l}{Average of \Bd results (\Eq{ASLDD})} 
+       & & \hfagASLDD & \\ 
+\dzero  \cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}  & dimuons  
+       & $-0.0082 \pm 0.0099$ % ASLs
+       & $-0.0062 \pm 0.0043$ % ASLd
+       & $-0.61$ \\          % rho
+\hline
+\multicolumn{2}{l}{Average of all above}
+       & \hfagASLS & \hfagASLD & $\hfagRHOASLSASLD$ \\ 
+\hline
+%\multicolumn{5}{l}{$^p$ {\footnotesize Preliminary.}}
+\end{tabular}
+\end{center}
+\end{table}
+\begin{figure}
+\begin{center}
+\epsfig{figure=figures/life_mix/asls_asld.pdf,width=0.6\textwidth}
+\end{center}
+\vspace{-5mm}
+\caption{
+Direct measurements of \ASLs and \ASLd listed in \Table{ASLs_ASLd}
+(\Bd average as the vertical band, \Bs average as the horizontal band,
+\dzero dimuon result as the green ellipse),
+together with their two-dimensional average (red hatched ellipse).
+%%% Direct measurements of \ASLs and \ASLd listed in \Table{ASLs_ASLd}
+%%% (\B-factory average as the vertical blue dotted band, \dzero measurements as the horizontal green dotted band and as the 
+%%% green ellipse), together with their two-dimensional average (red hatched ellipse). 
+The red point close to $(0,0)$ is the Standard Model prediction
+of \Ref{Lenz:2011ti,*Lenz:2006hd} with error bars multiplied by 10.
+The prediction and the experimental average deviate from each other by $\hfagASLDASLSNSIGMA\,\sigma$.}
+\labf{ASLs_ASLd}
+\end{figure}
+\begin{eqnarray}
+\ASLd & = & \hfagASLD ~~~ \Longleftrightarrow ~~~ |q/p|_{\particle{d}} = \hfagQPD \,,
+\labe{ASLD}
+\\
+\ASLs & = & \hfagASLS ~~~ \Longleftrightarrow ~~~ |q/p|_{\particle{s}} = \hfagQPS \,,
+\labe{ASLS}
+\\
+\rho(\ASLd , \ASLs) & = & \hfagRHOASLSASLD \,.
+\labe{rhoASLDASLS}
+\end{eqnarray}
+%%% and has a correlation of \hfagRHOASLSASLD with the \ASLd value already quoted in \Eq{ASLD}.
+
+The average of \Fig{ASLs} % \Eq{ASLSW}
+ignores the impact parameter study of \dzero.
+%%2012%% and is adjusted to the $b$-hadron fractions at the Tevatron.
+The average of \Eq{ASLS} ignores the CDF1 
+result, which has a very large uncertainty anyway.
+%%2012%% and is adjusted to the $b$-hadron fractions at LEP.
+%They have almost the same total uncertainty and are equally valid.
+We choose the results of \Eqsss{ASLD}{ASLS}{rhoASLDASLS}
+as our final averages\footnote{Early analyses and (perhaps hence) the PDG use the complex
+parameter $\epsilon_{\B} = (p-q)/(p+q)$; if \CP violation in the mixing in small,
+$\ASLd \cong 4 {\rm Re}(\epsilon_{\B})/(1+|\epsilon_{\B}|^2)$ and the averages of
+\Eqss{ASLDD}{ASLD} % \Eqsss{ASLDD}{ASLDW}{ASLD}
+correspond to ${\rm Re}(\epsilon_{\B})/(1+|\epsilon_{\B}|^2)=\hfagREBDD$ %, $\hfagREBDW$
+and $\hfagREBD$, respectively.},
+since they better incorporate the available published data. 
+
+The above averages show no evidence of \CP violation in \Bd and \Bs mixing.
+They deviate by $\hfagASLDASLSNSIGMA\,\sigma$ from the very small predictions of the Standard Model, 
+${\ASLd}^{\rm SM} = -(4.1\pm 0.6)\times 10^{-4}$ and 
+${\ASLs}^{\rm SM} = +(1.9\pm 0.3)\times 10^{-5}$~\cite{Lenz:2011ti,*Lenz:2006hd}.
+Given the current size of the experimental uncertainties, there is still 
+significant room for
+a possible New Physics contribution, especially in the \Bs system. 
+In this respect, the deviation of the \dzero dimuon
+asymmetry~\cite{Abazov:2013uma,*Abazov:2011yk_mod,*Abazov:2010hv_mod_cont,*Abazov:2010hj_mod_cont,*Abazov:2011yk_cont}
+from expectation has generated a lot of excitement, however recent results from D0 and LHCb 
+have not yet settled the issue, and more experimental data (especially from LHCb) is awaited eagerly. 
+
+At the more fundamental level, \CP violation in \Bs
+mixing\footnote{Of course, a similar formalism exists for the \Bd system; for 
+simplicity we omit here the subscript $s$ for $\phi_{12}$, $M_{12}$ and $\Gamma_{12}$.}
+is caused by the weak phase difference 
+% Let us define the \CP-violating weak phase difference
+\begin{equation}
+\phi_{12} = \arg \left[ -{M_{12}}/{\Gamma_{12}} \right], 
+\end{equation}
+where $M_{12}$ and $\Gamma_{12}$ are the off-diagonal
+elements of the mass and decay matrices of the $\Bs-\Bsbar$ system.
+This is related to the observed decay-width difference through the relation
+\begin{equation}
+\DGs = 2|\Gamma_{12}|\cos\phi_{12}+
+{\cal O} \left( \left|\frac{\Gamma_{12}}{M_{12}}\right|^2 \right) \,,
+\end{equation}
+where quadratic (or higher-order) terms in the small quantity
+$|\Gamma_{12}/M_{12}| \sim {\cal O}(m_b^2/m_t^2)$ can be neglected. 
+The SM prediction for this phase is tiny~\cite{Lenz:2011ti,*Lenz:2006hd},
+\begin{equation}
+% \phi_{12}^{\rm SM} = 0.0038\pm0.0010 \,;
+\phi_{12}^{\rm SM} = \hfagPHISTWELVESM \,;
+\labe{phis12SM}
+\end{equation}
+however, new physics in \Bs mixing could change this observed phase to
+\begin{equation}
+\phi_{12} = \phi_{12}^{\rm SM} + \phi_{12}^{\rm NP} \,.
+\labe{phi12NP}
+\end{equation}
+The \Bs semileptonic asymmetry can be expressed as~\cite{Beneke:2003az}
+\begin{equation}
+\ASLs = 
+\Im \left(\frac{\Gamma_{12}}{M_{12}} \right) +
+{\cal O} \left( \left|\frac{\Gamma_{12}}{M_{12}}\right|^2 \right) =
+\frac{\DGs}{\dms}\tan\phi_{12} +
+{\cal O} \left( \left|\frac{\Gamma_{12}}{M_{12}}\right|^2 \right) \,.
+\labe{ASLS_tanphi12}
+\end{equation}
+Using this relation, the current knowledge of \ASLs, \DGs and \dms, 
+given in \Eqsss{ASLS}{DGs_DGsGs}{dms} respectively, yield an
+experimental determination of $ \phi_{12}$,
+\begin{equation}
+\tan\phi_{12} = \ASLs \frac{\dms}{\DGs} = \hfagTANPHI \,,
+\labe{tanphi12}
+\comment{ % start python
+from math import *
+asls = -0.010460 ; easls = 0.006400
+dms = 17.719032  ; edms = 0.042701
+dgs = 0.0951919  ; edgs = 0.01362480381803716 
+tanphi12 = asls*dms/dgs
+etanphi12 = tanphi12*sqrt((easls/asls)**2+(edms/dms)**2+(edgs/dgs)**2)
+print tanphi12, etanphi12
+} % end python
+\end{equation}
+which only represents a very weak constraint at present.
+
+%%% In order to better exploit the available data, a two-dimensional fit of all
+%%% direct measurements of \ASLd and \ASLs can be performed. This fit, described 
+%%% in \Sec{qps} and shown in \Fig{ASLs_ASLd}, gives 
+%%% \begin{equation}
+%%% \ASLd = \hfagASLD ~~~ \Longleftrightarrow ~~~ |q/p|_{\particle{d}} = \hfagQPD \,,
+%%% \labe{ASLD}
+%%% \end{equation}
+%%% which we take as our final average for \ASLd and $|q/p|_{\particle{d}}$.
+%%% All these results\footnote{Early analyses and (perhaps hence) the PDG use the complex
+%%% parameter $\epsilon_{\B} = (p-q)/(p+q)$; if \CP violation in the mixing in small, 
+%%% $\ASLd \cong 4 {\rm Re}(\epsilon_{\B})/(1+|\epsilon_{\B}|^2)$ and the averages of 
+%%% \Eqss{ASLDD}{ASLD} % \Eqsss{ASLDD}{ASLDW}{ASLD}
+%%% correspond to ${\rm Re}(\epsilon_{\B})/(1+|\epsilon_{\B}|^2)=\hfagREBDD$ %, $\hfagREBDW$
+%%% and $\hfagREBD$, respectively.},
+%%% summarized in \Table{qoverp},
+%%% are compatible with no \CP violation in \Bd and \Bs mixing. % , an assumption we make for the rest of this section.
+
+%------------------------------------------------
+\mysubsubsection{Mixing-induced \CP violation in \Bs decays}
+%------------------------------------------------
+
+\input{life_mix/life_mix_phis}

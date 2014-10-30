@@ -1,0 +1,641 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is file life_mix_tau2.tex containing
+% the second part of the chapter on the b-hadron lifetimes: 
+% Bs, Bc, lambda_b and b-baryon lifetimes
+% as well as theroretical predictions for all b-hadron lifetimes.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+\mysubsubsection{\Bs lifetimes}
+\labs{taubs}
+
+Like neutral kaons, neutral \B mesons contain
+short- and long-lived components, since the
+light (L) and heavy (H)
+eigenstates, $\B_{\rm L}$ and $\B_{\rm H}$, differ not only
+in their masses, but also in their total decay widths,  
+with a decay width difference defined as 
+$\DG = \Gamma_{\rm L} - \Gamma_{\rm H}$. 
+Neglecting \CP violation in $\B-\Bbar$ mixing, 
+which is expected to be very small~\cite{Lenz:2011ti,*Lenz:2006hd,Beneke:1998sy},
+the mass eigenstates are also \CP eigenstates,
+with the light $\B_{\rm L}$ state being \CP-even 
+and the heavy $\B_{\rm H}$ state being \CP-odd. 
+% Final states can be decomposed into
+% \CP-even and \CP-odd components, each with a different
+% lifetime.
+While the decay width difference \DGd can be neglected in the \Bd system, 
+the \Bs system exhibits a significant
+value of \DGs: the sign of \DGs is known 
+to be positive~\cite{Aaij:2012eq}, {\em i.e.}
+the heavy eigenstates lives longer than the light eigenstate. 
+Specific measurements of \DGs and 
+$\Gs = (\Gamma_{\rm L} + \Gamma_{\rm H})/2$ are explained
+and averaged in \Sec{DGs}, but the results for
+$1/\Gamma_{\rm L}$, $1/\Gamma_{\rm H}$ and
+the mean \Bs lifetime, defined as $\tau(\Bs) = 1/\Gs$,
+are also quoted at the end of this section. 
+
+Many \Bs lifetime analyses, in particular the early 
+ones performed before the non-zero value of \DGs was 
+firmly established, ignore \DGs and fit the proper time 
+distribution of a sample of \Bs candidates 
+reconstructed in a certain final state $f$
+with a model assuming a single exponential function 
+for the signal. We denote such {\rm effective lifetime}
+measurements as $\tau_{\rm single}(\Bs\to f)$; 
+their true values may lie {\em a priori} anywhere
+between $1/\Gamma_{\rm L} = 1/(\Gs+\DGs/2)$ and
+$1/\Gamma_{\rm H}= 1/(\Gs-\DGs/2)$, 
+depending on the proportion of $\B_{\rm L}$ and $\B_{\rm H}$
+in the final state $f$. \Table{lifebs}
+summarizes the effective 
+lifetime measurements.
+
+Averaging measurements of $\tau_{\rm single}(\Bs\to f)$
+over several final states $f$ will yield a result 
+corresponding to an ill-defined observable
+when the proportions of $\B_{\rm L}$ and $\B_{\rm H}$ differ. 
+Therefore,
+the effective \Bs lifetime measurements are broken down into
+several categories and averaged separately.
+
+\begin{table}[t]
+\caption{Measurements of the effective \Bs lifetimes obtained from single exponential fits,
+without attempting to separate the short and long components.} % \CP-even and \CP-odd 
+\labt{lifebs}
+\begin{center}
+\begin{tabular}{lc@{}cc@{}rcl} \hline
+Experiment & \multicolumn{2}{c}{Final state $f$}           & \multicolumn{2}{c}{Data set} & $\tau_{\rm single}(\Bs\to f)$ (ps) & Ref. \\
+\hline \hline
+ALEPH  & \particle{D_s^- \ell^+}  & flavour-specific & 91--95 & & $1.54^{+0.14}_{-0.13}\pm 0.04$   & \cite{Buskulic:1996ei}          \\
+CDF1   & \particle{D_s^- \ell^+}  & flavour-specific & 92--96 & & $1.36\pm 0.09 ^{+0.06}_{-0.05}$  & \cite{Abe:1998cj}           \\
+DELPHI & \particle{D_s^- \ell^+}  & flavour-specific & 91--95 & & $1.42^{+0.14}_{-0.13}\pm 0.03$   & \cite{Abreu:2000sh}          \\
+OPAL   & \particle{D_s^- \ell^+}  & flavour-specific & 90--95 & & $1.50^{+0.16}_{-0.15}\pm 0.04$   & \cite{Ackerstaff:1997qi}  \\
+%% superseded by line below: \dzero & \particle{D_s^- \mu^+}   & flavour-specific & 02--04 & 0.4 fb$^{-1}$ & $1.398 \pm 0.044 ^{+0.028}_{-0.025}   $   & \cite{Abazov:2006cb}       \\ 
+\dzero & \particle{D_s^-\mu^+X}   & flavour-specific & Run II & 10.4 fb$^{-1}$ & $1.479 \pm 0.010 \pm 0.021$   & \cite{Abazov:2014rua,*Abazov:2006cb_cont} \\
+%%% CDF2   & \particle{D_s^- \ell^+}  & flavour-specific & 02--04 & & $1.381 \pm 0.055 ^{+0.052}_{-0.046} $ & \cite{CDFnote7757:2005}$^p$ \\
+%%%%% CDF2   & \particle{D_s^- \pi^+, D_s^- \pi^+ \pi^- \pi^+} 
+CDF2   & \particle{D_s^- \pi^+ (X)} 
+                              & flavour-specific & 02--06 & 1.3 fb$^{-1}$ & $1.518 \pm 0.041 \pm 0.027     $   & \cite{Aaltonen:2011qsa,*Aaltonen:2011qsa_cont} \\ %was \cite{CDFnote9203:2008,*CDFnote9203:2008_cont}$^p$      \\
+LHCb   &  \particle{D_s^- D^+} & flavour-specific & 11--12 & 3 fb$^{-1}$ & $1.52 \pm 0.15 \pm 0.01$ & \cite{Aaij:2013bvd} \\
+LHCb   &  \particle{D_s^- \pi^+} & flavour-specific & 11 & 1 fb$^{-1}$ & $1.535 \pm 0.015 \pm 0.014$ & \cite{Aaij:2014sua} \\
+\multicolumn{5}{l}{Average of above 8 flavour-specific measurements} &  \hfagTAUBSSLnounit & \\  
+\hline\hline
+LHCb    & \particle{\pi^+K^-}   &  $\sim$ flavour-specific ? & 11 & 1.0 fb$^{-1}$ & $1.60 \pm 0.06 \pm 0.01$ & \cite{Aaij:2014fia,*Aaij:2012ns_cont} \\
+\hline
+ALEPH  & \particle{D_s h}     & ill-defined & 91--95 & & $1.47\pm 0.14\pm 0.08$           & \cite{Barate:1997ua}          \\
+DELPHI & \particle{D_s h}     & ill-defined & 91--95 & & $1.53^{+0.16}_{-0.15}\pm 0.07$   & \cite{Abreu:2000ev} \\
+%%OS 23apr2005: this is superseded by \cite{Abreu:2000ev} %% DELPHI & \particle{D_s} incl. & mixture & 91--94 & $1.60\pm 0.26^{+0.13}_{-0.15}$   & \cite{DELBS2}          \\
+OPAL   & \particle{D_s} incl. & ill-defined & 90--95 & & $1.72^{+0.20+0.18}_{-0.19-0.17}$ & \cite{Ackerstaff:1997ne}          \\ 
+%% ALEPH    & \particle{D_s^{(*)+}D_s^{(*)-}} & \CP-even ? & 91--95 & 4M \particle{Z\to q\bar{q}} & $1.27 \pm 0.33 \pm 0.08$ & \cite{Barate:2000kd} \\
+\hline
+CDF1     & \particle{\jpsi\phi} & \CP even+odd & 92--95 &  & $1.34^{+0.23}_{-0.19}    \pm 0.05$ & \cite{Abe:1997bd} \\
+%%% CDF2     & \particle{\jpsi\phi} & \CP even+odd & 02--06 &  & $1.494 \pm 0.054 \pm 0.009$ & \cite{CDFnote8524:2007,*CDFnote8524:2007_cont}$^p$ \\
+\dzero   & \particle{\jpsi\phi} & \CP even+odd & 02--04 &  & $1.444^{+0.098}_{-0.090} \pm 0.02$ & \cite{Abazov:2004ce}  \\
+ATLAS & \particle{\jpsi\phi} & \CP even+odd & 10 & 40 pb$^{-1}$ & $1.41 \pm0.08 \pm0.05$ & \cite{ATLAS-CONF-2011-092}$^p$ \\
+%%% LHCb  & \particle{\jpsi\phi} & \CP even+odd & 10 & 36 pb$^{-1}$ & $1.447 \pm0.064 \pm 0.056$ & \cite{LHCb-CONF-2011-001}$^p$ \\
+LHCb  & \particle{\jpsi\phi} & \CP even+odd & 11 & 1 fb$^{-1}$ & $1.480 \pm0.011 \pm 0.005$ & \cite{Aaij:2014owa} \\
+\multicolumn{5}{l}{Average of above 4 \particle{\jpsi \phi} measurements} &  \hfagTAUBSJFnounit & \\ 
+\hline\hline
+ALEPH    & \particle{D_s^{(*)+}D_s^{(*)-}} & mostly \CP even & 91--95 & & $1.27 \pm 0.33 \pm 0.08$ & \cite{Barate:2000kd} \\
+%%% CDF2 measurement below removed from the average because it remained unpublished for two long
+%%% CDF2     & \particle{K^+K^-}   & \CP-even & 02--04 & 0.36 fb$^{-1}$ & $1.53 \pm 0.18 \pm 0.02$ & \cite{Tonelli:2006np}$^p$ \\
+LHCb    & \particle{K^+K^-}   &  $\sim$ \CP-even & 10 & 0.037 fb$^{-1}$ & $1.440 \pm 0.096 \pm 0.009$ & \cite{Aaij:2011kn} \\
+%%% superseded by next line LHCb    & \particle{K^+K^-}   &  \CP-even & 11 & 1.0 fb$^{-1}$ & $1.455 \pm 0.046 \pm 0.006$ & \cite{Aaij:2012ns} \\
+LHCb    & \particle{K^+K^-}   &  $\sim$ \CP-even & 11 & 1.0 fb$^{-1}$ & $1.407 \pm 0.016 \pm 0.007$ & \cite{Aaij:2014fia,*Aaij:2012ns_cont} \\
+\multicolumn{5}{l}{Average of above 2 \particle{K^+K^-} measurements} &  \hfagTAUBSKKnounit & \\ 
+LHCb   &  \particle{D_s^+ D_s^-} & \CP-even & 11--12 & 3 fb$^{-1}$ & $1.379 \pm 0.026 \pm 0.017$ & \cite{Aaij:2013bvd} \\
+\multicolumn{5}{l}{Average of above 1 \CP-even measurement} &  \hfagTAUBSSHORTnounit & \\ \hline \hline
+LHCb     & \particle{\jpsi K^0_{\rm S}} & $\sim$ \CP-odd & 11   & 1.0 fb$^{-1}$ & $1.75 \pm 0.12 \pm 0.07$ & \cite{Aaij:2013eia} \\
+CDF2     & \particle{\jpsi f_0(980)} & \CP-odd & 02--08 & 3.8 fb$^{-1}$ & $1.70^{+0.12}_{-0.11} \pm 0.03$ & \cite{Aaltonen:2011nk} \\
+%%LHCb     & \particle{\jpsi f_0(980)} & \CP-odd & 11   & 1.0 fb$^{-1}$ & $1.700 \pm 0.040 \pm 0.026$ & \cite{Aaij:2012nta} \\
+LHCb     & \particle{\jpsi \pi^+\pi^-} & \CP-odd & 11   & 1.0 fb$^{-1}$ & $1.652 \pm 0.024 \pm 0.024$ & \cite{Aaij:2013oba,*LHCb:2011aa_mod,*LHCb:2012ad_mod,*LHCb:2011ab_mod,*Aaij:2012nta_mod} \\
+% \multicolumn{5}{l}{Average of above 2 \particle{\jpsi f_0(980)}, \particle{\jpsi \pi^+\pi^-} measurements} &  \hfagTAUBSJPSIPIPInounit & \\ \hline 
+\multicolumn{5}{l}{Average of above 2 \CP-odd measurements} &  \hfagTAUBSLONGnounit & \\ \hline \hline
+\multicolumn{5}{l}{$^p$ \footnotesize Preliminary.}
+\end{tabular}
+\end{center}
+\end{table}
+
+\afterpage{\clearpage}
+
+\begin{itemize}
+\item 
+{\bf\em Flavour-specific decays},
+such as $\Bs \to \particle{D_s^- \ell^+ \nu}$
+or $\Bs\to \particle {D_s^- \pi^+}$, have equal 
+fractions of $\B_{\rm L}$ and $\B_{\rm H}$ at time zero. 
+% , where $\tau_{\rm L} = 1/\Gamma_{\rm L}$ 
+% is expected to be the shorter-lived component and
+% $\tau_{\rm H} = 1/\Gamma_{\rm H}$ 
+% expected to be the longer-lived component. 
+If the resulting superposition of two exponential distributions
+is fitted with a single exponential function, 
+one obtains a measure of the so-called {\em flavour-specific lifetime}~\cite{Hartkorn:1999ga}:
+% A superposition of two exponentials thus results with decay
+% widths $\Gs \pm \DGs /2$.  Fitting to a single exponential one obtains a
+% measure of the flavour-specific lifetime~\cite{Hartkorn:1999ga}:
+\begin{equation}
+\tau_{\rm single}(\Bs\to \mbox{flavour specific}) = \frac{1}{\Gs}
+\frac{{1+\left(\frac{\DGs}{2\Gs}\right)^2}}{{1-\left(\frac{\DGs}{2\Gs}\right)^2}
+}.
+\labe{fslife}
+\end{equation}
+The average of all flavour-specific 
+\Bs lifetime measurements\footnote{
+An old unpublished measurement~\cite{CDFnote7757:2005} is not included.}
+is
+\begin{equation}
+\tau_{\rm single}(\Bs\to \mbox{flavour specific}) = \hfagTAUBSSL \,.
+\labe{tau_fs}
+\end{equation}
+% is used in \Sec{DGs} as one of the ingredients 
+% to determine $\tau(\Bs) = 1/\Gs$ and \DGs.
+
+\item
+{\bf\em \boldmath $\Bs\to D_s^{\mp} X$ decays}
+include flavour-specific decays but also decays 
+with an unknown mixture of light and heavy components. 
+Measurements performed with such inclusive states are
+no longer used in averages. 
+%OLD% The corresponding effective lifetime average,
+%OLD% \begin{equation}
+%OLD% \tau_{\rm single}(\Bs\to D_s^{\mp} X) = \hfagTAUBSwaschanged \,,
+%OLD% \end{equation}
+%OLD% can still be a useful input
+%OLD% for analyses examining an inclusive $D_s$ sample.
+%OLD% The following correlated systematic errors were considered:
+%OLD% average \B lifetime used in backgrounds,
+%OLD% \Bs decay multiplicity, and branching ratios used to determine 
+%OLD% backgrounds (\eg\ \BR{B\to D_s D}).
+%OLD% A knowledge of the multiplicity of \Bs decays is important for
+%OLD% measurements that partially reconstruct the final state such as 
+%OLD% \particle{\B\to D_s \mbox{$X$}} (where $X$ is not a lepton). 
+%OLD% The boost deduced from Monte Carlo simulation depends on the multiplicity used.
+%OLD% Since this is not well known, the multiplicity in the simulation is
+%OLD% varied and this range of values observed is taken to be a systematic.
+%OLD% Similarly not all the branching ratios for the potential background
+%OLD% processes are measured. Where they are available, the PDG values are
+%OLD% used for the error estimate. Where no measurements are available
+%OLD% estimates can usually be made by using measured branching ratios of
+%OLD% related processes and using some reasonable extrapolation.
+
+\item
+{\bf\em 
+{\boldmath $\Bs \to \jpsi\phi$ \unboldmath}decays}
+contain a well-defined mixture of \CP-even and \CP-odd states
+% are expected to be
+% dominated by the \CP-even state and its lifetime.
+There are no known correlations
+between the existing 
+\particle{\Bs\to \jpsi\phi}
+effective lifetime measurements; these are combined  
+into the average\footnote{
+An old unpublished measurement~\cite{CDFnote8524:2007,*CDFnote8524:2007_cont} is not included.}
+% \begin{equation}
+$\tau_{\rm single}(\Bs\to \jpsi \phi) = \hfagTAUBSJF$. % \,.
+% \end{equation}
+A caveat is that different experimental acceptances
+may lead to different admixtures of the 
+\CP-even and \CP-odd states, and simple fits to a single
+exponential may result in inherently different 
+values of $\tau_{\rm single}(\Bs\to \jpsi \phi)$.
+Analyses that separate the \CP-even and \CP-odd components in
+this decay through a full angular study, outlined in \Sec{DGs},
+provide directly precise measurements of $1/\Gs$ and $\DGs$ (see \Table{phisDGsGs}).
+
+\item
+{\bf\em Decays to \boldmath\CP eigenstates} have also 
+been measured, in the \CP-even modes 
+$\Bs \to D_s^{(*)+}D_s^{(*)-}$ by ALEPH~\cite{Barate:2000kd},
+$\Bs \to K^+ K^-$ by LHCb~\cite{Aaij:2011kn,Aaij:2014fia,*Aaij:2012ns_cont}%
+\footnote{An old unpublished measurement of the $\Bs \to K^+ K^-$
+effective lifetime by CDF~\cite{Tonelli:2006np} is no longer considered.}
+and $\Bs \to D_s^+D_s^-$ by LHCb~\cite{Aaij:2013bvd}, as well as in the \CP-odd modes 
+$\Bs \to \jpsi f_0(980)$ by CDF~\cite{Aaltonen:2011nk}, 
+$\Bs \to \jpsi \pi^+\pi^-$ by LHCb~\cite{Aaij:2013oba,*LHCb:2011aa_mod,*LHCb:2012ad_mod,*LHCb:2011ab_mod,*Aaij:2012nta_mod}
+and $\Bs \to \jpsi K^0_{\rm S}$ by LHCb~\cite{Aaij:2013eia}.
+If these 
+decays are dominated by a single weak phase and if \CP violation 
+can be neglected, then $\tau_{\rm single}(\Bs \to \mbox{\CP-even}) \sim 1/\Gamma_{\rm L}$ 
+and  $\tau_{\rm single}(\Bs \to \mbox{\CP-odd}) \sim 1/\Gamma_{\rm H}$ 
+(see \Eqss{tau_KK_approx}{tau_Jpsif0_approx} for approximate relations in presence of
+\CP violation in the mixing). 
+However, not all these modes can be considered as pure \CP eigenstates; 
+a small \CP-odd component is most probably present
+in $\Bs \to D_s^{(*)+}D_s^{(*)-}$ decays, and the $\Bs \to K^+ K^-$
+and $\Bs \to \jpsi K^0_{\rm S}$ may perhaps also be contaminated. 
+The averages for the effective lifetimes obtained with pure \CP-even 
+($D_s^+D_s^-$) and \CP-odd ($\jpsi f_0(980)$, $\jpsi \pi^+\pi^-$)
+final states are
+\begin{eqnarray}
+\tau_{\rm single}(\Bs \to \mbox{\CP-even}) & = & \hfagTAUBSSHORT \,,
+\labe{tau_KK}
+\\
+\tau_{\rm single}(\Bs \to \mbox{\CP-odd}) & = & \hfagTAUBSLONG \,.
+\labe{tau_Jpsif0}
+\end{eqnarray}
+% A measurement of the effective lifetime of $\Bs \to D_s^{(*)+}D_s^{(*)-}$ decays by ALEPH~\cite{Barate:2000kd}
+% is not included in the above \CP-even average, since a small \CP-odd component is most probably present. 
+
+\end{itemize}
+
+As described in \Sec{DGs}, 
+the effective lifetime averages of \Eqsss{tau_fs}{tau_KK}{tau_Jpsif0}
+are used as ingredients to improve the 
+determination of $1/\Gs$ and \DGs obtained from the full angular analyses
+of $\Bs\to \jpsi\phi$ and $\Bs\to \jpsi K^+K^-$ decays. 
+The resulting world averages for the \Bs lifetimes are
+\begin{eqnarray}
+\tau(\B_{s\rm L}) =
+\frac{1}{\Gamma_{\rm L}} = \frac{1}{\Gs+\DGs/2} & = & \hfagTAUBSLCON \,, \\
+\tau(\B_{s\rm H}) =
+\frac{1}{\Gamma_{\rm H}} = \frac{1}{\Gs-\DGs/2} & = & \hfagTAUBSHCON \,, \\
+\tau(\Bs) = \frac{1}{\Gs} = \frac{2}{\Gamma_{\rm L}+\Gamma_{\rm H}} & = & \hfagTAUBSMEANCON \,.
+\labe{oneoverGs}
+\end{eqnarray}
+
+\mysubsubsection{\Bc lifetime}
+\labs{taubc}
+
+Early measurements of the \Bc meson lifetime,
+from CDF~\cite{Abe:1998wi,CDFnote9294:2008,Abulencia:2006zu} and \dzero~\cite{Abazov:2008rba},
+use the semileptonic decay mode \particle{\Bc \to \jpsi \ell} and are based on a 
+simultaneous fit to the mass and lifetime using the vertex formed
+with the leptons from the decay of the \particle{\jpsi} and
+the third lepton. Correction factors
+to estimate the boost due to the missing neutrino are used.
+In the analysis of the CDF Run~I data~\cite{Abe:1998wi},
+a mass value of 
+$6.40 \pm 0.39 \pm 0.13$~GeV/$c^2$ 
+is found by fitting
+to the tri-lepton invariant mass spectrum. 
+%%% START WARNING
+%%% Text below is valid when CDFnote9294:2008,*Abulencia:2006zu_mod_cont is the published result from 2006
+In the CDF Run~II result~\cite{Abulencia:2006zu}, the mass is fixed
+to 6.271~GeV/$c^2$, but then varied between 
+6.2 and 6.4~GeV/$c^2$ to assess the systematic error on the
+lifetime due to the \Bc mass value.
+Finally, in the \dzero Run~II result~\cite{Abazov:2008rba}, 
+%%% Text below valid when CDFnote9294:2008,*Abulencia:2006zu_mod_cont is the new CDF prel. result from CD note 9294
+% In the CDF and \dzero Run~II results~\cite{CDFnote9294:2008,*Abulencia:2006zu_mod_cont,Abazov:2008rba}, 
+%%% END WARNING
+the \Bc mass is assumed to be 
+$6285.7 \pm 5.3 \pm 1.2$~MeV/$c^2$, taken from a 
+CDF result~\cite{Abulencia:2005usa}. 
+These mass measurements
+are consistent within uncertainties, and also consistent with the
+most recent precision determination from CDF of 
+$6275.6 \pm 2.9 \pm 2.5$~MeV/$c^2$~\cite{Aaltonen:2007gv}.
+Correlated systematic errors include the impact
+of the uncertainty of the \Bc $p_T$ spectrum on the correction
+factors, the level of feed-down from $\psi(2S)$, 
+Monte-Carlo modeling of the decay model varying from phase space
+to the ISGW model, and mass variations.
+
+The latest determination of the \Bc lifetime from CDF2~\cite{Aaltonen:2012yb} is based on fully reconstructed 
+$\Bc \to J/\psi \pi$ decays and does not suffer from a missing neutrino. 
+All the measurements\footnote{We do not list (nor include in the average) an unpublished result from CDF2~\cite{CDFnote9294:2008}.}
+are summarized in 
+\Table{lifebc} and the world average, dominated by a recent LHCb measurement~\cite{Aaij:2014bva}, is 
+determined to be
+\begin{equation}
+\tau(\Bc) = \hfagTAUBC \,.
+\end{equation}
+
+\begin{table}[tb]
+\caption{Measurements of the \Bc lifetime.}
+\labt{lifebc}
+\begin{center}
+\begin{tabular}{lccrcl} \hline
+Experiment & Method                    & \multicolumn{2}{c}{Data set}  & $\tau(\Bc)$ (ps)
+      & Ref.\\   \hline
+CDF1       & \particle{\jpsi \ell} & 92--95 & 0.11 fb$^{-1}$ & $0.46^{+0.18}_{-0.16} \pm
+ 0.03$   & \cite{Abe:1998wi}  \\ 
+CDF2       & \particle{\jpsi e} & 02--04 & 0.36 fb$^{-1}$ & $0.463^{+0.073}_{-0.065} \pm 0.036$   & \cite{Abulencia:2006zu} \\
+%%unpublished%% CDF2       & \particle{\jpsi \ell} & 02--06 & 1.0 fb$^{-1}$ & $0.475^{+0.053}_{-0.049} \pm 0.018$   & \cite{CDFnote9294:2008,*Abulencia:2006zu_mod_cont}$^p$ \\
+ \dzero & \particle{\jpsi \mu} & 02--06 & 1.3 fb$^{-1}$  & $0.448^{+0.038}_{-0.036} \pm 0.032$
+   & \cite{Abazov:2008rba}  \\
+CDF2       & \particle{\jpsi \pi} & & 6.7 fb$^{-1}$ & $0.452 \pm 0.048 \pm 0.027$  & \cite{Aaltonen:2012yb} \\
+LHCb & \particle{\jpsi \mu} & 12 & 2 fb$^{-1}$  & $0.509 \pm 0.008 \pm 0.012$ & \cite{Aaij:2014bva}  \\
+\hline
+  \multicolumn{2}{l}{Average} & &  &  \hfagTAUBCnounit
+                 &    \\   \hline
+% \multicolumn{5}{l}{$^p$ \footnotesize Preliminary.}
+\end{tabular}
+\end{center}
+\end{table}
+
+\mysubsubsection{\Lb and \b-baryon lifetimes}
+\labs{taulb}
+
+The first measurements of \b-baryon lifetimes, performed at LEP,
+originate from two classes of partially reconstructed decays.
+In the first class, decays with an exclusively 
+reconstructed \Lc baryon
+and a lepton of opposite charge are used. These products are
+more likely to occur in the decay of \Lb baryons.
+In the second class, more inclusive final states with a baryon
+(\particle{p}, \particle{\bar{p}}, $\Lambda$, or $\bar{\Lambda}$) 
+and a lepton have been used, and these final states can generally
+arise from any \b baryon.  With the large \b-hadron samples available
+at the Tevatron and the LHC, the most precise measurements of \b-baryons now
+come from fully reconstructed exclusive decays.
+
+The following sources of correlated systematic uncertainties have 
+been considered:
+experimental time resolution within a given experiment, \b-quark
+fragmentation distribution into weakly decaying \b baryons,
+\Lb polarization, decay model,
+and evaluation of the \b-baryon purity in the selected event samples.
+In computing the averages
+the central values of the masses are scaled to 
+$M(\Lb) = 5620 \pm 2\MeVcc$~\cite{Acosta:2005mq} and
+$M(\mbox{\b-baryon}) = 5670 \pm 100\MeVcc$.
+
+For the semi-inclusive lifetime measurements, 
+the meaning of decay model
+systematic uncertainties
+and the correlation of these uncertainties between measurements
+are not always clear.
+Uncertainties related to the decay model are dominated by
+assumptions on the fraction of $n$-body semileptonic decays.
+To be conservative it is assumed
+that these are 100\%  correlated whenever given as an error.
+DELPHI varies the fraction of 4-body decays from 0.0 to 0.3. 
+In computing the average, the DELPHI
+result is corrected to a value of  $0.2 \pm 0.2$ for this fraction.
+
+Furthermore, in computing the average,
+the semileptonic decay results from LEP are corrected for a polarization of 
+$-0.45^{+0.19}_{-0.17}$~\cite{Abbaneo:2000ej_mod,*Abbaneo:2001bv_mod_cont} and  a 
+\Lb fragmentation parameter
+$\langle X_E \rangle =0.70\pm 0.03$~\cite{Buskulic:1995mf}.
+
+%The ALEPH result for $\Lambda_b$ polarisation is -0.23 $pm$ 0.25
+%(CERN-PPE/95-156) while the others use -0.47 +- 0.47.
+%The corresponding results and error are corrected for the ALEPH measurement.
+
+%\par Considering only the measurements obtained with $\Lambda_c \ell$ correlations
+%     and $\Lambda \ell^- \ell^+$ the average is :
+% $$ \tau_{\Lambda_b} = 1.24^{+0.08}_{-0.08}~ps$$
+
+%     Considering the measurements obtained with $\Lambda$-lepton correlation
+%     and with $p \mu$ correlation (b-baryons Admixture)
+%     the average is :
+% $$ \tau_{\Lambda_b} = 1.15^{+0.08}_{-0.08}~ps$$
+
+\begin{table}[!t]
+\caption{Measurements of the \b-baryon lifetimes.
+%Measurements of the \b-baryon and \Lb lifetime.
+%The DELPHI and ALEPH $\Xi \ell$ results are not included 
+%in the quoted average since the selected data samples
+%contain mostly \Xib while 
+%the data samples in the other measurements contain mostly \Lb.
+}
+\labt{lifelb}
+\begin{center}
+\begin{tabular}{lcccl} 
+\hline
+Experiment&Method                &Data set& Lifetime (ps) & Ref. \\\hline\hline
+ALEPH  &$\Lambda\ell$         & 91--95 &$1.20 \pm 0.08 \pm 0.06$ & \cite{Barate:1997if}\\
+DELPHI &$\Lambda\ell\pi$ vtx  & 91--94 &$1.16 \pm 0.20 \pm 0.08$        & \cite{Abreu:1999hu}$^b$\\
+DELPHI &$\Lambda\mu$ i.p.     & 91--94 &$1.10^{+0.19}_{-0.17} \pm 0.09$ & \cite{Abreu:1996nt}$^b$ \\
+DELPHI &\particle{p\ell}      & 91--94 &$1.19 \pm 0.14 \pm 0.07$        & \cite{Abreu:1999hu}$^b$\\
+OPAL   &$\Lambda\ell$ i.p.    & 90--94 &$1.21^{+0.15}_{-0.13} \pm 0.10$ & \cite{Akers:1995ui}$^c$  \\
+OPAL   &$\Lambda\ell$ vtx     & 90--94 &$1.15 \pm 0.12 \pm 0.06$        & \cite{Akers:1995ui}$^c$ \\ 
+%OS% It does no longer make sense to quote the mean b-baryon lifetime, since this has anyway the 
+%OS% same value as the Lambda_b lifetime (the above measurements are old and imprecise)
+%OS% \multicolumn{3}{l}{Average of above 19: \hfill mean \b-baryon lifetime $=$} & \hfagTAUBBnounit & \\  
+\hline
+ALEPH  &$\Lc\ell$             & 91--95 &$1.18^{+0.13}_{-0.12} \pm 0.03$ & \cite{Barate:1997if}$^a$\\
+ALEPH  &$\Lambda\ell^-\ell^+$ & 91--95 &$1.30^{+0.26}_{-0.21} \pm 0.04$ & \cite{Barate:1997if}$^a$\\
+DELPHI &$\Lc\ell$             & 91--94 &$1.11^{+0.19}_{-0.18} \pm 0.05$ & \cite{Abreu:1999hu}$^b$\\
+OPAL   &$\Lc\ell$, $\Lambda\ell^-\ell^+$ 
+                                 & 90--95 & $1.29^{+0.24}_{-0.22} \pm 0.06$ & \cite{Ackerstaff:1997qi}\\ 
+CDF1   &$\Lc\ell$             & 91--95 &$1.32 \pm 0.15        \pm 0.07$ & \cite{Abe:1996df}\\
+CDF2   &$\Lc\pi$              & 02--06 &$1.401 \pm 0.046 \pm 0.035$ & \cite{Aaltonen:2009zn} \\
+%%CDF2   &$\jpsi \Lambda$      & 02--09 &$1.537 \pm 0.045 \pm 0.014$ & \cite{Aaltonen:2010pj,*Abulencia:2006dr_mod_cont}\\
+CDF2   &$\jpsi \Lambda$      & 02--11 &$1.565 \pm 0.035 \pm 0.020$ & \cite{Aaltonen:2014wfa,*Aaltonen:2014wfa_cont} \\
+\dzero &$\Lc\mu$              & 02--06 &$1.290^{+0.119+0.087}_{-0.110-0.091}$ & \cite{Abazov_mod:2007tha} \\
+\dzero &$\jpsi \Lambda$      & 02--11 &$1.303 \pm 0.075 \pm 0.035$ & \cite{Abazov:2012iy,*Abazov:2007sf_mod_cont,*Abazov:2004bn_mod_cont} \\
+ATLAS  &$\jpsi \Lambda$      & 2011   &$1.449 \pm 0.036 \pm 0.017$ & \cite{Aad:2012sh} \\
+CMS    &$\jpsi \Lambda$      & 2011   &$1.503 \pm 0.052 \pm 0.031$ & \cite{Chatrchyan:2013sxa} \\ % 5 fb-1
+%%% LHCb   &$\jpsi \Lambda$      & 2010   &$1.353 \pm 0.108 \pm 0.035$ & \cite{LHCb-CONF-2011-001}$^p$ \\
+LHCb   &$\jpsi \Lambda$      & 2011   &$1.415 \pm 0.027 \pm 0.006$ & \cite{Aaij:2014owa} \\
+LHCb   &$\jpsi pK$           & 11--12 &$1.479 \pm 0.009 \pm 0.010$ & \cite{Aaij:2014zyy,*Aaij:2013oha_cont} \\ % 3 fb-1
+\multicolumn{3}{l}{Average of above 13: \hfill \Lb lifetime $=$} & \hfagTAULBnounit & \\
+\hline\hline
+ALEPH  &$\Xi\ell$             & 90--95 &$1.35^{+0.37+0.15}_{-0.28-0.17}$ & \cite{Buskulic:1996sm}\\
+DELPHI &$\Xi\ell$             & 91--93 &$1.5 ^{+0.7}_{-0.4} \pm 0.3$     & \cite{Abreu:1995kt}$^d$ \\
+DELPHI &$\Xi\ell$             & 92--95 &$1.45 ^{+0.55}_{-0.43} \pm 0.13$     & \cite{Abdallah:2005cw}$^d$ \\
+%OS% It does no longer make sense to quote the mean Xib lifetime, since it would merely be the average 
+%OS% of the Xib- and Xib0 lifetimes (the above measurements are old and imprecise)
+%OS% \multicolumn{3}{l}{Average of above 7: \hfill mean \Xib lifetime $=$} & \hfagTAUXBnounit & \\
+\hline
+%%CDF2   &$\jpsi \Xi^-$        & 02--09 &$1.56 ^{+0.27}_{-0.25} \pm 0.02$ & \cite{Aaltonen:2009ny} \\
+CDF2   &$\jpsi \Xi^-$        & 02--11 &$1.32 \pm 0.14 \pm 0.02$ & \cite{Aaltonen:2014wfa,*Aaltonen:2014wfa_cont} \\ % full Run2 data set = 9.6 fb-1
+LHCb   &$\jpsi \Xi^-$         & 11--12 &$1.55 ^{+0.10}_{-0.09} \pm 0.03$ & \cite{Aaij:2014sia} \\ 
+LHCb   &$\Xi_c^0\pi^-$        & 11--12 &$1.599 \pm 0.041 \pm 0.022$ & \cite{Aaij:2014lxa} \\ 
+\multicolumn{3}{l}{Average of above 3: \hfill \Xibd lifetime $=$} & \hfagTAUXBDnounit & \\
+\hline\hline
+LHCb   &$\Xi_c^+\pi^-$        & 11--12 &$1.477 \pm 0.026 \pm 0.019$ & \cite{Aaij:2014esa} \\ 
+\multicolumn{3}{l}{Average of above 1: \hfill \Xibu lifetime $=$} & \hfagTAUXBUnounit & \\
+\hline\hline
+%%CDF2   &$\jpsi \Omega^-$     & 02--09 & $1.13 ^{+0.53}_{-0.40} \pm 0.02$ & \cite{Aaltonen:2009ny} \\
+CDF2   &$\jpsi \Omega^-$     & 02--11 & $1.66 ^{+0.53}_{-0.40} \pm 0.02$ & \cite{Aaltonen:2014wfa,*Aaltonen:2014wfa_cont} \\ % full Run2 data set = 9.6 fb-1
+LHCb   &$\jpsi \Omega^-$     & 11--12 &$1.54 ^{+0.26}_{-0.21} \pm 0.05$ & \cite{Aaij:2014sia} \\ 
+\multicolumn{3}{l}{Average of above 2: \hfill \Omegab lifetime $=$} & \hfagTAUOBnounit & \\
+\hline\hline
+\multicolumn{5}{l}{$^a$ \footnotesize The combined ALEPH result quoted 
+in \cite{Barate:1997if} is $1.21 \pm 0.11$ ps.} \\[-0.5ex]
+\multicolumn{5}{l}{$^b$ \footnotesize The combined DELPHI result quoted 
+in \cite{Abreu:1999hu} is $1.14 \pm 0.08 \pm 0.04$ ps.} \\[-0.5ex]
+\multicolumn{5}{l}{$^c$ \footnotesize The combined OPAL result quoted 
+in \cite{Akers:1995ui} is $1.16 \pm 0.11 \pm 0.06$ ps.} \\[-0.5ex]
+\multicolumn{5}{l}{$^d$ \footnotesize The combined DELPHI result quoted 
+in \cite{Abdallah:2005cw} is $1.48 ^{+0.40}_{-0.31} \pm 0.12$ ps.}
+%%%\\[-0.5ex] \multicolumn{5}{l}{$^p$ \footnotesize Preliminary.}
+\end{tabular}
+\end{center}
+\end{table}
+
+Inputs to the averages are given in \Table{lifelb}.
+For the \Lb lifetime average, we only include measurements obtained
+with inclusive \particle{\Lambda^{\pm}_c \ell^{\mp}}, inclusive
+$\Lambda \ell^- \ell^+$, and fully exclusive
+final states.
+The CDF $\Lb \to \jpsi \Lambda$
+lifetime result~\cite{Aaltonen:2014wfa,*Aaltonen:2014wfa_cont} 
+is $\hfagNSIGMATAULBCDFTWO\,\sigma$
+larger than the world average computed excluding this result. 
+It is nonetheless combined with the rest 
+without adjustment of input errors.
+The world average \Lb lifetime is then
+\begin{equation}
+\tau(\Lb) = \hfagTAULB \,. 
+\end{equation}
+% Adding also the measurements with more inclusive baryon final states yields the 
+% following world average of \b baryons:
+% \begin{equation}
+% \langle\tau(\mbox{\b-baryon})\rangle = \hfagTAUBB \,.
+% \end{equation}
+For the strange \b baryons, we no longer include measurements based on
+$\Xi^{\mp} \ell^{\mp}$~\cite{Buskulic:1996sm,Abdallah:2005cw,Abreu:1995kt} 
+final states which consist of a mixture of 
+$\Xib^0$ and $\Xib^-$ baryons. Instead we only average results obtained with 
+fully exclusive modes, and obtain
+% \begin{equation}
+% \langle\tau(\Xib)\rangle = \hfagTAUXB \,.
+% \end{equation}
+%old% First measurements of fully reconstructed 
+%old% $\Xibd \to \jpsi\Xi^-$ and $\Omegab \to \jpsi\Omega^-$
+%old% baryons yield~\cite{Aaltonen:2014wfa,*Aaltonen:2014wfa_cont}
+\begin{eqnarray}
+\tau(\Xibd) &=& \hfagTAUXBD \,, \\
+\tau(\Xibu) &=& \hfagTAUXBU \,, \\
+\tau(\Omegab) &=& \hfagTAUOB \,. 
+\end{eqnarray}
+
+\mysubsubsection{Summary and comparison with theoretical predictions}
+\labs{lifesummary}
+
+Averages of lifetimes of specific \b-hadron species are collected
+in \Table{sumlife}.
+\begin{table}[t]
+\caption{Summary of the lifetime averages for the different \b-hadron species.}
+\labt{sumlife}
+\begin{center}
+\begin{tabular}{lrc} \hline
+\multicolumn{2}{l}{\b-hadron species} & Measured lifetime \\ \hline
+\Bu &                       & \hfagTAUBU   \\
+\Bd &                       & \hfagTAUBD   \\
+% \Bs ($\to$ flavour specific) & \hfagTAUBSSL \\
+% \Bs ($\to \jpsi\phi$)      & \hfagTAUBSJF \\
+\Bs & $1/\Gs =$               & \hfagTAUBSMEANC \\
+~~ $\B_{s\rm L}$ & $1/\Gamma_{\rm L}=$  & \hfagTAUBSLCON \\
+~~ $\B_{s\rm H}$ & $1/\Gamma_{\rm H}=$  & \hfagTAUBSHCON \\
+\Bc     &                   & \hfagTAUBC   \\ 
+\Lb     &                   & \hfagTAULB   \\
+\Xibd   &                   & \hfagTAUXBD  \\
+\Xibu   &                   & \hfagTAUXBU  \\
+\Omegab &                   & \hfagTAUOB   \\
+\hline
+%\multicolumn{2}{l}{\b-hadron mixture}  & \hfagTAUB    \\
+%OS% \b-baryon mixture           & \hfagTAUBB   \\
+%OS% \Xib mixture                & \hfagTAUXB   \\
+%\hline
+\end{tabular}
+\end{center}
+%\end{table}
+%\begin{table}[t]
+\caption{Measured ratios of \b-hadron lifetimes relative to
+the \Bd lifetime and ranges predicted
+by theory~\cite{Tarantino:2003qw,*Gabbiani:2003pq,Gabbiani:2004tp}.}
+\labt{liferatio}
+%
+% Predictions for tau(Omega_b-)/tau(B0) < 1.10 
+% (quoted in D0 observation paper)
+% 
+% X. Liu et al., Phys. Rev. D 77, 014031 (2008);
+% M. Karliner et al., arXiv:0804.1575;
+% E. E. Jenkins, Phys. Rev. D 77, 034012 (2008);
+% R. Roncaglia, D. B. Lichtenberg, and E. Predazzi, Phys. Rev. D 52, 1722 (1995);
+% N. Mathur, R. Lewis, and R. M. Woloshyn, Phys. Rev. D 66, 014502 (2002);
+% D. Ebert, R. N. Faustov, and V. O. Galkin, Phys. Rev. D 72, 034026 (2005);
+% T. Ito, M. Matsuda, and Y. Matsui, Prog. Theor. Phys. 99, 271 (1998).
+%
+\begin{center}
+\begin{tabular}{lcc} \hline
+Lifetime ratio & Measured value & Predicted range \\ \hline
+$\tau(\Bu)/\tau(\Bd)$ & \hfagRTAUBU & 1.04 -- 1.08 \\
+%%%% $\tau(\Bs)/\tau(\Bd)^a$ & \hfagRTAUBSSL & 0.99 -- 1.01 \\
+$\tau(\Bs)/\tau(\Bd)$ & \hfagRTAUBSMEANC & 0.99 -- 1.01 \\
+$\tau(\Lb)/\tau(\Bd)$ & \hfagRTAULB & 0.86 -- 0.95    \\
+%%% $\tau(\mbox{\b-baryon})/\tau(\Bd)$  & \hfagRTAUBB & 0.86 -- 0.95 \\
+\hline
+% \multicolumn{3}{l}{$^a$ \footnotesize 
+% Using $\bar{\tau}(\Bs) = 1/\Gs = 2/(\Gamma_{\rm L} + \Gamma_{\rm H})$.  }
+\end{tabular}
+\end{center}
+\end{table}
+As described in \Sec{lifetimes},
+Heavy Quark Effective Theory
+can be employed to explain the hierarchy of
+$\tau(\Bc) \ll \tau(\Lb) < \tau(\Bs) \approx \tau(\Bd) < \tau(\Bu)$,
+and used to predict the ratios between lifetimes.
+Typical predictions are compared to the measured 
+lifetime ratios in \Table{liferatio}.
+The prediction of the ratio between the \Bu and \Bd lifetimes,
+$1.06 \pm 0.02$~\cite{Tarantino:2003qw,*Gabbiani:2003pq}, 
+is in good agreement with experiment. 
+
+The total widths of the \Bs and \Bd mesons
+are expected to be very close and differ by at most 
+1\%~\cite{Beneke:1996gn,*Keum:1998fd,Gabbiani:2004tp}.
+This prediction is consistent with the
+experimental ratio $\tau(\Bs)/\tau(\Bd)=\Gd/\Gs$,
+which is smaller than 1 by 
+% $\hfagRTAUBSMEANCsig\,\sigma$ 
+\hfagONEMINUSRTAUBSMEANCpercent. 
+% at deviation with respect to the prediction. 
+
+The ratio $\tau(\Lb)/\tau(\Bd)$ has particularly
+been the source of theoretical
+scrutiny since earlier calculations using Heavy Quark Effective Theory%
+~\cite{Shifman:1986mx,*Chay:1990da,*Bigi:1992su,*Bigi:1992su_erratum,Voloshin:1999pz,*Guberina:1999bw,*Neubert:1996we,*Bigi:1997fj}
+predicted a value larger than 0.90, almost $2\,\sigma$ 
+above the world average at the time. 
+Many predictions cluster around a most likely central value
+of 0.94~\cite{Uraltsev:1996ta,*Pirjol:1998ur,*Colangelo:1996ta,*DiPierro:1999tb}.
+More recent calculations
+of this ratio that include higher-order effects predict a
+lower ratio between the
+\Lb and \Bd lifetimes~\cite{Tarantino:2003qw,*Gabbiani:2003pq,Gabbiani:2004tp}
+and reduce this difference.
+References~\cite{Tarantino:2003qw,*Gabbiani:2003pq,Gabbiani:2004tp} present probability density functions
+of their predictions with variation of theoretical inputs, and the
+indicated ranges in \Table{liferatio}
+are the RMS of the distributions from the most probable values, and for 
+$\tau(\Lb)/\tau(\Bd)$, also encompass the earlier theoretical predictions%
+~\cite{Shifman:1986mx,*Chay:1990da,*Bigi:1992su,*Bigi:1992su_erratum,Voloshin:1999pz,*Guberina:1999bw,*Neubert:1996we,*Bigi:1997fj,Uraltsev:1996ta,*Pirjol:1998ur,*Colangelo:1996ta,*DiPierro:1999tb}.
+% Next sentence added on Feb 18, 2011 (following a comment from A. Lenz)
+Note that in contrast to the $B$ mesons, complete NLO QCD
+corrections and
+fully reliable lattice
+determinations of the matrix elements for $\Lb$ are not
+yet available.
+As already mentioned, the CDF measurement of the $\Lambda_b$ lifetime
+in the exclusive decay mode $\jpsi \Lambda$~\cite{Aaltonen:2014wfa,*Aaltonen:2014wfa_cont} 
+is significantly 
+higher than the world average before inclusion, with a ratio
+to the $\tau(\Bd)$ world average of 
+$\tau(\Lb)/\tau(\Bd) = 1.012 \pm 0.031$, 
+% OS, Apr 27, 2012:
+%     CDF2 Lambda_b -> J/psi Lambda lifetime result: 1.537 +-0.045 +-0.014 ps
+%     World average of B0 lifetime:                  1.5194 +- 0.0071 ps
+%     Ratio tau(Lambda_b CDF2)/tau(B0 world) = 1.012 +- 0.031
+%          central value = 1.537/1.5194 = 1.01158
+%          error = 1.537/1.5194*sqrt((0.045**2+0.014**2)/1.537**2+(0.0071/1.5194)**2) = 0.031375
+%
+resulting in continued interest in lifetimes of $b$ baryons.
+
+The lifetimes of the most abundant \b-hadron species are now all known to a sub-percent precision. Neglecting the 
+contributions of the rarer species (\Bc meson and \b baryons other than the \Lb), one can compute the average 
+\b-hadron lifetime from the individual lifetimes and production fractions as 
+\begin{equation}
+\tau_b = \frac%
+{\fBd \tau(\Bd)^2+ \fBu \tau(\Bu)^2+0.5 \fBs \tau(B_{s\rm H})^2+0.5 \fBs \tau(B_{s\rm L})^2+ \fbb \tau(\Lambda_b)^2}%
+{\fBd \tau(\Bd)  + \fBu \tau(\Bu)  +0.5 \fBs \tau(B_{s\rm H})  +0.5 \fBs \tau(B_{s\rm L})  + \fbb \tau(\Lambda_b)  } \,.
+\end{equation}
+Using the lifetimes of \Table{sumlife} and the fractions in $Z$ decays of \Table{fractions},
+taking into account the correlations between the fractions (\Table{fractions}) as well as the correlation 
+between $\tau(B_{s\rm H})$ and $\tau(B_{s\rm L})$ (\hfagZRHOTAUHTAUL), one obtains
+\begin{equation}
+\tau_b(Z) = \hfagTAUBZCALC \,.
+\end{equation}
+This is in very good agreement with (and three times more precise than)
+the average of \Eq{TAUBVTX} for the inclusive measurements performed at LEP. 

@@ -1,0 +1,571 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is file life_mix_tau1.tex containing the
+% first part of the chapter on the b-hadron life-
+% times: introduction, average b-hadron, B0 and B+
+% lifetimes as well as the B+/B0 lifetime ratio
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%------------------------------------------------
+\mysubsection{\b-hadron lifetimes}
+%------------------------------------------------
+\labs{lifetimes}
+
+In the spectator model the decay of \b-flavoured hadrons $H_b$ is
+governed entirely by the flavour changing \particle{b\to Wq} transition
+($\particle{q}=\particle{c,u}$).  For this very reason, lifetimes of all
+\b-flavoured hadrons are the same in the spectator approximation
+regardless of the (spectator) quark content of the $H_b$.  In the early
+1990's experiments became sophisticated enough to start seeing the
+differences of the lifetimes among various $H_b$ species.  The first
+theoretical calculations of the spectator quark effects on $H_b$
+lifetime emerged only few years earlier.
+
+Currently, most of such calculations are performed in the framework of
+the Heavy Quark Expansion, HQE.  In the HQE, under certain assumptions
+(most important of which is that of quark-hadron duality), the decay
+rate of an $H_b$ to an inclusive final state $f$ is expressed as the sum
+of a series of expectation values of operators of increasing dimension,
+multiplied by the correspondingly higher powers of $\Lambda_{\rm
+QCD}/m_b$:
+\begin{equation}
+\Gamma_{H_b\to f} = |CKM|^2\sum_n c_n^{(f)}
+\Bigl(\frac{\Lambda_{\rm QCD}}{m_b}\Bigr)^n\langle H_b|O_n|H_b\rangle,
+\labe{hqe}
+\end{equation}
+where $|CKM|^2$ is the relevant combination of the CKM matrix elements.
+Coefficients $c_n^{(f)}$ of this expansion, known as Operator Product
+Expansion~\cite{Shifman:1986mx,*Chay:1990da,*Bigi:1992su,*Bigi:1992su_erratum},
+can be calculated perturbatively.  Hence, the HQE
+predicts $\Gamma_{H_b\to f}$ in the form of an expansion in both
+$\Lambda_{\rm QCD}/m_{\b}$ and $\alpha_s(m_{\b})$.  The precision of
+current experiments makes it mandatory to go to the next-to-leading
+order in QCD, {\em i.e.}\ to include correction of the order of
+$\alpha_s(m_{\b})$ to the $c_n^{(f)}$'s.  All non-perturbative physics
+is shifted into the expectation values $\langle H_b|O_n|H_b\rangle$ of
+operators $O_n$.  These can be calculated using lattice QCD or QCD sum
+rules, or can be related to other observables via the
+HQE~\cite{Bigi:1995jr,*Bellini:1996ra}.  One may reasonably expect that powers of
+$\Lambda_{\rm QCD}/m_{\b}$ provide enough suppression that only the
+first few terms of the sum in \Eq{hqe} matter.
+
+Theoretical predictions are usually made for the ratios of the lifetimes
+(with $\tau(\Bd)$ chosen as the common denominator) rather than for the
+individual lifetimes, for this allows several uncertainties to cancel.
+The precision of the current HQE calculations (see
+\Refs{Ciuchini:2001vx,*Beneke:2002rj,*Franco:2002fc,Tarantino:2003qw,*Gabbiani:2003pq,Gabbiani:2004tp} for the latest updates)
+is in some instances already surpassed by the measurements,
+\eg\ in the case of $\tau(\Bu)/\tau(\Bd)$.  Also, HQE calculations are
+not assumption-free.  More accurate predictions are a matter of progress
+in the evaluation of the non-perturbative hadronic matrix elements and
+verifying the assumptions that the calculations are based upon.
+However, the HQE, even in its present shape, draws a number of important
+conclusions, which are in agreement with experimental observations:
+\begin{itemize}
+\item The heavier the mass of the heavy quark the smaller is the
+  variation in the lifetimes among different hadrons containing this
+  quark, which is to say that as $m_{\b}\to\infty$ we retrieve the
+  spectator picture in which the lifetimes of all $H_b$'s are the same.
+%OS  This is well illustrated by the fact that lifetimes in the $b$ sector
+%OS  are all rather similar, while in the $c$ sector
+%OS  ($m_{\particle{c}}<m_{\b}$) lifetimes differ by large factors.
+   This is well illustrated by the fact that lifetimes are rather
+   similar in the \b sector, while they differ by large factors
+   in the \particle{c} sector ($m_{\particle{c}}<m_{\b}$).
+\item The non-perturbative corrections arise only at the order of
+  $\Lambda_{\rm QCD}^2/m_{\b}^2$, which translates into 
+  differences among $H_b$ lifetimes of only a few percent.
+\item It is only the difference between meson and baryon lifetimes that
+  appears at the $\Lambda_{\rm QCD}^2/m_{\b}^2$ level.  The splitting of the
+  meson lifetimes occurs at the $\Lambda_{\rm QCD}^3/m_{\b}^3$ level, yet it is
+  enhanced by a phase space factor $16\pi^2$ with respect to the leading
+  free \b decay.
+\end{itemize}
+
+To ensure that certain sources of systematic uncertainty cancel, 
+lifetime analyses are sometimes designed to measure a 
+ratio of lifetimes.  However, because of the differences in decay
+topologies, abundance (or lack thereof) of decays of a certain kind,
+{\em etc.}, measurements of the individual lifetimes are more 
+common.  In the following section we review the most common
+types of the lifetime measurements.  This discussion is followed by the
+presentation of the averaging of the various lifetime measurements, each
+with a brief description of its particularities.
+
+
+%% Experimental measurements too often benefit from a partial systematic
+%% uncertainty cancellation if a measurement is that of the ratio of two
+%% quantities of the same kind, which are affected similarly by one or
+%% more systematic effect(s).  For this reason, rather often the lifetime
+%% measurements are being designed to be those of the ratio of the
+%% lifetimes.  However, because of the differences in decay topologies,
+%% abundance (or lack thereof) of decays of a certain kind, {\em etc.}\
+%% measurements of the individual lifetimes are not particularly rare.  In
+%% the following section we review the most common types of the lifetime
+%% measurements.  This discussion is followed by the presentation of the
+%% averaging of the various lifetime measurements, each with a brief
+%% description of its particularities.
+
+%% Details of procedures used to combine the different measurements can be
+%% found in \Ref{LEPBOSC:1996}. {\sc do we want this? HERE?}
+
+
+\mysubsubsection{Lifetime measurements, uncertainties and correlations}
+
+In most cases lifetime of an $H_b$ is estimated from a flight distance
+and a $\beta\gamma$ factor which is used to convert the geometrical
+distance into the proper decay time.  Methods of accessing lifetime
+information can roughly be divided in the following five categories:
+\begin{enumerate}
+\item {\bf\em Inclusive (flavour-blind) measurements}.  These
+  measurements are aimed at extracting the lifetime from a mixture of
+  \b-hadron decays, without distinguishing the decaying species.  Often
+  the knowledge of the mixture composition is limited, which makes these
+  measurements experiment-specific.  Also, these
+  measurements have to rely on Monte Carlo for estimating the
+  $\beta\gamma$ factor, because the decaying hadrons are not fully
+  reconstructed.  On the bright side, these usually are the largest
+  statistics \b-hadron lifetime measurements that are accessible to a
+  given experiment, and can, therefore, serve as an important
+  performance benchmark.
+\item {\bf\em Measurements in semileptonic decays of a specific
+  {\boldmath $H_b$\unboldmath}}.  \particle{W}from \particle{\b\to Wc}
+  produces $\ell\nu_l$ pair (\particle{\ell=e,\mu}) in about 21\% of the
+  cases.  Electron or muon from such decays is usually a well-detected
+  signature, which provides for clean and efficient trigger.
+  \particle{c} quark from \particle{b\to Wc} transition and the other
+  quark(s) making up the decaying $H_b$ combine into a charm hadron,
+  which is reconstructed in one or more exclusive decay channels.
+  Knowing what this charmed hadron is allows one to separate, at least
+  statistically, different $H_b$ species.  The advantage of these
+  measurements is in statistics, which usually is superior to that of the
+  exclusively reconstructed $H_b$ decays.  Some of the main
+  disadvantages are related to the difficulty of estimating lepton+charm
+  sample composition and Monte Carlo reliance for the $\beta\gamma$
+  factor estimate.
+\item {\bf\em Measurements in exclusively reconstructed hadronic decays}.
+  These
+  have the advantage of complete reconstruction of decaying $H_b$, which
+  allows one to infer the decaying species as well as to perform precise
+  measurement of the $\beta\gamma$ factor.  Both lead to generally
+  smaller systematic uncertainties than in the above two categories.
+  The downsides are smaller branching ratios, larger combinatoric
+  backgrounds, especially in $H_b\rightarrow H_c\pi(\pi\pi)$ and
+  multi-body $H_c$ decays, or in a hadron collider environment with
+  non-trivial underlying event.  $H_b\to \jpsi H_s$ are relatively
+  clean and easy to trigger on $\jpsi\to \ell^+\ell^-$, but their
+  branching fraction is only about 1\%.
+\item {\bf\em Measurements at asymmetric B factories}. 
+
+In the $\Ups\rightarrow B \bar{B}$ decay, the \B mesons (\Bu or \Bd) are
+essentially at rest in the \Ups frame.  This makes direct lifetime
+measurements impossible in experiments at symmetric colliders producing 
+\Ups at rest. 
+%Romulus% However, most time-integrated measurements that related to
+%Romulus% directly measure the overall mixing probability, \chid, have been measured
+%Romulus% by the CLEO and ARGUS. It is almost impossible to measure the \B mesons lifetime measurement
+%Romulus% with time-integrated technique. The best approach for measuring the \B mesons lifetime 
+%Romulus% is using the time dependent measurement at asymmetric \B factories such as \babar and
+%Romulus% Belle. 
+At asymmetric \B factories the \Ups meson is boosted
+resulting in \B and \particle{\bar{B}} moving nearly parallel to each 
+other with the same boost. The lifetime is inferred from the distance $\Delta z$        
+separating the \B and \particle{\bar{B}} decay vertices along the beam axis 
+%Romulus% (see \Fig{Ups_geometry})
+and from the \Ups boost known from the beam energies. This boost is equal to 
+$\beta \gamma \approx 0.55$ (0.43) in the \babar (\belle) experiment,
+resulting in an average \B decay length of approximately 250~(190)~$\mu$m. 
+%Romulus% \begin{figure}
+%Romulus% \begin{center}
+%Romulus% \epsfig{figure=figures/life_mix/Ups_geometry.eps,width=0.6\textwidth}
+%Romulus% \caption{\Ups decay in the laboratory frame where one \B meson is fully 
+%Romulus% reconstructed}
+%Romulus% \labf{Ups_geometry}
+%Romulus% \end{center}
+%Romulus% \end{figure}
+
+%Romulus% At asymmetric \B factories, the \Ups decays only to a pair of \B mesons since the mass of 
+%Romulus% the \Ups is about 22 $MeV$ above \B mesons pair with no additional pions or any other
+%Romulus% type of $b$ hadrons produced.  Both \B mesons produced from the \Ups decays move away 
+%Romulus% from the production vertex nearly parallel to each other by a few hundred microns before
+%Romulus% decaying due to a boost in the beam direction. For \babar the boost is $<\beta \gamma> \approx 0.55$ and
+%Romulus% for Belle is $<\beta \gamma> \approx 0.43$. The lifetime is inferred from the distance $\Delta z$
+%Romulus% separating \B and \particle{\bar{B}} decay vertexes and \Ups boost
+%Romulus% known from colliding beam energies.  
+
+%OS In order to maximize the
+%OS precision of the measurement, one \B meson is reconstructed in the
+%OS \particle{D^{(*)}\ell\nu_{\ell}} decay.  The other \B is typically not
+%OS fully reconstructed, only position of its decay vertex is determined.
+
+%Romulus% The geometry of an \Ups decay to a pair of \B mesons in which one \B meson is fully 
+%Romulus% reconstructed is shown in \Fig{Ups_geometry}. 
+%Romulus% At \babar the average decay length is of the order of 
+%Romulus% 250~$\mu$m and the uncertainty for a vertex point are about $\approx$ 50~$\mu$m for a fully
+%Romulus% reconstructed \B meson and $\approx 100~\mu$m for a partially reconstructed \B meson.
+In order to determine the charge of the \B mesons in each event, one of the them is
+fully reconstructed in a semileptonic or hadronic decay mode.
+The other \B is typically not fully reconstructed, only the position
+of its decay vertex is determined from the remaining tracks in the event.
+These measurements benefit from large statistics, but suffer from poor proper time 
+resolution, comparable to the \B lifetime itself. This resolution is dominated by the 
+uncertainty on the decay vertices, which is typically 50~(100)~$\mu$m for a
+fully (partially) reconstructed \B meson. 
+%Romulus% $\Delta z$ resolution.
+%Romulus% At asymmetric \B factories, the decay time different resolution is dominated by the uncertainty 
+%Romulus% of the vertex location of both \B mesons. The decay distance and the momenta of a \B meson 
+%Romulus% determine its lifetime. In order to determine the charge of the \B mesons in each event,
+%Romulus% one of the them is fully reconstructed in semileptonic or fully hadronic decay modes.
+%Romulus% The other \B is typically not fully reconstructed, only the position
+%Romulus% of its decay vertex is determined from the remaining tracks in the event.
+%Romulus% These measurements benefit from very large statistics, but suffer from
+%Romulus% poor $\Delta z$ resolution (the distance between the two \B mesons decay
+%Romulus% vertexes projected on the beam axis.
+%Romulus% Alternatively one could apply a completely 
+%Romulus% reconstructed events where both \B are fully reconstructed for getting the best
+%Romulus% precision on the lifetime measurement, however, a price has to be paid due to 
+%Romulus% a low statistics. 
+With very large future statistics,
+the resolution and purity could be improved (and hence the systematics reduced)
+by fully reconstructing both \B mesons in the event. 
+ 
+\item {\bf\em Direct measurement of lifetime ratios}.  This method has
+  so far been only applied in the measurement of $\tau(\Bu)/\tau(\Bd)$.
+  The ratio of the lifetimes is extracted from the dependence of the
+  observed relative number of \Bu and \Bd candidates (both reconstructed
+  in semileptonic decays) on the proper decay time.
+\end{enumerate}
+
+In some of the latest analyses, measurements of two (\eg\ $\tau(\Bu)$ and
+$\tau(\Bu)/\tau(\Bd)$) or three (\eg\ $\tau(\Bu)$,
+$\tau(\Bu)/\tau(\Bd)$, and \dmd) quantities are combined.  This
+introduces correlations among measurements.  Another source of
+correlations among the measurements are the systematic effects, which
+could be common to an experiment or to an analysis technique across the
+experiments.  When calculating the averages, such correlations are taken
+into account per general procedure, described in
+\Ref{LEPBOSC:1996}.
+
+
+%% ====================================================================
+\mysubsubsection{Inclusive \b-hadron lifetimes}
+%% ====================================================================
+
+The inclusive \b hadron lifetime is defined as $\tau_{\b} = \sum_i f_i
+\tau_i$ where $\tau_i$ are the individual species lifetimes and $f_i$ are
+the fractions of the various species present in an unbiased sample of
+weakly-decaying \b hadrons produced at a high-energy
+collider.\footnote{In principle such a quantity could be slightly
+different in \particle{Z} decays and at the Tevatron, in case the
+fractions of \b-hadron species are not exactly the same; see the
+discussion in \Sec{fractions_high_energy}.}  This quantity is certainly
+less fundamental than the lifetimes of the individual species, the
+latter being much more useful in comparisons of the measurements with
+the theoretical predictions.  Nonetheless, we perform the averaging of
+the inclusive lifetime measurements for completeness as well as for the
+reason that they might be of interest as ``technical numbers.''
+
+\begin{table}[tp]
+\caption{Measurements of average \b-hadron lifetimes.}
+\labt{lifeincl}
+\begin{center}
+\begin{tabular}{lcccl} \hline
+Experiment &Method           &Data set & $\tau_{\b}$ (ps)       &Ref.\\
+\hline
+ALEPH  &Dipole               &91     &$1.511\pm 0.022\pm 0.078$ &\cite{Buskulic:1993gj}\\
+DELPHI &All track i.p.\ (2D) &91--92 &$1.542\pm 0.021\pm 0.045$ &\cite{Abreu:1994dr}$^a$\\
+DELPHI &Sec.\ vtx            &91--93 &$1.582\pm 0.011\pm 0.027$ &\cite{Abreu:1996hv}$^a$\\
+DELPHI &Sec.\ vtx            &94--95 &$1.570\pm 0.005\pm 0.008$ &\cite{Abdallah:2003sb}\\
+L3     &Sec.\ vtx + i.p.     &91--94 &$1.556\pm 0.010\pm 0.017$ &\cite{Acciarri:1997tt}$^b$\\
+OPAL   &Sec.\ vtx            &91--94 &$1.611\pm 0.010\pm 0.027$ &\cite{Ackerstaff:1996as}\\
+SLD    &Sec.\ vtx            &93     &$1.564\pm 0.030\pm 0.036$ &\cite{Abe:1995rm}\\ 
+\hline
+\multicolumn{2}{l}{Average set 1 (\b vertex)} && \hfagTAUBVTXnounit &\\
+\hline\hline
+ALEPH  &Lepton i.p.\ (3D)    &91--93 &$1.533\pm 0.013\pm 0.022$ &\cite{Buskulic:1995rw}\\
+L3     &Lepton i.p.\ (2D)    &91--94 &$1.544\pm 0.016\pm 0.021$ &\cite{Acciarri:1997tt}$^b$\\
+OPAL   &Lepton i.p.\ (2D)    &90--91 &$1.523\pm 0.034\pm 0.038$ &\cite{Acton:1993xk}\\ 
+\hline
+\multicolumn{2}{l}{Average set 2 ($\b\to\ell$)} && \hfagTAUBLEPnounit &\\
+\hline\hline
+CDF1   &\particle{\jpsi} vtx&92--95 &$1.533\pm 0.015^{+0.035}_{-0.031}$ &\cite{Abe:1997bd} \\ 
+%% CDF2       & \particle{\jpsi} vtx
+%%                                &  02--03 & $1.526 \pm 0.034 \pm 0.035$ & \cite{CDFnote9203:2008,*CDFnote9203:2008_cont} \\  WARNING: the meaning of CDFnote9203:2008 has changed !!!
+ATLAS &\particle{\jpsi} vtx& 2010 & $1.489\pm 0.016 \pm 0.043$ & \cite{ATLAS-CONF-2011-145}$^p$ \\
+\hline
+\multicolumn{2}{l}{Average set 3 (\particle{\b\to \jpsi})} && \hfagTAUBJPnounit & \\ 
+%\hline\hline
+%\multicolumn{2}{l}{Average of all above} && \hfagTAUBnounit & \\
+\hline
+\multicolumn{5}{l}{$^a$ \footnotesize The combined DELPHI result quoted in
+\cite{Abreu:1996hv} is 1.575 $\pm$ 0.010 $\pm$ 0.026 ps.} \\[-0.5ex]
+\multicolumn{5}{l}{$^b$ \footnotesize The combined L3 result quoted in \cite{Acciarri:1997tt} 
+is 1.549 $\pm$ 0.009 $\pm$ 0.015 ps.} \\[-0.5ex]
+\multicolumn{5}{l}{$^p$ \footnotesize Preliminary.}
+\end{tabular}
+\end{center}
+\end{table}
+
+In practice, an unbiased measurement of the inclusive lifetime is
+difficult to achieve, because it would imply an efficiency which is
+guaranteed to be the same across species.  So most of the measurements
+are biased.  In an attempt to group analyses which are expected to
+select the same mixture of \b hadrons, the available results (given in
+\Table{lifeincl}) are divided into the following three sets:
+\begin{enumerate}
+\item measurements at LEP and SLD that accept any \b-hadron decay, based 
+      on topological reconstruction (secondary vertex or track impact
+      parameters);
+\item measurements at LEP based on the identification
+      of a lepton from a \b decay; and
+\item measurements at the Tevatron based on inclusive 
+      \particle{H_b\to \jpsi X} reconstruction, where the
+      \particle{\jpsi} is fully reconstructed.
+\end{enumerate}
+
+The measurements of the first set are generally considered as estimates
+of $\tau_{\b}$, although the efficiency to reconstruct a secondary
+vertex most probably depends, in an analysis-specific way, on the number
+of tracks coming from the vertex, thereby depending on the type of the
+$H_b$.  Even though these efficiency variations can in principle be
+accounted for using Monte Carlo simulations (which inevitably contain
+assumptions on branching fractions), the $H_b$ mixture in that case can
+remain somewhat ill-defined and could be slightly different among
+analyses in this set.
+
+On the contrary, the mixtures corresponding to the other two sets of
+measurements are better defined in the limit where the reconstruction
+and selection efficiency of a lepton or a \particle{\jpsi} from an
+$H_b$ does not depend on the decaying hadron type.  These mixtures are
+given by the production fractions and the inclusive branching fractions
+for each $H_b$ species to give a lepton or a \particle{\jpsi}.  In
+particular, under the assumption that all \b hadrons have the same
+semileptonic decay width, the analyses of the second set should measure
+$\tau(\b\to\ell) = (\sum_i f_i \tau_i^3) /(\sum_i f_i \tau_i^2)$ which is
+necessarily larger than $\tau_{\b}$ if lifetime differences exist.
+Given the present knowledge on $\tau_i$ and $f_i$,
+$\tau(\b\to\ell)-\tau_{\b}$ is expected to be of the order of 0.003\ps.
+On the other hand, the third set measuring $\tau(\b\to\particle{\jpsi})$
+is expected to give an average smaller than $\tau_{\b}$ because 
+of the \Bc meson which has a significantly
+larger probability to decay to a \particle{\jpsi}
+than other \b-hadron species. 
+
+Measurements by SLC and LEP experiments are subject to a number of
+common systematic uncertainties, such as those due to (lack of knowledge
+of) \b and \particle{c} fragmentation, \b and \particle{c} decay models,
+\BR{B\to\ell}, \BR{B\to c\to\ell}, \BR{c\to\ell}, $\tau_{\particle{c}}$,
+and $H_b$ decay multiplicity.  In the averaging, these systematic
+uncertainties are assumed to be 100\% correlated.  The averages for the
+sets defined above (also given in \Table{lifeincl}) are
+\begin{eqnarray}
+\tau(\b~\mbox{vertex}) &=& \hfagTAUBVTX \,, \labe{TAUBVTX} \\
+\tau(\b\to\ell) &=& \hfagTAUBLEP  \,, \\
+\tau(\b\to\particle{\jpsi}) &=& \hfagTAUBJP\,.
+\end{eqnarray}
+% whereas an average of all measurements, ignoring mixture differences, 
+% yields \hfagTAUB.
+
+
+%% ====================================================================
+\mysubsubsection{\Bd and \Bu lifetimes and their ratio}
+%% ====================================================================
+\labs{taubd}
+\labs{taubu}
+\labs{lifetime_ratio}
+
+\begin{table}[tp]
+\caption{Measurements of the \Bd lifetime.}
+\labt{lifebd}
+\begin{center}
+\begin{tabular}{lcccl} \hline
+Experiment &Method                    &Data set &$\tau(\Bd)$ (ps)                  &Ref.\\
+\hline
+ALEPH  &\particle{D^{(*)} \ell}       &91--95 &$1.518\pm 0.053\pm 0.034$          &\cite{Barate:2000bs}\\
+ALEPH  &Exclusive                     &91--94 &$1.25^{+0.15}_{-0.13}\pm 0.05$     &\cite{Buskulic:1996hy}\\
+ALEPH  &Partial rec.\ $\pi^+\pi^-$    &91--94 &$1.49^{+0.17+0.08}_{-0.15-0.06}$   &\cite{Buskulic:1996hy}\\
+DELPHI &\particle{D^{(*)} \ell}       &91--93 &$1.61^{+0.14}_{-0.13}\pm 0.08$     &\cite{Abreu:1995mc}\\
+DELPHI &Charge sec.\ vtx              &91--93 &$1.63 \pm 0.14 \pm 0.13$           &\cite{Adam:1995mb}\\
+DELPHI &Inclusive \particle{D^* \ell} &91--93 &$1.532\pm 0.041\pm 0.040$          &\cite{Abreu:1996gb}\\
+DELPHI &Charge sec.\ vtx              &94--95 &$1.531 \pm 0.021\pm0.031$          &\cite{Abdallah:2003sb}\\
+L3     &Charge sec.\ vtx              &94--95 &$1.52 \pm 0.06 \pm 0.04$           &\cite{Acciarri:1998uv}\\
+OPAL   &\particle{D^{(*)} \ell}       &91--93 &$1.53 \pm 0.12 \pm 0.08$           &\cite{Akers:1995pa}\\
+OPAL   &Charge sec.\ vtx              &93--95 &$1.523\pm 0.057\pm 0.053$          &\cite{Abbiendi:1998av}\\
+OPAL   &Inclusive \particle{D^* \ell} &91--00 &$1.541\pm 0.028\pm 0.023$          &\cite{Abbiendi:2000ec}\\
+SLD    &Charge sec.\ vtx $\ell$       &93--95 &$1.56^{+0.14}_{-0.13} \pm 0.10$    &\cite{Abe:1997ys}$^a$\\
+SLD    &Charge sec.\ vtx              &93--95 &$1.66 \pm 0.08 \pm 0.08$           &\cite{Abe:1997ys}$^a$\\
+CDF1   &\particle{D^{(*)} \ell}       &92--95 &$1.474\pm 0.039^{+0.052}_{-0.051}$ &\cite{Abe:1998wt}\\
+CDF1  &Excl.\ \particle{\jpsi K^{*0}}&92--95 &$1.497\pm 0.073\pm 0.032$          &\cite{Acosta:2002nd}\\
+% CDF2  &Excl.\ \particle{\jpsi K^{*0}}&02--04 &$1.541\pm 0.050\pm0.020$           &\cite{Aaltonen:2007gf}\\ %%% Published result superseded by preliminary result of \cite{Aaltonen:2010pj,*Abulencia:2006dr_mod_cont}
+%%% CDF2   &Incl.\ \particle{D^{(*)} \ell}&02--04 &$1.473\pm 0.036\pm0.054$           &\cite{CDFnote7514:2005}$^p$\\
+%%% CDF2   &Excl.\ \particle{D^-(3)\pi}   &02--04 &$1.511\pm 0.023\pm0.013$           &\cite{CDFnote7386:2005}$^p$\\
+CDF2   &Excl.\ \particle {\jpsi K_S}, \particle{\jpsi K^{*0}} &02--09 &$1.507\pm 0.010\pm0.008$           &\cite{Aaltonen:2010pj,*Abulencia:2006dr_mod_cont} \\
+%%%%%\dzero &Excl. \particle{\jpsi K^{*0}}&02--04 &$1.473^{+0.052}_{-0.050}\pm0.023$  &\cite{Abazov:2004ce}\\ % superseded by Abazov:2008jz,*Abazov:2005sa_mod_cont
+%%%%%\dzero &Excl.\ \particle{\jpsi K^{*0}}&02--05 &$1.530\pm0.043\pm0.023$ &\cite{Abazov:2008jz,*Abazov:2005sa_mod_cont,Abazov:2004ce}\\ % replaces 1.473+0.052-0.050 +-0.023 of \cite{Abazov:2004ce}  % superseded by Abazov:2008jz,*Abazov:2005sa_mod_cont
+\dzero &Excl.\ \particle{\jpsi K^{*0}}&03--07 &$1.414\pm0.018\pm0.034$ &\cite{Abazov:2008jz,*Abazov:2005sa_mod_cont}\\ % replaces 1.530+-0.043+-0.023 of above line
+\dzero &Excl.\ \particle {\jpsi K_S} &02--11 &$1.508 \pm0.025 \pm0.043$  &\cite{Abazov:2012iy,*Abazov:2007sf_mod_cont,*Abazov:2004bn_mod_cont} \\
+\dzero &Inclusive \particle {D^-\mu^+} &02--11 &$1.534 \pm0.019 \pm0.021$  & \cite{Abazov:2014rua,*Abazov:2006cb_cont} \\ % RUN II; 10.4 fb-1
+\babar &Exclusive                     &99--00 &$1.546\pm 0.032\pm 0.022$          &\cite{Aubert:2001uw}\\
+\babar &Inclusive \particle{D^* \ell} &99--01 &$1.529\pm 0.012\pm 0.029$          &\cite{Aubert:2002gi,*Aubert:2002gi_erratum}\\
+\babar &Exclusive \particle{D^* \ell} &99--02 &$1.523^{+0.024}_{-0.023}\pm 0.022$ &\cite{Aubert:2002sh}\\
+\babar &Incl.\ \particle{D^*\pi}, \particle{D^*\rho} 
+                                      &99--01 &$1.533\pm 0.034 \pm 0.038$         &\cite{Aubert:2002ms}\\
+\babar &Inclusive \particle{D^* \ell}
+&99--04 &$1.504\pm0.013^{+0.018}_{-0.013}$  &\cite{Aubert:2005kf} \\ 
+%% 99 in the above line needs to be verified
+%% 04 also. 81/fb, i.e. by summer02 (to be confirmed by David) though reported in summer04
+%% lastly, this may actually supersede or have large correlation to \cite{Aubert:2002gi,*Aubert:2002gi_erratum}
+%%\belle & Exclusive                     & 00--01 & $1.554\pm 0.030 \pm 0.019$      & \cite{BELLE1}\\
+\belle & Exclusive                     & 00--03 & $1.534\pm 0.008\pm0.010$        & \cite{Abe:2004mz}\\
+%% in the above Belle not use 99 data, for 140/fb by sum'03
+ATLAS & Excl.\ \particle{\jpsi K^{*0}} & 2010 & $1.51 \pm0.04 \pm0.04$ & \cite{ATLAS-CONF-2011-092}$^p$ \\
+%%% LHCb  & Excl.\ \particle{\jpsi K^{*0}} & 2010 & $1.512 \pm0.032 \pm 0.042$ & \cite{LHCb-CONF-2011-001}$^p$ \\
+LHCb  & Excl.\ \particle{\jpsi K^{*0}} & 2011 & $1.524 \pm0.006 \pm 0.004$ & \cite{Aaij:2014owa} \\
+%%% LHCb  & Excl.\ \particle {\jpsi K_S}   & 2010 & $1.558 \pm0.056 \pm 0.022$ & \cite{LHCb-CONF-2011-001}$^p$ \\
+LHCb  & Excl.\ \particle {\jpsi K_S}   & 2011 & $1.499 \pm0.013 \pm 0.005$ & \cite{Aaij:2014owa} \\
+LHCb    & \particle{K^+\pi^-}   & 2011 & $1.524 \pm 0.011 \pm 0.004$ & \cite{Aaij:2014fia,*Aaij:2012ns_cont} \\
+\hline
+Average&                               &        & \hfagTAUBDnounit & \\
+\hline\hline           
+\multicolumn{5}{l}{$^a$ \footnotesize The combined SLD result 
+quoted in \cite{Abe:1997ys} is 1.64 $\pm$ 0.08 $\pm$ 0.08 ps.}\\[-0.5ex]
+\multicolumn{5}{l}{$^p$ {\footnotesize Preliminary.}}
+\end{tabular}
+\end{center}
+\end{table}
+
+After a number of years of dominating these averages the LEP experiments
+yielded the scene to the asymmetric \B~factories and
+the Tevatron experiments. The \B~factories have been very successful in
+utilizing their potential -- in only a few years of running, \babar and,
+to a greater extent, \belle, have struck a balance between the
+statistical and the systematic uncertainties, with both being close to
+(or even better than) the impressive 1\%.  In the meanwhile, CDF and
+\dzero have emerged as significant contributors to the field as the
+Tevatron Run~II data flowed in, with CDF eventually providing the most precise results. 
+% Both appear to enjoy relatively small
+% systematic effects, and while current statistical uncertainties of their
+% measurements are factors of 2 to 4 larger than those of their \B-factory
+% counterparts, both Tevatron experiments stand to increase their samples
+% by almost an order of magnitude.
+
+\begin{table}[tbp]
+\caption{Measurements of the \Bu lifetime.}
+\labt{lifebu}
+\begin{center}
+\begin{tabular}{lcccl} \hline
+Experiment &Method                 &Data set &$\tau(\Bu)$ (ps)                 &Ref.\\
+\hline
+ALEPH  &\particle{D^{(*)} \ell}    &91--95 &$1.648\pm 0.049\pm 0.035$          &\cite{Barate:2000bs}\\
+ALEPH  &Exclusive                  &91--94 &$1.58^{+0.21+0.04}_{-0.18-0.03}$   &\cite{Buskulic:1996hy}\\
+DELPHI &\particle{D^{(*)} \ell}    &91--93 &$1.61\pm 0.16\pm 0.12$             &\cite{Abreu:1995mc}$^a$\\
+DELPHI &Charge sec.\ vtx           &91--93 &$1.72\pm 0.08\pm 0.06$             &\cite{Adam:1995mb}$^a$\\
+DELPHI &Charge sec.\ vtx           &94--95 &$1.624\pm 0.014\pm 0.018$          &\cite{Abdallah:2003sb}\\
+L3     &Charge sec.\ vtx           &94--95 &$1.66\pm  0.06\pm 0.03$            &\cite{Acciarri:1998uv}\\
+OPAL   &\particle{D^{(*)} \ell}    &91--93 &$1.52 \pm 0.14\pm 0.09$            &\cite{Akers:1995pa}\\
+OPAL   &Charge sec.\ vtx           &93--95 &$1.643\pm 0.037\pm 0.025$          &\cite{Abbiendi:1998av}\\
+SLD    &Charge sec.\ vtx $\ell$    &93--95 &$1.61^{+0.13}_{-0.12}\pm 0.07$     &\cite{Abe:1997ys}$^b$\\
+SLD    &Charge sec.\ vtx           &93--95 &$1.67\pm 0.07\pm 0.06$             &\cite{Abe:1997ys}$^b$\\
+CDF1   &\particle{D^{(*)} \ell}    &92--95 &$1.637\pm 0.058^{+0.045}_{-0.043}$ &\cite{Abe:1998wt}\\
+CDF1   &Excl.\ \particle{\jpsi K} &92--95 &$1.636\pm 0.058\pm 0.025$          &\cite{Acosta:2002nd}\\
+CDF2   &Excl.\ \particle{\jpsi K} &02--09 &$1.639\pm 0.009\pm 0.009$          &\cite{Aaltonen:2010pj,*Abulencia:2006dr_mod_cont}\\ 
+%%% CDF2   &Incl.\ \particle{D^0 \ell} &02--04 &$1.653\pm 0.029^{+0.033}_{-0.031}$ &\cite{CDFnote7514:2005}$^p$\\
+CDF2   &Excl.\ \particle{D^0 \pi}  &02--06 &$1.663\pm 0.023\pm0.015$           &\cite{Aaltonen:2010ta}\\
+\babar &Exclusive                  &99--00 &$1.673\pm 0.032\pm 0.023$          &\cite{Aubert:2001uw}\\
+\belle &Exclusive                  &00--03 &$1.635\pm 0.011\pm 0.011$          &\cite{Abe:2004mz}\\
+%%% LHCb  & Excl.\ \particle{\jpsi K} & 2010 & $1.689 \pm0.022 \pm 0.047$ & \cite{LHCb-CONF-2011-001}$^p$ \\
+LHCb  & Excl.\ \particle{\jpsi K} & 2011 & $1.637 \pm0.004 \pm 0.003$ & \cite{Aaij:2014owa} \\
+\hline
+Average&                           &       &\hfagTAUBUnounit &\\
+\hline\hline
+\multicolumn{5}{l}{$^a$ \footnotesize The combined DELPHI result quoted 
+in~\cite{Adam:1995mb} is $1.70 \pm 0.09$ ps.} \\[-0.5ex]
+\multicolumn{5}{l}{$^b$ \footnotesize The combined SLD result 
+quoted in~\cite{Abe:1997ys} is $1.66 \pm 0.06 \pm 0.05$ ps.}\\[-0.5ex]
+% \multicolumn{5}{l}{$^p$ {\footnotesize Preliminary.}}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+At present time we are in an interesting position of having three sets
+of measurements (from LEP/SLC, \B factories and the Tevatron) that
+originate from different environments, obtained using substantially
+different techniques and are precise enough for incisive comparison.
+
+% While individual lifetimes are often of interest to experiments, \eg\ in
+% extraction of CKM matrix elements, the ratios of the lifetimes are more
+% interesting from the theoretical perspective as they are predicted more
+% precisely.
+
+
+\begin{table}[tb]
+\caption{Measurements of the ratio $\tau(\Bu)/\tau(\Bd)$.}
+\labt{liferatioBuBd}
+\begin{center}
+\begin{tabular}{lcccl} 
+\hline
+Experiment &Method                 &Data set &Ratio $\tau(\Bu)/\tau(\Bd)$      &Ref.\\
+\hline
+ALEPH  &\particle{D^{(*)} \ell}    &91--95 &$1.085\pm 0.059\pm 0.018$          &\cite{Barate:2000bs}\\
+ALEPH  &Exclusive                  &91--94 &$1.27^{+0.23+0.03}_{-0.19-0.02}$   &\cite{Buskulic:1996hy}\\
+DELPHI &\particle{D^{(*)} \ell}    &91--93 &$1.00^{+0.17}_{-0.15}\pm 0.10$     &\cite{Abreu:1995mc}\\
+DELPHI &Charge sec.\ vtx           &91--93 &$1.06^{+0.13}_{-0.11}\pm 0.10$     &\cite{Adam:1995mb}\\
+DELPHI &Charge sec.\ vtx           &94--95 &$1.060\pm 0.021 \pm 0.024$         &\cite{Abdallah:2003sb}\\
+L3     &Charge sec.\ vtx           &94--95 &$1.09\pm 0.07  \pm 0.03$           &\cite{Acciarri:1998uv}\\
+OPAL   &\particle{D^{(*)} \ell}    &91--93 &$0.99\pm 0.14^{+0.05}_{-0.04}$     &\cite{Akers:1995pa}\\
+OPAL   &Charge sec.\ vtx           &93--95 &$1.079\pm 0.064 \pm 0.041$         &\cite{Abbiendi:1998av}\\
+SLD    &Charge sec.\ vtx $\ell$    &93--95 &$1.03^{+0.16}_{-0.14} \pm 0.09$    &\cite{Abe:1997ys}$^a$\\
+SLD    &Charge sec.\ vtx           &93--95 &$1.01^{+0.09}_{-0.08} \pm0.05$     &\cite{Abe:1997ys}$^a$\\
+CDF1   &\particle{D^{(*)} \ell}    &92--95 &$1.110\pm 0.056^{+0.033}_{-0.030}$ &\cite{Abe:1998wt}\\
+CDF1   &Excl.\ \particle{\jpsi K} &92--95 &$1.093\pm 0.066 \pm 0.028$         &\cite{Acosta:2002nd}\\
+CDF2   &Excl.\ \particle{\jpsi K^{(*)}} &02--09 &$1.088\pm 0.009 \pm 0.004$   &\cite{Aaltonen:2010pj,*Abulencia:2006dr_mod_cont}\\ 
+%%% CDF2   &Incl.\ \particle{D \ell}   &02--04 &$1.123\pm0.040^{+0.041}_{-0.039}$  &\cite{CDFnote7514:2005}$^p$\\
+%%% CDF2   &Excl.\ \particle{D \pi}    &02--04 &$1.10\pm 0.02\pm 0.01$             &\cite{CDFnote7386:2005}$^p$\\
+\dzero &\particle{D^{*+} \mu} \particle{D^0 \mu} ratio
+	                           &02--04 &$1.080\pm 0.016\pm 0.014$          &\cite{Abazov:2004sa}\\
+\babar &Exclusive                  &99--00 &$1.082\pm 0.026\pm 0.012$          &\cite{Aubert:2001uw}\\
+\belle &Exclusive                  &00--03 &$1.066\pm 0.008\pm 0.008$          &\cite{Abe:2004mz}\\
+LHCb  & Excl.\ \particle{\jpsi K^{(*)}} & 2011 & $1.074 \pm0.005 \pm 0.003$ & \cite{Aaij:2014owa} \\
+\hline
+Average&                           &       & \hfagRTAUBU & \\   
+\hline\hline
+\multicolumn{5}{l}{$^a$ \footnotesize The combined SLD result quoted
+	   in~\cite{Abe:1997ys} is $1.01 \pm 0.07 \pm 0.06$.}
+%%% \\[-0.5ex] \multicolumn{5}{l}{$^p$ {\footnotesize Preliminary.}}
+\end{tabular}
+\end{center}
+\end{table}
+
+
+The averaging of $\tau(\Bu)$, $\tau(\Bd)$ and $\tau(\Bu)/\tau(\Bd)$
+measurements is summarized\footnote{
+We do not include the old unpublished measurements of Refs.~\cite{CDFnote7514:2005,CDFnote7386:2005}.}
+in \Tablesss{lifebd}{lifebu}{liferatioBuBd}.
+For $\tau(\Bu)/\tau(\Bd)$ we averaged only the measurements of this
+quantity provided by experiments rather than using all available
+knowledge, which would have included, for example, $\tau(\Bu)$ and
+$\tau(\Bd)$ measurements which did not contribute to any of the ratio
+measurements.
+
+The following sources of correlated (within experiment/machine)
+systematic uncertainties have been considered:
+% (central values and errors scaled accordingly):
+\begin{itemize}
+\item for SLC/LEP measurements -- \particle{D^{**}} branching ratio uncertainties~\cite{Abbaneo:2000ej_mod,*Abbaneo:2001bv_mod_cont},
+momentum estimation of \b mesons from \particle{Z^0} decays
+(\b-quark fragmentation parameter $\langle X_E \rangle = 0.702 \pm 0.008$~\cite{Abbaneo:2000ej_mod,*Abbaneo:2001bv_mod_cont}),
+\Bs and \b baryon lifetimes (see \Secss{taubs}{taulb}),
+and \b-hadron fractions at high energy (see \Table{fractions}); 
+\item for \babar measurements -- alignment, $z$ scale, PEP-II boost,
+sample composition (where applicable);
+\item for \dzero and CDF Run~II measurements -- alignment (separately
+within each experiment).
+\end{itemize}
+The resultant averages are:
+\begin{eqnarray}
+\tau(\Bd) & = & \hfagTAUBD \,, \\
+\tau(\Bu) & = & \hfagTAUBU \,, \\
+\tau(\Bu)/\tau(\Bd) & = & \hfagRTAUBU \,.
+\end{eqnarray}
