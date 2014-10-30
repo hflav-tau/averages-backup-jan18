@@ -3,9 +3,10 @@
 \subsection{Exclusive CKM-favoured decays}
 \label{slbdecays_b2cexcl}
 % -------------------------------------------
-This section contains the averages for the decays $\bar B\to
-D^*\ell^-\bar\nu_\ell$ and $\bar B\to D\ell^-\bar\nu_\ell$, relevant
-to the determination of $\vcb$ from exclusive decays. We then provide
+This section is organized as follows: First, we present averages for
+the decays $\bar B\to D^*\ell^-\bar\nu_\ell$ and $\bar B\to
+D\ell^-\bar\nu_\ell$. In addition to the branching fractions, the CKM
+element $|V_{cb}|$ is extracted. We then provide
 averages for the inclusive branching fractions $\cbf(\bar B\to
 D^{(*)}\pi \ell^-\bar\nu_\ell)$ and for $B$ semileptonic decays into
 orbitally-excited $P$-wave charm mesons ($D^{**}$). As the $D^{**}$
@@ -20,12 +21,16 @@ $\cbf(B^-\to D^{**}(D^{(*)}\pi)\ell^-\bar\nu_\ell)\times
 \mysubsubsection{$\bar B\to D^*\ell^-\bar\nu_\ell$}
 \label{slbdecays_dstarlnu}
 
-In the parameterization of Caprini, Lellouch and Neubert (CLN), the
-shape and normalization of the form factor ${\cal F}(w)$, which
-describes the decay $\bar B\to D^*\ell^-\bar\nu_\ell$, can be
-described by four quantities: $\eta_\mathrm{EW}{\cal F}(1)\vcb$,
-$\rho^2$, $R_1(1)$ and $R_2(1)$~\cite{CLN}. Our average and the
-determination of $\vcb$ are based on this parameterization.
+The kinematics of the decay $\bar B\to D^*\ell^-\bar\nu_\ell$ are
+described by the form factor $\eta_\mathrm{EW}{\cal F}(w)$, where
+$\eta_{EW}$ is a known electro-weak correction factor and $w$ is the
+product of the $B$ and $D^*$ meson 4-velocities, $w=v_B\cdot
+v_{D^*}$. Most experiments use the parameterization of Caprini,
+Lellouch and Neubert (CLN) to describe the shape and normalization of
+$\eta_\mathrm{EW}{\cal F}(w)$ by four quantities:
+$\eta_\mathrm{EW}{\cal F}(1)\vcb$, $\rho^2$, $R_1(1)$ and
+$R_2(1)$~\cite{CLN}. Our main average and the determination of $\vcb$
+are based on this parameterization.
 
 We use the measurements of these form factor parameters shown in
 Table~\ref{tab:vcbf1} and rescale them to the latest values of the
@@ -43,9 +48,9 @@ symmetry.
 In the next step, we perform a four-dimensional fit of the parameters
 $\eta_\mathrm{EW}{\cal F}(1)\vcb$, $\rho^2$, $R_1(1)$ and $R_2(1)$
 using the rescaled measurements and taking into account correlated
-systematic uncertainties. Only two measurements constrain all four
-parameters~\cite{Dungel:2010uk,Aubert:2006mb}, the remaining
-measurements constrain only the normalization $\eta_\mathrm{EW}{\cal
+statistical and systematic uncertainties. Only two measurements
+constrain all four parameters~\cite{Dungel:2010uk,Aubert:2006mb}, the remaining
+measurements determine only the normalization $\eta_\mathrm{EW}{\cal
   F}(1)\vcb$ and the slope $\rho^2$. The result of the fit is
 \begin{eqnarray}
   \eta_\mathrm{EW}{\cal F}(1)\vcb & = & (35.81\pm 0.45)\times
@@ -61,7 +66,7 @@ and the correlation coefficients are
   \rho_{\eta_\mathrm{EW}{\cal F}(1)\vcb,R_2(1)} & = & -0.063~,\\
   \rho_{\rho^2,R_1(1)} & = & 0.568~,\\
   \rho_{\rho^2,R_2(1)} & = & -0.809~,\\
-  \rho_{R_1(1),R_2(1)} & = & -0.758~.\\
+  \rho_{R_1(1),R_2(1)} & = & -0.758~.
 \end{eqnarray}
 The uncertainties and correlations quoted here include both
 statistical and systematic contributions. The $\chi^2$ of the fit is
@@ -88,19 +93,20 @@ Fig.~\ref{fig:vcbf1}.
   \end{center}
 \end{figure}
 
-Using the form factor normalization $\eta_\mathrm{EW}{\cal F}(1)$
-obtained with the lattice QCD approach~\cite{Bailey:2010gb},
+Using the lastest update from the FNAL/MILC
+group~\cite{Bailey:2014tva}, the form factor normalization
+$\eta_\mathrm{EW}{\cal F}(1)$ is
 \begin{equation}
-  \eta_\mathrm{EW}{\cal F}(1) = 0.908\pm 0.017~,
+  \eta_\mathrm{EW}{\cal F}(1) = 0.920\pm 0.014~,
 \end{equation}
-we obtain the following determination of $\vcb$ from
+which results in the following determination of $\vcb$ from
 Eq.~\ref{eq:vcbf1},
 \begin{equation}
-  \vcb = (39.44\pm 0.50_{\rm exp}\pm 0.74_{\rm th})\times
+  \vcb = (38.94\pm 0.49_{\rm exp}\pm 0.58_{\rm th})\times
   10^{-3}~, \label{eq:vcbdstar}
 \end{equation}
-where the first uncertainty is experimental and the second stems from
-the LQCD calculation.
+where the first uncertainty is experimental and the second error is
+theoretical (lattice QCD calculation and electro-weak correction).
 
 From each rescaled measurement in Table~\ref{tab:vcbf1}, we
 calculate the $\bar B\to D^*\ell^-\bar\nu_\ell$ form factor
@@ -115,13 +121,12 @@ $R_2(1)$ is
 \begin{equation}
   \cbf(\BzbDstarlnu)=(4.93\pm 0.11)\%~.
 \end{equation}
-Again, this analysis assumes isospin symmetry although most of the
-measurements included are sensitive only to $\BzbDstarlnu$. For an
-independent analysis of the decay $B^-\to D^{*0}\ell^-\bar\nu_\ell$,
-we have performed a simple 1-dimensional average of measurements
-sensitive to the decay $B^-\to D^{*0}\ell^-\bar\nu_\ell$ only, which is
-shown in Table~\ref{tab:dstar0lnu}. Fig.~\ref{fig:brdsl} illustrates
-these two averages of $\bar B\to D^*\ell^-\bar\nu_\ell$.
+
+To test isospin symmetry, we have performed a simple 1-dimensional
+average of measurements sensitive to the decay $B^-\to
+D^{*0}\ell^-\bar\nu_\ell$ only, which is shown in
+Table~\ref{tab:dstar0lnu}. Fig.~\ref{fig:brdsl} illustrates our two
+averages of $\bar B\to D^*\ell^-\bar\nu_\ell$.
 \input{tables/slb/dstarlnu.tex}
 \input{tables/slb/dstar0lnu.tex}
 \begin{figure}[!ht]
@@ -145,23 +150,22 @@ these two averages of $\bar B\to D^*\ell^-\bar\nu_\ell$.
 \mysubsubsection{$\bar B\to D\ell^-\bar\nu_\ell$}
 \label{slbdecays_dlnu}
 
-Similarly, the average of $\bar B\to D\ell^-\bar\nu_\ell$ is also
-based on the CLN parameterization~\cite{CLN}. The form factor
-$\eta_\mathrm{EW}{\cal G}(w)$ of the decay is described by only two
-parameters: the normalization $\eta_\mathrm{EW}{\cal G}(1)\vcb$ and
-the slope $\rho^2$.
+The relevant form factor for the decay $\bar B\to D\ell^-\bar\nu_\ell$
+is $\eta_\mathrm{EW}{\cal G}(w)$, which in CLN~\cite{CLN} is described
+by only two parameters: the normalization $\eta_\mathrm{EW}{\cal
+  G}(1)\vcb$ and the slope $\rho^2$.
 
 We use the measurements of these two form factor parameters shown in
 Table~\ref{tab:vcbg1} and correct them to match the latest values of
 the input parameters~\cite{HFAG_sl:inputparams}. These measurements
 are sensitive to both isospin states ($\BzbDplnu$ and $B^-\to
-D^0\ell^-\bar\nu_\ell$). So, isospin symmetry is assumed in this analysis.
+D^0\ell^-\bar\nu_\ell$). So, isospin symmetry is assumed in the analysis.
 \input{tables/slb/vcbg1.tex}
 
 The form factor parameters are extracted by a two-dimensional fit to
 the rescaled measurements of $\eta_\mathrm{EW}{\cal G}(1)\vcb$ and
-$\rho^2$ taking into account correlated systematic uncertainties. The
-result of the fit reads
+$\rho^2$ taking into account correlated statistical and systematic
+uncertainties. The result of the fit reads
 \begin{eqnarray}
   \eta_\mathrm{EW}{\cal G}(1)\vcb & = & (42.65\pm 1.53)\times
   10^{-3}~, \label{eq:vcbg1} \\
@@ -195,8 +199,8 @@ Fig.~\ref{fig:vcbg1}.
   \end{center}
 \end{figure}
 
-The most recent result obtained for the form factor normalization
-$\eta_\mathrm{EW}{\cal G}(1)$ in LQCD is~\cite{Okamoto:2004xg}
+The most recent lattice QCD result obtained for the form factor
+normalization $\eta_\mathrm{EW}{\cal G}(1)$ is~\cite{Okamoto:2004xg}
 \begin{equation}
   \eta_\mathrm{EW}{\cal G}(1) = 1.081\pm 0.024~,
 \end{equation}
@@ -207,7 +211,7 @@ $\vcb$,
 \end{equation}
 where the first error is experimental and the second theoretical. This
 number is in excellent agreement with $\vcb$ obtained from decays
-$\bar B\to D^*\ell^-\bar\nu_\ell$, Eq.~\ref{eq:vcbdstar}.
+$\bar B\to D^*\ell^-\bar\nu_\ell$ (Eq.~\ref{eq:vcbdstar}).
 
 From each rescaled measurement in Table~\ref{tab:vcbg1}, we have
 calculated the $\bar B\to D\ell^-\bar\nu_\ell$ form factor ${\cal
@@ -218,7 +222,6 @@ the average values of $\eta_\mathrm{EW}{\cal G}(1)\vcb$ and $\rho^2$ is
 \begin{equation}
   \cbf(\BzbDplnu)=(2.13\pm 0.09)\%~.
 \end{equation}
-This analysis assumes isospin symmetry.
 \input{tables/slb/dlnuIso.tex}
 \begin{figure}[!ht]
   \begin{center}
@@ -227,9 +230,7 @@ This analysis assumes isospin symmetry.
   \put( -0.5,  0.0){\includegraphics[width=7.55cm]{figures/slb/br_dl_iso.pdf}
   }
   \end{picture}
-  \caption{Average branching fraction of exclusive semileptonic
-    $B$~decays $\bar B^0\to D^+\ell^-\bar\nu_\ell$
-    (Table~\ref{tab:dlnuIso}). The fit assumes isospin conservation.}
+  \caption{Illustration of Table~\ref{tab:dlnuIso}.}
   \label{fig:brdlIso}
   \end{center}
 \end{figure}
