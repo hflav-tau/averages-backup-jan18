@@ -4,33 +4,22 @@
 \label{sec:tau:lfv_com}
 \newcommand{\cls}{\ensuremath{CL_s}\xspace}
 
-There is no standard and generally agreed method of combining experimental upper
-limits on branching fractions. The published \mtau LFV searches upper
-limits are extracted from the data with a variety of methods and there is
-no straightforward way to combine them with a uniform simple procedure.
-Therefore we re-compute the published limits with a suitable
-method to provide a way to combine the experimental findings with a uniform
-procedure. We proceed as follows:
-\begin{itemize}
+Combining upper limits is a delicate issue, since there is no standard and
+generally agreed procedure. Furthermore, the \mtau LFV searches
+published limits are extracted from the data with a variety of
+methods, and cannot be directly combined with a uniform procedure. It
+is however possible to design a single and effective
+upper limits combination procedure by re-computing the published upper
+limits with just one extraction method, re-using the published
+information that documents the upper limit determination in the papers:
+number of observed candidates, expected background, signal efficiency and
+number of analyzed \mtau decays.
 
-\item
-  for each published limit, a new limit is
-  computed with the \cls method \cite{Mistlberger:2012rs} using the published
-  information on the observed candidates, the expected background, the signal
-  efficiency, and the number of recorded \mtau decays.
-
-\item
-  the newly computed limits are combined to provide the HFAG combined limits.
-
-\end{itemize}
-The \cls method is a well known and widely used method for extracting upper
-limits (see the Statistics review of PDG 2013~\cite{PDG_2013}). Limits
-computed with the \cls method are easily combined (see below) and are
-resilient and conservative in presence of a downward fluctuation of the
-number of detected signal candidates. This is observed for several
-published \mtau LFV searches, with the consequence that the published
-limits are better than the experimental sensitivity when computed with
-methods like Feldman-Cousins~\cite{Feldman:1998}.
+We chose to use the \cls method~\cite{Mistlberger:2012rs} to re-compute the
+\mtau LFV upper limits, since it is well known and widely used (see the
+Statistics review of PDG 2013~\cite{PDG_2013}), and since the
+limits computed with the \cls method can be combined in a straightforward
+way (see below).
 
 The \cls method is based on two hypothesis: signal plus background and
 background only. We calculate the observed confidence levels for the two
@@ -62,19 +51,27 @@ $n_i$ is the number of observed candidates, $x_{ij}$ are the values of the
 discriminating variables (with index $j$), $s_i$ and $b_i$ are the number
 of signal and background events and $S_i$, $B_i$ are the probability
 distribution functions of the discriminating variables.
+The expected signal $s_i$ is related to the \mtau lepton branching
+fraction $\BR(\tau \rightarrow f_i)$ into
+the searched final state $f_i$ by $s_i = N_\tau^i\epsilon_i\BR(\tau \rightarrow
+f_i)$, where $N_\tau^i$ is the number of produced \mtau leptons and
+$\epsilon_i$ is the detection efficiency for observing the decay of a
+produced $\tau$ lepton in the state $f_i$. For $e^+ e^-$ experiments,
+$N_\tau^i = 2\mathcal{L}_i\sigma_{\tau\tau}$, where $\mathcal{L}_i$ is the
+integrated luminosity, $\sigma_{\tau\tau}$ is the
+\mtau pair production cross section $\sigma(e^+ e^- \rightarrow \tau^+ \tau^-)$.
 
-The extraction of the upper limits is performed using code 
-For the technical implementation we used an implementation provided by Tom Junk~\cite{junk:2007:cdfnote}. For each experiment we estimated the number of expected signal events using the formula:
-\begin{equation}
-\begin{split}
-s_i & =2\mathcal{L}_i\sigma_{\tau\tau}Br(\tau \rightarrow LFV) \\
-& =\frac{Br(\tau \rightarrow LFV)}{\alpha},
-\end{split}
-\end{equation}
-where $\mathcal{L}_i$ is the integrated luminosity of an given experiment, $\sigma_{\tau\tau}$ is the cross section of a process $e^+ e^- \rightarrow  \tau^+ \tau^-$, $Br(\tau \rightarrow LFV)$ is the branching fraction of searched process and $\alpha$ is so called normalization factor\footnote{In case of LHCb results we take the the normalization directly from the appropriate paper.}. The systematics uncertainties are evaluated in pseudoexperiments generation by varying nuisance parameters($s_i$, $b_i$). The values are varied accordingly to Gaussian distribution width equal to corresponding systematic.\\
-As mentioned at the begging most of the limits calculated by the B factories used Feldman-Cousin method, for comparison purposes in table~\ref{tab:tau:lfv-upper-limits_comb} we reported individual limits calculated with \cls method as well our combined limit. The same numbers are shown in Figure~\ref{fig:tau:lfv-limits-plot_average}. CLEO results were not taken into account because of negligible impact, also if a result between Belle an \babar is an order of magnitude stronger we did not perform a combination of this limits.
+The extraction of the upper limits is performed using the code provided by
+Tom Junk~\cite{junk:2007:cdfnote}. The systematic uncertainties, which
+affect $S_i$ and $B_i$, are accounted by randomly extracting the
+corresponding nuisance parameters from Gaussian distributions.
 
-
+Table~\ref{tab:tau:lfv-upper-limits_comb} reports the re-computed limits
+for the $B$ factories results as well as the corresponding HFAG combination.
+CLEO results were not included in the combination because they have
+negligible impact, furthermore also upper limits that are more than an order of
+magnitude weaker than the best measurements are not included in the
+combination.
 
 \begin{center}
 \begin{longtable}{lcl@{}rl}
