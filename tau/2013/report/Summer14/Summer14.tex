@@ -19,10 +19,12 @@
 
 \usepackage{adjustbox}
 \usepackage{tabularx}
-\usepackage{ltablex}
+%\usepackage{ltablex}
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{color, colortbl}
+\usepackage{footmisc}
+\usepackage{afterpage}
 
 \definecolor{Gray}{gray}{0.9}
 \definecolor{LightGray}{gray}{0.97}
@@ -66,50 +68,56 @@
 \large{\it Heavy Flavor Averaging Group (HFAG):}
 %%\author{set one author to remove the spurious ``immediate''}
 \vspace*{-0.20in}}
-\author[1]{J.~Bloggs}\affil[1]{University of Hard Knocks}
-%% \author[1]{Y.~Amhis}\affil[1]{LAL, Universit\'{e} Paris-Sud, France}
+\author[1]{Y.~Amhis}\affil[1]{LAL, Universit\'{e} Paris-Sud, France}
 %% \author[2]{Sw.~Banerjee}\affil[2]{University of Victoria, Canada}
+\author[]{E.~Ben-Haim}\affil[]{LPNHE, Universit\'e Pierre et Marie Curie-Paris 6, Universit\'e Denis Diderot-Paris7, CNRS/IN2P3, France}
 %% \author[3]{R.~Bernhard}\affil[3]{University of Freiburg, Germany}
-%% \author[4]{S.~Blyth}\affil[4]{National United University, Taiwan}
-%% \author[5]{A.~Bozek}\affil[5]{H. Niewodniczanski Institute of Nuclear Physics, Krakow, Poland}
+\author[4]{S.~Blyth}\affil[4]{National United University, Taiwan}
+\author[5]{A.~Bozek}\affil[5]{H. Niewodniczanski Institute of Nuclear Physics, Krakow, Poland}
 %% \author[6]{C.~Bozzi}\affil[6]{INFN Ferrara, Italy}
-%% \author[7,8]{A.~Carbone}\affil[7]{INFN Bologna, Italy}\affil[8]{Universit\'{a} di Bologna, Italy}
-%% \author[9]{A.~Oyanguren Campos}\affil[9]{IFIC, University of Valencia, Spain}
-%% \author[10]{R.~Chistov}\affil[10]{Institute for Theoretical and Experimental Physics, Russia}
-%% \author[6]{G.~Cibinetto}
+\author[7,8]{A.~Carbone}\affil[7]{INFN Bologna, Italy}\affil[8]{Universit\'{a} di Bologna, Italy}
+\author[10]{R.~Chistov}\affil[10]{Institute for Theoretical and Experimental Physics, Russia}
+\author[6]{G.~Cibinetto}
 %% \author[11]{J.~Coleman} \affil[11]{University of Liverpool, UK}
 %% \author[12]{J.~Dingfelder}\affil[12]{Bonn University, Germany}
 %% \author[13]{W.~Dungel}\affil[13]{Austrian Academy of Sciences, Austria}
-%% \author[14]{M.~Gersabeck}\affil[14]{European Organization for Nuclear Research (CERN), Switzerland}
-%% \author[14,15]{T.~J.~Gershon}\affil[15]{University of Warwick, UK}
-%% \author[16]{L.~Gibbons}\affil[16]{Cornell University, USA}
+\author[]{M.~Gelb}
+\author[14]{M.~Gersabeck}\affil[14]{European Organization for Nuclear Research (CERN), Switzerland}
+\author[15]{T.~Gershon}\affil[15]{University of Warwick, UK}
+\author[16]{L.~Gibbons}\affil[16]{Cornell University, USA}
 %% \author[17]{B.~Golob}\affil[17]{University of Ljubljana, Slovenia}
-%% \author[18]{R.~Harr}\affil[18]{Wayne State University, USA}
+\author[18]{R.~Harr}\affil[18]{Wayne State University, USA}
 %% \author[19]{K.~Hayasaka} \affil[19]{Nagoya University, Japan}
 %% \author[20]{H.~Hayashii} \affil[20]{Nara Women's University, Japan}
+\author[]{T.~Kuhr}
 \author[21]{O.~Leroy}\affil[21]{CPPM, Aix-Marseille Universit\'{e}, CNRS/IN2P3, Marseille, France}
 %% \author[22]{D.~Lopes Pegna}\affil[22]{Princeton University, USA}
 %% \author[23]{R.~Louvot}\affil[23]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
 
-%% \author[24]{A.~Lusiani} \affil[24]{Scuola Normale Superiore and INFN, Pisa, Italy}
+\author[24]{A.~Lusiani} \affil[24]{Scuola Normale Superiore and INFN, Pisa, Italy}
 %% \author[25]{V.~L\"{u}th}\affil[25]{SLAC National Accelerator Laboratory, USA}
+\author[]{K.~Miyabayashi}
 %% \author[26]{B.~Meadows} \affil[26]{University of Cincinnati, USA}
-%% \author[27]{S.~Nishida}\affil[27]{KEK, Tsukuba, Japan}
-%% \author[28]{M.~Patel}\affil[28]{Imperial College London, UK}
-%% \author[29]{D.~Pedrini} \affil[29]{INFN Milano-Bicocca, Italy}
-%% \author[30]{M.~Rama}\affil[30]{INFN Frascati, Italy}
+\author[]{P.~Naik}
+\author[27]{S.~Nishida}\affil[27]{KEK, Tsukuba, Japan}
+\author[9]{A.~Oyanguren Campos}\affil[9]{IFIC, University of Valencia, Spain}
+\author[28]{M.~Patel}\affil[28]{Imperial College London, UK}
+\author[29]{D.~Pedrini} \affil[29]{INFN Milano-Bicocca, Italy}
+\author[]{M.~Petric}\affil[17]{University of Ljubljana, Slovenia}
+\author[30]{M.~Rama}\affil[30]{INFN Frascati, Italy}
 %% \author[2]{M.~Roney}
-%% \author[31]{M.~Rotondo}\affil[31]{INFN Padova, Italy}
-\author[23]{O.~Schneider}
-%% \author[13]{C.~Schwanda}
-%% \author[25]{A.~J.~Schwartz}
+\author[31]{M.~Rotondo}\affil[31]{INFN Padova, Italy}
+\author[23]{O.~Schneider}\affil[23]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+\author[13]{C.~Schwanda}
+\author[25]{A.~J.~Schwartz}
 %% \author[32]{B.~Shwartz}\affil[32]{Budker Institute of Nuclear Physics, Russia}
-%% \author[33]{J.~G.~Smith}\affil[33]{University of Colorado, USA}
+\author[33]{J.~G.~Smith}\affil[33]{University of Colorado, USA}
 \author[34]{R.~Tesarek}\affil[34]{Fermilab, USA}
-%% \author[14,34]{D.~Tonelli}
-%% \author[26]{K.~Trabelsi}
+\author[14,34]{D.~Tonelli}
+\author[26]{K.~Trabelsi}
 %% \author[12]{P.~Urquijo}
 \author[35]{R.~Van Kooten}\affil[35]{Indiana University, USA}
+\author[]{A.~Zupanc}
 
 \date{\today} % replace \date{\today} at arXiv submission time
 \maketitle
@@ -137,7 +145,7 @@ parameters of semileptonic decays and CKM matrix elements.
 % Methodology
 \input{methods.tex}
 
-%% \clearpage
+\clearpage
 %% % b-hadron production fractions, lifetimes and mixing parameters
 \input{life_mix/life_mix.tex}
 
@@ -149,9 +157,9 @@ parameters of semileptonic decays and CKM matrix elements.
 %% % Semileptonic B decays
 \input{slbdecays/slbdecays.tex}
 
-%% \clearpage
+\clearpage
 %% % Branching fractions for B decays to charm
-% \input{b2charm/b2charm.tex}
+\input{b2charm/b2charm.tex}
 
 %\clearpage
 % Charmless B-decay branching fractions and their asymmetries
@@ -161,15 +169,16 @@ parameters of semileptonic decays and CKM matrix elements.
 %% %Charm decays
 \input{charm/charm_all.tex}
 
-\clearpage
+%\clearpage
 %Tau decays
-% \input{tau/tau_all.tex}
+%\input{tau/tau_all.tex}
 
 % Summary and Acknowledgements
 
-\def\babar{\mbox{\slshape B\kern-0.1em{\smaller A}\kern-0.1em
-    B\kern-0.1em{\smaller A\kern-0.2em R}}\xspace}
+%% \def\babar{\mbox{\slshape B\kern-0.1em{\smaller A}\kern-0.1em
+%%     B\kern-0.1em{\smaller A\kern-0.2em R}}\xspace}
 
+\clearpage
 \input{hfag_summary}
 \input{hfag_acknowledge}
 \clearpage
@@ -179,8 +188,6 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \bibliographystyle{HFAGutphys}
 \raggedright
-\bibliography{Summer14,life_mix/life_mix,cp_uta,slbdecays/slb_ref,charm/charm_refs}
-%\bibliography{EndOfYear11,life_mix,cp_uta,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}
-%\bibliography{EndOfYear09,life_mix,slbdecays/slb_ref,rare/rare_refs,charm/charm_refs,tau/pdg11-tau-refs,tau/hfag-tau-refs}}{}
+\bibliography{Summer14,life_mix/life_mix,cp_uta,slbdecays/slb_ref,b2charm/b2charm,charm/charm_refs,tau/tau-refs,tau/tau-refs-pdg}
 
 \end{document}
