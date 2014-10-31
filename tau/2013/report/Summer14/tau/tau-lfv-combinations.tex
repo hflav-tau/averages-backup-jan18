@@ -37,15 +37,15 @@ distribution functions (p.d.f.'s) for the two corresponding hypothesis and
 $Q$ is called the test statistics. The \cls value is defined as the ratio
 between the confidence level for the signal plus background hypothesis to
 the confidence level for the background hypothesis:
-\begin{equation}
+\begin{align*}
 CL_s=\dfrac{CL_{s+b}}{CL_{b}}.
-\end{equation}
+\end{align*}
 When multiple results are combined, the p.d.f.'s in
 Equations~\ref{eq:tau:clspdf1} and \ref{eq:tau:clspdf2} are the
 product of the individual p.d.f.'s,
-\begin{equation}
+\begin{align*}
 CL_s = \dfrac{\prod_{i=1}^{N_{chan}}\sum_{n=0}^{n_i} \dfrac{e^{-(s_i+b_i)} (s_i+b_i)^{n}}{n!} }{\prod_{i=1}^{n_{chan}}  \sum_{n=0}^{n_i} \dfrac{e^{-b_i} b_i^{n}}{n!}}    \dfrac{\prod_{j=1}^{n} s_iS_i(x_{ij})+b_iB_i(x_{ij})}{\prod_{j=1}^{n_i}B_i(x_{ij})}~,
-\end{equation}
+\end{align*}
 where $N_{chan}$ is the number of results (or channels), and, for each channel $i$,
 $n_i$ is the number of observed candidates, $x_{ij}$ are the values of the
 discriminating variables (with index $j$), $s_i$ and $b_i$ are the number
@@ -62,9 +62,9 @@ integrated luminosity, $\sigma_{\tau\tau}$ is the
 \mtau pair production cross section $\sigma(e^+ e^- \rightarrow \tau^+ \tau^-)$.
 
 The extraction of the upper limits is performed using the code provided by
-Tom Junk~\cite{junk:2007:cdfnote}. The systematic uncertainties, which
-affect $S_i$ and $B_i$, are accounted by randomly extracting the
-corresponding nuisance parameters from Gaussian distributions.
+Tom Junk~\cite{junk:2007:cdfnote}. The systematic uncertainties are modeled
+by convolving with Gaussian distributions the $S_i$ and $B_i$ p.d.f.'s that
+depend on the corresponding nuisance parameters.
 
 Table~\ref{tab:tau:lfv-upper-limits_comb} reports the re-computed limits
 for the $B$ factories results as well as the corresponding HFAG combination.
@@ -75,9 +75,13 @@ combination.
 
 \begin{center}
 \begin{longtable}{lcl@{}rl}
-
-\caption{HFAG 2014  upper limit for the lepton flavor violating $\tau$ decay modes combinations. Individual experiments limits are recalculated using \cls method and final combination is reported. For convenience, the decay modes
-are grouped in categories labelled according to their particle content. The label ``(L)'' in the category column means that the decay mode implies lepton number violation as well as the lepton flavor violation. ``BNV'' indicates that the channel is Baryon Number Violating.
+\caption{HFAG 2014 upper limit for the lepton flavor violating $\tau$ decay
+modes combinations. Individual experiments limits are recalculated using
+\cls method and final combination is reported. For convenience, the decay
+modes are grouped in categories labelled according to their particle
+content. The label ``(L)'' in the category column means that the decay mode
+implies lepton number violation as well as the lepton flavor
+violation. ``BNV'' indicates that the channel is Baryon Number Violating.
 \label{tab:tau:lfv-upper-limits_comb}}%
 \\
 \hline
@@ -284,3 +288,6 @@ are grouped in categories labelled according to their particle content. The labe
 \hline 
 \end{longtable}
 \end{center}
+
+Figure~\ref{fig:tau:lfv-limits-plot_average} reports the re-computed \mtau
+LFV searches upper limits and their combination.
