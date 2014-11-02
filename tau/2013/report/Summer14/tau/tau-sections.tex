@@ -7,7 +7,7 @@ recent, were studied to take into account the significant systematic
 dependencies from external parameters and common systematic sources.
 
 Particular care has been used to engineer a global fit of the \mtau
-branching fractions (Section~\ref{sec:tau:br-fit-all}) to obtain consistent
+branching fractions (Section~\ref{sec:tau:br-fit}) to obtain consistent
 and statistically complete information for further elaboration in order to
 compute lepton universality tests (Section~\ref{sec:tau:leptonuniv}) and
 the CKM matrix element $|V_{us}|$ (Section~\ref{sec:tau:vus}).
@@ -18,10 +18,10 @@ this report, we also provide combined upper limits.
 
 %% ///////////////////////////////////////////////////////////////////////////
 \tausection{Branching fractions fit}
-\cutname{br-fit-all.html}
-\label{sec:tau:br-fit-all}
+\cutname{br-fit.html}
+\label{sec:tau:br-fit}
 
-The measurements listed in Table~\ref{tab:br-fit-all} have been used in a
+The measurements listed in Table~\ref{tab:tau:br-fit} have been used in a
 minimum \chisq fit subject to the constraints that are listed
 either in the same table (where some fitted quantities and experimental
 measurements are expressed as ratios of fit quantities) or in
@@ -37,7 +37,7 @@ probably based on PDG identifiers~\cite{pdg-identifiers-2014}.
 The fitted branching fractions consist on \HfagTauBaseQuantNum ``base nodes'' and \HfagTauConstrNum derived
 branching fractions, described either as sum of base nodes (see
 Section~\ref{sec:tau:constraints}) or as ratios of branching fractions (see
-Table~\ref{tab:br-fit-all}). Furthermore, we define (see
+Table~\ref{tab:tau:br-fit}). Furthermore, we define (see
 Section~\ref{sec:tau:constraints}) $\Gamma_{\text{All}}$ as the sum of all
 the base modes, which correspond to all non-overlapping tau decay modes,
 $\Gamma_{998} = 1 -\Gamma_{\text{All}}$ and $\Gamma_{110} =
@@ -45,7 +45,7 @@ $\Gamma_{998} = 1 -\Gamma_{\text{All}}$ and $\Gamma_{110} =
 tau to modes with the strangeness quantum number equal to one.
 
 The fitted \hfagtau averages are reported in
-Table~\ref{tab:br-fit-all}. The fit has $\chi^2/\text{d.o.f.} = \HfagTauChisq/\HfagDof$,
+Table~\ref{tab:tau:br-fit}. The fit has $\chi^2/\text{d.o.f.} = \HfagTauChisq/\HfagDof$,
 corresponding to a confidence level $\text{CL} = \HfagTauChisqProb$. We use a total of
 \HfagTauMeasNum measurements to fit the above mentioned \HfagTauQuantNum quantities.
 The fit is statistically consistent with the unitarity constraint, but the
@@ -154,7 +154,7 @@ have been updated to the PDG 2013 results~\cite{PDG_2013}.
 \makeatother
 \fi
 \begin{longtable}{llll}
-\caption{HFAG Winter 2012 branching fractions fit results.\label{tab:br-fit-all}}%
+\caption{HFAG Winter 2012 branching fractions fit results.\label{tab:tau:br-fit}}%
 \\
 \hline
 \multicolumn{1}{l}{\bfseries Tau lepton branching fraction} &
@@ -204,14 +204,14 @@ In the fit, all non-tau quantities are taken from the PDG 2013~\cite{PDG_2013}
 fits (when available) or averages, and are used without accounting for their
 uncertainties, which are however in general small with respect
 to the uncertainties on the tau branching fractions.
-The tau branching fractions are illustrated in Table~\ref{tab:br-fit-all}.
+The tau branching fractions are illustrated in Table~\ref{tab:tau:br-fit}.
 The equations in the following permit the computation of the values and
 uncertainties for branching fractions that are not listed in
-Table~\ref{tab:br-fit-all}, once they are expressed as function of the
+Table~\ref{tab:tau:br-fit}, once they are expressed as function of the
 quantities that are listed there. The following list does not include the
 (non-linear) constraints already introduced in
-Section~\ref{sec:tau:br-fit-all}, and illustrated in
-Table~\ref{tab:br-fit-all}, where some measured branching fractions are
+Section~\ref{sec:tau:br-fit}, and illustrated in
+Table~\ref{tab:tau:br-fit}, where some measured branching fractions are
 expressed as ratios of ``base'' branching fractions.
 
 \begin{envsmall}
@@ -232,6 +232,8 @@ former HFAG reports~\cite{Asner:2010qj,Amhis:2012bh} and consists in a minimum \
 fit subject to linear and non-linear constraints.
 
 \tausection{\mtau lifetime average}
+\cutname{lifetime.html}
+\label{sec:tau:lifetime}
 
 The recent Belle \mtau lifetime measurement has
 reduced the world average uncertainty by a factor two. The HFAG-Tau average
@@ -313,15 +315,15 @@ Averaging the three \(g_\tau/g_\mu\) ratios we obtain
   \left( \frac{g_\tau}{g_\mu} \right)_{\tau{+}\pi{+}K} &= \htuse{gtaubygmu_fit}~,
 \end{align*}
 accounting for statistical correlations.
-Table~\ref{tab:univ-fit-corr} reports the statistical correlation coefficients for the fitted coupling ratios:
+Table~\ref{tab:tau:univ-fit-corr} reports the statistical correlation coefficients for the fitted coupling ratios:
 \ifhevea\begin{table}\fi%% otherwise cannot have normalsize caption
 \begin{center}
 \ifhevea
-\caption{Universality coupling ratios correlation coefficients (\%)\label{tab:univ-fit-corr}}%
+\caption{Universality coupling ratios correlation coefficients (\%)\label{tab:tau:univ-fit-corr}}%
 \else
 \begin{minipage}{\linewidth}
 \begin{center}
-\captionof{table}{Universality coupling ratios correlation coefficients (\%)}\label{tab:univ-fit-corr}%
+\captionof{table}{Universality coupling ratios correlation coefficients (\%)}\label{tab:tau:univ-fit-corr}%
 \fi
 \begin{center}
 \renewcommand*{\arraystretch}{1.1}%
