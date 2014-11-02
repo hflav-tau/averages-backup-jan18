@@ -8,10 +8,10 @@ Combining upper limits is a delicate issue, since there is no standard and
 generally agreed procedure. Furthermore, the \mtau LFV searches
 published limits are extracted from the data with a variety of
 methods, and cannot be directly combined with a uniform procedure. It
-is however possible to design a single and effective
-upper limits combination procedure by re-computing the published upper
-limits with just one extraction method, re-using the published
-information that documents the upper limit determination in the papers:
+is however possible to use a single and effective
+upper limits combination procedure for all modes by re-computing the published upper
+limits with just one extraction method, using the published
+information that documents the upper limit determination:
 number of observed candidates, expected background, signal efficiency and
 number of analyzed \mtau decays.
 
@@ -19,9 +19,7 @@ We chose to use the \cls method~\cite{Mistlberger:2012rs} to re-compute the
 \mtau LFV upper limits, since it is well known and widely used (see the
 Statistics review of PDG 2013~\cite{PDG_2013}), and since the
 limits computed with the \cls method can be combined in a straightforward
-way (see below).
-
-The \cls method is based on two hypothesis: signal plus background and
+way (see below). The \cls method is based on two hypothesis: signal plus background and
 background only. We calculate the observed confidence levels for the two
 hypothesis:
 \begin{align}
@@ -44,61 +42,62 @@ When multiple results are combined, the p.d.f.'s in
 Equations~\ref{eq:tau:clspdf1} and \ref{eq:tau:clspdf2} are the
 product of the individual p.d.f.'s,
 \begin{align*}
-CL_s = \dfrac{\prod_{i=1}^{N_{chan}}\sum_{n=0}^{n_i} \dfrac{e^{-(s_i+b_i)} (s_i+b_i)^{n}}{n!} }{\prod_{i=1}^{n_{chan}}  \sum_{n=0}^{n_i} \dfrac{e^{-b_i} b_i^{n}}{n!}}    \dfrac{\prod_{j=1}^{n} s_iS_i(x_{ij})+b_iB_i(x_{ij})}{\prod_{j=1}^{n_i}B_i(x_{ij})}~,
+CL_s = \dfrac{\prod_{i=1}^{N_{\text{chan}}}\sum_{n=0}^{n_i} \dfrac{e^{-(s_i+b_i)} (s_i+b_i)^{n}}{n!} }{\prod_{i=1}^{n_{\text{chan}}}  \sum_{n=0}^{n_i} \dfrac{e^{-b_i} b_i^{n}}{n!}}    \dfrac{\prod_{j=1}^{n} s_iS_i(x_{ij})+b_iB_i(x_{ij})}{\prod_{j=1}^{n_i}B_i(x_{ij})}~,
 \end{align*}
-where $N_{chan}$ is the number of results (or channels), and, for each channel $i$,
+where $N_{\text{chan}}$ is the number of results (or channels), and, for each channel $i$,
 $n_i$ is the number of observed candidates, $x_{ij}$ are the values of the
 discriminating variables (with index $j$), $s_i$ and $b_i$ are the number
 of signal and background events and $S_i$, $B_i$ are the probability
 distribution functions of the discriminating variables.
 The expected signal $s_i$ is related to the \mtau lepton branching
 fraction $\BR(\tau \rightarrow f_i)$ into
-the searched final state $f_i$ by $s_i = N_\tau^i\epsilon_i\BR(\tau \rightarrow
-f_i)$, where $N_\tau^i$ is the number of produced \mtau leptons and
-$\epsilon_i$ is the detection efficiency for observing the decay of a
-produced $\tau$ lepton in the state $f_i$. For $e^+ e^-$ experiments,
-$N_\tau^i = 2\mathcal{L}_i\sigma_{\tau\tau}$, where $\mathcal{L}_i$ is the
-integrated luminosity, $\sigma_{\tau\tau}$ is the
+the searched final state $f_i$ by $s_i = N_i\epsilon_i\BR(\tau \rightarrow
+f_i)$, where $N_i$ is the number of produced \mtau leptons and
+$\epsilon_i$ is the detection efficiency for observing the decay $\tau\to
+f_i$. For $e^+ e^-$ experiments,
+$N_i = 2\mathcal{L}_i\sigma_{\tau\tau}$, where $\mathcal{L}_i$ is the
+integrated luminosity and $\sigma_{\tau\tau}$ is the
 \mtau pair production cross section $\sigma(e^+ e^- \rightarrow \tau^+ \tau^-)$.
 
 The extraction of the upper limits is performed using the code provided by
 Tom Junk~\cite{junk:2007:cdfnote}. The systematic uncertainties are modeled
-by convolving with Gaussian distributions the $S_i$ and $B_i$ p.d.f.'s that
-depend on the corresponding nuisance parameters.
+in the Monte Carlo toy experiments by convolving the $S_i$ and $B_i$
+p.d.f.' with with Gaussian distributions corresponding to the nuisance
+parameters. 
 
 Table~\ref{tab:tau:lfv-upper-limits_comb} reports the re-computed limits
-for the $B$ factories results as well as the corresponding HFAG combination.
-CLEO results were not included in the combination because they have
-negligible impact, furthermore also upper limits that are more than an order of
-magnitude weaker than the best measurements are not included in the
-combination.
+for the $B$ factories results as well as the corresponding HFAG
+combination. Since there is negligible gain in combining limits of very
+different strength, the combinations do not include the CLEO searches and we do not
+combine results for modes where the best limit is more than an order of
+magnitude better than the other limits.
 
 \begin{center}
 \begin{longtable}{lcl@{}rl}
-\caption{HFAG 2014 upper limit for the lepton flavor violating $\tau$ decay
-modes combinations. Individual experiments limits are recalculated using
-\cls method and final combination is reported. For convenience, the decay
-modes are grouped in categories labelled according to their particle
-content. The label ``(L)'' in the category column means that the decay mode
-implies lepton number violation as well as the lepton flavor
-violation. ``BNV'' indicates that the channel is Baryon Number Violating.
+\caption{Combinations of upper limits on lepton flavor violating \mtau decay
+  modes. The table includes, for each mode, the published limits re-computed with
+  the \cls method and their combinaiton.
+  The modes are grouped according to the particle content of their final
+  states. Modes with lepton number violation are labeled with ``(L)'',
+  modes with baryon number violation are labeled with ``(BNV)''.
 \label{tab:tau:lfv-upper-limits_comb}}%
 \\
-\hline
+\toprule
 \multicolumn{1}{l}{\bfseries Decay mode} &
 \multicolumn{1}{l}{\bfseries Category} &
 \multicolumn{2}{c}{\bfseries \begin{tabular}{@{}c@{}}90\% CL\\Limit\end{tabular}} &
 \multicolumn{1}{l}{\bfseries Exp.}\\% &
 %\multicolumn{1}{l}{\bfseries Ref.} \\
-\hline
+\midrule
 \endfirsthead
-\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\ \hline
+\multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\midrule
 \multicolumn{1}{l}{\bfseries Decay mode} &
 \multicolumn{1}{l}{\bfseries Category} &
 \multicolumn{2}{c}{\bfseries \begin{tabular}{@{}c@{}}90\% CL\\Limit\end{tabular}} &
 \multicolumn{1}{l}{\bfseries Exp.}\\% &
 %\multicolumn{1}{l}{\bfseries Ref.} \\
-\hline
+\midrule
 \endhead
 %
 %  l\gamma
@@ -110,30 +109,30 @@ violation. ``BNV'' indicates that the channel is Baryon Number Violating.
  &\(l\gamma\) & \( <\; \) &  \(5.4 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(22.0 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(6.1 \cdot 10^{-8}\)         & \babar  \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{157} =  {\mu^- \gamma} 
 \end{ensuredisplaymath}
  &            & \( <\; \) &  \(5.0 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(17.0 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(5.9 \cdot 10^{-8}\)         & \babar   \\ 
-\hline
+\midrule
 %
-%  lP0
+% lP0
 \begin{ensuredisplaymath}
 \Gamma_{160} =  {e^- K^0_S} 
 \end{ensuredisplaymath}
  & \(lP^0 \)  & \( <\; \) & \(1.4 \cdot 10^{-8}\)         & HFAG  \\
  &            & \( <\; \) & \(1.8 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(4.7 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{161} =  {\mu^- K^0_S} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(1.5 \cdot 10^{-8}\)         & HFAG  \\
 &            & \( <\; \) & \(1.7 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(6.9 \cdot 10^{-8}\)         & \babar   \\ 
-\hline
+\midrule
 %
 % l V0
 %
@@ -143,42 +142,42 @@ violation. ``BNV'' indicates that the channel is Baryon Number Violating.
  &  \(l V^0\) & \( <\; \) & \(1.5 \cdot 10^{-8}\)         & HFAG  \\
  &            & \( <\; \) & \(1.9 \cdot 10^{-8}\)         & Belle\\
  &            & \( <\; \) & \(5.2 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{165} =  {\mu^- \rho^0} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(1.5 \cdot 10^{-8}\)         & HFAG  \\
  &            & \( <\; \) & \(2.1 \cdot 10^{-8}\)         & Belle\\
  &            & \( <\; \) & \(6.2 \cdot 10^{-8}\)         & \babar \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{168} =  {e^- K^*(892)^0} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(2.3 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(3.4 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(6.1 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{169} =  {\mu^- K^*(892)^0} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(6.0 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(6.6 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(17.0 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{170} =  {e^- \bar{K}^*(892)^0} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(2.2 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(3.3 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(5.6 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{171} =  {\mu^- \bar{K}^*(892)^0} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(4.2 \cdot 10^{-8}\)         & HFAG  \\
  &            & \( <\; \) & \(6.3 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(9.1 \cdot 10^{-8}\)         & \babar \\ 
-%\hline
+%\midrule
 
 \begin{ensuredisplaymath}
 \Gamma_{176} =  {e^- \phi} 
@@ -186,28 +185,28 @@ violation. ``BNV'' indicates that the channel is Baryon Number Violating.
  &            & \( <\; \) & \(2.0 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(3.5 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(4.3 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{177} =  {\mu^- \phi} 
 \end{ensuredisplaymath}
  &            & \( <\; \) &\(6.8 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) &\(7.6 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(18.0 \cdot 10^{-8}\)         & \babar   \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{166} =  {e^- \omega} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(3.3 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(5.2 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(9.4 \cdot 10^{-8}\)         & \babar    \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{167} =  {\mu^- \omega} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(4.0 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(6.1 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) &  \(10.0 \cdot 10^{-8}\)         & \babar   \\ 
-\hline
+\midrule
 %
 % lll
 %
@@ -217,21 +216,21 @@ violation. ``BNV'' indicates that the channel is Baryon Number Violating.
  &  \(lll\)   & \( <\; \) & \(1.4 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(2.7 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(3.1 \cdot 10^{-8}\)         & \babar    \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{181} =  {\mu^- e^+ e^-} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(1.1 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(1.7 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(3.0 \cdot 10^{-8}\)         & \babar    \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{179} =  {e^- \mu^+ \mu^-} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(1.6 \cdot 10^{-8}\)         & HFAG \\
  &            & \( <\; \) & \(2.6 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(4.1 \cdot 10^{-8}\)         & \babar     \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{183} =  {\mu^- \mu^+ \mu^-} 
 \end{ensuredisplaymath}
@@ -240,14 +239,14 @@ violation. ``BNV'' indicates that the channel is Baryon Number Violating.
  &            & \( <\; \) & \(4.0 \cdot 10^{-8}\)         & \babar  \\ 
  &            & \( <\; \) & \(4.6 \cdot 10^{-8}\)         & \lhcb   \\ 
 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{182} =  {e^- \mu^+ e^-} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(8.4 \cdot 10^{-9}\)         & HFAG \\
  &            & \( <\; \) & \(1.4 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(2.1 \cdot 10^{-8}\)         & \babar    \\ 
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{180} =  {\mu^- e^+ \mu^-} 
 \end{ensuredisplaymath}
@@ -257,35 +256,35 @@ violation. ``BNV'' indicates that the channel is Baryon Number Violating.
  %
 % Lambda h
 %
-\hline
+\midrule
 \begin{ensuredisplaymath}
 \Gamma_{211} =  { \pi^- \Lambda } 
 \end{ensuredisplaymath}
 & BNV & \( <\; \) & \(1.9 \cdot 10^{-8}\)         & HFAG  \\
 &                & \( <\; \) & \(3.2 \cdot 10^{-8}\)         & Belle  \\
  &               & \( <\; \) & \(6.7 \cdot 10^{-8}\)        & \babar     \\  
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{212} =  { \pi^- \bar{\Lambda}} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(1.8 \cdot 10^{-9}\)         & HFAG \\
  &            & \( <\; \) & \(2.9 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(6.5 \cdot 10^{-8}\)        & \babar     \\  
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{213} =  { K^- \Lambda } 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(3.7 \cdot 10^{-9}\)         & HFAG \\
  &            & \( <\; \) & \(4.4 \cdot 10^{-8}\)         & Belle  \\
  &            & \( <\; \) & \(9.2\cdot 10^{-8}\)         & \babar     \\  
-%\hline
+%\midrule
 \begin{ensuredisplaymath}
 \Gamma_{214} =  { K^- \bar{\Lambda}} 
 \end{ensuredisplaymath}
  &            & \( <\; \) & \(2.0 \cdot 10^{-9}\)         & HFAG \\
  &            & \( <\; \) & \(3.4 \cdot 10^{-8}\)         & Belle \\
  &            & \( <\; \) & \(5.0 \cdot 10^{-8}\)         & \babar     \\  
-\hline 
+\bottomrule
 \end{longtable}
 \end{center}
 
