@@ -248,7 +248,7 @@ is equivalent to the PDG 2014 average~\cite{PDG_2014} (see Fig.~\ref{fig:tau:tau
           \imgsrc[alt="Vus summary plot"]{plot-taulife-hfag-summer2014.png}}}
     \end{tabular}
     \else
-    \includegraphics[width=0.66\linewidth,clip]{figures/tau/plot-taulife-hfag-summer2014}
+    \includegraphics[width=0.75\linewidth,clip]{figures/tau/plot-taulife-hfag-summer2014.pdf}
     \fi
     \caption{\mtau lifetime average.%
       \label{fig:tau:tau-lifetime}%
@@ -343,7 +343,7 @@ Table~\ref{tab:tau:univ-fit-corr} reports the statistical correlation coefficien
 %% ///////////////////////////////////////////////////////////////////////////
 \tausection{Universality improved $\BR(\tau \to e \nu \bar{\nu})$ and $\Rhad$}
 \cutname{Be_univ_and_Rtau.html}
-\label{sec:tau:be_univ_rtau}
+\label{sec:tau:be-univ-rtau}
 
 Following Ref.~\cite{Davier:2005xq}, we assume lepton universality to
 obtain a more precise experimental determination of $\BR_e = \BR(\tau \to
@@ -394,56 +394,44 @@ of such ratios, \Vus is measured as
 \end{align*}
 where $\delta R_{\text{theory}}$ can be determined in the context of low
 energy QCD theory, partly relying on experimental low energy scattering
-data. We use $\delta R_{\text{theory}} =
-\htuse{deltaR_su3break}$~\cite{Gamiz:2006xx}, which induces a systematic
-error on \Vus that lies between two more recent estimates~\cite{Gamiz:2007qs,Maltman:2010hb}.
+data. The literature reports several several
+calculations~\cite{Gamiz:2006xx,Gamiz:2007qs,Maltman:2010hb}. In this
+report we use Ref.~\cite{Gamiz:2006xx}, whose estimated uncertainty size is
+in between the two other ones. We use the information in that paper and the
+PDG 2013 value for the $s$-quark mass $m_s = \htuse{m_s}$~\cite{PDG_2013}
+to calculate $\delta R_{\text{theory}} = \htuse{deltaR_su3break}$.
 
-In the following, we use the universality improved $\BR_e^{\text{uni}}$
-(see Section~\ref{sec:tau:be_univ_rtau}) to compute the $R$ ratios.
-The most direct experimental determination of \Rstrange and $\Rnonstrange =
-\Rhad-\Rstrange$ come from the tau inclusive branching fractions to
-hadronic and strange hadronic states, $\BRhad$ and $\BRstrange$. However
-often the total hadronic branching fraction has been replaced by the
-indirect but more precise expression $\BRhad^{\text{uni}} = 1 - \BR_e
--\BR_\mu$ (or similar expressions based on $\BR_e^{\text{uni}}$), using
-unitarity, see for example the 2009 HFAG report~\cite{Asner:2010qj}. We
-depart from this choice here, and we use the most direct determination of
-\Rhad, for two reasons: first there is no significant statistical gain in
-the final errors, because of statistical correlations in the \Rhad
-expression $(1-\BR_e -\BR_\mu)/\BR_e^{\text{univ}}$, and second the indirect
-determination of $\Rnonstrange = \Rhad^{\text{uni}} - \Rstrange$ would
-absorb the effect of possible unobserved hadronic states entirely in
-\Rnonstrange, while they could also be strange final states.
+We proceed following the same procedure of the 2012 HFAG
+report~\cite{Amhis:2012bh}, using the universality improved $\BR_e^{\text{uni}}$
+(see Section~\ref{sec:tau:be-univ-rtau}) to compute the $R$ ratios, and
+using the sum of the \mtau branching fractions to strange and
+non-strange hadronic final states to compute \Rstrange and \Rnonstrange,
+respectively.
 
-With the above choices, using $\Vud = \htuse{Vud}$~\cite{Hardy:2008gy}, using
-HFAG values of this report, including the above-mentioned
-$\BR_e^{\text{univ}}$,
-$\BRstrange = (\htuse{B_tau_s_fit})\%$ (see also Table~\ref{tab:tau:vus}),
-$\BRnonstrange = (\htuse{B_tau_VA_fit})\%$
-and the PDG 2013 averages, we obtain $\VusTauIncl = \htuse{Vus}$, which
+Using the \mtau branching fraction fit results with their uncertainties
+and correlations (Section~\ref{sec:tau:br-fit}), we compute $\BRstrange =
+(\htuse{B_tau_s_fit})\%$ (see also Table~\ref{tab:tau:vus}) and
+$\BRnonstrange = (\htuse{B_tau_VA_fit})\%$. PDG 2013 averages
+are used for non-\mtau quantities, including $\Vud = \htuse{Vud}$, which
+comes from Ref.~\cite{Hardy:2008gy} like for the previous HFAG report.
+
+We obtain $\VusTauIncl = \htuse{Vus}$, which
 is $\htuse{Vus_mism_sigma_abs}\sigma$ lower than the unitarity CKM
 prediction $\VusUni = \htuse{Vus_uni}$, from $(\VusUni)^2 = 1 -
 \Vud^2$. The \VusTauIncl uncertainty includes a systematic error
-contribution of \htuse{Vus_err_th} from the theory uncertainty on
-$\delta R_{\text{theory}}$,
+contribution of \htuse{Vus_err_th_perc}\% from the theory uncertainty on
+$\delta R_{\text{theory}}$. There is no significant change with respect to
+the previous HFAG report.
 
-If we use the alternative above mentioned
-definitions of \BRhad, the mismatch is $+++3.4\sigma$.
-Using a unitarity-constrained tau branching fraction fit, the mismatch is
-$+++3.4\sigma$. The $\htuse{Vus_mism_sigma_abs}\sigma$ discrepancy is
-+++close to the unconstrained fit result of the 2009 HFAG report,
-$3.6\sigma$~\cite{Asner:2010qj}, and also to the $3.3\sigma$
-from the \hfagtau 2011 intermediate document~\cite{Banerjee:2011az}, based
-on a unitarity-constrained fit.
+Kim Maltman has computed an alternative theoretical estimate $\delta
+R_{\text{theory}} = 0.254 \pm 0.038$~\cite{Maltman:oct2014} based on Fixed
+Order Pertubation Theory and experimental inputs restricted to \mtau
+quantities. The uncertainty includes an additional contribution to account
+for the differences between using Fixed Order Pertubation Theory and Contour
+Improved Perturbation Theory. With this alternative value, we would obtain
+$\VusTauIncl = 0.2181 \pm 0.0022$, which would be $3.1\sigma$ lower than
+the unitarity CKM prediction.
 
-\iffalse
-=== from \hfagtau 2011 report ===
-Since the sum of base modes from our unconstrained fit is less than unity by $1.6~\sigma$,
-instead of using $\B\Rnonstrange = 1 - \BR_{\text{leptonic}} - \B\Rstrange$,
-we also evaluate $\Vus$ from the sum of the averaged non-strange branching fractions.
-%Using our default method of not inflating the error bars on all the measurements,
-This gives $\Vus$ $=$ $0.2169\, \pm\, 0.0023$, which is $3.5~\sigma$ lower than the CKM unitarity prediction.
-\fi
 %%
 %% Gamma110 quantities
 %%
@@ -471,44 +459,33 @@ This gives $\Vus$ $=$ $0.2169\, \pm\, 0.0023$, which is $3.5~\sigma$ lower than 
 
 \tausubsection{\Vus from $\BR(\tau \to K\nu) / \BR(\tau \to \pi\nu)$ and from $\BR(\tau \to K\nu)$}
 
-We use the ratio of branching fractions $\BFtautoknu/\BFtautopinu = \htuse{Gamma10by5}$ to
-measure \Vus from the equation
+We follow the same procedure of the HFAG 2012 report to compute \Vus from
+the ratio of branching fractions $\BFtautoknu/\BFtautopinu =
+\htuse{Gamma10by5}$ from the equation
 \begin{align*}
 \frac{\BFtautoknu}{\BFtautopinu} &=
 \frac{f_K^2 \Vus^2}{f_\pi^2 \Vud^2} \frac{\left( 1 - m_K^2/m_\tau^2 \right)^2}{\left( 1 -  m_\pi^2/m_\tau^2 \right)^2}
 \frac{\opdelta_{\text{LD}}(\tau^- \to K^-\nut)}{\opdelta_{\text{LD}}(\tau^- \to \pi^-\nut)}~.
 \end{align*}
-In this ratio, the short-distance radiative corrections cancel.
-The term $\opdelta_{\text{LD}}(p) = 1 + \delta_{\text{LD}}(p)$ corresponds to the
-long-distance electroweak radiative correction factor for the process $p$.
-Following Ref.~\cite{Banerjee:2008hg}, the ratio of radiative correction
-factors is estimated as $\opdelta_{\text{LD}}^{K\pi} =
-\opdelta_{\text{LD}}(\tau^- \to K^-\nu/K^- \to \mu^-\nu) /
-\opdelta_{\text{LD}}(\tau^- \to \pi^-\nu/\pi^- \to \mu^-\nu) \cdot
-\opdelta_{\text{LD}}(K^- \to \mu^-\nu)/\opdelta_{\text{LD}}(\pi^- \to \mu^-\nu)$,
-where the first ratio is $[1+ (\htuse{delta_LD_tauK_Kmu})\%]/[1+
-(\htuse{delta_LD_taupi_pimu})\%]$~\cite{Decker:1994ea} and the second ratio
-is $(\htuse{rrad_LD_kmu_pimu})\%$~\cite{Marciano:2004uf}, hence assuming
-independent errors $\opdelta_{\text{LD}}^{K\pi} =
-\htuse{rrad_LD_tauK_taupi}$.
-The ratio $f_K/f_\pi$ is estimated in lattice QCD to be \htuse{f_K_by_f_pi}~\cite{Aoki:2013ldr}.
-We measure $\VusTauKpi = \htuse{Vus_tauKpi}$,
+We use $f_K/f_\pi = \htuse{f_K_by_f_pi}$ from the
+FLAG 2013 Lattice averages with $N_f=2+1$~\cite{Aoki:2013ldr}.
+We compute $\VusTauKpi = \htuse{Vus_tauKpi}$,
 $\htuse{Vus_tauKpi_mism_sigma_abs}\sigma$ below the CKM unitarity prediction.
 
-We use the branching fraction $\BFtautoknu$ to
-measure \Vus from the equation
+We proceed like in 2012 also to determine \Vus from the branching fraction
+$\BFtautoknu$ using
 \begin{align*}
   \BR(\tau^- \to K^-\nu_\tau) =
-  \frac{G^2_F f^2_K \Vus^2 m^3_{\tau} \tau_{\tau}}{16\pi\hbar} \left (1 - \frac{m_K^2}{m_\tau^2} \right )^2 S_{EW}~,
+  \frac{G^2_F f^2_K \Vus^2 m^3_{\tau} \tau_{\tau}}{16\pi\hbar} \left (1 - \frac{m_K^2}{m_\tau^2} \right )^2 S_{EW}~.
 \end{align*}
-where $f_K = \htuse{f_K}\,\mev$~\cite{Aoki:2013ldr} is the
-kaon decay constant estimated with lattice QCD, and $S_{EW} = \htuse{rrad_tau_Knu}$~\cite{Erler:2002mv}
-accounts for the radiative corrections. We obtain $\VusTauKnu =
-\htuse{Vus_tauKnu}$, wich is $\htuse{Vus_tauKnu_mism_sigma_abs}\sigma$ below
+We use $f_K = \htuse{f_K}\,\mev$ from FLAG 2013 with
+$N_f=2+1$~\cite{Aoki:2013ldr}. We obtain $\VusTauKnu = \htuse{Vus_tauKnu}$,
+which is $\htuse{Vus_tauKnu_mism_sigma_abs}\sigma$ below
 the CKM unitarity prediction. CODATA 2010 results~\cite{Mohr:2012tt} and
 PDG 2013 have been used for the physics constants.
 
 \tausubsection{\Vus from tau summary}
+
 \begin{figure}[tb]
   \begin{center}
    \ifhevea
@@ -519,7 +496,7 @@ PDG 2013 have been used for the physics constants.
           \imgsrc[alt="Vus summary plot"]{hfag-tau-vus-plot.png}}}
     \end{tabular}
     \else
-    \includegraphics[width=0.66\linewidth,clip]{figures/tau/hfag-tau-vus-plot}
+    \includegraphics[width=0.75\linewidth,clip]{figures/tau/hfag-tau-vus-plot.pdf}
     \fi
     \caption{\Vus averages of this document compared with the FlaviaNet results~\cite{Antonelli:2010yf}.
       \label{fig:tau:vus-summary}%
@@ -544,11 +521,7 @@ of the measurement method:
   & {\smaller\text{from } \Gamma(\tauknu)}~.
 \end{alignat*}
 
-Thanks to the improved lattice QCD determination of
-$f_K$~\cite{Aoki:2013ldr}, the uncertainty on
-$\Vus_{\tau K}$ has been significantly reduced with respect to the
-previous HFAG report. Averaging the three above \Vus determinations we
-obtain:
+Averaging the three above \Vus determinations we obtain:
 \begin{alignat*}{6}
   & \Vus_\tau &&= \htuse{Vus_tau} &\quad &\htuse{Vus_tau_mism_sigma}\sigma \quad
   & \text{average of 3 \Vus tau measurements}.
