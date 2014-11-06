@@ -68,7 +68,7 @@ report~\cite{Amhis:2012bh}.
 
 Published results from two \babar papers and one Belle paper have been
 added. The following results have been used from the \htuse{LEES 2012X.collab} high
-multiplicity decay \mtau braching fractions paper~\htuse{LEES 2012X.cite}:
+multiplicity decay \mtau branching fractions paper~\htuse{LEES 2012X.cite}:
 {\setlength{\LTleft}{\parindent}%
 \begin{longtable}{@{}ll@{}}
 \htuse{LEES 2012X.meas}.
@@ -93,7 +93,7 @@ states~\htuse{Ryu:2014vpc.cite}:
 and the former published result on $\tau^- \to \htuse{Gamma35.td}$~\cite{Epifanov:2007rf}.
 In order to profit from the measurements of branching fractions with two
 $K_S$ in the final state, we drop the inclusive ALEPH measurement on
-$\tau^- \to \htuse{Gamma49.td}$~\cite{Barate:1999hj} and we add the esclusive ALEPH
+$\tau^- \to \htuse{Gamma49.td}$~\cite{Barate:1999hj} and we add the exclusive ALEPH
 measurement on $\tau^- \to \htuse{Gamma51.td}$~\cite{Barate:1999hj}.
 
 In order to best integrate the above new results in the global fit, the following
@@ -115,15 +115,29 @@ constraints have been added:
   \htuse{Gamma944.c.constr.eq} \\
   \htuse{Gamma911.c.constr.eq}~.
 \end{tabularx}}
+\noindent It was realised that the PDG measurement for \htuse{Gamma44.gn}, which is
+exclusively determined by one ALEPH
+result~\htuse{ALEPH.Gamma44.pub.BARATE.99R,ref}, does actually exclude the
+contribution from $K^0\to\pi^0\pi^0$, so we renamed it to
+$\htuse{Gamma44.gn} = \htuse{Gamma44.td}$.
 The definition of the total branching fraction and of the inclusive
-tranching fraction of the \mtau lepton into a strange final states have
+branching fraction of the \mtau lepton into a strange final states have
 been updated as follows:
 {\setlength{\LTleft}{\parindent}%
 \begin{tabularx}{\linewidth-\parindent}{@{}lX@{}}
   \htuse{Gamma110.c.constr.eq} \\
   \htuse{GammaAll.c.constr.eq}~.
 \end{tabularx}}
-\noindent Finally, a wrong constraint used in the two previous reports has been
+\noindent The total \mtau branching fraction \htuse{GammaAll.gn} definition
+includes two modes that have a tiny overlap:
+\begin{align*}
+  &\htuse{Gamma50.gn} =  \htuse{Gamma50.td}~, \\
+  &\htuse{Gamma132.gn} =  \htuse{Gamma132.td}~.
+\end{align*}
+\noindent The amount of overlap cannot be disentagled with the presently
+available measurements, however we consider it negligible since the
+involved branching fractions are small and their overlap is conceivably minor.
+Finally, a wrong constraint used in the two previous reports has been
 removed:
 {\setlength{\LTleft}{\parindent}%
 \begin{tabularx}{\linewidth-\parindent}{@{}lX@{}}
@@ -131,9 +145,9 @@ removed:
   \Gamma_{78} \cdot \Gamma_{\eta \to 3\pi^0}$~.
 \end{tabularx}}
 \noindent The wrong constraint has been affecting in a negligible way the
-global fit, except for the involved specific branching ratios.
-In particular, the effects on the lepton universality tests and
-in the \Vus determination were negligible.
+global fit in the previous HFAG reports, except for the involved specific
+branching ratios.  In particular, the effects on the lepton universality
+tests and in the \Vus determination were negligible.
 
 Finally, the constraint parameters (see Section~\ref{sec:tau:constraints})
 have been updated to the PDG 2013 results~\cite{PDG_2013}.
@@ -261,11 +275,11 @@ is equivalent to the PDG 2014 average~\cite{PDG_2014} (see Fig.~\ref{fig:tau:tau
 \cutname{lepton-univ.html}
 \label{sec:tau:leptonuniv}
 
-Lepton universaility tests precision has significantly been improved by the
+Lepton universality tests precision has significantly been improved by the
 addition of the recent Belle \mtau lifetime
 measurement~\cite{Belous:2013dba}, while improvements from the \mtau
 branching fraction fit are negligible.
-We compute the universality tests like in the previus report by using
+We compute the universality tests like in the previous report by using
 proper ratios of the partial widths of a heavier lepton \lepth
 decaying to a
 lighter lepton \leptl~\cite{Marciano:1988vm},
@@ -286,7 +300,7 @@ We use $\opdelta^\tau_\gamma=1-43.2\cdot 10^{-4}$ and
 $\opdelta^\mu_\gamma=1-42.4\cdot 10^{-4}$~\cite{Marciano:1988vm} and $M_W$
 from PDG 2013~\cite{PDG_2013} as usual.
 We use HFAG 2014 averages and PDG 2013 for the other quantities.
-Using pure leptonig processes we obtain
+Using pure leptonic processes we obtain
 \begin{align*}
   \left( \frac{g_\tau}{g_\mu} \right) = \htuse{gtaubygmu_tau}~,
   && \left( \frac{g_\tau}{g_e} \right) = \htuse{gtaubyge_tau}~,
