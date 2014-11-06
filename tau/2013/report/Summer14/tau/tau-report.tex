@@ -131,14 +131,13 @@ and parameters of semileptonic decays.
 \clearpage
 % b-hadron production fractions, lifetimes and mixing parameters
 %% this can be removed once life_mix tex is included
-\input{life_mix_definitions}
-% \input{life_mix.tex}
+\input{life_mix/life_mix.tex}
 
 \clearpage
 % Measurements related to the Unitarity Triangle
 \input{cp_uta.tex}
 
-\clearpage
+\clearpage 
 % Semileptonic B decays
 % \input{slbdecays/slbdecays.tex}
 
@@ -156,7 +155,9 @@ and parameters of semileptonic decays.
 
 %%/////////////////////////////////////////////////////////////////////////////
 \else
-\label{sec:slbdecays}\label{sec:charm_physics}%
+\label{sec:slbdecays}\label{sec:charm_physics}\label{sec:life_mix}%
+\input{life_mix/life_mix_definitions}
+\input{life_mix/life_mix_averages}
 \fi
 %%/////////////////////////////////////////////////////////////////////////////
 
@@ -169,7 +170,7 @@ and parameters of semileptonic decays.
 \def\babar{\mbox{\slshape B\kern-0.1em{\smaller A}\kern-0.1em
     B\kern-0.1em{\smaller A\kern-0.2em R}}\xspace}
 
-%\input{hfag_summary}
+\input{hfag_summary}
 \input{hfag_acknowledge}
 \clearpage
 
