@@ -54,16 +54,14 @@
 %%--- retrieve HFAG tau quantity
 \iffalse
 \newcommand{\htuse}[1]{%
-  \@nameuse{hfagtau@#1}\xspace
-}
+  \@nameuse{hfagtau@#1}\xspace}
 \else
 \newcommand{\htuse}[1]{%
   \ifcsname hfagtau@#1\endcsname
-  \@nameuse{hfagtau@#1}\xspace
+  \@nameuse{hfagtau@#1}%
   \else
   \@latex@error{Undefined name hfagtau@#1}\@eha
-  \fi
-}
+  \fi}
 \fi
 
 %% \htconstrdef{name}{left}{right}
@@ -118,10 +116,10 @@
 
 \makeatother
 %%
-\begin{fleqn}
 \input{tau/tau-defs}
 \input{tau/tau-br-fit-aleph-hcorr_13}
 \input{tau/tau-br-fit-aleph-hcorr_13-vadirect-elab}
+\begin{fleqn}
 \let\tausection\subsection
 \let\tausubsection\subsubsection
 \newenvironment{envsmall}%
