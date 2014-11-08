@@ -54,7 +54,7 @@
 %%--- retrieve HFAG tau quantity
 \iffalse
 \newcommand{\htuse}[1]{%
-  \@nameuse{hfagtau@#1}\xspace}
+  \@nameuse{hfagtau@#1}}%
 \else
 \newcommand{\htuse}[1]{%
   \ifcsname hfagtau@#1\endcsname

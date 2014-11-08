@@ -34,7 +34,7 @@ not maintain the same numbers across editions. We continue using the PDG
 2010 numbers with the aim to eventually switch to a different stable notation,
 probably based on PDG identifiers~\cite{pdg-identifiers-2014}.
 
-The fitted branching fractions consist on \HfagTauBaseQuantNum ``base nodes'' and \HfagTauConstrNum derived
+The fitted branching fractions consist on \htuse{BaseQuantNum} ``base nodes'' and \htuse{ConstrNum} derived
 branching fractions, described either as sum of base nodes (see
 Section~\ref{sec:tau:constraints}) or as ratios of branching fractions (see
 Table~\ref{tab:tau:br-fit}). Furthermore, we define (see
@@ -45,9 +45,9 @@ $\Gamma_{998} = 1 -\Gamma_{\text{All}}$ and $\Gamma_{110} =
 tau to modes with the strangeness quantum number equal to one.
 
 The fitted \hfagtau averages are reported in
-Table~\ref{tab:tau:br-fit}. The fit has $\chi^2/\text{d.o.f.} = \HfagTauChisq/\HfagDof$,
-corresponding to a confidence level $\text{CL} = \HfagTauChisqProb$. We use a total of
-\HfagTauMeasNum measurements to fit the above mentioned \HfagTauQuantNum quantities.
+Table~\ref{tab:tau:br-fit}. The fit has $\chi^2/\text{d.o.f.} = \htuse{Chisq}/\htuse{Dof}$,
+corresponding to a confidence level $\text{CL} = \htuse{ChisqProb}$. We use a total of
+\htuse{MeasNum} measurements to fit the above mentioned \htuse{QuantNum} quantities.
 The fit is statistically consistent with the unitarity constraint, but the
 unitarity constraint is not applied.
 
@@ -186,7 +186,7 @@ have been updated to the PDG 2013 results~\cite{PDG_2012}.
 \endhead
 \endfoot
 \endlastfoot
-\HfagTauBrVal \\
+\htuse{BrVal} \\
 \hline
 \end{longtable}
 \end{envsmall}
@@ -201,7 +201,7 @@ in percent.
 %%
 %% base nodes correlations
 %%
-\HfagTauBrCorr
+\htuse{BrCorr}
 
 \tausubsection{Equality constraints}
 \label{sec:tau:constraints}
@@ -233,9 +233,9 @@ expressed as ratios of ``base'' branching fractions.
   \setlength\belowdisplayshortskip{0pt}
   \ifhevea\renewcommand{\bar}[1]{\textoverline{#1}}\fi
   %%
-  %% after editing content of \HfagConstrVal macro for better formatting
+  %% after editing content of \htuse{ConstrVal} macro for better formatting
   %%
-  \HfagConstrEqs
+  \htuse{ConstrEqs}
 \end{envsmall}
 
 \tausubsection{Fit procedure}
@@ -343,7 +343,7 @@ Table~\ref{tab:tau:univ-fit-corr} reports the statistical correlation coefficien
 \renewcommand*{\arraystretch}{1.1}%
 \begin{tabular}{lcccc}
 \toprule
-\couplingsCorr
+\htuse{couplingsCorr}
 \\\bottomrule
 \end{tabular}
 \end{center}
@@ -461,9 +461,9 @@ the unitarity CKM prediction.
 \multicolumn{1}{c}{\bfseries Branching fraction} &
 \multicolumn{1}{c}{\bfseries HFAG Winter 2012 fit} \\
 \hline
-\HfagTauBrStrangeVal
+\htuse{BrStrangeVal}
 \\\hline
-\HfagTauBrStrangeTotVal
+\htuse{BrStrangeTotVal}
 \\\hline
 \end{tabular}
 \end{center}
