@@ -1,4 +1,9 @@
-%% -*- mode: LaTeX; TeX-master: "../EndOfYear11.tex" -*-
+%% -*- mode: LaTeX; TeX-master: "../Summer14.tex" -*-
+%%
+%% define report tags
+%%
+\newcommand{\hfagTauTag}{Summer 2014\xspace}
+\newcommand{\hfagFitLabel}{HFAG \hfagTauTag fit}
 \makeatletter
 \newenvironment*{fleqn}[1][\leftmargini minus\leftmargini]{\@fleqntrue
   \setlength\@mathmargin{#1}\ignorespaces
@@ -43,10 +48,8 @@
     \endgraf\vskip\baselineskip}%
   \hss}}}
 \makeatother
-%%
-\newcommand{\hfagFitLabel}{HFAG Summer 2014 fit}
-\makeatletter
 %%--- define HFAG tau quantity
+\makeatletter
 \newcommand{\htdef}[2]{%
   \@namedef{hfagtau@#1}{#2}%
 }
