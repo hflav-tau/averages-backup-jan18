@@ -4,25 +4,44 @@
 %%
 \newcommand{\hfagTauTag}{Summer 2014\xspace}
 \newcommand{\hfagFitLabel}{HFAG \hfagTauTag fit}
+
+%%--- hevea flag
+\newif\ifhevea\heveafalse
+%%--- provide \cutname for non-hevea compiling
+\providecommand{\cutname}[1]{}
+
+%%--- env to get left aligned eqs
 \makeatletter
 \newenvironment*{fleqn}[1][\leftmargini minus\leftmargini]{\@fleqntrue
   \setlength\@mathmargin{#1}\ignorespaces
 }{%
   \ignorespacesafterend
 }
+
+%%--- env to get center aligned eqs
 \newenvironment{ceqn}{\@fleqnfalse
   \@mathmargin\@centering \ignorespaces
 }{%
   \ignorespacesafterend
 }
+
+%%--- env to remove spaces before \cite{} from cite package
+\newenvironment{citenoleadsp}{\@fleqnfalse
+  \let\cite@adjust\@empty
+}{%
+  \ignorespacesafterend
+}
 \makeatother
+
+%%--- be able to cite in math mode
 \let\citeOld\cite
 \renewcommand{\cite}[1]{\ifmmode\text{\citeOld{#1}}\else\citeOld{#1}\fi}
-\newif\ifhevea\heveafalse
-\providecommand{\cutname}[1]{}
+
+%%--- env for display math
 \newenvironment{ensuredisplaymath}
   {\(\displaystyle}
   {\)}
+
 %%--- bold math with \bfseries
 \makeatletter
 \DeclareRobustCommand\bfseries{%
@@ -35,6 +54,7 @@
                {\bmbox{\scriptscriptstyle}{#1}}}
 \DeclareRobustCommand*{\bmbox}[2]{\mbox{\bfseries$#1 #2$}}
 \makeatother
+
 %%--- normal size captions in longtable
 \makeatletter
 \def\LT@makecaption#1#2#3{%
@@ -48,8 +68,13 @@
     \endgraf\vskip\baselineskip}%
   \hss}}}
 \makeatother
-%%--- define HFAG tau quantity
+
+%%
+%% defs for using LaTeX defs from HFAG tau SW
+%%
 \makeatletter
+
+%%--- define HFAG tau quantity
 \newcommand{\htdef}[2]{%
   \@namedef{hfagtau@#1}{#2}%
 }
@@ -116,8 +141,8 @@
   \@namedef{hfagtau@#1,stat}{\ensuremath{#7}}%
   \@namedef{hfagtau@#1,syst}{\ensuremath{#8}}%
 }
-
 \makeatother
+
 %%
 \input{tau/tau-defs}
 \input{tau/tau-br-fit-aleph-hcorr_13}

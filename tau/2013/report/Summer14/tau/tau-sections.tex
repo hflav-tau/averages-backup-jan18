@@ -163,26 +163,21 @@ have been updated to the PDG 2013 results~\cite{PDG_2012}.
 \ifhevea
 \renewcommand{\bar}[1]{\textoverline{#1}}
 \else
-\makeatletter
-%%--- prevent longtable to go over page number
-\@lowpenalty=5
-\makeatother
+\begin{citenoleadsp}
 \fi
 \begin{longtable}{llll}
 \caption{HFAG \hfagTauTag branching fractions fit results.\label{tab:tau:br-fit}}%
 \\
 \hline
 \multicolumn{1}{l}{\bfseries \mtau lepton branching fraction} &
-\multicolumn{1}{l}{\bfseries Value} &
-\multicolumn{1}{l}{\bfseries Exp.} &
-\multicolumn{1}{l}{\bfseries Ref.} \\
+\multicolumn{1}{l}{\bfseries Fit value / Exp.} &
+\multicolumn{1}{l}{\bfseries HFAG Fit / Ref.} \\
 \hline
 \endfirsthead
 \multicolumn{4}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\ \hline
 \multicolumn{1}{l}{\bfseries \mtau lepton branching fraction} &
-\multicolumn{1}{l}{\bfseries Value} &
-\multicolumn{1}{l}{\bfseries Exp.} &
-\multicolumn{1}{l}{\bfseries Ref.} \\
+\multicolumn{1}{l}{\bfseries Fit value / Exp.} &
+\multicolumn{1}{l}{\bfseries HFAG Fit / Ref.} \\
 \hline
 \endhead
 \endfoot
@@ -190,6 +185,9 @@ have been updated to the PDG 2013 results~\cite{PDG_2012}.
 \htuse{BrVal} \\
 \hline
 \end{longtable}
+\ifhevea\else
+\end{citenoleadsp}
+\fi
 \end{envsmall}
 \end{center}
 

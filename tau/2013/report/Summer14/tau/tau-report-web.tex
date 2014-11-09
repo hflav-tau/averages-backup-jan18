@@ -131,6 +131,13 @@
                {\bmbox{\scriptstyle}{#1}}%
                {\bmbox{\scriptscriptstyle}{#1}}}
 \DeclareRobustCommand*{\bmbox}[2]{\mbox{\bfseries$#1 #2$}}
+
+%%--- env to remove spaces before \cite{} from cite package
+\newenvironment{citenoleadsp}{\@fleqnfalse
+  \let\cite@adjust\@empty
+}{%
+  \ignorespacesafterend
+}
 \makeatother
 \fi
 
@@ -384,6 +391,10 @@
 \end{center}
 \fi
 \maketitle
+\ifhevea
+\else
+\tableofcontents
+\fi
 %% ///////////////////////////////////////////////////////////////////////////
 \section{Introduction}
 \cutname{introduction.html}
