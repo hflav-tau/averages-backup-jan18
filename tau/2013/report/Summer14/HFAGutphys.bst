@@ -426,28 +426,28 @@ FUNCTION {format.url}
 FUNCTION {format.smallurl}
 { smallurl empty$
     { "" }
-    {"\small \url{" smallurl * "}\normalsize" *}
+    {"{\small \url{" smallurl * "}}" *}
   if$
 }
 
 FUNCTION {format.fnsizeurl}
 { fnsizeurl empty$
     { "" }
-    {"\footnotesize \url{" fnsizeurl * "}\normalsize" *}
+    {"{\footnotesize \url{" fnsizeurl * "}}" *}
   if$
 }
 
 FUNCTION {format.ssizeurl}
 { ssizeurl empty$
     { "" }
-    {"\scriptsize \url{" ssizeurl * "}\normalsize" *}
+    {"{\scriptsize \url{" ssizeurl * "}}" *}
   if$
 }
 
 FUNCTION {format.tinyurl}
 { tinyurl empty$
     { "" }
-    {"\tiny \url{" tinyurl * "}\normalsize" *}
+    {"{\tiny \url{" tinyurl * "}}" *}
   if$
 }
 
@@ -1174,18 +1174,16 @@ FUNCTION {misc}
     { howpublished empty$ not
       month empty$ year empty$ and
       or
-	{ format.title.p output.nonnull }
+	{ format.title output.nonnull }
 	{ format.title output.nonnull }
       if$
-      blank.sep
     }
   if$
   howpublished capitalize output
   format.date output
-  new.block
-  format.url output
-  new.sentence
   note output
+  format.url output
+  urlnote output
   new.sentence
   fin.entry
   empty.misc.check
@@ -1244,27 +1242,23 @@ FUNCTION {techreport}
   format.collaboration output
   format.authors "author" output.check
   format.title add.doi "title" output.check
-  blank.sep
   format.tr.number output.nonnull
   institution "institution" output.check
   address output
   format.date "year" output.check
-  new.block
   format.eprint output
-  new.block
   format.url output
-  new.block
   note output
   fin.entry
 }
 
 FUNCTION {unpublished}
 { output.bibitem
-  format2.collaboration output
-  format2.collaborations output
-  blank.sep
-  note "note" output.check
+  format.authors "author" output.check
+  format.title "title" output.check
   format.date output
+  format.note "note" output.check
+  format.eprint output
   format.url output
   format.smallurl output
   format.fnsizeurl output
@@ -1375,7 +1369,6 @@ FUNCTION {begin.bib}
   write$ newline$
   "\begin{mcitethebibliography}{"  longest.label  * "}" * write$ newline$
 }
-
 
 %FUNCTION {begin.bib}
 %{ preamble$ empty$
