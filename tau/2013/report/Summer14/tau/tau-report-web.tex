@@ -261,6 +261,14 @@
 \newstyle{html}{
   background: \#A0C544;
 }
+\renewcommand{\@htmlargs}{lang="en"}
+\let\oldmeta=\@meta
+\renewcommand{\@meta}{%
+\oldmeta%
+\begin{rawhtml}
+<meta http-equiv="content-language" content="en">
+<meta name="Author" content="Alberto Lusiani">
+\end{rawhtml}}
 \newstyle{body}{
   position: relative;
   z-index: 1;
@@ -270,13 +278,24 @@
   border: solid 2px \#806517;
   background-color: \#ffffff;
   color: \#000000;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* Be VERY careful with this, breaks normal words wh_erever */
+  word-break: break-all;
+  /* Non standard for webkit */
+  word-break: break-word; 
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 \newstyle{body}{
   font-family: Helvetica, DejaVu LGC Sans, Bitstream Vera Sans, Tahoma, Verdana, sans-serif;
   font-size: 85\%;
   /* line-height: 1.125em; */
 }
-\newstyle{p}{ /*line-height: 1.2em;*/ }
+\newstyle{p}{
+  /*line-height: 1.2em;*/
+}
 \newstyle{sub, sup}{
   font-size: 80\%; /* until <span> is used in hevea */
   line-height: 0;
