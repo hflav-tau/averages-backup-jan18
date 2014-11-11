@@ -72,18 +72,8 @@ pdf: $(DOC).pdf
 $(DOC).pdf: $(DOC).tex $(DOCINCL)
 	latexmk -pdf $(DOC).tex
 	@/bin/mkdir -p $(DIR)
-	@/bin/mv -f $(DOC).pdf $(DIR)/
-	@/bin/rm -f $(DOC).pdf
-	@/bin/ln $(DIR)/$(DOC).pdf $(DOC).pdf
+	@/bin/cp $(DOC).pdf $(DIR)/
 	@echo file $(DOC).pdf produced
-
-.PHONY: purge
-purge:
-	/bin/rm -f $(BASE).{html,haux,htoc,hind,blg,bbl,hbbl} $(BASE).image.* $(DOC).pdf
-
-.PHONY: clean
-clean: slac_umount
-	-/bin/rm -f $(DIR)/* $(DOC).pdf
 
 .PHONY: slac_mount
 slac_mount:
@@ -99,3 +89,14 @@ slac_umount:
 install: pdf html purge
 	/bin/rm -f $(DIR)/$(DOC)-style.css
 	rsync -rv --force --delete $(DIR)/. $(INSTALLDIR)/.
+
+.PHONY: purge
+purge:
+	/bin/rm -f $(BASE).{html,haux,htoc,hind,blg,bbl,hbbl} $(BASE).image.*
+
+.PHONY: clean
+clean: purge
+	-/bin/rm -f $(DIR)/* $(DOC).pdf
+
+.PHONY: reset
+reset: slac_umount clean
