@@ -16,3 +16,4 @@
   {\@footnotesub%
    \gdef\title@flush@hook{\@endfootnotesub\@footnoteflush@sticky{document}}}%
 \let\maketitle\relax}%
+\renewcommand\pdfbookmark[3][0]{}
