@@ -1254,11 +1254,11 @@ FUNCTION {techreport}
 
 FUNCTION {unpublished}
 { output.bibitem
-  format.authors "author" output.check
-  format.title "title" output.check
+  format2.collaboration output
+  format2.collaborations output
+  blank.sep
+  note "note" output.check
   format.date output
-  format.note "note" output.check
-  format.eprint output
   format.url output
   format.smallurl output
   format.fnsizeurl output
