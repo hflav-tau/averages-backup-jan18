@@ -67,12 +67,15 @@ $(BASE).txt: $(DOC).hva $(DOC).tex $(DOCINCL)
 	/bin/rm -f $(DOC).{haux,htoc,bbl,aux,dvi,log,blg,out} $(DOC).image.out
 
 .PHONY: pdf
-pdf: $(DOC).pdf
+pdf: $(DIR)/$(DOC).pdf
+
+$(DIR)/$(DOC).pdf : $(DOC).pdf
+	@/bin/cp -f $(DOC).pdf $(DIR)/$(DOC).pdf
+	@echo file $(DOC).pdf copied to html directory
 
 $(DOC).pdf: $(DOC).tex $(DOCINCL)
 	latexmk -pdf $(DOC).tex
 	@/bin/mkdir -p $(DIR)
-	@/bin/cp $(DOC).pdf $(DIR)/
 	@echo file $(DOC).pdf produced
 
 .PHONY: slac_mount
