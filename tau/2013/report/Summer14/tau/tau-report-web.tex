@@ -19,7 +19,6 @@
 \usepackage{xspace}
 \usepackage{caption}
 \usepackage{parskip}
-
 \iffalse
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -39,7 +38,6 @@
 }
 \fi
 \fi
-
 \usepackage[%
   colorlinks=true,
   citecolor=blue,
@@ -51,21 +49,34 @@
 \usepackage{relsize}
 \usepackage{xspace}
 \usepackage{ifthen}
-
 \ifhevea\else
 \makeatletter
 \providecommand*{\input@path}{}%
 \g@addto@macro\input@path{{../}}%
 \makeatother
 \usepackage[pdftex]{graphicx}
+
+%%
+%% date of report
+%%
+%% must update also
+%% - setlinkstext
+%% - htmlprefix
+%% - title
+%%
+\newcommand{\hfagTauTag}{Summer 2014\xspace}
+\newcommand{\hfagFitLabel}{HFAG \hfagTauTag fit}
+
 %%
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
 %%
 \AtBeginDocument{%
   \renewcommand{\familydefault}{\sfdefault}
   \sffamily
 }
 \fi
+
 %%
 %% Hevea configuration
 %%
@@ -361,7 +372,7 @@
 %%
 %% author, title
 %%
-\title{HFAG web report Summer 2014}
+\title{HFAG-Tau Summer 2014 report}
 \author{%
   \ifhevea
   \let\smallSave\small
@@ -392,10 +403,6 @@
   \fi
 }
 \date{1 October 2014}
-%%
-\newcommand{\hfagTauTag}{Summer 2014\xspace}
-\newcommand{\hfagFitLabel}{HFAG \hfagTauTag fit}
-\newcommand{\webFlag}{}
 %%
 %% ///////////////////////////////////////////////////////////////////////////
 %%
