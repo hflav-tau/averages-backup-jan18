@@ -164,7 +164,7 @@
 \else
 \newcommand{\htuse}[1]{%
   \ifcsname hfagtau@#1\endcsname
-  \@nameuse{hfagtau@#1}\xspace
+  \@nameuse{hfagtau@#1}%
   \else
   \@latex@error{Undefined name hfagtau@#1}\@eha
   \fi
