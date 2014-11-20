@@ -6,8 +6,12 @@
 %			Averages for $\phi K^{0}$.
 		}
 		\vspace{0.2cm}
-		\setlength{\tabcolsep}{0.0pc}
-		\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrccc@{\hspace{-3pt}}c} \hline
+% make this tabular (not tabular*) and resize down to \textwidth
+% change @{\extracolsep{\fill}} to @{\extracolsep{2mm}}
+    \resizebox{\textwidth}{!}{
+		\begin{tabular}{@{\extracolsep{2mm}}lrccc@{\hspace{-3pt}}c} \hline
+%		\setlength{\tabcolsep}{0.0pc}
+%		\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrccc@{\hspace{-3pt}}c} \hline
         \mc{2}{l}{Experiment} & $N(B\bar{B})$ & $- \etacp S_{b \to q\bar q s}$ & $C_{b \to q\bar q s}$ & Correlation \\
 	\hline
       \mc{6}{c}{$\phi \Kz$} \\
@@ -204,7 +208,9 @@
 % 	\end{center}
 % \end{table}
 
- 		\end{tabular*}
+% 		\end{tabular*}
+ 		\end{tabular}
+}
 		\label{tab:cp_uta:qqs}
 	\end{center}
 \end{table}
