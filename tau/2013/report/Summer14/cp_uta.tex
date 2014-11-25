@@ -194,9 +194,9 @@ Two popular naming conventions for the UT angles exist in the literature:
 \end{equation}
 In this document the $\left( \alpha, \beta, \gamma \right)$ set is used.\footnote{
   The relevant unitarity triangle for the $\Bs$ system is obtained 
-  by replacing $d \leftrightarrow s$ in Eq.~\ref{eq:cp_uta:ut}.
+  by replacing $d \leftrightarrow s$ in Eq.~(\ref{eq:cp_uta:ut}).
   Definitions of the set of angles $( \alpha_s, \beta_s, \gamma_s )$ 
-  can be obtained using equivalent relations to those of Eq.~\ref{eq:cp_uta:abc},
+  can be obtained using equivalent relations to those of Eq.~(\ref{eq:cp_uta:abc}),
   for example $\beta_s = \arg\left[ - (V_{cs}V_{cb}^*) / (V_{ts}V_{tb}^*) \right]$.
   This definition gives a value of $\beta_s$ that is negative in the Standard Model,
   so that the sign is often flipped in the literature.
@@ -321,19 +321,19 @@ are $\left| B_\pm \right> = p \left| \Bz \right> \pm q \left| \Bzb \right>$).
 This formulation assumes $\CPT$ invariance, 
 and neglects possible lifetime differences 
 (between the eigenstates of the effective Hamiltonian;
-see Section~\ref{sec:mixing} where the mass difference $\Delta m$ is also defined)
+see Sec.~\ref{sec:mixing} where the mass difference $\Delta m$ is also defined)
 in the neutral $\B$ meson system.
 The case where non-zero lifetime differences are taken into account is 
-discussed in Section~\ref{sec:cp_uta:notations:Bs}.
+discussed in Sec.~\ref{sec:cp_uta:notations:Bs}.
 Note that the notation and normalisation used here is that which is relevant for the $e^+e^-$ $B$ factory experiments.
 At hadron collider experiments, the flavour tagging is done at production ($\Delta t = t = 0$), and therefore $t$ is usually used in place of $\Delta t$.
 Moreover, since negative values of $t$ are not allowed, the normalisation is such that 
 $\int_0^{+\infty} \left( 
-\Gamma_{\Bzb \to f} (t) + \Gamma_{\Bzb \to f} (t) \right) dt = 1$,
+\Gamma_{\Bzb \to f} (t) + \Gamma_{\Bz \to f} (t) \right) dt = 1$,
 rather than 
 $\int_{-\infty}^{+\infty} \left( 
-\Gamma_{\Bzb \to f} (\Delta t) + \Gamma_{\Bzb \to f} (\Delta t) \right) d(\Delta t) = 1$,
-as in Eqs.~\ref{eq:cp_uta:td_cp_asp1} and~\ref{eq:cp_uta:td_cp_asp2}.
+\Gamma_{\Bzb \to f} (\Delta t) + \Gamma_{\Bz \to f} (\Delta t) \right) d(\Delta t) = 1$,
+as in Eqs.~(\ref{eq:cp_uta:td_cp_asp1}) and~(\ref{eq:cp_uta:td_cp_asp2}).
 
 The time-dependent $\CP$ asymmetry,
 again defined as the difference between the rate 
@@ -396,7 +396,11 @@ The coefficient of the cosine term becomes non-zero,
 indicating $\CP$ violation in decay.
 % The sign of $A_f$ as defined above is consistent with that of $\Acp_{f}$ in Eq.~(\ref{eq:cp_uta:pra}).
 
-Due to the fact that $\sin(\Delta m \Delta t)$ and $\cos(\Delta m \Delta t)$ are respectively odd and even functions of $\Delta t$, only small correlations (that can be induced by backgrounds, for example) between $S_f$ and $C_f$ are expected an $e^+e^-$ $B$ factory experiment, where the range of $\Delta t$ is $-\infty < \Delta t < +\infty$.
+Due to the fact that $\sin(\Delta m \Delta t)$ and $\cos(\Delta m \Delta t)$
+are respectively odd and even functions of $\Delta t$, only small correlations
+(that can be induced by backgrounds, for example) between $S_f$ and $C_f$ are
+expected at an $e^+e^-$ $B$ factory experiment, where the range of $\Delta t$
+is $-\infty < \Delta t < +\infty$. 
 The situation is different for measurements at hadron collider experiments, where the range of the time variable is $0 < \Delta t < +\infty$, so that more sizable correlations can be expected.  
 We include the correlations in the averages where available.
 
@@ -419,10 +423,10 @@ between the eigenstates of the effective Hamiltonian,
 denoted by $\Delta \Gamma$.
 This is particularly important in the $B_s$ system,
 since a non-negligible value of $\Delta \Gamma_s$ has been established
-(see Section~\ref{sec:mixing} for the latest experimental constraints).
+(see Sec.~\ref{sec:mixing} for the latest experimental constraints).
 Neglecting $\CP$ violation in mixing,
 the relevant replacements for 
-Eqs.~\ref{eq:cp_uta:td_cp_asp1}~\&~\ref{eq:cp_uta:td_cp_asp2} 
+Eqs.~(\ref{eq:cp_uta:td_cp_asp1})~\&~(\ref{eq:cp_uta:td_cp_asp2}) 
 are~\cite{Dunietz:2000cr}
 \begin{equation}
   \label{eq:cp_uta:td_cp_bs_asp1}
@@ -508,7 +512,9 @@ The {\it untagged} time-dependent decay rate is given by
   \Big] \, .
 \end{equation}
 With the requirement
-$\int_{-\infty}^{+\infty} \Gamma_{\Bsbar \to f} (\Delta t) + \Gamma_{\Bs \to f} (\Delta t) d(\Delta t) = 1$,
+$\int_{-\infty}^{+\infty} \left\{ 
+  \Gamma_{\Bsbar \to f} (\Delta t) + \Gamma_{\Bs \to f} (\Delta t)
+\right\} d(\Delta t) = 1$,
 the normalisation factor ${\cal N}$ 
 is fixed to $1 - (\frac{\Delta \Gamma}{2\Gamma})^2$.
 Note that an untagged time-dependent analysis can probe
@@ -642,7 +648,7 @@ but could equally well be $\left| \lambda_f \right|$, or other possibilities.
 
 \belle\ performed an analysis of these channels
 with $\sin(2\phi_1)$ and $\cos(2\phi_1)$ as free parameters~\cite{Krokovny:2006sv}.
-\babar\ have performed an analysis floating also $\left| \lambda_f \right|$~\cite{Aubert:2007rp}
+\babar\ has performed an analysis floating also $\left| \lambda_f \right|$~\cite{Aubert:2007rp}
 (and, of course, replacing $\phi_1 \Leftrightarrow \beta$).
 
 \mysubsubsubsection{$\Bz \to D^{*+}D^{*-}\KS$
@@ -791,7 +797,7 @@ The $\Bz \to \pi^+\pi^-\pi^0$ decay is dominated by
 intermediate $\rho$ resonances.
 Though it is possible, as above, 
 to determine directly the complex amplitudes for each component,
-an alternative approach~\cite{Snyder:1993mx,Quinn:2000by},
+an alternative approach~\cite{Snyder:1993mx,Quinn:2000by}
 has been used by both \babar~\cite{Aubert:2007jn,Lees:2013nwa}
 and \belle~\cite{Kusaka:2007dv,:2007mj}.
 The amplitudes for $\Bz$ and $\Bzb$ to $\pi^+\pi^-\pi^0$ are written
@@ -801,7 +807,7 @@ The amplitudes for $\Bz$ and $\Bzb$ to $\pi^+\pi^-\pi^0$ are written
   \bar{A}_{3\pi} = f_+ \bar{A}_+ + f_- \bar{A}_- + f_0 \bar{A}_0
 \end{equation}
 respectively.
-$A_+$, $A_-$ and $A_0$
+The symbols $A_+$, $A_-$ and $A_0$
 represent the complex decay amplitudes for 
 $\Bz \to \rho^+\pi^-$, $\Bz \to \rho^-\pi^+$ and $\Bz \to \rho^0\pi^0$
 while 
@@ -809,7 +815,7 @@ $\bar{A}_+$, $\bar{A}_-$ and $\bar{A}_0$
 represent those for 
 $\Bzb \to \rho^+\pi^-$, $\Bzb \to \rho^-\pi^+$ and $\Bzb \to \rho^0\pi^0$
 respectively.
-$f_+$, $f_-$ and $f_0$ incorporate kinematic and dynamical factors
+The terms $f_+$, $f_-$ and $f_0$ incorporate kinematic and dynamical factors
 and depend on the Dalitz plot coordinates.
 The full time-dependent decay distribution can then be written 
 in terms of 27 free parameters,
@@ -902,7 +908,8 @@ The time-dependent decay distributions can be written in many different ways.
 Here, we follow Sec.~\ref{sec:cp_uta:notations:cp_eigenstate}
 and define $\lambda_f = \frac{q}{p}\frac{\Abarf}{\Af}$ and
 $\lambda_{\bar f} = \frac{q}{p}\frac{\Abarfbar}{\Afbar}$.
-The time-dependent \CP asymmetries then follow Eq.~(\ref{eq:cp_uta:td_cp_asp}):
+The time-dependent \CP asymmetries that are sensitive to mixing-induced
+$\CP$ violation effects then follow Eq.~(\ref{eq:cp_uta:td_cp_asp}):
 \begin{eqnarray}
 \label{eq:cp_uta:non-cp-obs}
   {\cal A}_f (\Delta t) \; \equiv \;
@@ -1174,7 +1181,7 @@ time-dependent $\CP$ asymmetries in decays to non-$\CP$ eigenstates.
 }
 \label{sec:cp_uta:notations:non_cp:dstard}
 
-The ($\Adirnoncp$, $C_f$, $S_f$, $C_{\bar{f}}$, $S_{\bar{f}}$),
+The ($\Adirnoncp$, $C_f$, $S_f$, $C_{\bar{f}}$, $S_{\bar{f}}$)
 set of parameters was used in early publications by both \babar~\cite{Aubert:2007pa} and \belle~\cite{Aushev:2004uc} (albeit with slightly different notations) in the $D^{*\pm}D^{\mp}$ system ($f = D^{*+}D^-$, $\bar{f} = D^{*-}D^+$).
 In their most recent paper on this topic \belle~\cite{Rohrken:2012ta} instead used the parametrisation ($A_{D^*D}$, $S_{D^*D}$, $\Delta S_{D^*D}$, $C_{D^*D}$, $\Delta C_{D^*D}$), while \babar~\cite{Aubert:2008ah} give results in both sets of parameters.
 We therefore use the ($A_{D^*D}$, $S_{D^*D}$, $\Delta S_{D^*D}$, $C_{D^*D}$, $\Delta C_{D^*D}$) set.
@@ -1250,17 +1257,17 @@ defines the time-dependent probability function by
 \end{equation} 
 where the upper (lower) sign corresponds to 
 the tagging meson being a $\Bz$ ($\Bzb$). 
-[Note here that a tagging $\Bz$ ($\Bzb$) corresponds to $-S_\zeta$ ($+S_\zeta$).]
+Note here that a tagging $\Bz$ ($\Bzb$) corresponds to $-S_\zeta$ ($+S_\zeta$).
 The parameters $\eta$ and $\zeta$ take the values $+1$ and $+$ ($-1$ and $-$) 
 when the final state is, \eg, $D^-\pi^+$ ($D^+\pi^-$). 
 However, in the fit, the substitutions $C_\zeta = 1$ and 
 $S_\zeta = a \mp \eta b_i - \eta c_i$ are made.\footnote{
   The subscript $i$ denotes tagging category.
 }
-[Note that, neglecting $b$ terms, $S_+ = a - c$ and $S_- = a + c$, 
+(Note that, neglecting $b$ terms, $S_+ = a - c$ and $S_- = a + c$, 
 so that $a = (S_+ + S_-)/2$, $c = (S_- - S_+)/2$, in analogy to 
-the parameters of Eq.~(\ref{eq:cp_uta:non-cp-s_and_deltas}).] 
-The subscript $i$ denotes the tagging category. 
+the parameters of Eq.~(\ref{eq:cp_uta:non-cp-s_and_deltas}).)
+% The subscript $i$ denotes the tagging category. 
 These are motivated by the possibility of 
 $\CP$ violation on the tag side~\cite{Long:2003wq}, 
 which is absent for semileptonic $\B$ decays (mostly lepton tags). 
@@ -1282,7 +1289,7 @@ In this analysis, only lepton tags are used,
 so there is no effect from tag side $\CP$ violation. 
 In the \belle\ analysis using 
 fully reconstructed $\B$ decays~\cite{Ronga:2006hv}, 
-this effect is measured and taken into account using $\Dstar l \nu$ decays; 
+this effect is measured and taken into account using $\Dstar \ell \nu$ decays; 
 in neither \belle\ analysis are the $a$, $b$ and $c$ parameters used. 
 In the latter case, the measured parameters are 
 $2 R_{D^{(*)}\pi} \sin( 2\phi_1 + \phi_3 \pm \delta_{D^{(*)}\pi} )$; 
@@ -1546,9 +1553,9 @@ For this reason, the ADS analysis of the decay $B^\mp \to D \pi^\mp$
 is also of interest.
 
 In the GLW analysis, the measured quantities are the 
-partial rate asymmetry, and the charge averaged rate,
+partial rate asymmetry and the charge averaged rate,
 which are measured both for $\CP$-even and $\CP$-odd $D$ decays.
-The former is defined as 
+The latter is defined as 
 \begin{equation}
   \label{eq:cp_uta:dk:glw-rdef}
   R_{\CP} = 
@@ -1597,12 +1604,14 @@ the observed quantity is then
   \label{eq:cp_uta:dk:r_ads}
   R_{\rm ADS} = 
   \frac{
-    \Gamma \left( \Bm \to \left[ f \right]_D \Km \right)
+    \Gamma \left( \Bm \to \left[ f \right]_D \Km \right) + 
+    \Gamma \left( \Bp \to \left[ \bar{f} \right]_D \Kp \right)
   }{
-    \Gamma \left( \Bm \to \left[ \bar{f} \right]_D \Km \right)
+    \Gamma \left( \Bm \to \left[ \bar{f} \right]_D \Km \right) +
+    \Gamma \left( \Bp \to \left[ f \right]_D \Kp \right)
   } \, ,
 \end{equation}
-where inclusion of charge conjugate modes is implied.
+where the inclusion of charge conjugate modes has been made explicit.
 The \CP\ asymmetry is defined as
 \begin{equation}
   \label{eq:cp_uta:dk:a_ads}
@@ -1639,7 +1648,7 @@ decays of $D$ mesons of known flavour, and $\delta_D$ can be measured from inter
 More generally, one needs access to two different linear admixtures of $D^0$ and $\bar{D}{}^0$ states in order to determine the relative phase: one such sample can be flavour tagged $D$ mesons which are available in abundant quantities in many experiments; the other can be \CP-tagged $D$ mesons from $\psi(3770)$ decays or could be mixed $D$ mesons, or could for that matter be the combination of $D^0$ and $\bar{D}{}^0$ that is found in $B \to DK$ decays.
 In fact, the most precise information on both $r_D$ and $\delta_D$ currently comes from global fits on charm mixing parameters, as discussed in Sec.~\ref{sec:charm:mixcpv}.
 
-The relation of ${\cal A}_{\rm ADS}$ to the underlying parameters given in Eq.~\ref{eq:cp_uta:dk:acp_def} and Table~\ref{tab:cp_uta:notations:dk} is exact for a two-body $D$ decay.  
+The relation of ${\cal A}_{\rm ADS}$ to the underlying parameters given in Eq.~(\ref{eq:cp_uta:dk:acp_def}) and Table~\ref{tab:cp_uta:notations:dk} is exact for a two-body $D$ decay.  
 For multibody decays, a similar formalism can be used with the introduction of a coherence factor~\cite{Atwood:2003mj}.
 This is most appropriate for doubly-Cabibbo-suppressed decays to non-self-conjugate final states, but can also be modified for use with singly-Cabibbo-suppressed decays~\cite{Grossman:2002aq}.
 For multibody self-conjugate final states, such as $\KS\pi^+\pi^-$, a Dalitz plot analysis (discussed below) is often more appropriate.
@@ -1648,7 +1657,7 @@ Additional coherence factors enter the expressions when the $B$ decay is to a mu
 In particular, experiments have studied $B^+ \to DK^*(892)^+$, $B^0 \to DK^*(892)^0$ and $B^+ \to DK^+\pi^+\pi^-$ decays.
 The non-negligible width of the $K^*(892)$ resonance implies that contributions from other $B \to DK\pi$ decays can pass the selection requirements.
 Their effect on the quasi-two-body analysis can be accounted for with a coherence factor~\cite{Gronau:2002mu}.
-An alternative approach, not yet pursued by experiments, by in certain cases potentially more advantageous~\cite{Gershon:2008pe,Gershon:2009qc}, is Dalitz plot analysis of the full $B \to DK\pi$ phase space.
+An alternative approach, not yet pursued by experiments, but in certain cases potentially more advantageous~\cite{Gershon:2008pe,Gershon:2009qc}, is Dalitz plot analysis of the full $B \to DK\pi$ phase space.
 
 In the Dalitz plot analysis of $D$ decays to multibody self-conjugate final states,
 once a model is assumed for the $D$ decay, 
@@ -1658,8 +1667,8 @@ and directly extract $\gamma$, $r_B$ and $\delta_B$.
 However, the uncertainties on the phases depend approximately inversely on $r_B$.
 Furthermore, $r_B$ is positive definite (and small), 
 and therefore tends to be overestimated,
-which can lead to an underestimation of the uncertainty.
-Some statistical treatment is necessary to correct for this bias.
+which leads to an underestimation of the uncertainty on $\gamma$ that must be
+corrected statistically. % treatment is necessary to correct for this bias.
 An alternative approach is to extract from the data the ``Cartesian''
 variables
 \begin{equation}
@@ -1667,16 +1676,15 @@ variables
   \left( \Re(r_B e^{i(\delta_B\pm\gamma)}), \Im(r_B e^{i(\delta_B\pm\gamma)}) \right) = 
   \left( r_B \cos(\delta_B\pm\gamma), r_B \sin(\delta_B\pm\gamma) \right).
 \end{equation}
-These are (a) approximately statistically uncorrelated 
-and (b) almost Gaussian.
+These variables are approximately statistically uncorrelated and almost Gaussian.
 The pairs of variables $\left( x_\pm, y_\pm \right)$ can be extracted
 from independent fits of the $B^\pm$ data samples.
 Use of these variables makes the combination of results much simpler.
 
 The assumption of a model for the $D$ decay can, however, lead to a non-negligible, and hard to quantify, source of uncertainty.
-To obviate this, it is possible to use instead a model-independent approach, in which the Dalitz plot (or, more generally, the phase-space) in binned.
+To obviate this, it is possible to use instead a model-independent approach, in which the Dalitz plot (or, more generally, the phase-space) is binned~\cite{Giri:2003ty,Bondar:2005ki,Bondar:2008hh}.
 In this case, hadronic parameters describing the average strong phase difference in each bin between the suppressed and favoured decay amplitudes enter the equations.
-These parameters can be determined from quantum-correlated $\psi(3770) \to D\bar{D}$ decays.
+These parameters can be determined from interference effects in decays of quantum-correlated $D\bar{D}$ pairs produced at the $\psi(3770)$ resonance.
 
 However, if the Dalitz plot is effectively dominated by one $\CP$ state,
 there will be additional sensitivity to $\gamma$ in the numbers of events
@@ -1684,7 +1692,7 @@ in the $B^\pm$ data samples.
 This can be taken into account in various ways.
 One possibility is to extract GLW-like variables 
 in addition to the $\left( x_\pm, y_\pm \right)$ parameters.
-An alternative proceeds by defining $z_\pm = x_\pm + i y_\pm$
+An alternative approach proceeds by defining $z_\pm = x_\pm + i y_\pm$
 and $x_0 = - \int \Re \left[ f(s_1,s_2)f^*(s_2,s_1) \right] ds_1ds_2$,
 where $s_1, s_2$ are the coordinates of invariant mass squared that
 define the Dalitz plot and $f$ is the complex amplitude for $D$ decay
@@ -1741,9 +1749,9 @@ are different, in general, for each $\B$ decay mode.
   \end{center}
 \end{table}
 
-Results from model-dependent Dalitz plot fits tend to suffer from significant uncertainties due to the choice of model to describe hadronic effects.
-This can be obviated by a model-independent analysis, in which the Dalitz plot is binned~\cite{Giri:2003ty,Bondar:2005ki,Bondar:2008hh}.  It is then necessary to gain information on effective parameters which describe the average strong phase difference between a certain bin and its conjugate (found by reflecting in the symmetry axis of the Dalitz plot\footnote{Here we restrict the discussion to three-body self conjugate final states such as $\KS\pip\pim$ and $\KS\Kp\Km$, though it can be extended to other modes, including four-body final states.}).
-Such information can be obtained from interference effects in decays of quantum-correlated $D\bar{D}$ pairs produced at the $\psi(3770)$ resonance.
+% Results from model-dependent Dalitz plot fits tend to suffer from significant uncertainties due to the choice of model to describe hadronic effects.
+% This can be obviated by a model-independent analysis, in which the Dalitz plot is binned~\cite{Giri:2003ty,Bondar:2005ki,Bondar:2008hh}.  It is then necessary to gain information on effective parameters which describe the average strong phase difference between a certain bin and its conjugate (found by reflecting in the symmetry axis of the Dalitz plot\footnote{Here we restrict the discussion to three-body self conjugate final states such as $\KS\pip\pim$ and $\KS\Kp\Km$, though it can be extended to other modes, including four-body final states.}).
+% Such information can be obtained from interference effects in decays of quantum-correlated $D\bar{D}$ pairs produced at the $\psi(3770)$ resonance.
 
 \mysubsection{Common inputs and error treatment
 }
@@ -1840,16 +1848,20 @@ as well as $\jpsi \KL$, which has $\etacp = +1$
 and $\jpsi K^{*0}(892)$, which is found to have $\etacp$ close to $+1$
 based on the measurement of $\left| A_\perp \right|$ 
 (see Sec.~\ref{sec:cp_uta:common_inputs}).
-The most recent \belle\ result does not use $\eta_c \KS$ or $\jpsi K^{*0}(892)$.
+The most recent \belle\ result does not use $\eta_c \KS$ or $\jpsi K^{*0}(892)$ decays.\footnote{
+  Previous analyses from \belle\ did include these channels~\cite{Abe:2004mz},
+  but it is not possible to obtain separate results for those modes from the
+  published information.
+}
 ALEPH, OPAL, CDF and LHCb have used only the $\jpsi \KS$ final state.
 %% In the latest result from \belle~\cite{Chen:2006nk}, 
 %% only $\jpsi \KS$ and $\jpsi \KL$ are used,
 %% while results from $\psi(2{\rm S}) \KS$ have been presented
 %% separately~\cite{Abe:2007gj}.
-\babar\ have also determined the \CP-violation parameters of the
+\babar\ has also determined the \CP violation parameters of the
 $\Bz\to\chi_{c0} \KS$ decay from the time-dependent Dalitz plot analysis of
-$\Bz \to \pi^+\pi^-\KS$ (see subsection~\ref{sec:cp_uta:qqs:dp}).
-In addition, \belle\ have performed a measurement with data accumulated at the $\Upsilon(5S)$ resonance, using the $\jpsi\KS$ final state -- this involves a different flavour tagging method compared to the measurements performed with data accumulated at the $\Upsilon(4S)$ resonance.
+$\Bz \to \pi^+\pi^-\KS$ (see Sec.~\ref{sec:cp_uta:qqs:dp}).
+In addition, \belle\ has performed a measurement with data accumulated at the $\Upsilon(5S)$ resonance, using the $\jpsi\KS$ final state -- this involves a different flavour tagging method compared to the measurements performed with data accumulated at the $\Upsilon(4S)$ resonance.
 A breakdown of results in each charmonium-kaon final state is given in 
 Table~\ref{tab:cp_uta:ccs-BF}.
 
@@ -1859,7 +1871,7 @@ Table~\ref{tab:cp_uta:ccs-BF}.
 
 It should be noted that, while the uncertainty in the average for 
 $-\etacp S_{b \to c\bar c s}$ is still limited by statistics,
-that for $C_{b \to c\bar c s}$ is close to being dominated by systematics.
+the uncertainty for $C_{b \to c\bar c s}$ is close to being dominated by systematics.
 This occurs due to the possible effect of tag side interference on the
 $C_{b \to c\bar c s}$ measurement, an effect which is correlated between
 different $e^+e^- \to \Upsilon(4S) \to B\bar{B}$ experiments.
@@ -1906,7 +1918,7 @@ and UTFit~\cite{Bona:2005vz}.
     (Left) Average of measurements of $S_{b \to c\bar c s}$.
     (Right) Constraints on the $(\rhobar,\etabar)$ plane,
     obtained from the average of $-\etacp S_{b \to c\bar c s}$ 
-    and Eq.~\ref{eq:cp_uta:sin2beta}.
+    and Eq.~(\ref{eq:cp_uta:sin2beta}).
   }
   \label{fig:cp_uta:ccs}
 \end{figure}
@@ -1922,7 +1934,7 @@ and UTFit~\cite{Bona:2005vz}.
 
 $\B$ meson decays to the vector-vector final state $J/\psi K^{*0}$
 are also mediated by the $b \to c \bar c s$ transition.
-When a final state which is not flavour-specific ($K^{*0} \to \KS \pi^0$) is used,
+When a final state that is not flavour-specific ($K^{*0} \to \KS \pi^0$) is used,
 a time-dependent transversity analysis can be performed 
 allowing sensitivity to both 
 $\sin(2\beta)$ and $\cos(2\beta)$~\cite{Dunietz:1990cj}.
@@ -1949,9 +1961,9 @@ and exhibit significant correlations.
 We perform uncorrelated averages, 
 the interpretation of which has to be done with the greatest care. 
 Nonetheless, it is clear that $\cos(2\beta)>0$ is preferred 
-by the experimental data in $J/\psi \Kstarz$.
-[\babar~\cite{Aubert:2004cp} 
-find a confidence level for $\cos(2\beta)>0$ of $89\%$.]
+by the experimental data in $J/\psi \Kstarz$ 
+(for example, \babar~\cite{Aubert:2004cp} 
+find a confidence level for $\cos(2\beta)>0$ of $89\%$).
 
 \begin{figure}[htb]
   \begin{center}
@@ -2026,7 +2038,7 @@ From the above result and the assumption that $J_{s2}>0$,
 %%% Bs -> J/psi phi
 %%%
 %%%%%%%%
-\mysubsubsection{Time-dependent analysis of $\Bs$ decays though the $b to c\bar{c}s$ transition
+\mysubsubsection{Time-dependent analysis of $\Bs$ decays through the $b \to c\bar{c}s$ transition
 }
 \label{sec:cp_uta:ccs:jpsiphi}
 
@@ -2037,13 +2049,13 @@ Within the Standard Model, this parameter is predicted to be small.\footnote{
    We make the approximation $\phi_s = -2 \beta_s$, 
    where $\phi_s \equiv \arg\left[ -M_{12}/\Gamma_{12} \right]$ 
    and $2\beta_s \equiv 2 \arg\left[ -(V_{ts}V_{tb}^*)/(V_{cs}V_{cb}^*) \right]$
-   (see Section~\ref{sec:cp_uta:introduction}). 
+   (see Sec.~\ref{sec:cp_uta:introduction}). 
    This is a reasonable approximation since, 
    although the equality does not hold in the Standard Model~\cite{Lenz:2011ti,*Lenz:2006hd}, 
    both are much smaller than the current experimental resolution, 
    whereas new physics contributions add a phase $\phi_{\rm NP}$ to $\phi_s$
    and subtract the same phase from $2\beta_s$, 
-   so that the approximation remains valid.
+   such that the approximation remains valid.
 }
 The combination of results on $\Bs \to \jpsi \phi$ decays, including also results from $\Bs \to \jpsi \pi^+\pi^-$ and $\Bs \to D_s^+D_s^-$ decays, is performed by the HFAG Lifetimes and Oscillations group, see Sec.~\ref{sec:life_mix}.
 
@@ -2057,6 +2069,11 @@ The combination of results on $\Bs \to \jpsi \phi$ decays, including also result
 }
 \label{sec:cp_uta:cud_beta}
 
+\mysubsubsection{Time-dependent $\CP$ asymmetries: $b \to c\bar{u}d$ decays to
+  \CP eigenstates
+}
+\label{sec:cp_uta:cud_beta:cp}
+
 Decays of $\B$ mesons to final states such as $D\pi^0$ are 
 governed by $b \to c\bar{u}d$ transitions. 
 If the final state is a $\CP$ eigenstate, \eg\ $D_{\CP}\pi^0$, 
@@ -2064,7 +2081,7 @@ the usual time-dependence formulae are recovered,
 with the sine coefficient sensitive to $\sin(2\beta)$. 
 Since there is no penguin contribution to these decays, 
 there is even less associated theoretical uncertainty 
-than for $b \to c\bar{c}s$ decays like $\B \to \jpsi \KS$.
+than for $b \to c\bar{c}s$ decays such as $\B \to \jpsi \KS$.
 Such measurements therefore allow to test the Standard Model prediction
 that the $\CP$ violation parameters in $b \to c\bar{u}d$ transitions
 are the same as those in $b \to c\bar{c}s$~\cite{Grossman:1996ke}.
@@ -2077,36 +2094,40 @@ account in the analysis~\cite{Fleischer:2003ai,Fleischer:2003aj}.
 Results of such an analysis are available from \babar~\cite{Aubert:2007mn}.
 The decays $\Bz \to D\pi^0$, $\Bz \to D\eta$, $\Bz \to D\omega$,
 $\Bz \to D^*\pi^0$ and $\Bz \to D^*\eta$ are used.
-The daughter decay $D^* \to D\pi^0$ is used.
+In the latter two modes, the daughter decay $D^* \to D\pi^0$ is used.
 The $\CP$-even $D$ decay to $K^+K^-$ is used for all decay modes,
 with the $\CP$-odd $D$ decay to $\KS\omega$ also used in $\Bz \to D^{(*)}\pi^0$
 and the additional $\CP$-odd $D$ decay to $\KS\pi^0$ 
 also used in $\Bz \to D\omega$.
 Results are presented separately for $\CP$-even and $\CP$-odd 
 $D^{(*)}$ decays (denoted $D^{(*)}_+ h^0$ and $D^{(*)}_- h^0$ respectively),
-and for both combined, with the different $\CP$ factors accounted for
+and for both combined, taking into account the different $\CP$ factors
 (denoted $D^{(*)}_{\CP} h^0$).
 The results are summarised in Table~\ref{tab:cp_uta:cud_cp_beta}.
 
 \input{tables/cp_uta/dcph0.tex}
 
+\mysubsubsection{Time-dependent Dalitz plot analyses of $b \to c\bar{u}d$ decays
+}
+\label{sec:cp_uta:cud_beta:dalitz}
+
 When multibody $D$ decays, such as $D \to \KS\pi^+\pi^-$ are used, 
 a time-dependent analysis of the Dalitz plot of the neutral $D$ decay 
-allows a direct determination of the weak phase: $2\beta$. 
+allows for a direct determination of the weak phase: $2\beta$. 
 (Equivalently, both $\sin(2\beta)$ and $\cos(2\beta)$ can be measured.)
-This information allows to resolve the ambiguity in the 
+This information can be used to resolve the ambiguity in the 
 measurement of $2\beta$ from $\sin(2\beta)$~\cite{Bondar:2005gk}.
 
 Results of such analyses are available from both 
 \belle~\cite{Krokovny:2006sv} and \babar~\cite{Aubert:2007rp}.
 The decays $\B \to D\pi^0$, $\B \to D\eta$, $\B \to D\omega$, 
 $\B \to D^*\pi^0$ and $\B \to D^*\eta$ are used. 
-[This collection of states is denoted by $D^{(*)}h^0$.]
+(This collection of states is denoted by $D^{(*)}h^0$.)
 The daughter decays are $D^* \to D\pi^0$ and $D \to \KS\pi^+\pi^-$.
 The results are shown in Table~\ref{tab:cp_uta:cud_beta},
 and Fig.~\ref{fig:cp_uta:cud_beta}.
 Note that \babar\ quote uncertainties due to the $D$ decay model 
-separately from other systematic errors, while \belle\ do not.
+separately from other systematic errors as a third source of uncertainty, while \belle\ do not.
 
 \input{tables/cp_uta/dh0.tex}
 
@@ -2183,9 +2204,8 @@ $S_{b \to q\bar q s} \approx - \etacp \sin(2\beta)$,
 $C_{b \to q\bar q s} \approx 0$,
 assuming $b \to s$ penguin contributions only ($q = u,d,s$).
 
-Due to the large virtual mass scales occurring in the penguin loops,
-additional diagrams from physics beyond the Standard Model,
-with heavy particles in the loops, may contribute.
+Due to the suppression of the Standard Model amplitude, contributions of additional diagrams from physics beyond the Standard Model,
+with heavy virtual particles in the penguin loops, may have observable effects.
 In general, these contributions will affect the values of 
 $S_{b \to q\bar q s}$ and $C_{b \to q\bar q s}$.
 A discrepancy between the values of 
@@ -2193,7 +2213,7 @@ $S_{b \to c\bar c s}$ and $S_{b \to q\bar q s}$
 can therefore provide a clean indication of new physics~\cite{Grossman:1996ke,Fleischer:1996bv,London:1997zk,Ciuchini:1997zp}.
 
 However, there is an additional consideration to take into account.
-The above argument assumes only the $b \to s$ penguin contributes
+The above argument assumes that only the $b \to s$ penguin contributes
 to the $b \to q\bar q s$ transition.
 For $q = s$ this is a good assumption, which neglects only rescattering effects.
 However, for $q = u$ there is a colour-suppressed $b \to u$ tree diagram
@@ -2243,7 +2263,7 @@ Results on $\phi\KS$ and $\Kp\Km\KS$ (implicitly excluding $\phi\KS$ and $f_0\KS
 results on $\rho^0\KS$, $f_2\KS$, $f_{\rm X}\KS$ and $\pip\pim\KS$ nonresonant are taken from time-dependent Dalitz plot analyses of $\pip\pim\KS$ (see
 subsection~\ref{sec:cp_uta:qqs:dp}).
 The results on $f_0\KS$ are from combinations of both Dalitz plot analyses.
-\babar\ also has presented results with the final states
+\babar\ has also presented results with the final states
 $\pi^0\pi^0\KS$,\footnote{
   We do not include a preliminary result from \belle~\cite{:2007xd}, which
   remains unpublished after more than two years.
@@ -2265,12 +2285,12 @@ and a moments analysis~\cite{Aubert:2005ja}.)
 
 \input{tables/cp_uta/sPenguinAverages.tex}
 
-The final state $\phi \KS \pi^0$ is also not a \CP-eigenstate but its
+The final state $\phi \KS \pi^0$ is also not a \CP eigenstate but its
 \CP-composition can be determined from an angular analysis.
-Since the angular parameters are common to the $\Bz\to\phi \KS \pi^0$ and
-$\Bz\to \phi \Kp\pim$ decays (because only $K\pi$ resonance contribute),
+Since the parameters are common to the $\Bz\to\phi \KS \pi^0$ and
+$\Bz\to \phi \Kp\pim$ decays (because only $K\pi$ resonances contribute),
 \babar\ perform a simultaneous analysis of the two final
-states~\cite{Aubert:2008zza} (see subsection~\ref{sec:cp_uta:qqs:vv}).
+states~\cite{Aubert:2008zza} (see Sec.~\ref{sec:cp_uta:qqs:vv}).
 
 It must be noted that Q2B parameters extracted from Dalitz plot analyses 
 are constrained to lie within the physical boundary ($S_{\CP}^2 + C_{\CP}^2 < 1$)
@@ -2305,7 +2325,7 @@ These results must be treated with extreme caution.
     (left) $-\etacp S_{b \to q\bar q s}$ and (right) $C_{b \to q\bar q s}$.
     The $-\etacp S_{b \to q\bar q s}$ figure compares the results to 
     the world average 
-    for $-\etacp S_{b \to c\bar c s}$ (see Section~\ref{sec:cp_uta:ccs:cp_eigen}).
+    for $-\etacp S_{b \to c\bar c s}$ (see Sec.~\ref{sec:cp_uta:ccs:cp_eigen}).
     (Bottom) Same, but only averages for each mode are shown.
     More figures are available from the HFAG web pages.
   }
@@ -2363,43 +2383,25 @@ These results must be treated with extreme caution.
 %% straightforward interpretation
 As explained above,
 each of the modes listed in Table~\ref{tab:cp_uta:qqs} has
-different uncertainties within the Standard Model,
-and so each may have a different value of $-\etacp S_{b \to q\bar q s}$.
+potentially different subleading contributions within the Standard Model,
+and thus each may have a different value of $-\etacp S_{b \to q\bar q s}$.
 Therefore, there is no strong motivation to make a combined average
 over the different modes.
 We refer to such an average as a ``na\"\i ve $s$-penguin average.''
-It is na\"\i ve not only because of the neglect of the theoretical uncertainty,
+It is na\"\i ve not only because of the theoretical uncertainties are neglected,
 but also since possible correlations of systematic effects 
-between different modes are neglected.
-In spite of these caveats, there remains substantial interest 
-in the value of this quantity,
+between different modes are not included.
+In spite of these caveats there remains interest in the value of this quantity
 and therefore it is given here:
-$\langle -\etacp S_{b \to q\bar q s} \rangle = 0.64 \pm 0.03$,
-with confidence level $0.74~(0.3\sigma)$.
+$\langle -\etacp S_{b \to q\bar q s} \rangle = 0.655 \pm 0.032$,
+with confidence level $0.77~(0.3\sigma)$.
 This value is in agreement with the average 
 $-\etacp S_{b \to c\bar c s}$ given in Sec.~\ref{sec:cp_uta:ccs:cp_eigen}.
-% However, this result is strongly effected by the highly non-Gaussian errors
-% of the \babar\ result for 
-% $\Bz \to f_0\Kz$ with $f_0 \to \pi^+\pi^-$~\cite{Aubert:2009me},
-% which is only marginally consistent with \babar\ result for 
-% $\Bz \to f_0\Kz$ with $f_0 \to K^+K^-$~\cite{Aubert:2007sd}
-% and the \belle\ result for $\Bz \to f_0\Kz$ with $f_0 \to \pi^+\pi^-$ 
-% (treated as a Q2B decay)~\cite{Abe:2006gy}.
-% If the na\"\i ve $s$-penguin average is recalculated without this result,
-% we find $\langle -\etacp S_{b \to q\bar q s} \rangle = 0.56 \pm 0.05$,
-% with confidence level $0.25~(1.1\sigma)$.
-% Again treating the uncertainties as Gaussian and neglecting correlations,
-% this value is found to be $2.2\sigma$ below the average 
-% $-\etacp S_{b \to c\bar c s}$ given in Sec.~\ref{sec:cp_uta:ccs:cp_eigen}.
-%
 (The average for $C_{b \to q\bar q s}$ is 
-$\langle C_{b \to q\bar q s} \rangle = -0.01 \pm 0.03$
-with confidence level $0.74~(0.3\sigma)$.)
-% This result is not strongly effected by the inclusion of the \babar\ result for 
-% $\Bz \to f_0\Kz$ with $f_0 \to \pi^+\pi^-$.)
-%
-We emphasise again that we do not advocate the use of these averages,
-and that the values should be treated with {\it extreme caution}, if at all.
+$\langle C_{b \to q\bar q s} \rangle = -0.006 \pm 0.026$
+with confidence level $0.53~(0.6\sigma)$.)
+We emphasise again that we do not advocate the use of these averages.
+% and that the values should be treated with {\it extreme caution}, if at all.
 % What is unambiguous (although only qualitative) 
 % is that there is a trend that the values 
 % of $-\etacp S_{b \to q\bar q s}$ in different modes 
@@ -2436,6 +2438,20 @@ corresponding to those presented as solution 1 in all cases.
 Results on flavour specific amplitudes that may contribute to these Dalitz
 plots (such as $K^{*+}\pi^-$) are averaged by the HFAG Rare Decays subgroup 
 (Sec.~\ref{sec:rare}).
+
+For the $\Bz \to K^+K^-\Kz$ decay, both \babar\ and \belle\ measure the \CP
+violation parameters for the $\phi\Kz$, $f_0\Kz$ and ``other $\Kp\Km\Kz$''
+amplitudes, where the latter includes all remaining resonant and nonresonant
+contributions to the charmless three-body decay.
+For the $\Bz \to \pi^+\pi^-\KS$ decay, \babar\ report \CP violation parameters
+for all of the \CP eigenstate components in the Dalitz plot model ($\rhoz\KS$,
+$f_0\KS$, $f_2\KS$, $f_X\KS$ and nonresonant decays\footnote{
+  The $f_X$ resonance included in the model is a poorly understood excess in
+  the $m(\pi^+\pi^-)$ distribution, that may originate from interference
+  between other states in this region and nonresonant amplitudes.
+}), while \belle\ report the
+\CP violation parameters for only the $\rhoz\KS$ and $f_0\KS$ amplitudes,
+although the used Dalitz plot model is rather similar.
 
 \input{tables/cp_uta/kkk0.tex}
 
@@ -2609,11 +2625,11 @@ $0.158 \pm 0.028 \pm 0.006$~\cite{Aubert:2008ah} while
 \belle\ measures a $\CP$-odd fraction of 
 $0.125 \pm 0.043 \pm 0.023$~\cite{:2009za}.
 These values, listed as $R_\perp$, are included in the averages which ensures
-the correlations to be taken into account.\footnote{
+that the correlations are taken into account.\footnote{
   Note that the \babar\ value given in Table~\ref{tab:cp_uta:ccd2} differs from
   that given above, since that in the table is not corrected for efficiency.
 }
-\babar\ have also performed an additional fit in which the 
+\babar\ has also performed an additional fit in which the 
 $\CP$-even and $\CP$-odd components are allowed to have different 
 $\CP$ violation parameters $S$ and $C$.  
 These results are included in Table~\ref{tab:cp_uta:ccd2}.
@@ -2654,7 +2670,7 @@ show an indication of $\CP$ violation in decay,
 and hence a non-zero penguin contribution.
 The average of $S_{b \to c\bar c d}$ in both $J/\psi \pi^{0}$ and
 $D^{*+}D^{*-}$ final states is more than $5\sigma$ from zero, corresponding to
-observations of \CP violation in these decay channels.,
+observations of \CP violation in these decay channels.
 That in the $D^+D^-$ final state is more than $3\sigma$ from zero;
 however, due to the large uncertainty and possible non-Gaussian effects,
 any strong conclusion should be deferred.
@@ -2766,7 +2782,7 @@ any strong conclusion should be deferred.
     (left) $-\etacp S_{b \to c\bar c d}$ and (right) $C_{b \to c\bar c d}$.
     The $-\etacp S_{b \to q\bar q s}$ figure compares the results to 
     the world average 
-    for $-\etacp S_{b \to c\bar c s}$ (see Section~\ref{sec:cp_uta:ccs:cp_eigen}).
+    for $-\etacp S_{b \to c\bar c s}$ (see Sec.~\ref{sec:cp_uta:ccs:cp_eigen}).
   }
   \label{fig:cp_uta:ccd}
 \end{figure}
@@ -2798,7 +2814,7 @@ any strong conclusion should be deferred.
 \label{sec:cp_uta:qqd}
 
 Decays such as $\Bz\to\KS\KS$ are pure $b \to q\bar{q}d$ penguin transitions.
-As shown in Eq.~\ref{eq:cp_uta:b_to_d},
+As shown in Eq.~(\ref{eq:cp_uta:b_to_d}),
 this diagram has different contributing weak phases,
 and therefore the observables are sensitive to the difference 
 (which can be chosen to be either $\beta$ or $\gamma$).
@@ -2887,7 +2903,7 @@ used for both averages; both experiments use the invariant mass range
 $0.60 \ {\rm GeV}/c^2 < M_{\KS\pi^0} < 1.80 \ {\rm GeV}/c^2$
 in the inclusive analysis.
 
-In addition to the $\KS\pi^0\gamma$ decay, both \babar\ and \belle\ have presented results using $\KS\eta\gamma$ and $\KS\rho\gamma$, and \belle\ have in addition presented results using $\KS\phi\gamma$.
+In addition to the $\KS\pi^0\gamma$ decay, both \babar\ and \belle\ have presented results using $\KS\eta\gamma$ and $\KS\rho\gamma$, and \belle\ has in addition presented results using $\KS\phi\gamma$.
 For the $\KS\rho\gamma$ case, due to the non-negligible width of the $\rho^0$ meson, decays selected as $\Bz \to \KS\rho^0\gamma$ can include a significant contribution from $K^{*\pm}\pi^\mp\gamma$ decays, which are flavour-specific and do not have the same oscillation phenomenology. 
 Both \babar\ and \belle\ measure $S_{\rm eff}$ for all \B decay candidates with the $\rho^0$ selection being $0.6 < m(\pip\pim) < 0.9 \ {\rm GeV}/c^2$, obtaining $0.14 \pm 0.25 \,^{+0.04}_{-0.03}$ (\babar) and $0.09 \pm 0.27 \,^{+0.04}_{-0.07}$ (\belle). These values are then corrected for a ``dilution factor'', that is evaluated with different methods in the two experiments: \babar~\cite{Akar:2013ima} obtain $0.549 \,^{+0.096}_{-0.094}$ while \belle~\cite{Li:2008qma} obtain $0.83 \,^{+0.19}_{-0.03}$. Until the discrepancy between these values is understood, the average of the results should be treated with caution.
 
@@ -3002,24 +3018,24 @@ longitudinally polarised component
 0.992 \pm 0.024 \, ^{+0.026}_{-0.013}$~\cite{Aubert:2007nua}
 while \belle\ measure $f_{\rm long} = 
 0.941 \, ^{+0.034}_{-0.040} \pm 0.030$~\cite{Somov:2006sg}).
-\babar\ have also performed a time-dependent analysis of the 
+\babar\ has also performed a time-dependent analysis of the 
 vector-vector final state $\rho^0\rho^0$~\cite{:2008iha},
 in which they measure  $f_{\rm long} = 0.70 \pm 0.14 \pm 0.05$;
-\belle\ measures a smaller branching fraction than \babar\ for
+\belle\ measure a smaller branching fraction than \babar\ for
 $\Bz\to\rho^0\rho^0$~\cite{:2008et} with corresponding signal yields too small
 to perform time-dependent or angular analyses.
-\babar\ have furthermore performed a time-dependent analysis of the 
+\babar\ has furthermore performed a time-dependent analysis of the 
 $\Bz \to a_1^\pm \pi^\mp$ decay~\cite{Aubert:2006gb}; further experimental
 input for the extraction of $\alpha$ from this channel is reported in a later
 publication~\cite{:2009ii}.
 
-Results, and averages, of time-dependent \CP-violation parameters in 
+Results, and averages, of time-dependent \CP violation parameters in 
 $b \to u \bar u d$ transitions are listed in Table~\ref{tab:cp_uta:uud}.
 The averages for $\pi^+\pi^-$ are shown in Fig.~\ref{fig:cp_uta:uud:pipi},
 and those for $\rho^+\rho^-$ are shown in Fig.~\ref{fig:cp_uta:uud:rhorho},
 with the averages in the $S_{\CP}$ \vs\ $C_{\CP}$ plane 
 shown in Fig.~\ref{fig:cp_uta:uud_SvsC} and
-averages of \CP violation parameters in $\Bz \to a_1^\pm \pi^\mp$ decay shown in Fig.~\ref{fig:cp_uta:a1pi}
+averages of \CP violation parameters in $\Bz \to a_1^\pm \pi^\mp$ decay shown in Fig.~\ref{fig:cp_uta:a1pi}.
 
 \input{tables/cp_uta/uudAverages.tex}
 
@@ -3147,7 +3163,14 @@ Both experiments have also extracted the Q2B parameters.
 We have performed a full correlated average of these parameters,
 which is equivalent to determining the values from the 
 averaged $U$ and $I$ parameters.
-The results are shown in Table.~\ref{tab:cp_uta:uud:rhopi_q2b}.
+The results are shown in Table.~\ref{tab:cp_uta:uud:rhopi_q2b}.\footnote{
+  The $\Bz \to \rho^\pm \pi^\mp$ Q2B parameters are equivalent to the
+  parameters used for $\Bz \to a_1^\pm \pi^\mp$ decays, reported in
+  Table~\ref{tab:cp_uta:uud}.   
+  For the $\Bz \to a_1^\pm \pi^\mp$ case there has not yet been a full
+  amplitude analysis of $\Bz \to \pi^+\pi^-\pi^+\pi^-$ and therefore only the
+  Q2B parameters are available.
+}
 Averages of the $\Bz \to \rho^0\pi^0$ Q2B parameters are shown in 
 Figs.~\ref{fig:cp_uta:uud:rho0pi0} and~\ref{fig:cp_uta:uud:rho0pi0_SvsC}.
 
@@ -3240,33 +3263,45 @@ ${\cal A}^{-+}_{\rho\pi}$ \vs\ ${\cal A}^{+-}_{\rho\pi}$ space.
 \end{figure}
 
 %% straightforward interpretation
-Some difference is seen between the 
-\babar\ and \belle\ measurements in the $\pi^+\pi^-$ system.
-The confidence level of the average is $0.034$,
-which corresponds to a $2.1\sigma$ discrepancy.  Since there is no
-evidence of systematic problems in either analysis,
-we do not rescale the errors of the averages.
 The averages for $S_{b \to u\bar u d}$ and $C_{b \to u\bar u d}$ 
 in $\Bz \to \pi^+\pi^-$ are both more than $5\sigma$ away from zero,
 suggesting that both mixing-induced and $\CP$ violation in decay
 are well-established in this channel.
-Nonetheless, due to the possible discrepancy mentioned above,
-a slightly cautious interpretation should be made 
-with regard to the significance of $\CP$ violation in decay.
+The discrepancy between results from \babar\ and Belle that used to exist in
+this channel (see, for example, Ref.~\cite{Asner:2010qj}) is no longer
+apparent, and the results from LHCb are also fully consistent with other
+measurements.  
+Some difference is, however, seen between the \babar\ and \belle\ measurements
+in the $a_1^\pm\pi^\mp$ system. 
+The confidence level of the five-dimensional average is $0.03$,
+which corresponds to a $2.1\sigma$ discrepancy.  
+As seen in Table~\ref{tab:cp_uta:uud}, this discrepancy is primarily in the
+values of $S_{a_1\pi}$, and is not evident in the ${\cal A}^{-+}_{a_1\pi}$
+\vs\ ${\cal A}^{+-}_{a_1\pi}$ projection shown in Fig.~\ref{fig:cp_uta:a1pi}.
+Since there is no
+evidence of systematic problems in either analysis,
+we do not rescale the errors of the averages.
+% Nonetheless, due to the possible discrepancy mentioned above,
+% a slightly cautious interpretation should be made 
+% with regard to the significance of $\CP$ violation in decay.
 
-In $\Bz \to \rho^\pm\pi^\mp$, however,
+In $\Bz \to \rho^\pm\pi^\mp$ decays,
 both experiments see an indication of $\CP$ violation in the 
 ${\cal A}^{\rho\pi}_{\CP}$ parameter 
 (as seen in Fig.~\ref{fig:cp_uta:uud:rhopi-dircp}).
 The average is more than $3\sigma$ from zero,
 providing evidence of direct $\CP$ violation in this channel.
+In $\Bz \to \rho^+\rho^-$ decays there is no evidence for $\CP$ violation,
+either mixing-induced or in decay.
+The absence of evidence of penguin contributions in this mode leads to
+strong constraints on $\alpha \equiv \phi_2$.
 
-\mysubsubsection{Constraints on $\alpha$}
+\mysubsubsection{Constraints on $\alpha \equiv \phi_2$}
 \label{sec:cp_uta:cus:alpha}
 
 The precision of the measured $\CP$ violation parameters in
 $b \to u\bar{u}d$ transitions allows 
-constraints to be set on the UT angle $\alpha$. 
+constraints to be set on the UT angle $\alpha \equiv \phi_2$. 
 Constraints have been obtained with various methods:
 \begin{itemize}\setlength{\itemsep}{0.5ex}
 \item 
@@ -3299,7 +3334,7 @@ Constraints have been obtained with various methods:
   their studies indicate that the scan is not statistically robust and cannot
   be interpreted as 1-C.L. 
   \belle~\cite{Kusaka:2007dv,:2007mj} have obtained a constraint on $\alpha$
-  using in addition information from the SU(2) partners of 
+  using additional information from the SU(2) partners of 
   $B \to \rho\pi$, which can be used to constrain $\alpha$
   via an isospin pentagon relation~\cite{Lipkin:1991st}. 
   With this analysis,
@@ -3308,7 +3343,7 @@ Constraints have been obtained with various methods:
 
 \item 
   The results from \babar\ on $\Bz \to a_1^\pm \pi^\mp$~\cite{Aubert:2006gb} can be
-  combined with results from modes related by isospin~\cite{Gronau:2005kw}
+  combined with results from modes related by isospin ($a_1K$ and $K_1\pi$)~\cite{Gronau:2005kw}
   leading to the following constraint: 
   $\alpha = \left( 79 \pm 7 \pm 11 \right)^\circ$~\cite{:2009ii}.
 
@@ -3342,12 +3377,12 @@ measurements of branching fractions and $\CP$ asymmetries,
 as averaged by the HFAG Rare Decays subgroup (Sec.~\ref{sec:rare}).
 Note also that each method suffers from discrete ambiguities in the solutions.
 The model assumption in the $\Bz \to \pi^+\pi^-\pi^0$ analysis 
-allows to resolve some of the multiple solutions, 
+helps resolve some of the multiple solutions, 
 and results in a single preferred value for $\alpha$ in $\left[ 0, \pi \right]$.
 All the above measurements correspond to the choice
 that is in agreement with the global CKM fit.
 
-At present we make no attempt to provide an HFAG average for $\alpha$.
+At present we make no attempt to provide an HFAG average for $\alpha \equiv \phi_2$.
 More details on procedures to calculate a best fit value for $\alpha$ 
 can be found in Refs.~\cite{Charles:2004jd,Bona:2005vz}.
 
@@ -3361,7 +3396,7 @@ can be found in Refs.~\cite{Charles:2004jd,Bona:2005vz}.
 }
 \label{sec:cp_uta:cud}
 
-Non-$\CP$ eigenstates such as $D^\pm\pi^\mp$, $D^{*\pm}\pi^\mp$ and $D^\pm\rho^\mp$ can be produced 
+Non-$\CP$ eigenstates such as $D^\mp\pi^\pm$, $D^{*\mp}\pi^\pm$ and $D^\mp\rho^\pm$ can be produced 
 in decays of $\Bz$ mesons either via Cabibbo favoured ($b \to c$) or
 doubly Cabibbo suppressed ($b \to u$) tree amplitudes. 
 Since no penguin contribution is possible,
@@ -3375,11 +3410,11 @@ As described in Sec.~\ref{sec:cp_uta:notations:non_cp:dstarpi},
 the averages are given in terms of parameters $a$ and $c$.
 $\CP$ violation would appear as $a \neq 0$.
 Results are available from both \babar\ and \belle\ in the modes
-$D^\pm\pi^\mp$ and $D^{*\pm}\pi^\mp$; for the latter mode both experiments 
+$D^\mp\pi^\pm$ and $D^{*\mp}\pi^\pm$; for the latter mode both experiments 
 have used both full and partial reconstruction techniques.
 % (\babar\ have provided separate results with each technique,
 % while \belle\ have in addition provided a combined result.)
-Results are also available from \babar\ using $D^\pm\rho^\mp$.
+Results are also available from \babar\ using $D^\mp\rho^\pm$.
 These results, and their averages, are listed in Table~\ref{tab:cp_uta:cud},
 and are shown in Fig.~\ref{fig:cp_uta:cud}.
 The constraints in $c$ \vs\ $a$ space for the $D\pi$ and $D^*\pi$ modes
@@ -3408,7 +3443,7 @@ $3\sigma$ from zero, providing evidence of $\CP$ violation in this channel.
   \label{fig:cp_uta:cud}
 \end{figure}
 
-For each of $D\pi$, $D^*\pi$ and $D\rho$, 
+For each mode, $D\pi$, $D^*\pi$ and $D\rho$, 
 there are two measurements ($a$ and $c$, or $S^+$ and $S^-$) 
 which depend on three unknowns ($R$, $\delta$ and $2\beta+\gamma$), 
 of which two are different for each decay mode. 
@@ -3472,9 +3507,9 @@ in Refs.~\cite{Charles:2004jd,Bona:2005vz}.
 }
 \label{sec:cp_uta:cus-td}
 
-\mysubsubsection{Time-dependent $\CP$ asymmetries in $\Bz \to D^\pm \KS \pi^\mp$}
+\mysubsubsection{Time-dependent $\CP$ asymmetries in $\Bz \to D^\mp \KS \pi^\pm$}
 
-Time-dependent analyses of transitions such as $\Bz \to D^\pm \KS \pi^\mp$ can
+Time-dependent analyses of transitions such as $\Bz \to D^\mp \KS \pi^\pm$ can
 be used to probe $\sin(2\beta+\gamma)$ in a similar way to that discussed
 above (Sec.~\ref{sec:cp_uta:cud}). Since the final state contains three
 particles, a Dalitz plot analysis is necessary to maximise the
@@ -3487,7 +3522,7 @@ Dalitz plot at 0.3.
 \mysubsubsection{Time-dependent $\CP$ asymmetries in $\Bs \to D_s^\mp K^\pm$}
 
 Time-dependent analysis of $\Bs \to D_s^\mp K^\pm$ decays can be used to determine $\gamma-2\beta_s$~\cite{Dunietz:1987bv,Aleksan:1991nh,Fleischer:2003yb}.
-Compared to the situation for $\Bz \to D^{(*)}\pm \pi^\mp$ discussed above (Sec.~\ref{sec:cp_uta:cud}), the larger value of the ratio $R$ of the magnitudes of the suppressed and favoured amplitudes allows it to be determined from the data.  
+Compared to the situation for $\Bz \to D^{(*)\mp} \pi^\pm$ discussed above (Sec.~\ref{sec:cp_uta:cud}), the larger value of the ratio $R$ of the magnitudes of the suppressed and favoured amplitudes allows it to be determined from the data.  
 Moreover, the non-zero value of $\Delta \Gamma_s$ allows the determination of additional terms, labelled $A^{\Delta\Gamma}$ and $\bar{A}{}^{\Delta\Gamma}$, that break ambiguities in the solutions for $\gamma-2\beta_s$.
 
 LHCb~\cite{Aaij:2014fba} have measured the time-dependent \CP violation parameters in $\Bs \to D_s^\mp K^\pm$ decays, using $1.0 \ {\rm fb}^{-1}$ of data.  
@@ -3509,7 +3544,7 @@ From these results, and a constraint on $2\beta_s$ from independent LHCb measure
 As explained in Sec.~\ref{sec:cp_uta:notations:cus},
 rates and asymmetries in $\Bmp \to \DorDstar K^{(*)\mp}$ decays
 are sensitive to $\gamma$, and have negligible theoretical uncertainty~\cite{Brod:2013sga}.
-Various methods using different $\DorDstar$ final states exist.
+Various methods using different $\DorDstar$ final states have been used.
 
 \mysubsubsection{$D$ decays to $\CP$ eigenstates
 }
@@ -3517,15 +3552,16 @@ Various methods using different $\DorDstar$ final states exist.
 
 Results are available from both \babar\ and \belle\ on GLW analyses in the
 decay modes $\Bmp \to D\Kmp$, $\Bmp \to \Dstar\Kmp$ and 
-$\Bmp \to D\Kstarmp$.\footnote{
-  We do not include a preliminary result from \belle~\cite{Abe:2003rg}, which
-  remains unpublished after more than two years.
-}
+$\Bmp \to D\Kstarmp$.
+% \footnote{
+%   We do not include a preliminary result from \belle~\cite{Abe:2003rg}, which
+%   remains unpublished after more than two years.
+% }
 Both experiments use the $\CP$-even $D$ decay final states $K^+K^-$ and
 $\pi^+\pi^-$ in all three modes; both experiments generally use the \CP-odd
 decay modes $\KS\pi^0$, $\KS\omega$ and $\KS\phi$, though care is taken to
 avoid statistical overlap with the $\KS K^+K^-$ sample used for Dalitz plot
-analysis (see Sec.~\ref{sec:cp_uta:cus:dalitz}), 
+analyses (see Sec.~\ref{sec:cp_uta:cus:dalitz}), 
 and asymmetric systematic errors are assigned due to $\CP$-even pollution
 under the $\KS\omega$ and $\KS\phi$ signals.
 Both experiments use both the $\Dstar \to D\pi^0$ decay, 
@@ -3570,24 +3606,24 @@ The results are shown in Table~\ref{tab:cp_uta:glw-DKstar} where an average is a
 \mysubsubsection{$D$ decays to suppressed final states}
 \label{sec:cp_uta:cus:ads}
 
-For ADS analysis, all of \babar, \belle, CDF and LHCb have studied the modes 
+For ADS analyses, all of \babar, \belle, CDF and LHCb have studied the modes 
 $\Bmp \to D\Kmp$ and $\Bmp \to D\pi^\mp$. 
 \babar\ and \belle\ have also analysed the $\Bmp \to \Dstar\Kmp$ mode.
 There is an effective shift of $\pi$ in the strong phase difference between
 the cases that the $\Dstar$ is reconstructed as $D\pi^0$ and
 $D\gamma$~\cite{Bondar:2004bi}, therefore these modes are studied separately.
-\babar\ have also studied the $\Bmp \to D\Kstarmp$ mode, 
+\babar\ has also studied the $\Bmp \to D\Kstarmp$ mode, 
 where $\Kstarmp$ is reconstructed as $\KS\pi^\mp$.
 % while LHCb have studied the $\Bmp \to D\Kmp\pip\pim$ mode.
 In all cases the suppressed decay $D \to K^+\pi^-$ has been used.
 \babar\ and \belle\ also have results using $\Bmp \to D\Kmp$ with $D \to K^+\pi^-\pi^0$,
-while LHCb has results using $\Bmp \to D\Kmp$ with $D \to K^+\pi^-\pi^+\pi^-$.
+while LHCb have results using $\Bmp \to D\Kmp$ with $D \to K^+\pi^-\pi^+\pi^-$.
 The results and averages are given in Table~\ref{tab:cp_uta:cus:ads}
 and shown in Fig.~\ref{fig:cp_uta:cus:ads}.
 
 Similar phenomenology as for $B \to DK$ decays holds for $B \to D\pi$ decays, though in this case the interference is between $b \to c\bar{u}d$ and $b \to u\bar{c}d$ transitions, and the ratio of suppressed to favoured amplitudes is expected to be much smaller, ${\cal O}(1\%)$.
 For most $D$ meson final states this implies that the interference effect is too small to be of interest, but in the case of ADS analysis it is possible that effects due to $\gamma$ may be observable.
-Accordingly, the experiments now measure the corresponding observables in the $Dpi$ final states.
+Accordingly, the experiments now measure the corresponding observables in the $D\pi$ final states.
 The results and averages are given in Table~\ref{tab:cp_uta:cus:ads2}
 and shown in Fig.~\ref{fig:cp_uta:cus:ads-Dpi}.
 
@@ -3631,7 +3667,9 @@ and shown in Fig.~\ref{fig:cp_uta:cus:ads-Dpi}.
   \label{fig:cp_uta:cus:ads-Dpi}
 \end{figure}
 
-\babar~\cite{:2009au}, \belle~\cite{Negishi:2012uxa} amd LHCb~\cite{Aaij:2014eha} have also presented results on a similar analysis with self-tagging neutral $B$ decays: $\Bz \to DK^{*0}$ with $D \to K^-\pi^+$ (all), 
+\babar~\cite{:2009au}, \belle~\cite{Negishi:2012uxa} and
+LHCb~\cite{Aaij:2014eha} have also presented results from a similar analysis
+method with self-tagging neutral $B$ decays: $\Bz \to DK^{*0}$ with $D \to K^-\pi^+$ (all), 
 $D \to K^-\pi^+\pi^0$ and $D \to K^-\pi^+\pi^+\pi^-$ (\babar\ only)
 (all with $K^{*0} \to K^+\pi^-$). 
 Effects due to the natural width of the $K^{*0}$ are
@@ -3655,7 +3693,7 @@ Combining the results and using additional input from
 CLEOc~\cite{Asner:2008ft,Lowery:2009id} a limit on the ratio between the 
 $b \to u$ and $b \to c$ amplitudes of $r_s \in \left[ 0.07,0.41 \right]$ 
 at 95\% C.L. limit is set by \babar.
-Belle set at limit of $r_B(DK^{*0}) < 0.4$ at 95\% C.L. 
+Belle set a limit of $r_B(DK^{*0}) < 0.4$ at 95\% C.L. 
 LHCb take input from Sec.~\ref{sec:charm_physics} and obtain $r_B(DK^{*0}) = 0.240 \,^{+0.055}_{-0.048}$ (different from zero with $2.7\sigma$ significance). 
 
 \mysubsubsection{$D$ decays to multiparticle self-conjugate final states (model-dependent analysis)}
@@ -3696,7 +3734,7 @@ no attempt is made to extract the true hadronic parameters
 of the $\Bmp \to D\Kstarmp$ decay.
 
 We perform averages using the following procedure, which is based on a set of
-(more or less) reasonable, though imperfect, assumptions. 
+reasonable, though imperfect, assumptions. 
 
 \begin{itemize}\setlength{\itemsep}{0.5ex}
 \item 
@@ -3711,11 +3749,11 @@ We perform averages using the following procedure, which is based on a set of
   include $D \to \KS K^+K^-$ decays in addition to $D \to \KS\pi^+\pi^-$.)
 \item 
   We include in the average the effect of correlations 
-  within each experiments set of measurements.
+  within each experiment's set of measurements.
 \item 
   At present it is unclear how to assign an average model uncertainty. 
   We have not attempted to do so. 
-  Our average includes only statistical and systematic error. 
+  Our average includes only statistical and systematic errors. 
   An unknown amount of model uncertainty should be added to the final error.
 \item 
   We follow the suggestion of Gronau~\cite{Gronau:2002mu} 
@@ -3796,26 +3834,25 @@ We perform averages using the following procedure, which is based on a set of
 
 The measurements of $(x_\pm, y_\pm)$ can be used to obtain constraints on 
 $\gamma$, as well as the hadronic parameters $r_B$ and $\delta_B$.
-All of 
 \babar~\cite{delAmoSanchez:2010rq},
 \belle~\cite{Poluektov:2010wz,Poluektov:2006ia} and
 LHCb~\cite{Aaij:2014iba}
-have done so using a frequentist procedure 
+have all done so using a frequentist procedure 
 (there are some differences in the details of the techniques used).
 
 \begin{itemize}\setlength{\itemsep}{0.5ex}
 
 \item 
   \babar\ obtain $\gamma = (68 \,^{+15}_{-14} \pm 4 \pm 3)^\circ$
-  from $D\Kpm$, $\Dstar\Kpm$ and $D\Kstarpm$
+  from $D\Kpm$, $\Dstar\Kpm$ and $D\Kstarpm$.
 
 \item
   \belle\ obtain $\phi_3 = (78 \,^{+11}_{-12} \pm 4 \pm 9)^\circ$
-  from $D\Kpm$ and $\Dstar\Kpm$
+  from $D\Kpm$ and $\Dstar\Kpm$.
 
 \item 
   LHCb obtain $\gamma = (84 \,^{+49}_{-42})^\circ$
-  from $D\Kpm$ using 1 ${\rm fb}^{-1}$ of data (a more precise result using 3 ${\rm fb}^{-1}$ and the model-independent method is reported below)
+  from $D\Kpm$ using 1 ${\rm fb}^{-1}$ of data (a more precise result using 3 ${\rm fb}^{-1}$ and the model-independent method is reported below).
 
 \item
   The experiments also obtain values for the hadronic parameters as detailed
@@ -3952,11 +3989,11 @@ have done so using a frequentist procedure (there are some differences in the de
 
 \item 
   \belle\ obtain
-  $\phi_3 = (77.3 \,^{+15.1}_{-14.9} \pm 4.1 \pm 4.3)^\circ$
+  $\phi_3 = (77.3 \,^{+15.1}_{-14.9} \pm 4.1 \pm 4.3)^\circ$.
 
 \item
  LHCb obtain
- $\gamma = (62 \,^{+15}_{-14})^\circ$
+ $\gamma = (62 \,^{+15}_{-14})^\circ$.
 
 \item
   The experiments also obtain values for the hadronic parameters as detailed
@@ -4009,23 +4046,23 @@ All use a frequentist procedure (there are some differences in the details of th
 \begin{itemize}\setlength{\itemsep}{0.5ex}
 
 \item 
-  \babar~\cite{Lees:2013nha} use results from $DK$, $D^*K$ and $DK^*$ modes with GLW, ADS and GGSZ analyses, to obtain $\gamma = (69 \,^{+17}_{-16})^\circ$
+  \babar~\cite{Lees:2013nha} use results from $DK$, $D^*K$ and $DK^*$ modes with GLW, ADS and GGSZ analyses, to obtain $\gamma = (69 \,^{+17}_{-16})^\circ$.
 
 \item 
-  \belle~\cite{Trabelsi:2013uj} use results from $DK$ and $D^*K$ modes with GLW, ADS and GGSZ analyses, to obtain $\phi_3 = (68 \,^{+15}_{-14})^\circ$
+  \belle~\cite{Trabelsi:2013uj} use results from $DK$ and $D^*K$ modes with GLW, ADS and GGSZ analyses, to obtain $\phi_3 = (68 \,^{+15}_{-14})^\circ$.
 
 \item
   LHCb~\cite{LHCb-CONF-2014-004} use results from the $DK$ mode with GLW, ADS (both $K\pi$ and $K3\pi$), GGSZ ($\KS h^+h^-$) and GLS ($\KS\Kpm\pimp$) analyses, as well as $DK^{*0}$ with GLW and ADS analyses and $\Bs \to D_s^\mp\Kpm$ decays. 
   LHCb have in addition obtained a constraint (not quoted here) including results from $B \to D\pi$.
   The LHCb combination takes into account subleading effects due to charm mixing and \CP violation~\cite{Rama:2013voa}.  
-  The result is $\gamma = (73 \,^{+9}_{-10})^\circ$
+  The result is $\gamma = (73 \,^{+9}_{-10})^\circ$.
 
 \item
   All the combinations use inputs from CLEOc (and/or from the HFAG - Charm Physics global fits on charm mixing parameters, see Sec.~\ref{sec:charm:mixcpv}) to constrain the hadronic parameters in the charm system. 
 
 \item 
   Constraints are also obtained on the hadronic parameters involved in the decays.
-  A summary of these is given in Table~\ref{tab:cp_uta:rBdeltaB_combination}
+  A summary of these is given in Table~\ref{tab:cp_uta:rBdeltaB_combination}.
 
 \item 
   The CKMfitter~\cite{Charles:2004jd} and 
