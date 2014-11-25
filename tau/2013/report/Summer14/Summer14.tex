@@ -9,10 +9,8 @@
  %\usepackage{epsfig} % COMMENTED BY PN as we are not using eps anymore
 \usepackage[figuresright]{rotating}
 % \usepackage{pstcol} % G. Cibinetto
-\usepackage{cite}    % G. Cibinetto
  %\usepackage{pstricks} % COMMENTED BY PN as pstricks is not made for pdflatex (there may be a hack, but I did not explore this)
 %\usepackage{auto-pst-pdf} % E. Ben-Haim: for compilation with pdflatex (instead of pstricks)
-\usepackage{mciteplus}
 \usepackage{authblk}
 \usepackage{caption}
 \usepackage{array}
@@ -27,6 +25,7 @@
 \usepackage{color, colortbl}
 \usepackage{footmisc}
 \usepackage{afterpage}
+\usepackage{relsize}                                      %SCB for Babar
 
 \usepackage{lineno}  % for line numbering during review
 
@@ -40,9 +39,12 @@
 \setlength{\topmargin}{-2.0cm}  %better for Letter (-1.0 is better for A4)
 
 \usepackage{hyperref} %PN REMOVED [dvips] option as we have moved to pdflatex              %SCB should come late in the packages http://www.tug.org/applications/hyperref/manual.html
-\usepackage[all]{hypcap} % Internal hyperlinks to floats.
 %\hypersetup{ pdfborder=0 0 0, urlbordercolor=1 0 0 }      %SCB
-\usepackage{relsize}                                      %SCB for Babar
+\usepackage[all]{hypcap} % Internal hyperlinks to floats.
+%%--- cite and mciteplus must be after hyperref %ALU
+\usepackage{cite}    % G. Cibinetto
+\usepackage{mciteplus}
+
 %\input{b2charm-symbols}                                %SCB
                                                           %SCB
 \def\hfurl#1{http://hfag.phys.ntu.edu.tw/b2charm/#1} %SCB disable links from caption
@@ -87,7 +89,7 @@
 \author[11]{J.~Dingfelder}\affil[11]{Bonn University, Germany}
 %% \author[]{W.~Dungel}\affil[]{Austrian Academy of Sciences, Austria}
 \author[12]{M.~Gelb}\affil[12]{Karlsruher Institut f\"{u}r Technologie, Germany}
-\author[13]{M.~Gersabeck}\affil[13]{University of Manchester, UK}
+\author[13]{M.~Gersabeck}\affil[13]{The University of Manchester, UK}
 %% \affil[13]{European Organization for Nuclear Research (CERN), Switzerland}
 \author[14]{T.~Gershon}\affil[14]{University of Warwick, UK}
 \author[15]{L.~Gibbons}\affil[15]{Cornell University, USA}
