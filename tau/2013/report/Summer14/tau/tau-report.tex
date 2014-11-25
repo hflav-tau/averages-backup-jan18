@@ -13,14 +13,13 @@
  %\usepackage{epsfig} % COMMENTED BY PN as we are not using eps anymore
 \usepackage[figuresright]{rotating}
 % \usepackage{pstcol} % G. Cibinetto
-\usepackage{cite}    % G. Cibinetto
  %\usepackage{pstricks} % COMMENTED BY PN as pstricks is not made for pdflatex (there may be a hack, but I did not explore this)
 %\usepackage{auto-pst-pdf} % E. Ben-Haim: for compilation with pdflatex (instead of pstricks)
-\usepackage{mciteplus}
 \usepackage{authblk}
 \usepackage{caption}
 \usepackage{array}
 \usepackage{longtable}
+\usepackage{float}
 
 \usepackage{adjustbox}
 \usepackage{tabularx}
@@ -30,6 +29,7 @@
 \usepackage{color, colortbl}
 \usepackage{footmisc}
 \usepackage{afterpage}
+\usepackage{relsize}                                      %SCB for Babar
 
 \definecolor{Gray}{gray}{0.9}
 \definecolor{LightGray}{gray}{0.97}
@@ -41,9 +41,12 @@
 \setlength{\topmargin}{-2.0cm}  %better for Letter (-1.0 is better for A4)
 
 \usepackage{hyperref} %PN REMOVED [dvips] option as we have moved to pdflatex              %SCB should come late in the packages http://www.tug.org/applications/hyperref/manual.html
-\usepackage[all]{hypcap} % Internal hyperlinks to floats.
 %\hypersetup{ pdfborder=0 0 0, urlbordercolor=1 0 0 }      %SCB
-\usepackage{relsize}                                      %SCB for Babar
+\usepackage[all]{hypcap} % Internal hyperlinks to floats.
+%%--- cite and mciteplus must be after hyperref %ALU
+\usepackage{cite}    % G. Cibinetto
+\usepackage{mciteplus}
+
 %\input{b2charm-symbols}                                %SCB
                                                           %SCB
 \def\hfurl#1{http://hfag.phys.ntu.edu.tw/b2charm/#1} %SCB disable links from caption
@@ -74,58 +77,58 @@
 %%\author{set one author to remove the spurious ``immediate''}
 \vspace*{-0.20in}}
 \author[1]{Y.~Amhis}\affil[1]{LAL, Universit\'{e} Paris-Sud, France}
-%% \author[2]{Sw.~Banerjee}\affil[2]{University of Victoria, Canada}
-\author[]{E.~Ben-Haim}\affil[]{LPNHE, Universit\'e Pierre et Marie Curie-Paris 6, Universit\'e Denis Diderot-Paris7, CNRS/IN2P3, France}
-%% \author[3]{R.~Bernhard}\affil[3]{University of Freiburg, Germany}
+\author[2]{Sw.~Banerjee}\affil[2]{University of Victoria, Canada}
+\author[3]{E.~Ben-Haim}\affil[3]{LPNHE, Universit\'e Pierre et Marie Curie-Paris 6, Universit\'e Denis Diderot-Paris7, CNRS/IN2P3, France}
+%% \author[]{R.~Bernhard}\affil[]{University of Freiburg, Germany}
 \author[4]{S.~Blyth}\affil[4]{National United University, Taiwan}
 \author[5]{A.~Bozek}\affil[5]{H. Niewodniczanski Institute of Nuclear Physics, Poland}
 \author[6]{C.~Bozzi}\affil[6]{INFN Ferrara, Italy}
 \author[7,8]{A.~Carbone}\affil[7]{INFN Bologna, Italy}\affil[8]{Universit\'{a} di Bologna, Italy}
-\author[10]{R.~Chistov}\affil[10]{Institute for Theoretical and Experimental Physics, Russia}
-\author[5]{M.~Chrz\k{a}szcz}\affil[]{Universit\"at Z\"urich, Switzerland}
+\author[9]{R.~Chistov}\affil[9]{Institute for Theoretical and Experimental Physics, Russia}
+\author[5,10]{M.~Chrz\k{a}szcz}\affil[10]{Universit\"at Z\"urich, Switzerland}
 \author[6]{G.~Cibinetto}
-%% \author[11]{J.~Coleman} \affil[11]{University of Liverpool, UK}
-\author[12]{J.~Dingfelder}\affil[12]{Bonn University, Germany}
-%% \author[13]{W.~Dungel}\affil[13]{Austrian Academy of Sciences, Austria}
-\author[]{M.~Gelb}
-\author[14]{M.~Gersabeck}\affil[14]{European Organization for Nuclear Research (CERN), Switzerland}
-\author[15]{T.~Gershon}\affil[15]{University of Warwick, UK}
-\author[16]{L.~Gibbons}\affil[16]{Cornell University, USA}
-%% \author[17]{B.~Golob}\affil[17]{University of Ljubljana, Slovenia}
-\author[18]{R.~Harr}\affil[18]{Wayne State University, USA}
-%% \author[19]{K.~Hayasaka} \affil[19]{Nagoya University, Japan}
-%% \author[20]{H.~Hayashii} \affil[20]{Nara Women's University, Japan}
-\author[]{T.~Kuhr}
-\author[21]{O.~Leroy}\affil[21]{CPPM, Aix-Marseille Universit\'{e}, CNRS/IN2P3, Marseille, France}
-%% \author[22]{D.~Lopes Pegna}\affil[22]{Princeton University, USA}
-%% \author[23]{R.~Louvot}\affil[23]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
-
-\author[24]{A.~Lusiani} \affil[24]{Scuola Normale Superiore and INFN, Pisa, Italy}
-%% \author[25]{V.~L\"{u}th}\affil[25]{SLAC National Accelerator Laboratory, USA}
-\author[]{K.~Miyabayashi}
-%% \author[26]{B.~Meadows} \affil[26]{University of Cincinnati, USA}
-\author[]{P.~Naik}\affil[]{University of Bristol, UK}
-\author[27]{S.~Nishida}\affil[27]{KEK, Tsukuba, Japan}
-\author[9]{A.~Oyanguren Campos}\affil[9]{IFIC, University of Valencia, Spain}
-\author[28]{M.~Patel}\affil[28]{Imperial College London, UK}
-\author[29]{D.~Pedrini} \affil[29]{INFN Milano-Bicocca, Italy}
-\author[]{M.~Petric}\affil[17]{University of Ljubljana, Slovenia}
-\author[30]{M.~Rama}\affil[30]{INFN Frascati, Italy}
-%% \author[2]{M.~Roney}
-\author[31]{M.~Rotondo}\affil[31]{INFN Padova, Italy}
-\author[23]{O.~Schneider}\affil[23]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
-\author[13]{C.~Schwanda}
-\author[25]{A.~J.~Schwartz}
-%% \author[32]{B.~Shwartz}\affil[32]{Budker Institute of Nuclear Physics, Russia}
+%% \author[]{J.~Coleman} \affil[]{University of Liverpool, UK}
+\author[11]{J.~Dingfelder}\affil[11]{Bonn University, Germany}
+%% \author[]{W.~Dungel}\affil[]{Austrian Academy of Sciences, Austria}
+\author[12]{M.~Gelb}\affil[12]{Karlsruher Institut f\"{u}r Technologie, Germany}
+\author[13]{M.~Gersabeck}\affil[13]{University of Manchester, UK}
+%% \affil[13]{European Organization for Nuclear Research (CERN), Switzerland}
+\author[14]{T.~Gershon}\affil[14]{University of Warwick, UK}
+\author[15]{L.~Gibbons}\affil[15]{Cornell University, USA}
+%% \author[]{B.~Golob}\affil[]{University of Ljubljana, Slovenia}
+\author[16]{R.~Harr}\affil[16]{Wayne State University, USA}
+\author[17]{K.~Hayasaka}\affil[17]{Nagoya University, Japan}
+\author[18]{H.~Hayashii}\affil[18]{Nara Women's University, Japan}
+\author[12]{T.~Kuhr}
+\author[19]{O.~Leroy}\affil[19]{CPPM, Aix-Marseille Universit\'{e}, CNRS/IN2P3, Marseille, France}
+%% \author[]{D.~Lopes Pegna}\affil[]{Princeton University, USA}
+%% \author[]{R.~Louvot}\affil[]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+\author[20]{A.~Lusiani}\affil[20]{Scuola Normale Superiore and INFN, Pisa, Italy}
+%% \author[]{V.~L\"{u}th}\affil[]{SLAC National Accelerator Laboratory, USA}
+\author[18]{K.~Miyabayashi}
+%% \author[]{B.~Meadows}\affil[]{University of Cincinnati, USA}
+\author[21]{P.~Naik}\affil[21]{University of Bristol, UK}
+\author[22]{S.~Nishida}\affil[22]{KEK, Tsukuba, Japan}
+\author[23]{A.~Oyanguren Campos}\affil[23]{IFIC, University of Valencia, Spain}
+\author[24]{M.~Patel}\affil[24]{Imperial College London, UK}
+\author[25]{D.~Pedrini} \affil[25]{INFN Milano-Bicocca, Italy}
+\author[26]{M.~Petri\v{c}}\affil[26]{J. Stefan Institute, Slovenia}
+\author[27]{M.~Rama}\affil[27]{INFN Frascati, Italy}
+\author[2]{M.~Roney}
+\author[28]{M.~Rotondo}\affil[28]{INFN Padova, Italy}
+\author[29]{O.~Schneider}\affil[29]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+\author[30]{C.~Schwanda}\affil[30]{Austrian Academy of Sciences, Austria}
+\author[31]{A.~J.~Schwartz}\affil[31]{University of Cincinnati, USA}
+\author[32]{B.~Shwartz}\affil[32]{Budker Institute of Nuclear Physics, Russia}
 \author[33]{J.~G.~Smith}\affil[33]{University of Colorado, USA}
 \author[34]{R.~Tesarek}\affil[34]{Fermilab, USA}
-\author[14,34]{D.~Tonelli}
-\author[26]{K.~Trabelsi}
-\author[12]{P.~Urquijo}
-\author[35]{R.~Van Kooten}\affil[35]{Indiana University, USA}
-\author[]{A.~Zupanc}
+%% \author[13]{D.~Tonelli}
+\author[22,29]{K.~Trabelsi}
+\author[35]{P.~Urquijo}\affil[35]{University of Melbourne, Australia}
+\author[36]{R.~Van Kooten}\affil[36]{Indiana University, USA}
+\author[26]{A.~Zupanc}
 
-\date{\today}
+\date{\today} % replace \date{\today} at arXiv submission time
 \maketitle
 
 \begin{abstract}
@@ -151,6 +154,7 @@ parameters of semileptonic decays and CKM matrix elements.
 % Introduction
 \input{hfag_intro.tex}
 
+\clearpage
 % Methodology
 %\input{methods.tex}
 
@@ -205,6 +209,11 @@ parameters of semileptonic decays and CKM matrix elements.
 
 \bibliographystyle{../HFAGutphys}
 \raggedright
+\setlength{\parskip}{0pt}
+\setlength{\itemsep}{0pt plus 0.3ex}
+\begin{small}
+%%\bibliography{Summer14,life_mix/life_mix,cp_uta,slbdecays/slb_ref,b2charm/b2charm,charm/charm_refs,tau/tau-refs,tau/tau-refs-pdg}
 \bibliography{../Summer14,../tau/tau-refs-pdg,../tau/tau-refs}
+\end{small}
 
 \end{document}
