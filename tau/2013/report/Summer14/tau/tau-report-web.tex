@@ -47,6 +47,7 @@
 \providecommand*{\input@path}{}%
 \g@addto@macro\input@path{{../}}%
 \makeatother
+\fi
 \usepackage[pdftex]{graphicx}
 \usepackage[%
   colorlinks=true,
@@ -72,6 +73,8 @@
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
 %%
+\ifhevea\else
+%%--- hevea bibliography would be spoiled if not excluded
 \AtBeginDocument{%
   \renewcommand{\familydefault}{\sfdefault}
   \sffamily
