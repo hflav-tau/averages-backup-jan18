@@ -1,6 +1,6 @@
-We present world averages of a selection of \mtau lepton quantities lepton
+We present world averages of a selection of \mtau lepton quantities
 that most benefit from the adoption of the HFAG
-methodology~\cite{Amhis:2012bh}.
+methodology~\cite{Asner:2010qj}.
 All published statistical correlations are used, and a
 selection of measurements, particularly the most precise and the most
 recent, were studied to take into account the significant systematic
@@ -34,15 +34,23 @@ not maintain the same numbers across editions. We continue using the PDG
 2010~\cite{PDG_2010} numbers with the aim to eventually switch to a different stable notation,
 probably based on PDG identifiers~\cite{pdg-identifiers-2014}.
 
-The fitted branching fractions consist on \htuse{BaseQuantNum} ``base nodes'' and \htuse{ConstrNum} derived
-branching fractions, described either as sum of base nodes (see
-Section~\ref{sec:tau:constraints}) or as ratios of branching fractions (see
-Table~\ref{tab:tau:br-fit}). Furthermore, we define (see
-Section~\ref{sec:tau:constraints}) $\Gamma_{\text{All}}$ as the sum of all
-the base modes, which correspond to all non-overlapping \mtau decay modes,
-$\Gamma_{998} = 1 -\Gamma_{\text{All}}$ and $\Gamma_{110} =
-\BRF{\tau^-}{X_s^- \nu_\tau}$, which is the total branching fraction of the
-tau to modes with the strangeness quantum number equal to one.
+The fit output consists in \htuse{QuantNum} quantities, which correspond to
+either branching fractions or ratios of linear combinations of branching
+fractions. Although the fit treats all quantities in the same way, for the
+purpose of describing the results we divide the above quantities in a set
+of \htuse{BaseQuantNum} ``base nodes'' that permit the definition of all
+the remaining ones as either a sum of ``base nodes'' (\htuse{ConstrNum}
+quantities, see Section~\ref{sec:tau:constraints}) or as ratios of linear
+combinations of ``base nodes'' (the remaining quantities, see
+Table~\ref{tab:tau:br-fit}).
+
+Furthermore we define (see Section~\ref{sec:tau:constraints}) $\Gamma_{110}
+= \BR(\tau^- \to X_s^- \nu_\tau)$, the total branching fraction of the \mtau
+decays to final states with the strangeness quantum number equal to one, and
+$\Gamma_{\text{All}}$, the branching fraction of the \mtau into any
+measured final state, which is supposed to be equal to $1$ within the
+experimental uncertainty. We define the unitarity residual as $\Gamma_{998}
+= 1 -\Gamma_{\text{All}}$.
 
 The fitted \hfagtau averages are reported in
 Table~\ref{tab:tau:br-fit}. The fit has $\chi^2/\text{d.o.f.} = \htuse{Chisq}/\htuse{Dof}$,
@@ -52,20 +60,21 @@ Although the unitarity constraint is not applied, the fit is statistically
 consistent with unitarity, and the unitarity residual is
 \htuse{Gamma998.gn} =  \htuse{Gamma998.td} = \htuse{Gamma998}.
 
-In several cases, when it is statistically equivalent within the \hfagtau
-fitting procedure, for historical reasons the statistical and systematic
-errors are added in quadrature and are reported in the above table in the
-location of the statistical error, reporting zero as systematic error. A
-scale factor of 5.44 (as in the two previous reports
-report~\cite{Asner:2010qj,Amhis:2012bh}) has been applied to the published
+A scale factor of 5.44 (as in the two previous
+reports~\cite{Asner:2010qj,Amhis:2012bh}) has been applied to the published
 uncertainties of the two severely inconsistent measurements of
 \(\Gamma_{96} = \tau \to KKK\nu\) by \babar and Belle, following the same
 procedure as the PDG.
 
+For several old results, for historical reasons, the table reports the
+statistical and systematic errors are added in quadrature as statistical
+error and zero as systematic error: this does not affect the fit results as
+the systematic errors are treated exactly as the statistical ones.
+
 \tausubsection{Changes with respect to the previous report}
 
-The following additions and changes gave been done with respect to the 2012
-report~\cite{Amhis:2012bh}.
+The following additions and changes have been done with respect to the
+previous HFAG report~\cite{Amhis:2012bh}.
 
 Published results from two \babar papers and one Belle paper have been
 added. The following results have been used from the \htuse{LEES 2012X.collab} high
@@ -82,16 +91,16 @@ results have been used from the \htuse{LEES 2012Y.collab} paper on the
 $K_S$~\htuse{LEES 2012Y.cite}:
 {\setlength{\LTleft}{\parindent}%
 \begin{longtable}{@{}ll@{}}
-\htuse{LEES 2012Y.meas},
+\htuse{LEES 2012Y.meas}.
 \end{longtable}}
 \noindent The following results have been used from the
 \htuse{Ryu:2014vpc.collab} paper on the $K_S$ final
 states~\htuse{Ryu:2014vpc.cite}:
 {\setlength{\LTleft}{\parindent}%
 \begin{longtable}{@{}ll@{}}
-\htuse{Ryu:2014vpc.meas},
+\htuse{Ryu:2014vpc.meas}.
 \end{longtable}}
-\noindent these results supersede the preliminary ones~\cite{Ryu:2012pm}
+\noindent These results supersede the preliminary ones~\cite{Ryu:2012pm}
 and the former published result on $\tau^- \to \htuse{Gamma35.td}$~\cite{Epifanov:2007rf}.
 In order to profit from the measurements of branching fractions with two
 $K_S$ in the final state, we discard the inclusive ALEPH measurement on
@@ -111,7 +120,6 @@ In order to best integrate the above new results in the global fit, the followin
 constraints have been added:
 {\setlength{\LTleft}{\parindent}%
 \begin{tabularx}{\linewidth-\parindent}{@{}lX@{}}
-  \htuse{Gamma13.c.constr.eq} \\
   \htuse{Gamma33.c.constr.eq} \\
   \htuse{Gamma49.c.constr.eq} \\
   \htuse{Gamma78.c.constr.eq} \\
@@ -123,7 +131,7 @@ constraints have been added:
   \htuse{Gamma830.c.constr.eq} \\
   \htuse{Gamma910.c.constr.eq} \\
   \htuse{Gamma930.c.constr.eq} \\
-  \htuse{Gamma944.c.constr.eq} \\
+  \htuse{Gamma944.c.constr.eq}~. \\
 \end{tabularx}}
 \noindent It was realised that the \htuse{Gamma44.gn} fit quantity, which is
 exclusively determined by one single ALEPH
@@ -141,7 +149,7 @@ been updated as follows:
 \noindent The total \mtau branching fraction \htuse{GammaAll.gn} definition
 includes two modes that have overlapping final states, to a minor extent:
 \begin{align*}
-  &\htuse{Gamma50.gn} =  \htuse{Gamma50.td}~, \\
+  &\htuse{Gamma50.gn} =  \htuse{Gamma50.td} \\
   &\htuse{Gamma132.gn} =  \htuse{Gamma132.td}~.
 \end{align*}
 \noindent The amount of overlap cannot be disentagled with the presently
@@ -154,8 +162,8 @@ removed:
   $\Gamma_{136}$ ={}& $\Gamma_{104}\cdot \Gamma_{\eta \to \pi^+\pi^-\pi^0} +
   \Gamma_{78} \cdot \Gamma_{\eta \to 3\pi^0}$~.
 \end{tabularx}}
-\noindent The wrong constraint has been affecting in a negligible way the
-global fit in the previous HFAG reports, except for the involved specific
+\noindent The wrong constraint had negligible effect on the global
+fit in the previous HFAG reports, except for the involved specific
 branching ratios.  In particular, the effects on the lepton universality
 tests and in the \Vus determination were negligible.
 
@@ -283,7 +291,7 @@ is equivalent to the PDG 2014 average~\cite{PDG_2014} (see Fig.~\ref{fig:tau:tau
 \cutname{lepton-univ.html}
 \label{sec:tau:leptonuniv}
 
-Lepton universality tests precision has significantly been improved by the
+Lepton universality tests precision has been significantly improved by the
 addition of the recent Belle \mtau lifetime
 measurement~\cite{Belous:2013dba}, while improvements from the \mtau
 branching fraction fit are negligible.
@@ -299,10 +307,10 @@ lighter lepton \leptl~\cite{Marciano:1988vm},
 \end{align*}
 where
 \begin{alignat*}{3}
- G_{\leptl} &= \frac {g^2_{\leptl}}{4 \sqrt{2} M^2_W} &\quad&&
- f(x) &= 1 -8x +8x^3 -x^4 -12x^2 \text{ln}x \\
- \opdelta^{\lepth}_W &= 1 + \frac {3}{5} \frac {m^2_{\lepth}}{M^2_W} &\quad\quad&&
- \opdelta^{\lepth}_\gamma &= 1+\frac {\alpha(m_{\lepth})}{2\pi} \left(\frac {25}{4}-\pi^2\right)
+ G_{\leptl} &= \frac {g^2_{\leptl}}{4 \sqrt{2} M^2_W}~, &\quad&&
+ f(x) &= 1 -8x +8x^3 -x^4 -12x^2 \text{ln}x~, \\
+ \opdelta^{\lepth}_W &= 1 + \frac {3}{5} \frac {m^2_{\lepth}}{M^2_W}~, &\quad\quad&&
+ \opdelta^{\lepth}_\gamma &= 1+\frac {\alpha(m_{\lepth})}{2\pi} \left(\frac {25}{4}-\pi^2\right)~.
 \end{alignat*}
 We use $\opdelta^\tau_\gamma=1-43.2\cdot 10^{-4}$ and
 $\opdelta^\mu_\gamma=1-42.4\cdot 10^{-4}$~\cite{Marciano:1988vm} and $M_W$
@@ -341,11 +349,11 @@ Table~\ref{tab:tau:univ-fit-corr} reports the statistical correlation coefficien
 \ifhevea\begin{table}\fi%% otherwise cannot have normalsize caption
 \begin{center}
 \ifhevea
-\caption{Universality coupling ratios correlation coefficients (\%)\label{tab:tau:univ-fit-corr}}%
+\caption{Universality coupling ratios correlation coefficients (\%).\label{tab:tau:univ-fit-corr}}%
 \else
 \begin{minipage}{\linewidth}
 \begin{center}
-\captionof{table}{Universality coupling ratios correlation coefficients (\%)}\label{tab:tau:univ-fit-corr}%
+\captionof{table}{Universality coupling ratios correlation coefficients (\%).}\label{tab:tau:univ-fit-corr}%
 \fi
 \begin{center}
 \renewcommand*{\arraystretch}{1.1}%
@@ -415,9 +423,9 @@ $\Gammahad = \Gammastrange + \Gammanonstrange$.
 Dividing by the partial width to electron, $\Gamma_e$, we obtain partial width ratios
 (which are equal to the respective branching fraction ratios) for which
 $\Rhad =  \Rstrange + \Rnonstrange$. In terms
-of such ratios, \Vus is measured as
+of such ratios, \Vus is measured as~\cite{Gamiz:2006xx}
 \begin{align*}
-  \Vus &= \sqrt{\Rstrange/\left[\frac{\Rnonstrange}{\Vud^2} -  \delta R_{\text{theory}}\right]}~,
+  \VusTauIncl &= \sqrt{\Rstrange/\left[\frac{\Rnonstrange}{\Vud^2} -  \delta R_{\text{theory}}\right]}~,
 \end{align*}
 where $\delta R_{\text{theory}}$ can be determined in the context of low
 energy QCD theory, partly relying on experimental low energy scattering
@@ -536,20 +544,22 @@ We summarize the \Vus results reporting the values, the discrepancy with
 respect to the \Vus determination from CKM unitarity, and an illustration
 of the measurement method:
 \begin{alignat*}{6}
-  &\VusUni &&= \htuse{Vus_uni} & \quad & & \quad
+  &\VusUni &&= \htuse{Vus_uni.v} &&\pm \htuse{Vus_uni.e} & \quad & & \quad
   & {\smaller\text{from } \sqrt{1 - \Vud^2} \quad\text{(CKM unitarity)}}~, \\
   %%
-  &\VusTauIncl &&= \htuse{Vus} & \quad & \htuse{Vus_mism_sigma}\sigma &
+  &\VusTauIncl &&= \htuse{Vus.v} &&\pm \htuse{Vus.e} & \quad & \htuse{Vus_mism_sigma}\sigma &
   & {\smaller\text{from } \Gamma(\tau^- \to X_s^- \nut)}~, \\
   %%
-  &\VusTauKpi &&= \htuse{Vus_tauKpi} & \quad & \htuse{Vus_tauKpi_mism_sigma}\sigma &
+  &\VusTauKpi &&= \htuse{Vus_tauKpi.v} &&\pm \htuse{Vus_tauKpi.e} & \quad & \htuse{Vus_tauKpi_mism_sigma}\sigma &
   & {\smaller\text{from } \Gamma(\tauknu)/\Gamma(\taupinu)}~,  \\
   %%
-  &\VusTauKnu &&= \htuse{Vus_tauKnu} & \quad & \htuse{Vus_tauKnu_mism_sigma}\sigma &
+  &\VusTauKnu &&= \htuse{Vus_tauKnu.v} &&\pm \htuse{Vus_tauKnu.e} & \quad & \htuse{Vus_tauKnu_mism_sigma}\sigma &
   & {\smaller\text{from } \Gamma(\tauknu)}~.
 \end{alignat*}
 
-Averaging the three above \Vus determinations we obtain:
+Averaging the three above \Vus determinations (taking into account all
+correlations due to the usage of the fitted \mtau branching fractions and
+the other mentioned inputs) we obtain:
 \begin{alignat*}{6}
   & \Vus_\tau &&= \htuse{Vus_tau} &\quad &\htuse{Vus_tau_mism_sigma}\sigma \quad
   & \text{average of 3 \Vus \mtau measurements}.
