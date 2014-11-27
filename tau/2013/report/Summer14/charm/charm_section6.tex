@@ -42,19 +42,22 @@ the charged lepton mass. Leptonic decays into electrons with $\br\lesssim 10^{-7
 observable yet whereas decays to taus are favored over decays to muons. In particular, the ratio of the 
 latter decays is equal to 
 $R^{D_q}_{\tau/\mu}\equiv \br(D^+_q\to\tau^+\nu_{\tau})/\br(D^+_q\to\mu^+\nu_{\mu})=m_{\tau}^2/m_{\mu}^2\cdot(1-m^2_{\tau}/m^2_{D_q})^2/(1-m^2_{\mu}/m^2_{D_q})^2=9.76\pm0.03$ 
-in the case of $D_s^+$ decays and to $2.67\pm0.01$ in the case of $D^+$ decays based on the world average masses of the muon, tau and 
+in the case of $D_s^+$ decays and to $2.67\pm0.01$ in the case of $D^+$ decays based on the world average values of masses of the muon, tau and 
 $D_q$ meson given in ref. \cite{PDG_2012}. 
 Any deviation from this expectation could only be interpreted as violation of lepton universality in charged 
 currents and would hence point to NP effects \cite{Filipuzzi:2012mg}.
 
+Averages presented within this subsection are weighted averages and correlations between measurements and dependencies on input parameters
+are taken into account.
 
 \subsubsection{$D^+\to \ell^+\nu_{\ell}$ decays and $|V_{cd}|$}
 
 We use measurements of the branching fraction $\br(D^+\to\munu)$ from \mbox{CLEO-c}~\cite{Eisenstein:2008aa} and 
 BESIII~\cite{Ablikim:2013uvu} to calculate its world average (WA) value. We obtain
-\[
+\begin{equation}
  \br^{\rm WA}(D^+\to\munu) = (3.74\pm0.17)\times10^{-4},
-\]
+ \label{eq:Br:WA:DtoMuNu}
+\end{equation}
 from which we determine the product of the decay constant and the CKM matrix element to be
 \begin{equation}
  f_{D}|V_{cd}| = \left(45.9\pm1.1\right)~\mbox{MeV},
@@ -63,12 +66,13 @@ from which we determine the product of the decay constant and the CKM matrix ele
 where the uncertainty includes the uncertainty on $\br^{\rm WA}(D^+\to\munu)$ and external inputs\footnote{These values (taken from the PDG~\cite{PDG_2012}) are
 $m_{\mu} = (0.1056583715\pm0.0000000035)$~GeV/$c^2$, $m_D = (1.86962\pm0.00015)$~GeV/$c^2$ 
 and $\tau_D = (1040\pm7)\times 10^{-15}$~s.} needed to extract $f_{D}|V_{cd}|$ from the 
-measured branching fraction using the Eq.~\ref{eq:brCharmLeptonicSM}. 
-Using the LQCD value for $f_D$ from the Table~\ref{tab:Lattice} we 
+measured branching fraction using Eq.~\ref{eq:brCharmLeptonicSM}. 
+Using the LQCD value for $f_D$ from Table~\ref{tab:Lattice} we 
 finally obtain the CKM matrix element $V_{cd}$ to be
-\[
+\begin{equation}
  |V_{cd}| = 0.219\pm0.005(\rm exp.)\pm0.003(\rm LQCD),
-\]
+ \label{eq:Vcd:WA:Leptonic}
+\end{equation}
 where the uncertainties are from the experiments and lattice calculations, respectively. All input values
 and the resulting world averages are summarized in Table~\ref{tab:DExpLeptonic} and plotted in 
 Fig.~\ref{fig:ExpDLeptonic}.
@@ -112,9 +116,10 @@ The upper limit on the ratio of branching fractions is found to be $R_{\tau/\mu}
 
 We use measurements of the absolute branching fraction $\br(D_s^+\to\munu)$ from CLEO-c~\cite{Alexander:2009ux}, \babar~\cite{delAmoSanchez:2010jg},
 and Belle~\cite{Zupanc:2013byn} and obtain a WA value of
-\[
+\begin{equation}
  \br^{\rm WA}(\dsmunu) = (5.57\pm0.24)\times10^{-3}.
-\]
+ \label{eq:Br:WA:DstoMuNu}
+\end{equation}
 The WA value for $\br(D_s^+\to\taunu)$ is also calculated from CLEO-c, \babar, and Belle measurements. 
 CLEO-c made separate measurements for $\tau^+\to e^+\nu_e\overline{\nu}{}_{\tau}$~\cite{Naik:2009tk},
 $\tau^+\to\pi^+\overline{\nu}{}_{\tau}$~\cite{Alexander:2009ux}, and
@@ -124,14 +129,16 @@ $\tau^+\to e^+\nu_e\overline{\nu}{}_{\tau}$~\cite{delAmoSanchez:2010jg} and $\ta
 Belle made separate measurements for $\tau^+\to e^+\nu_e\overline{\nu}{}_{\tau}$, $\tau^+\to \mu^+\nu_{\mu}\overline{\nu}{}_{\tau}$, 
 and $\tau^+\to\pi^+\overline{\nu}{}_{\tau}$~\cite{Zupanc:2013byn}.
 Combining all of them we obtain the WA value of
-\[
+\begin{equation}
  \br^{\rm WA}(\dsp\to\taunu) = (5.55\pm0.24)\times10^{-2}.
-\]
+ \label{eq:Br:WA:DstoTauNu}
+\end{equation}
 
 The ratio of branching fractions is found to be
-\[
+\begin{equation}
 R_{\tau/\mu}^{\ds} = 9.96\pm0.57,
-\]
+\label{eq:R:WA:Leptonic}
+\end{equation}
 and is consistent with the value expected in the SM, $9.76\pm0.03$.
 
 From the average values of branching fractions of muonic and tauonic decays we determine\footnote{
@@ -147,13 +154,17 @@ where the uncertainty is due to the uncertainties on $\br^{\rm WA}(D_s^+\to\munu
 $\br^{\rm WA}(D_s^+\to\taunu)$ and the external inputs. All input values and the resulting world averages are 
 summarized in Table~\ref{tab:DsLeptonic} and plotted in Fig.~\ref{fig:ExpDsLeptonic}. To obtain the 
 averages given within this subsection and in Table~\ref{tab:DsLeptonic} we have taken into account
-the correlated systematics within each experiment\footnote{In the case of \babar we use the covariance matrix from the errata of~Ref.\cite{delAmoSanchez:2010jg}.}.
+the correlations within each experiment\footnote{In the case of \babar we use the covariance matrix from 
+the errata of~Ref.\cite{delAmoSanchez:2010jg}.} for the uncertainties related to: normalization, tracking, particle identification, 
+signal and background parameterizations, and peaking background contributions.
+\end{itemize}
 
-Using the LQCD value for $\fds$ from the Table~\ref{tab:Lattice} we 
+Using the LQCD value for $\fds$ from Table~\ref{tab:Lattice} we 
 finally obtain the CKM matrix element $V_{cs}$ to be
-\[
+\begin{equation}
  |V_{cs}| = 1.008\pm0.018(\rm exp.)\pm0.011(\rm LQCD),
-\]
+ \label{eq:Vcs:WA:Leptonic}
+\end{equation}
 where the uncertainties are from the experiments and lattice calculations, respectively.
 
 \begin{table}[t!]
@@ -225,7 +236,7 @@ WA value for $f_{D_s}|V_{cs}|$. For each point, the first error listed is the st
 \subsubsection{Comparison with other determinations of $|V_{cd}|$ and $|V_{cs}|$}
 
 Table~\ref{tab:CKMVcdVcs} summarizes and Fig.~\ref{fig:VcdVcsComparions} shows all determinations of the CKM matrix elements $|V_{cd}|$ and $|V_{cs}|$. As
-can be seen the most precise direct determinations of these CKM matrix elements are those from leptonic and semileptonic $D_{(s)}$ decays. The values are in agreement
+can be seen, the most precise direct determinations of these CKM matrix elements are those from leptonic and semileptonic $D_{(s)}$ decays. The values are in agreement
 within uncertainties with the values obtained from the global fit assuming CKM matrix unitarity.
 \begin{table}[htb]
 \caption{Average of the magnitudes of the CKM matrix elements $|V_{cd}|$ and $|V_{cs}|$ determined from the leptonic and semileptonic $D$ and $D_s$ decays.
@@ -282,15 +293,16 @@ of the CKM matrix, $|V_{ud}|=0.22537^{+0.00068}_{-0.00035}$, and $|V_{cs}|=0.973
 the $D$ and $D_s$ meson decay constants from the experimentally measured products $f_{D}|V_{cd}|$ (eq.~\ref{eq:expFDVCD}) and $f_{D_s}|V_{cs}|$ (eq.~\ref{eq:expFDSVCS}),
 respectively. This leads to the experimentally measured $D_{(s)}$ meson decay constants to be:
 \begin{eqnarray}
-f_D^{\rm exp} & = & (203.7\pm4.9)~{\rm MeV,}\nonumber\\ 
-f_{D_s}^{\rm exp} & = & (257.4\pm4.6)~{\rm MeV,}\nonumber
+f_D^{\rm exp} & = & (203.7\pm4.9)~{\rm MeV,}\\ 
+f_{D_s}^{\rm exp} & = & (257.4\pm4.6)~{\rm MeV,}
 \end{eqnarray}
 and the ratio of the constants is determined to be
-\[
+\begin{equation}
 f_{D_s}^{\rm exp}/f_D^{\rm exp} = 1.264\pm0.038.
-\]
+\label{eq:fDsfDRatio:WA}
+\end{equation}
 The values are in agreement with the LQCD determinations given in Table~\ref{tab:Lattice} within the uncertainties. The largest discrepancy is in the determinations of 
-the ratio of the decay constants where the tension is at the level of $1.9\sigma$.
+the ratio of the decay constants where the agreement is only at the level of $1.9\sigma$.
 
 
 \clearpage
