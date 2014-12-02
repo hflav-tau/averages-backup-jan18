@@ -152,7 +152,7 @@ the fit parameters matched the original FOCUS parameters.
   \label{tab:FSR_corrections}
 \begin{tabular}{lccc}
 \hline \hline
-Experiment & result (rescaled) & correction [\%] & PHOTOS \\ \hline
+Experiment (acronym) & result (rescaled) & correction [\%] & PHOTOS \\ \hline
 \multicolumn{4}{l}{$D^{0} \to K^{-} \pi^{+}$} \\
       CLEO-c 14  (CC14) \cite{Bonvicini:2013vxi} & $3.934 \pm 0.021 \pm 0.061(31)\%$ & --   & 2.15/Yes \\
 %       CLEO-c 07  (CC07) \cite{Dobbs:2007zt}   & $3.891 \pm 0.035 \pm 0.065(27)\%$ & --   & 2.15/Yes \\      
@@ -241,8 +241,11 @@ is available to determine the 2-3\% corrections that would be required.
 
 \begin{sidewaystable}[p]
   \centering 
-  \caption{The correlation matrix corresponding to the covariance matrix from the sum of statistical,
-  systematic and FSR covariances.}\label{tab:correlations}
+  \caption{The correlation matrix corresponding to the full covariance matrix. 
+  %from the sum of statistical,
+  %systematic and FSR covariances. 
+  Subscripts $h$ denote which of the $D^0 \to h^+ h^-$ decay results from a single experiment
+  is represented in that row or column.}\label{tab:correlations}
   \small
 \begin{tabular}{lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}lr@{.}l}
 \hline\hline
@@ -253,12 +256,12 @@ is available to determine the 2-3\% corrections that would be required.
                                            & \multicolumn{2}{c}{AR94} 
                                                    & \multicolumn{2}{c}{CL93} 
                                                            & \multicolumn{2}{c}{AL91} 
-                                                                   & \multicolumn{2}{c}{FO02} 
-                                                                           & \multicolumn{2}{c}{CD05} 
-                                                                                   & \multicolumn{2}{c}{CC10} 
-                                                                                           & \multicolumn{2}{c}{FO02}
-                                                                                                    & \multicolumn{2}{c}{CD05} 
-                                                                                                            & \multicolumn{2}{c}{CC10} \\ \hline
+                                                                   & \multicolumn{2}{c}{FO02$_\pi$} 
+                                                                           & \multicolumn{2}{c}{CD05$_\pi$} 
+                                                                                   & \multicolumn{2}{c}{CC10$_\pi$} 
+                                                                                           & \multicolumn{2}{c}{FO02$_K$}
+                                                                                                    & \multicolumn{2}{c}{CD05$_K$} 
+                                                                                                            & \multicolumn{2}{c}{CC10$_K$} \\ \hline
 % 2014 matrix
 CC14 & 1&000 & 0&139 & 0&057 & 0&084 & 0&031 & 0&033 & 0&023 & 0&070 & 0&103 & 0&068 &-0&019 &-0&032 &-0&085 \\
 BB07 & 0&139 & 1&000 & 0&035 & 0&051 & 0&019 & 0&020 & 0&014 & 0&042 & 0&062 & 0&041 &-0&012 &-0&019 &-0&051 \\
@@ -267,12 +270,12 @@ AL97 & 0&084 & 0&051 & 0&021 & 1&000 & 0&011 & 0&012 & 0&116 & 0&025 & 0&038 & 0
 AR94 & 0&031 & 0&019 & 0&008 & 0&011 & 1&000 & 0&004 & 0&003 & 0&009 & 0&014 & 0&009 &-0&003 &-0&004 &-0&011 \\
 CL93 & 0&033 & 0&020 & 0&298 & 0&012 & 0&004 & 1&000 & 0&003 & 0&010 & 0&015 & 0&010 &-0&003 &-0&005 &-0&012 \\
 AL91 & 0&023 & 0&014 & 0&006 & 0&116 & 0&003 & 0&003 & 1&000 & 0&007 & 0&010 & 0&007 &-0&002 &-0&003 &-0&009 \\
-FO02 & 0&070 & 0&042 & 0&017 & 0&025 & 0&009 & 0&010 & 0&007 & 1&000 & 0&031 & 0&021 &-0&006 &-0&010 &-0&026 \\
-CD05 & 0&103 & 0&062 & 0&026 & 0&038 & 0&014 & 0&015 & 0&010 & 0&031 & 1&000 & 0&031 &-0&009 &-0&014 &-0&038 \\
-CC10 & 0&068 & 0&041 & 0&017 & 0&025 & 0&009 & 0&010 & 0&007 & 0&021 & 0&031 & 1&000 &-0&006 &-0&010 &-0&025 \\
-FO02 &-0&019 &-0&012 &-0&005 &-0&007 &-0&003 &-0&003 &-0&002 &-0&006 &-0&009 &-0&006 & 1&000 & 0&003 & 0&007 \\
-CD05 &-0&032 &-0&019 &-0&008 &-0&012 &-0&004 &-0&005 &-0&003 &-0&010 &-0&014 &-0&010 & 0&003 & 1&000 & 0&012 \\
-CC10 &-0&085 &-0&051 &-0&021 &-0&031 &-0&011 &-0&012 &-0&009 &-0&026 &-0&038 &-0&025 & 0&007 & 0&012 & 1&000 \\
+FO02$_\pi$ & 0&070 & 0&042 & 0&017 & 0&025 & 0&009 & 0&010 & 0&007 & 1&000 & 0&031 & 0&021 &-0&006 &-0&010 &-0&026 \\
+CD05$_\pi$ & 0&103 & 0&062 & 0&026 & 0&038 & 0&014 & 0&015 & 0&010 & 0&031 & 1&000 & 0&031 &-0&009 &-0&014 &-0&038 \\
+CC10$_\pi$ & 0&068 & 0&041 & 0&017 & 0&025 & 0&009 & 0&010 & 0&007 & 0&021 & 0&031 & 1&000 &-0&006 &-0&010 &-0&025 \\
+FO02$_K$ &-0&019 &-0&012 &-0&005 &-0&007 &-0&003 &-0&003 &-0&002 &-0&006 &-0&009 &-0&006 & 1&000 & 0&003 & 0&007 \\
+CD05$_K$ &-0&032 &-0&019 &-0&008 &-0&012 &-0&004 &-0&005 &-0&003 &-0&010 &-0&014 &-0&010 & 0&003 & 1&000 & 0&012 \\
+CC10$_K$ &-0&085 &-0&051 &-0&021 &-0&031 &-0&011 &-0&012 &-0&009 &-0&026 &-0&038 &-0&025 & 0&007 & 0&012 & 1&000 \\
 \hline
 \end{tabular}
 \end{sidewaystable}
@@ -289,25 +292,52 @@ branching fraction obtained here (red, and yellow band).}
 \end{center}
 \end{figure}
 
-The average branching fractions for $D^0\to K^-\pi^+$, $D^0\to \pi^+\pi^-$ and 
-$D^0\to K^+ K^-$ are obtained from
-a single $\chi^2$ minimization procedure, in which the three branching 
-fractions are floating parameters. The
-central values derive from a fit in which the covariance matrix is the sum 
-of the covariance matrices for the
-statistical, systematic (excluding FSR) and FSR uncertainties.  The 
-statistical uncertainties are obtained from
-a fit using only the statistical covariance matrix.  The systematic 
-uncertainties are obtained from the
-quadrature uncertainties from a fit with statistical-only and 
-statistical+systematic covariance matrices, and
-the FSR uncertainties on the averages from the quadrature 
-differences in the uncertainties obtained from the
-nominal fit and a fit excluding the FSR uncertainties.
+%%%%
+% OLD VERSION OF THIS PARAGRAPH - before 27 Nov 2014
+%The average branching fractions for $D^0\to K^-\pi^+$, $D^0\to \pi^+\pi^-$ and 
+%$D^0\to K^+ K^-$ are obtained from
+%a single $\chi^2$ minimization procedure, in which the three branching 
+%fractions are floating parameters. The
+%central values derive from a fit in which the covariance matrix is the sum 
+%of the covariance matrices for the
+%statistical, systematic (excluding FSR) and FSR uncertainties.  
+%The statistical uncertainties are obtained from
+%a fit using only the statistical covariance matrix.  The systematic 
+%uncertainties are obtained from the
+%quadrature uncertainties from a fit with statistical-only and 
+%statistical+systematic covariance matrices, and
+%the FSR uncertainties on the averages from the quadrature 
+%differences in the uncertainties obtained from the
+%nominal fit and a fit excluding the FSR uncertainties.
+%%%
 
-In forming the covariance matrix for the FSR uncertainties, the FSR
+%%%
+% NEW VERSION OF THIS PARAGRAPH - 27 Nov 2014
+The average branching fractions for 
+$D^0\to K^-\pi^+$, $D^0\to \pi^+\pi^-$ and $D^0\to K^+ K^-$ 
+are obtained from a single $\chi^2$ minimization procedure, 
+in which the three branching fractions are floating parameters. 
+The central values derive from a fit in which the full covariance matrix, 
+accounting for all statistical, systematic (excluding FSR), and FSR measurement uncertainties, is used.  
+Table~\ref{tab:correlations} presents the correlation matrix for 
+this nominal fit. % (stat.+syst.+FSR).
+We then obtain the three reported uncertainties on those central values as follows:
+The statistical uncertainties are obtained from a fit using only the statistical covariance matrix.  
+The systematic uncertainties are obtained by subtracting (in quadrature) the statistical uncertainties 
+from the uncertainties determined via a fit using a covariance matrix that accounts for both statistical and systematic measurement uncertainties.  
+The FSR uncertainties are obtained by subtracting (in quadrature)
+the uncertainties determined via a fit using a covariance matrix that accounts for both statistical and systematic measurement uncertainties
+from the uncertainties determined via the fit using the full covariance matrix.
+%%%
+
+In forming the full covariance matrix, the FSR
 uncertainties are treated as fully correlated (or anti-correlated) as 
-described above.  For the systematic covariance matrix, ALEPH's systematic
+described above.  % PN after 27 Nov
+%In forming the covariance matrix for the FSR uncertainties, the FSR
+%uncertainties are treated as fully correlated (or anti-correlated) as 
+%described above.  PN before 27 Nov
+%For the systematic covariance matrix, ALEPH's systematic
+For the covariance matrices involving systematic measurement uncertainties, ALEPH's systematic % Nov 27
 uncertainties in the $\theta_{D^*}$ parameter are treated
 as fully correlated between the ALEPH 97 and ALEPH 91 measurements.  Similarly,
 the tracking efficiency uncertainties in the CLEO II 98 and the
@@ -319,8 +349,6 @@ CLEO II 93 measurements are treated as fully correlated.
 %correlated with the $D^0\to K^-\pi^+$ branching fraction in that analysis ($\rho=0.65$).  The 2008 
 %$K^+K^-$ analysis in turn uses that value of $N_{D^0\bar{D}^0}$ as the normalization for its branching
 %fraction.  
-Table~\ref{tab:correlations} presents the correlation matrix for 
-the nominal fit (stat.+syst.+FR).
 
 The averaging procedure results in a 
 final $\chi^2$ of $11.0$ for $10$ ($13-3$) degrees 
