@@ -89,8 +89,8 @@ Therefore it is appropriate to quote the branching fraction for, \eg, $\Bsb \to
 % \clearpage
 
 \newenvironment{btocharmtab}[2]{\begin{table}[H]\begin{center}\caption{#2.}\label{tab:b2c:#1}\begin{tabular}{|l l l |}}{\end{tabular}\end{center}\end{table}}
-\newcommand{\btocharmfig}[1]{\begin{figure}[H]\begin{center}\includegraphics[width=0.99\textwidth]{b2charm/#1}\caption{Summary of the averages from Table~\ref{tab:b2c:#1}.}\label{fig:b2c:#1}\end{center}\end{figure}}
-\newcommand{\btocharm}[1]{\input{b2charm/#1}\btocharmfig{#1}}
+\newcommand{\btocharmfig}[1]{\begin{figure}[H]\begin{center}\includegraphics[width=0.99\textwidth]{b2charm/figs/#1}\caption{Summary of the averages from Table~\ref{tab:b2c:#1}.}\label{fig:b2c:#1}\end{center}\end{figure}}
+\newcommand{\btocharm}[1]{\input{b2charm/#1.tex}\btocharmfig{#1}}
 
 
 \subsection{Decays of $\Bzb$ mesons}

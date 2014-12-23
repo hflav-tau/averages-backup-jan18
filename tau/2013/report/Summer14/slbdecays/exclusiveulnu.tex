@@ -19,29 +19,32 @@ in Table~\ref{tab:pilnubf} and shown in Figure~\ref{fig:xlnu}.
 When averaging these results, systematic uncertainties due to external
 inputs, e.g., form factor shapes and background estimates from the
 modeling of $\Bb\to X_c\ell\nub$ and $\Bb\to X_u\ell\nub$ decays, are
-treated as fully correlated (in the sense of Eq.~\ref{eq:correlrho}).
+treated as fully correlated (in the sense of Eq.~\ref{eq:correlrho} in
+Sec.~\ref{sec:method}).
 Uncertainties due to experimental reconstruction effects are treated
-as fully correlated among measurements from a given experiment. Varying
-the assumed dependence of the quoted errors on the measured value
-for error sources where the dependence was not obvious had no significant impact.
+as fully correlated among measurements from a given experiment.
+%Varying
+%the assumed dependence of the quoted errors on the measured value
+%for error sources where the dependence was not obvious had no
+%significant impact.
 
 \input{tables/slb/pilnubf.tex}
 
 \begin{figure}[!ht]
  \begin{center}
   \unitlength1.0cm % coordinates in cm
-  \begin{picture}(14.,8.0)  %ys(25.,6.)
-  % \put(  8.0,  0.0){\includegraphics[width=8.0cm]{figures/slb/rholnu.pdf}}
-   \put( 2.0,  0.0){\includegraphics[width=8.8cm]{figures/slb/pilnu.pdf}
+  \begin{picture}(13.,12.)  %ys(25.,6.)
+   \put( 1.0, 0.0){\includegraphics[width=12.0cm]{figures/slb/pilnu.pdf}
    }
- %  \put(  5.5,  7.3){{\large\bf a)}}  
- %  \put( 14.4,  7.3){{\large\bf b)}}
-   \end{picture} \caption{
+  \end{picture}\caption{
 Summary of exclusive determinations of $\cbf(\Bb\to\pi\ell\nub)$ and their average.
 Measured branching fractions for $B^+ \rightarrow \pi^0 l^+ \nu$ have been
 multiplied by $2\times \tau_{B^0}/\tau_{B^+}$ in accordance with
-isospin symmetry. The labels ``had. tag'' and ``sl. tag''
-refer to the type of $B$ tag used in the measurement; ``untagged'' refers to an untagged measurement.
+isospin symmetry. The labels ``had. tag'', ``sl. tag'' and
+``untagged'' refer to the constraint used for the second $B$~meson in
+the event.
+% refer to the type of $B$ tag used in the measurement; ``untagged''
+% refers to an untagged measurement.
 The results from the untagged measurements by CLEO and \babar are based on a combined analysis of
 $B^0 \rightarrow \pi^- l^+ \nu$  and $B^+ \rightarrow \pi^0 l^+ \nu$ decays using isospin relations. 
 %(b) Summary of exclusive determinations of $\cbf(\Bb\to\rho\ell\nub)$ and their average.
@@ -50,13 +53,17 @@ $B^0 \rightarrow \pi^- l^+ \nu$  and $B^+ \rightarrow \pi^0 l^+ \nu$ decays usin
 \end{center}
 \end{figure}
 
-The determination of \vub\ from $\Bb\to\pi\ell\nub$ decays is
-shown in Table~\ref{tab:pilnuvub}, and uses our averages for the partial branching
-fractions given in Table~\ref{tab:pilnubf}, combined with various form factor calculations. 
-Two theoretical approaches are used: unquenched lattice QCD (LQCD) and QCD light-cone sum rules (LCSR).
-Lattice calculations of the form factors are limited to small hadron momenta, i.e.
-large $q^2$, while calculations based on light-cone sum rules are restricted
-to small $q^2$. 
+The determination of \vub\ from $\Bb\to\pi\ell\nub$ decays is shown in
+Table~\ref{tab:pilnuvub}, and uses our averages for the partial
+branching fractions given in Table~\ref{tab:pilnubf}, combined with
+various form factor calculations. 
+Two theoretical approaches are used: unquenched lattice QCD (LQCD) and
+QCD light-cone sum rules (LCSR). The calculations make predictions for
+different regions of $q^2$, where $q^2$ is the four-momentum
+transfered to the lepton-neutrino system squared, $q^2=(p_\ell+p_\nu)^2$.
+Lattice calculations of the form factors are limited to small hadron
+momenta, i.e.\ large $q^2$, while calculations based on light-cone sum
+rules are restricted to small $q^2$.
 
 \input{tables/slb/pilnuvub.tex}
 
@@ -65,7 +72,7 @@ of the measurement over the full $q^2$ range is based on a simultaneous fit of a
 $B\to \pi$ form factor parameterization to data and theory predictions. 
 We choose the BCL (Bourrely, Caprini, Lellouch) parameterization~\cite{Bourrely:2008za} up to order $z^2$.
 There are 3+1 fit parameters: the three coefficients of the BCL power series ($b_0$, $b_1$, $b_2$)
-and \Vub, which is determined from the relative normalization between data and theory predications. 
+and \Vub, which is determined from the relative normalization between data and theory predictions. 
 As the shape of the $q^2$ spectrum is determined by only two parameters ($b_1$ and $b_2$), we quote
 the ratios $b_1/b_0$ and $b_2/b_0$ as results for the shape determined in the fit.
 
@@ -81,8 +88,9 @@ b_2/b_0 &=& -1.20 \pm 0.57.
 The fit results correspond to a value of the product $f_+(0)\Vub$ of $(0.923 \pm 0.024) \times 10^{-3}$. 
 The correlation matrix of the fit parameters is:
 \begin{center}
-\begin{tabular}{ccccc}
+\begin{tabular}{c|cccc}
       & $b_0$ & $b_1$ & $b_2$ & \Vub  \\
+\hline
 $b_0$ & 1.00  & -0.54 &  0.15 & -0.29 \\
 $b_1$ &       &  1.00 & -0.89 &  0.24 \\ 
 $b_2$ &       &       &  1.00 & -0.14 \\  
@@ -94,11 +102,11 @@ $b_2$ &       &       &  1.00 & -0.14 \\
  \begin{center}
   \unitlength1.0cm % coordinates in cm
 
-  \begin{picture}(14.,8.0)  %ys(25.,6.)
-   \put( -0.5,  0.0){\includegraphics[width=8.0cm]{figures/slb/vub_pilnu_combinedFit_FNAL.pdf}}
-   \put( 8.0,  0.0){\includegraphics[width=8.0cm]{figures/slb/vub_pilnu_combinedFit_LCSR.pdf}} 
-   \put(  5.8,  3.6){{\large\bf a)}}     
-   \put( 14.3,  3.6){{\large\bf b)}}
+  \begin{picture}(16.,9.0)  %ys(25.,6.)
+   \put( -1.0,  0.0){\includegraphics[width=9.5cm]{figures/slb/vub_pilnu_combinedFit_FNAL.pdf}}
+   \put( 8.0,  0.0){\includegraphics[width=9.5cm]{figures/slb/vub_pilnu_combinedFit_LCSR.pdf}} 
+   \put(  6.8,  4.6){{\large\bf a)}}     
+   \put( 15.8,  4.6){{\large\bf b)}}
    \end{picture} 
    \caption{
     Simultaneous fit of the BCL parameterization with 3+1 parameters to \babar and Belle $\Bb\to\pi\ell\nub$ data
@@ -137,11 +145,11 @@ and shown in Figure~\ref{fig:xulnu1}, while the ones for $\Bb\to\eta\ell\nub$ an
 \begin{figure}[!ht]
  \begin{center}
   \unitlength1.0cm % coordinates in cm
-  \begin{picture}(14.,8.0)  %ys(25.,6.)
-   \put( -0.5,  0.0){\includegraphics[width=8.0cm]{figures/slb/rholnu.pdf}}
-   \put( 8.0,  0.0){\includegraphics[width=8.0cm]{figures/slb/omegalnu.pdf}} 
-   \put(  5.8,  7.5){{\large\bf a)}}  
-   \put( 14.4,  7.5){{\large\bf b)}}
+  \begin{picture}(14.,10.0)  %ys(25.,6.)
+   \put( -1.5,  0.0){\includegraphics[width=9.0cm]{figures/slb/rholnu.pdf}}
+   \put( 7.5,  0.0){\includegraphics[width=9.0cm]{figures/slb/omegalnu.pdf}} 
+   \put(  5.8,  8.5){{\large\bf a)}}  
+   \put( 14.6,  8.5){{\large\bf b)}}
    \end{picture} \caption{
  (a) Summary of exclusive determinations of $\cbf(\Bb\to\rho\ell\nub)$ and their average. Measurements
  of $B^+ \to \rho^0\ell^+\nu$ branching fractions have been multiplied by $2\tau_{B^0}/\tau_{B^+}$ 
@@ -155,11 +163,11 @@ and shown in Figure~\ref{fig:xulnu1}, while the ones for $\Bb\to\eta\ell\nub$ an
 \begin{figure}[!ht]
  \begin{center}
   \unitlength1.0cm % coordinates in cm
-  \begin{picture}(14.,8.0)  %ys(25.,6.)
-   \put( -0.5,  0.0){\includegraphics[width=8.0cm]{figures/slb/etalnu.pdf}}
-   \put( 8.0,  0.0){\includegraphics[width=8.0cm]{figures/slb/etaprimelnu.pdf}} 
-   \put(  5.5,  7.3){{\large\bf a)}}     
-   \put( 14.4,  7.3){{\large\bf b)}}
+  \begin{picture}(14.,10.0)  %ys(25.,6.)
+   \put( -1.5,  0.0){\includegraphics[width=9.0cm]{figures/slb/etalnu.pdf}}
+   \put( 7.5,  0.0){\includegraphics[width=9.0cm]{figures/slb/etaprimelnu.pdf}} 
+   \put(  5.8,  8.5){{\large\bf a)}}     
+   \put( 14.6,  8.5){{\large\bf b)}}
    
    \end{picture} \caption{
 (a) Summary of exclusive determinations of $\cbf(\Bb\to\eta\ell\nub)$ and their average.

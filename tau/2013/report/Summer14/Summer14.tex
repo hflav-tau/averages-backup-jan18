@@ -56,6 +56,9 @@
 \input{symbols.tex}
 \renewcommand{\mysection}[1]{\section[#1]{#1}} % SCB override the mysection definition for hyperref compatibility
 
+\newcommand\red[1]{{\color{red}#1}}
+\newcommand\blue[1]{{\color{blue}#1}}
+
 %\def\hfhref#1#2{\href{http://hfag.phys.ntu.edu.tw/b2charm/#1}{#2}} %SCB
 %\def\hftabletype{sidewaystable}                           %SCB
 %\def\hftableposn{!htbp}                                   %SCB
@@ -93,38 +96,38 @@
 %% \affil[13]{European Organization for Nuclear Research (CERN), Switzerland}
 \author[14]{T.~Gershon}\affil[14]{University of Warwick, UK}
 \author[15]{L.~Gibbons}\affil[15]{Cornell University, USA}
-%% \author[]{B.~Golob}\affil[]{University of Ljubljana, Slovenia}
-\author[16]{R.~Harr}\affil[16]{Wayne State University, USA}
-\author[17]{K.~Hayasaka}\affil[17]{Nagoya University, Japan}
-\author[18]{H.~Hayashii}\affil[18]{Nara Women's University, Japan}
+\author[16,17]{B.~Golob}\affil[16]{University of Ljubljana, Slovenia}\affil[17]{J. Stefan Institute, Slovenia}
+\author[18]{R.~Harr}\affil[18]{Wayne State University, USA}
+\author[19]{K.~Hayasaka}\affil[19]{Nagoya University, Japan}
+\author[20]{H.~Hayashii}\affil[20]{Nara Women's University, Japan}
 \author[12]{T.~Kuhr}
-\author[19]{O.~Leroy}\affil[19]{CPPM, Aix-Marseille Universit\'{e}, CNRS/IN2P3, Marseille, France}
+\author[21]{O.~Leroy}\affil[21]{CPPM, Aix-Marseille Universit\'{e}, CNRS/IN2P3, Marseille, France}
 %% \author[]{D.~Lopes Pegna}\affil[]{Princeton University, USA}
 %% \author[]{R.~Louvot}\affil[]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
-\author[20]{A.~Lusiani}\affil[20]{Scuola Normale Superiore and INFN, Pisa, Italy}
+\author[22]{A.~Lusiani}\affil[22]{Scuola Normale Superiore and INFN, Pisa, Italy}
 %% \author[]{V.~L\"{u}th}\affil[]{SLAC National Accelerator Laboratory, USA}
-\author[18]{K.~Miyabayashi}
+\author[20]{K.~Miyabayashi}
 %% \author[]{B.~Meadows}\affil[]{University of Cincinnati, USA}
-\author[21]{P.~Naik}\affil[21]{University of Bristol, UK}
-\author[22]{S.~Nishida}\affil[22]{KEK, Tsukuba, Japan}
-\author[23]{A.~Oyanguren Campos}\affil[23]{IFIC, University of Valencia, Spain}
-\author[24]{M.~Patel}\affil[24]{Imperial College London, UK}
-\author[25]{D.~Pedrini} \affil[25]{INFN Milano-Bicocca, Italy}
-\author[26]{M.~Petri\v{c}}\affil[26]{J. Stefan Institute, Slovenia}
-\author[27]{M.~Rama}\affil[27]{INFN Frascati, Italy}
+\author[23]{P.~Naik}\affil[23]{University of Bristol, UK}
+\author[24]{S.~Nishida}\affil[24]{KEK, Tsukuba, Japan}
+\author[25]{A.~Oyanguren Campos}\affil[25]{IFIC, University of Valencia, Spain}
+\author[26]{M.~Patel}\affil[26]{Imperial College London, UK}
+\author[27]{D.~Pedrini} \affil[27]{INFN Milano-Bicocca, Italy}
+\author[17]{M.~Petri\v{c}}
+\author[28]{M.~Rama}\affil[28]{INFN Frascati, Italy}
 \author[2]{M.~Roney}
-\author[28]{M.~Rotondo}\affil[28]{INFN Padova, Italy}
-\author[29]{O.~Schneider}\affil[29]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
-\author[30]{C.~Schwanda}\affil[30]{Austrian Academy of Sciences, Austria}
-\author[31]{A.~J.~Schwartz}\affil[31]{University of Cincinnati, USA}
-\author[32]{B.~Shwartz}\affil[32]{Budker Institute of Nuclear Physics, Russia}
-\author[33]{J.~G.~Smith}\affil[33]{University of Colorado, USA}
-\author[34]{R.~Tesarek}\affil[34]{Fermilab, USA}
+\author[29]{M.~Rotondo}\affil[29]{INFN Padova, Italy}
+\author[30]{O.~Schneider}\affil[30]{Ecole Polytechnique F\'{e}d\'{e}rale de Lausanne (EPFL), Switzerland}
+\author[31]{C.~Schwanda}\affil[31]{Austrian Academy of Sciences, Austria}
+\author[32]{A.~J.~Schwartz}\affil[32]{University of Cincinnati, USA}
+\author[33]{B.~Shwartz}\affil[33]{Budker Institute of Nuclear Physics, Russia}
+\author[34]{J.~G.~Smith}\affil[34]{University of Colorado, USA}
+\author[35]{R.~Tesarek}\affil[35]{Fermilab, USA}
 %% \author[13]{D.~Tonelli}
-\author[22,29]{K.~Trabelsi}
-\author[35]{P.~Urquijo}\affil[35]{University of Melbourne, Australia}
-\author[36]{R.~Van Kooten}\affil[36]{Indiana University, USA}
-\author[26]{A.~Zupanc}
+\author[24,30]{K.~Trabelsi}
+\author[36]{P.~Urquijo}\affil[36]{University of Melbourne, Australia}
+\author[37]{R.~Van Kooten}\affil[37]{Indiana University, USA}
+\author[17]{A.~Zupanc}
 
 \date{\today} % replace \date{\today} at arXiv submission time
 \maketitle
@@ -202,7 +205,7 @@ parameters of semileptonic decays and CKM matrix elements.
 \setlength{\parskip}{0pt}
 \setlength{\itemsep}{0pt plus 0.3ex}
 \begin{small}
-\bibliography{Summer14,life_mix/life_mix,cp_uta,slbdecays/slb_ref,b2charm/b2charm,charm/charm_refs,tau/tau-refs,tau/tau-refs-pdg}
+\bibliography{Summer14,life_mix/life_mix,cp_uta,slbdecays/slb_ref,rare/rare,b2charm/b2charm,charm/charm_refs,tau/tau-refs,tau/tau-refs-pdg}
 \end{small}
 
 \end{document}

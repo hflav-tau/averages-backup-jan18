@@ -37,10 +37,13 @@ for ten underlying parameters. These consist of the
 mixing parameters $x$ and $y$; 
 indirect \cpv\ parameters $|q/p|$ and $\phi$; 
 the ratio of decay rates
-$R^{}_D\equiv\left|{\cal A}(D^0\ra K^+\pi^-)/
-              {\cal A}(\dbar\ra K^+\pi^-)\right|^2$;
-direct \cpv\ parameters 
-$A^{}_{KK}$, $A^{}_{\pi\pi}$ (discussed below), and
+%$R^{}_D\equiv\left|{\cal A}(D^0\ra K^+\pi^-)/
+%              {\cal A}(\dbar\ra K^+\pi^-)\right|^2$;
+$R^{}_D\equiv
+[\Gamma(D^0\ra K^+\pi^-)+\Gamma(\dbar\ra K^-\pi^+)]/
+[\Gamma(D^0\ra K^-\pi^+)+\Gamma(\dbar\ra K^+\pi^-)]$,
+direct \cpv\ parameters $A^{}_K$, $A^{}_\pi$
+(see Table~\ref{tab:relationships}), and
 $A^{}_D =(R^+_D-R^-_D)/(R^+_D+R^-_D)$, where the $+\,(-)$
 superscript corresponds to $D^0\,(\dbar)$ decays;
 the strong phase difference
@@ -88,8 +91,9 @@ identifies the $D$ flavor. For signal
 decays, $M^{}_{D^*}-M^{}_{D^0}-M^{}_{\pi^+}\equiv Q\approx 6$\meve, 
 which is close to the threshold; thus analyses typically
 require that the reconstructed $Q$ be small to suppress backgrounds. 
-A recent LHCb measurement~\cite{Aaij:2014gsa} of 
-$A(K^+K^-)_{CP} - A(\pi^+\pi^-)_{CP}$ identifies the flavor of
+A recent LHCb measurement~\cite{Aaij:2014gsa} of the difference
+between time-integrated \cp\ asymmetries
+$A_{CP}(K^+K^-) - A_{CP}(\pi^+\pi^-)$ identifies the flavor of
 the $D^0$ by partially reconstructing $\bbar\ra D^0\mu^- X$ 
 decays (and charge-conjugates); in this case the charge of
 the muon identifies the flavor of the $D^0$.
@@ -112,7 +116,7 @@ The global fit determines central values and errors for
 the underlying parameters using a $\chi^2$ statistic.
 The fitted parameters are $x$, $y$, $R^{}_D$, $A^{}_D$,
 $|q/p|$, $\phi$, $\delta$, $\delta^{}_{K\pi\pi}$,
-$A^{}_{KK}$ and $A^{}_{\pi\pi}$.
+$A^{}_K$ and $A^{}_\pi$.
 %The parameter $\delta$ is the strong phase difference
 %between amplitudes ${\cal A}(\dbar\ra K^+\pi^-)$ 
 %and ${\cal A}(D^0\ra K^+\pi^-)$. 
@@ -137,8 +141,11 @@ decays~\cite{Aitala:1996vz,Cawlfield:2005ze,Aubert:2007aa,Bitenc:2008bk}
 and is the world average (WA) value calculated by 
 HFAG~\cite{HFAG_charm:webpage}. The inputs used for
 this average are plotted in Fig.~\ref{fig:rm_semi}.
-The observables $y^{}_{CP}$ and $A^{}_\Gamma$ are also
-HFAG WA values~\cite{HFAG_charm:webpage}; the inputs
+The observables 
+$y^{}_{CP}= (1/2)(|q/p| + |p/q|)y\cos\phi - (1/2)(|q/p|-|p/q|)x\sin\phi$ 
+and 
+$A^{}_\Gamma= (1/2)(|q/p| - |p/q|)y\cos\phi - (1/2)(|q/p|+|p/q|)x\sin\phi$ 
+are also HFAG WA values~\cite{HFAG_charm:webpage}; the inputs
 used for these averages are plotted in
 Figs.~\ref{fig:ycp} and \ref{fig:Agamma}, respectively.
 %\cite{Staric:2007dt,ycp_fnal,ycp_cleo,ycp_babar} 
@@ -149,7 +156,10 @@ CDF~\cite{Aaltonen:2013pja}, and
 LHCb~\cite{Aaij:2013wda};
 %and CDF~\cite{Aaltonen:2007uc};
 earlier measurements have much less precision and are not used.
-The observables from \dkspp\ decays for no-\cpv\ are from 
+The observables from \dkspp\ decays are measured in two ways:
+assuming \cp\ conservation ($D^0$ and $\dbar$ decays are combined),
+and allowing for \cp\ violation ($D^0$ and $\dbar$ decays are
+fitted separately). The no-\cpv\ measurements are from 
 Belle~\cite{Peng:2014oda} and \babar~\cite{delAmoSanchez:2010xz}, 
 but for the \cpv-allowed case only Belle 
 measurements~\cite{Peng:2014oda} are available. The 
@@ -158,65 +168,16 @@ and the $\psi(3770)\ra\overline{D}D$ results are from
 CLEOc~\cite{Asner:2012xb}.
 
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=4.2in]{figures/charm/rm_semi_9mar08}
-\end{center}
-\vskip-0.20in
-\caption{\label{fig:rm_semi}
-World average value of $R^{}_M$ from Ref.~\cite{HFAG_charm:webpage},
-as calculated from $D^0\ra K^+\ell^-\nu$ 
-measurements~\cite{Aitala:1996vz,Cawlfield:2005ze,Aubert:2007aa,Bitenc:2008bk}. }
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=4.2in]{figures/charm/ycp_13may12}
-\end{center}
-\vskip-0.20in
-\caption{\label{fig:ycp}
-World average value of $y^{}_{CP}$ from 
-Ref.~\cite{HFAG_charm:webpage}, as calculated from \dkkpp\ 
-measurements~\cite{Aitala:1999dt,Link:2000cu,Csorna:2001ww,
-Zupanc:2009sy,Staric:2012ta,Lees:2012qh,Aaij:2011ad}.  }
-\end{figure}
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=4.2in]{figures/charm/a_gamma_31aug13}
-\end{center}
-\vskip-0.20in
-\caption{\label{fig:Agamma}
-World average value of $A^{}_\Gamma$ from 
-Ref.~\cite{HFAG_charm:webpage}, as calculated from \dkkpp\ 
-measurements~\cite{Staric:2012ta,Lees:2012qh,Aaij:2013ria}.}
-\end{figure}
-
-
-The relationships between the observables and the fitted
-parameters are listed in Table~\ref{tab:relationships}. 
-For each set of correlated observables we construct a
-difference vector $\vec{V}$; e.g., for 
-$D^0\ra K^0_S\,\pi^+\pi^-$ decays,
-$\vec{V}=(\Delta x,\Delta y,\Delta |q/p|,\Delta \phi)$
-where $\Delta$ represents the difference between the 
-measured value and the fitted value. The 
-contribution of a set of observables to the $\chi^2$ 
-is calculated as $\vec{V}\cdot (M^{-1})\cdot\vec{V}^T$, 
-where $M^{-1}$ is the inverse of the covariance matrix 
-for the measurement. Covariance matrices are constructed 
-from the correlation coefficients among the measured observables.
-These coefficients (where applicable) are also listed in 
-Tables~\ref{tab:observables1}-\ref{tab:observables3}. 
-
 \begin{table}
 \renewcommand{\arraystretch}{1.3}
 \renewcommand{\arraycolsep}{0.02in}
 \renewcommand{\tabcolsep}{0.05in}
 \caption{\label{tab:observables1}
-Observables used in the global fit except those from \dkpi\ 
-and those used for measuring direct \cpv.}
+Observables used in the global fit except those from
+\dkpi\ and those used for measuring direct \cpv. The 
+$D^0\ra K^+\pi^-\pi^0$ observables are
+$x'' \equiv x\cos\delta^{}_{K\pi\pi} + y\sin\delta^{}_{K\pi\pi}$ and 
+$y'' \equiv -x\sin\delta^{}_{K\pi\pi} + y\cos\delta^{}_{K\pi\pi}$.}
 \vspace*{6pt}
 \footnotesize
 %\hskip-0.10in
@@ -267,13 +228,7 @@ $\phi$
 \begin{tabular}{c}
  $0.90\,^{+0.16}_{-0.15}{}^{+0.078}_{-0.064}$ \\
  $(-6\pm 11\,^{+4.2}_{-5.0})$ degrees
-\end{tabular} &
-$\left\{ \begin{array}{cccc}
- 1 &  0.054 & -0.074 & -0.031  \\
- 0.054 &  1 & 0.034 & -0.019 \\
- -0.074 &  0.034 & 1 & 0.044  \\
- -0.031 &  -0.019 & 0.044 & 1 
-\end{array} \right\}$  \\
+\end{tabular} & \\
  & & \\
 \begin{tabular}{l}  
 $D^0\ra K^0_S\,\pi^+\pi^-$~\cite{Peng:2014oda} \\
@@ -291,7 +246,13 @@ $\phi$
  $(0.27\pm 0.16^{+0.0546}_{-0.0854})\%$ \\
  $0.82\,^{+0.20}_{-0.18}{}^{+0.0807}_{-0.0645}$ \\
  $(-13\,^{+12}_{-13}\,^{+4.15}_{-4.77})$ degrees
-\end{tabular} & \\
+\end{tabular} & 
+$\left\{ \begin{array}{cccc}
+ 1 &  0.054 & -0.074 & -0.031  \\
+ 0.054 &  1 & 0.034 & -0.019 \\
+ -0.074 &  0.034 & 1 & 0.044  \\
+ -0.031 &  -0.019 & 0.044 & 1 
+\end{array} \right\}$  \\
  & & \\
 \begin{tabular}{l}  
 $D^0\ra K^0_S\,\pi^+\pi^-$~\cite{delAmoSanchez:2010xz} \\
@@ -362,8 +323,8 @@ $\left\{ \begin{array}{ccccc}
 \renewcommand{\arraystretch}{1.3}
 \renewcommand{\arraycolsep}{0.02in}
 \caption{\label{tab:observables2}
-\dkpi\ observables used for the global fit.}
-%, from Refs.~\cite{Aubert:2007wf,Aaltonen:2007uc,Zhang:2006dp}.}
+\dkpi\ observables used for the global fit
+($x'^{2\pm}$ and $y'^{\pm}$ are defined in Ref.~\cite{Aubert:2007wf}).}
 \vspace*{6pt}
 \footnotesize
 \begin{center}
@@ -535,9 +496,13 @@ $\left\{ \begin{array}{ccc}
 \renewcommand{\arraystretch}{1.3}
 \renewcommand{\arraycolsep}{0.02in}
 \caption{\label{tab:observables3}
-Measurements of direct \cpv. The parameter $A^{}_{CP}(f)$
-is defined as $[\Gamma(D^0\ra f)-\Gamma(\dbar\ra f)]/
-[\Gamma(D^0\ra f)+\Gamma(\dbar\ra f)]$.}
+Measurements of time-integrated \cp\ asymmetries. The observable 
+$A^{}_{CP}(f)\equiv [\Gamma(D^0\ra f)-\Gamma(\dbar\ra f)]/
+[\Gamma(D^0\ra f)+\Gamma(\dbar\ra f)]$, and
+$\Delta\langle t\rangle$ is the difference
+between mean lifetimes for $D^0\ra K^+K^-$ and
+$D^0\ra\pi^+\pi^-$ decays (due to different
+trigger/reconstruction efficiencies).}
 \vspace*{6pt}
 \footnotesize
 \begin{center}
@@ -614,6 +579,59 @@ $0.014 \pm 0.004$ \\
 \end{center}
 \end{table}
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.2in]{figures/charm/rm_semi_9mar08}
+\end{center}
+\vskip-0.20in
+\caption{\label{fig:rm_semi}
+World average value of $R^{}_M$ from Ref.~\cite{HFAG_charm:webpage},
+as calculated from $D^0\ra K^+\ell^-\nu$ 
+measurements~\cite{Aitala:1996vz,Cawlfield:2005ze,Aubert:2007aa,Bitenc:2008bk}. }
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.2in]{figures/charm/ycp_13may12}
+\end{center}
+\vskip-0.20in
+\caption{\label{fig:ycp}
+World average value of $y^{}_{CP}$ from 
+Ref.~\cite{HFAG_charm:webpage}, as calculated from \dkkpp\ 
+measurements~\cite{Aitala:1999dt,Link:2000cu,Csorna:2001ww,
+Zupanc:2009sy,Staric:2012ta,Lees:2012qh,Aaij:2011ad}.  }
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.2in]{figures/charm/a_gamma_31aug13}
+\end{center}
+\vskip-0.20in
+\caption{\label{fig:Agamma}
+World average value of $A^{}_\Gamma$ from 
+Ref.~\cite{HFAG_charm:webpage}, as calculated from \dkkpp\ 
+measurements~\cite{Staric:2012ta,Lees:2012qh,Aaij:2013ria}.}
+\end{figure}
+
+
+The relationships between the observables and the fitted
+parameters are listed in Table~\ref{tab:relationships}. 
+For each set of correlated observables we construct a
+difference vector $\vec{V}$ between measured values and
+those calculated from fitted parameters using the
+relations of Table~\ref{tab:relationships}; e.g., for 
+$D^0\ra K^0_S\,\pi^+\pi^-$ decays,
+$\vec{V}=(\Delta x,\Delta y,\Delta |q/p|,\Delta \phi)$.
+%where $\Delta$ represents the difference between the 
+%measured value and the fitted value.
+The contribution of a set of observables to the $\chi^2$ 
+is calculated as $\vec{V}\cdot (M^{-1})\cdot\vec{V}^T$, 
+where $M^{-1}$ is the inverse of the covariance matrix 
+for the measurement. Covariance matrices are constructed 
+from the correlation coefficients among the measured observables.
+These coefficients (where applicable) are also listed in 
+Tables~\ref{tab:observables1}-\ref{tab:observables3}. 
 
 \begin{table}
 \renewcommand{\arraycolsep}{0.02in}
@@ -623,7 +641,9 @@ $0.014 \pm 0.004$ \\
 Left: decay modes used to determine fitted parameters 
 $x,\,y,\,\delta,\,\delta^{}_{K\pi\pi},\,R^{}_D,\,A^{}_D,\,|q/p|$, and $\phi$.
 Middle: the observables measured for each decay mode. Right: the 
-relationships between the observables measured and the fitted parameters.}
+relationships between the observables measured and the fitted
+parameters. $\langle t\rangle$ is the mean lifetime for 
+$D^0\ra K^+K^-$ or $D^0\ra\pi^+\pi^-$ decays.}
 \vspace*{6pt}
 \footnotesize
 \resizebox{0.99\textwidth}{!}{
@@ -805,11 +825,11 @@ One observes that the $(x,y)$ contours for the no-\cpv\ fit
 are very similar to those for the \cpv-allowed fit. In the latter
 fit, the $\chi^2$ at the no-mixing point $(x,y)\!=\!(0,0)$ is 421
 units above the minimum value, which, for two degrees of freedom,
-corresponds to a confidence level $>11.5\sigma$ (this is the limit
-of the CERNLIB PROB routine used to calculate the $p$-value). Thus,
-no mixing is excluded at this high level. In the $(|q/p|,\phi)$ plot,
-the point $(1,0)$ is within the $1\sigma$ contour; thus the data is
-consistent with \cp\ conservation.
+corresponds to a confidence level $>11.5\sigma$.\footnote{This is
+the limit of the CERNLIB PROB routine used for this calculation.}
+Thus, no mixing is excluded at this high level. In the $(|q/p|,\phi)$
+plot, the point $(1,0)$ is within the $1\sigma$ contour; thus the
+data is consistent with \cp\ conservation.
 
 One-dimensional confidence curves for individual parameters 
 are obtained by allowing, for any value of the parameter, all other 
@@ -1059,9 +1079,10 @@ identify new physics from $(x,y)$ alone.
 as in the $K^0$-$\kbar$ system. However, since $x$ also appears
 to be positive, the \cp-even state is heavier, 
 unlike in the $K^0$-$\kbar$ system.
-\item The LHCb and CDF experiments have obtained some evidence
-for {\it direct\/} \cpv\ in $D^0$ decays. However, higher
-statistics measurements are needed to clarify this effect.
+\item The LHCb and CDF experiments measured time-integrated
+asymmetries that hint at {\it direct\/} \cpv\ in $D^0$ decays
+(see Table~\ref{tab:observables3}). However, more statistics 
+are needed to clarify this effect.
 There is no evidence for \cpv\ arising from $D^0$-$\dbar$
 mixing ($|q/p|\neq 1$) or from a phase difference between
 the mixing amplitude and a direct decay amplitude ($\phi\neq 0$). 

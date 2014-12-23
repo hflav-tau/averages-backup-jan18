@@ -16,6 +16,20 @@
 %   to full reference with head and tail
 %
 
+%----------------------------------------------
+% \cite{Shifman:2000jv}
+%----------------------------------------------
+@article{Shifman:2000jv,
+      author         = "Shifman, Mikhail",
+      title          = "{Quark-hadron duality}",
+      pages          = "hf8/013",
+      year           = "2000",
+      eprint         = "hep-ph/0009131",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ph",
+      reportNumber   = "TPI-MINN-00-44, UMN-TH-1920-00",
+      SLACcitation   = "%%CITATION = HEP-PH/0009131;%%",
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % References for the measurements of f+-/f00 and f00
@@ -789,6 +803,10 @@
       title          = "{Precision measurement of the mass and lifetime of the
                         $\Xi_b^-$ baryon}",
       collaboration  = "LHCb",
+      journal        = "Phys.\ Rev.\ Lett.",
+      volume         = "113",
+      pages          = "242002",
+      doi            = "10.1103/PhysRevLett.113.242001",
       year           = "2014",
       eprint         = "1409.8568",
       archivePrefix  = "arXiv",
@@ -1031,6 +1049,7 @@
      volume    = "B297",
      year      = "1992",
      pages     = "477",
+     doi       = "10.1016/0370-2693(92)91287-J",
      SLACcitation  = "%%CITATION = PHLTA,B297,477;%%"
 }
 
@@ -2096,6 +2115,7 @@
      volume    = "06",
      year      = "2007",
      pages     = "072",
+     doi       = "10.1088/1126-6708/2007/06/072",
      eprint    = "hep-ph/0612167",
      archivePrefix = "arXiv",
      SLACcitation  = "%%CITATION = HEP-PH/0612167;%%"
@@ -2736,6 +2756,24 @@
 }
 
 
+%----------------------------------------------
+% \cite{Aaij:2014gka}
+%----------------------------------------------
+@article{Aaij:2014gka,
+      author         = "Aaij, Roel and others",
+      title          = "{Measurement of the lifetime of the $B_c^+$ meson using
+                        the $B_c^+\to J/\psi\pi^+$ decay mode}",
+      collaboration  = "LHCb",
+     journal   = "submitted to Phys.\ Lett.\ B",
+      year           = "2014",
+      eprint         = "1411.6899",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "CERN-PH-EP-2014-283, LHCB-PAPER-2014-060",
+      SLACcitation   = "%%CITATION = ARXIV:1411.6899;%%",
+}
+
+
 %-------- b baryon and Lambda_b  lifetimes -----------
 
 %----------------------------------------------
@@ -3373,6 +3411,7 @@
       journal        = "Phys. Rev.",
       volume         = "D85",
       pages          = "071105",
+      doi            = "10.1103/PhysRevD.85.071105",
       year           = "2012",
       eprint         = "1203.0930",
       archivePrefix  = "arXiv",
@@ -3381,10 +3420,32 @@
 }
 
 %----------------------------------------------
-% \cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}
+% \cite{Lees:2014qma,*Lees:2014qma_cont}
 %----------------------------------------------
 %bib% \bibitem{BABAR_qp_dileptons} % supersedes \bibitem{BABAR_CP_semi}
 %bib% \authcoll{B.\ Aubert}{\babar} \PRL{96}{251802}{2006}.
+@article{Lees:2014qma,
+      author         = "Lees, J.~P. and others",
+      collaboration  = "\babar",
+      title          = "{Study of \CP asymmetry in $\Bd-\Bdbar$ mixing
+                        with inclusive dilepton events}",
+      journal   = " submitted to Phys.\ Rev.\ Lett.",
+      year           = "2014",
+      eprint         = "1411.1842",
+      archivePrefix  = "arXiv",
+      primaryClass   = "hep-ex",
+      reportNumber   = "BABAR-PUB-14-006, SLAC-PUB-15983",
+      SLACcitation   = "%%CITATION = ARXIV:1411.1842;%%",
+}
+@Article{Lees:2014qma_cont, 
+     author = "@",
+  note = "this time-independent analysis replaces the time-dependent
+          analysis of Ref.~\cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}"
+}
+
+%----------------------------------------------
+% \cite{Aubert:2006nf,*Aubert:2002mn_mod_cont}
+%----------------------------------------------
 @Article{Aubert:2006nf,
      author    = "Aubert, Bernard and others",
  collaboration = "\babar",
@@ -3400,7 +3461,7 @@
      SLACcitation  = "%%CITATION = HEP-EX/0603053;%%"
 }
 @Article{Aubert:2002mn_mod_cont,
-     preamble = "this replaces @",
+     preamble = "@ and @",
      author    = "Aubert, Bernard and others",
  collaboration = "\babar",
      title     = "{Search for $T$ and $CP$ violation in $B^0-\bar{B}^0$
@@ -4126,6 +4187,7 @@
      volume    = "C55",
      year      = "1992",
      pages     = "357-364",
+     doi       = "10.1007/BF01565092",
      SLACcitation  = "%%CITATION = ZEPYA,C55,357;%%"
 }
 @Article{Albrecht:1993gr_cont,
@@ -4788,23 +4850,25 @@
 }
 
 %----------------------------------------------
-% \cite{LHCB-PAPER-2014-059,*Aaij:2013oba_supersede2}
+% \cite{Aaij:2014zsa,*Aaij:2013oba_supersede2}
 %----------------------------------------------
-@article{LHCB-PAPER-2014-059,
+@article{Aaij:2014zsa,
       author         = "Aaij, Roel and others",
-      title          = "{First polarization-dependent \CP violation measurements in
-                        $B^0_s\to\jpsi K^+K^-$ decays}",
+      title          = "{Precision measurement of $CP$ violation in $B_s^0 \to
+                        J/\psi K^+K^-$ decays}",
       collaboration  = "LHCb",
+      journal        = "submitted to Phys.\ Rev.\ Lett.",
       year           = "2014",
       eprint         = "1411.3104",
       archivePrefix  = "arXiv",
       primaryClass   = "hep-ex",
-      reportNumber   = "CERN-PH-EP-2014-271, LHCB-PAPER-2014-059",
+      reportNumber   = "LHCB-PAPER-2014-059, CERN-PH-EP-2014-271,
+                        LHCB-PAPER-2014-059-AND-CERN-PH-EP-2014-271",
       SLACcitation   = "%%CITATION = ARXIV:1411.3104;%%",
 }
 @Article{Aaij:2013oba_supersede2,
      author = "@",
-  note = "this replaces any $B^0_s\to\jpsi K^+K^-$, $B^0_s\to\jpsi\phi$ or combined $\phi_s$
+  note = "this replaces any $B^0_s\to\jpsi K^+K^-$, $B^0_s\to\jpsi\phi$ or combined \phiccbars
           result from
           \Ref{Aaij:2013oba,*LHCb:2011aa_mod,*LHCb:2012ad_mod,*LHCb:2011ab_mod,*Aaij:2012nta_mod}",
 }
@@ -4815,10 +4879,13 @@
 %----------------------------------------------
 @article{Aaij:2014ywt,
       author         = "Aaij, Roel and others",
-      title          = "{Measurement of the \CP-violating phase $\phi_s$ in
+      title          = "{Measurement of the $CP$-violating phase $\phi_s$ in
                         $\bar{B}^0_s\to D_s^+D_s^-$ decays}",
       collaboration  = "LHCb",
-      journal        = "submitted to Phys.\ Rev.\ Lett.",
+      journal        = "Phys.\ Rev.\ Lett.",
+      volume         = "113",
+      pages          = "211801",
+      doi            = "10.1103/PhysRevLett.113.211801",
       year           = "2014",
       eprint         = "1409.4619",
       archivePrefix  = "arXiv",
@@ -4826,7 +4893,6 @@
       reportNumber   = "LHCB-PAPER-2014-051, CERN-PH-EP-2014-223",
       SLACcitation   = "%%CITATION = ARXIV:1409.4619;%%",
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
