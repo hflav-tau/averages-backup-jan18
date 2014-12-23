@@ -33,7 +33,7 @@ hypotheses:
 where \clsb is the confidence level observed for the signal plus background
 hypothesis, \clb is the confidence level observed for the background only
 hypothesis, $\frac{dP_{s+b}}{dQ}$ and $\frac{dP_{b}}{dQ}$ are the probability
-distribution functions (p.d.f.'s) for the two corresponding hypothesis and
+distribution functions (PDFs) for the two corresponding hypothesis and
 $Q$ is called the test statistics. The \cls value is defined as the ratio
 between the confidence level for the signal plus background hypothesis to
 the confidence level for the background hypothesis:
@@ -42,7 +42,7 @@ the confidence level for the background hypothesis:
 \end{align}
 When multiple results are combined, the PDFs in
 Equations~\ref{eq:tau:clspdf1} and \ref{eq:tau:clspdf2} are the
-product of the individual p.d.f.'s,
+product of the individual PDFs,
 \begin{align}
 \cls = \dfrac{\prod_{i=1}^{N_{\text{chan}}}\sum_{n=0}^{n_i} \dfrac{e^{-(s_i+b_i)} (s_i+b_i)^{n}}{n!} }{\prod_{i=1}^{n_{\text{chan}}}  \sum_{n=0}^{n_i} \dfrac{e^{-b_i} b_i^{n}}{n!}}    \dfrac{\prod_{j=1}^{n} s_iS_i(x_{ij})+b_iB_i(x_{ij})}{\prod_{j=1}^{n_i}B_i(x_{ij})}~,
 \end{align}
@@ -68,7 +68,7 @@ calibrated with related data yields.
 The extraction of the upper limits is performed using the code provided by
 Tom Junk~\cite{junk:2007:cdfnote}. The systematic uncertainties are modeled
 in the Monte Carlo toy experiments by convolving the $S_i$ and $B_i$
-p.d.f.' with with Gaussian distributions corresponding to the nuisance
+PDFs with with Gaussian distributions corresponding to the nuisance
 parameters. 
 
 Table~\ref{tab:tau:lfv-upper-limits-comb} reports the re-computed limits
@@ -80,13 +80,13 @@ magnitude better than the other limits.
 Figure~\ref{fig:tau:lfv-limits-plot-average} reports the re-computed \mtau
 LFV searches upper limits and their combination.
 
-\input{tau-lfv-comb-data}
+\input{tau/tau-lfv-comb-data}
 
 \begin{center}\smaller
 \begin{longtable}{lcl@{}rlrrrrrr}
 \caption{Combinations of upper limits on lepton flavor violating \mtau decay
   modes. The table includes, for each experimental result, the published information that
-  has been used to re-compute the limit with the \cls method, i.e.{}
+  has been used to re-compute the limit with the \cls method, \ie\
   the integrated luminosity, the cross-section for \mtau lepton pairs production,
   the detection efficiency, the number of expected background events and the number
   of observed events. Since the \lhcb collaboration published a limit determined

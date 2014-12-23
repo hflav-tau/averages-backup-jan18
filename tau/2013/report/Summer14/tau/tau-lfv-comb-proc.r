@@ -8,13 +8,6 @@ require(stringr, quietly=TRUE)
 ##
 ## /////////////////////////////////////////////////////////////////////////////
 
-##--- texify
-texify = function(text) {
-  text = gsub("([aeiou])(['`])", "\\\\\\2\\1", rlines, perl=TRUE, ignore.case=TRUE)
-  text = gsub("([_^])", "\\\\verb|\\1|", rlines, perl=TRUE, ignore.case=TRUE)
-  return(text)
-}
-
 df.to.list <- function( df ) {
   split(df, rownames(df))
 }
@@ -37,8 +30,11 @@ alurep.tex.cmd.short = Vectorize(alurep.tex.cmd.short.nv)
 ##
 ## /////////////////////////////////////////////////////////////////////////////
 
-file = "tau-lfv-comb-data.txt"
-lfv.df = read.delim("tau-lfv-comb-data.txt", sep="")
+fname = "tau-lfv-comb-data"
+ifname = paste(fname, "txt", sep=".")
+ofname = paste(fname, "tex", sep=".")
+
+lfv.df = read.delim(ifname, sep="")
 
 rc = lapply(df.to.list(lfv.df), function(x) {
   gamma = x$Gamma
@@ -60,6 +56,5 @@ rc = lapply(df.to.list(lfv.df), function(x) {
   rc
 })
 
-fname = "tau-lfv-comb-data.tex"
 cat(paste(rc, collapse="\n"), "\n", file=fname)
-cat("file '", fname, "' created\n", sep="")
+cat("file '", ofname, "' created\n", sep="")
