@@ -360,6 +360,42 @@
 }
 \fi
 
+%%
+%% fix for preventing page break in front of longtable
+%%
+\makeatletter
+\typeout{fix for tools/2796}
+\def\LT@start{%
+  \let\LT@start\endgraf
+  \endgraf\penalty\z@\vskip\LTpre
+  \dimen@\pagetotal
+  \advance\dimen@ \ht\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi
+  \advance\dimen@ \dp\ifvoid\LT@firsthead\LT@head\else\LT@firsthead\fi
+  \advance\dimen@ \ht\LT@foot
+  \dimen@ii\vfuzz
+  \vfuzz\maxdimen
+    \setbox\tw@\copy\z@
+    \setbox\tw@\vsplit\tw@ to \ht\@arstrutbox
+    \setbox\tw@\vbox{\unvbox\tw@}%
+  \vfuzz\dimen@ii
+  \advance\dimen@ \ht
+        \ifdim\ht\@arstrutbox>\ht\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@\dp
+        \ifdim\dp\@arstrutbox>\dp\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@ -\pagegoal
+%  \ifdim \dimen@>\z@\vfil\break\fi
+  \ifdim \dimen@>\z@\unskip\vfil\break\fi
+      \global\@colroom\@colht
+  \ifvoid\LT@foot\else
+    \advance\vsize-\ht\LT@foot
+    \global\advance\@colroom-\ht\LT@foot
+    \dimen@\pagegoal\advance\dimen@-\ht\LT@foot\pagegoal\dimen@
+    \maxdepth\z@
+  \fi
+  \ifvoid\LT@firsthead\copy\LT@head\else\box\LT@firsthead\fi
+  \output{\LT@output}}
+\makeatother
+
 %% ////////////////////////////////////////////////////////////////////////
 %%
 %% defs
@@ -373,6 +409,7 @@
 \input{tau-defs}
 \input{tau-br-fit-aleph-hcorr_13}
 \input{tau-br-fit-aleph-hcorr_13-vadirect-elab}
+\input{tau-lfv-comb-data}
 %%
 %% author, title
 %%
