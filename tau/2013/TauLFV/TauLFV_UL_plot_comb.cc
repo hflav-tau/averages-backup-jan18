@@ -1,13 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// TauLFV_UL_plot.cc
+// TauLFV_UL_plot_comb.cc
 //
-// produce tau LFV upper limits plot
+// make tau LFV upper limits plot
+//
+// - published limits recomputed with CLs
+// - combination of upper limits
+//
 // execute as follows:
-//
-// > root -l -b -q TauLFV_UL_plot.cc+
-//
-// This will create a .eps file with the plot.
+// > root -l -b -q TauLFV_UL_plot_comb.cc+
 //
 //                          Last update  2013/07/25
 ///////////////////////////////////////////////////////////////////////////////
@@ -441,7 +442,7 @@ void TauLFV_UL_plot_comb(Int_t when=2014001)
   HFAGTauLabel("Summer 2014", -0.01, -0.02, 1.7);
   c1->Update();  
   
-  c1->SaveAs(Form("TauLFV_UL_%d_averaged.pdf",when));
-  c1->SaveAs(Form("TauLFV_UL_%d_averaged.eps",when));
-  c1->SaveAs(Form("TauLFV_UL_%d_averaged.png",when));
+  c1->SaveAs(Form("TauLFV_UL_comb_%d.pdf",when));
+  c1->SaveAs(Form("TauLFV_UL_comb_%d.eps",when));
+  c1->SaveAs(Form("TauLFV_UL_comb_%d.png",when));
 }

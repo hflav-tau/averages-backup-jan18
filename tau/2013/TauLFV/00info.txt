@@ -1,12 +1,18 @@
 //////////////////////////////////////////////////////////////////////////////
 
-	tau/2011/TauLFV
+	tau/2013/TauLFV
 
-Root script to produce plot will all tau LFV limits.
-Execute as follows:
+tau LFV upper limits for 2014 HFAG report
 
 > root -l -b -q TauLFV_UL_plot.cc+
+- published limits
 
-This will create a .eps file with the plot.
+> root -l -b -q TauLFV_UL_plot_comb.cc+
+- published limits recomputed with CLs
+- combination of upper limits
+
+> root -l -b -q TauLFV_UL_plot_comb_norecomput.cc+
+- published limits
+- combination of upper limits
 
 //////////////////////////////////////////////////////////////////////////////
