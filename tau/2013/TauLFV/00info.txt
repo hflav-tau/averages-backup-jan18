@@ -15,4 +15,10 @@ tau LFV upper limits for 2014 HFAG report
 - published limits
 - combination of upper limits
 
+> additional information on 2014 report tau LFV on the report
+  either in arXiv or in the CVS repository
+  cvs -d \
+  :ext:iris.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/cvs \
+  co Papers/Summer14
+
 //////////////////////////////////////////////////////////////////////////////
