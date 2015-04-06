@@ -1,3 +1,3 @@
-code and input data to compute world averages for tau lepton experimental measurements for the HFAG group
+HFAG tau code and input data
 
-imported from google code
+see documentation text files in docs/ directory
