@@ -388,17 +388,21 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   ##--- checks on syst terms
   for (mn in meas.names) {
-    ##--- check that the sum of syst. terms does not exceed the syst. error
     syst.contribs = sqrt(sum(measurements[[mn]]$syst.terms^2))
-    if (syst.contribs > (1+1e-2)*measurements[[mn]]$syst) {
-      larger = rbind(larger, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
-    } else if (syst.contribs > (1+1e-5)*measurements[[mn]]$syst) {
-      slightly.larger = rbind(slightly.larger, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
-    }
+    syst.total = measurements[[mn]]$syst
     ##--- warning if sum of syst terms different w.r.t. total syst
-    if (abs(syst.contribs-measurements[[mn]]$syst) >
-        1e-3 * sqrt(syst.contribs * measurements[[mn]]$syst)) {
+    if (abs(syst.contribs-syst.total) > 1e-3 * sqrt(syst.contribs * syst.total)) {
       not.matching = rbind(not.matching, matrix(c(measurements[[mn]]$syst, syst.contribs), 1, 2, dimnames=list(mn)))
+    }
+    ##--- check that the sum of syst. terms does not exceed the syst. error
+    if (syst.contribs > syst.total) {
+      if (syst.contribs > (1+1e-2)*syst.total) {
+        larger = rbind(larger, matrix(c(syst.total, syst.contribs), 1, 2, dimnames=list(mn)))
+      } else if (syst.contribs > (1+1e-5)*syst.total) {
+        slightly.larger = rbind(slightly.larger, matrix(c(syst.total, syst.contribs), 1, 2, dimnames=list(mn)))
+      }
+      ##--- normalize syst. contribs to match total syst. error if they are larger
+      measurements[[mn]]$syst = measurements[[mn]]$syst * (syst.total / syst.contribs)
     }
   }
 
