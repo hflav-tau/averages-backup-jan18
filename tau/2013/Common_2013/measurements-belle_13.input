@@ -4,7 +4,7 @@
 #
 BEGIN MEASUREMENT Belle Gamma33 pub Ryu:2014vpc
 
-VALUE 9.15e-03 +-0.01e-03 +-0.15e-03
+VALUE 9.15e-03 +-0.2% +-1.749286%
 
 # total systematic contr. for e-mu normalization: 0.1606%
 SYSTEMATICS
@@ -13,6 +13,8 @@ SYSTEMATICS
 
 SYSTPAPER
    0.4735%         e_mu_norm        # e-mu normalization, non Bl contr.
+
+SYSTLOCAL
    0.7%            TrackFinding     #
    1.4%            KS_reco          #
 
@@ -30,7 +32,7 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma35 pub Ryu:2014vpc
 
-VALUE 8.32e-03 +-0.02e-03 +-0.16e-03
+VALUE 8.32e-03 +-0.3% +-1.8%
 
 ERROR_CORR_WITH -0.230    Belle Gamma37 pub Ryu:2014vpc # -0.230
 ERROR_CORR_WITH -0.132    Belle Gamma40 pub Ryu:2014vpc # -0.132
@@ -61,7 +63,7 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma37 pub Ryu:2014vpc
 
-VALUE 14.8e-04 +-0.14e-04 +-0.54e-04
+VALUE 14.8e-04 +-0.9% +-3.7%
 
 ERROR_CORR_WITH -0.230    Belle Gamma35 pub Ryu:2014vpc # -0.230
 ERROR_CORR_WITH +0.043    Belle Gamma40 pub Ryu:2014vpc # +0.043 
@@ -92,7 +94,7 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma40 pub Ryu:2014vpc
 
-VALUE 3.86e-03 +-0.04e-03 +-0.14e-03
+VALUE 3.86e-03 +-0.8% +-3.5%
 
 ERROR_CORR_WITH -0.132    Belle Gamma35 pub Ryu:2014vpc # -0.132
 ERROR_CORR_WITH +0.043    Belle Gamma37 pub Ryu:2014vpc # -0.043
@@ -124,7 +126,7 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma42 pub Ryu:2014vpc
 
-VALUE 14.96e-04 +-0.20e-04 +-0.74e-04
+VALUE 14.96e-04 +-1.3% +-4.9%
 
 ERROR_CORR_WITH +0.023    Belle Gamma35 pub Ryu:2014vpc # +0.023  
 ERROR_CORR_WITH -0.215    Belle Gamma37 pub Ryu:2014vpc # -0.215  
@@ -154,7 +156,7 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma47 pub Ryu:2014vpc
 
-VALUE 2.33e-04 +-0.03e-04 +-0.09e-04
+VALUE 2.33e-04 +-1.4% +-4.0%
 
 ERROR_CORR_WITH -0.019    Belle Gamma35 pub Ryu:2014vpc # -0.019     
 ERROR_CORR_WITH -0.001    Belle Gamma37 pub Ryu:2014vpc # -0.001   
@@ -181,7 +183,7 @@ END
 #
 BEGIN MEASUREMENT Belle Gamma50 pub Ryu:2014vpc
 
-VALUE 2.00e-05 +-0.22e-05 +-0.20e-05
+VALUE 2.00e-05 +-10.8% +-10.1%
 
 ERROR_CORR_WITH +0.004    Belle Gamma35 pub Ryu:2014vpc # 0.004    
 ERROR_CORR_WITH +0.000    Belle Gamma37 pub Ryu:2014vpc # 0.000    
