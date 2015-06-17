@@ -17,6 +17,7 @@
 ##
 
 source("../../../Common/bin/alucomb2-utils.r")
+require(Matrix, quietly=TRUE)
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## functions
@@ -173,7 +174,6 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   meas.val = sapply(measurements[meas.names], function(x) {unname(x$value)})
   meas.stat = sapply(measurements[meas.names], function(x) {unname(x$stat)})
   meas.syst = sapply(measurements[meas.names], function(x) {unname(x$syst)})
-  meas.err = sqrt(meas.stat^2 + meas.syst^2)
   
   cat("\n##\n")
   cat("## using the following updated global parameters\n")
@@ -402,7 +402,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
         slightly.larger = rbind(slightly.larger, matrix(c(syst.total, syst.contribs), 1, 2, dimnames=list(mn)))
       }
       ##--- normalize syst. contribs to match total syst. error if they are larger
-      measurements[[mn]]$syst = measurements[[mn]]$syst * (syst.total / syst.contribs)
+      measurements[[mn]]$syst.terms = measurements[[mn]]$syst.terms * (syst.total / syst.contribs)
     }
   }
 
@@ -497,7 +497,6 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   meas.val = sapply(measurements[meas.names], function(x) {unname(x$value)})
   meas.stat = sapply(measurements[meas.names], function(x) {unname(x$stat)})
   meas.syst = sapply(measurements[meas.names], function(x) {unname(x$syst)})
-  meas.err = sqrt(meas.stat^2 + meas.syst^2)
   
   ##--- unshifted values
   meas.val.orig = sapply(measurements[meas.names], function(x) {unname(x$value.orig)})
@@ -659,52 +658,48 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   if (flag) stop("quitting")
   rm(flag)
   
-  ##
-  ## build covariance matrix using errors and correlation coefficients
-  ## - stat. correlation is multiplied by stat. errors
-  ## - total correlation is multiplied by total errors
-  ##
-  meas.cov = meas.corr * (meas.err %o% meas.err)
+  ##--- covariance from STAT_CORR_WITH cards
   meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
-  syst.terms = unique(unlist(lapply(measurements[meas.names], function(m)  names(m$syst.terms)), use.names=FALSE))
+  ##--- get names of systematic contributions
+  syst.terms = unique(unlist(lapply(measurements[meas.names], function(m) names(m$syst.terms)), use.names=FALSE))
   names(syst.terms) = syst.terms
 
   if (length(syst.terms) > 0) {
-    ##--- get dependence of measurements from syst.terms
+    ##--- get measurement variation for 1-sigma variation external parameter that determines the syst. contribution
     dm.by.dp = alucomb2.meas.by.syst.term(measurements[meas.names], syst.terms)
     
-    ##--- get total systematic covariance due to syst.terms
+    ##--- compute covariance elements coming from common systematic contributions
     meas.cov.syst = dm.by.dp %*% t(dm.by.dp)
   } else {
     meas.cov.syst = rep(0, length(meas.names)) %o% rep(0, length(meas.names))
   }
   
-  ##--- if total correlation specified, get stat. correlation by subtraction (term-by-term)
-  meas.cov.stat = ifelse(meas.cov == 0, meas.cov.stat, meas.cov - meas.cov.syst)
+  ##--- compute total uncertainties
+  meas.err = sqrt(meas.stat*meas.stat + meas.syst*meas.syst)
 
-  ##--- set diagonal of stat covariance using stat errors
-  diag(meas.cov.stat) = meas.stat^2
-  ##--- set diagonal of syst covariance using stat errors insuring result is semi-positive-definite
-  diag(meas.cov.syst) = pmax(diag(meas.cov.syst), meas.syst^2)
+  ## meas.corr.sav = meas.corr
+  ## meas.cov.sav = meas.corr.sav * (meas.err %o% meas.err)
 
-  ##--- total covariance and total correlation
-  meas.cov = meas.cov.stat + meas.cov.syst
-  meas.corr = meas.cov / (sqrt(diag(meas.cov)) %o% sqrt(diag(meas.cov)))
-  
+  ##--- if total correlation specified, use it, else combine statistical and systematic correlations
+  meas.corr.tot = (meas.cov.stat + meas.cov.syst) / (meas.err %o% meas.err)
+  diag(meas.corr) = 1
+  meas.corr = ifelse(meas.corr != 0, meas.corr, meas.corr.tot)
+  meas.cov = meas.corr * (meas.err %o% meas.err)
+
+  if (min(eigen(meas.cov)$values) < 0) {
+    stop("measurements covariance has negative eigen-value", min(eigen(meas.cov)$values))
+  }
+
   ##
   ## error scaling using the "scale" parameter for fitted quantities
+  ## inflate the diagonal elements of covariance by specified s-factors
   ##
   quant.cards.sfact = unlist(lapply(combination$quantities[quant.names], function(el) { unname(el["scale"]) }))
   if (!is.null(quant.cards.sfact)) {
     meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
-    meas.scale.stat = sapply(measurements[meas.names][meas.scale.names], function(x) {unname(x$stat)})
-    meas.scale.syst = sapply(measurements[meas.names][meas.scale.names], function(x) {unname(x$syst.orig)})
-    
-    ##--- compute additional syst. error to scale the total original error as requested
-    meas.scale.systsq = (quant.cards.sfact^2 -1) * (meas.scale.stat^2 + meas.scale.syst^2)
     ##--- add additional syst. contribution to the diagonal elements of the covariance
-    diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] + meas.scale.systsq
+    diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] * quant.cards.sfact^2
     
     cat("\n")
     for (quant.i in names(quant.cards.sfact)) {
@@ -748,8 +743,8 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   quant.val = rep(0, quant.num)
   names(quant.val) = quant.names
   meas.invcov = solve(meas.cov)
-  meas.invcov = (meas.invcov + t(meas.invcov))/2
-  ## meas.invcov = chol2inv(chol(meas.cov))
+  
+  ## meas.invcov = (meas.invcov + t(meas.invcov))/2
   
   ##--- useful in calculations but not actual quant.invcov if there are constraints
   quant.invcov = t(delta) %*% meas.invcov %*% delta
@@ -879,6 +874,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     quant.cov = (quant.cov + t(quant.cov))/2
     quant.err = sqrt(diag(quant.cov))
     quant.corr = quant.cov / (quant.err %o% quant.err)
+
+    ##--- nearest positive definite correlation matrix
+    quant.corr = as.matrix(nearPD(quant.corr, corr=TRUE)$mat)
     
     chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
     dof = meas.num - quant.num + constr.num
