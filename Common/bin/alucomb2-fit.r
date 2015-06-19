@@ -685,11 +685,6 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   meas.corr.tot = (meas.cov.stat + meas.cov.syst) / (meas.err %o% meas.err)
   diag(meas.corr) = 1
   meas.corr = ifelse(meas.corr != 0, meas.corr, meas.corr.tot)
-  meas.cov = meas.corr * (meas.err %o% meas.err)
-
-  if (min(eigen(meas.cov)$values) < 0) {
-    stop("measurements covariance has negative eigen-value", min(eigen(meas.cov)$values))
-  }
 
   ##
   ## error scaling using the "scale" parameter for fitted quantities
@@ -698,8 +693,14 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   quant.cards.sfact = unlist(lapply(combination$quantities[quant.names], function(el) { unname(el["scale"]) }))
   if (!is.null(quant.cards.sfact)) {
     meas.scale.names = names(meas.quantities[meas.quantities %in% names(quant.cards.sfact)])
-    ##--- add additional syst. contribution to the diagonal elements of the covariance
-    diag(meas.cov)[meas.scale.names] = diag(meas.cov)[meas.scale.names] * quant.cards.sfact^2
+
+    ## add additional syst. contribution to the diagonal elements of the covariance
+    ## by properly modifying both the correlation matrix and the total errors
+    sfact.val = meas.val * 0 + 1
+    sfact.val[meas.scale.names] = quant.cards.sfact
+    meas.corr = meas.corr / (sfact.val %o% sfact.val)
+    diag(meas.corr) = 1
+    meas.err = meas.err * sfact.val
     
     cat("\n")
     for (quant.i in names(quant.cards.sfact)) {
@@ -708,6 +709,18 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     }
   }
   
+  meas.cov = meas.corr * (meas.err %o% meas.err)
+
+  cat(paste0("\nmeasurements correlation minimum eigenvalue: ", min(eigen(meas.corr)$values), "\n"))
+
+  if (min(eigen(meas.corr)$values) < 0) {
+    stop("measurements correlation has negative eigen-value", min(eigen(meas.cov)$values))
+  }
+
+  if (min(eigen(meas.cov)$values) < 0) {
+    stop("measurements covariance has negative eigen-value", min(eigen(meas.cov)$values))
+  }
+
   ##
   ## build delta matrix
   ## - measurements are experimental results or external PDG averages
