@@ -232,7 +232,7 @@ aluelab.results = function(args) {
   quant$quant.add.single("tau_K", 1.2380e-8, 0.0021e-8)
 
   ##--- from PDG 2013, 2011 ---upd14
-  quant$quant.add.single("m_W", 80.399385e3, 0.015*1e3) ## changed14
+  quant$quant.add.single("m_W", 80.385e3, 0.015*1e3) ## changed14
   quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6) ## changed14
 
   ##
