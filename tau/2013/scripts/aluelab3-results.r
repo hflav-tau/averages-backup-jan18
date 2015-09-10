@@ -58,6 +58,11 @@ aluelab.get.str.expr = function(quant.name, combination) {
 }
 
 ## ////////////////////////////////////////////////////////////////////////////
+## initialization
+
+display.names = character(0)
+
+## ////////////////////////////////////////////////////////////////////////////
 ## code
 
 aluelab.results = function(args) {
@@ -465,6 +470,11 @@ aluelab.results = function(args) {
     quant$quant.expr.add("R_tau_VA", R_tau - R_tau_s)
   }
 
+  ## ////////////////////////////////////////
+  ##
+  ## Vus from tau -> s inclusive
+  ##
+
   ##--- add Vus
   quant$quant.expr.add("Vus", sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
   quant$quant.add.single("Vus_err_perc", quant$err.contrib.perc("Vus"), 0)
@@ -486,8 +496,9 @@ aluelab.results = function(args) {
   quant$quant.add.single("Vus_mism_sigma", Vus_mism_sigma, 0)
   quant$quant.add.single("Vus_mism_sigma_abs", abs(Vus_mism_sigma), 0)
 
-  ##--- select quantities to print
+  ##--- add quantities to print
   display.names = c(
+    display.names,
     ## Gamma110.names,
     "Gamma5", "Be_unitarity", "Be_fit",
     "Gamma3", "Bmu_unitarity", "Bmu_fit",
@@ -504,6 +515,11 @@ aluelab.results = function(args) {
     "Vus_uni", "Vus_mism_sigma"
     )
   ## display.names = c(Gamma110.names, display.names)
+
+  ## ////////////////////////////////////////
+  ##
+  ## lepton universality tests
+  ##
 
   ##
   ## gtau/gmu using tau -> hnu / h -> mu nu ---upd14
@@ -540,7 +556,7 @@ aluelab.results = function(args) {
   ##--- gmu / ge from tau -> mu / tau -> e
   quant$quant.expr.add("gmubyge_tau", sqrt(Gamma3/Gamma5 * phspf_mebymtau/phspf_mmubymtau))
 
-  ##--- select quantities to print
+  ##--- add quantities to print
   display.names = c(
     display.names,
     "gtaubygmu_tau", "gtaubygmu_pi", "gtaubygmu_K", "gtaubygmu_fit",
@@ -682,6 +698,8 @@ aluelab.results = function(args) {
   ##
   ## summary
   ##
+
+  ##--- add quantities to print
   display.names = c(
     display.names,
     "rrad_LD_tauK_taupi",
@@ -730,6 +748,7 @@ aluelab.results = function(args) {
     delta_LD_tauK_taupi="%.2f",
     Vus_err_th_perc="%.2f"
     )
+
   ##--- non-default multiplicative factor for selected quantities
   specialFactor = c(
     tau_tau=1e15,
