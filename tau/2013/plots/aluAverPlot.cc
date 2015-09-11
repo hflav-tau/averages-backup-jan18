@@ -321,7 +321,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   TString sprecision = Form("%s%3.1f%s", "%", precision, "f");
 
   cout << "x axis min/max:       " << fXmin << " " << fXmax << endl
-       << "measurements min/max: " << meas_xmax << " " << meas_xmin << endl
+       << "measurements min/max: " << meas_xmin << " " << meas_xmax << endl
        << "total num of points:  " << nPoints << " ymin/ymax: " << fYmin << " " << fYmax << endl
        << "measurements num:     " << nexp << ", average: " << aver << " +- " << err << endl
        << "format precision:     " << sprecision << endl
@@ -427,7 +427,8 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
     GraphA->SetLineColor(color);
     GraphA->SetMarkerColor(color);
     GraphA->SetMarkerStyle(fSymbol[i]);
-    GraphA->Draw("p");
+    GraphA->Draw("p0");
+    // cout << meas[i] << " " << errorl[i] << " " << errorh[i] << endl;
 
     //--- stat errors
     if (systl[i] != 0 || systh[i] != 0) {
