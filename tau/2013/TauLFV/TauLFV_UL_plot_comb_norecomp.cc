@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// TauLFV_UL_plot_comb_norecomput.cc
+// TauLFV_UL_plot_comb_norecomp.cc
 //
 // make tau LFV upper limits plot
 //
@@ -8,7 +8,7 @@
 // - combination of upper limits
 //
 // execute as follows:
-// > root -l -b -q TauLFV_UL_plot_comb_norecomput.cc+
+// > root -l -b -q TauLFV_UL_plot_comb_norecomp.cc+
 //
 //                          Last update  2013/07/25
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,23 +42,23 @@
 enum DECAY {
   EGAMMA = 0,
   MUGAMMA = 1,
-
+  
   /*
-  EPI0 = 2,
-  MUPI0 = 3,
-  EETA = 4,
-  MUETA = 5,
-  EETAP = 6,
-  MUETAP = 7,
+    EPI0 = 2,
+    MUPI0 = 3,
+    EETA = 4,
+    MUETA = 5,
+    EETAP = 6,
+    MUETAP = 7,
   */
   EKS0 = 2,
   MUKS0 = 3,
   /*
- EF0 = 10,
-  MUF0 = 11,
+    EF0 = 10,
+    MUF0 = 11,
   */
   ERHO = 4,
- MURHO = 5,
+  MURHO = 5,
   EKSTAR = 6,
   MUKSTAR = 7,
   EAKSTAR = 8,
@@ -75,33 +75,32 @@ enum DECAY {
   MEM = 19,
   /*
 
- EPIPI = 28,
-  MUPIPI = 29,
-  EPIK = 30,
-  MUPIK = 31,
-  EKPI = 32,
-  MUKPI = 33,
-  EKK = 34,
-  MUKK = 35,
-  EKS0KS0 = 36,
-  MUKS0KS0 = 37,
-  PIEPI = 38,
-  PIMUPI = 39,
-  PIEK = 40,
-  PIMUK = 41,
-  KEK = 42,
-  KMUK = 43,
+    EPIPI = 28,
+    MUPIPI = 29,
+    EPIK = 30,
+    MUPIK = 31,
+    EKPI = 32,
+    MUKPI = 33,
+    EKK = 34,
+    MUKK = 35,
+    EKS0KS0 = 36,
+    MUKS0KS0 = 37,
+    PIEPI = 38,
+    PIMUPI = 39,
+    PIEK = 40,
+    PIMUK = 41,
+    KEK = 42,
+    KMUK = 43,
   */
- PILAM = 20,
+  PILAM = 20,
   PILAMBAR = 21,
   KLAM = 22,
   KLAMBAR = 23,
   /*
-  PMUMUOS = 48,
-  PMUMUSS = 49,
+    PMUMUOS = 48,
+    PMUMUSS = 49,
   */
- NDECAY = 24
-
+  NDECAY = 24  
 };
 
 void fillBelle(double * array)
@@ -111,7 +110,6 @@ void fillBelle(double * array)
 
   array[EKS0]    = 2.6;
   array[MUKS0]   = 2.3;
-
 
   // Belle 854 fb-1  //previous 543 fb-1
   array[ERHO]    = 1.8; // 6.3;
@@ -132,15 +130,11 @@ void fillBelle(double * array)
   array[EME]     = 1.5;
   array[MEM]     = 1.7;
 
-                                       
-  //  906 fb-1 //Previous 154 fb-1       
-  array[PILAM]   = 3.0; //7.2;           
-  array[PILAMBAR]= 2.8; //14;            
-  array[KLAM]    = 4.2;                  
-  array[KLAMBAR] = 3.1;                  
-  /////////////////////////////////////
-
-
+  //  906 fb-1 //Previous 154 fb-1
+  array[PILAM]   = 3.0; //7.2;
+  array[PILAMBAR]= 2.8; //14;
+  array[KLAM]    = 4.2;
+  array[KLAMBAR] = 3.1;
 }
 
 
@@ -148,39 +142,34 @@ void fillBaBar(double * array)
 {
   // at 10^-8
 
-  array[EGAMMA]  = 3.3;       
-  array[MUGAMMA] = 4.4 - 0.3; 
-                            
-  array[EKS0]    = 3.3;       
-  array[MUKS0]   = 4.0;       
-                            
-  array[ERHO]    = 4.6;       
-  array[MURHO]   = 2.6;       
-  array[EKSTAR]  = 5.9;       
-  array[MUKSTAR] = 17;        
-  array[EAKSTAR] = 4.6;       
-  array[MUAKSTAR]= 7.3 + 0.2; 
-  array[EPHI]    = 3.1 + 0.2; 
-  array[MUPHI]   = 19;        
-  array[EOMEGA]  = 11;        
-  array[MUOMEGA] = 10;        
-                            
+  array[EGAMMA]  = 3.3;
+  array[MUGAMMA] = 4.4 - 0.3;
 
-  array[EEE]     = 2.9; 
-  array[MEE]     = 2.2; 
-  array[EMM]     = 3.2; 
-  array[MMM]     = 3.3; 
-  array[EME]     = 1.8; 
-  array[MEM]     = 2.6; 
+  array[EKS0]    = 3.3;
+  array[MUKS0]   = 4.0;
 
-  array[PILAM]   = 5.8;    
-  array[PILAMBAR]= 5.9;    
-  array[KLAM]    = 15;     
-  array[KLAMBAR] = 7.2;    
-                         
+  array[ERHO]    = 4.6;
+  array[MURHO]   = 2.6;
+  array[EKSTAR]  = 5.9;
+  array[MUKSTAR] = 17;
+  array[EAKSTAR] = 4.6;
+  array[MUAKSTAR]= 7.3 + 0.2;
+  array[EPHI]    = 3.1 + 0.2;
+  array[MUPHI]   = 19;
+  array[EOMEGA]  = 11;
+  array[MUOMEGA] = 10;
 
+  array[EEE]     = 2.9;
+  array[MEE]     = 2.2;
+  array[EMM]     = 3.2;
+  array[MMM]     = 3.3;
+  array[EME]     = 1.8;
+  array[MEM]     = 2.6;
 
-
+  array[PILAM]   = 5.8;
+  array[PILAMBAR]= 5.9;
+  array[KLAM]    = 15;
+  array[KLAMBAR] = 7.2;
 }
 
 void fillLHCb(double * array)
@@ -190,6 +179,7 @@ void fillLHCb(double * array)
   //  array[PMUMUOS]   = 33.;
   //  array[PMUMUSS]   = 44.;
 }
+
 void fillHFAG_CLs(double * array)
 {
   array[EGAMMA] = 5.4;
@@ -197,7 +187,6 @@ void fillHFAG_CLs(double * array)
 
   array[EKS0]    = 1.4;
   array[MUKS0]   = 1.5;
-
 
   array[ERHO] = 1.5;
   array[MURHO] = 1.5;
@@ -210,7 +199,6 @@ void fillHFAG_CLs(double * array)
   array[EOMEGA]  = 3.3;
   array[MUOMEGA] = 4.0;
 
-
   array[EEE] = 1.4;
   array[MEE]= 1.1;
   array[EMM]= 1.6;
@@ -218,13 +206,10 @@ void fillHFAG_CLs(double * array)
   array[EME] = 0.84;
   array[MEM] = 0.98;
 
-
   array[PILAM]= 1.9;
   array[PILAMBAR]= 1.8;
   array[KLAM] = 3.7;
   array[KLAMBAR] =2.0;
-
-
 }
 
 void setLabels(TH1* hist)
@@ -236,11 +221,11 @@ void setLabels(TH1* hist)
   axis->SetBinLabel(label_offs - 1 ," ");
   axis->SetBinLabel(label_offs + EGAMMA ,"e^{-} #gamma");
   axis->SetBinLabel(label_offs + MUGAMMA ,"#mu^{-} #gamma");
-  //  axis->SetBinLabel(label_offs + EPI0    ,"e^{-} #pi^{0}");
+  // axis->SetBinLabel(label_offs + EPI0    ,"e^{-} #pi^{0}");
   // axis->SetBinLabel(label_offs + MUPI0   ,"#mu^{-} #pi^{0}");
   // axis->SetBinLabel(label_offs + EETA    ,"e^{-} #eta");
   // axis->SetBinLabel(label_offs + MUETA   ,"#mu^{-} #eta");
-  //axis->SetBinLabel(label_offs + EETAP   ,"e^{-} #eta'");
+  // axis->SetBinLabel(label_offs + EETAP   ,"e^{-} #eta'");
   // axis->SetBinLabel(label_offs + MUETAP  ,"#mu^{-} #eta'");
   axis->SetBinLabel(label_offs + EKS0    ,"e^{-} K_{S}^{0}");
   axis->SetBinLabel(label_offs + MUKS0   ,"#mu^{-} K_{S}^{0}");
@@ -284,7 +269,7 @@ void setLabels(TH1* hist)
   axis->SetBinLabel(label_offs + PILAMBAR,"#pi^{-} #bar{#Lambda}");
   axis->SetBinLabel(label_offs + KLAM   , "K^{-} #Lambda");
   axis->SetBinLabel(label_offs + KLAMBAR, "K^{-} #bar{#Lambda}");
-  //  axis->SetBinLabel(label_offs + PMUMUOS, "#bar{p} #mu^{-} #mu^{+}");
+  // axis->SetBinLabel(label_offs + PMUMUOS, "#bar{p} #mu^{-} #mu^{+}");
   // axis->SetBinLabel(label_offs + PMUMUSS, "p #mu^{-} #mu^{-}");
 }
 
@@ -326,7 +311,7 @@ void SetUp()
   gStyle->SetGridStyle(1);
 }
 
-void TauLFV_UL_plot_comb_norecomput(Int_t when=2014001)
+void TauLFV_UL_plot_comb_norecomp(Int_t when=2014001)
 {
   SetUp();
   unsigned int ibin;
@@ -347,7 +332,6 @@ void TauLFV_UL_plot_comb_norecomput(Int_t when=2014001)
 
   double histbins[NDECAY];
   for (ibin = 0; ibin < NDECAY; ++ibin) histbins[ibin] = ibin;
-
 
   fillBelle(Belle);
   fillBaBar(BaBar);
@@ -380,15 +364,14 @@ void TauLFV_UL_plot_comb_norecomput(Int_t when=2014001)
   hBelle->LabelsOption("v");
   hBelle->GetYaxis()->SetLabelSize(36);
 
-  
-  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.5);    
-  hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.5); 
+
+  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kRed); hBelle->SetMarkerSize(1.5);
+  hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kBlue); hBaBar->SetMarkerSize(1.5);
 
   // hCLEO->SetMarkerStyle(kOpenSquare);  hCLEO->SetMarkerColor(kGreen);  hCLEO->SetMarkerSize(0.8);
-
-  //  hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kMagenta); hBelle->SetMarkerSize(1.5);
-  //hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kCyan); hBaBar->SetMarkerSize(1.5);
-  //hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(1.5);
+  // hBelle->SetMarkerStyle(kFullTriangleUp); hBelle->SetMarkerColor(kMagenta); hBelle->SetMarkerSize(1.5);
+  // hBaBar->SetMarkerStyle(kFullTriangleDown); hBaBar->SetMarkerColor(kCyan); hBaBar->SetMarkerSize(1.5);
+  // hCLEO->SetMarkerStyle(kFullCircle);  hCLEO->SetMarkerColor(kMagenta);  hCLEO->SetMarkerSize(1.5);
   hLHCb->SetMarkerStyle(kFullSquare); hLHCb->SetMarkerColor(kBlack); hLHCb->SetMarkerSize(1.2);
   hHFAG_CLs->SetMarkerStyle(34); hHFAG_CLs->SetMarkerColor(kGreen); hHFAG_CLs-> SetMarkerSize(1.5);
 
@@ -415,20 +398,14 @@ void TauLFV_UL_plot_comb_norecomput(Int_t when=2014001)
 
   TLine l0(EGAMMA-0.5, ul_min, EGAMMA-0.5, ul_max); l0.SetLineColor(kGray); l0.Draw();
 
-
-
   TLine l1(MUGAMMA+0.5,ul_min,MUGAMMA+0.5,ul_max); l1.SetLineColor(kGray); l1.Draw();
   TLatex t1(((MUGAMMA-EGAMMA)*1.0/2.0)+EGAMMA*1.0,y_latex,"l#gamma"); t1.SetTextAlign(21); t1.SetTextFont(42); t1.Draw();
-
-
-
 
   TLine l4(MUOMEGA+0.5,ul_min,MUOMEGA+0.5,ul_max); l4.SetLineColor(kGray); l4.Draw();
   TLatex t4(((MUOMEGA-EKS0 )*1.0/2.0)+EKS0*1.0,y_latex,"lh"); t4.SetTextAlign(21); t4.SetTextFont(42); t4.Draw();
 
   TLine l5(MEM+0.5,ul_min,MEM+0.5,ul_max); l5.SetLineColor(kGray); l5.Draw();
   TLatex t5(((MEM-EEE)*1.0/2.0)+EEE*1.0,y_latex,"lll"); t5.SetTextAlign(21); t5.SetTextFont(42); t5.Draw();
-
 
   TLine l7(KLAMBAR+0.5,ul_min,KLAMBAR+0.5,ul_max); l7.SetLineColor(kGray); l7.Draw();
   TLatex t7(((PILAM-KLAMBAR)*1.0/2.0)+KLAMBAR*1.0,y_latex,"h #Lambda"); t7.SetTextAlign(21); t7.SetTextFont(42); t7.Draw();
