@@ -1,17 +1,14 @@
 #
-# root -b -q "aluAverPlot.cc+(\"plot-taulife-hfag-summer2014.input\")"
+# root -b -q "aluAverPlot.cc+(\"plot-taulife-fccp15.input\")"
 #
-# i       - xmin, xmax, precision, title
-# m       - measurement with symmetric stat & syst errors
-# ma      - measurement with asymmetric stat & syst errors
-# mt, mat - like m, ma but for "this work"
-# p       - PDG average, sets band
-# h       - other averages
+# instructions in aluAverPlot.cc
 #
-i   0  0    6.2  #tau_{#tau}  [x 10^{-15} s]
+lh  HFAG-Tau
+l   Summer 2014
+i   0  0    5.2  #tau_{#tau}  [x 10^{-15} s]
 p   290.29  0.52 0 0   HFAG Summer 2014
-p   290.3   0.5  0 0   PDG 2014 average
-mt   290.17  0.53 0.33  Belle 2013
+h   290.3   0.5  0 0   PDG 2014 average
+mt  290.17  0.53 0.33  Belle 2013
 m   290.9   1.4	 1.0   Delphi 2004
 m   293.2   2.0  1.5   L3 2000
 m   290.1   1.5	 1.1   ALEPH 1997

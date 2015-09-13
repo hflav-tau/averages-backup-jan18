@@ -1,0 +1,18 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-taumass-fccp15.input\")"
+#
+# instructions in aluAverPlot.cc
+#
+l   FCCP 2015
+i   0 0 4.2 m_{#tau} [MeV/c^{2}]
+# i 1773 1782.5  4.2 m_{#tau} [MeV/c^{2}]
+p   1776.82 0.16  0 0           PDG 2014 average
+ma  1776.91 0.12 -0.12 0.10 -0.13 BES 2014 (not in PDG 2014)
+mat  1776.68 0.12 -0.12 0.41 -0.41 BaBar 2009
+ma  1776.81 0.25 -0.23 0.15 -0.15 KEDR  2007
+mat  1776.61 0.13 -0.13 0.35 -0.35 Belle 2007
+ma  1775.1  1.6  -1.6  1.0  -1.0  OPAL  2000
+ma  1778.2  0.8  -0.8  1.2  -1.2  CLEO  1997
+ma  1776.96 0.18 -0.21 0.25 -0.17 BES   1996
+ma  1776.3  2.4  -2.4  1.4  -1.4  ARGUS 1992
+ma  1783    3    -4    0     0    DELCO 1978
