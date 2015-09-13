@@ -5,6 +5,22 @@
 // plot measurements and averages listed in ASCII .input file
 // inspired by S.Banerjee code for HFAG-tau plots
 //
+
+//
+// root -b -q "aluAverPlot.cc+(\"<plot .input file>\")"
+//
+// lh      - header (set plot label header)
+// l       - label (set plot label)
+// r       - (set band according to previous result)
+// i       - xmin xmax precision title
+// m       - val stat syst label (measurement with symmetric stat & syst errors)
+// ma      - val +stat -stat +syst -syst label (measurement with asymmetric stat & syst errors)
+// mt, mat - like m, ma but for "this work"
+// p       - val uncertainty s-factor CL label (PDG average, sets band)
+// h       - val uncertainty s-factor CL label (other average)
+//
+
+//
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -28,7 +44,7 @@
 #include "TColor.h"
 #include "TPaveText.h"
 
-#include "HFAGTauLabel.cc"
+#include "aluPlotLabel.cc"
 
 void PlotStyleSetup(Float_t scale = 1, Int_t canvas_width = 560)
 {
@@ -125,7 +141,8 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   const Float_t fnPoints_offset(0.6);
   
   TString title, expname[nPointsMax], tempstring;
-  TString fitLabel("Summer 2014");
+  TString fitLabelHeader("");
+  TString fitLabel("");
   Float_t precision;
 
   // -- set up frame for plot
@@ -146,7 +163,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   //--- open input file
   ifstream ifs(filename.c_str()) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ;
-  Int_t ref_meas(0);
+  Int_t ref_meas(-1);
   
   while(ifs.good()) {
     if (ifs.eof()) break;
@@ -161,16 +178,28 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
       ifs.getline(buffer, 200, '\n');
       title = TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
     } else if (first_ch=='l') {
+      char ch2 ; ifs.get(ch2);
+      if (ch2 == 'h') {
+      } else {
+	ifs.putback(ch2);
+      }
       //--- fit label
       ifs.getline(buffer, 200, '\n');
-      fitLabel = TString(buffer).Strip((TString::EStripType)1, ' '); // remove kLeading whitespace
+      TString str(TString(buffer).Strip((TString::EStripType)1, ' ')); // remove kLeading whitespace
+      if (ch2 == 'h') {
+	fitLabelHeader = str;
+      } else {
+	fitLabel = str;
+      }
+    } else if (first_ch=='r') {
+      ref_meas = nPoints-1;
     } else if (first_ch=='h' || first_ch=='p') {
       //--- other average: h <mean> <sigma> <s-factor> <CL> <label>
       //--- pdg average: p <mean> <sigma> <s-factor> <CL> <label> -- other average
       if (first_ch=='p') ref_meas = nPoints;
       //--- get averages: mean, sigma, sfact, CL
       measinfo[nPoints] = first_ch;
-      ifs >>  meas[nPoints] >> stath[nPoints] >> sfact[nPoints] >> meascl[nPoints];
+      ifs >> meas[nPoints] >> stath[nPoints] >> sfact[nPoints] >> meascl[nPoints];
       statl[nPoints] = stath[nPoints];
       systh[nPoints] = systl[nPoints] = 0;
       ifs.getline(buffer,200,'\n');
@@ -244,9 +273,9 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
 
     if (measinfo[i] == "h" || measinfo[i] == "p") {
       if (measinfo[i] == "h") {
-	cout << i << " hfag ave  ";
+	cout << i << " HFAG average  ";
       } else {
-	cout << i << " pdg  ave  ";
+	cout << i << " PDG average  ";
       }
       cout << meas[i] << " +- " << stath[i] << " sfact " << sfact[i] << " CL " << meascl[i]
 	   << " " << expname[i] << endl;
@@ -373,18 +402,19 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   hpx->GetXaxis()->CenterTitle(kTRUE);
   hpx->SetXTitle(title);
 
-  //--- draw band for average measurement
-  TBox average_band;
-  average_band.SetFillStyle(1000);
-  // average_band.SetFillColor(kGreen-9);
-  // average_band.SetFillColor(kOrange-9);
-  average_band.SetFillColor(kYellow-9);
-  average_band.DrawBox(meas[ref_meas]-statl[ref_meas], fYmin,
-		       meas[ref_meas]+stath[ref_meas], fYmax);
-
-  //--- redraw axis above the average band
-  canvas->RedrawAxis();
-
+  if (ref_meas >= 0) {
+    //--- draw band for average measurement
+    TBox* average_band = new TBox;
+    average_band->SetFillStyle(1000);
+    
+    average_band->SetFillColor(kYellow-9);
+    average_band->DrawBox(meas[ref_meas]-errorl[ref_meas], fYmin,
+			 meas[ref_meas]+errorh[ref_meas], fYmax);
+    
+    //--- redraw axis above the average band
+    canvas->RedrawAxis();
+  }
+  
   Float_t y[nPoints], ey[nPoints], eyl[nPoints], eyh[nPoints];
   Int_t fColor[nPoints], fSymbol[nPoints];
 
@@ -418,6 +448,8 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
     color = kBlack;
     if (measinfo[i] == "p") {
       color = kBlue;
+    } else if (measinfo[i] == "h") {
+      color = kGreen;
     } else if (measinfo[i] == "t") {
       color = kRed;
     }
@@ -450,9 +482,9 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
       valtxt += " #pm ";
       valtxt += Form(sprecision.Data(),stath[i]);
     } else {
-      valtxt += " #splitline{+";
+      valtxt += " #splitline{#plus ";
       valtxt += Form(sprecision.Data(),stath[i]);
-      valtxt += "}{- ";
+      valtxt += "}{#minus ";
       valtxt += Form(sprecision.Data(),statl[i]);
       valtxt += "}";
     }
@@ -462,9 +494,9 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
 	valtxt += " #pm ";
 	valtxt += Form(sprecision.Data(),systh[i]);
       } else {
-	valtxt += " #splitline{+";
+	valtxt += " #splitline{#plus ";
 	valtxt += Form(sprecision.Data(),systh[i]);
-	valtxt += "}{- ";
+	valtxt += "}{#minus ";
 	valtxt += Form(sprecision.Data(),systl[i]);
 	valtxt += "}";
       }
@@ -483,8 +515,8 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   }
 
   const Float_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
-  if (fitLabel != "") {
-    HFAGTauLabel(fitLabel, xtextNDC, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
+  if (fitLabel != "" || fitLabelHeader != "") {
+    aluPlotLabel(fitLabelHeader, fitLabel, xtextNDC, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
   }
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');
