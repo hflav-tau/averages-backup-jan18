@@ -708,17 +708,28 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       cat(names(meas.quantities[meas.quantities %in% quant.i]), sep="\n")
     }
   }
-  
+
+  ##--- obtain measurements covariance
   meas.cov = meas.corr * (meas.err %o% meas.err)
 
-  cat(paste0("\nmeasurements correlation minimum eigenvalue: ", min(eigen(meas.corr)$values), "\n"))
+  ##
+  ## check than covariance and correlation are positive definite
+  ##
+  
+  min.corr.eigen = min(eigen(meas.corr)$values)
+  min.cov.eigen = min(eigen(meas.cov)$values)
 
-  if (min(eigen(meas.corr)$values) < 0) {
-    stop("measurements correlation has negative eigen-value", min(eigen(meas.cov)$values))
+  cat("\n")
+  cat(paste0("measurements ", c("correlation", "covariance "), " minimum eigenvalue: ",
+             sprintf("%.4g", c(min.corr.eigen, min.cov.eigen)), collapse="\n"))
+  cat("\n")
+
+  if (min.corr.eigen < 0) {
+    stop("measurements correlation has negative eigen-value")
   }
 
-  if (min(eigen(meas.cov)$values) < 0) {
-    stop("measurements covariance has negative eigen-value", min(eigen(meas.cov)$values))
+  if (min.cov.eigen < 0) {
+    stop("measurements covariance has negative eigen-value")
   }
 
   ##
