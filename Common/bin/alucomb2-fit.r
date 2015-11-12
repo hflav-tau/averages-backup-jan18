@@ -732,6 +732,8 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     stop("measurements covariance has negative eigen-value")
   }
 
+  rm(min.corr.eigen, min.cov.eigen)
+
   ##
   ## build delta matrix
   ## - measurements are experimental results or external PDG averages
