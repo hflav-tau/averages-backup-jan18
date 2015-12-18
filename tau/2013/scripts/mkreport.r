@@ -581,7 +581,7 @@ get.tex.base.nodes.corr = function() {
   ##--- names of all quantities
   quant.names = combination$combine
   ##--- get quantity names defined via constraint
-  quant.constr.names = sub(".c", "", names(combination$constr.all.expr), fixed=TRUE)
+  quant.constr.names = sub(".c", "", names(combination$constr.all.expr[combination$constr.all.any]), fixed=TRUE)
   ##--- take out quantities defined with a constraint
   quant.names = setdiff(quant.names, quant.constr.names)
   ##--- also remove the unitarity complement

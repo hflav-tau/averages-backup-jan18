@@ -317,6 +317,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     combination$constr.all.nl = combination$constr.all.nl & !constr.var.not.in.quant.nl
   }
   
+  ##--- define convenience variable holding all used constraints
+  combination$constr.all.any = combination$constr.all.lin | combination$constr.all.nl
+
   ##--- convert non-linear constraints into linear ones if possible
   quant.val = rep(NA, length(quant.names))
   names(quant.val) = quant.names
@@ -814,7 +817,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ##
   
   ##--- get quantity names defined via constraint
-  quant.constr.names = sub(".c", "", names(combination$constr.all.expr), fixed=TRUE)
+  quant.constr.names = sub(".c", "", names(combination$constr.all.expr[combination$constr.all.any]), fixed=TRUE)
   ##--- take out quantities defined with a constraint
   quant.base.names = setdiff(quant.names, quant.constr.names)
   ##--- also remove the unitarity complement
@@ -1113,7 +1116,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     ##--- function returns vector of non-linear constraint functions
     constr.fun <- function(qv)  {
       env.list = as.list(qv)
-      rc = unlist(lapply(combination$constr.all.expr, function(expr) {eval(expr, env.list)}))
+      rc = unlist(lapply(combination$constr.all.expr[combination$constr.all.any], function(expr) {eval(expr, env.list)}))
       return(rc)
     }
     
@@ -1179,9 +1182,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     ## here we include the combination$constr.all.val for alabama
     ## meaning: [ f(x) = const ] goes to [ f(x) - const = 0 ]
     ##
-    constr.fun <- function (qv)  {
+    constr.fun <- function (qv) {
       env.list = as.list(qv)
-      rc = unlist(lapply(combination$constr.all.expr, function(expr) {eval(expr, env.list)}))
+      rc = unlist(lapply(combination$constr.all.expr[combination$constr.all.any], function(expr) {eval(expr, env.list)}))
       rc = rc - combination$constr.all.val
       return(rc)
     }
