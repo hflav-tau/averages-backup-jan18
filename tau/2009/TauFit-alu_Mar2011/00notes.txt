@@ -1,0 +1,154 @@
+///////////////////////////////////////////////////////////////////////////////
+
+My set C is all the measurements we have, with all correlations of all
+kinds, but excluding entirely the following measurements:
+
+ (8) IMEAS = 135 NODE = 89 NAME = S035R5 GAMMA = 3by5 TITLE = G(mu-
+nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau)) EXP = BABAR
+ (9) IMEAS = 136 NODE = 95 NAME = S035Y01 GAMMA = 9by5 TITLE = G(pi-
+nu(tau)) / G(e- nubar(e) nu(tau)) EXP = BABAR
+ (10) IMEAS = 137 NODE = 96 NAME = S035Y02 GAMMA = 10by5 TITLE = G(K-
+nu(tau)) / G(e- nubar(e) nu(tau)) EXP = BABAR
+
+I then do the complete fit and obtain:
+
+                       val          err
+Be              0.178363239 0.0004857303
+Bmu             0.173495676 0.0004705329
+Be_from_Bmu     0.178391118 0.0004838104
+Be_from_taulife 0.177935946 0.0006169416
+Be_univ         0.178281642 0.0002870920
+Gamma9          0.108969923 0.0006553176
+Gamma10         0.006864088 0.0002236326
+Gamma66         0.045975466 0.0005120935
+                       Be   Be_from_Bmu Be_from_taulife
+Be               1.0000000 -0.1045022903    0.0000000000
+Be_from_Bmu     -0.1045023  1.0000000000   -0.0002104513
+Be_from_taulife  0.0000000 -0.0002104513    1.0000000000
+
+this is compatible with what you obtain however the correlation Be-Bmu
+is quite smaller, but with the same sign, and the Be_univ error is 10%
+smaller as a result.
+
+My set E is all the measurements we have, with all correlations of all
+kinds, but excluding the stat_corr_with lines between:
+- g3by5 - g9by5
+- g3by5 - g10by5
+- g9by5 - g10by5
+
+I then do the complete fit and obtain:
+
+                       val          err
+Be              0.178255739 0.0004011731
+Bmu             0.173833431 0.0003997284
+Be_from_Bmu     0.178738404 0.0004110082
+Be_from_taulife 0.177935946 0.0006169416
+Be_univ         0.178372610 0.0002834178
+Gamma9          0.108258334 0.0005440600
+Gamma10         0.006913563 0.0001017087
+Gamma66         0.045984905 0.0005120435
+                      Be  Be_from_Bmu Be_from_taulife
+Be              1.0000000  0.235615560     0.000000000
+Be_from_Bmu     0.2356156  1.000000000    -0.000248211
+Be_from_taulife 0.0000000 -0.000248211     1.000000000
+
+Again this is compatible but I have a smaller Be-Bmu correlation (same
+sign as yours) and a 10% smaller Be_univ error.
+
+///////////////////////////////////////////////////////////////////////////////
+
+3. in directory
+/afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/NoBB_lepcorr_addratio_2
+I am using Be measurements from ALEPH, CLEO, DELPHI, L3 and OPAL, 
+Bmu measurements from ALEPH, DELPHI, L3 and OPAL, and 
+Bmu/Be measurements from CLEO and ARGUS.
+Published correlations between these measurements are included. This gives:
+
+B(tau- -> mu- nub nu)/B(tau- -> e- nub nu) = 0.9729 +- 0.0039
+B(tau- -> e- nub nu) = (17.819 +-  0.051) %
+B(tau- -> e- nub nu)_tautau  = (17.794 +-  0.062 [Total] +-  0.008 [mtau] +- -0.000 [mmu] +-  0.000 [me] +-  0.061 [tautau] +- -0.000 [taumu] +- -0.000 [mW] +-  0.000 [alpha]) %
+B(tau- -> mu- nub nu) = (17.336 +-  0.049) %
+B(tau- -> mu- nub nu)_tautau  = (17.305 +-  0.060 [Total] +-  0.007 [mtau] +- -0.000 [mmu] +-  0.000 [me] +-  0.060 [tautau] +- -0.000 [taumu] +- -0.000 [mW] +-  0.000 [alpha]) %
+B(tau- -> e- nub nu)_Bmu  = (17.825 +-  0.050 [Total] +-  0.050 [Btau] +- -0.000 [mtau] +-  0.000 [mmu] +- -0.000 [me]) %
+<B(tau- -> e- nub nu)_univ> = (17.815 +-  0.031) % has weights = 0.3726 [Be], 0.3824 [Bmu], 0.2450 [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) =    0
+
+average*set3.input
+
+                      val          err
+Be              0.1781852 0.0005066076
+Bmu             0.1733626 0.0004862197
+Be_from_Bmu     0.1782542 0.0004999398
+Be_from_taulife 0.1779359 0.0006169416
+Be_univ         0.1781506 0.0003051840
+<NA>                   NA           NA
+<NA>                   NA           NA
+<NA>                   NA           NA
+                         Be   Be_from_Bmu Be_from_taulife
+Be               1.00000000 -0.0260095294    0.0000000000
+Be_from_Bmu     -0.02600953  1.0000000000   -0.0002035053
+Be_from_taulife  0.00000000 -0.0002035053    1.0000000000
+
+///////////////////////////////////////////////////////////////////////////////
+
+4. in directory
+/afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/BB_lepcorr_addratio_3
+to the above set I added the measurement of Bmu/Be from BaBar. This gives:
+
+B(tau- -> mu- nub nu)/B(tau- -> e- nub nu) = 0.9761 +- 0.0028
+B(tau- -> e- nub nu) = (17.789 +-  0.044) %
+B(tau- -> e- nub nu)_tautau  = (17.794 +-  0.062 [Total] +-  0.008 [mtau] +- -0.000 [mmu] +-  0.000 [me] +-  0.061 [tautau] +- -0.000 [taumu] +- -0.000 [mW] +-  0.000 [alpha]) %
+B(tau- -> mu- nub nu) = (17.364 +-  0.042) %
+B(tau- -> mu- nub nu)_tautau  = (17.305 +-  0.060 [Total] +-  0.007 [mtau] +- -0.000 [mmu] +-  0.000 [me] +-  0.060 [tautau] +- -0.000 [taumu] +- -0.000 [mW] +-  0.000 [alpha]) %
+B(tau- -> e- nub nu)_Bmu  = (17.854 +-  0.043 [Total] +-  0.043 [Btau] +- -0.000 [mtau] +-  0.000 [mmu] +- -0.000 [me]) %
+<B(tau- -> e- nub nu)_univ> = (17.815 +-  0.031) % has weights = 0.3735 [Be], 0.3815 [Bmu], 0.2450 [tautau]; Difference of
+Error w.r.t (recalculated assuming e[wt]=0) = -5.4e-20
+
+./aluelab-results.sh average-set4.input
+
+                      val          err
+Be              0.1778949 0.0004348997
+Bmu             0.1736363 0.0004199403
+Be_from_Bmu     0.1785357 0.0004317903
+Be_from_taulife 0.1779359 0.0006169416
+Be_univ         0.1781495 0.0003051833
+<NA>                   NA           NA
+<NA>                   NA           NA
+<NA>                   NA           NA
+                       Be   Be_from_Bmu Be_from_taulife
+Be              1.0000000  0.3135857415    0.0000000000
+Be_from_Bmu     0.3135857  1.0000000000   -0.0002359966
+Be_from_taulife 0.0000000 -0.0002359966    1.0000000000
+
+///////////////////////////////////////////////////////////////////////////////
+
+In next directory
+/afs/slac.stanford.edu/u/br/swaban/public/hfag/tau/2009/TauFit_Mar2011/NoBB/BB_addpre-bbrcorr_addratio_4
+I added all the correlations from the pre-B-Factory era
+
+This gives:
+
+grep -e "B(tau- -> mu- nub nu)" -e "B(tau- -> e- nub nu)" readpdg_unconstrained_aleph_hcorr.results | tail -7
+
+B(tau- -> mu- nub nu)/B(tau- -> e- nub nu) = 0.9761 +- 0.0028
+B(tau- -> e- nub nu) = (17.819 +-  0.041) %
+B(tau- -> e- nub nu)_tautau  = (17.794 +-  0.062 [Total] +-  0.008 [mtau] +- -0.000 [mmu] +-  0.000 [me] +-  0.061 [tautau] +- -0.000 [taumu] +- -0.000 [mW] +-  0.000 [alpha]) %
+B(tau- -> mu- nub nu) = (17.393 +-  0.040) %
+B(tau- -> mu- nub nu)_tautau  = (17.305 +-  0.060 [Total] +-  0.007 [mtau] +- -0.000 [mmu] +-  0.000 [me] +-  0.060 [tautau] +- -0.000 [taumu] +- -0.000 [mW] +-  0.000 [alpha]) %
+B(tau- -> e- nub nu)_Bmu  = (17.884 +-  0.041 [Total] +-  0.041 [Btau] +- -0.000 [mtau] +-  0.000 [mmu] +- -0.000 [me]) %
+<B(tau- -> e- nub nu)_univ> = (17.839 +-  0.028) % has weights = 0.3920 [Be], 0.3962 [Bmu], 0.2118 [tautau]; Difference of Error w.r.t (recalculated assuming e[wt]=0) =    0
+
+./aluelab-results.sh average-full.input
+
+                       val          err
+Be              0.17818011 4.086188e-04
+Bmu             0.17392958 3.959656e-04
+Be_from_Bmu     0.17883727 4.071392e-04
+Be_from_taulife 0.17793595 6.169416e-04
+Be_univ         0.17838887 2.835972e-04
+Gamma9          0.10812329 5.272144e-04
+Gamma10         0.00696347 9.632248e-05
+Gamma66         0.04598823 5.120389e-04
+                       Be   Be_from_Bmu Be_from_taulife
+Be              1.0000000  0.2261428573    0.0000000000
+Be_from_Bmu     0.2261429  1.0000000000   -0.0002507082
+Be_from_taulife 0.0000000 -0.0002507082    1.0000000000
