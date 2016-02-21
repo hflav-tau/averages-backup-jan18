@@ -32,7 +32,9 @@ BEGIN MEASUREMENT ALEPH Gamma104 pub SCHAEL 05C
 # before March 2012 HFAG-tau was using the PDG value
 # VALUE 0.00021 +-0.000114 +-0
 #
-VALUE 0.00021 +-9.21954e-05 +-0
+# February 2016, A.Lusiani: returning to PDG value
+#
+VALUE 0.021e-2 +-0.007e-2 +-0.009e-2
 
 STAT_CORR_WITH -0.04        ALEPH Gamma30 pub SCHAEL 05C
 STAT_CORR_WITH +0.03        ALEPH Gamma20 pub SCHAEL 05C
