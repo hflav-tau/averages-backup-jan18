@@ -1015,6 +1015,8 @@ alucomb.read = function(file = "") {
           } else {
             block$meas.drop.cards = setdiff(block$meas.drop.cards, meas.name)
           }
+        } else if (keyw == "CLEAR") {
+          block$meas.drop.cards = names(measurements)
         } else {
           stop("error, invalid MODMEAS keyword in line...\n  ", clause.line)
         }
