@@ -964,6 +964,12 @@ alucomb.read = function(file = "") {
         block$constr.lin.val[[constr.name]] = as.vector(constr.val)
         block$constr.lin.comb[[constr.name]] = constr.comb
 
+      } else if (clause.keyw == "NLCONSTRAINT" && toupper(clause.fields[1]) == "CLEAR") {
+        ##
+        ## clear all non-linear constraints
+        ##
+        block$constr.nl.str.val = list()
+        block$constr.nl.str.expr = list()
       } else if (clause.keyw == "NLCONSTRAINT") {
         ##
         ## NLCONSTRAINT = non-linear constraint equation
