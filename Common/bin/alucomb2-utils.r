@@ -970,6 +970,7 @@ alucomb.read = function(file = "") {
         ##
         block$constr.nl.str.val = list()
         block$constr.nl.str.expr = list()
+        cat("\nwarning: cleared all NLCONSTRAINT equations\n")
       } else if (clause.keyw == "NLCONSTRAINT") {
         ##
         ## NLCONSTRAINT = non-linear constraint equation
