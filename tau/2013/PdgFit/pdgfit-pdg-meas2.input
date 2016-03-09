@@ -1,0 +1,228 @@
+#
+# PDG 2016 fit
+# - PDG measurements
+# - PDG constraints with symbolic parameters, updated to PDG 2015
+#
+
+# INCLUDE ../Common-Mar2011/measurements-aleph.input
+# INCLUDE ../Common-Mar2011/measurements-babar.input
+# INCLUDE ../Common-Mar2011/measurements-belle.input
+# INCLUDE ../Common-Mar2012/measurements-belle.input
+# INCLUDE ../Common-Mar2011/measurements-cleo.input
+# INCLUDE ../Common-Mar2011/measurements-delphi.input
+# INCLUDE ../Common-Mar2011/measurements-l3.input
+# INCLUDE ../Common-Mar2011/measurements-opal.input
+# INCLUDE ../Common-Mar2011/measurements-other.input
+# # --- for 2014 average
+# INCLUDE ../Common-Mar2012/measurements-aleph.input
+# INCLUDE ../Common_2013/measurements-babar.input
+# INCLUDE ../Common_2013/measurements-belle_13.input
+# INCLUDE ../Common_2013/measurements-cleo.input
+# INCLUDE ../Common_2013/measurements-aleph.input
+
+INCLUDE pdg/measurements-aleph.input
+INCLUDE pdg/measurements-babar.input
+INCLUDE pdg/measurements-belle.input
+INCLUDE pdg/measurements-cleo.input
+INCLUDE pdg/measurements-delphi.input
+INCLUDE pdg/measurements-l3.input
+INCLUDE pdg/measurements-opal.input
+INCLUDE pdg/measurements-other.input
+
+BEGIN COMBINATION
+
+COMBINE
+  Gamma3       Gamma128     Gamma30      Gamma152     Gamma23     
+  Gamma28      Gamma35      Gamma40      Gamma42      Gamma9      
+  Gamma14      Gamma16      Gamma5       Gamma20      Gamma27     
+  Gamma78      Gamma47      Gamma77      Gamma48      Gamma94     
+  Gamma62      Gamma85      Gamma70      Gamma89      Gamma103    
+  Gamma104     Gamma93      Gamma126     Gamma37      Gamma10     
+  Gamma150     Gamma19by13  Gamma26by13  Gamma76by54  Gamma152by54
+  Gamma152by76 Gamma92      Gamma33      Gamma106     Gamma46     
+  Gamma66      Gamma67      Gamma76      Gamma57      Gamma55     
+  Gamma57by55  Gamma34      Gamma39      Gamma58      Gamma8      
+  Gamma18      Gamma1       Gamma65      Gamma75      Gamma64     
+  Gamma29      Gamma8by5    Gamma12      Gamma25      Gamma74     
+  Gamma59      Gamma60      Gamma68      Gamma69      Gamma88     
+  Gamma80      Gamma80by60  Gamma81      Gamma81by69  Gamma93by60 
+  Gamma94by69  Gamma38      Gamma83      Gamma110     Gamma84     
+  Gamma87      Gamma85by60  Gamma9by5    Gamma10by5   Gamma10by9  
+  Gamma150by66 Gamma149     Gamma19      Gamma26      Gamma2      
+  Gamma31      Gamma32      Gamma56      Gamma63      Gamma54     
+  Gamma102     Gamma79      Gamma82      Gamma11      Gamma7      
+  Gamma17      Gamma3by5    Gamma13      Gamma24     
+
+MODMEAS CLEAR
+INCLUDE pdg-meas-cards.input
+
+INCLUDE ../Common-Mar2012/parameters.input
+# --- update parameters to PDG 2013
+INCLUDE ../Common_2013/parameters_13.input
+# --- update parameters to PDG 2015
+INCLUDE ../Common-2015/parameters-2016-03.input
+
+INCLUDE ../Common-Mar2011/quantities.input
+INCLUDE ../Common-Mar2012/quantities.input
+# --- added quantities and revised constraints for 2014 average
+INCLUDE ../Common_2013/quantities.input
+
+INCLUDE ../Common-Mar2011/quantities-texdescr.input
+INCLUDE ../Common-Mar2012/quantities-texdescr.input
+INCLUDE ../Common_2013/quantities-texdescr.input
+
+#
+# seed to set a feed value for quantities without measurements
+# which are fitted only through the constraints
+#
+QUANTITY Gamma9 seed 0.108
+QUANTITY Gamma14 seed 0.25
+QUANTITY Gamma20 seed 0.092
+QUANTITY Gamma27 seed 0.010
+QUANTITY Gamma49 seed 3.1e-4
+QUANTITY Gamma58 seed 0.094
+QUANTITY Gamma62 seed 0.089
+QUANTITY Gamma70 seed 0.027
+QUANTITY Gamma77 seed 0.00097
+QUANTITY Gamma802 seed 0.0029
+QUANTITY Gamma803 seed 0.00041
+QUANTITY Gamma800 seed 0.019
+QUANTITY Gamma804 seed 0.00018
+QUANTITY Gamma136 seed 2.3e-4
+QUANTITY Gamma801 seed 3.6e-5
+
+# --- needed after inclusion of pi KS KS pi0 nu results
+QUANTITY Gamma51 seed 3.20e-5
+QUANTITY Gamma806 seed 1.60e-5
+
+# --- added for 2014 average
+QUANTITY Gamma810 seed 2.07e-4
+QUANTITY Gamma820 seed 8.33e-04
+QUANTITY Gamma830 seed 1.65e-4
+
+# --- added for PDG fit comparison
+QUANTITY Gamma152by54 seed 0.0271
+QUANTITY Gamma18 seed 0.0952
+QUANTITY Gamma8by5 seed 0.647
+QUANTITY Gamma85by60 seed 0.0326
+QUANTITY Gamma10by9 seed 0.0647
+
+QUANTITY Gamma106 seed 1.5e-2
+QUANTITY Gamma46 seed 0.13e-2
+QUANTITY Gamma67 seed 15e-2
+QUANTITY Gamma1 seed  85e-2
+QUANTITY Gamma65 seed 0.75e-2
+QUANTITY Gamma75 seed 0.20e-2
+QUANTITY Gamma64 seed 0.95e-2
+QUANTITY Gamma12 seed 26e-2
+QUANTITY Gamma59 seed 10e-2
+QUANTITY Gamma68 seed 5e-2
+QUANTITY Gamma80 seed 0.1e-2
+QUANTITY Gamma81 seed 0.1e-2
+QUANTITY Gamma83 seed 0.1e-2
+QUANTITY Gamma89 seed 0.1e-2
+QUANTITY Gamma84 seed 0.1e-2
+QUANTITY Gamma87 seed 0.1e-2
+QUANTITY Gamma149 seed 0.5e-2
+QUANTITY Gamma2 seed 85e-2
+QUANTITY Gamma32 seed 1e-2
+QUANTITY Gamma56 seed 10e-2
+QUANTITY Gamma63 seed 5e-2
+QUANTITY Gamma79 seed 0.1e-2
+QUANTITY Gamma11 seed 26e-2
+QUANTITY Gamma24 seed 1e-2
+
+# --- sum of all non-overlapping decay modes
+QUANTITY GammaAll seed 1
+
+# --- dummy node to remove unitarity constraint
+QUANTITY Gamma998 seed 0
+
+#--- Gamma110, only present in constraint
+QUANTITY Gamma110 seed 0.028
+
+# --- rescale errors according to babar-belle discrepancy
+##+++ QUANTITY Gamma96 scale 5.435276
+
+# --- unitarity constraint NOT applied (sum of base nodes with dummy node)
+# NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
+
+# ////////////////////////////////////////////////////////////////////////
+#
+# PDG fit
+#
+
+NLCONSTRAINT CLEAR
+
+NLCONSTRAINT Gamma19by13.c 0 "-Gamma19by13 + ((Gamma23 + Gamma20) / (Gamma14 + Gamma16))"
+NLCONSTRAINT Gamma26by13.c 0 "-Gamma26by13 + ((BR_eta_3piz*Gamma128 + Gamma28 + (BR_KS_2piz/2)*Gamma40 + (BR_KS_2piz/2)*Gamma42 + Gamma27) / (Gamma14 + Gamma16))"
+NLCONSTRAINT Gamma76by54.c 0 "-Gamma76by54 + ((BR_om_pimpippiz*Gamma152 + Gamma77 + BR_eta_pimpippiz*Gamma126) / (BR_eta_charged*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + BR_phi_KSKL*Gamma35 + BR_phi_KSKL*Gamma40 + BR_phi_KSKL*Gamma42 + Gamma78 + (2*BR_KS_pimpip*BR_KS_2piz)*Gamma47 + Gamma77 + BR_KS_pimpip*Gamma48 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma93 + BR_eta_charged*Gamma126 + BR_phi_KSKL*Gamma37 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma150))"
+NLCONSTRAINT Gamma152by54.c 0 "-Gamma152by54 + (Gamma152 / (BR_eta_charged*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + BR_phi_KSKL*Gamma35 + BR_phi_KSKL*Gamma40 + BR_phi_KSKL*Gamma42 + Gamma78 + (2*BR_KS_pimpip*BR_KS_2piz)*Gamma47 + Gamma77 + BR_KS_pimpip*Gamma48 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma93 + BR_eta_charged*Gamma126 + BR_phi_KSKL*Gamma37 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma150))"
+NLCONSTRAINT Gamma152by76.c 0 "-Gamma152by76 + (Gamma152 / (BR_om_pimpippiz*Gamma152 + Gamma77 + BR_eta_pimpippiz*Gamma126))"
+NLCONSTRAINT Gamma92.c 0 "-Gamma92 + (Gamma94 + Gamma93)"
+NLCONSTRAINT Gamma33.c 0 "-Gamma33 + ((1/2)*Gamma35 + (1/2)*Gamma40 + (1/2)*Gamma42 + Gamma47 + Gamma48 + (1/2)*Gamma37)"
+NLCONSTRAINT Gamma106.c 0 "-Gamma106 + (Gamma30 + BR_om_pimpippiz*Gamma152 + Gamma47 + Gamma77 + Gamma103 + (BR_eta_pimpippiz+BR_eta_3piz)*Gamma126)"
+NLCONSTRAINT Gamma46.c 0 "-Gamma46 + (2*Gamma47 + Gamma48)"
+NLCONSTRAINT Gamma66.c 0 "-Gamma66 + (BR_eta_pimpippiz*Gamma128 + BR_om_pimpip*Gamma152 + Gamma94 + Gamma70 + Gamma89 + BR_om_pimpippiz*Gamma150)"
+NLCONSTRAINT Gamma67.c 0 "-Gamma67 + (BR_eta_pimpippiz*Gamma128 + Gamma94 + Gamma70 + Gamma89)"
+NLCONSTRAINT Gamma76.c 0 "-Gamma76 + (BR_om_pimpippiz*Gamma152 + Gamma77 + BR_eta_pimpippiz*Gamma126)"
+NLCONSTRAINT Gamma57.c 0 "-Gamma57 + (Gamma62 + Gamma85 + Gamma93 + BR_om_pimpip*Gamma150)"
+NLCONSTRAINT Gamma55.c 0 "-Gamma55 + (BR_eta_charged*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma93 + BR_eta_charged*Gamma126 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma150)"
+NLCONSTRAINT Gamma57by55.c 0 "-Gamma57by55 + ((Gamma62 + Gamma85 + Gamma93 + BR_om_pimpip*Gamma150) / (BR_eta_charged*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma93 + BR_eta_charged*Gamma126 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma150))"
+NLCONSTRAINT Gamma34.c 0 "-Gamma34 + (Gamma35 + Gamma37)"
+NLCONSTRAINT Gamma39.c 0 "-Gamma39 + (Gamma40 + Gamma42)"
+NLCONSTRAINT Gamma58.c 0 "-Gamma58 + (Gamma62 + Gamma85 + Gamma93)"
+NLCONSTRAINT Gamma8.c 0 "-Gamma8 + (Gamma9 + Gamma10)"
+NLCONSTRAINT Gamma18.c 0 "-Gamma18 + (Gamma23 + (BR_KS_2piz/2)*Gamma35 + Gamma20 + (BR_KS_2piz/2)*Gamma37)"
+NLCONSTRAINT Gamma1.c 0 "-Gamma1 + (Gamma3 + BR_eta_neutral*Gamma128 + Gamma30 + BR_om_pizgamma*Gamma152 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma42 + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + 2*Gamma47 + Gamma48 + BR_eta_neutral*Gamma126 + Gamma37 + Gamma10 + BR_om_pizgamma*Gamma150)"
+NLCONSTRAINT Gamma65.c 0 "-Gamma65 + (BR_eta_pimpippiz*Gamma128 + BR_om_pimpip*Gamma152 + BR_phi_KSKL*Gamma40 + BR_phi_KSKL*Gamma42 + Gamma94 + Gamma70 + Gamma89 + BR_om_pimpippiz*Gamma150)"
+NLCONSTRAINT Gamma75.c 0 "-Gamma75 + (BR_om_pimpippiz*Gamma152 + (2*BR_KS_pimpip*BR_KS_2piz)*Gamma47 + Gamma77 + BR_eta_pimpippiz*Gamma126)"
+NLCONSTRAINT Gamma64.c 0 "-Gamma64 + (BR_eta_pimpippiz*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma89 + BR_eta_pimpippiz*Gamma126 + BR_om_pimpippiz*Gamma150)"
+NLCONSTRAINT Gamma29.c 0 "-Gamma29 + (Gamma30 + BR_eta_3piz*Gamma126)"
+NLCONSTRAINT Gamma8by5.c 0 "-Gamma8by5 + ((Gamma9 + Gamma10) / Gamma5)"
+NLCONSTRAINT Gamma12.c 0 "-Gamma12 + (BR_eta_3piz*Gamma128 + Gamma30 + Gamma23 + Gamma28 + Gamma14 + Gamma16 + Gamma20 + Gamma27 + BR_eta_3piz*Gamma126)"
+NLCONSTRAINT Gamma25.c 0 "-Gamma25 + (BR_eta_3piz*Gamma128 + Gamma30 + Gamma28 + Gamma27 + BR_eta_3piz*Gamma126)"
+NLCONSTRAINT Gamma74.c 0 "-Gamma74 + (BR_om_pimpippiz*Gamma152 + Gamma78 + Gamma77 + BR_eta_pimpippiz*Gamma126)"
+NLCONSTRAINT Gamma59.c 0 "-Gamma59 + (BR_phi_KSKL*Gamma35 + Gamma62 + BR_om_pimpip*Gamma150)"
+NLCONSTRAINT Gamma60.c 0 "-Gamma60 + (Gamma62 + BR_om_pimpip*Gamma150)"
+NLCONSTRAINT Gamma68.c 0 "-Gamma68 + (BR_om_pimpip*Gamma152 + BR_phi_KSKL*Gamma40 + Gamma70 + BR_om_pimpippiz*Gamma150)"
+NLCONSTRAINT Gamma69.c 0 "-Gamma69 + (BR_om_pimpip*Gamma152 + Gamma70 + BR_om_pimpippiz*Gamma150)"
+NLCONSTRAINT Gamma88.c 0 "-Gamma88 + (BR_eta_pimpippiz*Gamma128 + Gamma89)"
+NLCONSTRAINT Gamma80.c 0 "-Gamma80 + (Gamma85 + Gamma93)"
+NLCONSTRAINT Gamma80by60.c 0 "-Gamma80by60 + ((Gamma85 + Gamma93) / (Gamma62 + BR_om_pimpip*Gamma150))"
+NLCONSTRAINT Gamma81.c 0 "-Gamma81 + (BR_eta_pimpippiz*Gamma128 + Gamma94 + Gamma89)"
+NLCONSTRAINT Gamma81by69.c 0 "-Gamma81by69 + ((BR_eta_pimpippiz*Gamma128 + Gamma94 + Gamma89) / (BR_om_pimpip*Gamma152 + Gamma70 + BR_om_pimpippiz*Gamma150))"
+NLCONSTRAINT Gamma93by60.c 0 "-Gamma93by60 + (Gamma93 / (Gamma62 + BR_om_pimpip*Gamma150))"
+NLCONSTRAINT Gamma94by69.c 0 "-Gamma94by69 + (Gamma94 / (BR_om_pimpip*Gamma152 + Gamma70 + BR_om_pimpippiz*Gamma150))"
+NLCONSTRAINT Gamma38.c 0 "-Gamma38 + (Gamma42 + Gamma37)"
+NLCONSTRAINT Gamma83.c 0 "-Gamma83 + (BR_eta_pimpippiz*Gamma128 + Gamma85 + Gamma89)"
+NLCONSTRAINT Gamma110.c 0 "-Gamma110 + (Gamma128 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma16 + Gamma85 + Gamma89 + Gamma10)"
+NLCONSTRAINT Gamma84.c 0 "-Gamma84 + (Gamma85 + BR_phi_KSKL*Gamma37)"
+NLCONSTRAINT Gamma87.c 0 "-Gamma87 + (BR_eta_pimpippiz*Gamma128 + BR_phi_KSKL*Gamma42 + Gamma89)"
+NLCONSTRAINT Gamma85by60.c 0 "-Gamma85by60 + (Gamma85 / (Gamma62 + BR_om_pimpip*Gamma150))"
+NLCONSTRAINT Gamma9by5.c 0 "-Gamma9by5 + (Gamma9 / Gamma5)"
+NLCONSTRAINT Gamma10by5.c 0 "-Gamma10by5 + (Gamma10 / Gamma5)"
+NLCONSTRAINT Gamma10by9.c 0 "-Gamma10by9 + (Gamma10 / Gamma9)"
+NLCONSTRAINT Gamma150by66.c 0 "-Gamma150by66 + (Gamma150 / (BR_eta_pimpippiz*Gamma128 + BR_om_pimpip*Gamma152 + Gamma94 + Gamma70 + Gamma89 + BR_om_pimpippiz*Gamma150))"
+NLCONSTRAINT Gamma149.c 0 "-Gamma149 + (Gamma152 + Gamma150)"
+NLCONSTRAINT Gamma19.c 0 "-Gamma19 + (Gamma23 + Gamma20)"
+NLCONSTRAINT Gamma26.c 0 "-Gamma26 + (BR_eta_3piz*Gamma128 + Gamma28 + (BR_KS_2piz/2)*Gamma40 + (BR_KS_2piz/2)*Gamma42 + Gamma27)"
+NLCONSTRAINT Gamma2.c 0 "-Gamma2 + (Gamma3 + BR_eta_neutral*Gamma128 + Gamma30 + BR_om_pizgamma*Gamma152 + Gamma23 + Gamma28 + ((1+BR_KS_2piz)/2)*Gamma35 + ((1+BR_KS_2piz)/2)*Gamma40 + ((1+BR_KS_2piz)/2)*Gamma42 + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + (1+BR_KS_2piz*BR_KS_2piz)*Gamma47 + BR_KS_2piz*Gamma48 + BR_eta_neutral*Gamma126 + ((1+BR_KS_2piz)/2)*Gamma37 + Gamma10 + BR_om_pizgamma*Gamma150)"
+NLCONSTRAINT Gamma31.c 0 "-Gamma31 + (BR_eta_neutral*Gamma128 + Gamma23 + Gamma28 + Gamma42 + Gamma16 + Gamma37 + Gamma10)"
+NLCONSTRAINT Gamma32.c 0 "-Gamma32 + (BR_eta_neutral*Gamma128 + Gamma23 + Gamma28 + Gamma42 + Gamma16 + Gamma37)"
+NLCONSTRAINT Gamma56.c 0 "-Gamma56 + (BR_phi_KSKL*Gamma35 + Gamma62 + Gamma85 + Gamma93 + BR_phi_KSKL*Gamma37 + BR_om_pimpip*Gamma150)"
+NLCONSTRAINT Gamma63.c 0 "-Gamma63 + (BR_eta_charged*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + BR_phi_KSKL*Gamma40 + BR_phi_KSKL*Gamma42 + Gamma78 + (2*BR_KS_pimpip*BR_KS_2piz)*Gamma47 + Gamma77 + BR_KS_pimpip*Gamma48 + Gamma94 + Gamma70 + Gamma89 + BR_eta_charged*Gamma126 + BR_om_pimpippiz*Gamma150)"
+NLCONSTRAINT Gamma54.c 0 "-Gamma54 + (BR_eta_charged*Gamma128 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma152 + BR_phi_KSKL*Gamma35 + BR_phi_KSKL*Gamma40 + BR_phi_KSKL*Gamma42 + Gamma78 + (2*BR_KS_pimpip*BR_KS_2piz)*Gamma47 + Gamma77 + BR_KS_pimpip*Gamma48 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma93 + BR_eta_charged*Gamma126 + BR_phi_KSKL*Gamma37 + (BR_om_pimpippiz+BR_om_pimpip)*Gamma150)"
+NLCONSTRAINT Gamma102.c 0 "-Gamma102 + (Gamma103 + Gamma104)"
+NLCONSTRAINT Gamma79.c 0 "-Gamma79 + (BR_eta_charged*Gamma128 + BR_phi_KSKL*Gamma42 + Gamma94 + Gamma85 + Gamma89 + Gamma93 + BR_phi_KSKL*Gamma37)"
+NLCONSTRAINT Gamma82.c 0 "-Gamma82 + (BR_eta_charged*Gamma128 + BR_phi_KSKL*Gamma42 + Gamma85 + Gamma89 + BR_phi_KSKL*Gamma37)"
+NLCONSTRAINT Gamma11.c 0 "-Gamma11 + (BR_eta_neutral*Gamma128 + Gamma30 + BR_om_pizgamma*Gamma152 + Gamma23 + Gamma28 + (BR_KS_2piz/2)*Gamma35 + (BR_KS_2piz/2)*Gamma40 + (BR_KS_2piz/2)*Gamma42 + Gamma14 + Gamma16 + Gamma20 + Gamma27 + (BR_KS_2piz*BR_KS_2piz)*Gamma47 + BR_eta_neutral*Gamma126 + (BR_KS_2piz/2)*Gamma37 + BR_om_pizgamma*Gamma150)"
+NLCONSTRAINT Gamma7.c 0 "-Gamma7 + ((1/2)*Gamma35 + Gamma9 + Gamma47 + (1/2)*Gamma37 + Gamma10)"
+NLCONSTRAINT Gamma17.c 0 "-Gamma17 + (BR_eta_3piz*Gamma128 + Gamma30 + Gamma23 + Gamma28 + (BR_KS_2piz/2)*Gamma35 + (BR_KS_2piz/2)*Gamma40 + (BR_KS_2piz/2)*Gamma42 + Gamma20 + Gamma27 + (BR_KS_2piz*BR_KS_2piz)*Gamma47 + BR_eta_3piz*Gamma126 + (BR_KS_2piz/2)*Gamma37)"
+NLCONSTRAINT Gamma3by5.c 0 "-Gamma3by5 + (Gamma3 / Gamma5)"
+NLCONSTRAINT Gamma13.c 0 "-Gamma13 + (Gamma14 + Gamma16)"
+NLCONSTRAINT Gamma24.c 0 "-Gamma24 + (BR_eta_3piz*Gamma128 + Gamma30 + Gamma28 + (BR_KS_2piz/2)*Gamma40 + (BR_KS_2piz/2)*Gamma42 + Gamma27 + (BR_KS_2piz*BR_KS_2piz)*Gamma47 + BR_eta_3piz*Gamma126)"
+
+NLCONSTRAINT Unitarity.c 1 "Gamma3 + Gamma128 + Gamma30 + Gamma152 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma42 + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma78 + Gamma47 + Gamma77 + Gamma48 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma103 + Gamma104 + Gamma93 + Gamma126 + Gamma37 + Gamma10 + Gamma150"
+
+END
