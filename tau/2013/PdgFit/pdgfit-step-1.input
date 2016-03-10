@@ -1,5 +1,5 @@
 #
-# PDG 2016 fit step 2
+# PDG 2016 fit step 1
 # - start from HFAG 2014
 # - remove inconsistent meaasurement Belle Gamma33 pub Ryu:2014vpc
 # - uses ALEPH measurements pi/K, non h/K as HFAG 2014
@@ -9,6 +9,8 @@
 # - add non-BaBar non-Belle measurements used by HFAG but not PDG
 #   - take them from HFAG, revised using PDG 2015
 # - drop two BaBar prelim measurements
+# - drop ALEPH estimate tau -> a1 nu, a1 -> pi gamma
+#   - add BR_a1_pigamma*(Gamma20+Gamma60) to unitarity constraint
 #
 INCLUDE pdg/measurements-aleph.input
 INCLUDE ../Common-Mar2011/measurements-babar.input
@@ -89,6 +91,9 @@ MODMEAS DROP Belle Gamma33 pub Ryu:2014vpc
 MODMEAS DROP BaBar Gamma35 prelim ICHEP08
 MODMEAS DROP BaBar Gamma40 prelim DPF09
 
+# --- drop a1 -> pi gamma estimate, not measurement
+MODMEAS DROP ALEPH Gamma805 pub SCHAEL 05C
+
 INCLUDE ../Common-Mar2012/parameters.input
 # --- update parameters to PDG 2013
 INCLUDE ../Common_2013/parameters_13.input
@@ -142,6 +147,9 @@ QUANTITY Gamma110 seed 0.028
 
 # --- rescale errors according to babar-belle discrepancy
 QUANTITY Gamma96 scale 5.435276
+
+# --- replace Gamma805 tau -> a1 nu, a1 -> pi gamma with 2.1e-4(Gamma20+Gamma60)
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma801 + Gamma152 + Gamma103 + BR_a1_pigamma*Gamma20 + BR_a1_pigamma*Gamma60)"
 
 # --- unitarity constraint NOT applied (sum of base nodes with dummy node)
 NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
