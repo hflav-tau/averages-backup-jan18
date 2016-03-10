@@ -1,0 +1,160 @@
+#
+# PDG 2016 fit
+# - PDG measurements
+# - PDG constraints with symbolic parameters, updated to PDG 2015
+#
+
+# INCLUDE ../Common-Mar2011/measurements-aleph.input
+INCLUDE ../Common-Mar2011/measurements-babar.input
+INCLUDE ../Common-Mar2011/measurements-belle.input
+INCLUDE ../Common-Mar2012/measurements-belle.input
+# INCLUDE ../Common-Mar2011/measurements-cleo.input
+# INCLUDE ../Common-Mar2011/measurements-delphi.input
+# INCLUDE ../Common-Mar2011/measurements-l3.input
+# INCLUDE ../Common-Mar2011/measurements-opal.input
+# INCLUDE ../Common-Mar2011/measurements-other.input
+# # --- for 2014 average
+# INCLUDE ../Common-Mar2012/measurements-aleph.input
+INCLUDE ../Common_2013/measurements-babar.input
+INCLUDE ../Common_2013/measurements-belle_13.input
+# INCLUDE ../Common_2013/measurements-cleo.input
+# INCLUDE ../Common_2013/measurements-aleph.input
+
+INCLUDE pdg/measurements-aleph.input
+# INCLUDE pdg/measurements-babar.input
+# INCLUDE pdg/measurements-belle.input
+INCLUDE pdg/measurements-cleo.input
+INCLUDE pdg/measurements-delphi.input
+INCLUDE pdg/measurements-l3.input
+INCLUDE pdg/measurements-opal.input
+INCLUDE pdg/measurements-other.input
+
+BEGIN COMBINATION
+
+COMBINE
+  Gamma3       Gamma128     Gamma30      Gamma152     Gamma23     
+  Gamma28      Gamma35      Gamma40      Gamma42      Gamma9      
+  Gamma14      Gamma16      Gamma5       Gamma20      Gamma27     
+  Gamma78      Gamma47      Gamma77      Gamma48      Gamma94     
+  Gamma62      Gamma85      Gamma70      Gamma89      Gamma103    
+  Gamma104     Gamma93      Gamma126     Gamma37      Gamma10     
+  Gamma150     Gamma19by13  Gamma26by13  Gamma76by54  Gamma152by54
+  Gamma152by76 Gamma92      Gamma33      Gamma106     Gamma46     
+  Gamma66      Gamma67      Gamma76      Gamma57      Gamma55     
+  Gamma57by55  Gamma34      Gamma39      Gamma58      Gamma8      
+  Gamma18      Gamma1       Gamma65      Gamma75      Gamma64     
+  Gamma29      Gamma8by5    Gamma12      Gamma25      Gamma74     
+  Gamma59      Gamma60      Gamma68      Gamma69      Gamma88     
+  Gamma80      Gamma80by60  Gamma81      Gamma81by69  Gamma93by60 
+  Gamma94by69  Gamma38      Gamma83      Gamma110     Gamma84     
+  Gamma87      Gamma85by60  Gamma9by5    Gamma10by5   Gamma10by9  
+  Gamma150by66 Gamma149     Gamma19      Gamma26      Gamma2      
+  Gamma31      Gamma32      Gamma56      Gamma63      Gamma54     
+  Gamma102     Gamma79      Gamma82      Gamma11      Gamma7      
+  Gamma17      Gamma3by5    Gamma13      Gamma24     
+
+# --- include exactly the measurements used by PDG
+MODMEAS CLEAR
+INCLUDE pdg-meas-cards.input
+
+INCLUDE ../Common-Mar2012/parameters.input
+# --- update parameters to PDG 2013
+INCLUDE ../Common_2013/parameters_13.input
+# --- update parameters to PDG 2015
+INCLUDE ../Common-2015/parameters-2016-03.input
+
+INCLUDE ../Common-Mar2011/quantities.input
+INCLUDE ../Common-Mar2012/quantities.input
+# --- added quantities and revised constraints for 2014 average
+INCLUDE ../Common_2013/quantities.input
+
+INCLUDE ../Common-Mar2011/quantities-texdescr.input
+INCLUDE ../Common-Mar2012/quantities-texdescr.input
+INCLUDE ../Common_2013/quantities-texdescr.input
+
+#
+# seed to set a feed value for quantities without measurements
+# which are fitted only through the constraints
+#
+QUANTITY Gamma9 seed 0.108
+QUANTITY Gamma14 seed 0.25
+QUANTITY Gamma20 seed 0.092
+QUANTITY Gamma27 seed 0.010
+QUANTITY Gamma49 seed 3.1e-4
+QUANTITY Gamma58 seed 0.094
+QUANTITY Gamma62 seed 0.089
+QUANTITY Gamma70 seed 0.027
+QUANTITY Gamma77 seed 0.00097
+QUANTITY Gamma802 seed 0.0029
+QUANTITY Gamma803 seed 0.00041
+QUANTITY Gamma800 seed 0.019
+QUANTITY Gamma804 seed 0.00018
+QUANTITY Gamma136 seed 2.3e-4
+QUANTITY Gamma801 seed 3.6e-5
+
+# --- needed after inclusion of pi KS KS pi0 nu results
+QUANTITY Gamma51 seed 3.20e-5
+QUANTITY Gamma806 seed 1.60e-5
+
+# --- added for 2014 average
+QUANTITY Gamma810 seed 2.07e-4
+QUANTITY Gamma820 seed 8.33e-04
+QUANTITY Gamma830 seed 1.65e-4
+
+# --- added for PDG fit comparison
+QUANTITY Gamma152by54 seed 0.0271
+QUANTITY Gamma18 seed 0.0952
+QUANTITY Gamma8by5 seed 0.647
+QUANTITY Gamma85by60 seed 0.0326
+QUANTITY Gamma10by9 seed 0.0647
+
+QUANTITY Gamma106 seed 1.5e-2
+QUANTITY Gamma46 seed 0.13e-2
+QUANTITY Gamma67 seed 15e-2
+QUANTITY Gamma1 seed  85e-2
+QUANTITY Gamma65 seed 0.75e-2
+QUANTITY Gamma75 seed 0.20e-2
+QUANTITY Gamma64 seed 0.95e-2
+QUANTITY Gamma12 seed 26e-2
+QUANTITY Gamma59 seed 10e-2
+QUANTITY Gamma68 seed 5e-2
+QUANTITY Gamma80 seed 0.1e-2
+QUANTITY Gamma81 seed 0.1e-2
+QUANTITY Gamma83 seed 0.1e-2
+QUANTITY Gamma89 seed 0.1e-2
+QUANTITY Gamma84 seed 0.1e-2
+QUANTITY Gamma87 seed 0.1e-2
+QUANTITY Gamma149 seed 0.5e-2
+QUANTITY Gamma2 seed 85e-2
+QUANTITY Gamma32 seed 1e-2
+QUANTITY Gamma56 seed 10e-2
+QUANTITY Gamma63 seed 5e-2
+QUANTITY Gamma79 seed 0.1e-2
+QUANTITY Gamma11 seed 26e-2
+QUANTITY Gamma24 seed 1e-2
+
+# --- sum of all non-overlapping decay modes
+QUANTITY GammaAll seed 1
+
+# --- dummy node to remove unitarity constraint
+QUANTITY Gamma998 seed 0
+
+#--- Gamma110, only present in constraint
+QUANTITY Gamma110 seed 0.028
+
+# --- rescale errors according to babar-belle discrepancy
+##+++ QUANTITY Gamma96 scale 5.435276
+
+# --- unitarity constraint NOT applied (sum of base nodes with dummy node)
+# NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
+
+# ////////////////////////////////////////////////////////////////////////
+#
+# PDG fit constraints, symbolic
+#
+
+NLCONSTRAINT CLEAR
+
+INCLUDE pdg-constraints-symb.input
+
+END
