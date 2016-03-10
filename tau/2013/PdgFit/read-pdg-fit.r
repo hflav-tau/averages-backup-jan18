@@ -95,6 +95,16 @@ hfag.data.ref.fname = "../TauFit/average2-aleph-hcorr_13-ref.rdata"
 htref = load.in.list(hfag.data.ref.fname)
 cat(paste0("HFAG fit reference file '", hfag.data.ref.fname, "' read\n"))
 
+##--- HFAG fit using PDG measurements
+hfag.data.ref2.fname = "pdgfit-hfag-meas2.rdata"
+htref2 = load.in.list(hfag.data.ref2.fname)
+cat(paste0("HFAG fit reference file '", hfag.data.ref2.fname, "' read\n"))
+
+##--- HFAG fit, no hcorr, no Belle incl K0S, with unitarity
+hfag.data.ref3.fname = "pdgfit-hfag-aleph-like-pdg.rdata"
+htref3 = load.in.list(hfag.data.ref3.fname)
+cat(paste0("HFAG fit reference file '", hfag.data.ref3.fname, "' read\n"))
+
 if (FALSE) {
 meas.val = sapply(ht$measurements, function(x) {x$value})
 meas.stat = sapply(ht$measurements, function(x) {x$stat})
@@ -555,12 +565,12 @@ rc = mapply(
 ## build list of MODMEAS KEEP cards to define measurements to be used
 ##
 
-meas.keep.cards = sapply(ht$measurements[meas.matched.names], function(meas) {paste(meas$tags, collapse=" ")})
+pdg.meas.tags = sapply(ht$measurements[meas.matched.names], function(meas) {paste(meas$tags, collapse=" ")})
 
 if (FALSE) {
   fname = "pdg-meas-cards.input"
   keep.cards.fh = file(fname, "w")
-  cat(paste("MODMEAS KEEP", meas.keep.cards, collapse="\n"), file=keep.cards.fh)
+  cat(paste("MODMEAS KEEP", pdg.meas.tags, collapse="\n"), file=keep.cards.fh)
   cat("\n", file=keep.cards.fh)
   close(keep.cards.fh)
   cat("file", fname, "produced\n")
@@ -568,7 +578,7 @@ if (FALSE) {
   cat("##\n")
   cat("## HFAG measurements matching PDG input measurements\n")
   cat("##\n")
-  cat(paste("MODMEAS KEEP", meas.keep.cards, collapse="\n"))
+  cat(paste("MODMEAS KEEP", pdg.meas.tags, collapse="\n"))
   cat("\n")
 }
 
@@ -668,44 +678,44 @@ node.def.end = c(node.def.beg[-1], nrow(df.nodes)+1) - 1
 
 if (FALSE) {
   ##
-  ## numeric coefficients
+  ## get PDG constraints with numeric coefficients
   ##
-constr.pdg = mapply(
-  function(def.beg, def.end) {
-    df.nodes.def = df.nodes[def.beg:def.end, ]
-    sel.above = which(df.nodes.def$sum == 1)
-    sel.below = which(df.nodes.def$sum == 2)
-    ##--- what node is defined
-    node.defined = df.nodes[def.beg, ]$node
-    ##--- what parameters and coeff. above fraction line
-    coeff.above = df.nodes.def[sel.above, ]$coeff
-    names(coeff.above) = df.nodes.def[sel.above, ]$plab
-    ##--- what parameters and coeff. below fraction line
-    coeff.below = df.nodes.def[sel.below, ]$coeff
-    names(coeff.below) = df.nodes.def[sel.below, ]$plab
-    ##--- return node defined, coefficients and parameters in numerator and denominator
-    list(node=node.defined, above=coeff.above, below=coeff.below)
-  }, node.def.beg, node.def.end, SIMPLIFY=FALSE)
+  constr.pdg = mapply(
+    function(def.beg, def.end) {
+      df.nodes.def = df.nodes[def.beg:def.end, ]
+      sel.above = which(df.nodes.def$sum == 1)
+      sel.below = which(df.nodes.def$sum == 2)
+      ##--- what node is defined
+      node.defined = df.nodes[def.beg, ]$node
+      ##--- what parameters and coeff. above fraction line
+      coeff.above = df.nodes.def[sel.above, ]$coeff
+      names(coeff.above) = df.nodes.def[sel.above, ]$plab
+      ##--- what parameters and coeff. below fraction line
+      coeff.below = df.nodes.def[sel.below, ]$coeff
+      names(coeff.below) = df.nodes.def[sel.below, ]$plab
+      ##--- return node defined, coefficients and parameters in numerator and denominator
+      list(node=node.defined, above=coeff.above, below=coeff.below)
+    }, node.def.beg, node.def.end, SIMPLIFY=FALSE)
 } else {
   ##
-  ## parameter expression coefficients
+  ## get PDG constraints with symbolic coefficients
   ##
-constr.pdg = mapply(
-  function(def.beg, def.end) {
-    df.nodes.def = df.nodes[def.beg:def.end, ]
-    sel.above = which(df.nodes.def$sum == 1)
-    sel.below = which(df.nodes.def$sum == 2)
-    ##--- what node is defined
-    node.defined = df.nodes[def.beg, ]$node
-    ##--- what parameters and coeff. above fraction line
-    coeff.above = df.nodes.def[sel.above, ]$coeff.expr.txt
-    names(coeff.above) = df.nodes.def[sel.above, ]$plab
-    ##--- what parameters and coeff. below fraction line
-    coeff.below = df.nodes.def[sel.below, ]$coeff.expr.txt
-    names(coeff.below) = df.nodes.def[sel.below, ]$plab
-    ##--- return node defined, coefficients and parameters in numerator and denominator
-    list(node=node.defined, above=coeff.above, below=coeff.below)
-  }, node.def.beg, node.def.end, SIMPLIFY=FALSE)
+  constr.pdg = mapply(
+    function(def.beg, def.end) {
+      df.nodes.def = df.nodes[def.beg:def.end, ]
+      sel.above = which(df.nodes.def$sum == 1)
+      sel.below = which(df.nodes.def$sum == 2)
+      ##--- what node is defined
+      node.defined = df.nodes[def.beg, ]$node
+      ##--- what parameters and coeff. above fraction line
+      coeff.above = df.nodes.def[sel.above, ]$coeff.expr.txt
+      names(coeff.above) = df.nodes.def[sel.above, ]$plab
+      ##--- what parameters and coeff. below fraction line
+      coeff.below = df.nodes.def[sel.below, ]$coeff.expr.txt
+      names(coeff.below) = df.nodes.def[sel.below, ]$plab
+      ##--- return node defined, coefficients and parameters in numerator and denominator
+      list(node=node.defined, above=coeff.above, below=coeff.below)
+    }, node.def.beg, node.def.end, SIMPLIFY=FALSE)
 }
 
 constr.hfag = lapply(constr.pdg,
@@ -749,8 +759,7 @@ constr.to.text = function(constr.list) {
         full.txt = paste0(above.txt, " / ", below.txt)
       }
       paste0(constr$node, " = ", full.txt)
-    })
-}
+    })}
 
 constr.pdg.txt = constr.to.text(constr.pdg)
 constr.hfag.txt = constr.to.text(constr.hfag)
@@ -1172,79 +1181,60 @@ df.params.fit.in.df.nodes.fit = sapply(df.params.fit$node,
     which(node == df.nodes.fit$node)
   })
 
-
-
-
-
-
-
-
-
-
-if (FALSE) {
 ##
-## BEGIN superseeded code to get constraints in text form
+## find out which measurements have systematic errors
+## HFAG 2014: 45 measurements of 191 have listed systematic terms
 ##
 
-constr.pdg = mapply(
-  function(def.beg, def.end) {
-    df.nodes.def = df.nodes[def.beg:def.end, ]
-    sel.above = which(df.nodes.def$sum == 1)
-    sel.below = which(df.nodes.def$sum == 2)
-    ##--- what node is defined
-    node.defined = df.nodes[def.beg, ]$node
-    ##--- what parameters and coeff. above fraction line
-    params.above = df.nodes.def[sel.above, ]$plab
-    coeff.above = df.nodes.def[sel.above, ]$coeff
-    ##--- what parameters and coeff. below fraction line
-    params.below = df.nodes.def[sel.below, ]$plab
-    coeff.below = df.nodes.def[sel.below, ]$coeff
-    if (length(params.above) == 0) {
-      above.txt = "1"
-    } else {
-      above.txt = paste0(coeff.above, "*", params.above, collapse=" + ")
-    }
-    if (length(params.below) == 0) {
-      full.txt = above.txt
-    } else {
-      if (length(params.above) > 1) {
-        above.txt = paste0("(", above.txt, ")")
-      }
-      below.txt = paste0(coeff.below, "*", params.below, collapse=" + ")
-      if (length(params.below) > 1) {
-        below.txt = paste0("(", below.txt, ")")
-      }
-      full.txt = paste(above.txt, "/", below.txt)
-    }
-    full.txt = paste(node.defined, "=", full.txt)
-    ##--- simplify multiplication by 1
-    full.txt = gsub("([(]| )1[*]", "\\1", full.txt)
-  }, node.def.beg, node.def.end, SIMPLIFY=TRUE)
+htref2.meas.with.syst = sapply(htref2$measurements,
+  function(meas) {
+    !is.null(meas$syst.terms)
+  })
 
-##--- substitution list from plab to node
-esub.plab.to.node = mapply(
-  function(node, plab) {as.symbol(node)}, params.node, params.plab)
+pdg.meas.with.syst = htref2.meas.with.syst[meas.matched.names]
 
-##--- substitution list from plab to gamma
-esub.plab.to.gamma = mapply(
-  function(node, plab) {as.symbol(quant.gamma[node])}, params.node, params.plab)
+cat("##\n")
+cat("## PDG measurements that have systematics in HFAG \n")
+cat("##\n")
 
-##--- substitution list from node to gamma
-esub.node.to.gamma = mapply(
-  function(gamma, node) {as.symbol(quant.gamma[node])}, quant.gamma[quant.node!=""], quant.node[quant.node!=""])
+cat("  ", paste(names(pdg.meas.with.syst[pdg.meas.with.syst]), collapse="\n  "), "\n", sep="")
 
 ##
-## 
+## list measurements used in HFAG fit but not PDG
+## HFAG fit without Belle inclusive K0, no hcorr
 ##
-constr.hfag = unname(sapply(constr.pdg,
-  function(constr) {
-    rc = esub.expr(parse(text=constr), c(esub.plab.to.gamma, esub.node.to.gamma))
-    ## rc = esub.expr(rc, esub.node.to.gamma)
-    as.character(rc)
-  }))
-constr.hfag = gsub(" * ", "*", constr.hfag, fixed=TRUE)
-constr.hfag = gsub("/", " / ", constr.hfag, fixed=TRUE)
+
+hfag.meas.not.in.pdg = setdiff(names(htref3$meas.val), meas.matched.names)
+meas.name.width.max = max(nchar(hfag.meas.not.in.pdg))
+
+cat("##\n")
+cat("## measurements used in HFAG 2014 but not in PDG fit\n")
+cat("##\n")
+
+rc = lapply(hfag.meas.not.in.pdg,
+  function(meas.name) {
+    cat(format(meas.name, width=meas.name.width.max),
+        "  ",
+        quant.descr.br[htref3$measurements[[meas.name]]$quant],
+        "\n", sep="")
+  })
+
 ##
-## END superseeded code to get constraints in text form
+## list measurements used in PDG fit but not HFAG
+## HFAG fit without Belle inclusive K0, no hcorr
 ##
-}
+
+pdg.meas.not.in.hfag = setdiff(meas.matched.names, names(htref3$meas.val))
+meas.name.width.max = max(nchar(pdg.meas.not.in.hfag))
+
+cat("##\n")
+cat("## measurements used in HFAG 2014 but not in PDG fit\n")
+cat("##\n")
+
+rc = lapply(pdg.meas.not.in.hfag,
+  function(meas.name) {
+    cat(format(meas.name, width=meas.name.width.max),
+        "  ",
+        quant.descr.br[htref3$measurements[[meas.name]]$quant],
+        "\n", sep="")
+  })
