@@ -1,0 +1,29 @@
+#
+# Gamma130 (PDG node = S035C27)
+# G(K- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma130 pub BISHAI 99
+
+VALUE 1.77e-4 +-0.56e-4 +-0.71e-4
+
+END
+
+#
+# Gamma132 (PDG node = S035C28)
+# G(pi- Kbar0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma132 pub BISHAI 99
+
+VALUE 2.2e-4 +-0.70e-4 +-0.22e-4
+
+END
+
+#
+# Gamma151 (PDG node = S035C61)
+# G(K- omega nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma151 pub ARMS 05
+
+VALUE 4.1e-4 +-0.6e-4 +-0.7e-4
+
+END

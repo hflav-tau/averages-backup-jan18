@@ -1,0 +1,9 @@
+#
+# Gamma43 (PDG node = S035C37)
+# G(pi- Kbar0 >=1 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT OPAL Gamma43 pub ABBIENDI 00C
+
+VALUE 0.00324 +-0.00074 +-0.00066
+
+END
