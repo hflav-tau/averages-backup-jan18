@@ -65,7 +65,7 @@ cmp.df = cmp.df[val.delta.order, ]
 cat(paste0("compare v1=", opts$file1, " with v2=", opts$file2, "\n"))
 cat("\n")
 cat("(v2-v1)\n")
-cat("--------        v1         v2   s(v1-v2)      [ s(v2-v1) = sqrt[(s_v1^2 + s_v2^2)/2] ]\n")
+cat("--------        v1         v2   s(v2-v1)      [ s(v2-v1) = sqrt[(s_v1^2 + s_v2^2)/2] ]\n")
 cat("s(v2-v1)\n")
 cat("  (%)\n")
 cat("\n")
@@ -82,7 +82,7 @@ cmp.df = cmp.df[err.delta.order, ]
 
 cat("\n")
 cat("(s_v2-s_v1)\n")
-cat("-----------   s_v1       s_v2   s(v1-v2)      [ s(v2-v1) = sqrt[(s_v1^2 + s_v2^2)/2] ]\n")
+cat("-----------   s_v1       s_v2   s(v2-v1)      [ s(v2-v1) = sqrt[(s_v1^2 + s_v2^2)/2] ]\n")
 cat(" s(v2-v1)\n")
 cat("  (%)\n")
 cat("\n")
