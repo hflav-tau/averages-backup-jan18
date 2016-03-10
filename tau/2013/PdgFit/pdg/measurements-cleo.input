@@ -1,0 +1,388 @@
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma3by5 pub ANASTASSOV 97
+
+VALUE 0.9777 +-0.0063 +-0.0087
+
+ERROR_CORR_WITH -0.42        CLEO Gamma5 pub ANASTASSOV 97
+ERROR_CORR_WITH +0.07        CLEO Gamma8 pub ANASTASSOV 97
+
+END
+
+#
+# Gamma5 (PDG node = S035R2)
+# G(e- nubar(e) nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma5 pub ANASTASSOV 97
+
+VALUE 0.1776 +-0.0006 +-0.0017  #  0.1776 +-6e-04 +-0.0017
+
+ERROR_CORR_WITH -0.42        CLEO Gamma3by5 pub ANASTASSOV 97
+ERROR_CORR_WITH +0.48        CLEO Gamma8 pub ANASTASSOV 97
+
+END
+
+#
+# Gamma8 (PDG node = S035B73)
+# G(h- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma8 pub ANASTASSOV 97
+
+VALUE 0.1152 +-0.0005 +-0.0012  #  0.1152 +-5e-04 +-0.0012
+
+ERROR_CORR_WITH +0.07        CLEO Gamma3by5 pub ANASTASSOV 97
+ERROR_CORR_WITH +0.48        CLEO Gamma5 pub ANASTASSOV 97
+
+END
+
+#
+# Gamma10 (PDG node = S035R7)
+# G(K- nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma10 pub BATTLE 94
+
+VALUE 0.0066 +-0.0007 +-0.0009  #  0.0066 +-7e-04 +-9e-04
+
+END
+
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma13 pub ARTUSO 94
+
+VALUE 0.2587 +-0.0012 +-0.0042
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma16 pub BATTLE 94
+
+VALUE 0.0051 +-0.001 +-0.0007  #  0.0051 +-0.001 +-7e-04
+
+END
+
+#
+# Gamma19by13 (PDG node = S035B21)
+# G(h- 2pi0 nu(tau) (ex. K0)) / G(h- pi0 nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma19by13 pub PROCARIO 93
+
+VALUE 0.342 +-0.006 +-0.016
+
+END
+
+#
+# Gamma23 (PDG node = S035B30)
+# G(K- 2pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma23 pub BATTLE 94
+
+VALUE 0.0009 +-0.001 +-0.0003  #  9e-04 +-0.001 +-3e-04
+
+END
+
+#
+# Gamma26by13 (PDG node = S035B22)
+# G(h- 3pi0 nu(tau)) / G(h- pi0 nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma26by13 pub PROCARIO 93
+
+VALUE 0.044 +-0.003 +-0.005
+
+END
+
+#
+# Gamma29 (PDG node = S035B79)
+# G(h- 4pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma29 pub PROCARIO 93
+
+VALUE 0.0016 +-0.0005 +-0.0005  #  0.0016 +-5e-04 +-5e-04
+
+END
+
+#
+# Gamma31 (PDG node = S035R26)
+# G(K- >=0 pi0 >=0 K0 >=0 gamma nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma31 pub BATTLE 94
+
+VALUE 0.017 +-0.0012 +-0.0019
+
+END
+
+#
+# Gamma34 (PDG node = S035B67)
+# G(h- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma34 pub COAN 96
+
+VALUE 0.00855 +-0.00036 +-0.00073
+
+END
+
+#
+# Gamma37 (PDG node = S035R46)
+# G(K- K0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma37 pub COAN 96
+
+VALUE 0.00151 +-0.00021 +-0.00022
+
+END
+
+#
+# Gamma39 (PDG node = S035B68)
+# G(h- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma39 pub COAN 96
+
+VALUE 0.00562 +-0.0005 +-0.00048  #  0.00562 +-5e-04 +-0.00048
+
+END
+
+#
+# Gamma42 (PDG node = S035B34)
+# G(K- K0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma42 pub COAN 96
+
+VALUE 0.00145 +-0.00036 +-0.0002  #  0.00145 +-0.00036 +-2e-04
+
+END
+
+#
+# Gamma47 (PDG node = S035B69)
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma47 pub COAN 96
+
+VALUE 0.00023 +-5e-05 +-3e-05
+
+END
+
+#
+# Gamma57 (PDG node = S035B62)
+# G(h- h- h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma57 pub BALEST 95C
+
+VALUE 0.0951 +-0.0007 +-0.002  #  0.0951 +-7e-04 +-0.002
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma60 pub BRIERE 03
+
+VALUE 0.0913 +-0.0005 +-0.0046  #  0.0913 +-5e-04 +-0.0046
+
+ERROR_CORR_WITH +0.47        CLEO3 Gamma85 pub BRIERE 03
+ERROR_CORR_WITH +0.71        CLEO3 Gamma93 pub BRIERE 03
+
+END
+
+#
+# Gamma66 (PDG node = S035B53)
+# G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma66 pub BALEST 95C
+
+VALUE 0.0423 +-0.0006 +-0.0022  #  0.0423 +-6e-04 +-0.0022
+
+END
+
+#
+# Gamma69 (PDG node = S035C23)
+# G(pi- pi+ pi- pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma69 pub EDWARDS 00A
+
+VALUE 0.0419 +-0.001 +-0.0021
+
+END
+
+#
+# Gamma76by54 (PDG node = S035B25)
+# G(h- h- h+ 2pi0 nu(tau) (ex. K0)) / G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau))
+#
+BEGIN MEASUREMENT CLEO Gamma76by54 pub BORTOLETTO 93
+
+VALUE 0.034 +-0.002 +-0.003
+
+END
+
+#
+# Gamma78 (PDG node = S035B57)
+# G(h- h- h+ 3pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma78 pub ANASTASSOV 01
+
+VALUE 0.00022 +-3e-05 +-4e-05
+
+END
+
+#
+# Gamma80by60 (PDG node = S035C32)
+# G(K- pi- h+ nu(tau) (ex. K0)) / G(pi- pi+ pi- nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma80by60 pub RICHICHI 99
+
+VALUE 0.0544 +-0.0021 +-0.0053
+
+END
+
+#
+# Gamma81by69 (PDG node = S035C34)
+# G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(pi- pi+ pi- pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma81by69 pub RICHICHI 99
+
+VALUE 0.0261 +-0.0045 +-0.0042
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma85 pub BRIERE 03
+
+VALUE 0.00384 +-0.00014 +-0.00038
+
+ERROR_CORR_WITH +0.47        CLEO3 Gamma60 pub BRIERE 03
+ERROR_CORR_WITH +0.34        CLEO3 Gamma93 pub BRIERE 03
+
+END
+
+#
+# Gamma88 (PDG node = S035C25)
+# G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma88 pub ARMS 05
+
+VALUE 0.00074 +-8e-05 +-0.00011
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma93 pub BRIERE 03
+
+VALUE 0.00155 +-6e-05 +-9e-05
+
+ERROR_CORR_WITH +0.71        CLEO3 Gamma60 pub BRIERE 03
+ERROR_CORR_WITH +0.34        CLEO3 Gamma85 pub BRIERE 03
+
+END
+
+#
+# Gamma93by60 (PDG node = S035C35)
+# G(pi- K- K+ nu(tau)) / G(pi- pi+ pi- nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma93by60 pub RICHICHI 99
+
+VALUE 0.016 +-0.0015 +-0.003
+
+END
+
+#
+# Gamma94 (PDG node = S035C8)
+# G(pi- K- K+ pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO3 Gamma94 pub ARMS 05
+
+VALUE 5.5e-05 +-1.4e-05 +-1.2e-05
+
+END
+
+#
+# Gamma94by69 (PDG node = S035C36)
+# G(pi- K- K+ pi0 nu(tau)) / G(pi- pi+ pi- pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma94by69 pub RICHICHI 99
+
+VALUE 0.0079 +-0.0044 +-0.0016
+
+END
+
+#
+# Gamma102 (PDG node = S035R33)
+# G(3h- 2h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``5-prong'')) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma102 pub GIBAUT 94B
+
+VALUE 0.00097 +-5e-05 +-0.00011
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma103 pub GIBAUT 94B
+
+VALUE 0.00077 +-5e-05 +-9e-05
+
+END
+
+#
+# Gamma104 (PDG node = S035R39)
+# G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma104 pub ANASTASSOV 01
+
+VALUE 0.00017 +-2e-05 +-2e-05
+
+END
+
+#
+# Gamma126 (PDG node = S035R32)
+# G(pi- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma126 pub ARTUSO 92
+
+VALUE 0.0017 +-0.0002 +-0.0002  #  0.0017 +-2e-04 +-2e-04
+
+END
+
+#
+# Gamma150 (PDG node = S035R23)
+# G(h- omega nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT CLEO Gamma150 pub BARINGER 87
+
+VALUE 0.016 +-0.0027 +-0.0041
+
+END
+
+#
+# Gamma150by66 (PDG node = S035R14)
+# G(h- omega nu(tau)) / G(h- h- h+ pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma150by66 pub BALEST 95C
+
+VALUE 0.464 +-0.016 +-0.017
+
+END
+
+#
+# Gamma152by76 (PDG node = S035B27)
+# G(h- omega pi0 nu(tau)) / G(h- h- h+ 2pi0 nu(tau) (ex. K0))
+#
+BEGIN MEASUREMENT CLEO Gamma152by76 pub BORTOLETTO 93
+
+VALUE 0.81 +-0.06 +-0.06
+
+END
+

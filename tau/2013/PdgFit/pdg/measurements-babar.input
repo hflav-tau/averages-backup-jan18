@@ -1,0 +1,118 @@
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma3by5 pub AUBERT 10F
+
+VALUE 0.9796 +-0.0016 +-0.0036
+
+ERROR_CORR_WITH +0.25        BaBar Gamma9by5 pub AUBERT 10F
+ERROR_CORR_WITH +0.12        BaBar Gamma10by5 pub AUBERT 10F
+
+END
+
+#
+# Gamma9by5 (PDG node = S035C78)
+# G(pi- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma9by5 pub AUBERT 10F
+
+VALUE 0.5945 +-0.0014 +-0.0061
+
+ERROR_CORR_WITH +0.25        BaBar Gamma3by5 pub AUBERT 10F
+ERROR_CORR_WITH +0.33        BaBar Gamma10by5 pub AUBERT 10F
+
+END
+
+#
+# Gamma10by5 (PDG node = S035C79)
+# G(K- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma10by5 pub AUBERT 10F
+
+VALUE 0.03882 +-0.00032 +-0.00057
+
+ERROR_CORR_WITH +0.12        BaBar Gamma3by5 pub AUBERT 10F
+ERROR_CORR_WITH +0.33        BaBar Gamma9by5 pub AUBERT 10F
+
+END
+
+#
+# Gamma16 (PDG node = S035B29)
+# G(K- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma16 pub AUBERT 07AP
+
+VALUE 0.00416 +-3e-05 +-0.00018
+
+END
+
+#
+# Gamma47 (PDG node = S035B69)
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma47 pub LEES 2012Y
+
+VALUE 0.000231 +-4e-06 +-8e-06
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma60 pub AUBERT 08
+
+VALUE 0.0883 +-0.0001 +-0.0013  #  0.0883 +-1e-04 +-0.0013
+
+ERROR_CORR_WITH +0.544       BaBar Gamma85 pub AUBERT 08
+ERROR_CORR_WITH +0.39        BaBar Gamma93 pub AUBERT 08
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma85 pub AUBERT 08
+
+VALUE 0.00273 +-2e-05 +-9e-05
+
+ERROR_CORR_WITH +0.544       BaBar Gamma60 pub AUBERT 08
+ERROR_CORR_WITH +0.177       BaBar Gamma93 pub AUBERT 08
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma93 pub AUBERT 08
+
+VALUE 0.001346 +-1e-05 +-3.6e-05
+
+ERROR_CORR_WITH +0.39        BaBar Gamma60 pub AUBERT 08
+ERROR_CORR_WITH +0.177       BaBar Gamma85 pub AUBERT 08
+
+END
+
+#
+# Gamma103 (PDG node = S035R38)
+# G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma103 pub AUBERT,B 05W
+
+VALUE 0.000856 +-5e-06 +-4.2e-05
+
+END
+
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma128 pub DEL-AMO-SANCHEZ 11E
+
+VALUE 0.000142 +-1.1e-05 +-7e-06
+
+END
+

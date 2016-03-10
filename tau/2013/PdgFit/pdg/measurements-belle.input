@@ -1,0 +1,119 @@
+#
+# Gamma13 (PDG node = S035R84)
+# G(h- pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma13 pub FUJIKAWA 08
+
+VALUE 0.2567 +-0.0001 +-0.0039  #  0.2567 +-1e-04 +-0.0039
+
+END
+
+#
+# Gamma35 (PDG node = S035B32)
+# G(pi- Kbar0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma35 pub Ryu:2014vpc
+
+VALUE 0.00832 +-2e-05 +-0.00016
+
+END
+
+#
+# Gamma37 (PDG node = S035R46)
+# G(K- K0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma37 pub Ryu:2014vpc
+
+VALUE 0.00148 +-1.4e-05 +-5.4e-05
+
+END
+
+#
+# Gamma40 (PDG node = S035B33)
+# G(pi- Kbar0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma40 pub Ryu:2014vpc
+
+VALUE 0.00386 +-4e-05 +-0.00014
+
+END
+
+#
+# Gamma42 (PDG node = S035B34)
+# G(K- K0 pi0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma42 pub Ryu:2014vpc
+
+VALUE 0.001496 +-2e-05 +-7.4e-05
+
+END
+
+#
+# Gamma47 (PDG node = S035B69)
+# G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma47 pub Ryu:2014vpc
+
+VALUE 0.000233 +-3e-06 +-9e-06
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma60 pub LEE 10
+
+VALUE 0.0842 +-0 +0.0026 -0.0025  #  0.0842 +-0 +0.0026 -0.0025
+
+ERROR_CORR_WITH +0.175       Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH +0.049       Belle Gamma93 pub LEE 10
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma85 pub LEE 10
+
+VALUE 0.0033 +-1e-05 +0.00016 -0.00017  #  0.0033 +-1e-05 +0.00016 -0.00017
+
+ERROR_CORR_WITH +0.175       Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08        Belle Gamma93 pub LEE 10
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma93 pub LEE 10
+
+VALUE 0.00155 +-1e-05 +6e-05 -5e-05  #  0.00155 +-1e-05 +6e-05 -5e-05
+
+ERROR_CORR_WITH +0.049       Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08        Belle Gamma85 pub LEE 10
+
+END
+
+#
+# Gamma126 (PDG node = S035R32)
+# G(pi- pi0 eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma126 pub INAMI 09
+
+VALUE 0.00135 +-3e-05 +-7e-05
+
+END
+
+#
+# Gamma128 (PDG node = S035B20)
+# G(K- eta nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma128 pub INAMI 09
+
+VALUE 0.000158 +-5e-06 +-9e-06
+
+END
+
