@@ -53,6 +53,7 @@ COMBINE
   Gamma102     Gamma79      Gamma82      Gamma11      Gamma7      
   Gamma17      Gamma3by5    Gamma13      Gamma24     
 
+# --- include exactly the measurements used by PDG
 MODMEAS CLEAR
 INCLUDE pdg-meas-cards.input
 
