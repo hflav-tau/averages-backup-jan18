@@ -1,7 +1,7 @@
 #
 # HFAG 2014 fit
 # - remove inconsistent meaasurement Belle Gamma33 pub Ryu:2014vpc
-# - uses ALEPH measurements for tau -> h X rather than tau -> pi X
+# - uses ALEPH measurements pi/K, non h/K as HFAG 2014
 # - no unitarity constraint
 #
 INCLUDE ../Common-Mar2011/measurements-aleph.input

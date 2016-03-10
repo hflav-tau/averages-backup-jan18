@@ -1,8 +1,8 @@
 #
-# PDG 2016 fit step 1
+# PDG 2016 fit step 2
 # - start from HFAG 2014
 # - remove inconsistent meaasurement Belle Gamma33 pub Ryu:2014vpc
-# - uses ALEPH measurements for tau -> h X rather than tau -> pi X
+# - uses ALEPH measurements pi/K, non h/K as HFAG 2014
 # - use unitarity constraint
 # - replace non-BaBar non-Belle measurements with PDG ones
 #   - asymmetric errors, separate stat/syst errors, total correlation
