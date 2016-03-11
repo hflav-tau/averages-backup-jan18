@@ -37,3 +37,13 @@ BEGIN MEASUREMENT ALEPH Gamma805 pub SCHAEL 05C
 VALUE 4e-04 +-2e-04 +-0
 
 END
+
+#
+# Gamma809
+# B(a1- -> pi- gamma)
+#
+BEGIN MEASUREMENT ALEPH Gamma809 pub SCHAEL 05C
+
+VALUE 2.1e-03 +-0.8e-03 +-0
+
+END
