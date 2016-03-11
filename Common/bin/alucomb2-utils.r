@@ -700,7 +700,7 @@ alucomb.read = function(file = "") {
             cat("\nwarning, override PARAMETER\n")
             cat("old: ", alucomb2.format.param(label, old), "\n", sep="")
             cat("new: ", alucomb2.format.param(label, new), "\n", sep="")
-          }, clause$labels[matched], params[matched], block$params[clause$labels[matched]])
+          }, clause$labels[matched], block$params[clause$labels[matched]], params[matched])
 
         ##--- override matched parameters and add the unmatched ones
         block$params[clause$labels] = params
