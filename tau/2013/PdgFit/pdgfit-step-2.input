@@ -1,5 +1,5 @@
 #
-# PDG 2016 fit step 1
+# PDG 2016 fit step 2
 # - start from HFAG 2014
 # - remove inconsistent meaasurement Belle Gamma33 pub Ryu:2014vpc
 # - uses ALEPH measurements pi/K, non h/K as HFAG 2014
@@ -8,7 +8,7 @@
 #   - asymmetric errors, separate stat/syst errors, total correlation
 # - add non-BaBar non-Belle measurements used by HFAG but not PDG
 #   - take them from HFAG, revised using PDG 2015
-# - for the moment, keep two BaBar prelim measurements
+# - drop two BaBar prelim measurements
 #
 INCLUDE pdg/measurements-aleph.input
 INCLUDE ../Common-Mar2011/measurements-babar.input
@@ -84,6 +84,10 @@ MODMEAS DROP CLEO Gamma136 pub ANASTASSOV 01
 
 # --- drop Belle incl. K0S meas, because of inconsistent correlation
 MODMEAS DROP Belle Gamma33 pub Ryu:2014vpc
+
+# --- drop prelim measurements for PDG fit
+MODMEAS DROP BaBar Gamma35 prelim ICHEP08
+MODMEAS DROP BaBar Gamma40 prelim DPF09
 
 INCLUDE ../Common-Mar2012/parameters.input
 # --- update parameters to PDG 2013
