@@ -67,47 +67,64 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   }
 
   cat("\n##\n")
-  cat("## quantities' definitions\n")
+  cat("## quantity definitions\n")
   cat("##\n")
   
-  alucomb2.eol.first.time$reset()
-  fields.descr.list = c("node", "descr", "texdescr")
-  for (quant.name in quant.names) {
-    quant = combination$quantities[[quant.name]]
-    fields = names(quant)
-    fields.descr = intersect(fields.descr.list, fields)
-    flag = FALSE
-    for (field in fields.descr.list) {
-      val = quant[[field]]
-      if (!is.null(val) && val != "") {
-        alucomb2.eol.first.time$print()
-        cat("QUANTITY ", quant.name, " ", field, " \"", val, "\"\n", sep="")
-        flag = TRUE
+  rc = lapply(quant.names,
+    function(quant.name, fields.exclude) {
+      quant = combination$quantities[[quant.name]]
+      fields.exist = setdiff(names(quant), fields.exclude)
+      if (length(fields.exist) > 0) {
+        cat(paste("QUANTITY", format(quant.name, width=12), fields.exist, as.character(quant[fields.exist]), collapse="\n"))
+        cat("\n\n")
       }
-    }
-    if (flag) cat("\n")
-  }
+      NULL
+    }, fields.exclude=c("texdescr", "scale", "seed"))
   
-  alucomb2.eol.first.time$reset()
-  for (quant.name in quant.names) {
-    quant = combination$quantities[[quant.name]]
-    fields = names(quant)
-    fields.nodescr = setdiff(fields, fields.descr.list)
-    if (length(fields.nodescr) > 0) {
-      alucomb2.eol.first.time$print()
-      cat("QUANTITY ", quant.name, " ", paste(fields.nodescr, quant[fields.nodescr]), "\n", sep="")
-    }
-  }
+  cat("##\n")
+  cat("## quantities with no description\n")
+  cat("##\n")
+
+  rc = lapply(quant.names,
+    function(quant.name, fields.include) {
+      quant = combination$quantities[[quant.name]]
+      fields.exist = intersect(names(quant), fields.include)
+      if (length(fields.exist) == 0) {
+        if (is.null(quant$node)) {
+          cat("QUANTITY ", quant.name, " node \"\" descr \"\"\n", sep="")
+        } else {
+          cat("QUANTITY ", quant.name, " node \"", quant$node, "\" descr \"\"\n", sep="")
+        }
+      }
+    }, fields.include=c("descr"))
+
+  cat("\n##\n")
+  cat("## quantity seeds (necessary when no direct measurement)\n")
+  cat("##\n")
+  
+  rc = lapply(quant.names,
+    function(quant.name, fields.include) {
+      quant = combination$quantities[[quant.name]]
+      fields.exist = intersect(names(quant), fields.include)
+      if (length(fields.exist) > 0) {
+        cat(paste("QUANTITY", format(quant.name, width=12), fields.exist, as.character(quant[fields.exist]), collapse="\n"))
+        cat("\n")
+      }
+    }, fields.include=c("seed"))
   
   cat("\n##\n")
-  cat("## quantities with no description\n")
-  cat("##\n\n")
-  for (quant.name in quant.names) {
-    quant = combination$quantities[[quant.name]]
-    if (is.null(quant$descr) || quant$descr == "") {
-      cat("QUANTITY", quant.name, "node \"\" descr \"\"\n")
-    }
-  }
+  cat("## quantity scale factors\n")
+  cat("##\n")
+  
+  rc = lapply(quant.names,
+    function(quant.name, fields.include) {
+      quant = combination$quantities[[quant.name]]
+      fields.exist = intersect(names(quant), fields.include)
+      if (length(fields.exist) > 0) {
+        cat(paste("QUANTITY", format(quant.name, width=12), fields.exist, as.character(quant[fields.exist]), collapse="\n"))
+        cat("\n")
+      }
+    }, fields.include=c("scale"))
   
   ##--- print measurements as read from the cards (short form)
   if (FALSE) {
