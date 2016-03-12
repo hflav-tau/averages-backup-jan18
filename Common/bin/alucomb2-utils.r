@@ -157,9 +157,9 @@ alucomb2.eol.first.time = list(
 )
 
 ##--- print single parameter
-alucomb2.format.param = function(label, value) {
+alucomb2.format.param = function(label, value, width=26) {
   input = attr(value, "input")
-  rc.out = paste(format(label, width=16), format(input[1], width=12))
+  rc.out = paste(format(label, width=width), format(input[1], width=12))
   if (input[2] == "" && value[3] == -value[4]) {
     input[2] = substr(input[4], 2, nchar(input[4]))
   }
@@ -173,7 +173,6 @@ alucomb2.format.param = function(label, value) {
 ##--- print parameters
 alucomb2.print.params = function(params) {
   if (length(params) > 0) {
-    cat("PARAMETERS\n")
     mapply(function(label, value) {
       cat("  ", alucomb2.format.param(label, value), "\n", sep="")
     }, names(params), params)
