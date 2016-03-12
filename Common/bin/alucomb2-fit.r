@@ -1106,12 +1106,22 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", chisq.prob, "\n",sep="")
     cat("## (", meas.num, "measurements,", quant.num, "fitted quantities,", constr.num, "constraints )\n")
     cat("##\n\n")
-    rc = alu.rbind.print(rbind(value=quant.val[quant.names], error=quant.err[quant.names]))
+    cat("##\n")
+    cat("## fitted quantities and uncertainties, in percent\n")
+    cat("##\n")
+
+    ## rc = alu.rbind.print(rbind(value=quant.val[quant.names], error=quant.err[quant.names]))
+    rc = mapply(
+      function(gamma, val, err, descr) {
+        cat(format(gamma, width=14), " ", sprintf("%#13.8f  +-%#10.8f  ", val*100, err*100), descr, "\n", sep="")
+      },
+      quant.names, quant.val[quant.names], quant.err[quant.names],
+      lapply(combination$quantities[quant.names], function(quant) quant$descr))
+
     if (FALSE && quant.num > 1) {
       cat("\ncorrelation\n\n")
       print(quant.corr)
     }
-    cat("\n## end\n")
     
     ##--- save data and results
     rc = save(file=filename.data, list = return.symbols)
