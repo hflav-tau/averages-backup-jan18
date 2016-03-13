@@ -9,11 +9,6 @@ QUANTITY Gamma807 descr "G(K- K0 Kbar0 nu(tau))) / G(total)"
 QUANTITY Gamma808 descr "G(K- K0 Kbar0 pi0 nu(tau))) / G(total)"
 
 #
-# Gamma809 = B(a1- -> pi- gamma)
-#
-QUANTITY Gamma809 descr "B(a1- -> pi- gamma)"
-
-#
 # Gamma810 = G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
 #
 QUANTITY Gamma810 descr "G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)"
