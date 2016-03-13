@@ -3,6 +3,8 @@
 ## utility functions for alucomb2.r
 ##
 
+suppressPackageStartupMessages(require(stringr))
+
 ## ////////////////////////////////////////////////////////////////////////////
 ## functions
 
@@ -31,6 +33,19 @@ esub.expr = function(expr, sublist=NULL) {
 ##
 deparse.one.line = function(expr) {
   paste(gsub("^\\s+|\\s+$", "", sapply(as.expression(expr), function(x) deparse(x)), perl=TRUE), collapse="")
+}
+
+##
+## return numeric id for sorting labels like "Gamma5", "Gamma3by5"
+## <n>by<m> are sorted after <n> in ascending order ov <m>
+##
+alucomb2.gamma.num.id = function(gamma.name) {
+  gamma.name = sub("Unitarity", "Gamma1000", gamma.name, fixed=TRUE)
+  gamma.name = sub("GammaAll", "Gamma999", gamma.name, fixed=TRUE)
+  rc = str_match(gamma.name, "\\D+(\\d+)by(\\d+)|\\D+(\\d+)")
+  if (length(rc) == 0) return(numeric(0))
+  num = ifelse(!is.na(rc[,4]), as.numeric(rc[,4])*1000, as.numeric(rc[,2])*1000 + as.numeric(rc[,3]))
+  return(num)
 }
 
 ##

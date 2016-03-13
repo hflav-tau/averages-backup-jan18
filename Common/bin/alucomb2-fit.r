@@ -49,6 +49,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ## build list of all measurements mentioned in the COMBINE section
   ## (right now we only handle COMBINE * * *)
   ##
+
+  ##--- sort quantities to be fitted
+  combination$combine = combination$combine[order(alucomb2.gamma.num.id(combination$combine))]
   
   ##--- quantities to be averaged
   quant.names = combination$combine
@@ -839,8 +842,6 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   quant.base.names = setdiff(quant.names, quant.constr.names)
   ##--- also remove the unitarity complement
   quant.base.names = setdiff(quant.base.names, "Gamma998")
-  ##--- sort by ascending Gamma number
-  ## quant.names = quant.names[order(alurep.gamma.num.id(quant.names))]
 
   cat("\n##\n")
   cat("## base quantities\n")
@@ -1110,17 +1111,17 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     cat("## fitted quantities and uncertainties, in percent\n")
     cat("##\n")
 
-    ## rc = alu.rbind.print(rbind(value=quant.val[quant.names], error=quant.err[quant.names]))
+    ## rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
     rc = mapply(
       function(gamma, val, err, descr) {
         cat(format(gamma, width=14), " ", sprintf("%#13.8f  +-%#10.8f  ", val*100, err*100), descr, "\n", sep="")
       },
-      quant.names, quant.val[quant.names], quant.err[quant.names],
+      quant.names, quant.val, quant.err,
       lapply(combination$quantities[quant.names], function(quant) quant$descr))
 
     if (FALSE && quant.num > 1) {
       cat("\ncorrelation\n\n")
-      print(quant.corr)
+      print(quant.corr[quant.names, quant.names])
     }
     
     ##--- save data and results
