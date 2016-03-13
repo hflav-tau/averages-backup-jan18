@@ -237,6 +237,9 @@ alurep.tex.meas.val.card = function(meas) {
 
 alurep.precision.order = function(vals, perc=FALSE, signif=4, signif.min=2) {
   vals = vals[vals != 0]
+  if (length(vals) == 0) {
+    vals = 1
+  }
   vals.str = sprintf("%.4g", vals)
   order.str = gsub("^[^eE]+(|[eE]((-[0-9]+)+|[+]([0-9]+)))$", "\\2",
     sprintf("%.4e", vals), perl=TRUE)
