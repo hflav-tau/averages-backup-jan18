@@ -930,7 +930,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     
     cat("\n")
     cat("##\n")
-    cat("## exact solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
+    cat("## exact solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", pchisq(chisq, df=dof, lower.tail=FALSE), "\n",sep="")
     cat("##\n\n")
     alu.rbind.print(rbind(value=quant.val[1:quant.num], error=quant.err[1:quant.num]))
     if (FALSE && quant.num > 1) {
@@ -1101,7 +1101,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     
     chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
     dof = meas.num - quant.num + constr.num
-    chisq.prob = (1-pchisq(chisq, df=dof))
+    chisq.prob = pchisq(chisq, df=dof, lower.tail=FALSE)
     
     cat("\n##\n")
     cat("## alucomb2 solution, chisq/d.o.f. = ",chisq, "/", dof, ", CL = ", chisq.prob, "\n",sep="")
@@ -1170,7 +1170,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     
     cat("\n")
     cat("##\n")
-    cat("## solnp solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
+    cat("## solnp solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", pchisq(chisq, df=dof, lower.tail=FALSE), "\n",sep="")
     cat("##\n\n")
     rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
     
@@ -1237,7 +1237,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     
     cat("\n")
     cat("##\n")
-    cat("## alabama solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", (1-pchisq(chisq, df=dof)), "\n",sep="")
+    cat("## alabama solution, chisq/d.o.f. = ", chisq, "/", dof, ", CL = ", pchisq(chisq, df=dof, lower.tail=FALSE), "\n",sep="")
     cat("##\n\n")
     rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
     if (FALSE && quant.num > 1) {
