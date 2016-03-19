@@ -31,9 +31,9 @@ quadrature = function(x) {
 ## substitute after evaluating arg
 ## copied from alucomb2-utils.r
 ##
-esub = function(expr, sublist=NULL) do.call("substitute", list(expr, sublist))
+esub.single = function(expr, sublist=NULL) do.call(substitute, list(expr, sublist))
 esub.expr = function(expr, sublist=NULL) {
-  sapply(as.expression(expr), function(call) as.expression(esub(call, sublist)))
+  sapply(as.expression(expr), function(call) as.expression(esub.single(call, sublist)))
 }
 
 ##

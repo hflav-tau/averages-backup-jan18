@@ -23,9 +23,9 @@ diag.m = function(vec) {
 ##
 ## substitute after evaluating arg
 ##
-esub = function(expr, sublist=NULL) do.call("substitute", list(expr, sublist))
+esub.single = function(expr, sublist=NULL) do.call(substitute, list(expr, sublist))
 esub.expr = function(expr, sublist=NULL) {
-  sapply(as.expression(expr), function(call) as.expression(esub(call, sublist)))
+  sapply(as.expression(expr), function(call) as.expression(esub.single(call, sublist)))
 }
 
 ##
