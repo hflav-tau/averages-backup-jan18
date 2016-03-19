@@ -17,14 +17,6 @@ rel.diff = function(x, y) {
 }
 
 ##
-## substitute after evaluating arg
-##
-esub = function(expr, sublist=NULL) do.call("substitute", list(expr, sublist))
-esub.expr = function(expr, sublist=NULL) {
-  sapply(as.expression(expr), function(call) as.expression(esub(call, sublist)))
-}
-
-##
 ## deparse expression and produce single line
 ##
 deparse.one.line = function(expr) {
@@ -101,7 +93,7 @@ htref2 = load.in.list(hfag.data.ref2.fname)
 cat(paste0("HFAG fit reference file '", hfag.data.ref2.fname, "' read\n"))
 
 ##--- HFAG fit, no hcorr, no Belle incl K0S, with unitarity
-hfag.data.ref3.fname = "pdgfit-hfag-aleph-like-pdg.rdata"
+hfag.data.ref3.fname = "pdgfit-step-0.rdata"
 htref3 = load.in.list(hfag.data.ref3.fname)
 cat(paste0("HFAG fit reference file '", hfag.data.ref3.fname, "' read\n"))
 
@@ -639,7 +631,9 @@ params.expr.val = sapply(params.expr.txt,
 rc = sapply(df.nodes$coeff,
   function(coeff) {
     ##+++ patch to get 0.09 identified as omega -> pi0 gamma
-    if (coeff == 0.09) {coeff = 0.0828}
+    if (coeff == 0.09) {coeff = eval(substitute(BR_om_pizgamma, ht.params))}
+    ##+++ patch to get 0.3431 identified as 1/2 * KS -> pi+pi-
+    if (coeff == 0.3431) {coeff = eval(substitute(BR_KS_pimpip/2, ht.params))}
     mism = abs(coeff - params.expr.val)*2 / (abs(coeff) + abs(params.expr.val))
     mism = mism[order(mism)[1]]
   })
@@ -652,13 +646,14 @@ df.nodes$coeff.expr.txt = names(rc)
 ##
 cat("##\n")
 cat("## Parameter expressions for PDG nodes definitions coefficients\n")
-cat("## (0.09 forced to be matched with B(omega -> pi0 gamma)\n")
+cat("## - 0.09 forced to be matched with B(omega -> pi0 gamma)\n")
+cat("## - 0.3431 forced to be matched with 1/2*B(KS -> pi+pi-)\n")
 cat("##\n")
 coeff.unique.indices = which(!duplicated(df.nodes$coeff))
 rc.unique = rc[coeff.unique.indices]
 rc.unique.order = order(rc.unique, decreasing=TRUE)
 coeff.unique.indices = coeff.unique.indices[rc.unique.order]
-cat("      coeff   closeest expression                 expression value mismatch\n\n")
+cat("      coeff   closest expression                  expression value mismatch\n\n")
 rc2 = lapply(coeff.unique.indices,
   function(coeff.ii) {
     cat(paste0(sprintf("%11.6g", df.nodes$coeff[coeff.ii]), " = ",
@@ -1228,7 +1223,7 @@ pdg.meas.not.in.hfag = setdiff(meas.matched.names, names(htref3$meas.val))
 meas.name.width.max = max(nchar(pdg.meas.not.in.hfag))
 
 cat("##\n")
-cat("## measurements used in HFAG 2014 but not in PDG fit\n")
+cat("## measurements used in PDG fit but not in HFAG 2014\n")
 cat("##\n")
 
 rc = lapply(pdg.meas.not.in.hfag,
