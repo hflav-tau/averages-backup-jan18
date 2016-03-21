@@ -45,6 +45,7 @@ END
 # G(K- K0 Kbar0 nu(tau)) / G(total)
 #
 # +++wrong, must change to K KS KS
+# not used in HFAG 2014
 #
 BEGIN MEASUREMENT BaBar Gamma807 pub LEES 2012Y
 
@@ -57,6 +58,7 @@ END
 # G(K- K Kbar0 pi0 nu(tau)) / G(total)
 #
 # +++wrong, must change to K KS KS pi0
+# not used in HFAG 2014
 #
 BEGIN MEASUREMENT BaBar Gamma808 pub LEES 2012Y
 
@@ -67,19 +69,25 @@ END
 #
 # Gamma810
 # G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
+#
 # (2.07 +-0.18 +-0.37) x10−4
-
-# Comment:                                                          
-# There is inconsistency between paper and sup. doc.                
-# Exchanged email with Randall Sobie,                               
-# sup. doc is wrong, numbers are recalculated using paper!          
+#
+# +++
+# there is inconsistency between paper and sup. doc.
+# exchanged email with Randall Sobie,
+# sup. doc is wrong, numbers are recalculated using paper!
+#
+# HFAG 2014 does not use this measurement but the more direct
+# measurements in the more specific final states, resonant and
+# non-resonant, whose sum corresponds to this final state
+#
 
 #
 # Gamma910
 # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
-# Comment: Number is obrained: Br(paper)*0.3256(PPG08)
-# 2.54*e-4*0.3256=8.27e-5
+# value = BR(paper)*0.3256 [BR(eta -> 3pi0) PDG08]
+# (2.54e-4 +- 0.27e-4 +- 0.25e-4) * 0.3256 = 8.27e-5 +- 0.88e-5 +- 0.81e-5
 #
 BEGIN MEASUREMENT BaBar Gamma910 pub LEES 2012X
 
@@ -103,10 +111,9 @@ END
 #
 # Gamma911
 # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
-# 
-# Comment: Number is obrained: Br(paper)*0.2273(PPG08)    
-# 2.01*e-4*0.3256=4.57e-5                                 
 #
+# value = BR(paper)*0.2273 [BR(eta -> pi+ pi- pi0) PDG08]
+# (2.01e-4 +- 0.34e-4 +- 0.22e-4) * 0.2273 = 4.57e-5 +-0.77e-5 +-0.50e-5
 #
 BEGIN MEASUREMENT BaBar Gamma911 pub LEES 2012X
 
@@ -130,7 +137,8 @@ END
 #
 # Gamma811
 # G(pi- 2pi0 omega nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma811 pub LEES 2012X
 
@@ -156,8 +164,9 @@ END
 #
 # Gamma812
 # G(2pi- pi+ 3pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
-# (non-resonant)
-# Comment: number directly from paper
+#
+# non-resonant final state
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma812 pub LEES 2012X
 VALUE 0.1e-4 +-0.08e-4 +-0.30e-4
@@ -180,7 +189,8 @@ END
 #
 # Gamma820
 # G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
-# Comment: number directly from paper
+#
+# value from paper
 #
 # BEGIN MEASUREMENT BaBar Gamma820 pub LEES 2012X
 #
@@ -203,7 +213,8 @@ END
 #
 # Gamma920
 # G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
-# Comment: number directly from paper
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma920 pub LEES 2012X
 
@@ -226,7 +237,8 @@ END
 #
 # Gamma821
 # G(3pi- 2pi+ nu(tau) (ex. K0, f1, non-resonant)) / G(total)
-# Comment: number directly from paper
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma821 pub LEES 2012X
 
@@ -249,7 +261,8 @@ END
 #
 # Gamma822
 # G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma822 pub LEES 2012X
 
@@ -260,6 +273,8 @@ END
 #
 # Gamma830
 # G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+# not used in HFAG 2014, sum of more specific final states
 #
 # BEGIN MEASUREMENT BaBar Gamma830 pub LEES 2012X
 #
@@ -283,10 +298,10 @@ END
 #
 # Gamma930
 # G(2pi- pi+ eta(pi+ pi- pi0)  nu(tau) (ex. K0)) / G(total)
-# Comment: Number is obrained: Br(paper)*0.2273(PPG08)     
-# 2.54*e-4*0.3256=5.39e-5                                  
-# 
-
+#
+# value = BR(paper)*0.2273 [BR(eta -> pi+pi-pi0) PDG08]
+# (2.37e-4 +- 0.12e-4 +- 0.18e-4) * 0.2273 = 5.39e-5 +- 0.27e-5 +- 0.41e-5
+#
 BEGIN MEASUREMENT BaBar Gamma930 pub LEES 2012X
 
 VALUE 5.39e-5 +- 0.27e-5 +- 0.41e-5
@@ -309,12 +324,13 @@ END
 #
 # Gamma831
 # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper 
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma831 pub LEES 2012X
 
 VALUE 8.4e-5 +-0.4e-5 +-0.6e-5
-# VALUE 9.6e-5 +-0.5e-5 +-0.6e-5 supp. doc.
+# VALUE 9.6e-5 +-0.5e-5 +-0.6e-5 # wrong in supp. doc.
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -336,12 +352,13 @@ END
 #
 # Gamma832
 # G(3pi- 2pi+ pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
-# Comment: number directly from paper   
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma832 pub LEES 2012X
 
 VALUE 0.36e-4 +-0.03e-4 +-0.09e-4
-# VALUE 0.27e-4 +-0.03e-4 +-0.09e-4 supp. doc.
+# VALUE 0.27e-4 +-0.03e-4 +-0.09e-4 # wrong in supp. doc.
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -361,7 +378,8 @@ END
 #
 # Gamma833
 # G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper   
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma833 pub LEES 2012X
 
@@ -372,12 +390,13 @@ END
 #
 # Gamma941
 # G(pi- f1(pi- pi+ eta(gamma gamma)) nu(tau) (ex. K0)) / G(total)
-# Comment: Number is obrained: Br(paper)*0.3931(PPG08)    
-# 1.25*e-4*0.3931=4.91e-5                                 
+#
+# value = BR(paper)*0.3931 [BR(eta -> gamma gamma) PDG08)
+# (1.25e-4 +- 0.08e-4 +- 0.07e-4) * 0.3931 = 4.91e-5 +-0.31e-5 +-0.28e-5
 #
 BEGIN MEASUREMENT BaBar Gamma941 pub LEES 2012X
 
-VALUE 4.91e-5 +-0.31e-5 +-0.27e-5
+VALUE 4.91e-5 +-0.31e-5 +-0.28e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
@@ -397,8 +416,9 @@ END
 #
 # Gamma942
 # G(pi- f1(pi- pi+ eta(pi- pi+ pi0)) nu(tau) (ex. K0)) / G(total)
-# Comment: Number is obrained: Br(paper)*0.2273(PPG08)  
-# 1.26*e-4*0.2273=2.86e-5                               
+#
+# value = BR(paper)*0.2273 [BR(eta -> pi+pi-pi0) PDG08]
+# (1.26e-4 +- 0.11e-4 +- 0.08e-4) * 0.2273 = 2.86e-5 +-0.25e-5 +-0.18e-5
 #
 BEGIN MEASUREMENT BaBar Gamma942 pub LEES 2012X
 
@@ -422,8 +442,9 @@ END
 #
 # Gamma943
 # G(pi- f1(pi- pi+ eta(3pi0)) nu(tau) (ex. K0)) / G(total)
-# Comment: Number is obrained: Br(paper)*0.3256(PPG08)  
-# 1.33*e-4*0.3256=4.33e-5                               
+#
+# value = BR(paper)*0.3256 [BR(eta -> 3pi0) PDG08]
+# (1.33e-4 +- 0.39e-4 +- 0.20e-4) * 0.3256 = 4.33e-5 +-1.27e-5 +-0.65e-5
 #
 
 BEGIN MEASUREMENT BaBar Gamma943 pub LEES 2012X
@@ -448,10 +469,11 @@ END
 #
 # Gamma944
 # G(2pi- pi+ eta(gamma gamma)  nu(tau) (ex. K0)) / G(total)
-# We assume that Pi0 and eta systematics are 100% correlated
 #
-# Comment: Number is obrained: Br(paper)*0.3931(PPG08)  
-# 2.10*e-4*0.3931=8.255e-5
+# assume that pi0 and eta systematics are 100% correlated
+#
+# value = BR(paper)*0.3931 [BR(eta -> gamma gamma) PDG08]
+# (2.10e-4 +- 0.09e-4 +- 0.13e-4) * 0.3931 = 8.26e-5 +- 0.35e-5 +- 0.51e-5
 #
 BEGIN MEASUREMENT BaBar Gamma944 pub LEES 2012X
 
@@ -475,7 +497,8 @@ END
 #
 # Gamma950
 # G(K+ 3pi- pi+ nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper  
+#
+# value from paper
 #
 
 BEGIN MEASUREMENT BaBar Gamma950 pub LEES 2012X
@@ -487,7 +510,8 @@ END
 #
 # Gamma951
 # G(K- K+ 2pi- pi+ nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper  
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma951 pub LEES 2012X
 
@@ -498,7 +522,8 @@ END
 #
 # Gamma952
 # G(K+ 3pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
-# Comment: number directly from paper  
+#
+# value from paper
 #
 BEGIN MEASUREMENT BaBar Gamma952 pub LEES 2012X
 
