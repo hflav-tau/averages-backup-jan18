@@ -288,7 +288,7 @@ alucomb2.print.meas = function(meas, quantities) {
   alucomb2.print.meas.syst.terms("SYSTPAPER", meas$syst.terms, syst.paper.mask)
   alucomb2.print.meas.syst.terms("SYSTLOCAL", meas$syst.terms, syst.local.mask)
   if (length(meas$params)>0) {
-    cat("\n")
+    cat("\nPARAMETERS\n")
     alucomb2.print.params(meas$params)
   }
 
