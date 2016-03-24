@@ -32,6 +32,10 @@ END
 # Gamma805 (PDG node = S035Z06)
 # G(a1- (-> pi- gamma) nu(tau)) / G(total)
 #
+# prediction using B(a1 -> pi gamma) from M. Zielinski, et al.,
+# Phys. Rev. Lett. 52 (1984) 1195 and the ALEPH branching fraction
+# measurements for tau -> 3pi nu in ALEPH SCHAEL 05C
+#
 BEGIN MEASUREMENT ALEPH Gamma805 pub SCHAEL 05C
 
 VALUE 4e-04 +-2e-04 +-0
@@ -41,6 +45,9 @@ END
 #
 # Gamma997
 # B(a1- -> pi- gamma)
+#
+# prediction made in ALEPH SCHAEL 05C using the estimate in
+# M. Zielinski, et al., Phys. Rev. Lett. 52 (1984) 1195
 #
 BEGIN MEASUREMENT ALEPH Gamma997 pub SCHAEL 05C
 
