@@ -6,6 +6,8 @@
 # we can rather use the direct ALEPH measurement of Gamma51
 #
 # was temporarily used at end of March 2011 and then commented
+# ALEPH Gamma49 pub BARATE 99R estimated as 2*Gamma50 + Gamma51 by ALEPH
+# therefore 52% correlated with Gamma49 in BARATE 99R
 # 
 # Gamma51 (PDG node = S035C3)
 # G(pi- pi0 K(S) K(L) nu(tau)) / G(total)
@@ -13,5 +15,7 @@
 BEGIN MEASUREMENT ALEPH Gamma51 pub BARATE 98E
 
 VALUE 3.1e-4 +-1.1e-4 +-0.5e-4
+
+ERROR_CORR_WITH +0.52        ALEPH Gamma49 pub BARATE 99R
 
 END

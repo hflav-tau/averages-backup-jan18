@@ -9,6 +9,22 @@ VALUE 0.00026 +-0.00024 +-0
 END
 
 #
+# Gamma49 (PDG node = S035C44)
+# G(pi- pi0 K0 Kbar0 nu(tau)) / G(total)
+#
+# estimated as 2*Gamma50 + Gamma51 by ALEPH
+# Gamma50 in BARATE 98E consistent with zero
+# therefore 52% correlated with Gamma51 in BARATE 98E
+#
+BEGIN MEASUREMENT ALEPH Gamma49 pub BARATE 99R
+
+VALUE 0.00031 +-0.00023 +-0
+
+ERROR_CORR_WITH +0.52        ALEPH Gamma51 pub BARATE 98E
+
+END
+
+#
 # Gamma53 (PDG node = S035C5)
 # G(Kbar0 h- h- h+ nu(tau)) / G(total)
 #
