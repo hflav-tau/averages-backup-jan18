@@ -398,8 +398,8 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   if (length(quant.discarded) > 0) {
     cat("\n##\n")
     cat("## warning: quantities discarded (not in measurements & constraints)\n")
-    cat("##\n")
-    cat(paste("  ", quant.discarded, collapse="\n"), "\n");
+    cat("##\n\n")
+    alucomb2.clean.print(quant.discarded, width=1)
     quant.names = setdiff(quant.names, quant.discarded)
     combination$combine.old = combination$combine
     combination$combine = quant.names
@@ -444,7 +444,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     print(larger)
     stop("aborting")
   }
-  if (length(not.matching) > 0) {
+  if (length(not.matching) > 0 && FALSE) {
     cat("\n##\n")
     cat("## warning: syst. terms do not match total syst. error, Combos requires that\n")
     cat("##\n")
@@ -808,6 +808,13 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   ##--- get quantities that have at least one measurement
   quant.measured.bool = quant.names %in% meas.quantities
+
+  ##--- print what quantities do not have a measurement
+  cat("\n##\n")
+  cat("## the following fit quantities have no measurement\n")
+  cat("##\n\n")  
+  alucomb2.clean.print(quant.names[!quant.measured.bool])
+  
   ##--- assemble delta matrix for just those quantities
   delta.measured = delta[, quant.measured.bool]
   ##--- fit for quantities without constraints
@@ -827,7 +834,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   seed.needed.notincards = setdiff(seed.needed, names(quant.cards.seed.val))
   if (length(seed.needed.notincards)>0) {
     cat("\nwarning: no seed value provided for the following quantities\n")
-    print(seed.needed.notincards)
+    alucomb2.clean.print(seed.needed.notincards, prefix="  ")
     cat("warning: please set them in the cards, (default values of zero used)\n")
   }
   quant.seed.val[seed.needed] = quant.cards.seed.val[seed.needed]
@@ -845,15 +852,8 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
 
   cat("\n##\n")
   cat("## base quantities\n")
-  cat("##\n\n")
-  
-  quant.fmt = format(quant.base.names)
-  maxlen = max(nchar(quant.fmt)) + 1
-  items.per.row = floor((79-2)/maxlen)
-  for (i.first in seq(1, length(quant.fmt), by=items.per.row)) {
-    i.last = min(i.first + items.per.row - 1, length(quant.fmt) )
-    cat("  ", paste(quant.fmt[i.first:i.last], collapse=" "), "\n", sep="")
-  }
+  cat("##\n\n")  
+  alucomb2.clean.print(quant.base.names)
   
   ##
   ## ////////////////////////////////////////////////////////////////////////////

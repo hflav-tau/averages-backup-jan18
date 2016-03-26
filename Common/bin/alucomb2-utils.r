@@ -36,6 +36,18 @@ deparse.one.line = function(expr) {
 }
 
 ##
+## print character vector without element numbers, with optional prefix string
+##
+alucomb2.clean.print = function(str, prefix="", width=unlist(options("width"))) {
+  str.fmt = format(str)
+  fmt.width = max(nchar(str.fmt))
+  width = max(1, width - nchar(prefix))
+  items.per.row = max(1, floor(width / (fmt.width+1)))
+  rc = lapply(split(str, ceiling(seq_along(str)/items.per.row)),
+    function(items) cat(prefix, paste(items, collapse=" "), "\n", sep=""))
+}
+  
+##
 ## return numeric id for sorting labels like "Gamma5", "Gamma3by5"
 ## <n>by<m> are sorted after <n> in ascending order ov <m>
 ##
