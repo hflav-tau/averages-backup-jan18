@@ -330,16 +330,6 @@ VALUE 0.00026 +-0.00024 +-0
 END
 
 #
-# Gamma46 (PDG node = S035B51)
-# G(pi- K0 Kbar0 nu(tau)) / G(total)
-#
-BEGIN MEASUREMENT ALEPH Gamma46 pub BARATE 98E
-
-VALUE 0.00153 +-0.00030 +-0.00016
-
-END
-
-#
 # Gamma47 (PDG node = S035B69)
 # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
 #
