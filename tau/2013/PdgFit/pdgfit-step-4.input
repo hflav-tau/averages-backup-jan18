@@ -121,6 +121,7 @@ QUANTITY Gamma9 seed 0.108
 QUANTITY Gamma14 seed 0.25
 QUANTITY Gamma20 seed 0.092
 QUANTITY Gamma27 seed 0.010
+QUANTITY Gamma46 seed 1.5e-3
 QUANTITY Gamma49 seed 3.1e-4
 QUANTITY Gamma58 seed 0.094
 QUANTITY Gamma62 seed 0.089
