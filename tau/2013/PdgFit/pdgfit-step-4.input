@@ -57,11 +57,15 @@ COMBINE
   Gamma997
 
 #
+# HFAG 2014:
 # since we have Gamma50 measurements, ALEPH inclusive estimate on Gamma49
 # has been replaced by ALEPH exclusive result on Gamma51 by including
 # ../Common-Mar2012/measurements-aleph.input
 #
-MODMEAS DROP ALEPH Gamma49 pub BARATE 99R
+# 2016:
+# readmitted ALEPH Gamma49 pub BARATE 99R with correlation with ALEPH Gamma51
+#
+# MODMEAS DROP ALEPH Gamma49 pub BARATE 99R
 
 # --- drop prelim. Belle KS results in favour of published ones
 MODMEAS DROP Belle Gamma40 prelim PHIPSI11
