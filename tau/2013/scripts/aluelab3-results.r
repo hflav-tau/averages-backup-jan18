@@ -851,7 +851,8 @@ aluelab.results = function(args) {
   rc = c(rc, alurep.tex.cmd("couplingsCorr", paste(tex.corr, collapse="\\\\\n")))
 
   ##--- make file name for report .tex output
-  fname.short = gsub("average[^-]*-*", "", file.name)
+  fname.short = basename(file.name)
+  fname.short = gsub("average[^-]*-*", "", fname.short)
   fname.short = gsub("[.]rdata", "", fname.short)
   fname = "../report/tau-br-fit"
   if (fname.short != "") fname = paste(fname, "-", fname.short, sep="")
