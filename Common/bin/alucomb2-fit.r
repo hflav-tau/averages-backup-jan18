@@ -181,7 +181,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   meas.names.discarded =  meas.names[!meas.included.list]
   combination$meas.drop.unass = meas.names.discarded
   if (length(meas.names.discarded) >0) {
-    cat("\nwarning: measurements discarded because not in combined quantities:\n")
+    cat("\n##\n")
+    cat("## warning: measurements discarded because not in combined quantities\n")
+    cat("##\n")
     cat(paste("  ", meas.names.discarded, collapse="\n"), "\n")
     meas.names = setdiff(meas.names, meas.names.discarded)
   }
