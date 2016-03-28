@@ -82,6 +82,17 @@ hfag.data.fname = "pdgfit-pdg-meas.rdata"
 ht = load.in.list(hfag.data.fname)
 cat(paste0("HFAG reproducing PDG fit file '", hfag.data.fname, "' read\n"))
 
+##--- fix Ryu:2014vpc tags
+meas.names.ryu.2014vpc = grep("Ryu:2014vpc", names(ht$measurements), value=TRUE)
+ht$measurements[meas.names.ryu.2014vpc] =
+  lapply(
+    ht$measurements[meas.names.ryu.2014vpc],
+    function(meas) {
+      meas$tags[4] = "RYU"
+      meas$tags[5] = "2014vpc"
+      meas
+    })
+
 ##--- HFAG reference fit
 hfag.data.ref.fname = "../TauFit/average2-aleph-hcorr_13-ref.rdata"
 htref = load.in.list(hfag.data.ref.fname)
