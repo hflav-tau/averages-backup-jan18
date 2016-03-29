@@ -1152,20 +1152,23 @@ cat("measurements:", length(ht$meas.val),
 cat("##\n")
 cat("## Fit results PDG-HFAG mismatches\n")
 cat("## - first line:\n")
-cat("##   - (PDG_value - HFAG_value) / <error on value>\n")
-cat("##   - (PDG_error - HFAG_error) / <error on value>\n")
-cat("##   - PDG fit results asymmetric errors if existing\n")
+cat("##   - (PDG_value - HFAG_value) / <error on value> in percent\n")
+cat("##   - (PDG_error - HFAG_error) / <error on value> in percent\n")
+cat("##   - quantity description\n")
+cat("## - second line: PDG  fit value, error, asymmetric errors if existing\n")
+cat("## - third line:  HFAG fit value, error\n")
 cat("##\n")
 rc = lapply(split(df.nodes.fit, 1:nrow(df.nodes.fit))[order(df.nodes.fit$mism, decreasing=TRUE)],
   function(cmp.fit) {
     line.1 = paste(
       paste(sprintf("%12s", c(cmp.fit$node, quant.gamma[cmp.fit$node])), collapse=" "),
-      paste(sprintf("%13.6e", c(cmp.fit$mism.val, cmp.fit$mism.err)), collapse=" "),
+      paste(sprintf("%+12.4f%%", 100*c(cmp.fit$mism.val, cmp.fit$mism.err)), collapse=" "),
+      paste0(" ", cmp.fit$descr),
       sep=" ")
     line.2 = paste(
       sprintf("%25s", "PDG"),
       paste(sprintf("%13.6e", c(cmp.fit$val, cmp.fit$err)), collapse=" "),
-      paste(sprintf("%+13.6e", c(cmp.fit$errp, -cmp.fit$errn)), collapse=" "),
+      ifelse(is.na(cmp.fit$errp), "", paste(sprintf("%+14.6e", c(cmp.fit$errp, -cmp.fit$errn)), collapse=" ")),
       sep=" ")
     line.3 =  paste(
       sprintf("%25s", "HFAG"),
