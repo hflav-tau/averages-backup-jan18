@@ -722,6 +722,7 @@ mkreport = function(fname) {
   ##--- build out file name
   fname = sub("[.][^.]*$", ".tex", fname, perl=TRUE)
   fname = sub("^[^.-]*", "tau-br-fit", fname, perl=TRUE)
+  fname = basename(fname)
   fname = file.path("../report", fname)
   cat("", file=fname)
   cat("file '", fname, "' created\n", sep="")
