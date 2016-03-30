@@ -71,7 +71,7 @@ parse_double_or_blank = function(str) {
 ##
 
 ##--- get PDG fit log
-fit.txt = readLines("s035-fit-ns-all-2015-01-28.fit")
+fit.txt = readLines("s035-fit-ns-all-2016-01-28.fit")
 
 ##
 ## get HFAG data
