@@ -291,10 +291,10 @@ get.reference = function(tags) {
     "GAN.88" = "Gan:1987zi",
     "HAYES.88" = "Hayes:1988ut",
     "PERL.80" = "not found",
-    "LEES.2012X" = "Lees:2012ks",
-    "LEES.2012Y" = "Lees:2012de",
+    "LEES.12X" = "Lees:2012ks",
+    "LEES.12Y" = "Lees:2012de",
     "Belous:2013dba" = "Belous:2013dba",
-    "Ryu:2014vpc" = "Ryu:2014vpc"
+    "RYU.14vpc" = "Ryu:2014vpc"
     )
 
   bib.conf.table = list(
