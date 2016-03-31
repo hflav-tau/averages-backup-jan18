@@ -12,7 +12,7 @@ END
 # Gamma35 (PDG node = S035B32)
 # G(pi- Kbar0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma35 pub RYU 2014vpc
+BEGIN MEASUREMENT Belle Gamma35 pub RYU 14vpc
 
 VALUE 0.00832 +-2e-05 +-0.00016
 
@@ -22,7 +22,7 @@ END
 # Gamma37 (PDG node = S035R46)
 # G(K- K0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma37 pub RYU 2014vpc
+BEGIN MEASUREMENT Belle Gamma37 pub RYU 14vpc
 
 VALUE 0.00148 +-1.4e-05 +-5.4e-05
 
@@ -32,7 +32,7 @@ END
 # Gamma40 (PDG node = S035B33)
 # G(pi- Kbar0 pi0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma40 pub RYU 2014vpc
+BEGIN MEASUREMENT Belle Gamma40 pub RYU 14vpc
 
 VALUE 0.00386 +-4e-05 +-0.00014
 
@@ -42,7 +42,7 @@ END
 # Gamma42 (PDG node = S035B34)
 # G(K- K0 pi0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma42 pub RYU 2014vpc
+BEGIN MEASUREMENT Belle Gamma42 pub RYU 14vpc
 
 VALUE 0.001496 +-2e-05 +-7.4e-05
 
@@ -52,7 +52,7 @@ END
 # Gamma47 (PDG node = S035B69)
 # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT Belle Gamma47 pub RYU 2014vpc
+BEGIN MEASUREMENT Belle Gamma47 pub RYU 14vpc
 
 VALUE 0.000233 +-3e-06 +-9e-06
 

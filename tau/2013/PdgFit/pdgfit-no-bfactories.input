@@ -1,7 +1,7 @@
 #
 # PDG 2016 fit step 4
 # - start from HFAG 2014
-# - remove inconsistent meaasurement Belle Gamma33 pub RYU 2014vpc
+# - remove inconsistent meaasurement Belle Gamma33 pub RYU 14vpc
 # - uses ALEPH measurements pi/K, non h/K as HFAG 2014
 # - use unitarity constraint
 # - replace non-BaBar non-Belle measurements with PDG ones
@@ -98,7 +98,7 @@ MODMEAS DROP BaBar Gamma103 pub AUBERT,B 05W
 MODMEAS DROP CLEO Gamma136 pub ANASTASSOV 01
 
 # --- drop Belle incl. K0S meas, because of inconsistent correlation
-MODMEAS DROP Belle Gamma33 pub RYU 2014vpc
+MODMEAS DROP Belle Gamma33 pub RYU 14vpc
 
 # --- drop prelim measurements for PDG fit
 MODMEAS DROP BaBar Gamma35 prelim ICHEP08

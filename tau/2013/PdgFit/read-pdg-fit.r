@@ -89,7 +89,7 @@ ht$measurements[meas.names.ryu.2014vpc] =
     ht$measurements[meas.names.ryu.2014vpc],
     function(meas) {
       meas$tags[4] = "RYU"
-      meas$tags[5] = "2014vpc"
+      meas$tags[5] = "14vpc"
       meas
     })
 
