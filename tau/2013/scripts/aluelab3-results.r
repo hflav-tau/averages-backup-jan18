@@ -850,17 +850,21 @@ aluelab.results = function(args) {
 
   rc = c(rc, alurep.tex.cmd("couplingsCorr", paste(tex.corr, collapse="\\\\\n")))
 
-  ##--- make file name for report .tex output
-  fname.short = basename(file.name)
-  fname.short = gsub("average[^-]*-*", "", fname.short)
-  fname.short = gsub("[.]rdata", "", fname.short)
-  fname = "../report/tau-br-fit"
-  if (fname.short != "") fname = paste(fname, "-", fname.short, sep="")
-  if (flag.unitarity) fname = paste(fname, "-uniconstr", sep="")
-  if (flag.vadirect) fname = paste(fname, "-vadirect", sep="")
-  if (flag.lepuniv) fname = paste(fname, "-lepuniv", sep="")
-  if (flag.kmaltman) fname = paste(fname, "-kmaltman", sep="")
-  fname = paste(fname, "-elab.tex", sep="")
+  ##--- assemble file name
+  fname = file.name
+  fname = basename(fname)
+  fname = sub("[.][^.]*$", "", fname, perl=TRUE)
+  fname = sub("average[^-]*-*", "", fname)
+  if (fname != "") fname = paste0("-", fname)
+  fname = file.path("../report", paste0("tau-br-fit", fname))
+
+  fname = paste0(fname, "-elab")
+  if (flag.unitarity) fname = paste0(fname, "-uniconstr")
+  if (flag.vadirect) fname = paste0(fname, "-vadirect")
+  if (flag.lepuniv) fname = paste0(fname, "-lepuniv")
+  if (flag.kmaltman) fname = paste0(fname, "-kmaltman")
+
+  fname = paste0(fname, ".tex")
   cat(unlist(rc), sep="\n", file=fname)
   cat("produced file '", fname, "'\n", sep="")
 }

@@ -719,11 +719,14 @@ get.tex.constraint.equations = function() {
 mkreport = function(fname) {
   load(fname, .GlobalEnv)
 
-  ##--- build out file name
-  fname = sub("[.][^.]*$", ".tex", fname, perl=TRUE)
-  fname = sub("^[^.-]*", "tau-br-fit", fname, perl=TRUE)
+  ##--- assemble file name
   fname = basename(fname)
-  fname = file.path("../report", fname)
+  fname = sub("[.][^.]*$", "", fname, perl=TRUE)
+  fname = sub("average[^-]*-*", "", fname)
+  if (fname != "") fname = paste0("-", fname)
+  fname = file.path("../report", paste0("tau-br-fit", fname))
+
+  fname = paste0(fname, ".tex")
   cat("", file=fname)
   cat("file '", fname, "' created\n", sep="")
 
