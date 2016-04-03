@@ -1,0 +1,20 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-G42-lepp16.input\")"
+#
+# instructions in aluAverPlot.cc
+#
+lh  HFAG
+l   2016 prelim.
+#i   0.2130 0.2280    6.4    |V_{us}|
+i   0  0    6.4    B(#tau^{-} #rightarrow K^{- }#pi^{0} K^{0} #nu) [x 10^{-3}]
+p  1.5032138 0.0707164 0 0  HFAG 2016, prelim.  
+h  1.59 0.16 0 0  PDG 2013 Fit
+m   1.52 0.79 0.00  ALEPH
+m   1.43 0.29 0.00  ALEPH
+mt   1.50 0.02 0.07  Belle 2014
+m   1.45 0.41 0.00  CLEO   
+
+
+
+
+
