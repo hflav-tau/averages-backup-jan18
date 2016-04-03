@@ -218,6 +218,11 @@ alurep.tex.meas.val.card.fields = function(meas) {
   syst.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", syst.txt, ignore.case=TRUE)
   quant.tex = gsub("e[+]?([-])?0*(\\d+)", "\\\\cdot 10^{\\1\\2}", quant.tex, ignore.case=TRUE)
 
+  val.tex = gsub("%", "\\%", val.txt, fixed=TRUE)
+  stat.tex = gsub("%", "\\%", stat.txt, fixed=TRUE)
+  syst.tex = gsub("%", "\\%", syst.txt, fixed=TRUE)
+  quant.tex = gsub("%", "\\%", quant.tex, fixed=TRUE)
+
   return(list(quant=quant.tex, val=val.tex, stat=stat.tex, syst=syst.tex))
 }
 
