@@ -376,9 +376,11 @@ aluelab.results = function(args) {
   ## PDG13 with neutron lifetime: quant$quant.add.single("Vud", 0.9774, 0.0001*sqrt(5^2 + 16^2 + 2^2))
   quant$quant.add.single("Vud", 0.97425, 0.00001*sqrt(8^2 + 10^2 + 18^2))
 
-  ## values of Moulson CKM 2014
+  ##--- Moulson CKM2014 procs
   quant$quant.add.single("Vud_moulson_ckm14", 0.97417, 0.00001*21)
+  ##--- Moulson CKM2014 procs, using FLAG Nf = 2+1+1
   quant$quant.add.single("Vus_kl3_moulson_ckm14", 0.2232, 0.0001*9)
+  ##--- Moulson CKM2014 procs, using his elaboration using FNAL/MILC result Nf = 2+1+1, fK± /fπ± = 1.1960(25)
   quant$quant.add.single("VusbyVud_moulson_ckm14", 0.2308, 0.0001*6)
   quant$quant.expr.add("Vus_kl2_moulson_ckm14", VusbyVud_moulson_ckm14 * Vud_moulson_ckm14)
 
