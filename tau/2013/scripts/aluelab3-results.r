@@ -374,6 +374,7 @@ aluelab.results = function(args) {
   ##
   ## PDG11: quant$quant.add.single("Vud", 0.97425, 0.00022)
   ## PDG13 with neutron lifetime: quant$quant.add.single("Vud", 0.9774, 0.0001*sqrt(5^2 + 16^2 + 2^2))
+  ## PDG15 unchanged
   quant$quant.add.single("Vud", 0.97425, 0.00001*sqrt(8^2 + 10^2 + 18^2))
 
   ##--- Moulson CKM2014 procs
@@ -384,11 +385,21 @@ aluelab.results = function(args) {
   quant$quant.add.single("VusbyVud_moulson_ckm14", 0.2308, 0.0001*6)
   quant$quant.expr.add("Vus_kl2_moulson_ckm14", VusbyVud_moulson_ckm14 * Vud_moulson_ckm14)
 
+  ##
+  ## Kim Maltman Mainz March 2016 slides
+  ## Nf = 2+1+1
+  ##
+  quant$quant.add.single("Vus_maltman_mainz16", 0.2228, sqrt(0.0023^2 + 0.0005^2))
+  quant$quant.add.single("Vus_kl3_maltman_mainz16", 0.2231, sqrt(0.0004^2 + 0.0007^2))
+  quant$quant.add.single("Vus_kl2_maltman_mainz16", 0.2250, 0.000985)
+  
   ##--- s quark mass, PDG2011
   ## quant$quant.add.single("m_s", 100, sqrt((20.^2 + 30.^2)/2.))
   ##--- s quark mass, PDG2013 ---upd14
-  quant$quant.add.single("m_s", 93.5, 2.5) ## changed14
-    
+  ## quant$quant.add.single("m_s", 93.5, 2.5) ## changed14
+  ##--- s quark mass, PDG2015 ---upd16
+  quant$quant.add.single("m_s", 95, 5) ## changed16
+   
   if (flag.kmaltman) {
     ## 
     ## K.Maltman, private comm. 2014
@@ -731,7 +742,10 @@ aluelab.results = function(args) {
     "Vud_moulson_ckm14",
     "Vus_kl3_moulson_ckm14",
     "VusbyVud_moulson_ckm14",
-    "Vus_kl2_moulson_ckm14"
+    "Vus_kl2_moulson_ckm14",
+    "Vus_maltman_mainz16",
+    "Vus_kl3_maltman_mainz16",
+    "Vus_kl2_maltman_mainz16"
     )
 
   ##--- show selection of quantities
