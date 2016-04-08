@@ -1,0 +1,20 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-tau-e-gammma-nu-nubar.input\", 3)"
+#
+# i       - xmin, xmax, precision, title
+# m       - measurement with symmetric stat & syst errors
+# ma      - measurement with asymmetric stat & syst errors
+# mt, mat - like m, ma but for "this work"
+# p       - PDG average, sets band
+# h       - other averages
+#  
+# BEXP (τ → eννγ¯ ) = 1.847(15)st(52)sy ×10−2 theory: 1.645 (19)th(3)τ × 10−2
+# BEXP (τ → µννγ¯ ) = 3.69(3)st(10)sy ×10−3 theory: 3.572 (3)th(6)τ × 10−3
+# More precise than CLEO results: T. Bergfeld et al., PRL 84 (2000) 830
+# 1.75(6)st(17)sy x10-2 tau -> e gamma nu nubar
+# 3.61(16)st(35)sy x10-3 tau -> mu gamma nu nubar
+#
+i   0      0      5.3        #tau #rightarrow e #gamma #nu #bar{#nu} [10^{-2}]
+m   1.75  0.06  0.17         CLEO 2000
+m   1.847 0.015 0.052        BaBar 2015
+m   1.645 0.019 0.003        Fael & Passera 2015

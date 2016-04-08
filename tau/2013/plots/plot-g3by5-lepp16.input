@@ -1,0 +1,13 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-g3by5-lepp16.input\")"
+#
+# instructions in aluAverPlot.cc
+#
+lh  HFAG
+l   2016 prelim.
+i   0  0    6.4    B(#tau^{-} #rightarrow #mu^{-} #bar{#nu}_{e} #nu_{#tau}) / B(#tau^{-} #rightarrow e^{-} #bar{#nu}_{e} #nu_{#tau})
+p 0.97616 0.00278 0 0  HFAG 2016, prelim.
+m 0.99700 0.03500 0.04000 ARGUS 1991
+m 0.97960 0.00390 0.00053 BABAR 2009
+m 0.97770 0.00630 0.00870 CLEO 1996
+m 0.97616 0.00278
