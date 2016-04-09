@@ -117,6 +117,9 @@ QUANTITY Gamma810 seed 2.07e-4
 QUANTITY Gamma820 seed 8.33e-04
 QUANTITY Gamma830 seed 1.65e-4
 
+# --- added after removing ALEPH Gamma46 measurement
+QUANTITY Gamma46 seed 1.5e-3
+
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
 
