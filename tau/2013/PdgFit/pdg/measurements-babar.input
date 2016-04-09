@@ -51,7 +51,7 @@ END
 # Gamma47 (PDG node = S035B69)
 # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
 #
-BEGIN MEASUREMENT BaBar Gamma47 pub LEES 12Y
+BEGIN MEASUREMENT BaBar Gamma47 pub LEES 2012Y
 
 VALUE 0.000231 +-4e-06 +-8e-06
 
