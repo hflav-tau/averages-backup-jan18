@@ -308,7 +308,7 @@ alurep.tex.val.auto = function(val, width=0, perc=FALSE) {
 ## return quantity formatted val +- stat in a string
 ## according to the specified precision and power-of-ten order
 ##
-alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc=FALSE) {
+alurep.tex.val.err.prec.ord.old = function(val, err, precision, order, width=0, perc=FALSE) {
   val = val/10^order
   err = err/10^order
   if (order == 0) {
@@ -322,6 +322,17 @@ alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc
       val, err, order)
   }
   return(paste("\\ensuremath{", rc, "}", sep=""))
+}
+
+##
+## return quantity formatted val +- stat in a string
+## according to the specified precision and power-of-ten order
+##
+alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc=FALSE) {
+  val = val/10^order
+  err = err/10^order
+  rc = sprintf(paste("%", width, ".", precision, "f \\pm %", width, ".", precision, "f", sep=""), val, err)
+  return(rc)
 }
 
 ##
@@ -406,7 +417,7 @@ alurep.precision.order.quant = function(quant.name, perc=FALSE, with.meas=FALSE)
 }
 
 ##
-## substitute parameter labes with TeX printable names
+## substitute parameter labels with TeX printable names
 ##
 alurep.subst.params = function(str) {
   str = gsub("BR_eta_2gam", "\\Gamma_{\\eta\\to\\gamma\\gamma}", str, fixed=TRUE)
@@ -479,4 +490,22 @@ alurep.tex.constraint = function(constr.val, constr.str) {
   constr.right.split = alurep.subst.params(constr.right.split)
   
   return(list(left = constr.left, right=constr.right, right.split=constr.right.split))
+}
+
+##
+## return the quantity names of the unitarity constraint
+## April 2016:
+## - 1 = GammaAll + Gamma998
+## - 0 = -GammaAll + (...)
+##   (plain sum of quantities, all linear)
+## - unitarity imposed with NLCONSTRAINT forceUnitarity 0 "Gamma998"
+##
+
+alurep.unitarity.quant.names = function(comb) {
+  gammaAll.names = names(comb$constr.all.comb$GammaAll.c)
+  if (is.null(combination$constr.all.expr$forceUnitarity)) {
+    gammaAll.names = c(gammaAll.names, "Gamma998")
+  }
+  gammaAll.names = setdiff(gammaAll.names, "GammaAll")
+  return(gammaAll.names)
 }

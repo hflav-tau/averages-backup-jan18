@@ -462,7 +462,7 @@ get.tex.table = function(quant.names, perc=FALSE) {
 ## include
 ## - quantity description and HFAG average
 ##
-get.tex.table.simple = function(quant.names, precision, order) {
+get.tex.table.simple.old = function(quant.names, precision, order) {
   quant.order = order(alurep.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(function(quant.name, quant) {
@@ -474,6 +474,28 @@ get.tex.table.simple = function(quant.names, precision, order) {
       )
   }, quant.names, combination$quantities[quant.names])
   return(paste(rc, collapse=" \\\\\n"))
+}
+
+##
+## return body of latex tabular environment for the requested quantities
+## include
+## - quantity description and HFAG average
+## must define two macros to expand the two fields
+## \newcommand{\htQuantLabel}[1]{\htuse{#1.td}}
+## \newcommand{\htQuantValue}[2]{#1}
+##
+get.tex.table.simple = function(quant.names, precision, order) {
+  quant.order = order(alurep.gamma.num.id(quant.names))
+  quant.names = quant.names[quant.order]
+  rc = mapply(
+    function(quant.name, quant) {
+      rc = paste(
+        "\\htQuantLine{", quant.name, "}{",
+        alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order), "}{",
+        sprintf("%d", order), "}",
+        sep="")
+    }, quant.names, combination$quantities[quant.names])
+  return(paste(rc, collapse=" \n"))
 }
 
 ##
@@ -751,6 +773,8 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("QuantNum", as.character(quant.num-dummy.quant.num)),
     ##--- base quantities
     alurep.tex.cmd.short("BaseQuantNum", as.character(quant.num - constr.num)),
+    ##--- quantities in the unitarity constraint sum
+    alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alurep.unitarity.quant.names(combination)))),
     ##--- constraints used to relate measurements to base quantities
     alurep.tex.cmd.short("ConstrNum", as.character(constr.num - dummy.quant.num)),
     alurep.tex.cmd.short("Chisq", sprintf("%.1f", chisq)),
@@ -814,9 +838,7 @@ mkreport = function(fname) {
   ##
   ## write text macro containing all strange BR values and refs
   ##
-  gammaAll.names = names(combination$constr.all.comb$GammaAll.c)
-  gammaAll.names = c(gammaAll.names, "Gamma998")
-  gammaAll.names = setdiff(gammaAll.names, "GammaAll")
+  gammaAll.names = alurep.unitarity.quant.names(combination)
   tex.tau.unitarity.quants = alurep.tex.cmd("UnitarityQuants", get.tex.table.simple(gammaAll.names, 4, -2))
   cat(tex.tau.unitarity.quants, sep="\n", file=fname, append=TRUE)
   cat("file '", fname, "', unitarity quantities\n", sep="")
