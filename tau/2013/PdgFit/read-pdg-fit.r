@@ -1,5 +1,10 @@
 #!/usr/bin/env Rscript
 
+##
+## compare PDG 2015 fit to HFAG 2014 and to
+## an HFAG fit using exactly the PDG measurements and constraints
+##
+
 suppressPackageStartupMessages(require(stringr))
 suppressPackageStartupMessages(require(readr))
 source("~/repo/hfagtau-averages/Common/bin/alucomb2-utils.r")

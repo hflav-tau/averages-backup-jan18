@@ -1,5 +1,12 @@
 #!/usr/bin/env Rscript
 
+##
+## compare PDG 2015 fit to latest HFAG-PDG fit 2016
+##
+## quick and dirty patch of read-pdg-fit.r which compared
+## PDG 2015 vs HFAG 2014 and HFAG with exactly the PDG measurements
+##
+
 suppressPackageStartupMessages(require(stringr))
 suppressPackageStartupMessages(require(readr))
 source("~/repo/hfagtau-averages/Common/bin/alucomb2-utils.r")
@@ -81,45 +88,7 @@ fit.txt = readLines("s035-fit-ns-all-2016-01-28.fit")
 hfag.data.fname = "pdgfit-pdg-meas.rdata"
 hfag.data.fname = "pdgfit-step-5.rdata"
 ht = load.in.list(hfag.data.fname)
-cat(paste0("HFAG reproducing PDG fit file '", hfag.data.fname, "' read\n"))
-
-##--- fix Ryu:2014vpc tags
-meas.names.ryu.2014vpc = grep("Ryu:2014vpc", names(ht$measurements), value=TRUE)
-ht$measurements[meas.names.ryu.2014vpc] =
-  lapply(
-    ht$measurements[meas.names.ryu.2014vpc],
-    function(meas) {
-      meas$tags[4] = "RYU"
-      meas$tags[5] = "14vpc"
-      meas
-    })
-
-##--- HFAG reference fit
-hfag.data.ref.fname = "../TauFit/average2-aleph-hcorr_13-ref.rdata"
-hfag.data.ref.fname = "pdgfit-step-5.rdata"
-htref = load.in.list(hfag.data.ref.fname)
-cat(paste0("HFAG fit reference file '", hfag.data.ref.fname, "' read\n"))
-
-##--- HFAG fit using PDG measurements
-hfag.data.ref2.fname = "pdgfit-hfag-meas2.rdata"
-htref2 = load.in.list(hfag.data.ref2.fname)
-cat(paste0("HFAG fit reference file '", hfag.data.ref2.fname, "' read\n"))
-
-##--- HFAG fit, no hcorr, no Belle incl K0S, with unitarity
-hfag.data.ref3.fname = "pdgfit-step-5.rdata"
-htref3 = load.in.list(hfag.data.ref3.fname)
-cat(paste0("HFAG fit reference file '", hfag.data.ref3.fname, "' read\n"))
-
-if (FALSE) {
-meas.val = sapply(ht$measurements, function(x) {x$value})
-meas.stat = sapply(ht$measurements, function(x) {x$stat})
-meas.stat.p = sapply(ht$measurements, function(x) {x$stat.p})
-meas.stat.n = sapply(ht$measurements, function(x) {x$stat.n})
-meas.syst = sapply(ht$measurements, function(x) {x$syst})
-meas.syst.p = sapply(ht$measurements, function(x) {x$syst.p})
-meas.syst.n = sapply(ht$measurements, function(x) {x$syst.n})
-meas.err = sqrt(meas.stat^2 + meas.syst^2)
-}
+cat(paste0("HFAG-PDG 2016 file '", hfag.data.fname, "' read\n"))
 
 meas.gamma = sapply(ht$measurements, function(x) {x$tags[2]})
 meas.val = sapply(ht$measurements, function(x) {ifelse(is.null(x$value.orig), x$value, x$value.orig)})
@@ -483,7 +452,7 @@ quant.gamma.nodes.nonpar = setdiff(quant.gamma.nodes, quant.gamma.params)
 ##
 
 cat("##\n")
-cat("## PDG fit parameters definitions\n")
+cat("## PDG 2015 fit parameters definitions\n")
 cat("##\n")
 
 cat(paste(
@@ -498,7 +467,7 @@ cat("\n")
 ##
 
 cat("##\n")
-cat("## PDG definitions of nodes that are not fit parameters\n")
+cat("## PDG 2015 definitions of nodes that are not fit parameters\n")
 cat("##\n")
 
 cat(paste(
@@ -513,7 +482,7 @@ cat("\n")
 ##
 
 cat("##\n")
-cat("## PDG vs. HFAG input measurements mismatches >1e-4, in decreasing size\n")
+cat("## PDG 2015 vs. HFAG-PDG 2016 input measurements mismatches >1e-4, in decreasing size\n")
 cat("## (mismatches are quadrature sum of the relative discrepancies in value and total uncertainty)\n")
 cat("##\n")
 ## print(df.meas.cmp[meas.diff.order,])
@@ -556,7 +525,7 @@ rc = lapply(split(df.meas.cmp[meas.diff.order,], 1:length(meas.diff.order)),
 }
 
 cat("##\n")
-cat("## PDG-HFAG mismatches in node descriptions\n")
+cat("## PDG 2015 vs. HFAG-PDG 2016 mismatches in node descriptions\n")
 cat("##\n")
 rc = mapply(
   function(descr.pdg, descr.hfag, gamma.hfag) {
@@ -785,25 +754,25 @@ constr.hfag.txt.nontrivial =
        constr.hfag.txt.nontrivial)
 
 cat("##\n")
-cat("## PDG constraints with PDG nodes and parameters\n")
+cat("## PDG 2015 constraints with PDG nodes and parameters\n")
 cat("##\n")
 cat(paste(constr.pdg.txt, collapse="\n"))
 cat("\n")
 
 cat("##\n")
-cat("## PDG constraints in human form\n")
+cat("## PDG 2015 constraints in human form\n")
 cat("##\n")
 cat(paste(constr.human.txt, collapse="\n\n"))
 cat("\n")
 
 cat("##\n")
-cat("## PDG constraints in HFAG gamma notation\n")
+cat("## PDG 2015 constraints in HFAG gamma notation\n")
 cat("##\n")
 cat(paste(constr.hfag.txt, collapse="\n"))
 cat("\n")
 
 cat("##\n")
-cat("## non-identity PDG constraints in HFAG cards notation\n")
+cat("## non-identity PDG 2015 constraints in HFAG cards notation\n")
 cat("##\n")
 cat(paste(constr.hfag.txt.nontrivial, collapse="\n"))
 cat("\n")
@@ -814,27 +783,27 @@ cat("NLCONSTRAINT Unitarity.c 1 \"", paste(quant.gamma[params.node], collapse=" 
 ##
 
 ##--- recover NLCONTRAINT directive
-htref.constr.str.expr = paste0(
+ht.constr.str.expr = paste0(
   "NLCONSTRAINT ",
-  names(htref3$combination$constr.nl.str.expr), " ",
-  as.character(htref3$combination$constr.nl.str.val), " \"",
-  htref3$combination$constr.nl.str.expr, "\""
+  names(ht$combination$constr.nl.str.expr), " ",
+  as.character(ht$combination$constr.nl.str.val), " \"",
+  ht$combination$constr.nl.str.expr, "\""
   )
-htref.constr.str.expr = gsub("Unitarity ", "Unitarity.c ", htref.constr.str.expr)
+ht.constr.str.expr = gsub("Unitarity ", "Unitarity.c ", ht.constr.str.expr)
 ##--- otbain equation in simplest form
-htref.constr.str.expr = gsub("^NLCONSTRAINT .*[.]c (\\d+) \"(.*)\"", "\\1 = \\2", htref.constr.str.expr)
-htref.constr.str.expr = gsub("0 = -(\\S+) [+] \\((.*)\\)", "\\1 = \\2", htref.constr.str.expr)
-htref.constr.str.expr = gsub("0 = -(\\S+) [+] (.*)", "\\1 = \\2", htref.constr.str.expr)
+ht.constr.str.expr = gsub("^NLCONSTRAINT .*[.]c (\\d+) \"(.*)\"", "\\1 = \\2", ht.constr.str.expr)
+ht.constr.str.expr = gsub("0 = -(\\S+) [+] \\((.*)\\)", "\\1 = \\2", ht.constr.str.expr)
+ht.constr.str.expr = gsub("0 = -(\\S+) [+] (.*)", "\\1 = \\2", ht.constr.str.expr)
 ##--- get list of nodes in right part of equation
-htref.constr.gammas = str_extract_all(htref.constr.str.expr, "(Gamma\\d+by\\d+|Gamma\\d+)")
+ht.constr.gammas = str_extract_all(ht.constr.str.expr, "(Gamma\\d+by\\d+|Gamma\\d+)")
 ##--- form string with sorted right side nodes
-rc = sapply(htref.constr.gammas,
+rc = sapply(ht.constr.gammas,
   function(gammas) {
     paste(sort(gammas[-1]), collapse=" ")
   })
-names(rc) = sapply(htref.constr.gammas, function(constr) {constr[1]})
-htref.constr.gammas = sort(rc)
-names(htref.constr.str.expr) = names(rc)
+names(rc) = sapply(ht.constr.gammas, function(constr) {constr[1]})
+ht.constr.gammas = sort(rc)
+names(ht.constr.str.expr) = names(rc)
 
 ##--- otbain equation in simplest form
 pdg.constr.str.expr = gsub("^NLCONSTRAINT .*[.]c (\\d+) \"(.*)\"", "\\1 = \\2", constr.hfag.txt.nontrivial)
@@ -903,33 +872,33 @@ make.gamma.descr.comments = function(expr.list.1, expr.list.2=NULL) {
 ##
 
 ##--- constraints that have same left side
-constr.left.common = intersect(names(htref.constr.gammas), names(pdg.constr.gammas))
-constr.non.equal = names(which(htref.constr.gammas[constr.left.common] != pdg.constr.gammas[constr.left.common]))
-constr.equal = names(which(htref.constr.gammas[constr.left.common] == pdg.constr.gammas[constr.left.common]))
+constr.left.common = intersect(names(ht.constr.gammas), names(pdg.constr.gammas))
+constr.non.equal = names(which(ht.constr.gammas[constr.left.common] != pdg.constr.gammas[constr.left.common]))
+constr.equal = names(which(ht.constr.gammas[constr.left.common] == pdg.constr.gammas[constr.left.common]))
 
 ##--- in PDG but not HFAG
-constr.pdg.not.hfag = setdiff(names(pdg.constr.gammas), names(htref.constr.gammas))
+constr.pdg.not.hfag = setdiff(names(pdg.constr.gammas), names(ht.constr.gammas))
 ##--- in HFAG but not PDG
-constr.hfag.not.pdg = setdiff(names(htref.constr.gammas), names(pdg.constr.gammas))
+constr.hfag.not.pdg = setdiff(names(ht.constr.gammas), names(pdg.constr.gammas))
 
 cat("##\n")
-cat("## Constraints that are the same on PDG and HFAG\n")
+cat("## Constraints that are the same on PDG 2015 and HFAG-PDG 2016\n")
 cat("## PDG first, HFAG second\n")
 cat("##\n")
 
 cat(
   paste0(
     paste0(
-      make.gamma.descr.comments(htref.constr.str.expr[constr.equal]),
+      make.gamma.descr.comments(ht.constr.str.expr[constr.equal]),
       pdg.constr.str.expr[constr.equal], "\n",
-      htref.constr.str.expr[constr.equal],
+      ht.constr.str.expr[constr.equal],
       sep="\n"),
     collapse="\n"))
 cat("\n")
 
 ##--- flag array indicating what constraints HFAG uses
-hfag.constr.flag = htref3$combination$constr.all.nl | htref3$combination$constr.all.lin
-hfag.constr.used = names(htref.constr.str.expr[hfag.constr.flag])
+hfag.constr.flag = ht$combination$constr.all.nl | ht$combination$constr.all.lin
+hfag.constr.used = names(ht.constr.str.expr[hfag.constr.flag])
 
 ##--- non-equal AND used in HFAG
 constr.non.equal.used = intersect(constr.non.equal, hfag.constr.used)
@@ -937,37 +906,37 @@ constr.non.equal.used = intersect(constr.non.equal, hfag.constr.used)
 constr.non.equal.not.used = setdiff(constr.non.equal, hfag.constr.used)
 
 cat("##\n")
-cat("## Constraints that are NOT the same on PDG and HFAG, used in HFAG\n")
+cat("## Constraints that are NOT the same on PDG 2015 and HFAG-PDG 2016, used in HFAG\n")
 cat("## PDG first, HFAG second\n")
 cat("##\n")
 
 cat(
   paste0(
     paste0(
-      make.gamma.descr.comments(pdg.constr.str.expr[constr.non.equal.used], htref.constr.str.expr[constr.non.equal.used]),
+      make.gamma.descr.comments(pdg.constr.str.expr[constr.non.equal.used], ht.constr.str.expr[constr.non.equal.used]),
       pdg.constr.str.expr[constr.non.equal.used], "\n",
-      htref.constr.str.expr[constr.non.equal.used],
+      ht.constr.str.expr[constr.non.equal.used],
       sep="\n"),
     collapse="\n"))
 cat("\n")
 
 cat("##\n")
-cat("## Constraints that are NOT the same on PDG and HFAG, NOT used in HFAG\n")
+cat("## Constraints that are NOT the same on PDG 2015 and HFAG-PDG 2016, NOT used in HFAG\n")
 cat("## PDG first, HFAG second\n")
 cat("##\n")
 
 cat(
   paste0(
     paste0(
-      make.gamma.descr.comments(pdg.constr.str.expr[constr.non.equal.not.used], htref.constr.str.expr[constr.non.equal.not.used]),
+      make.gamma.descr.comments(pdg.constr.str.expr[constr.non.equal.not.used], ht.constr.str.expr[constr.non.equal.not.used]),
       pdg.constr.str.expr[constr.non.equal.not.used], "\n",
-      htref.constr.str.expr[constr.non.equal.not.used],
+      ht.constr.str.expr[constr.non.equal.not.used],
       sep="\n"),
     collapse="\n"))
 cat("\n")
 
 cat("##\n")
-cat("## Constraints in PDG but not HFAG\n")
+cat("## Constraints in PDG 2015 but not HFAG-PDG 2016\n")
 cat("##\n")
 
 cat(
@@ -980,14 +949,14 @@ cat(
 cat("\n")
 
 cat("##\n")
-cat("## Constraints in HFAG but not PDG\n")
+cat("## Constraints in HFAG-PDG 2016 but not PDG 2015\n")
 cat("##\n")
 
 cat(
   paste0(
     paste0(
-      make.gamma.descr.comments(htref.constr.str.expr[constr.hfag.not.pdg]),
-      htref.constr.str.expr[constr.hfag.not.pdg],
+      make.gamma.descr.comments(ht.constr.str.expr[constr.hfag.not.pdg]),
+      ht.constr.str.expr[constr.hfag.not.pdg],
       sep="\n"),
     collapse="\n"))
 cat("\n")
@@ -1001,7 +970,7 @@ hfag.gamma.to.descr = function(str.expr) {
            fixed=TRUE)
     })
 }
-## rc = hfag.gamma.to.descr(htref.constr.str.expr)
+## rc = hfag.gamma.to.descr(ht.constr.str.expr)
 
 ##
 ## print PDG measurements in HFAG format
@@ -1122,7 +1091,7 @@ dump.measurements(ht$measurements, "hfag")
 ## mention which quantities of the PDG fit are not included in HFAG
 ##
 cat("##\n")
-cat("## quantities fitted in PDG but not fitted in HFAG\n")
+cat("## quantities fitted in PDG 2015 but not fitted in HFAG-PDG 2016\n")
 cat("##\n")
 
 in.pdg.not.in.hfag = is.na(ht$quant.val[quant.gamma[df.nodes.fit$node]])
@@ -1130,6 +1099,30 @@ rc = lapply(split(df.nodes.fit[in.pdg.not.in.hfag, ], 1:nrow(df.nodes.fit[in.pdg
   function(cmp.fit) {
     cat(sprintf("%-12s %-12s %s\n", cmp.fit$node, quant.gamma[cmp.fit$node], cmp.fit$descr))
   })
+
+##
+## summaries
+##
+
+cat("##\n")
+cat("## PDG 2015 fit summary\n")
+cat("##\n")
+
+cat("chisq / dof =", pdg.chisq, "/", pdg.dof, " ( Prob = ", pdg.chisq.prob, ")\n")
+cat("measurements:", nrow(df.meas),
+    "fit parameters:", nrow(df.params),
+    "fit nodes:", nrow(df.nodes.fit),
+    "\n")
+
+cat("##\n")
+cat("## HFAG-PDG 2016 fit summary\n")
+cat("##\n")
+
+cat("chisq / dof =", ht$chisq, "/", ht$dof, " ( Prob = ", ht$chisq.prob, ")\n")
+cat("measurements:", length(ht$meas.val),
+    "fit quantities:", length(ht$quant.val),
+    "constraints:", ht$constr.num,
+    "\n")
 
 ##
 ## compare fit results
@@ -1146,26 +1139,6 @@ df.nodes.fit = within(df.nodes.fit,
     mism.err = (err - hfag.quant.err) / sqrt((err^2+hfag.quant.err^2)/2)
     mism = sqrt(mism.val^2 + mism.err^2)
   })
-
-cat("##\n")
-cat("## PDG fit summary\n")
-cat("##\n")
-
-cat("chisq / dof =", pdg.chisq, "/", pdg.dof, " ( Prob = ", pdg.chisq.prob, ")\n")
-cat("measurements:", nrow(df.meas),
-    "fit parameters:", nrow(df.params),
-    "fit nodes:", nrow(df.nodes.fit),
-    "\n")
-
-cat("##\n")
-cat("## HFAG fit summary\n")
-cat("##\n")
-
-cat("chisq / dof =", ht$chisq, "/", ht$dof, " ( Prob = ", ht$chisq.prob, ")\n")
-cat("measurements:", length(ht$meas.val),
-    "fit quantities:", length(ht$quant.val),
-    "constraints:", ht$constr.num,
-    "\n")
 
 cat("##\n")
 cat("## Fit results PDG-HFAG mismatches\n")
@@ -1213,12 +1186,12 @@ df.params.fit.in.df.nodes.fit = sapply(df.params.fit$node,
 ## HFAG 2014: 45 measurements of 191 have listed systematic terms
 ##
 
-htref3.meas.with.syst = sapply(htref3$measurements,
+ht.meas.with.syst = sapply(ht$measurements,
   function(meas) {
     !is.null(meas$syst.terms)
   })
 
-pdg.meas.with.syst = htref3.meas.with.syst[meas.matched.names]
+pdg.meas.with.syst = ht.meas.with.syst[meas.matched.names]
 
 cat("##\n")
 cat("## PDG measurements that have systematics in HFAG \n")
@@ -1231,18 +1204,18 @@ cat("  ", paste(names(pdg.meas.with.syst[pdg.meas.with.syst]), collapse="\n  "),
 ## HFAG fit without Belle inclusive K0, no hcorr
 ##
 
-hfag.meas.not.in.pdg = setdiff(names(htref3$meas.val), meas.matched.names)
+hfag.meas.not.in.pdg = setdiff(names(ht$meas.val), meas.matched.names)
 meas.name.width.max = max(nchar(hfag.meas.not.in.pdg))
 
 cat("##\n")
-cat("## measurements used in HFAG 2014 but not in PDG fit\n")
+cat("## measurements used in HFAG-PDG 2016 but not in PDG 2015 fit\n")
 cat("##\n")
 
 rc = lapply(hfag.meas.not.in.pdg,
   function(meas.name) {
     cat(format(meas.name, width=meas.name.width.max),
         "  ",
-        quant.descr.br[htref3$measurements[[meas.name]]$quant],
+        quant.descr.br[ht$measurements[[meas.name]]$quant],
         "\n", sep="")
   })
 
@@ -1251,17 +1224,17 @@ rc = lapply(hfag.meas.not.in.pdg,
 ## HFAG fit without Belle inclusive K0, no hcorr
 ##
 
-pdg.meas.not.in.hfag = setdiff(meas.matched.names, names(htref3$meas.val))
+pdg.meas.not.in.hfag = setdiff(meas.matched.names, names(ht$meas.val))
 meas.name.width.max = max(nchar(pdg.meas.not.in.hfag))
 
 cat("##\n")
-cat("## measurements used in PDG fit but not in HFAG 2014\n")
+cat("## measurements used in PDG fit but not in HFAG-PDG 2016\n")
 cat("##\n")
 
 rc = lapply(pdg.meas.not.in.hfag,
   function(meas.name) {
     cat(format(meas.name, width=meas.name.width.max),
         "  ",
-        quant.descr.br[htref3$measurements[[meas.name]]$quant],
+        quant.descr.br[ht$measurements[[meas.name]]$quant],
         "\n", sep="")
   })
