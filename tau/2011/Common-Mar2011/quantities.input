@@ -973,9 +973,7 @@ QUANTITY Gamma80by60 node S035C32 descr "G(K- pi- h+ nu(tau) (ex. K0)) / G(pi- p
 # Gamma60 = G(pi- pi+ pi- nu(tau) (ex. K0)) / G(total)
 # Gamma80 = G(K- pi- h+ nu(tau) (ex. K0)) / G(total)
 #
-# NLCONSTRAINT Gamma80by60.c 0 "-Gamma80by60 + (Gamma80 / Gamma60)"
-# --- must keep old format because no meas. for Gamma80
-NLCONSTRAINT Gamma80by60.c 0 "-Gamma80by60 + ((Gamma93 + Gamma802 + Gamma151*BR_om_pimpip) / (Gamma62 + Gamma800*BR_om_pimpip))"
+NLCONSTRAINT Gamma80by60.c 0 "-Gamma80by60 + (Gamma80 / Gamma60)"
 
 #
 # Gamma81 = G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(total)
@@ -1001,9 +999,9 @@ QUANTITY Gamma81by69 node S035C34 descr "G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(p
 # Gamma69 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0)) / G(total)
 # Gamma81 = G(K- pi- h+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-# NLCONSTRAINT Gamma81by69.c 0 "-Gamma81by69 + (Gamma81 / Gamma69)"
+NLCONSTRAINT Gamma81by69.c 0 "-Gamma81by69 + (Gamma81 / Gamma69)"
 # --- must keep old format because no meas. for Gamma81
-NLCONSTRAINT Gamma81by69.c 0 "-Gamma81by69 + ((Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma803 + Gamma151*BR_om_pimpippiz) / (Gamma152*BR_om_pimpip + Gamma70 + Gamma800*BR_om_pimpippiz))"
+# NLCONSTRAINT Gamma81by69.c 0 "-Gamma81by69 + ((Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma803 + Gamma151*BR_om_pimpippiz) / (Gamma152*BR_om_pimpip + Gamma70 + Gamma800*BR_om_pimpippiz))"
 
 #
 # Gamma82 = G(K- pi- pi+ >=0 neutrals nu(tau)) / G(total)
