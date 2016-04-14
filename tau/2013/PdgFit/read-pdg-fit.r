@@ -113,6 +113,39 @@ hfag.data.ref3.fname = "pdgfit-step-0.rdata"
 htref3 = load.in.list(hfag.data.ref3.fname)
 cat(paste0("HFAG fit reference file '", hfag.data.ref3.fname, "' read\n"))
 
+##--- read PDG definitions
+pdg.id.defs.txt = readLines("tableNodeIdentifiersDefs.txt")
+pdg.id.defs.txt = pdg.id.defs.txt[-1]
+pdg.id.defs.params.txt = readLines("tableNodeIdentifiersDefsParams.txt")
+pdg.id.defs.params.txt = pdg.id.defs.params.txt[-1]
+
+matches.txt = str_match(str_trim(pdg.id.defs.txt), "^(\\S+)\\s+(\\S+)\\s+(.*)$")
+nodes.visible = matches.txt[, 3]
+names(nodes.visible) = matches.txt[, 2]
+nodes.def = matches.txt[, 4]
+names(nodes.def) = matches.txt[, 2]
+
+##--- get defs with <node> = Parm<num>/G(total)
+matches.txt = str_match(str_trim(pdg.id.defs.params.txt), "^(\\S+)\\s*=\\s*(Parm(\\d+)/G\\(total\\)|)$")
+
+nodes.name = matches.txt[, 2]
+nodes.code = as.numeric(matches.txt[, 4])
+nodes.code[is.na(nodes.code)] = seq(max(nodes.code[!is.na(nodes.code)])+1, length.out=length(nodes.code[is.na(nodes.code)]))
+
+nodes.df = data.frame(
+  node = nodes.name,
+  code = nodes.code,
+  visible = nodes.visible,
+  descr = nodes.def
+  )
+
+fname.txt = "pdginfo.csv"
+write.csv(nodes.df, file=fname.txt, row.names=FALSE)
+cat("file", fname.txt, "created")
+cat("\n")
+
+rm(fname.txt, matches.txt, nodes.name, nodes.code, nodes.visible, nodes.def)
+
 if (FALSE) {
 meas.val = sapply(ht$measurements, function(x) {x$value})
 meas.stat = sapply(ht$measurements, function(x) {x$stat})
