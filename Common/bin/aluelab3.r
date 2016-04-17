@@ -56,6 +56,7 @@ StatComb = setRefClass("StatComb",
     .cov = "matrix",
     .param = "numeric",
     .gamma = "character",
+    .descr = "character",
     .texdescr = "character"
     ),
   methods=list(
@@ -68,8 +69,9 @@ StatComb = setRefClass("StatComb",
       .self$.val = quant.val
       .self$.cov = quant.cov
       .self$.param = parameters
-      .self$.gamma = character(0)
-      .self$.texdescr = character(0)
+      .self$.gamma = rep("", length(quant.val))
+      .self$.descr = rep("", length(quant.val))
+      .self$.texdescr = rep("", length(quant.val))
       .self
     })
   )
@@ -78,6 +80,13 @@ rc = StatComb$methods(
   gamma.add = function(gamma) {
     gamma = unlist(gamma, use.names=TRUE)
     .self$.gamma[names(gamma)] = gamma
+    return(invisible())
+  })
+
+rc = StatComb$methods(
+  descr.add = function(descr) {
+    descr = unlist(descr, use.names=TRUE)
+    .self$.descr[names(descr)] = descr
     return(invisible())
   })
 
@@ -91,7 +100,17 @@ rc = StatComb$methods(
 rc = StatComb$methods(
   gamma.add.single = function(label, gamma=NULL) {
     if (!is.null(gamma)) {
+      if (!(label %in% names(.self$.val))) stop("label", label, "not present")
       .self$.gamma[label] = gamma
+    }
+    return(invisible())
+  })
+
+rc = StatComb$methods(
+  descr.add.single = function(label, descr=NULL) {
+    if (!is.null(descr)) {
+      if (!(label %in% names(.self$.val))) stop("label", label, "not present")
+      .self$.descr[label] = descr
     }
     return(invisible())
   })
@@ -99,28 +118,76 @@ rc = StatComb$methods(
 rc = StatComb$methods(
   texdescr.add.single = function(label, texdescr=NULL) {
     if (!is.null(texdescr)) {
+      if (!(label %in% names(.self$.val))) stop("label", label, "not present")
       .self$.texdescr[label] = texdescr
     }
     return(invisible())
   })
 
 rc = StatComb$methods(
-  param.add = function(param, gamma = NULL, texdescr=NULL) {
-    .self$.param = c(.param, unlist(param, use.names=TRUE))
+  param.add = function(param, label = NULL, gamma = NULL, descr=NULL, texdescr=NULL) {
+    param = unlist(param, use.names=TRUE)
+
+    param.names = label
+    if (is.null(param.names)) {
+      param.names = names(param)
+    }
+    if (is.null(param.names)) stop("no parameter names given either as names(param) or label")
+    
     if (!is.null(gamma)) {
       gamma = unlist(gamma, use.names=TRUE)
-      .self$.gamma[names(gamma)] = gamma
+    } else {
+      gamma = rep("", length(param))
     }
+    
+    if (!is.null(descr)) {
+      descr = unlist(descr, use.names=TRUE)
+    } else {
+      descr = rep("", length(param))
+    }
+    
     if (!is.null(texdescr)) {
       texdescr = unlist(texdescr, use.names=TRUE)
-      .self$.texdescr[names(texdescr)] = texdescr
+    } else {
+      texdescr = rep("", length(param))
     }
+    
+    old.names = intersect(names(.val), param.names)
+    new.names = setdiff(param.names, old.names)
+    old.flags = param.names %in% old.names
+    new.flags = param.names %in% new.names
+
+    .self$.param[old.flags] = param[old.flags]
+    .self$.gamma[old.flags] = gamma[old.flags]
+    .self$.descr[old.flags] = descr[old.flags]
+    .self$.texdescr[old.flags] = texdescr[old.flags]
+
+    ##--- single out new variables
+    param.names = param.names[new.flags]
+    param = param[new.flags]
+    gamma = gamma[new.flags]
+    descr = descr[new.flags]
+    texdescr = texdescr[new.flags]
+    
+    ##--- assemble values
+    .self$.param[param.names] = param
+    .self$.gamma[param.names] = gamma
+    .self$.descr[param.names] = descr
+    .self$.texdescr[param.names] = texdescr
+
+    return(invisible(NULL))
   })
 
 rc = StatComb$methods(
   gamma = function(name=NULL) {
     if (is.null(name)) return(.gamma)
     .gamma[name]
+  })
+
+rc = StatComb$methods(
+  descr = function(name=NULL) {
+    if (is.null(name)) return(.descr)
+    .descr[name]
   })
 
 rc = StatComb$methods(
@@ -157,8 +224,8 @@ rc = StatComb$methods(
 rc = StatComb$methods(
   corr = function(rows=NULL, cols=NULL) {
     if (is.null(cols)) cols=rows
-    err = sqrt(diag(.cov))
-    corr = .cov / (err %o% err)
+    ##+++ eventually revise storing correlation+errors, not covariance
+    corr = suppressWarnings(cov2cor(.cov))
     if (is.null(rows)) {
       return(corr)
     }
@@ -212,10 +279,13 @@ rc = StatComb$methods(
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
 rc = StatComb$methods(
-  quant.add = function(add.val, add.err, add.corr=NULL, gamma=NULL, texdescr=NULL) {
+  quant.add = function(add.val, add.err, add.corr=NULL, label=NULL, gamma=NULL, descr=NULL, texdescr=NULL) {
     if (length(add.val) != length(add.err)) stop("mismatch of dimensions of add.val and add.err")
-    quant.names = names(add.val)
-
+    if (!is.null(label) && length(label) != length(add.val)) stop("mismatch of dimensions of label and add.val")
+    if (!is.null(gamma) && length(gamma) != length(add.val)) stop("mismatch of dimensions of gamma and add.val")
+    if (!is.null(descr) && length(descr) != length(add.val)) stop("mismatch of dimensions of descr and add.val")
+    if (!is.null(texdescr) && length(texdescr) != length(add.val)) stop("mismatch of dimensions of texdescr and add.val")
+    
     if (!is.null(add.corr)) {
       if (length(add.val) != dim(add.corr)[1] || length(add.val) != dim(add.corr)[2]) {
         stop("mismatch of dimensions of add.val and add.corr")
@@ -227,30 +297,75 @@ rc = StatComb$methods(
       colnames(add.corr) = names(add.val)
       ##--- don't check for now if names match
     }
+
+    ##--- compute covariance
     add.cov = add.corr * (add.err %o% add.err)
     
-    ##--- assemble covariance matrix
-    cov.right = matrix(0, dim(.cov)[1], dim(add.cov)[2])
-    colnames(cov.right) = colnames(add.cov)
-    cov.top = cbind(.cov, cov.right)
-    cov.left = matrix(0, dim(add.cov)[1], dim(.cov)[2])
-    rownames(cov.left) = rownames(add.cov)
-    cov.bottom = cbind(cov.left, add.cov)
-    .self$.cov = rbind(cov.top, cov.bottom)
-    
-    ##--- assemble values
-    .self$.val = c(.val, add.val)
+    ##--- get variable names
+    quant.names = label
+    if (is.null(quant.names)) {
+      quant.names = names(add.val)
+    }
+    if (is.null(quant.names)) stop("no variable names given either as names(add.val) or label")
+    if (any(duplicated(quant.names))) stop("duplicated variable names")
 
     if (!is.null(gamma)) {
       gamma = unlist(gamma, use.names=TRUE)
-      .self$.gamma[names(gamma)] = gamma
+    } else {
+      gamma = .gamma[quant.names]
+      gamma = ifelse(is.na(gamma), "", gamma)
+    }
+
+    if (!is.null(descr)) {
+      descr = unlist(descr, use.names=TRUE)
+    } else {
+      descr = .descr[quant.names]
+      descr = ifelse(is.na(descr), "", descr)
     }
 
     if (!is.null(texdescr)) {
       texdescr = unlist(texdescr, use.names=TRUE)
-      .self$.texdescr[names(texdescr)] = texdescr
+    } else {
+      texdescr = .texdescr[quant.names]
+      texdescr = ifelse(is.na(texdescr), "", texdescr)
     }
+
+    ##--- identify old and new variables
+    old.names = intersect(names(.val), quant.names)
+    new.names = setdiff(quant.names, old.names)
+    old.flags = quant.names %in% old.names
+    new.flags = quant.names %in% new.names
+
+    ##--- replace variables that are already in
+    .self$.val[old.flags] = add.val[old.flags]
+    .self$.cov[old.flags, old.flags] = add.cov[old.flags, old.flags, drop=FALSE]
+    .self$.gamma[old.flags] = gamma[old.flags]
+    .self$.descr[old.flags] = descr[old.flags]
+    .self$.texdescr[old.flags] = texdescr[old.flags]
+
+    ##--- single out new variables
+    quant.names = quant.names[new.flags]
+    add.val = add.val[new.flags]
+    add.cov = add.cov[new.flags, new.flags, drop=FALSE]
+    gamma = gamma[new.flags]
+    descr = descr[new.flags]
+    texdescr = texdescr[new.flags]
+
+    ##--- assemble covariance matrix
+    cov.right = matrix(0, dim(.cov)[1], dim(add.cov)[2])
+    colnames(cov.right) = quant.names
+    cov.top = cbind(.cov, cov.right)
+    cov.left = matrix(0, dim(add.cov)[1], dim(.cov)[2])
+    rownames(cov.left) = quant.names
+    cov.bottom = cbind(cov.left, add.cov)
+    .self$.cov = rbind(cov.top, cov.bottom)
     
+    ##--- assemble values
+    .self$.val[quant.names] = add.val
+    .self$.gamma[quant.names] = gamma
+    .self$.descr[quant.names] = descr
+    .self$.texdescr[quant.names] = texdescr
+
     return(invisible(NULL))
   })
 
@@ -258,12 +373,9 @@ rc = StatComb$methods(
 ## add a single additional parameter
 ##
 rc = StatComb$methods(
-  param.add.single = function(label, val, gamma=NULL, texdescr=NULL) {
+  param.add.single = function(label, val, gamma=NULL, descr=NULL, texdescr=NULL) {
     val = as.numeric(val)
-    names(val) = label
-    .self$.param = c(.param, val)
-    gamma.add.single(label, gamma)
-    texdescr.add.single(label, texdescr)
+    param.add(val, label=label, gamma=gamma, descr=descr, texdescr=texdescr)
     return(invisible())
   })
 
@@ -272,21 +384,12 @@ rc = StatComb$methods(
 ## to quant.val, quant.err, quant.corr, quant.cov
 ##
 rc = StatComb$methods(
-  quant.add.single = function(label, val, err=0, gamma=NULL, texdescr=NULL) {
+  quant.add.single = function(
+    label, val, stat=0, syst=0, gamma=NULL, descr=NULL, texdescr=NULL
+    ) {
     val = as.numeric(val)
-    err = as.numeric(err)
-    if (err == 0) return(param.add.single(label, val))
-    names(val) = label
-    names(err) = label
-    if (!is.null(gamma)) {
-      names(gamma) = label
-    }
-    if (!is.null(texdescr)) {
-      names(texdescr) = label
-    }
-    quant.add(val, err, gamma, texdescr)
-    gamma.add.single(label, gamma)
-    texdescr.add.single(label, texdescr)
+    err = sqrt(as.numeric(stat)^2 + as.numeric(syst)^2)
+    quant.add(val, err, label=label, gamma=gamma, descr=descr, texdescr=texdescr)
     return(invisible())
   })
 
@@ -332,7 +435,7 @@ rc = StatComb$methods(
 ## - add value, error, covariamce, correlation
 ##
 rc = StatComb$methods(
-  quant.val.grad.add = function(add.name, add.val, add.grad, gamma=NULL, texdescr=NULL) {
+  quant.val.grad.add.old = function(add.name, add.val, add.grad, gamma=NULL, descr=NULL, texdescr=NULL) {
     names(add.val) = add.name
     add.comb = drop(add.grad)
     add.comb.full = .val * 0
@@ -344,7 +447,56 @@ rc = StatComb$methods(
       matrix(c(add.comb.full %*% .cov, add.cov), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
     .self$.val = c(.val, add.val)
     gamma.add.single(add.name, gamma)
+    descr.add.single(add.name, descr)
     texdescr.add.single(add.name, texdescr)
+    return(invisible())
+  })
+
+##
+## add quantity, specifying its gradient to compute the covariance
+## - add value, error, covariamce, correlation
+##
+rc = StatComb$methods(
+  quant.val.grad.add = function(add.name, add.val, add.grad, gamma=NULL, descr=NULL, texdescr=NULL) {
+    ##--- remove new variable from gradient in case it is there
+    add.grad = drop(add.grad)
+    add.grad = add.grad[names(add.grad) != add.name]
+    ##--- remove new variable in case it is there
+    if (add.name %in% names(.val)) {
+      no.add.name.flags = names(.val) != add.name
+      .self$.val = .val[no.add.name.flags]
+      .self$.cov = .val[no.add.name.flags, no.add.name.flags, drop=FALSE]
+      .self$.gamma = .gamma[no.add.name.flags]
+      .self$.descr = .descr[no.add.name.flags]
+      .self$.texdescr = .texdescr[no.add.name.flags]
+    }
+    add.grad.full = .val * 0
+    add.grad.full[names(add.grad)] = add.grad
+    add.cov = add.grad.full %*% .cov %*% add.grad.full
+
+    if (is.null(gamma)) {
+      gamma = .self$.gamma[add.name]
+      if (is.na(gamma)) gamma = ""
+    }
+    if (is.null(descr)) {
+      descr = .self$.descr[add.name]
+      if (is.na(descr)) descr = ""
+    }
+    if (is.null(texdescr)) {
+      texdescr = .self$.texdescr[add.name]
+      if (is.na(texdescr)) texdescr = ""
+    }
+    
+    .self$.val[add.name] = add.val
+    .self$.gamma[add.name] = gamma
+    .self$.descr[add.name] = descr
+    .self$.texdescr[add.name] = texdescr
+    
+    names(add.cov) = add.name
+    .self$.cov = rbind(
+      cbind(.cov, matrix(.cov %*% add.grad.full, dimnames=list(NULL, add.name))),
+      matrix(c(add.grad.full %*% .cov, add.cov), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
+    
     return(invisible())
   })
 
@@ -353,20 +505,10 @@ rc = StatComb$methods(
 ## - add value, error, covariamce, correlation
 ##
 rc = StatComb$methods(
-  quant.comb.add = function(add.name, add.comb, gamma=NULL, texdescr=NULL) {
+  quant.comb.add = function(add.name, add.comb, gamma=NULL, descr=NULL, texdescr=NULL) {
     add.comb = drop(add.comb)
-    add.comb.full = .val * 0
-    add.comb.full[names(add.comb)] = add.comb
-    add.val = add.comb.full %*% .val
-    names(add.val) = add.name
-    add.err = sqrt(add.comb.full %*% .cov %*% add.comb.full)
-    names(add.err) = add.name
-    .self$.val = c(.val, add.val)
-    .self$.cov = rbind(
-      cbind(.cov, matrix(.cov %*% add.comb.full, dimnames=list(NULL, add.name))),
-      matrix(c(add.comb.full %*% .cov, add.err^2), 1, dim(.cov)[2]+1, dimnames=list(add.name)))
-    gamma.add.single(add.name, gamma)
-    texdescr.add.single(add.name, texdescr)
+    add.val = add.comb %*% .val[names(add.comb)]
+    quant.val.grad.add(add.name, add.val, add.comb, gamma=gamma, descr=descr, texdescr=texdescr)
     return(invisible())
   })
 
@@ -375,15 +517,13 @@ rc = StatComb$methods(
 ## let the arg be resolved before entering this function
 ##
 rc = StatComb$methods(
-  quant.qexpr.add = function(add.name, add.expr, gamma=NULL, texdescr=NULL) {
+  quant.qexpr.add = function(add.name, add.expr, gamma=NULL, descr=NULL, texdescr=NULL) {
     ##--- substitute parameters
     add.expr = esub.expr(add.expr, as.list(.param))
     add.deriv.expr = deriv(add.expr, all.vars(add.expr))
     add.val = eval(add.deriv.expr, as.list(.val))
     add.grad = attr(add.val, "gradient")
-    quant.val.grad.add(add.name, add.val, add.grad)
-    gamma.add.single(add.name, gamma)
-    texdescr.add.single(add.name, texdescr)
+    quant.val.grad.add(add.name, add.val, add.grad, gamma=gamma, descr=descr, texdescr=texdescr)
     return(invisible())
   })
 
@@ -391,11 +531,9 @@ rc = StatComb$methods(
 ## add quantity defined as expression of existing quantities
 ##
 rc = StatComb$methods(
-  quant.expr.add = function(add.name, add.expr, gamma=NULL, texdescr=NULL) {
+  quant.expr.add = function(add.name, add.expr, gamma=NULL, descr=NULL, texdescr=NULL) {
     add.expr = substitute(add.expr)
-    quant.qexpr.add(add.name, add.expr)
-    gamma.add.single(add.name, gamma)
-    texdescr.add.single(add.name, texdescr)
+    quant.qexpr.add(add.name, add.expr, gamma=gamma, descr=descr, texdescr=texdescr)
     return(invisible())
   })
 
@@ -420,11 +558,9 @@ rc = StatComb$methods(
 ## add the result to the quantities
 ##
 rc = StatComb$methods(
-  quant.fit.add = function(add.name, add.model.matrix, gamma=NULL, texdescr=NULL) {
+  quant.fit.add = function(add.name, add.model.matrix, gamma=NULL, descr=NULL, texdescr=NULL) {
     fit.comb = model.matrix.fit(add.model.matrix)
-    quant.comb.add(add.name, fit.comb)
-    gamma.add.single(add.name, gamma)
-    texdescr.add.single(add.name, texdescr)
+    quant.comb.add(add.name, fit.comb, gamma=gamma, descr=descr, texdescr=texdescr)
     return(invisible())
   })
 

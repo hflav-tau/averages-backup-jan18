@@ -502,15 +502,15 @@ aluelab.results = function(args) {
 
   ##--- add Vus
   quant$quant.expr.add("Vus", sqrt(R_tau_s/(R_tau_VA/Vud^2 - deltaR_su3break)))
-  quant$quant.add.single("Vus_err_perc", quant$err.contrib.perc("Vus"), 0)
+  quant$param.add.single("Vus_err_perc", quant$err.contrib.perc("Vus"))
 
   ##--- theory, exp errors, with percent
-  quant$quant.add.single("Vus_err_th", quant$err.contrib("Vus", "deltaR_su3break"), 0)
-  quant$quant.add.single("Vus_err_th_perc", quant$err.contrib.perc("Vus", "deltaR_su3break"), 0)
+  quant$param.add.single("Vus_err_th", quant$err.contrib("Vus", "deltaR_su3break"))
+  quant$param.add.single("Vus_err_th_perc", quant$err.contrib.perc("Vus", "deltaR_su3break"))
 
   Vus.err.exp = sqrt(quant$err("Vus")^2 - quant$param("Vus_err_th")^2)
-  quant$quant.add.single("Vus_err_exp", Vus.err.exp, 0)
-  quant$quant.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val("Vus")*100, 0)
+  quant$param.add.single("Vus_err_exp", Vus.err.exp)
+  quant$param.add.single("Vus_err_exp_perc", Vus.err.exp/quant$val("Vus")*100)
 
   ##--- Vus from Vud using CKM unitarity
   quant$quant.expr.add("Vus_uni", sqrt(1-Vud^2))
@@ -518,8 +518,8 @@ aluelab.results = function(args) {
   ##--- Vus vs <Vus from CKM unitarity>
   quant$quant.expr.add("Vus_mism", Vus - Vus_uni)
   Vus_mism_sigma = quant$val("Vus_mism") / quant$err("Vus_mism")
-  quant$quant.add.single("Vus_mism_sigma", Vus_mism_sigma, 0)
-  quant$quant.add.single("Vus_mism_sigma_abs", abs(Vus_mism_sigma), 0)
+  quant$param.add.single("Vus_mism_sigma", Vus_mism_sigma)
+  quant$param.add.single("Vus_mism_sigma_abs", abs(Vus_mism_sigma))
 
   ##--- add quantities to print
   display.names = c(
@@ -653,16 +653,16 @@ aluelab.results = function(args) {
   ##--- Vus_tauKpi vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tauKpi_mism", Vus_tauKpi - Vus_uni)
   Vus_tauKpi_mism_sigma = quant$val("Vus_tauKpi_mism") / quant$err("Vus_tauKpi_mism")
-  quant$quant.add.single("Vus_tauKpi_mism_sigma", Vus_tauKpi_mism_sigma, 0)
-  quant$quant.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma), 0)
+  quant$param.add.single("Vus_tauKpi_mism_sigma", Vus_tauKpi_mism_sigma)
+  quant$param.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma))
 
   ##--- theory error contribution
   rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu")
-  quant$quant.add.single("Vus_tauKpi_err_th_perc", rc, 0)
+  quant$param.add.single("Vus_tauKpi_err_th_perc", rc)
 
   lapply(c("f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu"), function(val) {
-    quant$quant.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
-                          quant$err.contrib.perc("Vus_tauKpi", val), 0)
+    quant$param.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
+                          quant$err.contrib.perc("Vus_tauKpi", val))
   })
 
   ## ////////////////////////////////////////
@@ -702,11 +702,11 @@ aluelab.results = function(args) {
   ##--- Vus_tauKnu vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
   Vus_tauKnu_mism_sigma = quant$val("Vus_tauKnu_mism") / quant$err("Vus_tauKnu_mism")
-  quant$quant.add.single("Vus_tauKnu_mism_sigma", Vus_tauKnu_mism_sigma, 0)
-  quant$quant.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma), 0)
+  quant$param.add.single("Vus_tauKnu_mism_sigma", Vus_tauKnu_mism_sigma)
+  quant$param.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma))
 
   ##--- theory error contribution
-  quant$quant.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"), 0)
+  quant$param.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"))
 
   ## ////////////////////////////////////////
   ##
@@ -717,8 +717,8 @@ aluelab.results = function(args) {
   ##--- Vus_tau vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tau_mism", Vus_tau - Vus_uni)
   Vus_tau_mism_sigma = quant$val("Vus_tau_mism") / quant$err("Vus_tau_mism")
-  quant$quant.add.single("Vus_tau_mism_sigma", Vus_tau_mism_sigma, 0)
-  quant$quant.add.single("Vus_tau_mism_sigma_abs", abs(Vus_tau_mism_sigma), 0)
+  quant$param.add.single("Vus_tau_mism_sigma", Vus_tau_mism_sigma)
+  quant$param.add.single("Vus_tau_mism_sigma_abs", abs(Vus_tau_mism_sigma))
 
   ##
   ## summary
