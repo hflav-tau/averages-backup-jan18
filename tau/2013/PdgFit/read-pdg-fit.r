@@ -126,7 +126,7 @@ nodes.def = matches.txt[, 4]
 names(nodes.def) = matches.txt[, 2]
 
 ##--- get defs with <node> = Parm<num>/G(total)
-matches.txt = str_match(str_trim(pdg.id.defs.params.txt), "^(\\S+)\\s*=\\s*(Parm(\\d+)/G\\(total\\)|)$")
+matches.txt = str_match(str_trim(pdg.id.defs.params.txt), "^(\\S+)\\s*=\\s*(Parm(\\d+)/G\\(total\\)|.*)$")
 
 nodes.name = matches.txt[, 2]
 nodes.code = as.numeric(matches.txt[, 4])
