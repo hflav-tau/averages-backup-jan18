@@ -465,7 +465,7 @@ rc = StatComb$methods(
     if (add.name %in% names(.val)) {
       no.add.name.flags = names(.val) != add.name
       .self$.val = .val[no.add.name.flags]
-      .self$.cov = .val[no.add.name.flags, no.add.name.flags, drop=FALSE]
+      .self$.cov = .cov[no.add.name.flags, no.add.name.flags, drop=FALSE]
       .self$.gamma = .gamma[no.add.name.flags]
       .self$.descr = .descr[no.add.name.flags]
       .self$.texdescr = .texdescr[no.add.name.flags]
