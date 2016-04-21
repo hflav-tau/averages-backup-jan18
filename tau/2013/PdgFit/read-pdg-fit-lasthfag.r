@@ -144,7 +144,7 @@ df.params$descr = gsub("tau- --> (.*)", "G(\\1)/G(total)", df.params$descr)
 input.nodes = get.section(fit.txt, "^ INPUT NODES", "^\\s*$")
 
 df.nodes = data.frame(
-  node.count =   parse_number(str_sub(input.nodes,  1,  7)),
+  node.count = parse_number(str_sub(input.nodes,  1,  7)),
   node = str_trim(str_sub(input.nodes,  8, 15)),
   eq = str_trim(str_sub(input.nodes, 16, 17)),
   adj =  parse_double(str_sub(input.nodes, 18, 21)),
@@ -158,9 +158,6 @@ df.nodes = data.frame(
   descr = str_trim(str_sub(input.nodes, 80)),
   stringsAsFactors = FALSE
   )
-
-##--- add label summarizing parcode and param
-df.nodes$plab = paste0(df.nodes$parcode, "_p", df.nodes$param)
 
 ##
 ## get input measurements
@@ -402,13 +399,18 @@ rownames(df.meas.cmp) = NULL
 ## PDG input nodes, check consistency with HFAG
 ##
 
-##--- get list of defined input nodes
-nodes.def = (df.nodes$descr != "")
-## nodes.def = df.nodes$eq == "+" | df.nodes$eq == "/"
+##--- get begin of node definitions
+node.def.beg = which(!is.na(df.nodes$node.count))
+##--- get end of node definitions as beginning of next node minus one
+node.def.end = c(node.def.beg[-1], nrow(df.nodes)+1) - 1
 
-quant.pdg.descr = df.nodes$descr[nodes.def]
-quant.pdg.node = df.nodes$node[nodes.def]
-quant.pdg.plab = df.nodes$plab[nodes.def]
+quant.pdg.descr = df.nodes$descr[node.def.beg]
+quant.pdg.node = df.nodes$node[node.def.beg]
+##
+## first parameter of the expression
+## not necessarily the parameter corresponding to the node
+##
+quant.pdg.plab = ifelse(node.def.beg != node.def.end, "", paste0(df.nodes$parcode[node.def.beg], "_p", df.nodes$param))
 ##--- can convert from description (useful for fit parameters)
 names(quant.pdg.node) = quant.pdg.descr
 names(quant.pdg.descr) = quant.pdg.node
@@ -647,11 +649,6 @@ rc2 = lapply(coeff.unique.indices,
 ##
 ## PDG input nodes, get constraints
 ##
-
-##--- get begin of node definitions
-node.def.beg = which(!is.na(df.nodes$node.count))
-##--- get end of node definitions
-node.def.end = c(node.def.beg[-1], nrow(df.nodes)+1) - 1
 
 if (FALSE) {
   ##
