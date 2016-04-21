@@ -124,9 +124,20 @@ get.hfag.input = function(hfag.data) {
   ##--- HFAG nodes
   quant.node = sapply(hfag.data$combination$quantities, function(quant) {ifelse(is.null(quant$node), "", quant$node)})
   ##--- fix some HFAG-specific nodes
-  quant.node["Gamma997"] = "B(a1- -> pi- gamma)"
   quant.node["Gamma998"] = "B(unitarity residual)"
   quant.node["GammaAll"] = "B(total)"
+  if (!is.na(quant.node["Gamma805"]) && quant.node["Gamma805"] == "")
+    quant.node["Gamma805"] = "B(a1(pi- gamma) nu(tau))"
+  if (!is.na(quant.node["Gamma910"]) && quant.node["Gamma910"] == "")
+    quant.node["Gamma910"] = "B(2pi- pi+ eta(3pi0) nu(tau) (ex. K0))"
+  if (!is.na(quant.node["Gamma911"]) && quant.node["Gamma911"] == "")
+    quant.node["Gamma911"] = "B(pi- 2pi0 eta(pi+ pi- pi0) nu(tau))"
+  if (!is.na(quant.node["Gamma930"]) && quant.node["Gamma930"] == "")
+    quant.node["Gamma930"] = "B(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0))"
+  if (!is.na(quant.node["Gamma944"]) && quant.node["Gamma944"] == "")
+    quant.node["Gamma944"] = "B(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0))"
+  if (!is.na(quant.node["Gamma997"]) && quant.node["Gamma997"] == "")
+    quant.node["Gamma997"] = "B(a1- -> pi- gamma)"
   
   quant.gamma = names(quant.node)
   names(quant.gamma) = quant.node[quant.gamma]
@@ -1431,50 +1442,46 @@ if (FALSE) {
 ##
 pr.meas.mism.pdg.hfag(cmp.meas.pdg15.ht$pdg.meas.name, htrc, "PDG 2015", "HFAG-PDG 2016")
 
-
-if (FALSE) {
-
 ##
 ## list measurements used in HFAG fit but not PDG
-## HFAG fit without Belle inclusive K0, no hcorr
 ##
-hfag.meas.not.in.pdg = setdiff(names(htref3$meas.val), cmp.meas.pdg15.ht$pdg.meas.name)
+cmp.meas.pdg15.htrc = cmp.meas.pdg.hfag(pdg15, htrc)
+hfag.meas.not.in.pdg = setdiff(names(htrc$meas.val), cmp.meas.pdg15.htrc$pdg.meas.name)
 meas.name.width.max = max(nchar(hfag.meas.not.in.pdg))
 
 cat("##\n")
-cat("## measurements used in HFAG 2014 but not in PDG fit\n")
+cat("## measurements used in HFAG-PDG 2016 but not in PDG 2015 fit\n")
 cat("##\n")
 
 rc = lapply(hfag.meas.not.in.pdg,
   function(meas.name) {
     cat(format(meas.name, width=meas.name.width.max),
         "  ",
-        ht$quant.descr.br[htref3$measurements[[meas.name]]$quant],
+        htrc$quant.descr.br[htrc$measurements[[meas.name]]$quant],
         "\n", sep="")
   })
 
 ##
 ## list measurements used in PDG fit but not HFAG
-## HFAG fit without Belle inclusive K0, no hcorr
 ##
-
-pdg.meas.not.in.hfag = setdiff(cmp.meas.pdg15.ht$pdg.meas.name, names(htref3$meas.val))
+pdg.meas.not.in.hfag = setdiff(cmp.meas.pdg15.htrc$pdg.meas.name, names(htrc$meas.val))
 meas.name.width.max = max(nchar(pdg.meas.not.in.hfag))
 
 cat("##\n")
-cat("## measurements used in PDG fit but not in HFAG 2014\n")
+cat("## measurements used in PDG 2015 fit but not in HFAG-PDG 2016 fit\n")
 cat("##\n")
 
 rc = lapply(pdg.meas.not.in.hfag,
   function(meas.name) {
     cat(format(meas.name, width=meas.name.width.max),
         "  ",
-        ht$quant.descr.br[htref3$measurements[[meas.name]]$quant],
+        htrc$quant.descr.br[htrc$measurements[[meas.name]]$quant],
         "\n", sep="")
   })
 
-}
-
+##
+## save
+##
 cat("##\n")
 cat("## save HFAG cards\n")
 cat("##\n")
