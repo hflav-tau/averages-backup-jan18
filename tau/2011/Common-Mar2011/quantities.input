@@ -1343,7 +1343,7 @@ NLCONSTRAINT Gamma152by76.c 0 "-Gamma152by76 + (Gamma152 / Gamma76)"
 #
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 #
-QUANTITY Gamma800 descr "G(pi- omega nu(tau)) / G(total)"
+QUANTITY Gamma800 node S035R00 descr "G(pi- omega nu(tau)) / G(total)"
 
 #
 # Gamma801 = G(K- phi nu(tau) (phi->KK)) / G(total)
@@ -1353,17 +1353,17 @@ QUANTITY Gamma801 node S035B82 descr "G(K- phi nu(tau) (phi->KK)) / G(total)"
 #
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 #
-QUANTITY Gamma802 descr "G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)"
+QUANTITY Gamma802 node S035R04 descr "G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)"
 
 #
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-QUANTITY Gamma803 descr "G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)"
+QUANTITY Gamma803 node S035R05 descr "G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)"
 
 #
 # Gamma804 = G(pi- K(L)0 K(L)0 nu(tau)) / G(total)
 #
-QUANTITY Gamma804 descr "G(pi- K(L)0 K(L)0 nu(tau)) / G(total)"
+QUANTITY Gamma804 node S035R06 descr "G(pi- K(L)0 K(L)0 nu(tau)) / G(total)"
 
 #
 # constraints for pi- K0 K0 results
@@ -1387,7 +1387,7 @@ QUANTITY Gamma51 node S035C3 descr "G(pi- K(S)0 K(L)0 pi0 nu(tau)) / G(total)"
 #
 # Gamma806 = G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)
 #
-QUANTITY Gamma806 descr "G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)"
+QUANTITY Gamma806 node S035C44 descr "G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total)"
 
 #
 # constraints for pi- K0 K0 pi0 results

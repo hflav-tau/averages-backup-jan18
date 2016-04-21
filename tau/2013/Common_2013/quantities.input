@@ -26,7 +26,7 @@ NLCONSTRAINT Gamma810.c 0 "-Gamma810 + (Gamma910 + Gamma911 + Gamma811*BR_om_pim
 #
 # Gamma910 = G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
 #
-QUANTITY Gamma910 descr "G(2pi- pi+ eta(3pi0) nu(tau), (ex. K0)) / G(total)"
+QUANTITY Gamma910 descr "G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)"
 QUANTITY Gamma910 texdescr "2\pi^- \pi^+ \eta \nu_\tau ~(\eta \to 3\pi^0) ~(\mathrm{ex.~}K^0)"
 
 #
@@ -38,7 +38,7 @@ QUANTITY Gamma911 texdescr "\pi^- 2\pi^0 \eta \nu_\tau ~(\eta \to \pi^+ \pi^- \p
 #
 # Gamma811 = G(pi- 2pi0 omega nu(tau)) / G(total)
 #
-QUANTITY Gamma811 descr "G(pi- 2pi0 omega nu(tau)) / G(total)"
+QUANTITY Gamma811 node S035C84 descr "G(pi- 2pi0 omega nu(tau)) / G(total)"
 QUANTITY Gamma811 texdescr "\pi^- 2\pi^0 \omega \nu_\tau ~(\mathrm{ex.~}K^0)"
 
 #
@@ -75,7 +75,7 @@ QUANTITY Gamma821 texdescr "3\pi^- 2\pi^+ \nu_\tau ~(\mathrm{ex.~}K^0, \omega, f
 #
 # Gamma822 = G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
 #
-QUANTITY Gamma822 descr "G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma822 node S035C94 descr "G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)"
 QUANTITY Gamma822 texdescr "K^- 2\pi^- 2\pi^+ \nu_\tau ~(\mathrm{ex.~}K^0)"
 
 #
@@ -101,7 +101,7 @@ QUANTITY Gamma930 texdescr "2\pi^- \pi^+ \eta \nu_\tau ~(\eta \to \pi^+\pi^-\pi^
 #
 # Gamma831 = G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
 #
-QUANTITY Gamma831 descr "G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma831 node S035C83 descr "G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)"
 QUANTITY Gamma831 texdescr "2\pi^- \pi^+ \omega \nu_\tau ~(\mathrm{ex.~}K^0)"
 
 #
@@ -113,7 +113,7 @@ QUANTITY Gamma832 texdescr "3\pi^- 2\pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0, \et
 #
 # Gamma833 = G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
 #
-QUANTITY Gamma833 descr "G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)"
+QUANTITY Gamma833 node S035C97 descr "G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)"
 QUANTITY Gamma833 texdescr "K^- 2\pi^- 2\pi^+ \pi^0 \nu_\tau ~(\mathrm{ex.~}K^0)"
 
 #
