@@ -985,11 +985,11 @@ get.gamma.list.constr = function(expr.list.1, expr.list.2=NULL) {
 ## for each element of the list
 ## - assemble text equating the Gamma symbols to their description
 ##
-get.hfag.constr.comments = function(expr.list.1, expr.list.2=NULL) {
+get.hfag.constr.comments = function(hfag, expr.list.1, expr.list.2=NULL) {
   gammas = get.gamma.list.constr(expr.list.1, expr.list.2)
   rc = sapply(gammas,
     function(gamma.list) {
-      rc = paste(gamma.list, "=", ht$quant.descr.br[gamma.list])
+      rc = paste(gamma.list, "=", hfag$quant.descr.br[gamma.list])
       rc = paste(rc, collapse="\n# ")
       paste0("#\n# ", rc, "\n#\n")
     })
@@ -1045,7 +1045,7 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(hfag.constr.str.expr[constr.equal]),
+        get.hfag.constr.comments(htrc, hfag.constr.str.expr[constr.equal]),
         pdg.constr.str.expr[constr.equal], "\n",
         hfag.constr.str.expr[constr.equal], "\n",
         hfag.gamma.to.node(pdg.constr.str.expr[constr.equal], htrc$quant.node), "\n",
@@ -1072,7 +1072,7 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(pdg.constr.str.expr[constr.non.equal.used], hfag.constr.str.expr[constr.non.equal.used]),
+        get.hfag.constr.comments(htrc, pdg.constr.str.expr[constr.non.equal.used], hfag.constr.str.expr[constr.non.equal.used]),
         pdg.constr.str.expr[constr.non.equal.used], "\n",
         hfag.constr.str.expr[constr.non.equal.used], "\n",
         hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], htrc$quant.node), "\n",
@@ -1092,7 +1092,7 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(pdg.constr.str.expr[constr.non.equal.not.used], hfag.constr.str.expr[constr.non.equal.not.used]),
+        get.hfag.constr.comments(htrc, pdg.constr.str.expr[constr.non.equal.not.used], hfag.constr.str.expr[constr.non.equal.not.used]),
         pdg.constr.str.expr[constr.non.equal.not.used], "\n",
         hfag.constr.str.expr[constr.non.equal.not.used], "\n",
         hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), "\n",
@@ -1111,7 +1111,7 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(pdg.constr.str.expr[constr.pdg.not.hfag]),
+        get.hfag.constr.comments(htrc, pdg.constr.str.expr[constr.pdg.not.hfag]),
         pdg.constr.str.expr[constr.pdg.not.hfag], "\n",
         hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], htrc$quant.node), "\n",
         hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], htrc$quant.node), htrc),
@@ -1127,7 +1127,7 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(hfag.constr.str.expr[constr.hfag.not.pdg]),
+        get.hfag.constr.comments(htrc, hfag.constr.str.expr[constr.hfag.not.pdg]),
         hfag.constr.str.expr[constr.hfag.not.pdg], "\n",
         hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], htrc$quant.node), "\n",
         hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], htrc$quant.node), htrc),
@@ -1491,10 +1491,10 @@ cat("##\n")
 cat("## quantities fitted in HFAG-PDG 2016 but not fitted in PDG 2015\n")
 cat("##\n")
 
-in.hfag.not.in.pdg = setdiff(htrc$quant.node[names(htrc$quant.val)], pdg15$nodes.fit$node)
+in.hfag.not.in.pdg = setdiff(names(htrc$quant.val), htrc$quant.gamma[pdg15$nodes.fit$node])
 rc = lapply(in.hfag.not.in.pdg,
-  function(node) {
-    cat(sprintf("%-12.12s %-12s %s\n", node, htrc$quant.gamma[node], htrc$quant.descr[htrc$quant.gamma[node]]))
+  function(gamma) {
+    cat(sprintf("%-12.12s %-12s %s\n", htrc$quant.node[gamma], gamma, htrc$quant.descr[gamma]))
   })
 
 ##
