@@ -1330,7 +1330,6 @@ cat(paste0("HFAG-PDG 2016 file '", hfag.data.rc.fname, "' read\n"))
 ##--- get un-modified HFAG input cards data
 htrc = get.hfag.input(htrc)
 
-
 ##
 ## if PDG nodes are not in HFAG print them and stop
 ##
@@ -1439,20 +1438,10 @@ cat("\n")
 cat("NLCONSTRAINT Unitarity.c 1 \"", paste(ht$quant.gamma[pdg15$params.in.node], collapse=" + "), "\"\n", sep="")
 
 ##
-## compare constraints for PDG 2015 vs. HFAG-PDG 2016
+## find out which measurements have systematic errors
+## HFAG 2014: 45 measurements of 191 have listed systematic terms
 ##
-cmp.pgd.hfag.constr(pdg15, htrc, "PDG 2015", "HFAG-PDG 2016")
-
-##
-## compare fit results for PDG 2015 vs. HFAG-PDG 2015
-##
-cmp.pdg.hfag.fit.results(pdg15, ht, "PDG 2015", "HFAG-PDG 2015")
-
 if (FALSE) {
-  ##
-  ## find out which measurements have systematic errors
-  ## HFAG 2014: 45 measurements of 191 have listed systematic terms
-  ##
   meas.with.syst = sapply(
     htref2$measurements[names(htref2$measurements) %in% cmp.meas.pdg15.ht$pdg.meas.name],
     function(meas) {!is.null(meas$syst.terms)})
@@ -1468,46 +1457,19 @@ if (FALSE) {
 }
 
 ##
-## list measurement mismatches betweeb PDG 2015 and HFAG-PDG 2016
+## comparisons between PDG 2015 and HFAG-PDG 2016
 ##
-pr.meas.mism.pdg.hfag(cmp.meas.pdg15.ht$pdg.meas.name, htrc, "PDG 2015", "HFAG-PDG 2016")
 
 ##
-## list measurements used in HFAG fit but not PDG
+## list measurement usage differences between PDG 2015 and HFAG-PDG 2016
 ##
 cmp.meas.pdg15.htrc = cmp.meas.pdg.hfag(pdg15, htrc)
-hfag.meas.not.in.pdg = setdiff(names(htrc$meas.val), cmp.meas.pdg15.htrc$pdg.meas.name)
-meas.name.width.max = max(nchar(hfag.meas.not.in.pdg))
-
-cat("##\n")
-cat("## measurements used in HFAG-PDG 2016 but not in PDG 2015 fit\n")
-cat("##\n")
-
-rc = lapply(hfag.meas.not.in.pdg,
-  function(meas.name) {
-    cat(format(meas.name, width=meas.name.width.max),
-        "  ",
-        htrc$quant.descr.br[htrc$measurements[[meas.name]]$quant],
-        "\n", sep="")
-  })
+pr.meas.mism.pdg.hfag(cmp.meas.pdg15.htrc$pdg.meas.name, htrc, "PDG 2015", "HFAG-PDG 2016")
 
 ##
-## list measurements used in PDG fit but not HFAG
+## compare constraints for PDG 2015 vs. HFAG-PDG 2016
 ##
-pdg.meas.not.in.hfag = setdiff(cmp.meas.pdg15.htrc$pdg.meas.name, names(htrc$meas.val))
-meas.name.width.max = max(nchar(pdg.meas.not.in.hfag))
-
-cat("##\n")
-cat("## measurements used in PDG 2015 fit but not in HFAG-PDG 2016 fit\n")
-cat("##\n")
-
-rc = lapply(pdg.meas.not.in.hfag,
-  function(meas.name) {
-    cat(format(meas.name, width=meas.name.width.max),
-        "  ",
-        htrc$quant.descr.br[htrc$measurements[[meas.name]]$quant],
-        "\n", sep="")
-  })
+cmp.pgd.hfag.constr(pdg15, htrc, "PDG 2015", "HFAG-PDG 2016")
 
 ##
 ## quantities fitted in PDG 2015 but not fitted in HFAG-PDG 2016
@@ -1534,6 +1496,11 @@ rc = lapply(in.hfag.not.in.pdg,
   function(node) {
     cat(sprintf("%-12.12s %-12s %s\n", node, htrc$quant.gamma[node], htrc$quant.descr[htrc$quant.gamma[node]]))
   })
+
+##
+## compare fit results for PDG 2015 vs. HFAG-PDG 2015
+##
+cmp.pdg.hfag.fit.results(pdg15, ht, "PDG 2015", "HFAG-PDG 2015")
 
 ##
 ## save
