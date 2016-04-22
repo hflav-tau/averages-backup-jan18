@@ -45,6 +45,8 @@ f1$quant.err = f1$quant.err[quant.name.common]
 f2$quant.err = f2$quant.err[quant.name.common]
 
 val.delta.sigma = sqrt((f1$quant.err^2 + f2$quant.err^2)/2)
+##--- minimim error of 10^-11 to suppress constrained quantities that differ by numerical approximations
+val.delta.sigma = pmax(val.delta.sigma, 1e-11)
 
 cmp.df = data.frame(
   val.delta.perc = 100 * (f2$quant.val - f1$quant.val) / val.delta.sigma,
