@@ -36,6 +36,24 @@ deparse.one.line = function(expr) {
 }
 
 ##
+## return list of base quantities
+## - the fit must have been done
+## - it is assumed that Gamma998 is the unitarity residual and is removed
+## - all constraints but unitarity must be named <quant>.c
+##
+alucomb2.base.quant = function(comb) {
+  quant.names = comb$combine
+  ##--- get quantity names defined via constraint
+  quant.constr.names = sub(".c", "", names(comb$constr.all.expr[comb$constr.all.any]), fixed=TRUE)
+  ##--- take out quantities defined with a constraint
+  quant.names = setdiff(quant.names, quant.constr.names)
+  ##--- also remove the unitarity complement
+  quant.names = setdiff(quant.names, "Gamma998")
+  ##--- sort by ascending Gamma number
+  quant.names = quant.names[order(alurep.gamma.num.id(quant.names))]
+}
+
+##
 ## print character vector without element numbers, with optional prefix string
 ##
 alucomb2.clean.print = function(str, prefix="", width=unlist(options("width"))) {
@@ -43,8 +61,11 @@ alucomb2.clean.print = function(str, prefix="", width=unlist(options("width"))) 
   fmt.width = max(nchar(str.fmt))
   width = max(1, width - nchar(prefix))
   items.per.row = max(1, floor(width / (fmt.width+1)))
-  rc = lapply(split(str, ceiling(seq_along(str)/items.per.row)),
-    function(items) cat(prefix, paste(items, collapse=" "), "\n", sep=""))
+  if (length(str) != 0) {
+    rc = lapply(split(str, ceiling(seq_along(str)/items.per.row)),
+      function(items) cat(prefix, paste(items, collapse=" "), "\n", sep=""))
+  }
+  return(invisible())
 }
   
 ##

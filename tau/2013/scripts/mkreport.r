@@ -600,16 +600,7 @@ get.tex.meas.by.ref = function() {
 ##
 get.tex.base.nodes.corr = function() {
   tex.all.tau.br.corr = NULL
-  ##--- names of all quantities
-  quant.names = combination$combine
-  ##--- get quantity names defined via constraint
-  quant.constr.names = sub(".c", "", names(combination$constr.all.expr[combination$constr.all.any]), fixed=TRUE)
-  ##--- take out quantities defined with a constraint
-  quant.names = setdiff(quant.names, quant.constr.names)
-  ##--- also remove the unitarity complement
-  quant.names = setdiff(quant.names, "Gamma998")
-  ##--- sort by ascending Gamma number
-  quant.names = quant.names[order(alurep.gamma.num.id(quant.names))]
+  quant.names = alucomb2.base.quant(combination)
 
   ##--- tex code preceding the correlation table content
   corr.pre = c(
@@ -772,7 +763,8 @@ mkreport = function(fname) {
     ##--- quantities corresponding to measurements
     alurep.tex.cmd.short("QuantNum", as.character(quant.num-dummy.quant.num)),
     ##--- base quantities
-    alurep.tex.cmd.short("BaseQuantNum", as.character(quant.num - constr.num)),
+    alurep.tex.cmd.short("IndepQuantNum", as.character(quant.num - constr.num)),
+    alurep.tex.cmd.short("BaseQuantNum", as.character(length(alucomb2.base.quant(combination)))),
     ##--- quantities in the unitarity constraint sum
     alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alurep.unitarity.quant.names(combination)))),
     ##--- constraints used to relate measurements to base quantities
@@ -836,12 +828,20 @@ mkreport = function(fname) {
   cat("file '", fname, "', BR strange tot table content\n", sep="")
 
   ##
-  ## write text macro containing all strange BR values and refs
+  ## write text macro containing all modes in unitarity constraint
   ##
   gammaAll.names = alurep.unitarity.quant.names(combination)
   tex.tau.unitarity.quants = alurep.tex.cmd("UnitarityQuants", get.tex.table.simple(gammaAll.names, 4, -2))
   cat(tex.tau.unitarity.quants, sep="\n", file=fname, append=TRUE)
   cat("file '", fname, "', unitarity quantities\n", sep="")
+
+  ##
+  ## write text macro containing all base modes
+  ##
+  gammaAll.names = alucomb2.base.quant(combination)
+  tex.tau.base.quants = alurep.tex.cmd("BaseQuants", get.tex.table.simple(gammaAll.names, 4, -2))
+  cat(tex.tau.base.quants, sep="\n", file=fname, append=TRUE)
+  cat("file '", fname, "', base quantities\n", sep="")
 
   ##
   ## write text macro containing correlation of base nodes
