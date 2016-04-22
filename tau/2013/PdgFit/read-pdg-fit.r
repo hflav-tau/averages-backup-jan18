@@ -47,7 +47,7 @@ esub.str = Vectorize(esub.str.nv, vectorize.args=c("str"))
 ## evaluate all members of an expression array
 ##
 eval.all = function(expr, ...) {
-  sapply(expr, function(expr.el) eval(expr.el, ...))       
+  sapply(expr, function(expr.el) eval(expr.el, ...))
 }
 
 ##--- read saved variables inside a list
@@ -161,25 +161,25 @@ get.hfag.input = function(hfag.data) {
     quant.node["Gamma944"] = "B(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0))"
   if (!is.na(quant.node["Gamma997"]) && quant.node["Gamma997"] == "")
     quant.node["Gamma997"] = "B(a1- -> pi- gamma)"
-  
+
   quant.gamma = names(quant.node)
   names(quant.gamma) = quant.node[quant.gamma]
 
   ##--- HFAG modes text description
   quant.descr = sapply(hfag.data$combination$quantities, function(quant) quant$descr)
-  
+
   ##--- remove spaces to match PDG
   quant.descr = gsub(" / ", "/", quant.descr, fixed=TRUE)
   quant.descr = gsub("ex. ", "ex.", quant.descr, fixed=TRUE)
   quant.descr = gsub(", ", ",", quant.descr, fixed=TRUE)
-  
+
   ##--- shorter descripion in the form B()
   quant.descr.br = gsub("/G(total)", "", quant.descr, fixed=TRUE)
   quant.descr.br = gsub("G(", "B(", quant.descr.br, fixed=TRUE)
-  
+
   ##--- put eta always first, to match PDG format
   quant.descr = gsub("G\\((.+) eta (.*)nu\\(tau\\)", "G(eta \\1 \\2nu(tau)", quant.descr)
-  
+
   ##--- build array to convert from descr to gamma in HFAG context
   quant.gamma.descr = names(quant.descr)
   names(quant.gamma.descr) = quant.descr
@@ -189,7 +189,7 @@ get.hfag.input = function(hfag.data) {
   hfag.data$quant.descr = quant.descr
   hfag.data$quant.descr.br = quant.descr.br
   hfag.data$quant.gamma.descr = quant.gamma.descr
-  
+
   return(hfag.data)
 }
 
@@ -210,13 +210,13 @@ get.pdg.summary = function(pdg.data) {
 ##
 get.pdg.input.params = function(pdg.data) {
   input.params = get.section(pdg.data$fit.txt, "^ INPUT PARAMETERS", "^\\s*$")
-  
+
   pdg.data$params.in.count =   parse_number(str_sub(input.params,  1,  7))
   pdg.data$params.in.parcode = str_trim(str_sub(input.params,  8, 16))
   pdg.data$params.in.param = parse_number(str_sub(input.params, 17, 25))
   pdg.data$params.in.seed =  parse_double(str_sub(input.params, 26, 39))
   pdg.data$params.in.descr = str_trim(str_sub(input.params, 40))
-  
+
   pdg.data$params.in = data.frame(
     count =   parse_number(str_sub(input.params,  1,  7)),
     parcode = str_trim(str_sub(input.params,  8, 16)),
@@ -291,7 +291,7 @@ get.pdg.input.nodes = function(pdg.data) {
   pdg.data$nodes.in.descr = str_trim(str_sub(input.nodes, 80))
 
   pdg.data$nodes.in.plab = paste0(pdg.data$nodes.in.parcode, "_p", pdg.data$nodes.in.param)
-  
+
   ##--- get begin of node definitions
   pdg.data$node.in.def.beg = which(!is.na(pdg.data$nodes.in.node.count))
   ##--- get end of node definitions as beginning of next node minus one
@@ -384,34 +384,34 @@ get.pdg.input.meas = function(pdg.data) {
   ##--- negative errors set equal to positive errors
   pdg.data$meas.in$statn = pdg.data$meas.in$statp
   pdg.data$meas.in$systn = pdg.data$meas.in$systp
-  
+
   ##--- identify where are asymmetric errors
   stat.asymm.p = which(pdg.data$meas.in$stat.sign == "+")
   stat.asymm.n = which(pdg.data$meas.in$stat.sign == "-")
   if (any(stat.asymm.n != stat.asymm.p+1)) {
     stop("asymmetric errors do not respect having first + then -")
   }
-  
+
   pdg.data$meas.in[stat.asymm.p, "statn"] = pdg.data$meas.in[stat.asymm.n, "statn"]
   pdg.data$meas.in = pdg.data$meas.in[-stat.asymm.n, ]
-  
+
   syst.asymm.p = which(pdg.data$meas.in$syst.sign == "+")
   syst.asymm.n = which(pdg.data$meas.in$syst.sign == "-")
   if (any(syst.asymm.n != syst.asymm.p+1)) {
     stop("asymmetric errors do not respect having first + then -")
   }
-  
+
   ##--- set negative error on line where the positive error was set
   pdg.data$meas.in[syst.asymm.p, "systn"] = pdg.data$meas.in[syst.asymm.n, "systn"]
   ##--- remove lines where the negative error was set
   pdg.data$meas.in = pdg.data$meas.in[-syst.asymm.n, ]
-  
+
   ##--- compute squared root averages of positive and negative errors
   pdg.data$meas.in$stat = sqrt( (pdg.data$meas.in$statp^2 + pdg.data$meas.in$statn^2)/2 )
   pdg.data$meas.in$syst = sqrt( (pdg.data$meas.in$systp^2 + pdg.data$meas.in$systn^2)/2 )
   ##--- total error
   pdg.data$meas.in$err = sqrt( pdg.data$meas.in$stat^2 + pdg.data$meas.in$syst^2 )
-  
+
   ##--- set node on measurements that miss it using the last defined one
   pdg.data$meas.in$node = unname(
     mapply(
@@ -432,7 +432,7 @@ get.pdg.input.meas = function(pdg.data) {
 
   ii.beg = grep("^ INDEX", input.meas.corr.txt) + 1
   ii.end = grep("^\\s*$", input.meas.corr.txt) - 1
-  
+
   input.meas.corr.list = mapply(
     function(section.beg, section.end) {
       section = input.meas.corr.txt[section.beg:section.end]
@@ -461,7 +461,7 @@ get.pdg.input.meas = function(pdg.data) {
       meas.corr.cols = lapply(which.cols, function(ii.el) { input.meas.corr.list[[ii.el]][c("row", "corr")]})
       meas.corr = c(meas.corr.rows, meas.corr.cols)
     })
-  
+
   return(pdg.data)
 }
 
@@ -486,7 +486,7 @@ cmp.meas.pdg.hfag = function(pdg, hfag) {
 
   ##--- compute best matched measurements, starting with largest discrepancies
   cmp$pdg.meas.name = names(hfag$meas.in.val[cmp$pdg.match])
-  
+
   cmp$cmp = data.frame(
     pdg = paste(pdg$meas.in$author, pdg$meas.in$year),
     node = pdg$meas.in$node,
@@ -494,31 +494,31 @@ cmp.meas.pdg.hfag = function(pdg, hfag) {
     gamma = hfag$meas.in.gamma[cmp$pdg.match],
 
     diff = sapply(1:nrow(tot.cmp), function(i) {tot.cmp[i, cmp$pdg.match[i]]}),
-    
+
     pdg.val = pdg$meas.in$val,
     hfag.val = hfag$meas.in.val[cmp$pdg.match],
-    
+
     pdg.err = pdg$meas.in$err,
     hfag.err = hfag$meas.in.err[cmp$pdg.match],
-    
+
     pdg.stat = pdg$meas.in$stat,
     hfag.stat = hfag$meas.in.stat[cmp$pdg.match],
-    
+
     pdg.syst = pdg$meas.in$syst,
     hfag.syst = hfag$meas.in.syst[cmp$pdg.match],
-    
+
     pdg.statp = pdg$meas.in$statp,
     hfag.statp = hfag$meas.in.stat.p[cmp$pdg.match],
-    
+
     pdg.statn = -pdg$meas.in$statn,
     hfag.statn = hfag$meas.in.stat.n[cmp$pdg.match],
-    
+
     pdg.systp = pdg$meas.in$systp,
     hfag.systp = hfag$meas.in.syst.p[cmp$pdg.match],
-    
+
     pdg.systn = -pdg$meas.in$systn,
     hfag.systn = hfag$meas.in.syst.n[cmp$pdg.match],
-    
+
     stringsAsFactors=FALSE
     )
   rownames(cmp) = NULL
@@ -545,32 +545,32 @@ pr.mism.meas.pdg.hfag = function(cmp, threshold=0) {
         } else {
           pdg.stat = paste(sprintf("+-%.8g", c(cmp$pdg.stat)))
         }
-        
+
         if (cmp$pdg.systp != cmp$pdg.syst || -cmp$pdg.systn != cmp$pdg.syst) {
           pdg.syst = paste(sprintf("%+.8g", c(cmp$pdg.systp, cmp$pdg.systn)))
         } else {
           pdg.syst = paste(sprintf("+-%.8g", c(cmp$pdg.syst)))
         }
-        
+
         if (cmp$hfag.statp != cmp$hfag.stat || -cmp$hfag.statn != cmp$hfag.stat) {
           hfag.stat = paste(sprintf("%+.8g", c(cmp$hfag.statp, cmp$hfag.statn)))
         } else {
           hfag.stat = paste(sprintf("+-%.8g", c(cmp$hfag.stat)))
         }
-        
+
         if (cmp$hfag.systp != cmp$hfag.syst || -cmp$hfag.systn != cmp$hfag.syst) {
           hfag.syst = paste(sprintf("%+.8g", c(cmp$hfag.systp, cmp$hfag.systn)))
         } else {
           hfag.syst = paste(sprintf("+-%.8g", c(cmp$hfag.syst)))
         }
-        
+
         cat("  pdg  ", format(c(paste(sprintf("%.8g", c(cmp$pdg.val, cmp$pdg.err))), pdg.stat, pdg.syst), width=13))
         cat("\n")
         cat("  hfag ", format(c(paste(sprintf("%.8g", c(cmp$hfag.val, cmp$hfag.err))), hfag.stat, hfag.syst), width=13))
         cat("\n")
       })
   }
-} 
+}
 
 ##
 ## print mismatches in node description
@@ -578,7 +578,7 @@ pr.mism.meas.pdg.hfag = function(cmp, threshold=0) {
 pr.mism.descr.pdg.hfag = function(pdg, hfag) {
   quant.hfag.descr = hfag$quant.descr[hfag$quant.gamma[pdg$quant.node]]
   non.matching = gsub("\\s+", "", quant.hfag.descr) != gsub("\\s+", "", pdg$quant.descr)
-  
+
   rc = mapply(
     function(descr.pdg, descr.hfag, gamma.hfag) {
       cat(gamma.hfag, "\n  pdg  ", descr.pdg, "\n  hfag ", descr.hfag, "\n", sep="")
@@ -636,7 +636,7 @@ get.pdg.constr.params.symbolic = function(pdg, hfag) {
 
   ##--- evaluate parameter expressions
   pdg$params.expr.val = eval.all(esub.str.parse(params.expr.txt, hfag.params))
-  
+
   ##--- find expression best approximating PDG coefficients in nodes
   mism = sapply(pdg$nodes.in.coeff,
     function(coeff) {
@@ -647,7 +647,7 @@ get.pdg.constr.params.symbolic = function(pdg, hfag) {
       mism = abs(coeff - pdg$params.expr.val)*2 / (abs(coeff) + abs(pdg$params.expr.val))
       mism = mism[order(mism)[1]]
     })
-  
+
   ##--- store expressions for PDG coefficients in nodes
   pdg$nodes.in.coeff.expr.txt = names(mism)
   ##--- store mismatch of found symbolic expression
@@ -769,23 +769,23 @@ save.pdg.measurements = function(pdg, hfag, pdg.match, file.dir=".") {
       }
       meas = list(
         value = pdg$meas.in$val[ii.meas],
-        
+
         stat = pdg$meas.in$stat[ii.meas],
         stat.p = pdg$meas.in$statp[ii.meas],
         stat.n = -pdg$meas.in$statn[ii.meas],
-        
+
         syst = pdg$meas.in$syst[ii.meas],
         syst.p = pdg$meas.in$systp[ii.meas],
         syst.n = -pdg$meas.in$systn[ii.meas],
-        
+
         quant = hfag$measurements[[pdg.match[ii.meas]]]$quant,
         tags = hfag$measurements[[pdg.match[ii.meas]]]$tags,
         params = list(),
         corr.terms.tot = corr.terms.tot[corr.terms.tot != 0]
         )
-      
+
       attr(meas$value, "input") = sprintf("%.8g", meas$value)
-      
+
       if (meas$stat.p != -meas$stat.n) {
         attr(meas$stat, "input") = ""
         attr(meas$stat.p, "input") = sprintf("%+.8g", meas$stat.p)
@@ -795,7 +795,7 @@ save.pdg.measurements = function(pdg, hfag, pdg.match, file.dir=".") {
         attr(meas$stat.p, "input") = ""
         attr(meas$stat.n, "input") = ""
       }
-      
+
       if (meas$syst.p != -meas$syst.n) {
         attr(meas$syst, "input") = ""
         attr(meas$syst.p, "input") = sprintf("%+.8g", meas$syst.p)
@@ -805,9 +805,9 @@ save.pdg.measurements = function(pdg, hfag, pdg.match, file.dir=".") {
         attr(meas$syst.p, "input") = ""
         attr(meas$syst.n, "input") = ""
       }
-      
+
       attr(meas$corr.terms.tot, "input") = setNames(sprintf("%+.8g", meas$corr.terms.tot), names(meas$corr.terms.tot))
-      
+
       meas
     })
 
@@ -875,7 +875,7 @@ pdg.constr.convert.nontrivial = function(constr.hfag.txt) {
     )
 
   constr.hfag.txt.nontrivial = constr.hfag.txt[!constr.hfag.trivial]
-  
+
   constr.hfag.txt.nontrivial =
     gsub("(\\S+)\\s*=\\s*(.*)$",
          "NLCONSTRAINT \\1.c 0 \"-\\1 + (\\2)\"",
@@ -1035,13 +1035,13 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   constr.pdg.not.hfag = setdiff(names(pdg.constr.gammas), names(hfag.constr.gammas))
   ##--- in HFAG but not PDG
   constr.hfag.not.pdg = setdiff(names(hfag.constr.gammas), names(pdg.constr.gammas))
-  
+
   cat("##\n")
   cat("## Constraints that are the same on", pdg.label, "and", hfag.label)
   cat("\n")
   cat("## PDG first, HFAG second\n")
   cat("##\n")
-  
+
   cat(
     paste0(
       paste0(
@@ -1053,22 +1053,22 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         sep="\n"),
       collapse="\n"))
   cat("\n")
-  
+
   ##--- flag array indicating what constraints HFAG uses
   hfag.constr.flag = hfag$combination$constr.all.nl | hfag$combination$constr.all.lin
   hfag.constr.used = names(hfag.constr.str.expr[hfag.constr.flag])
-  
+
   ##--- non-equal AND used in HFAG
   constr.non.equal.used = intersect(constr.non.equal, hfag.constr.used)
   ##--- non-equal AND NOT used in HFAG
   constr.non.equal.not.used = setdiff(constr.non.equal, hfag.constr.used)
-  
+
   cat("##\n")
   cat("## Constraints that are NOT the same on", pdg.label, "and", hfag.label)
   cat(", used in HFAG\n")
   cat("## PDG first, HFAG second\n")
   cat("##\n")
-  
+
   cat(
     paste0(
       paste0(
@@ -1082,13 +1082,13 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         sep="\n"),
       collapse="\n"))
   cat("\n")
-  
+
   cat("##\n")
   cat("## Constraints that are NOT the same on", pdg.label, "and", hfag.label)
   cat(", NOT used in HFAG\n")
   cat("## PDG first, HFAG second\n")
   cat("##\n")
-  
+
   cat(
     paste0(
       paste0(
@@ -1102,12 +1102,12 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         sep="\n"),
       collapse="\n"))
   cat("\n")
-  
+
   cat("##\n")
   cat("## Constraints in", pdg.label, "but not in", hfag.label)
   cat("\n")
   cat("##\n")
-  
+
   cat(
     paste0(
       paste0(
@@ -1118,12 +1118,12 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         sep="\n"),
       collapse="\n"))
   cat("\n")
-  
+
   cat("##\n")
   cat("## Constraints in", hfag.label, "but not in", pdg.label)
   cat("\n")
   cat("##\n")
-  
+
   cat(
     paste0(
       paste0(
@@ -1155,7 +1155,7 @@ cmp.pdg.hfag.fit.results = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG
   cat("##\n")
   cat("##", pdg.label, "fit summary\n")
   cat("##\n")
-  
+
   cat("chisq / dof =", pdg$chisq, "/", pdg$dof, " ( Prob = ", pdg$chisq.prob, ")\n")
   cat("measurements:", nrow(pdg$meas.in),
       "fit parameters:", nrow(pdg$params.in),
@@ -1165,13 +1165,13 @@ cmp.pdg.hfag.fit.results = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG
   cat("##\n")
   cat("##", hfag.label, "fit summary\n")
   cat("##\n")
-  
+
   cat("chisq / dof =", hfag$chisq, "/", hfag$dof, " ( Prob = ", hfag$chisq.prob, ")\n")
   cat("measurements:", length(hfag$meas.val),
       "fit quantities:", length(hfag$quant.val),
       "constraints:", hfag$constr.num,
       "\n")
-  
+
   cat("##\n")
   cat("## Fit results", pdg.label, "vs.", hfag.label, "mismatches\n")
   cat("## - first line:\n")
@@ -1214,7 +1214,7 @@ pr.meas.mism.pdg.hfag = function(pdg.meas.names, hfag, pdg.label="PDG", hfag.lab
   cat("##\n")
   cat("## measurements used in", hfag.label, "but not in", pdg.label, "fit\n")
   cat("##\n")
-  
+
   rc = lapply(hfag.meas.not.in.pdg,
     function(meas.name) {
       cat(format(meas.name, width=meas.name.width.max),
@@ -1222,18 +1222,18 @@ pr.meas.mism.pdg.hfag = function(pdg.meas.names, hfag, pdg.label="PDG", hfag.lab
           hfag$quant.descr.br[hfag$measurements[[meas.name]]$quant],
           "\n", sep="")
     })
-  
+
   ##
   ## list measurements used in PDG fit but not HFAG
   ## HFAG fit without Belle inclusive K0, no hcorr
-  ##  
+  ##
   pdg.meas.not.in.hfag = setdiff(pdg.meas.names, names(hfag$meas.val))
   meas.name.width.max = max(nchar(pdg.meas.not.in.hfag))
-  
+
   cat("##\n")
   cat("## measurements used in", pdg.label, "fit but not in", hfag.label, "fit\n")
   cat("##\n")
-  
+
   rc = lapply(pdg.meas.not.in.hfag,
     function(meas.name) {
       cat(format(meas.name, width=meas.name.width.max),
@@ -1324,7 +1324,7 @@ htref3 = get.hfag.input(htref3)
 ##
 ## get data of HFAG PDG 2016 release candidate fit
 ##
-hfag.data.rc.fname = "pdgfit-step-5.rdata"
+hfag.data.rc.fname = "pdgfit-step-6.rdata"
 htrc = load.in.list(hfag.data.rc.fname)
 cat(paste0("HFAG-PDG 2016 file '", hfag.data.rc.fname, "' read\n"))
 ##--- get un-modified HFAG input cards data
@@ -1445,14 +1445,14 @@ if (FALSE) {
   meas.with.syst = sapply(
     htref2$measurements[names(htref2$measurements) %in% cmp.meas.pdg15.ht$pdg.meas.name],
     function(meas) {!is.null(meas$syst.terms)})
-  
+
   ## names(meas.with.syst) = gsub("Ryu:2014vpc", "RYU.14vpc", names(meas.with.syst), fixed=TRUE)
   ## names(meas.with.syst) = gsub("LEES.2012", "LEES.12", names(meas.with.syst), fixed=TRUE)
-  
+
   cat("##\n")
   cat("## PDG measurements that have systematics in HFAG\n")
   cat("##\n")
-  
+
   cat("  ", paste(names(meas.with.syst), collapse="\n  "), "\n", sep="")
 }
 
@@ -1503,6 +1503,24 @@ rc = lapply(in.hfag.not.in.pdg,
 cmp.pdg.hfag.fit.results(pdg15, ht, "PDG 2015", "HFAG-PDG 2015")
 
 ##
+## base quantities
+##
+quant.base.names = alucomb2.base.quant(htrc$combination)
+
+cat("##\n")
+cat("## base quantities of HFAG-PDG 2016 fit\n")
+cat("## number of base quantities:  =", length(quant.base.names)); cat("\n")
+cat("## measurements - fit n.d.o.f. =", htrc$meas.num - htrc$dof, "\n")
+cat("## measurements                =", htrc$meas.num, "\n")
+cat("## n.d.o.f.                    =", htrc$dof, "\n")
+cat("##\n")
+## alucomb2.clean.print(quant.base.names)
+rc = lapply(quant.base.names,
+  function(gamma) {
+    cat(sprintf("%-12.12s %-12.12s %s\n", gamma, htrc$quant.node[gamma], htrc$quant.descr[gamma]))
+  })
+
+##
 ## save
 ##
 cat("##\n")
@@ -1512,4 +1530,3 @@ cat("##\n")
 save.pdg.measurements(pdg15, ht, cmp.meas.pdg15.ht$pdg.match, file.dir="pdg")
 ##--- save HFAG measurements
 save.hfag.measurements(ht$measurements, ht, "hfag")
-
