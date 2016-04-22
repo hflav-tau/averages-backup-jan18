@@ -27,6 +27,29 @@ source("../../../Common/bin/alucomb2-utils.r")
 ## functions
 ##
 
+##
+## parse string and return expression with substituted variables
+##
+esub.str.parse.nv = function(str, sublist=NULL) {
+  esub.expr(parse(text=str), sublist)
+}
+esub.str.parse = Vectorize(esub.str.parse.nv, vectorize.args=c("str"))
+
+##
+## parse string, substitute variables in expression, convert back to string
+##
+esub.str.nv = function(str, sublist=NULL) {
+  deparse.one.line(esub.expr(parse(text=str), sublist))
+}
+esub.str = Vectorize(esub.str.nv, vectorize.args=c("str"))
+
+##
+## evaluate all members of an expression array
+##
+eval.all = function(expr, ...) {
+  sapply(expr, function(expr.el) eval(expr.el, ...))       
+}
+
 ##--- read saved variables inside a list
 load.in.list <- function(.file.name) { load(.file.name); as.list(environment()) }
 
@@ -318,7 +341,7 @@ get.pdg.fitted.nodes = function(pdg.data) {
 
   input.nodes.fit = get.section(pdg.data$fit.txt, c("^ FINAL RESULTS", "^ RESULTS FOR NODES"), "^\\s*$")
 
-  pdg.data$nodes.in.fit = data.frame(
+  pdg.data$nodes.fit = data.frame(
     count =   parse_number(str_sub(input.nodes.fit,  1,  4)),
     node = str_trim(str_sub(input.nodes.fit,  10, 18)),
     val =  parse_double(str_sub(input.nodes.fit, 19, 31)),
@@ -612,10 +635,7 @@ get.pdg.constr.params.symbolic = function(pdg, hfag) {
     )
 
   ##--- evaluate parameter expressions
-  pdg$params.expr.val = sapply(params.expr.txt,
-    function(expr.txt) {
-      eval(esub.expr(parse(text=expr.txt), hfag.params))
-    })
+  pdg$params.expr.val = eval.all(esub.str.parse(params.expr.txt, hfag.params))
   
   ##--- find expression best approximating PDG coefficients in nodes
   mism = sapply(pdg$nodes.in.coeff,
@@ -976,16 +996,20 @@ get.hfag.constr.comments = function(expr.list.1, expr.list.2=NULL) {
   rc
 }
 
-##--- replace Gamma HFAG notation with description (not used)
+##
+## replace Gamma HFAG notation with description (not used)
+##
 hfag.gamma.to.node = function(str.expr, quant.node) {
   quant.node = ifelse(quant.node == "", "NA", quant.node)
-  rc = sapply(str.expr,
-  function(expr.txt) {
-    gsub("`", "",
-         deparse.one.line(esub.expr(parse(text=expr.txt), lapply(gsub("['`]", "", quant.node), as.symbol))),
-         fixed=TRUE)
-  })
-  rc
+  gsub("", "", esub.str(str.expr, lapply(quant.node, as.symbol)))
+}
+
+##
+## substitute parameters with numeric values
+##
+hfag.subst.param = function(str.expr, hfag) {
+  params.val = lapply(hfag$combination$params, function(x) unname(x["value"]))
+  esub.str(str.expr, params.val)
 }
 
 ##
@@ -1024,8 +1048,8 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         get.hfag.constr.comments(hfag.constr.str.expr[constr.equal]),
         pdg.constr.str.expr[constr.equal], "\n",
         hfag.constr.str.expr[constr.equal], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.equal], ht$quant.node), "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.equal], ht$quant.node),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.equal], htrc$quant.node), "\n",
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.equal], htrc$quant.node),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1051,8 +1075,10 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         get.hfag.constr.comments(pdg.constr.str.expr[constr.non.equal.used], hfag.constr.str.expr[constr.non.equal.used]),
         pdg.constr.str.expr[constr.non.equal.used], "\n",
         hfag.constr.str.expr[constr.non.equal.used], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], ht$quant.node), "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], ht$quant.node),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], htrc$quant.node), "\n",
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], htrc$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], htrc$quant.node), htrc), "\n",
+        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], htrc$quant.node), htrc),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1069,8 +1095,10 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
         get.hfag.constr.comments(pdg.constr.str.expr[constr.non.equal.not.used], hfag.constr.str.expr[constr.non.equal.not.used]),
         pdg.constr.str.expr[constr.non.equal.not.used], "\n",
         hfag.constr.str.expr[constr.non.equal.not.used], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], ht$quant.node), "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], ht$quant.node),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), "\n",
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), htrc), "\n",
+        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), htrc),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1085,7 +1113,8 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
       paste0(
         get.hfag.constr.comments(pdg.constr.str.expr[constr.pdg.not.hfag]),
         pdg.constr.str.expr[constr.pdg.not.hfag], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], ht$quant.node),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], htrc$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], htrc$quant.node), htrc),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1100,7 +1129,8 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
       paste0(
         get.hfag.constr.comments(hfag.constr.str.expr[constr.hfag.not.pdg]),
         hfag.constr.str.expr[constr.hfag.not.pdg], "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], ht$quant.node),
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], htrc$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], htrc$quant.node), htrc),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1113,7 +1143,7 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
 ##
 cmp.pdg.hfag.fit.results = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   ##--- get HFAG results in PDG structure with fit results
-  pdg$nodes.in.fit = within(pdg$nodes.in.fit,
+  pdg$nodes.fit = within(pdg$nodes.fit,
     {
       hfag.quant.val = hfag$quant.val[hfag$quant.gamma[node]]
       hfag.quant.err = hfag$quant.err[hfag$quant.gamma[node]]
@@ -1129,7 +1159,7 @@ cmp.pdg.hfag.fit.results = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG
   cat("chisq / dof =", pdg$chisq, "/", pdg$dof, " ( Prob = ", pdg$chisq.prob, ")\n")
   cat("measurements:", nrow(pdg$meas.in),
       "fit parameters:", nrow(pdg$params.in),
-      "fit nodes:", nrow(pdg$nodes.in.fit),
+      "fit nodes:", nrow(pdg$nodes.fit),
       "\n")
 
   cat("##\n")
@@ -1151,7 +1181,7 @@ cmp.pdg.hfag.fit.results = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG
   cat("## - second line: PDG  fit value, error, asymmetric errors if existing\n")
   cat("## - third line:  HFAG fit value, error\n")
   cat("##\n")
-  rc = lapply(split(pdg$nodes.in.fit, 1:nrow(pdg$nodes.in.fit))[order(pdg$nodes.in.fit$mism, decreasing=TRUE)],
+  rc = lapply(split(pdg$nodes.fit, 1:nrow(pdg$nodes.fit))[order(pdg$nodes.fit$mism, decreasing=TRUE)],
     function(cmp.fit) {
       line.1 = paste(
         paste(sprintf("%12s", c(cmp.fit$node, hfag$quant.gamma[cmp.fit$node])), collapse=" "),
@@ -1477,6 +1507,32 @@ rc = lapply(pdg.meas.not.in.hfag,
         "  ",
         htrc$quant.descr.br[htrc$measurements[[meas.name]]$quant],
         "\n", sep="")
+  })
+
+##
+## quantities fitted in PDG 2015 but not fitted in HFAG-PDG 2016
+##
+cat("##\n")
+cat("## quantities fitted in PDG 2015 but not fitted in HFAG-PDG 2016\n")
+cat("##\n")
+
+in.pdg.not.in.hfag = !(pdg15$nodes.fit$node %in% htrc$quant.node[names(htrc$quant.val)])
+rc = lapply(split(pdg15$nodes.fit[in.pdg.not.in.hfag, ], 1:nrow(pdg15$nodes.fit[in.pdg.not.in.hfag, ])),
+  function(cmp.fit) {
+    cat(sprintf("%-12s %-12s %s\n", cmp.fit$node, htrc$quant.gamma[cmp.fit$node], cmp.fit$descr))
+  })
+
+##
+## quantities fitted in HFAG-PDG 2016 but not fitted in PDG 2015
+##
+cat("##\n")
+cat("## quantities fitted in HFAG-PDG 2016 but not fitted in PDG 2015\n")
+cat("##\n")
+
+in.hfag.not.in.pdg = setdiff(htrc$quant.node[names(htrc$quant.val)], pdg15$nodes.fit$node)
+rc = lapply(in.hfag.not.in.pdg,
+  function(node) {
+    cat(sprintf("%-12.12s %-12s %s\n", node, htrc$quant.gamma[node], htrc$quant.descr[htrc$quant.gamma[node]]))
   })
 
 ##
