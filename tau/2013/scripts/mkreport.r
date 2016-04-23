@@ -6,8 +6,9 @@
 
 require("optparse", quietly=TRUE)
 require("stringr", quietly=TRUE)
-source("../../../Common/bin/alureport.r")
+source("../../../Common/bin/alucomb2-utils.r")
 source("../../../Common/bin/alucomb2-fit.r")
+source("../../../Common/bin/alureport.r")
 source("../../../Common/bin/aluelab3.r")
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -766,7 +767,7 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("IndepQuantNum", as.character(quant.num - constr.num)),
     alurep.tex.cmd.short("BaseQuantNum", as.character(length(alucomb2.base.quant(combination)))),
     ##--- quantities in the unitarity constraint sum
-    alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alurep.unitarity.quant.names(combination)))),
+    alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alucomb2.unitarity.quant(combination)))),
     ##--- constraints used to relate measurements to base quantities
     alurep.tex.cmd.short("ConstrNum", as.character(constr.num - dummy.quant.num)),
     alurep.tex.cmd.short("Chisq", sprintf("%.1f", chisq)),
@@ -830,7 +831,7 @@ mkreport = function(fname) {
   ##
   ## write text macro containing all modes in unitarity constraint
   ##
-  gammaAll.names = alurep.unitarity.quant.names(combination)
+  gammaAll.names = alucomb2.unitarity.quant(combination)
   tex.tau.unitarity.quants = alurep.tex.cmd("UnitarityQuants", get.tex.table.simple(gammaAll.names, 4, -2))
   cat(tex.tau.unitarity.quants, sep="\n", file=fname, append=TRUE)
   cat("file '", fname, "', unitarity quantities\n", sep="")

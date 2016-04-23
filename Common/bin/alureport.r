@@ -491,21 +491,3 @@ alurep.tex.constraint = function(constr.val, constr.str) {
   
   return(list(left = constr.left, right=constr.right, right.split=constr.right.split))
 }
-
-##
-## return the quantity names of the unitarity constraint
-## April 2016:
-## - 1 = GammaAll + Gamma998
-## - 0 = -GammaAll + (...)
-##   (plain sum of quantities, all linear)
-## - unitarity imposed with NLCONSTRAINT forceUnitarity 0 "Gamma998"
-##
-
-alurep.unitarity.quant.names = function(comb) {
-  gammaAll.names = names(comb$constr.all.comb$GammaAll.c)
-  if (is.null(combination$constr.all.expr$forceUnitarity)) {
-    gammaAll.names = c(gammaAll.names, "Gamma998")
-  }
-  gammaAll.names = setdiff(gammaAll.names, "GammaAll")
-  return(gammaAll.names)
-}
