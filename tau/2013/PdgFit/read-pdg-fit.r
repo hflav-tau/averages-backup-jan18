@@ -599,14 +599,14 @@ hfag.gamma.pdg.nodes = function(hfag, pdg) {
 ## return list of HFAG gammas corresponding to PDG parameters
 ##
 hfag.gamma.pdg.params = function(hfag, pdg) {
-  hfag$quant.gamma[pdg15$params.in.node]
+  hfag$quant.gamma[pdg$params.in.node]
 }
 
 ##
 ## return list of HFAG gammas corresponding to PDG nodes that are derived from parameters
 ##
 hfag.gamma.pdg.derived = function(hfag, pdg) {
-  setdiff(hfag$quant.gamma[pdg$quant.node], hfag$quant.gamma[pdg15$params.in.node])
+  setdiff(hfag$quant.gamma[pdg$quant.node], hfag$quant.gamma[pdg$params.in.node])
 }
 
 ##
@@ -1045,11 +1045,11 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(htrc, hfag.constr.str.expr[constr.equal]),
+        get.hfag.constr.comments(hfag, hfag.constr.str.expr[constr.equal]),
         pdg.constr.str.expr[constr.equal], "\n",
         hfag.constr.str.expr[constr.equal], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.equal], htrc$quant.node), "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.equal], htrc$quant.node),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.equal], hfag$quant.node), "\n",
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.equal], hfag$quant.node),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1072,13 +1072,13 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(htrc, pdg.constr.str.expr[constr.non.equal.used], hfag.constr.str.expr[constr.non.equal.used]),
+        get.hfag.constr.comments(hfag, pdg.constr.str.expr[constr.non.equal.used], hfag.constr.str.expr[constr.non.equal.used]),
         pdg.constr.str.expr[constr.non.equal.used], "\n",
         hfag.constr.str.expr[constr.non.equal.used], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], htrc$quant.node), "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], htrc$quant.node), "\n",
-        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], htrc$quant.node), htrc), "\n",
-        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], htrc$quant.node), htrc),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], hfag$quant.node), "\n",
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], hfag$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.used], hfag$quant.node), hfag), "\n",
+        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.used], hfag$quant.node), hfag),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1092,13 +1092,13 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(htrc, pdg.constr.str.expr[constr.non.equal.not.used], hfag.constr.str.expr[constr.non.equal.not.used]),
+        get.hfag.constr.comments(hfag, pdg.constr.str.expr[constr.non.equal.not.used], hfag.constr.str.expr[constr.non.equal.not.used]),
         pdg.constr.str.expr[constr.non.equal.not.used], "\n",
         hfag.constr.str.expr[constr.non.equal.not.used], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), "\n",
-        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), htrc), "\n",
-        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], htrc$quant.node), htrc),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], hfag$quant.node), "\n",
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], hfag$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.non.equal.not.used], hfag$quant.node), hfag), "\n",
+        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.non.equal.not.used], hfag$quant.node), hfag),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1111,10 +1111,10 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(htrc, pdg.constr.str.expr[constr.pdg.not.hfag]),
+        get.hfag.constr.comments(hfag, pdg.constr.str.expr[constr.pdg.not.hfag]),
         pdg.constr.str.expr[constr.pdg.not.hfag], "\n",
-        hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], htrc$quant.node), "\n",
-        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], htrc$quant.node), htrc),
+        hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], hfag$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(pdg.constr.str.expr[constr.pdg.not.hfag], hfag$quant.node), hfag),
         sep="\n"),
       collapse="\n"))
   cat("\n")
@@ -1127,10 +1127,10 @@ cmp.pgd.hfag.constr = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG") {
   cat(
     paste0(
       paste0(
-        get.hfag.constr.comments(htrc, hfag.constr.str.expr[constr.hfag.not.pdg]),
+        get.hfag.constr.comments(hfag, hfag.constr.str.expr[constr.hfag.not.pdg]),
         hfag.constr.str.expr[constr.hfag.not.pdg], "\n",
-        hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], htrc$quant.node), "\n",
-        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], htrc$quant.node), htrc),
+        hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], hfag$quant.node), "\n",
+        hfag.subst.param(hfag.gamma.to.node(hfag.constr.str.expr[constr.hfag.not.pdg], hfag$quant.node), hfag),
         sep="\n"),
       collapse="\n"))
   cat("\n")
