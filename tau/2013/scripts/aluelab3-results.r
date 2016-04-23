@@ -792,7 +792,17 @@ aluelab.results = function(args) {
   ##--- provide LaTeX commands printing quantity +- error
   quant.all.sorted = quant$vnames(order(quant$vnames()))
 
-  rc = mapply(function(name, val, err, texdescr) {
+  rc = mapply(function(name, val, err, texdescr) {                
+    ##--- special rounding for GammAll and Gamma998, hide numeric approximations
+    if (name == "GammaAll") {
+      val = round(val, digits=12)
+      err = round(err, digits=12)
+    }
+    if (name == "Gamma998") {
+      val = round(val, digits=12)
+      err = round(err, digits=12)
+    }
+
     if (!is.na(specialFactor[name])) {
       val = val*specialFactor[name]
       err = err*specialFactor[name]

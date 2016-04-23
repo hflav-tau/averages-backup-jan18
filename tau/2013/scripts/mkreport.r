@@ -367,7 +367,7 @@ get.tex.meas.defs = function() {
 ## - list of experimental measurements, with reference
 ##
 get.tex.table = function(quant.names, perc=FALSE) {
-  quant.order = order(alurep.gamma.num.id(quant.names))
+  quant.order = order(alucomb2.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
 
   ##--- get TeX defs for quantities and their measurements
@@ -462,31 +462,12 @@ get.tex.table = function(quant.names, perc=FALSE) {
 ## return body of latex tabular environment for the requested quantities
 ## include
 ## - quantity description and HFAG average
-##
-get.tex.table.simple.old = function(quant.names, precision, order) {
-  quant.order = order(alurep.gamma.num.id(quant.names))
-  quant.names = quant.names[quant.order]
-  rc = mapply(function(quant.name, quant) {
-    quant.descr = paste("\\htuse{", quant.name, ".gn}", " = ", "\\htuse{", quant.name, ".td}", sep="")
-    quant.descr = paste("\\begin{ensuredisplaymath}\n", quant.descr, "\n\\end{ensuredisplaymath}\n", sep="")
-    rc = paste(
-      quant.descr, "&",
-       alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order)
-      )
-  }, quant.names, combination$quantities[quant.names])
-  return(paste(rc, collapse=" \\\\\n"))
-}
-
-##
-## return body of latex tabular environment for the requested quantities
-## include
-## - quantity description and HFAG average
 ## must define two macros to expand the two fields
 ## \newcommand{\htQuantLabel}[1]{\htuse{#1.td}}
 ## \newcommand{\htQuantValue}[2]{#1}
 ##
 get.tex.table.simple = function(quant.names, precision, order) {
-  quant.order = order(alurep.gamma.num.id(quant.names))
+  quant.order = order(alucomb2.gamma.num.id(quant.names))
   quant.names = quant.names[quant.order]
   rc = mapply(
     function(quant.name, quant) {
@@ -553,7 +534,7 @@ get.tex.meas.by.ref = function() {
   meas.by.ref = lapply(cits, function(x) {
     df = subset(rc, cit == x)
     ##--- reorder measurements according to quantity
-    quant.order = order(alurep.gamma.num.id(df$quant))
+    quant.order = order(alucomb2.gamma.num.id(df$quant))
     df = df[quant.order,]
 
     expnt = df$expnt[1]
@@ -675,7 +656,7 @@ get.tex.base.nodes.corr = function() {
 get.constraints.used.names = function() {
   constr.used = combination$constr.all.lin | combination$constr.all.nl
   constr.used.names = names(constr.used[constr.used])
-  constr.order = order(alurep.gamma.num.id(constr.used.names))
+  constr.order = order(alucomb2.gamma.num.id(constr.used.names))
   constr.used.names = constr.used.names[constr.order]
   return(constr.used.names)
 }
@@ -732,6 +713,12 @@ get.tex.constraint.equations = function() {
 ##
 mkreport = function(fname) {
   load(fname, .GlobalEnv)
+
+  ##--- special rounding to cope with rounding errors
+  eval(parse(text="quant.val[\"GammaAll\"]=round(quant.val[\"GammaAll\"], digits=12)"), .GlobalEnv)
+  eval(parse(text="quant.err[\"GammaAll\"]=round(quant.err[\"GammaAll\"], digits=12)"), .GlobalEnv)
+  eval(parse(text="quant.val[\"Gamma998\"]=round(quant.val[\"Gamma998\"], digits=12)"), .GlobalEnv)
+  eval(parse(text="quant.err[\"Gamma998\"]=round(quant.err[\"Gamma998\"], digits=12)"), .GlobalEnv)
 
   ##--- assemble file name
   fname = basename(fname)

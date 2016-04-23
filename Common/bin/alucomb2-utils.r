@@ -36,6 +36,18 @@ deparse.one.line = function(expr) {
 }
 
 ##
+## return numeric id for sorting labels like "Gamma5", "Gamma3by5"
+## <n>by<m> are sorted after <n> in ascending order ov <m>
+##
+alucomb2.gamma.num.id = function(gamma.name) {
+  gamma.name = sub("Unitarity", "Gamma1000", gamma.name, fixed=TRUE)
+  gamma.name = sub("GammaAll", "Gamma999", gamma.name, fixed=TRUE)
+  rc = str_match(gamma.name, regex("^Gamma(\\d+)by(\\d+)$|^Gamma(\\d+)$", ignore.case=TRUE))
+  num = ifelse(!is.na(rc[,4]), as.numeric(rc[,4])*1000, as.numeric(rc[,2])*1000 + as.numeric(rc[,3]))
+  return(integer(num))
+}
+
+##
 ## return list of base quantities
 ## - the fit must have been done
 ## - it is assumed that Gamma998 is the unitarity residual and is removed
@@ -50,7 +62,7 @@ alucomb2.base.quant = function(comb) {
   ##--- also remove the unitarity complement
   quant.names = setdiff(quant.names, "Gamma998")
   ##--- sort by ascending Gamma number
-  quant.names = quant.names[order(alurep.gamma.num.id(quant.names))]
+  quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
   return(quant.names)
 }
 
@@ -69,7 +81,7 @@ alucomb2.unitarity.quant = function(comb) {
     quant.names = c(quant.names, "Gamma998")
   }
   quant.names = setdiff(quant.names, "GammaAll")
-  quant.names = quant.names[order(alurep.gamma.num.id(quant.names))]
+  quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
   return(quant.names)
 }
 
