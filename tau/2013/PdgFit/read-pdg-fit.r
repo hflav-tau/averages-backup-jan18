@@ -1251,6 +1251,13 @@ opts <- docopt(doc)
 ## opts$last
 
 ##
+## get info to translate from nodes to desig (when possible)
+##
+pdginfo = load.in.list("pdginfo.rdata")
+pdginfo$nodes.code = pdginfo$node.df$desig
+names(pdginfo$nodes.code) = pdginfo$node.df$node
+
+##
 ## get output log of PDG 2015 fit with no error scaling
 ##
 pdg15 = list()
@@ -1517,7 +1524,29 @@ cat("##\n")
 ## alucomb2.clean.print(quant.base.names)
 rc = lapply(quant.base.names,
   function(gamma) {
-    cat(sprintf("%-12.12s %-12.12s %s\n", gamma, htrc$quant.node[gamma], htrc$quant.descr[gamma]))
+    rc = cat(sprintf("%-12.12s %-12.12s %3d %s\n",
+      gamma,
+      htrc$quant.node[gamma],
+      pdginfo$nodes.code[htrc$quant.node[gamma]],
+      htrc$quant.descr[gamma]))
+  })
+
+##
+## unitarity constraint quantities
+##
+quant.uni.names = alucomb2.unitarity.quant(htrc$combination)
+
+cat("##\n")
+cat("## quantities in unitarity constraint (", length(quant.uni.names), ")\n")
+cat("##\n")
+rc = lapply(quant.uni.names,
+  function(gamma) {
+    rc = cat(sprintf("%-12.12s %-12.12s %3d %#7.4f +-%#7.4f %s\n",
+      gamma,
+      htrc$quant.node[gamma],
+      pdginfo$nodes.code[htrc$quant.node[gamma]],
+      100*htrc$quant.val[gamma], 100*htrc$quant.err[gamma],
+      htrc$quant.descr[gamma]))
   })
 
 ##
