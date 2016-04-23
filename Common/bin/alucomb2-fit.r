@@ -843,17 +843,11 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   
   ##
   ## print base quantities
-  ##
-  
-  ##--- get quantity names defined via constraint
-  quant.constr.names = sub(".c", "", names(combination$constr.all.expr[combination$constr.all.any]), fixed=TRUE)
-  ##--- take out quantities defined with a constraint
-  quant.base.names = setdiff(quant.names, quant.constr.names)
-  ##--- also remove the unitarity complement
-  quant.base.names = setdiff(quant.base.names, "Gamma998")
+  ##  
+  quant.base.names = alucomb2.base.quant(combination)
 
   cat("\n##\n")
-  cat("## base quantities\n")
+  cat("## base quantities ("); cat(length(quant.base.names)); cat(")\n")
   cat("##\n\n")  
   alucomb2.clean.print(quant.base.names)
   
@@ -1074,7 +1068,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
         cat("\n")
         print(constr.diff, digits=3)
         ##--- end if the average percent change of constraint equation coefficients is small enough
-        if (sum(constr.diff) / length(constr.nl.val) < 1e-10) break
+        if (sum(constr.diff) / length(constr.nl.val) < 1e-12) break
       }
       
       ##--- save before calculation of next updated values
@@ -1100,7 +1094,7 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     quant.cov = (quant.cov + t(quant.cov))/2
     quant.err = sqrt(diag(quant.cov))
     quant.corr = quant.cov / (quant.err %o% quant.err)
-    
+
     chisq = drop(t(meas.val - delta %*% quant.val) %*% meas.invcov %*% (meas.val - delta %*% quant.val))
     dof = meas.num - quant.num + constr.num
     chisq.prob = pchisq(chisq, df=dof, lower.tail=FALSE)
