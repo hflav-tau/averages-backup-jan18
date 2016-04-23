@@ -85,7 +85,7 @@ deparse.one.line = function(expr) {
 ## return numeric id for sorting labels like "Gamma5", "Gamma3by5"
 ## <n>by<m> are sorted after <n> in ascending order ov <m>
 ##
-alurep.gamma.num.id = function(gamma.name) {
+alucomb2.gamma.num.id = function(gamma.name) {
   gamma.name = sub("Unitarity", "Gamma1000", gamma.name, fixed=TRUE)
   gamma.name = sub("GammaAll", "Gamma999", gamma.name, fixed=TRUE)
   rc = str_match(gamma.name, "\\D+(\\d+)by(\\d+)|\\D+(\\d+)")
@@ -533,7 +533,7 @@ cmp.meas.pdg.hfag = function(pdg, hfag) {
 ## print input measurements mismatches between PDG and HFAG
 ##
 pr.mism.meas.pdg.hfag = function(cmp, threshold=0) {
-  above.threshold = which(cmp$diff >= threshold)
+  above.threshold = which(cmp$cmp$diff >= threshold)
   if (length(above.threshold) > 0) {
     rc = lapply(split(cmp$cmp[above.threshold,], 1:length(above.threshold)),
       function(cmp) {
@@ -743,7 +743,7 @@ save.hfag.measurements = function(measurements, hfag, file.dir=".") {
     meas.fname = measurements[meas.exp %in% file.naming.list[[exp.tag]]]
     meas.fname.gamma = sapply(meas.fname, function(meas) {meas$tags[2]})
     meas.fname.pub = tolower(sapply(meas.fname, function(meas) {paste0(meas$tags[4:5], collapse="")}))
-    meas.fname = meas.fname[order(alurep.gamma.num.id(meas.fname.gamma), meas.fname.pub)]
+    meas.fname = meas.fname[order(alucomb2.gamma.num.id(meas.fname.gamma), meas.fname.pub)]
     for(meas in meas.fname) {
       alucomb2.print.meas(meas, hfag$combination$quantities)
       cat("\n")
@@ -764,7 +764,7 @@ save.pdg.measurements = function(pdg, hfag, pdg.match, file.dir=".") {
       corr.terms.tot = sapply(unname(pdg$meas.in$stat.corr[[ii.meas]]),
         function(x) setNames(x[2]/100, paste(hfag$measurements[[pdg.match[x[1]]]]$tags, collapse=".")))
       if (length(corr.terms.tot) > 0) {
-        corr.terms.tot = corr.terms.tot[order(alurep.gamma.num.id(
+        corr.terms.tot = corr.terms.tot[order(alucomb2.gamma.num.id(
           str_match(names(corr.terms.tot), "[^.]+[.](Gamma(\\d+)(by|)\\d*)[.]")[,2]))]
       }
       meas = list(
@@ -963,9 +963,9 @@ get.gamma.list.constr = function(expr.list.1, expr.list.2=NULL) {
         gammas.1 = str_extract_all(elem.1, "(Gamma\\d+by\\d+|Gamma\\d+)")[[1]]
         gammas.2 = str_extract_all(elem.2, "(Gamma\\d+by\\d+|Gamma\\d+)")[[1]]
         right = unique(c(gammas.1[-1], gammas.2[-1]))
-        right = right[order(alurep.gamma.num.id(right))]
+        right = right[order(alucomb2.gamma.num.id(right))]
         left = unique(c(gammas.1[1], gammas.2[1]))
-        left = left[order(alurep.gamma.num.id(left))]
+        left = left[order(alucomb2.gamma.num.id(left))]
         gammas = c(left, right)
       }, expr.list.1, expr.list.2, SIMPLIFY=FALSE)
   } else {
@@ -973,7 +973,7 @@ get.gamma.list.constr = function(expr.list.1, expr.list.2=NULL) {
       function(elem.1) {
         gammas = str_extract_all(elem.1, "(Gamma\\d+by\\d+|Gamma\\d+)")[[1]]
         gammas.right = unique(gammas[-1])
-        gammas.right = gammas.right[order(alurep.gamma.num.id(gammas.right))]
+        gammas.right = gammas.right[order(alucomb2.gamma.num.id(gammas.right))]
         gammas = c(gammas[1], gammas.right)
       }, expr.list.1, SIMPLIFY=FALSE)
   }
@@ -1376,14 +1376,26 @@ cat(paste(
 cat("\n")
 
 ##
-## print PDG vs. HFAG input measurements mismatches
+## print PDG 2015 vs. HFAG-like-PDG-2015 input measurements mismatches
 ##
 cmp.meas.pdg15.ht = cmp.meas.pdg.hfag(pdg15, ht)
+minimum.mism = 1e-6
 cat("##\n")
-cat("## PDG 2015 vs. HFAG 2014 input measurements mismatches >1e-4, in decreasing size\n")
+cat("## PDG 2015 vs. HFAG 2014 input measurements mismatches >"); cat(minimum.mism); cat(", in decreasing size\n")
 cat("## (mismatches are quadrature sum of the relative discrepancies in value and total uncertainty)\n")
 cat("##\n")
-pr.mism.meas.pdg.hfag(cmp.meas.pdg15.ht, 1e-4)
+pr.mism.meas.pdg.hfag(cmp.meas.pdg15.ht, minimum.mism)
+
+##
+## print PDG 2015 vs. HFAG-PDG 2016 input measurements mismatches
+##
+cmp.meas.pdg15.htrc = cmp.meas.pdg.hfag(pdg15, htrc)
+minimum.mism = 1e-6
+cat("##\n")
+cat("## PDG 2015 vs. HFAG-PDG 2016 input measurements mismatches >"); cat(minimum.mism); cat(", in decreasing size\n")
+cat("## (mismatches are quadrature sum of the relative discrepancies in value and total uncertainty)\n")
+cat("##\n")
+pr.mism.meas.pdg.hfag(cmp.meas.pdg15.htrc, minimum.mism)
 
 ##
 ## print PDG vs. HFAG node descr mismatches
