@@ -1517,9 +1517,9 @@ rc = lapply(in.hfag.not.in.pdg,
   })
 
 ##
-## compare fit results for PDG 2015 vs. HFAG-PDG 2015
+## compare fit results for PDG 2015 vs. HFAG-PDG 2016
 ##
-cmp.pdg.hfag.fit.results(pdg15, ht, "PDG 2015", "HFAG-PDG 2015")
+cmp.pdg.hfag.fit.results(pdg15, ht, "PDG 2015", "HFAG-PDG 2016")
 
 ##
 ## base quantities
