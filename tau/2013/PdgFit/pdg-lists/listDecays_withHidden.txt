@@ -1,0 +1,281 @@
+PARTICLE CODE: S035
+Desig Visible Description 
+    1     Y  tau- --> mu- nubar_mu nu_tau
+    2     Y  tau- --> e- nubar_e nu_tau
+    3     Y  tau- --> 3h- 2h+ nu_tau #text{(ex.#p{K0})}
+    4     Y  tau- --> 3h- 2h+ pi0 nu_tau #text{(ex.#p{K0})}
+    5     Y  tau- --> K- K+ pi- nu_tau
+    6     Y  tau- --> K- pi+ pi- #text{#def{>=}0 neutrals } nu_tau
+    7     Y  tau- --> K- nu_tau
+    8     Y  tau- --> h- omega nu_tau
+    9     N  tau- --> pi- rho0 nu_tau
+   10     N  tau- --> a_1(1260)- nu_tau
+   11     Y  tau- --> K- #text{#def{>=}1 (#p{pi0} or #p{K0} or #p{gamma}) } nu_tau
+   12     Y  tau- --> pi- nu_tau
+   13     N  tau- --> pi- pi- pi+ #text{non-}rho(770)0 nu_tau
+   14     Y  tau- --> eta pi- nu_tau
+   15     N  tau- --> pi- pi- pi+ nu_tau
+   16     Y  tau- --> pi- pi0 nu_tau
+   17     Y  tau- --> h- h- h+ nu_tau
+   18     Y  tau- --> h- h- h+ #text{#def{>=}1 neutrals } nu_tau
+   19     Y  tau- --> h- #text{#def{>=}} 2pi0 nu_tau
+   20     Y  tau- --> #text{#tex{\hbox\bgroup }}3h- 2h+ #text{#def{>=}0 neutrals } nu_tau#text{#tex{\egroup \allowbreak\hbox\bgroup} (ex. #d{K0S --> pi- pi+})#tex{\egroup\allowbreak\hbox\bgroup}(``5-prong'')#tex{\egroup}}
+   21     Y  tau- --> K^*(892)- nu_tau
+   22     Y  tau- --> K_2^*(1430)- nu_tau
+   23     Y  tau- --> K^*(892)- #text{#def{>=}0 neutrals #def{>=}0#p{K0L}} nu_tau
+   24     Y  tau- --> pi- pi0 #text{non-#p{rho}(770)} nu_tau
+   25     Y  tau- --> h- h- h+ pi0 nu_tau
+   26     Y  tau- --> h- 3pi0 nu_tau
+   27     Y  tau- --> h- 2pi0 nu_tau #text{(ex.#p{K0})}
+   28     Y  tau- --> K- h+ h- #text{#def{>=}0 neutrals } nu_tau
+   29     Y  tau- --> K0 h+ h- h- #text{#def{>=}0 neutrals } nu_tau
+   31     Y  tau- --> mu- gamma
+   32     Y  tau- --> e- gamma
+   33     N  tau- --> mu- #text{charged particles}
+   34     N  tau- --> e- #text{charged particles}
+   35     Y  tau- --> mu- mu+ mu-
+   36     Y  tau- --> e- mu+ mu-
+   37     Y  tau- --> mu- e+ e-
+   38     Y  tau- --> e- e+ e-
+   39     Y  tau- --> mu- pi0
+   40     Y  tau- --> e- pi0
+   41     Y  tau- --> mu- K0S
+   42     Y  tau- --> e- K0S
+   43     Y  tau- --> mu- rho0
+   44     Y  tau- --> e- rho0
+   45     Y  tau- --> e- pi+ pi-
+   46     Y  tau- --> e+ pi- pi-
+   47     Y  tau- --> mu- pi+ pi-
+   48     Y  tau- --> mu+ pi- pi-
+   49     Y  tau- --> e- pi+ K-
+   50     Y  tau- --> e+ pi- K-
+   51     Y  tau- --> mu- pi+ K-
+   52     Y  tau- --> mu+ pi- K-
+   53     Y  tau- --> e- K^*(892)0
+   54     Y  tau- --> mu- K^*(892)0
+   55     Y  tau- --> e+ mu- mu-
+   56     Y  tau- --> mu+ e- e-
+   57     N  tau- --> pi- #text{#def{>=}2 #p{pi0}} nu_tau
+   58     Y  tau- --> eta pi- pi0 nu_tau
+   61     Y  tau- --> #text{#tex{\hbox\bgroup }}4h- 3h+ #text{#def{>=}0 neutrals } nu_tau#text{#tex{\egroup \allowbreak\hbox\bgroup} (``7-prong'')#tex{\egroup}}
+   62     Y  tau- --> K- K0 nu_tau
+   63     N  tau- --> K- K0 #text{#def{>=}1 neutrals } nu_tau
+   64     N  tau- --> eta pi- #text{ #def{>=}0 neutrals } nu_tau
+   65     N  tau- --> eta eta pi- #text{ #def{>=}0 neutrals } nu_tau
+   66     Y  tau- --> eta pi+ pi- pi- #text{ #def{>=}0 neutrals } nu_tau
+   67     Y  tau- --> e- eta
+   68     Y  tau- --> eta pi- pi0 pi0 nu_tau
+   69     Y  tau- --> eta eta pi- nu_tau
+   70     Y  tau- --> eta eta pi- pi0 nu_tau
+   71     Y  tau- --> h- omega #text{ #def{>=}0 neutrals } nu_tau
+   76     Y  tau- --> mu- nubar_mu nu_tau gamma
+   77     Y  tau- --> e- pi- K+
+   78     Y  tau- --> mu- pi- K+
+   79     Y  tau- --> h- #text{#def{>=}} 3pi0 nu_tau
+   80     N  tau- --> lepton- lepton- lepton+
+   81     N  tau- --> ( e mu mu )#text{#charge{-}}
+   82     N  tau- --> ( mu e e )#text{#charge{-}}
+   83     N  tau- --> e-+ pi+- pi-
+   84     N  tau- --> mu-+ pi+- pi-
+   85     N  tau- --> ( e pi K )#text{#charge{-}, all charged}
+   86     N  tau- --> ( mu pi K )#text{#charge{-}, all charged}
+   87     N  tau- --> e- pi+- K-+
+   88     N  tau- --> mu- pi+- K-+
+   91     Y  tau- --> h- rho pi0 nu_tau
+   92     Y  tau- --> h- rho+ h- nu_tau
+   93     Y  tau- --> h- rho- h+ nu_tau
+   94     N  tau- --> #text{(}a_1(1260) h#text{)#charge{-}} nu_tau
+   95     N  tau- --> h- #text{(}rho pi#text{)#charge{0}} nu_tau
+   96     N  tau- --> K- K0 #text{#def{>=}0 neutrals } nu_tau
+   97     Y  tau- --> K^*(892)0 K- #text{#def{>=}0 neutrals } nu_tau
+   98     Y  tau- --> Kbar^*(892)0 pi- #text{#def{>=}0 neutrals } nu_tau
+   99     Y  tau- --> a_0(980)- #text{#def{>=}0 neutrals } nu_tau
+  100     N  tau- --> lepton+- pi-+ pi-
+  101     N  tau- --> lepton+- pi-+ K-
+  102     Y  tau- --> e- #text{light boson}
+  103     Y  tau- --> mu- #text{light boson}
+  104     Y  tau- --> pbar gamma
+  105     Y  tau- --> pbar pi0
+  106     Y  tau- --> pbar eta
+  107     N  tau- --> pi- gamma
+  108     N  tau- --> pi- pi0
+  109     Y  tau- --> eta K- nu_tau
+  110     Y  tau- --> h- 4pi0 nu_tau #text{#tex{\hbox\bgroup }(ex.#p{K0},#p{eta})#tex{\egroup}}
+  112     Y  tau- --> h- h- h+ 2pi0 nu_tau #text{(ex.#p{K0})}
+  113     Y  tau- --> h- omega pi0 nu_tau
+  114     Y  tau- --> mu- eta
+  115     Y  tau- --> K- 2pi0 nu_tau #text{(ex.#p{K0})}
+  116     Y  tau- --> K- 3pi0 nu_tau #text{(ex.#p{K0}, #p{eta})}
+  117     Y  tau- --> pi- Kbar0 nu_tau
+  118     Y  tau- --> pi- Kbar0 pi0 nu_tau
+  119     Y  tau- --> K- K0 pi0 nu_tau
+  120     N  tau- --> pi- pi+ pi- #text{#def{>=}0 neutrals } nu_tau
+  121     Y  tau- --> pi- K+ pi- #text{#def{>=}0 neut. } nu_tau
+  122     Y  tau- --> K- K+ pi- #text{#def{>=}0 neut. } nu_tau
+  123     Y  tau- --> K- pi+ K- #text{#def{>=}0 neut. } nu_tau
+  124     N  tau- --> K- K+ K- #text{#def{>=}0 neut. } nu_tau
+  125     Y  tau- --> K_1(1270)- nu_tau
+  126     Y  tau- --> K_1(1400)- nu_tau
+  127     Y  tau- --> K0S #text{(particles)#charge{-}} nu_tau
+  128     Y  tau- --> 3h- 2h+ 2pi0 nu_tau
+  129     Y  tau- --> #text{(}5pi#text{)#charge{-}} nu_tau
+  131     Y  tau- --> e- Kbar^*(892)0
+  132     Y  tau- --> mu- Kbar^*(892)0
+  133     N  tau- --> K^*(892)- #text{#tex{\hbox\bgroup}#def{>=}0(#p{h0}#def{not=}#p{K0S})#tex{\egroup}} nu_tau
+  141     Y  tau- --> pi- K0 Kbar0 nu_tau
+  142     Y  tau- --> pi- Kbar0 #text{#tex{\allowbreak\hbox\bgroup}(non-#p{K^*(892)-})} nu_tau#text{#tex{\egroup}}
+  143     Y  tau- --> h- h- h+ pi0 nu_tau #text{(ex.#p{K0})}
+  144     N  tau- --> h- h- h+ pi0 nu_tau
+  170     N  tau- --> h- Kbar0 #text{#tex{\hbox\bgroup}#def{>=}0 neutrals #def{>=}0#p{K0L}} nu_tau#text{#tex{\egroup}}
+  171     Y  tau- --> h- pi0 nu_tau
+  181     Y  tau- --> h- #text{#def{>=}0#p{K0L} } nu_tau
+  182     Y  tau- --> K- pi0 nu_tau
+  183     N  tau- --> #text{dummy mode used #tex{\hbox to 0pt\bgroup} by the fit#tex{\vrule height 20pt width0pt\hss\egroup}}
+  188     N  tau- --> e- #text{charged particles} + #text{#tex{\hbox\bgroup}}mu-#text{charged particles#tex{\egroup}}
+  191     Y  tau- --> #text{#tex{\hbox\bgroup }particle#charge{-}#def{>=}0 neutrals #def{>=}0#p{K0L}} nu_tau#text{#tex{\egroup}}
+  192     Y  tau- --> h- #text{#def{>=}1 neutrals} nu_tau
+  193     N  tau- --> h- #text{#def{>=}0 neutrals #def{>=}0#p{K0L} } nu_tau
+  194     Y  tau- --> h- h- h+ #text{#tex{\hbox\bgroup}#def{>=}0 neutrals #def{>=}0#p{K0L}} nu_tau #text{#tex{\egroup}}
+  198     Y  tau- --> K- #text{#def{>=}0#p{pi0} #def{>=}0#p{K0} } #text{#def{>=}0#p{gamma} } nu_tau
+  199     N  tau- --> 3h- 2h+ #text{#def{>=}0 neutrals } nu_tau
+  201     Y  tau- --> pi- 2pi0 nu_tau  #text{(ex.#p{K0})}
+  202     Y  tau- --> h- h- h+ pi0 nu_tau #text{(ex. #p{K0}, #p{omega})}
+  203     Y  tau- --> pi- 3pi0 nu_tau #text{#tex{\hbox\bgroup }(ex.#p{K0})#tex{\egroup}}
+  204     Y  tau- --> h- h- h+ 3pi0 nu_tau
+  205     Y  tau- --> Kbar^*(892)0 pi- nu_tau
+  206     Y  tau- --> K^*(892)0 K- nu_tau
+  207     Y  tau- --> phi pi- nu_tau
+  208     Y  tau- --> h- h- h+ nu_tau #text{(ex.#p{K0})}
+  209     Y  tau- --> #text{#tex{\hbox\bgroup }}h- h- h+ #text{#def{>=}0 neutrals } nu_tau#text{#tex{\egroup \allowbreak\hbox\bgroup} (ex. #d{K0S --> pi+ pi-})#tex{\egroup\allowbreak\hbox\bgroup}(``3-prong'')#tex{\egroup}}
+  210     Y  tau- --> e- e- e+ nubar_e nu_tau
+  211     Y  tau- --> mu- e- e+ nubar_mu nu_tau
+  212     Y  tau- --> h- Kbar0 nu_tau
+  213     Y  tau- --> h- Kbar0 pi0 nu_tau
+  214     Y  tau- --> pi- K0S K0S nu_tau
+  215     Y  tau- --> h- h- h+ nu_tau #text{(ex.#p{K0},#p{omega})}
+  216     Y  tau- --> h- h- h+ 2pi0 nu_tau  #text{(ex.#p{K0},#p{omega},#p{eta})}
+  217     Y  tau- --> h- nu_tau
+  218     Y  tau- --> h- 2pi0 nu_tau
+  219     Y  tau- --> #text{#tex{\hbox\bgroup }particle#charge{-}#def{>=}0 neutrals #def{>=}0#p{K0}} nu_tau#text{#tex{\egroup}} #text{#tex{\allowbreak\hbox\bgroup}(``1-prong'')#tex{\egroup}}
+  220     Y  tau- --> h- 4pi0 nu_tau #text{#tex{\hbox\bgroup }(ex.#p{K0})#tex{\egroup}}
+  221     Y  tau- --> h- h- h+ 2pi0 nu_tau
+  222     Y  tau- --> h- h- h+ #text{#def{>=}1} pi0 nu_tau #text{#tex{\allowbreak\hbox\bgroup}(ex. #p{K0})#tex{\egroup}}
+  223     Y  tau- --> phi K- nu_tau
+  224     Y  tau- --> e- pi0 pi0
+  225     Y  tau- --> mu- pi0 pi0
+  226     Y  tau- --> e- eta eta
+  227     Y  tau- --> mu- eta eta
+  228     Y  tau- --> e- pi0 eta
+  229     Y  tau- --> mu- pi0 eta
+  230     Y  tau- --> eta pi- pi+ pi- nu_tau #text{(ex.#p{K0})}
+  231     Y  tau- --> eta a_1(1260)- nu_tau --> eta pi- rho0 nu_tau
+  232     Y  tau- --> eta^'(958) pi- nu_tau
+  233     Y  tau- --> eta^'(958) pi- pi0 nu_tau
+  234     Y  tau- --> f_1(1285) pi- nu_tau
+  235     Y  tau- --> f_1(1285) pi- nu_tau --> eta pi- pi+ pi- nu_tau
+  236     N  tau- --> h- h- h+ 3pi0 nu_tau
+  237     Y  tau- --> h- omega 2pi0 nu_tau
+  238     Y  tau- --> pi- Kbar0 pi0 pi0 nu_tau
+  239     Y  tau- --> K- K0 pi0 pi0 nu_tau
+  240     Y  tau- --> pi- K0S K0L nu_tau
+  241     Y  tau- --> pi- K0S K0S pi0 nu_tau
+  242     Y  tau- --> pi- K0S K0L pi0 nu_tau
+  244     Y  tau- --> K0 h+ h- h- nu_tau
+  245     Y  tau- --> K- pi+ pi- nu_tau
+  246     Y  tau- --> K- pi+ pi- pi0 nu_tau
+  247     Y  tau- --> K- K+ pi- pi0 nu_tau
+  248     Y  tau- --> K- K+ K- nu_tau
+  249     Y  tau- --> Kbar0 rho- nu_tau
+  250     Y  tau- --> #text{(}Kbar^*(892) pi#text{)#charge{-}} nu_tau --> pi- Kbar0 pi0 nu_tau
+  251     Y  tau- --> e- K+ K-
+  252     Y  tau- --> e+ K- K-
+  253     Y  tau- --> mu- K+ K-
+  254     Y  tau- --> mu+ K- K-
+  255     Y  tau- --> e- phi
+  256     Y  tau- --> mu- phi
+  257     Y  tau- --> pi- pi+ pi- nu_tau
+  258     Y  tau- --> pi- pi+ pi- nu_tau #text{(ex.#p{K0})}
+  259     Y  tau- --> pi- pi+ pi- nu_tau #text{(ex.#p{K0},#p{omega})}
+  260     Y  tau- --> K- pi+ pi- nu_tau #text{(ex.#p{K0})}
+  261     Y  tau- --> pi- pi+ pi- pi0 nu_tau
+  262     Y  tau- --> pi- pi+ pi- pi0 nu_tau  #text{(ex.#p{K0})}
+  263     Y  tau- --> pi- pi+ pi- pi0 nu_tau  #text{(ex.#p{K0},#p{omega})}
+  264     Y  tau- --> K- pi+ pi- pi0 nu_tau  #text{(ex.#p{K0})}
+  265     Y  tau- --> eta K^*(892)- nu_tau
+  266     Y  tau- --> eta K- pi0 nu_tau
+  267     Y  tau- --> eta Kbar0 pi- nu_tau
+  268     Y  tau- --> pbar 2pi0
+  269     Y  tau- --> pbar pi0 eta
+  270     Y  tau- --> K- h+ pi- nu_tau #text{(ex.#p{K0})}
+  271     Y  tau- --> K- h+ pi- pi0 nu_tau #text{(ex.#p{K0})}
+  272     Y  tau- --> pi- Kbar0 #text{#def{>=}}1pi0 nu_tau
+  273     Y  tau- --> K- K0 #text{#def{>=}0#p{pi0}} nu_tau
+  274     Y  tau- --> e- nubar_e nu_tau gamma
+  275     Y  tau- --> K- pi+ pi- #text{#def{>=}0#p{pi0}} nu_tau #text{(ex.#p{K0})}
+  276     Y  tau- --> pi(1300)- nu_tau --> #text{(#d{rho pi})#charge{-}#tex{\allowbreak}} nu_tau --> #text{(3#p{pi})#charge{-}} nu_tau
+  277     Y  tau- --> pi(1300)- nu_tau --> #text{((#d{pi pi})#sub{#italic{S}-#roman{wave}} #p{pi})#charge{-}#tex{\allowbreak}} nu_tau --> #text{(3#p{pi})#charge{-}} nu_tau
+  278     Y  tau- --> pi- K0 Kbar0 pi0 nu_tau
+  279     Y  tau- --> K^*(1410)- nu_tau
+  280     Y  tau- --> K_0^*(1430)- nu_tau
+  281     Y  tau- --> X- #text{(#italic{S}=#n{-1})} nu_tau
+  282     Y  tau- --> pi- 2pi0 nu_tau  #text{(ex.#p{K0}), #tex{\hbox\bgroup} scalar#tex{\egroup}}
+  283     Y  tau- --> pi- 2pi0 nu_tau  #text{(ex.#p{K0}), #tex{\hbox\bgroup} vector#tex{\egroup}}
+  284     Y  tau- --> pi- pi+ pi- nu_tau #text{(ex.#p{K0}), #tex{\hbox\bgroup} non-axial vector#tex{\egroup}}
+  285     Y  tau- --> K- pi+ pi- pi0 nu_tau  #text{(ex.#p{K0},#p{eta})}
+  286     Y  tau- --> K- rho0 nu_tau --> K- pi+ pi- nu_tau
+  287     Y  tau- --> 2h- h+ omega nu_tau
+  288     Y  tau- --> e- K0S K0S
+  289     Y  tau- --> mu- K0S K0S
+  290     Y  tau- --> 4h- 3h+ nu_tau
+  291     Y  tau- --> 4h- 3h+ pi0 nu_tau
+  292     Y  tau- --> e- eta^'(958)
+  293     Y  tau- --> mu- eta^'(958)
+  294     Y  tau- --> K- pi+ pi- pi0 nu_tau  #text{(ex.#p{K0},#p{omega})}
+  295     Y  tau- --> K- omega nu_tau
+  296     Y  tau- --> K- K+ K- pi0 nu_tau
+  297     Y  tau- --> Lambda pi-
+  298     Y  tau- --> Lambdabar pi-
+  299     Y  tau- --> h- #text{#def{>=}} 1pi0 nu_tau #text{(ex.#p{K0})}
+  300     Y  tau- --> h- #text{#def{>=}} 3pi0 nu_tau #text{(ex. #p{K0})}
+  301     Y  tau- --> h- h- h+ #text{#def{>=}} 2pi0 nu_tau #text{(ex. #p{K0})}
+  302     Y  tau- --> h- 2omega nu_tau
+  303     Y  tau- --> K- K+ K- nu_tau #text{(ex. #p{phi})}
+  304     Y  tau- --> K^*(892)- nu_tau --> pi- Kbar0 nu_tau
+  305     Y  tau- --> e- omega
+  306     Y  tau- --> mu- omega
+  307     Y  tau- --> e- f_0(980) --> e- pi+ pi-
+  308     Y  tau- --> mu- f_0(980) --> mu- pi+ pi-
+  309     Y  tau- --> eta K- pi0 #text{ (non-#p{K^*(892)})} nu_tau
+  310     Y  tau- --> eta Kbar0 pi- pi0 nu_tau
+  311     Y  tau- --> eta K- K0 nu_tau
+  312     Y  tau- --> eta eta K- nu_tau
+  314     Y  tau- --> eta pi- pi+ pi- nu_tau #text{(ex.#p{K0},#p{f_1(1285)})}
+  315     Y  tau- --> f_1(1285) pi- nu_tau --> 3pi- 2pi+ nu_tau
+  316     Y  tau- --> 2pi- pi+ omega nu_tau
+  317     Y  tau- --> pi- omega 2pi0 nu_tau
+  318     Y  tau- --> 2pi- pi+ 3pi0 nu_tau #text{(ex.#p{K0})}
+  319     Y  tau- --> 2pi- pi+ 3pi0 nu_tau #text{ (ex.#p{K0}, #p{eta}, #p{f_1(1285)}) }
+  320     Y  tau- --> 2pi- pi+ 3pi0 nu_tau #text{ (ex.#p{K0}, #p{eta}, #p{omega}, #p{f_1(1285)}) }
+  321     Y  tau- --> 3pi- 2pi+ nu_tau #text{(ex.#p{K0}, #p{omega})}
+  322     Y  tau- --> 3pi- 2pi+ nu_tau #text{(ex.#p{K0}, #p{omega}, #p{f_1(1285)})}
+  323     Y  tau- --> 3pi- 2pi+ pi0 nu_tau #text{(ex.#p{K0})}
+  324     Y  tau- --> 3pi- 2pi+ pi0 nu_tau #text{(ex.#p{K0}, #p{eta}, #p{f_1(1285)})}
+  325     Y  tau- --> 3pi- 2pi+ pi0 nu_tau #text{(ex.#p{K0}, #p{eta}, #p{omega}, #p{f_1(1285)})}
+  326     Y  tau- --> eta^'(958) K- nu_tau
+  327     Y  tau- --> K- 2pi- 2pi+ nu_tau
+  328     Y  tau- --> K+ 3pi- pi+ nu_tau
+  329     Y  tau- --> K+ K- 2pi- pi+ nu_tau
+  330     Y  tau- --> K- 2pi- 2pi+ pi0 nu_tau
+  331     Y  tau- --> K+ 3pi- pi+ pi0 nu_tau
+  332     Y  tau- --> K- K0S K0S nu_tau
+  333     Y  tau- --> K- K0S K0S pi0 nu_tau
+  334     Y  tau- --> p mu- mu-
+  335     Y  tau- --> pbar mu+ mu-
+  336     Y  tau- --> K^*()- K0 pi0 nu_tau --> pi- K0S K0S pi0 nu_tau
+  337     Y  tau- --> f_1(1285) pi- nu_tau --> pi- K0S K0S pi0 nu_tau
+  338     Y  tau- --> f_1(1420) pi- nu_tau --> pi- K0S K0S pi0 nu_tau
+  339     Y  tau- --> pi- omega nu_tau
+  340     Y  tau- --> K- pi+ pi- nu_tau #text{(ex.#p{K0},#p{omega})}
+  341     Y  tau- --> K- pi+ pi- pi0 nu_tau #text{(ex.#p{K0},#p{omega},#p{eta})}
+  342     Y  tau- --> pi- K0L K0L nu_tau
+  343     Y  tau- --> pi- K0L K0L pi0 nu_tau
