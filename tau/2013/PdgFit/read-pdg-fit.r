@@ -1562,6 +1562,30 @@ rc = lapply(quant.uni.names,
   })
 
 ##
+## unitarity constraint quantities, non base quantities
+##
+quant.uni.names = alucomb2.unitarity.quant(htrc$combination)
+
+cat("##\n")
+cat("## non basis quantities in unitarity constraint\n")
+cat("##\n")
+rc = lapply(setdiff(quant.uni.names, quant.base.names),
+  function(gamma) {
+    rc = cat(sprintf("%-12.12s %-12.12s %3d %#7.4f +-%#7.4f %s\n",
+      gamma,
+      htrc$quant.node[gamma],
+      pdginfo$nodes.code[htrc$quant.node[gamma]],
+      100*htrc$quant.val[gamma], 100*htrc$quant.err[gamma],
+      htrc$quant.descr[gamma]))
+    index = grep(paste0(gamma,".c"), names(htrc$combination$constr.all.val))
+    ##print(gamma)
+    ##print(index)
+    ##print(str_match(htrc$combination$constr.all.str.expr[[index]], "^-\\S+ [+] \\((.*)\\)$"))
+    gamma.in.base.quant = str_match(htrc$combination$constr.all.str.expr.input[[index]], "^-\\S+ [+] \\((.*)\\)$")[,2]
+    cat(" ", "=", gamma.in.base.quant); cat("\n")
+  })
+
+##
 ## save
 ##
 cat("##\n")
