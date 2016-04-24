@@ -279,15 +279,15 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   }
   
   ##--- substitute constant parameters in constraint equations
+  combination$constr.all.expr.input = combination$constr.all.expr
+  combination$constr.all.str.expr.input = combination$constr.all.str.expr
   params = lapply(combination$params, function(x) unname(x["value"]))
   for(constr.name in names(combination$constr.all.nl)) {
     nlconstr.expr = combination$constr.all.expr[constr.name]
     nlconstr.expr.subs = esub.expr(nlconstr.expr, params)
     if (!identical(nlconstr.expr, nlconstr.expr.subs)) {
       nlconstr.str.expr = deparse.one.line(nlconstr.expr.subs)
-      attr(nlconstr.str.expr, "input") = combination$constr.all.str.expr[constr.name]
       combination$constr.all.str.expr[constr.name] = nlconstr.str.expr
-      attr(nlconstr.expr.subs, "input") = nlconstr.expr
       combination$constr.all.expr[constr.name] = nlconstr.expr.subs
     }
   }
