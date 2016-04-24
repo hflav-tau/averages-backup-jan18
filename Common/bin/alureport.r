@@ -294,7 +294,7 @@ alurep.tex.val.auto = function(val, width=0, perc=FALSE) {
 ## return quantity formatted val +- stat in a string
 ## according to the specified precision and power-of-ten order
 ##
-alurep.tex.val.err.prec.ord.old = function(val, err, precision, order, width=0, perc=FALSE) {
+alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc=FALSE) {
   val = val/10^order
   err = err/10^order
   if (order == 0) {
@@ -307,14 +307,15 @@ alurep.tex.val.err.prec.ord.old = function(val, err, precision, order, width=0, 
     rc = sprintf(paste("(%", width, ".", precision, "f \\pm %", width, ".", precision, "f) \\cdot 10^{%d}", sep=""),
       val, err, order)
   }
-  return(paste("\\ensuremath{", rc, "}", sep=""))
+  return(rc)
 }
 
 ##
 ## return quantity formatted val +- stat in a string
 ## according to the specified precision and power-of-ten order
+## new routine, never prints x10^order
 ##
-alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc=FALSE) {
+alurep.tex.val.err.prec.ord.new = function(val, err, precision, order, width=0, perc=FALSE) {
   val = val/10^order
   err = err/10^order
   rc = sprintf(paste("%", width, ".", precision, "f \\pm %", width, ".", precision, "f", sep=""), val, err)
