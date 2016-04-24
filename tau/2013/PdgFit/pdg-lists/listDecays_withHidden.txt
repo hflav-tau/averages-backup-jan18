@@ -251,7 +251,7 @@ Desig Visible Description
   312     Y  tau- --> eta eta K- nu_tau
   314     Y  tau- --> eta pi- pi+ pi- nu_tau #text{(ex.#p{K0},#p{f_1(1285)})}
   315     Y  tau- --> f_1(1285) pi- nu_tau --> 3pi- 2pi+ nu_tau
-  316     Y  tau- --> 2pi- pi+ omega nu_tau
+  316     Y  tau- --> 2pi- pi+ omega nu_tau #text{(ex.#p{K0})}
   317     Y  tau- --> pi- omega 2pi0 nu_tau
   318     Y  tau- --> 2pi- pi+ 3pi0 nu_tau #text{(ex.#p{K0})}
   319     Y  tau- --> 2pi- pi+ 3pi0 nu_tau #text{ (ex.#p{K0}, #p{eta}, #p{f_1(1285)}) }
@@ -279,3 +279,4 @@ Desig Visible Description
   341     Y  tau- --> K- pi+ pi- pi0 nu_tau #text{(ex.#p{K0},#p{omega},#p{eta})}
   342     Y  tau- --> pi- K0L K0L nu_tau
   343     Y  tau- --> pi- K0L K0L pi0 nu_tau
+  344     Y  tau- --> a_1(1260) nu_tau --> pi- gamma nu_tau
