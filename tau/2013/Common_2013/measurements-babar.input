@@ -41,32 +41,6 @@ PARAMETERS
 END
 
 #
-# Gamma807
-# G(K- K0 Kbar0 nu(tau)) / G(total)
-#
-# +++wrong, must change to K KS KS
-# not used in HFAG 2014
-#
-BEGIN MEASUREMENT BaBar Gamma807 pub LEES 12Y
-
-VALUE 7.6e-7 +-12e-7 +- 1.2e-7
-
-END
-
-#
-# Gamma808
-# G(K- K0 Kbar0 pi0 nu(tau)) / G(total)
-#
-# +++wrong, must change to K KS KS pi0
-# not used in HFAG 2014
-#
-BEGIN MEASUREMENT BaBar Gamma808 pub LEES 12Y
-
-VALUE 6.0e-7 +-7.1e-7 +-0.4e-7
-
-END
-
-#
 # Gamma810
 # G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
 #
