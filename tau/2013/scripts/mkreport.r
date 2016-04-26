@@ -473,7 +473,7 @@ get.tex.table.simple = function(quant.names, precision, order) {
     function(quant.name, quant) {
       rc = paste(
         "\\htQuantLine{", quant.name, "}{",
-        alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order), "}{",
+        alurep.tex.val.err.prec.ord.noee(quant.val[quant.name], quant.err[quant.name], precision, order), "}{",
         sprintf("%d", order), "}",
         sep="")
     }, quant.names, combination$quantities[quant.names])
