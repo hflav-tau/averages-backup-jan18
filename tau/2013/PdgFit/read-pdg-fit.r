@@ -27,29 +27,6 @@ source("../../../Common/bin/alucomb2-utils.r")
 ## functions
 ##
 
-##
-## parse string and return expression with substituted variables
-##
-esub.str.parse.nv = function(str, sublist=NULL) {
-  esub.expr(parse(text=str), sublist)
-}
-esub.str.parse = Vectorize(esub.str.parse.nv, vectorize.args=c("str"))
-
-##
-## parse string, substitute variables in expression, convert back to string
-##
-esub.str.nv = function(str, sublist=NULL) {
-  deparse.one.line(esub.expr(parse(text=str), sublist))
-}
-esub.str = Vectorize(esub.str.nv, vectorize.args=c("str"))
-
-##
-## evaluate all members of an expression array
-##
-eval.all = function(expr, ...) {
-  sapply(expr, function(expr.el) eval(expr.el, ...))
-}
-
 ##--- read saved variables inside a list
 load.in.list <- function(.file.name) { load(.file.name); as.list(environment()) }
 
@@ -301,7 +278,7 @@ get.pdg.input.nodes = function(pdg.data) {
   pdg.data$quant.descr = pdg.data$nodes.in.descr[pdg.data$node.in.def.beg]
   pdg.data$quant.node = pdg.data$nodes.in.node[pdg.data$node.in.def.beg]
 
-  ##--- for the nodes that correspont to a fit parameter, store parameter label else empty string
+  ##--- for the nodes that correspond to a fit parameter, store parameter label else empty string
   pdg.data$quant.plab = ifelse(pdg.data$node.in.def.beg != pdg.data$node.in.def.end, "",
     paste0(pdg.data$nodes.in.parcode[pdg.data$node.in.def.beg], "_p", pdg.data$nodes.in.param))
 
@@ -465,6 +442,9 @@ get.pdg.input.meas = function(pdg.data) {
   return(pdg.data)
 }
 
+##
+## compare input measurements in PDG and HFAG
+##
 cmp.meas.pdg.hfag = function(pdg, hfag) {
   cmp = list()
 
@@ -1202,9 +1182,9 @@ cmp.pdg.hfag.fit.results = function(pdg, hfag, pdg.label="PDG", hfag.label="HFAG
 }
 
 ##
-## list measurements mismatches PDG vs. HFAG
+## list measurements usage mismatches PDG vs. HFAG
 ##
-pr.meas.mism.pdg.hfag = function(pdg.meas.names, hfag, pdg.label="PDG", hfag.label="HFAG") {
+pr.meas.use.mism.pdg.hfag = function(pdg.meas.names, hfag, pdg.label="PDG", hfag.label="HFAG") {
   ##
   ## list measurements used in HFAG fit but not PDG
   ## HFAG fit without Belle inclusive K0, no hcorr
@@ -1483,7 +1463,7 @@ if (FALSE) {
 ## list measurement usage differences between PDG 2015 and HFAG-PDG 2016
 ##
 cmp.meas.pdg15.htrc = cmp.meas.pdg.hfag(pdg15, htrc)
-pr.meas.mism.pdg.hfag(cmp.meas.pdg15.htrc$pdg.meas.name, htrc, "PDG 2015", "HFAG-PDG 2016")
+pr.meas.use.mism.pdg.hfag(cmp.meas.pdg15.htrc$pdg.meas.name, htrc, "PDG 2015", "HFAG-PDG 2016")
 
 ##
 ## compare constraints for PDG 2015 vs. HFAG-PDG 2016
@@ -1583,6 +1563,32 @@ rc = lapply(setdiff(quant.uni.names, quant.base.names),
     ##print(str_match(htrc$combination$constr.all.str.expr[[index]], "^-\\S+ [+] \\((.*)\\)$"))
     gamma.in.base.quant = str_match(htrc$combination$constr.all.str.expr.input[[index]], "^-\\S+ [+] \\((.*)\\)$")[,2]
     cat(" ", "=", gamma.in.base.quant); cat("\n")
+  })
+
+##
+## PDG 2015 correlations for recent data
+##
+
+## cat("##\n")
+## cat("## PDG 2015 correlations for recent data\n")
+## cat("##\n")
+
+papers = c(
+  "AUBERT.07AP",
+  "AUBERT.08",
+  "AUBERT.10F",
+  "LEES.12X",
+  "LEES.12Y"
+  )
+
+rc = lapply(papers,
+  function(paper) {
+    grep(paper,paste(pdg15$meas.in$author, pdg15$meas.in$year, sep="."))
+  })
+meas.in.sel = do.call(c, rc)
+
+rc = lapply(pdg15$meas.in[meas.in.sel, ],
+  function(meas.in) {
   })
 
 ##
