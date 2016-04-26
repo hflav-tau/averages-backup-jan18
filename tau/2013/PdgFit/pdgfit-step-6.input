@@ -39,6 +39,7 @@ INCLUDE pdg/measurements-opal-2.input
 BEGIN COMBINATION
 
 COMBINE
+  Gamma1 Gamma2
   Gamma3 Gamma3by5 Gamma5 Gamma7 Gamma8 Gamma9 Gamma10
   Gamma9by5 Gamma10by5
   Gamma13 Gamma14 Gamma16 Gamma17 Gamma19 Gamma19by13
@@ -171,6 +172,10 @@ QUANTITY Gamma167 seed 4e-5
 QUANTITY Gamma168 seed 2e-5
 QUANTITY Gamma169 seed 1.5e-5
 
+# --- added for PDG listing in 2016 HFAG-PDG fit
+QUANTITY Gamma1 seed 0.85
+QUANTITY Gamma2 seed 0.85
+
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
 
@@ -182,9 +187,6 @@ QUANTITY Gamma110 seed 0.028
 
 # --- rescale errors according to babar-belle discrepancy
 QUANTITY Gamma96 scale 5.435276
-
-# --- define B(tau -> pi gamma) = B(tau -> 3pi) * B(a1 -> pi gamma)
-NLCONSTRAINT Gamma805.c 0 "-Gamma805 + (BR_a1_pigamma*Gamma20 + BR_a1_pigamma*Gamma62)"
 
 # --- updated unitarity sum
 NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma168 + Gamma169 + Gamma152 + Gamma103 + Gamma805)"
