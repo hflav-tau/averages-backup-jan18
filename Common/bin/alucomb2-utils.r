@@ -36,6 +36,29 @@ deparse.one.line = function(expr) {
 }
 
 ##
+## parse string and return expression with substituted variables
+##
+esub.str.parse.nv = function(str, sublist=NULL) {
+  esub.expr(parse(text=str), sublist)
+}
+esub.str.parse = Vectorize(esub.str.parse.nv, vectorize.args=c("str"))
+
+##
+## parse string, substitute variables in expression, convert back to string
+##
+esub.str.nv = function(str, sublist=NULL) {
+  deparse.one.line(esub.expr(parse(text=str), sublist))
+}
+esub.str = Vectorize(esub.str.nv, vectorize.args=c("str"))
+
+##
+## evaluate all members of an expression array
+##
+eval.all = function(expr, ...) {
+  sapply(expr, function(expr.el) eval(expr.el, ...))
+}
+
+##
 ## return numeric id for sorting labels like "Gamma5", "Gamma3by5"
 ## <n>by<m> are sorted after <n> in ascending order ov <m>
 ##
