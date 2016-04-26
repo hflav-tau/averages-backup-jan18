@@ -313,9 +313,9 @@ alurep.tex.val.err.prec.ord = function(val, err, precision, order, width=0, perc
 ##
 ## return quantity formatted val +- stat in a string
 ## according to the specified precision and power-of-ten order
-## new routine, never prints x10^order
+## do not add the x10^order part
 ##
-alurep.tex.val.err.prec.ord.new = function(val, err, precision, order, width=0, perc=FALSE) {
+alurep.tex.val.err.prec.ord.noee = function(val, err, precision, order, width=0, perc=FALSE) {
   val = val/10^order
   err = err/10^order
   rc = sprintf(paste("%", width, ".", precision, "f \\pm %", width, ".", precision, "f", sep=""), val, err)
