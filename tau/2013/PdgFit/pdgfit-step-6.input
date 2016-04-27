@@ -50,8 +50,8 @@ COMBINE
   Gamma49 Gamma50 Gamma51 Gamma806
   Gamma53 Gamma54 Gamma55 Gamma57 Gamma57by55 Gamma58 Gamma60 Gamma62
   Gamma66 Gamma69 Gamma70 Gamma74 Gamma76 Gamma76by54 Gamma77 Gamma78
-  Gamma80 Gamma80by60 Gamma81 Gamma81by69 Gamma82 Gamma85 Gamma88 Gamma92
-  Gamma93 Gamma93by60 Gamma94 Gamma94by69 Gamma96
+  Gamma80 Gamma80by60 Gamma81 Gamma81by69 Gamma82 Gamma85 Gamma88 Gamma89
+  Gamma92 Gamma93 Gamma93by60 Gamma94 Gamma94by69 Gamma96
   Gamma102 Gamma103 Gamma104 Gamma110
   Gamma126 Gamma128 Gamma130 Gamma132 Gamma136
   Gamma150 Gamma150by66 Gamma151 Gamma152 Gamma152by76
@@ -175,6 +175,7 @@ QUANTITY Gamma169 seed 1.5e-5
 # --- added for PDG listing in 2016 HFAG-PDG fit
 QUANTITY Gamma1 seed 0.85
 QUANTITY Gamma2 seed 0.85
+QUANTITY Gamma89 seed 0.076
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
