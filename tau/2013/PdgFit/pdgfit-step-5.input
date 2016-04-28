@@ -46,17 +46,18 @@ COMBINE
   Gamma49 Gamma50 Gamma51 Gamma806
   Gamma53 Gamma54 Gamma55 Gamma57 Gamma57by55 Gamma58 Gamma60 Gamma62
   Gamma66 Gamma69 Gamma70 Gamma74 Gamma76 Gamma76by54 Gamma77 Gamma78
-  Gamma80 Gamma80by60 Gamma81 Gamma81by69 Gamma82 Gamma85 Gamma88 Gamma92
-  Gamma93 Gamma93by60 Gamma94 Gamma94by69 Gamma96
+  Gamma80 Gamma80by60 Gamma81 Gamma81by69 Gamma82 Gamma85 Gamma88 Gamma89
+  Gamma92 Gamma93 Gamma93by60 Gamma94 Gamma94by69 Gamma96
   Gamma102 Gamma103 Gamma104 Gamma110
   Gamma126 Gamma128 Gamma130 Gamma132 Gamma136
   Gamma150 Gamma150by66 Gamma151 Gamma152 Gamma152by76
-  Gamma800 Gamma801 Gamma802 Gamma803
+  Gamma167 Gamma168 Gamma169
+  Gamma800 Gamma802 Gamma803
   Gamma810 Gamma910 Gamma911 Gamma811 Gamma812
   Gamma820 Gamma920 Gamma821 Gamma822
   Gamma830 Gamma930 Gamma831 Gamma832 Gamma833
-  Gamma944
-  Gamma997 Gamma805
+  Gamma944 Gamma945
+  Gamma805
   Gamma998 GammaAll
 
 #
@@ -100,8 +101,11 @@ MODMEAS DROP Belle Gamma33 pub RYU 14vpc
 MODMEAS DROP BaBar Gamma35 prelim ICHEP08
 MODMEAS DROP BaBar Gamma40 prelim DPF09
 
-# --- drop a1 -> pi gamma estimate, not measurement
+# --- drop B(tau -> pi gamma nu) ALEPH estimate, not measurement
 MODMEAS DROP ALEPH Gamma805 pub SCHAEL 05C
+
+# --- drop B(a1 -> pi gamma) and replace with parameter
+MODMEAS DROP ALEPH Gamma997 pub SCHAEL 05C
 
 INCLUDE ../Common-Mar2012/parameters.input
 # --- update parameters to PDG 2013
@@ -141,7 +145,6 @@ QUANTITY Gamma803 seed 0.00041
 QUANTITY Gamma800 seed 0.019
 QUANTITY Gamma804 seed 0.00018
 QUANTITY Gamma136 seed 2.3e-4
-QUANTITY Gamma801 seed 3.6e-5
 
 # --- needed after inclusion of pi KS KS pi0 nu results
 QUANTITY Gamma51 seed 3.20e-5
@@ -153,6 +156,19 @@ QUANTITY Gamma820 seed 8.33e-04
 QUANTITY Gamma830 seed 1.65e-4
 
 QUANTITY Gamma805 seed 4e-4
+
+# --- added to get Gamma945 in set of base variables
+QUANTITY Gamma945 seed 2e-4
+
+# --- added after removing Gamma801
+QUANTITY Gamma167 seed 4e-5
+QUANTITY Gamma168 seed 2e-5
+QUANTITY Gamma169 seed 1.5e-5
+
+# --- added for PDG listing in 2016 HFAG-PDG fit
+QUANTITY Gamma1 seed 0.85
+QUANTITY Gamma2 seed 0.85
+QUANTITY Gamma89 seed 0.076
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
@@ -167,10 +183,10 @@ QUANTITY Gamma110 seed 0.028
 QUANTITY Gamma96 scale 5.435276
 
 # --- define B(tau -> pi gamma) = B(tau -> 3pi) * B(a1 -> pi gamma)
-NLCONSTRAINT Gamma805.c 0 "-Gamma805 + (Gamma997*Gamma20 + Gamma997*Gamma62)"
+# NLCONSTRAINT Gamma805.c 0 "-Gamma805 + (Gamma997*Gamma20 + Gamma997*Gamma62)"
 
 # --- updated unitarity sum
-NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma801 + Gamma152 + Gamma103 + Gamma805)"
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma168 + Gamma169 + Gamma152 + Gamma103 + Gamma805)"
 
 # --- unitarity constraint NOT applied (sum of base nodes with dummy node)
 NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
