@@ -145,8 +145,7 @@ QUANTITY Gamma110 seed 0.028
 # --- rescale errors according to babar-belle discrepancy
 ##+++ QUANTITY Gamma96 scale 5.435276
 
-# --- unitarity constraint NOT applied (sum of base nodes with dummy node)
-# NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
+# --- unitarity constraint applied in pdg-constraints.input
 
 # ////////////////////////////////////////////////////////////////////////
 #
