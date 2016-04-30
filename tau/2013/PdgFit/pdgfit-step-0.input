@@ -23,6 +23,7 @@ INCLUDE ../Common_2013/measurements-aleph.input
 BEGIN COMBINATION
 
 COMBINE
+  Gamma1 Gamma2
   Gamma3 Gamma3by5 Gamma5 Gamma7 Gamma8 Gamma9 Gamma9by5 Gamma10
   Gamma10by5 Gamma13 Gamma14 Gamma16 Gamma17 Gamma19 Gamma19by13
   Gamma20 Gamma23 Gamma25 Gamma26 Gamma26by13 Gamma27 Gamma28 Gamma29
@@ -44,41 +45,12 @@ COMBINE
   Gamma830 Gamma930 Gamma831 Gamma832 Gamma833
   Gamma944
 
-##
-## since we have Gamma50 measurements, ALEPH inclusive estimate on Gamma49
-## has been replaced by ALEPH exclusive result on Gamma51 by including
-## ../Common-Mar2012/measurements-aleph.input
-##
-MODMEAS DROP ALEPH Gamma49 pub BARATE 99R
+# --- include standard HFAG-PDG 2016 measurement drop list
+INCLUDE hfag-pdg-2016-drop.input
 
-##--- drop prelim. Belle KS results in favour of published ones
-MODMEAS DROP Belle Gamma40 prelim PHIPSI11
-MODMEAS DROP Belle Gamma42 prelim PHIPSI11
-MODMEAS DROP Belle Gamma47 prelim PHIPSI11
-MODMEAS DROP Belle Gamma50 prelim PHIPSI11
-
-##--- superseeded in Belle KS results paper 1402.5213
-MODMEAS DROP Belle Gamma35 pub EPIFANOV 07
-
-##--- drop BaBar results introduced for Tau12
-MODMEAS DROP BaBar Gamma47 prelim TAU12 Sobie.2
-MODMEAS DROP BaBar Gamma50 prelim TAU12 Sobie.2
-
-##--- superseeded in BaBar high-multiplicity BRs paper 1209.2734
-MODMEAS DROP BaBar Gamma136 pub AUBERT 08AE
-MODMEAS DROP BaBar Gamma103 pub AUBERT,B 05W
-
-##
-## remove measurement too correlated with 6 pions measurements
-## from the same paper CLEO ANASTASSOV 01
-##
-MODMEAS DROP CLEO Gamma136 pub ANASTASSOV 01
-
-##
-MODMEAS DROP Belle Gamma33 pub RYU 14vpc
-
-##--- must do it since April 2016
-MODMEAS DROP ALEPH Gamma805 pub SCHAEL 05C
+# --- keep for now prelim measurements used in HFAG 2014 for PDG fit
+MODMEAS KEEP BaBar Gamma35 prelim ICHEP08
+MODMEAS KEEP BaBar Gamma40 prelim DPF09
 
 INCLUDE ../Common-Mar2012/parameters.input
 # --- update parameters to PDG 2013
@@ -108,6 +80,8 @@ QUANTITY Gamma58 seed 0.094
 QUANTITY Gamma62 seed 0.089
 QUANTITY Gamma70 seed 0.027
 QUANTITY Gamma77 seed 0.00097
+QUANTITY Gamma80 seed 0.43
+QUANTITY Gamma81 seed 0.086
 QUANTITY Gamma802 seed 0.0029
 QUANTITY Gamma803 seed 0.00041
 QUANTITY Gamma800 seed 0.019
@@ -137,9 +111,10 @@ QUANTITY Gamma167 seed 4e-5
 QUANTITY Gamma168 seed 2e-5
 QUANTITY Gamma169 seed 1.5e-5
 
-# --- added 28 Apr 2016
-QUANTITY Gamma80 seed 0.43
-QUANTITY Gamma81 seed 0.086
+# --- added for PDG listing in 2016 HFAG-PDG fit
+QUANTITY Gamma1 seed 0.85
+QUANTITY Gamma2 seed 0.85
+QUANTITY Gamma89 seed 0.076
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1

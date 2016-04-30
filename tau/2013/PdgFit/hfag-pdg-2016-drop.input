@@ -1,0 +1,49 @@
+#
+# HFAG 2014:
+# since we have Gamma50 measurements, ALEPH inclusive estimate on Gamma49
+# has been replaced by ALEPH exclusive result on Gamma51 by including
+# ../Common-Mar2012/measurements-aleph.input
+#
+# 2016:
+# readmitted ALEPH Gamma49 pub BARATE 99R with correlation with ALEPH Gamma51
+# 2016 revision:
+# drop again ALEPH Gamma49 pub BARATE 99R to avoid updating PDG with correlation
+#
+MODMEAS DROP ALEPH Gamma49 pub BARATE 99R
+
+# --- drop prelim. Belle KS results in favour of published ones
+MODMEAS DROP Belle Gamma40 prelim PHIPSI11
+MODMEAS DROP Belle Gamma42 prelim PHIPSI11
+MODMEAS DROP Belle Gamma47 prelim PHIPSI11
+MODMEAS DROP Belle Gamma50 prelim PHIPSI11
+
+# --- superseeded in Belle KS results paper 1402.5213
+MODMEAS DROP Belle Gamma35 pub EPIFANOV 07
+
+# --- drop BaBar results introduced for Tau12
+MODMEAS DROP BaBar Gamma47 prelim TAU12 Sobie.2
+MODMEAS DROP BaBar Gamma50 prelim TAU12 Sobie.2
+
+# --- superseeded in BaBar high-multiplicity BRs paper 1209.2734
+MODMEAS DROP BaBar Gamma136 pub AUBERT 08AE
+MODMEAS DROP BaBar Gamma103 pub AUBERT,B 05W
+
+#
+# remove measurement too correlated with 6 pions measurements
+# from the same paper CLEO ANASTASSOV 01
+#
+MODMEAS DROP CLEO Gamma136 pub ANASTASSOV 01
+
+# --- drop Belle incl. K0S meas, because of inconsistent correlation
+MODMEAS DROP Belle Gamma33 pub RYU 14vpc
+
+# --- drop prelim measurements for PDG fit
+MODMEAS DROP BaBar Gamma35 prelim ICHEP08
+MODMEAS DROP BaBar Gamma40 prelim DPF09
+
+# --- drop B(tau -> pi gamma nu) ALEPH estimate, not measurement
+MODMEAS DROP ALEPH Gamma805 pub SCHAEL 05C
+
+# --- drop B(a1 -> pi gamma) and replace with parameter
+MODMEAS DROP ALEPH Gamma997 pub SCHAEL 05C
+
