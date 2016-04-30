@@ -6,9 +6,9 @@
 #
 
 # INCLUDE ../Common-Mar2011/measurements-aleph.input
-# INCLUDE ../Common-Mar2011/measurements-babar.input
-# INCLUDE ../Common-Mar2011/measurements-belle.input
-# INCLUDE ../Common-Mar2012/measurements-belle.input
+INCLUDE ../Common-Mar2011/measurements-babar.input
+INCLUDE ../Common-Mar2011/measurements-belle.input
+INCLUDE ../Common-Mar2012/measurements-belle.input
 # INCLUDE ../Common-Mar2011/measurements-cleo.input
 # INCLUDE ../Common-Mar2011/measurements-delphi.input
 # INCLUDE ../Common-Mar2011/measurements-l3.input
@@ -16,21 +16,14 @@
 # INCLUDE ../Common-Mar2011/measurements-other.input
 # # --- for 2014 average
 # INCLUDE ../Common-Mar2012/measurements-aleph.input
-# INCLUDE ../Common_2013/measurements-babar.input
-# INCLUDE ../Common_2013/measurements-belle_13.input
+INCLUDE ../Common_2013/measurements-babar.input
+INCLUDE ../Common_2013/measurements-belle_13.input
 # INCLUDE ../Common_2013/measurements-cleo.input
 # INCLUDE ../Common_2013/measurements-aleph.input
 
 INCLUDE pdg/measurements-aleph.input
-
 # INCLUDE pdg/measurements-babar.input
 # INCLUDE pdg/measurements-belle.input
-INCLUDE ../Common-Mar2011/measurements-babar.input
-INCLUDE ../Common-Mar2011/measurements-belle.input
-INCLUDE ../Common-Mar2012/measurements-belle.input
-INCLUDE ../Common_2013/measurements-babar.input
-INCLUDE ../Common_2013/measurements-belle_13.input
-
 INCLUDE pdg/measurements-cleo.input
 INCLUDE pdg/measurements-delphi.input
 INCLUDE pdg/measurements-l3.input
