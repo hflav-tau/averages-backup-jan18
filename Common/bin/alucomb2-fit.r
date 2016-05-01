@@ -210,6 +210,19 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ## - join linear and non-linear constraint constants in a single list
   ## - save all lists in "combination" list
   ##
+
+  if (length(combination$constr.lin.val) > 0) {
+    constr.order = order(names(combination$constr.lin.val))
+    combination$constr.lin.val = combination$constr.lin.val[constr.order]
+    combination$constr.lin.comb = combination$constr.lin.comb[constr.order]
+    rm(constr.order)
+  }
+  if (length(combination$constr.nl.str.val) > 0) {
+    constr.order = order(names(combination$constr.nl.str.val))
+    combination$constr.nl.str.val = combination$constr.nl.str.val[constr.order]
+    combination$constr.nl.str.expr = combination$constr.nl.str.expr[constr.order]
+    rm(constr.order)
+  }
   
   ##--- flag which constraints are non-linear
   combination$constr.all.nl = c(rep(FALSE, length(combination$constr.lin.val)), rep(TRUE, length(combination$constr.nl.str.val)))
