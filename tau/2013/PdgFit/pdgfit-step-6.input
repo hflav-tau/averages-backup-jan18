@@ -68,6 +68,9 @@ COMBINE
   # Gamma59 Gamma63 Gamma64 Gamma65 Gamma67 Gamma68 Gamma75 Gamma79
   # Gamma83 Gamma84 Gamma85by60 Gamma87 Gamma106 Gamma149 Gamma152by54
 
+# --- include standard HFAG-PDG 2016 measurement drop list
+INCLUDE hfag-pdg-2016-drop.input
+
 INCLUDE ../Common-Mar2012/parameters.input
 # --- update parameters to PDG 2013
 INCLUDE ../Common_2013/parameters_13.input
