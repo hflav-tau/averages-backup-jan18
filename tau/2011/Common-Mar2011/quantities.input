@@ -758,12 +758,13 @@ QUANTITY Gamma64 node S035B78 descr "G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(to
 # Gamma94 = G(pi- K- K+ pi0 nu(tau)) / G(total)
 # Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
+# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma64.c 0 "-Gamma64 + (Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126*BR_eta_pimpippiz + Gamma128*BR_eta_pimpippiz + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma803)"
+NLCONSTRAINT Gamma64.c 0 "-Gamma64 + (Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126*BR_eta_pimpippiz + Gamma128*BR_eta_pimpippiz + Gamma130*BR_eta_pimpippiz + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma803)"
 
 #
 # Gamma65 = G(h- h- h+ pi0 nu(tau)) / G(total)
