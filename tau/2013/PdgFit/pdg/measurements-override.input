@@ -1,0 +1,212 @@
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma60 pub LEE 10
+
+VALUE 0.0842 +-0 +0.0026 -0.0025  #  0.0842 +-0 +0.0026 -0.0025
+# priv. comm. VALUE 0.0842 +-3.3211e-05 +-0.0025879
+
+ERROR_CORR_WITH +0.1749885   Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH +0.04948276  Belle Gamma93 pub LEE 10
+ERROR_CORR_WITH -0.05346557  Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi- pi+ nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma85 pub LEE 10
+
+VALUE 0.0033 +-1e-05 +0.00016 -0.00017  #  0.0033 +-1e-05 +0.00016 -0.00017
+# priv. comm. VALUE 0.0033 +-1.274e-05 +-0.00016625
+
+ERROR_CORR_WITH +0.1749885   Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08026913  Belle Gamma93 pub LEE 10
+ERROR_CORR_WITH +0.03505142  Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma93 pub LEE 10
+
+VALUE 0.00155 +-1e-05 +6e-05 -5e-05  #  0.00155 +-1e-05 +6e-05 -5e-05
+# priv. comm. VALUE 0.00155 +-6.575e-06 +-5.5579e-05
+
+ERROR_CORR_WITH +0.04948276  Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.08026913  Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH -0.008312885 Belle Gamma96 pub LEE 10
+
+END
+
+#
+# Gamma96 (PDG node = S035C9)
+# G(K- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT Belle Gamma96 pub LEE 10
+
+VALUE 3.29e-05 +-1.7e-06 +1.9e-06 -2.0e-06
+# priv. comm. VALUE 3.29e-05 +-1.6941e-06 +-1.9621e-06
+
+ERROR_CORR_WITH -0.05346557  Belle Gamma60 pub LEE 10
+ERROR_CORR_WITH +0.03505142  Belle Gamma85 pub LEE 10
+ERROR_CORR_WITH -0.008312885 Belle Gamma93 pub LEE 10
+
+END
+
+#
+# Gamma60 (PDG node = S035C19)
+# G(pi- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma60 pub AUBERT 08
+
+VALUE 0.0883 +-0.0001 +-0.0013
+
+ERROR_CORR_WITH +0.544       BaBar Gamma85 pub AUBERT 08
+ERROR_CORR_WITH +0.39        BaBar Gamma93 pub AUBERT 08
+ERROR_CORR_WITH +0.031       BaBar Gamma96 pub AUBERT 08
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -0.000265011
+  -0.9%            BaBarLumi        # -0.000795033
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma85 (PDG node = S035C21)
+# G(K- pi+ pi- nu(tau) (ex. K0)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma85 pub AUBERT 08
+
+VALUE 0.00273 +-2e-05 +-9e-05
+
+ERROR_CORR_WITH +0.544       BaBar Gamma60 pub AUBERT 08
+ERROR_CORR_WITH +0.177       BaBar Gamma93 pub AUBERT 08
+ERROR_CORR_WITH +0.093       BaBar Gamma96 pub AUBERT 08
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -8.1771e-06
+  -0.9%            BaBarLumi        # -2.45313e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma93 (PDG node = S035R40)
+# G(pi- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma93 pub AUBERT 08
+
+VALUE 0.001346 +-1e-05 +-3.6e-05
+
+ERROR_CORR_WITH +0.39        BaBar Gamma60 pub AUBERT 08
+ERROR_CORR_WITH +0.177       BaBar Gamma85 pub AUBERT 08
+ERROR_CORR_WITH +0.087       BaBar Gamma96 pub AUBERT 08
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.0383e-06
+  -0.9%            BaBarLumi        # -1.21149e-05
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma96 (PDG node = S035C9)
+# G(K- K- K+ nu(tau)) / G(total)
+#
+BEGIN MEASUREMENT BaBar Gamma96 pub AUBERT 08
+
+VALUE 1.5777e-05 +-1.3e-06 +-1.2308e-06
+
+ERROR_CORR_WITH +0.031  BaBar Gamma60 pub AUBERT 08
+ERROR_CORR_WITH +0.093  BaBar Gamma85 pub AUBERT 08
+ERROR_CORR_WITH +0.087  BaBar Gamma93 pub AUBERT 08
+
+SYSTEMATICS
+  -0.3%            sigmataupmy4s    # -4.7331e-08
+  -0.9%            BaBarLumi        # -1.41993e-07
+
+PARAMETERS
+  sigmataupmy4s    0.919        +-0.0032165
+
+END
+
+#
+# Gamma3by5 (PDG node = S035R5)
+# G(mu- nubar(mu) nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma3by5 pub AUBERT 10F
+
+VALUE 0.9796 +-0.0016 +-0.0036
+# priv. comm. VALUE 0.9796 +-0.00390406 +-0.00052753
+
+ERROR_CORR_WITH +0.25        BaBar Gamma9by5 pub AUBERT 10F
+ERROR_CORR_WITH +0.12        BaBar Gamma10by5 pub AUBERT 10F
+# priv. comm. STAT_CORR_WITH +0.235119    BaBar Gamma9by5 pub AUBERT 10F
+# priv. comm. STAT_CORR_WITH +0.0885061   BaBar Gamma10by5 pub AUBERT 10F
+
+SYSTEMATICS
+  -0.0004898       PimPimPipNu     
+  -0.00019592      BaBarLumi       
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma9by5 (PDG node = S035Y01)
+# G(pi- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma9by5 pub AUBERT 10F
+
+VALUE 0.5945 +-0.0014 +-0.0061
+# priv. comm. VALUE 0.5945 +-0.00574448 +-0.00248413
+
+ERROR_CORR_WITH +0.25        BaBar Gamma3by5 pub AUBERT 10F
+ERROR_CORR_WITH +0.33        BaBar Gamma10by5 pub AUBERT 10F
+# priv. comm. STAT_CORR_WITH +0.235119    BaBar Gamma3by5 pub AUBERT 10F
+# priv. comm. STAT_CORR_WITH +0.284953    BaBar Gamma10by5 pub AUBERT 10F
+
+SYSTEMATICS
+  -0.00089175      PimPimPipNu     
+  -0.00231855      BaBarLumi       
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
+
+#
+# Gamma10by5 (PDG node = S035Y02)
+# G(K- nu(tau)) / G(e- nubar(e) nu(tau))
+#
+BEGIN MEASUREMENT BaBar Gamma10by5 pub AUBERT 10F
+
+VALUE 0.03882 +-0.00032 +-0.00057
+# priv. comm. VALUE 0.03882 +-0.000630207 +-0.000173608
+
+ERROR_CORR_WITH +0.12        BaBar Gamma3by5 pub AUBERT 10F
+ERROR_CORR_WITH +0.33        BaBar Gamma9by5 pub AUBERT 10F
+# priv. comm. STAT_CORR_WITH +0.0885061   BaBar Gamma3by5 pub AUBERT 10F
+# priv. comm. STAT_CORR_WITH +0.284953    BaBar Gamma9by5 pub AUBERT 10F
+
+SYSTEMATICS
+  -0.00015528      PimPimPipNu     
+  -0.00007764      BaBarLumi        # -7.764e-05
+
+PARAMETERS
+  PimPimPipNu      8.83e-2      +-0.130384e-2
+
+END
