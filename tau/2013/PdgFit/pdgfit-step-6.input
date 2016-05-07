@@ -62,6 +62,9 @@ COMBINE
   Gamma830 Gamma930 Gamma831 Gamma832 Gamma833
   Gamma944 Gamma945
   Gamma805
+  Gamma8by5 Gamma10by9 Gamma11 Gamma12 Gamma18 Gamma24 Gamma32 Gamma56
+  Gamma59 Gamma63 Gamma64 Gamma65 Gamma67 Gamma68 Gamma75 Gamma79
+  Gamma83 Gamma84 Gamma85by60 Gamma87 Gamma106 Gamma149 Gamma152by54
   Gamma998 GammaAll
 
 # --- include standard HFAG-PDG 2016 measurement drop list
@@ -130,6 +133,31 @@ QUANTITY Gamma169 seed 1.5e-5
 QUANTITY Gamma1 seed 0.85
 QUANTITY Gamma2 seed 0.85
 QUANTITY Gamma89 seed 0.076
+
+# --- added after adding PDG 2015 quantities missing in HFAG fit
+QUANTITY Gamma8by5 seed 0.647
+QUANTITY Gamma10by9 seed 0.0647
+QUANTITY Gamma11 seed 26e-2
+QUANTITY Gamma12 seed 26e-2
+QUANTITY Gamma18 seed 0.0952
+QUANTITY Gamma24 seed 1e-2
+QUANTITY Gamma32 seed 1e-2
+QUANTITY Gamma56 seed 10e-2
+QUANTITY Gamma59 seed 10e-2
+QUANTITY Gamma63 seed 5e-2
+QUANTITY Gamma64 seed 0.95e-2
+QUANTITY Gamma65 seed 0.75e-2
+QUANTITY Gamma67 seed 15e-2
+QUANTITY Gamma68 seed 5e-2
+QUANTITY Gamma75 seed 0.20e-2
+QUANTITY Gamma79 seed 0.1e-2
+QUANTITY Gamma83 seed 0.37e-2
+QUANTITY Gamma84 seed 0.34e-2
+QUANTITY Gamma85by60 seed 0.0326
+QUANTITY Gamma87 seed 0.13e-2
+QUANTITY Gamma106 seed 0.78e-2
+QUANTITY Gamma149 seed 2.4e-2
+QUANTITY Gamma152by54 seed 0.0271
 
 # --- sum of all non-overlapping decay modes
 QUANTITY GammaAll seed 1
