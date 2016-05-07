@@ -70,3 +70,22 @@ NLCONSTRAINT Gamma3by5.c 0 "-Gamma3by5 + (Gamma3 / Gamma5)"
 NLCONSTRAINT Gamma13.c 0 "-Gamma13 + (Gamma14 + Gamma16)"
 NLCONSTRAINT Gamma24.c 0 "-Gamma24 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma28 + Gamma40*(BR_KS_2piz/2) + Gamma42*(BR_KS_2piz/2) + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_3piz)"
 NLCONSTRAINT Unitarity.c 1 "Gamma3 + Gamma128 + Gamma30 + Gamma152 + Gamma23 + Gamma28 + Gamma35 + Gamma40 + Gamma42 + Gamma9 + Gamma14 + Gamma16 + Gamma5 + Gamma20 + Gamma27 + Gamma78 + Gamma47 + Gamma77 + Gamma48 + Gamma94 + Gamma62 + Gamma85 + Gamma70 + Gamma89 + Gamma103 + Gamma104 + Gamma93 + Gamma126 + Gamma37 + Gamma10 + Gamma150"
+
+#
+# replace with equivalent constraints that parse OK
+#
+NLCONSTRAINT Gamma8by5.c 0 "-Gamma8by5 + (Gamma8 / Gamma5)"
+NLCONSTRAINT Gamma19by13.c 0 "-Gamma19by13 + (Gamma19 / Gamma13)"
+NLCONSTRAINT Gamma26by13.c 0 "-Gamma26by13 + (Gamma26 / Gamma13)"
+NLCONSTRAINT Gamma57by55.c 0 "-Gamma57by55 + (Gamma57 / Gamma55)"
+NLCONSTRAINT Gamma76by54.c 0 "-Gamma76by54 + (Gamma76 / Gamma54)"
+NLCONSTRAINT Gamma80by60.c 0 "-Gamma80by60 + (Gamma80 / Gamma60)"
+NLCONSTRAINT Gamma81by60.c 0 "-Gamma81by60 + (Gamma81 / Gamma60)"
+NLCONSTRAINT Gamma85by60.c 0 "-Gamma85by60 + (Gamma85 / Gamma60)"
+NLCONSTRAINT Gamma93by60.c 0 "-Gamma93by60 + (Gamma93 / Gamma60)"
+NLCONSTRAINT Gamma81by60.c 0 "-Gamma81by60 + (Gamma81 / Gamma60)"
+NLCONSTRAINT Gamma81by69.c 0 "-Gamma81by69 + (Gamma81 / Gamma69)"
+NLCONSTRAINT Gamma94by69.c 0 "-Gamma94by69 + (Gamma94 / Gamma69)"
+NLCONSTRAINT Gamma150by66.c 0 "-Gamma150by66 + (Gamma150 / Gamma66)"
+NLCONSTRAINT Gamma152by54.c 0 "-Gamma152by54 + (Gamma152 / Gamma54)"
+NLCONSTRAINT Gamma152by76.c 0 "-Gamma152by76 + (Gamma152 / Gamma76)"
