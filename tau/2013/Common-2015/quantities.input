@@ -2,3 +2,24 @@
 # Gamma997 = B(a1- -> pi- gamma)
 #
 QUANTITY Gamma997 descr "B(a1- -> pi- gamma)"
+
+#
+# Gamma32 = G(K- >=1 (pi0 or K0 or gamma) nu(tau)) / G(total)
+#
+QUANTITY Gamma32 node S035R27 descr "G(K- >=1 (pi0 or K0 or gamma) nu(tau)) / G(total)"
+#
+# Gamma16 = G(K- pi0 nu(tau)) / G(total)
+# Gamma23 = G(K- 2pi0 nu(tau) (ex. K0)) / G(total)
+# Gamma28 = G(K- 3pi0 nu(tau) (ex. K0, eta)) / G(total)
+# Gamma37 = G(K- K0 nu(tau)) / G(total)
+# Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
+# Gamma128 = G(K- eta nu(tau)) / G(total)
+# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
+# Gamma151 = G(K- omega nu(tau)) / G(total)
+# not used Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
+# not used          = G(K- pi0 omega nu(tau)) / G(total)
+# not used Gamma811 = G(pi- 2pi0 omega nu(tau)) / G(total)
+# not used Gamma945 = G(pi- 2pi0 eta nu(tau)) / G(total)
+# Gamma167 = G(K- phi nu(tau)) / G(total)
+#
+NLCONSTRAINT Gamma32.c 0 "-Gamma32 + (Gamma16 + Gamma23 + Gamma28 + Gamma37 + Gamma42 + Gamma128*BR_eta_neutral + Gamma130*BR_eta_neutral + Gamma167*(BR_phi_KSKL*BR_KS_2piz))"

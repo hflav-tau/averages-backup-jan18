@@ -186,8 +186,6 @@ NLCONSTRAINT Gamma10by9.c 0 "-Gamma10by9 + Gamma10 / Gamma9"
 #
 QUANTITY Gamma11 node S035R42 descr "G(h- >=1 neutrals nu(tau)) / G(total)"
 #
-# Gamma11 = (Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma14 + Gamma16 + Gamma20 + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma48*BR_KS_2piz + Gamma126*BR_eta_neutral + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral)
-#
 # Gamma14 = G(pi- pi0 nu(tau)) / G(total)
 # Gamma16 = G(K- pi0 nu(tau)) / G(total)
 # Gamma20 = G(pi- 2pi0 nu(tau) (ex. K0)) / G(total)
@@ -200,17 +198,16 @@ QUANTITY Gamma11 node S035R42 descr "G(h- >=1 neutrals nu(tau)) / G(total)"
 # Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
 # Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
 # Gamma47 = G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
-# Gamma48 = G(pi- K(S)0 K(L)0 nu(tau)) / G(total)
+# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
 # Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
 # Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
+# Gamma132 = G(pi- Kbar0 eta nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
-# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
-# Gamma51 = G(pi- K(S)0 K(L)0 pi0 nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma11.c 0 "-Gamma11 + (Gamma128*BR_eta_neutral + Gamma30 + Gamma152*BR_om_pizgamma + Gamma23 + Gamma28 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma14 + Gamma16 + Gamma20 + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma48*BR_KS_2piz + Gamma126*BR_eta_neutral + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma800*BR_om_pizgamma + Gamma151*BR_om_pizgamma + Gamma130*BR_eta_neutral + Gamma50*(BR_KS_2piz*BR_KS_2piz) + Gamma51*BR_KS_2piz)"
+NLCONSTRAINT Gamma11.c 0 "-Gamma11 + (Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma37*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma50*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_neutral + Gamma128*BR_eta_neutral + Gamma130*BR_eta_neutral + Gamma132*(BRA_Kz_KS_KET*BR_KS_2piz*BR_eta_neutral) + Gamma151*BR_om_pizgamma + Gamma152*BR_om_pizgamma + Gamma800*BR_om_pizgamma)"
 
 #
 # Gamma12 = G(h- >= 1pi0 nu(tau) (ex. K0)) / G(total)
@@ -331,20 +328,19 @@ QUANTITY Gamma23 node S035B30 descr "G(K- 2pi0 nu(tau) (ex. K0)) / G(total)"
 #
 QUANTITY Gamma24 node S035R97 descr "G(h- >= 3pi0 nu(tau)) / G(total)"
 #
-# Gamma24 = (Gamma128*BR_eta_3piz + Gamma30 + Gamma28 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz)
-#
 # Gamma27 = G(pi- 3pi0 nu(tau) (ex. K0)) / G(total)
 # Gamma28 = G(K- 3pi0 nu(tau) (ex. K0, eta)) / G(total)
 # Gamma30 = G(h- 4pi0 nu(tau) (ex. K0, eta)) / G(total)
 # Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
 # Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
 # Gamma47 = G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
 # Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
 # Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
-# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+# Gamma132 = G(pi- Kbar0 eta nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma24.c 0 "-Gamma24 + (Gamma128*BR_eta_3piz + Gamma30 + Gamma28 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma27 + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_3piz + Gamma130*BR_eta_3piz + Gamma50*(BR_KS_2piz*BR_KS_2piz))"
+NLCONSTRAINT Gamma24.c 0 "-Gamma24 + (Gamma27 + Gamma28 + Gamma30 + Gamma40*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma42*(BRA_Kz_KS_KET*BR_KS_2piz) + Gamma47*(BR_KS_2piz*BR_KS_2piz) + Gamma50*(BR_KS_2piz*BR_KS_2piz) + Gamma126*BR_eta_3piz + Gamma128*BR_eta_3piz + Gamma130*BR_eta_3piz) + Gamma132*(BRA_Kz_KS_KET*BR_KS_2piz*BR_eta_3piz)"
 
 #
 # Gamma25 = G(h- >= 3pi0 nu(tau) (ex. K0)) / G(total)
@@ -584,8 +580,6 @@ QUANTITY Gamma53 node S035C5 descr "G(Kbar0 h- h- h+ nu(tau)) / G(total)"
 #
 QUANTITY Gamma54 node S035R31 descr "G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) / G(total)"
 #
-# Gamma54 = (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma167*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip))
-#
 # Gamma35 = G(pi- Kbar0 nu(tau)) / G(total)
 # Gamma37 = G(K- K0 nu(tau)) / G(total)
 # Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
@@ -612,14 +606,14 @@ QUANTITY Gamma54 node S035R31 descr "G(h- h- h+ >=0 neutrals >=0 K(L)0 nu(tau)) 
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma54.c 0 "-Gamma54 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma167*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip))"
+NLCONSTRAINT Gamma54.c 0 "-Gamma54 + (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma48*BR_KS_pimpip + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip + Gamma53*(BRA_Kzbar_KS_KET*BR_KS_2piz+BRA_Kzbar_KL_KET) + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma126*BR_eta_charged + Gamma128*BR_eta_charged + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma167*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip) + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip))"
 
 #
 # Gamma55 = G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)
 #
 QUANTITY Gamma55 node S035B63 descr "G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 --> pi- pi+) (``3-prong'')) / G(total)"
 #
-# Gamma55 = (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma167*BR_phi_KmKp)
+# Gamma55 = (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma168)
 #
 # Gamma62 = G(pi- pi+ pi- nu(tau) (ex. K0, omega)) / G(total)
 # Gamma70 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0, omega)) / G(total)
@@ -633,18 +627,18 @@ QUANTITY Gamma55 node S035B63 descr "G(h- h- h+ >=0 neutrals nu(tau) (ex. K(S)0 
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
-# Gamma167 = G(K- phi nu(tau)) / G(total)
+# Gamma168 = G(K- phi(K+ K-) nu(tau)) / G(total)
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma55.c 0 "-Gamma55 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma167*BR_phi_KmKp)"
+NLCONSTRAINT Gamma55.c 0 "-Gamma55 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma62 + Gamma70 + Gamma93 + Gamma126*BR_eta_charged + Gamma802 + Gamma803 + Gamma800*(BR_om_pimpippiz+BR_om_pimpip) + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma130*BR_eta_charged + Gamma168)"
 
 #
 # Gamma56 = G(h- h- h+ nu(tau)) / G(total)
 #
 QUANTITY Gamma56 node S035R28 descr "G(h- h- h+ nu(tau)) / G(total)"
 #
-# Gamma56 = (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma62 + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma167*BR_phi_KmKp)
+# Gamma56 = (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma62 + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma168)
 #
 # Gamma35 = G(pi- Kbar0 nu(tau)) / G(total)
 # Gamma37 = G(K- K0 nu(tau)) / G(total)
@@ -652,10 +646,10 @@ QUANTITY Gamma56 node S035R28 descr "G(h- h- h+ nu(tau)) / G(total)"
 # Gamma93 = G(pi- K- K+ nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
-# Gamma167 = G(K- phi nu(tau)) / G(total)
+# Gamma168 = G(K- phi(K+ K-) nu(tau)) / G(total)
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 #
-NLCONSTRAINT Gamma56.c 0 "-Gamma56 + (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma62 + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma167*BR_phi_KmKp)"
+NLCONSTRAINT Gamma56.c 0 "-Gamma56 + (Gamma35*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma62 + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma802 + Gamma800*BR_om_pimpip + Gamma151*BR_om_pimpip + Gamma168)"
 
 #
 # Gamma57 = G(h- h- h+ nu(tau) (ex. K0)) / G(total)
@@ -734,12 +728,10 @@ QUANTITY Gamma62 node S035C20 descr "G(pi- pi+ pi- nu(tau) (ex. K0, omega)) / G(
 #
 QUANTITY Gamma63 node S035R30 descr "G(h- h- h+ >=1 neutrals nu(tau)) / G(total)"
 #
-# Gamma63 = (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma94 + Gamma70 + Gamma126*BR_eta_charged + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma167*(BR_phi_KSKL*BR_KS_pimpip))
-#
 # Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
 # Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
 # Gamma47 = G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
-# Gamma48 = G(pi- K(S)0 K(L)0 nu(tau)) / G(total)
+# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
 # Gamma70 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0, omega)) / G(total)
 # Gamma77 = G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 # Gamma78 = G(h- h- h+ 3pi0 nu(tau)) / G(total)
@@ -751,19 +743,14 @@ QUANTITY Gamma63 node S035R30 descr "G(h- h- h+ >=1 neutrals nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
-# Gamma167 = G(K- phi nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
-# Gamma50 = G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
-# Gamma51 = G(pi- K(S)0 K(L)0 pi0 nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma63.c 0 "-Gamma63 + (Gamma128*BR_eta_charged + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma78 + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma77 + Gamma48*BR_KS_pimpip + Gamma94 + Gamma70 + Gamma126*BR_eta_charged + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KL_KET*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz) + Gamma167*(BR_phi_KSKL*BR_KS_pimpip) + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma51*BR_KS_pimpip)"
+NLCONSTRAINT Gamma63.c 0 "-Gamma63 + (Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma70 + Gamma77 + Gamma78 + Gamma94 + Gamma126*BR_eta_charged + Gamma128*BR_eta_charged + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_charged) + Gamma151*BR_om_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma800*BR_om_pimpippiz + Gamma803)"
 
 #
 # Gamma64 = G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(total)
 #
 QUANTITY Gamma64 node S035B78 descr "G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(total)"
-#
-# Gamma64 = (Gamma128*BR_eta_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126*BR_eta_pimpippiz + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_pimpippiz)
 #
 # Gamma70 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0, omega)) / G(total)
 # Gamma77 = G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
@@ -771,20 +758,17 @@ QUANTITY Gamma64 node S035B78 descr "G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(to
 # Gamma94 = G(pi- K- K+ pi0 nu(tau)) / G(total)
 # Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
-# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma64.c 0 "-Gamma64 + (Gamma128*BR_eta_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126*BR_eta_pimpippiz + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma130*BR_eta_pimpippiz)"
+NLCONSTRAINT Gamma64.c 0 "-Gamma64 + (Gamma78 + Gamma77 + Gamma94 + Gamma70 + Gamma126*BR_eta_pimpippiz + Gamma128*BR_eta_pimpippiz + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip + Gamma803))"
 
 #
 # Gamma65 = G(h- h- h+ pi0 nu(tau)) / G(total)
 #
 QUANTITY Gamma65 node S035B76 descr "G(h- h- h+ pi0 nu(tau)) / G(total)"
-#
-# Gamma65 = (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)
 #
 # Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
 # Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
@@ -796,15 +780,13 @@ QUANTITY Gamma65 node S035B76 descr "G(h- h- h+ pi0 nu(tau)) / G(total)"
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma65.c 0 "-Gamma65 + (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)"
+NLCONSTRAINT Gamma65.c 0 "-Gamma65 + (Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma70 + Gamma94 + Gamma128*BR_eta_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma152*BR_om_pimpip + Gamma800*BR_om_pimpippiz + Gamma803)"
 
 #
 # Gamma66 = G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)
 #
 QUANTITY Gamma66 node S035B53 descr "G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)"
 #
-# Gamma66 = (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)
-#
 # Gamma70 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0, omega)) / G(total)
 # Gamma94 = G(pi- K- K+ pi0 nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
@@ -813,36 +795,31 @@ QUANTITY Gamma66 node S035B53 descr "G(h- h- h+ pi0 nu(tau) (ex. K0)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma66.c 0 "-Gamma66 + (Gamma128*BR_eta_pimpippiz + Gamma152*BR_om_pimpip + Gamma94 + Gamma70 + Gamma803 + Gamma800*BR_om_pimpippiz + Gamma151*BR_om_pimpippiz)"
+NLCONSTRAINT Gamma66.c 0 "-Gamma66 + (Gamma70 + Gamma94 + Gamma128*BR_eta_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma152*BR_om_pimpip + Gamma800*BR_om_pimpippiz + Gamma803)"
 
 #
 # Gamma67 = G(h- h- h+ pi0 nu(tau) (ex. K0, omega)) / G(total)
 #
 QUANTITY Gamma67 node S035B54 descr "G(h- h- h+ pi0 nu(tau) (ex. K0, omega)) / G(total)"
 #
-# Gamma67 = (Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma70 + Gamma803 + Gamma151*BR_om_pimpippiz)
-#
 # Gamma70 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0, omega)) / G(total)
 # Gamma94 = G(pi- K- K+ pi0 nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
-# Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma67.c 0 "-Gamma67 + (Gamma128*BR_eta_pimpippiz + Gamma94 + Gamma70 + Gamma803 + Gamma151*BR_om_pimpippiz)"
+NLCONSTRAINT Gamma67.c 0 "-Gamma67 + (Gamma70 + Gamma94 + Gamma128*BR_eta_pimpippiz + Gamma803)"
 
 #
 # Gamma68 = G(pi- pi+ pi- pi0 nu(tau)) / G(total)
 #
 QUANTITY Gamma68 node S035C22 descr "G(pi- pi+ pi- pi0 nu(tau)) / G(total)"
 #
-# Gamma68 = (Gamma152*BR_om_pimpip + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma70 + Gamma800*BR_om_pimpippiz)
-#
 # Gamma40 = G(pi- Kbar0 pi0 nu(tau)) / G(total)
 # Gamma70 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0, omega)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma68.c 0 "-Gamma68 + (Gamma152*BR_om_pimpip + Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma70 + Gamma800*BR_om_pimpippiz)"
+NLCONSTRAINT Gamma68.c 0 "-Gamma68 + (Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma70 + Gamma152*BR_om_pimpip + Gamma800*BR_om_pimpippiz)"
 
 #
 # Gamma69 = G(pi- pi+ pi- pi0 nu(tau) (ex. K0)) / G(total)
@@ -933,19 +910,17 @@ QUANTITY Gamma78 node S035B57 descr "G(h- h- h+ 3pi0 nu(tau)) / G(total)"
 #
 QUANTITY Gamma79 node S035R34 descr "G(K- h- h+ >=0 neutrals nu(tau)) / G(total)"
 #
-# Gamma79 = (Gamma128*BR_eta_charged + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma94 + Gamma802 + Gamma803 + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma167*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip) + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip))
-#
 # Gamma37 = G(K- K0 nu(tau)) / G(total)
 # Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
 # Gamma93 = G(pi- K- K+ nu(tau)) / G(total)
 # Gamma94 = G(pi- K- K+ pi0 nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
-# Gamma167 = G(K- phi nu(tau)) / G(total)
+# Gamma168 = G(K- phi(K+ K-) nu(tau)) / G(total)
 # Gamma802 = G(K- pi- pi+ nu(tau) (ex. K0, omega)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma79.c 0 "-Gamma79 + (Gamma128*BR_eta_charged + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma94 + Gamma802 + Gamma803 + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma167*(BR_phi_KmKp + BR_phi_KSKL*BR_KS_pimpip) + Gamma93 + Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip))"
+NLCONSTRAINT Gamma79.c 0 "-Gamma79 + (Gamma37*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma93 + Gamma94 + Gamma128*BR_eta_charged + Gamma151*(BR_om_pimpippiz+BR_om_pimpip) + Gamma168 + Gamma802 + Gamma803)"
 
 #
 # Gamma80 = G(K- pi- h+ nu(tau) (ex. K0)) / G(total)
@@ -1072,14 +1047,12 @@ NLCONSTRAINT Gamma85by60.c 0 "-Gamma85by60 + (Gamma85 / Gamma60)"
 #
 QUANTITY Gamma87 node S035C7 descr "G(K- pi- pi+ pi0 nu(tau)) / G(total)"
 #
-# Gamma87 = (Gamma128*BR_eta_pimpippiz + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma803 + Gamma151*BR_om_pimpippiz)
-#
 # Gamma42 = G(K- pi0 K0 nu(tau)) / G(total)
 # Gamma128 = G(K- eta nu(tau)) / G(total)
 # Gamma151 = G(K- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma87.c 0 "-Gamma87 + (Gamma128*BR_eta_pimpippiz + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma803 + Gamma151*BR_om_pimpippiz)"
+NLCONSTRAINT Gamma87.c 0 "-Gamma87 + (Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma128*BR_eta_pimpippiz + Gamma151*BR_om_pimpippiz + Gamma803)"
 
 #
 # Gamma88 = G(K- pi- pi+ pi0 nu(tau) (ex. K0)) / G(total)
@@ -1190,18 +1163,16 @@ QUANTITY Gamma104 node S035R39 descr "G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total)
 #
 QUANTITY Gamma106 node S035B45 descr "G((5pi)- nu(tau)) / G(total)"
 #
-# Gamma106 = (Gamma30 + Gamma152*BR_om_pimpippiz + Gamma47*(BR_KS_pimpip*BR_KS_pimpip) + Gamma77 + Gamma103 + Gamma126*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma130*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma53*(BRA_Kz_KS_KET*BR_KS_pimpip))
-#
 # Gamma30 = G(h- 4pi0 nu(tau) (ex. K0, eta)) / G(total)
+# Gamma44 = G(pi- Kbar0 2pi0 nu(tau) (ex. K0)) / G(total)
 # Gamma47 = G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
 # Gamma53 = G(Kbar0 h- h- h+ nu(tau)) / G(total)
 # Gamma77 = G(h- h- h+ 2pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 # Gamma103 = G(3h- 2h+ nu(tau) (ex. K0)) / G(total)
 # Gamma126 = G(pi- pi0 eta nu(tau)) / G(total)
-# Gamma130 = G(K- pi0 eta nu(tau)) / G(total)
 # Gamma152 = G(h- pi0 omega nu(tau)) / G(total)
 #
-NLCONSTRAINT Gamma106.c 0 "-Gamma106 + (Gamma30 + Gamma152*BR_om_pimpippiz + Gamma47*(BR_KS_pimpip*BR_KS_pimpip) + Gamma77 + Gamma103 + Gamma126*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma130*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma53*(BRA_Kz_KS_KET*BR_KS_pimpip))"
+NLCONSTRAINT Gamma106.c 0 "-Gamma106 + (Gamma30 + Gamma44*BRA_Kzbar_KS_KET + Gamma47 + Gamma53*BRA_Kz_KS_KET + Gamma77 + Gamma103 + Gamma126*(BR_eta_3piz+BR_eta_pimpippiz) + Gamma152*BR_om_pimpippiz)"
 
 #
 # Gamma110 = G(strange) / G(total)
