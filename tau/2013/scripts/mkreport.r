@@ -732,12 +732,35 @@ mkreport = function(fname) {
   cat("file '", fname, "' created\n", sep="")
 
   ##
-  ## HFAG-Tau fit uses some extra quantities not related to measurements:
-  ## GammaAll, Gamma998 (unitarity residual), Gamma110
-  ## we subtract these three to get the number of variables that
-  ## are actually corresponding to a measurement or an estimate
+  ## prepare inputs for TeX defs
   ##
-  dummy.quant.num = 3
+
+  ##--- all fitted quantities but GammaAll and Gamma998, and which are not ratios of BRs
+  quant.num.nonratio = length(alucomb2.nonratio.quant(combination))
+  ##--- all fitted quantities but GammaAll and Gamma998, and which are ratios of BRs
+  quant.num.ratio = length(alucomb2.ratio.quant(combination))
+  ##--- all fitted quantities but GammaAll and Gamma998
+  quant.num.nonunitarity = quant.num.nonratio + quant.num.ratio
+
+  ##
+  ## PDG fit special determinations
+  ##
+
+  ##
+  ## decay modes used in HFAG but referred to a single node in the PDG
+  ##
+  quant.names.merged.in.pdg = c(
+    "Gamma168", # K phi(K+K-) 
+    "Gamma169", # K phi(KSKL)
+    "Gamma910", # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total) note 1
+    "Gamma911", # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total)
+    "Gamma930", # G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total) note 3
+    "Gamma944", # G(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total) note 2
+    NULL
+    )
+  quant.num.nonratio.pdg = length(setdiff(alucomb2.nonratio.quant(combination), quant.names.merged.in.pdg))
+  quant.num.ratio.pdg = length(setdiff(alucomb2.ratio.quant(combination), quant.names.merged.in.pdg))
+  quant.num.nonunitarity.pdg = quant.num.nonratio.pdg + quant.num.ratio.pdg
 
   ##
   ## write tex defs of some quantities
@@ -748,18 +771,35 @@ mkreport = function(fname) {
                          alurep.tex.val.err.auto(quant.val["Gamma998"], quant.err["Gamma998"], perc=TRUE)),
     ##--- measurements
     alurep.tex.cmd.short("MeasNum", as.character(meas.num)),
-    ##--- quantities corresponding to measurements
-    alurep.tex.cmd.short("QuantNum", as.character(quant.num-dummy.quant.num)),
+
+    alurep.tex.cmd.short("QuantNum", as.character(quant.num.nonunitarity)),
+    alurep.tex.cmd.short("QuantNumNonRatio", as.character(quant.num.nonratio)),
+    alurep.tex.cmd.short("QuantNumRatio", as.character(quant.num.ratio)),
+
+    alurep.tex.cmd.short("QuantNumPdg", as.character(quant.num.nonunitarity.pdg)),
+    alurep.tex.cmd.short("QuantNumNonRatioPdg", as.character(quant.num.nonratio.pdg)),
+    alurep.tex.cmd.short("QuantNumRatioPdg", as.character(quant.num.ratio.pdg)),
+
     ##--- base quantities
     alurep.tex.cmd.short("IndepQuantNum", as.character(quant.num - constr.num)),
     alurep.tex.cmd.short("BaseQuantNum", as.character(length(alucomb2.base.quant(combination)))),
+
     ##--- quantities in the unitarity constraint sum
     alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alucomb2.unitarity.quant(combination)))),
-    ##--- constraints used to relate measurements to base quantities
-    alurep.tex.cmd.short("ConstrNum", as.character(constr.num - dummy.quant.num)),
+
+    ##
+    ## constraints used to relate measurements to base quantities
+    ## traditionally, the constraints used for unitarity and unitarity residual are not counted
+    ## this number is consistent with "QuantNum", "Dof" and "MeasNum", both "QuantNum" and "ConstrNum" are two less
+    ##
+    alurep.tex.cmd.short("ConstrNum", as.character(constr.num - (quant.num - quant.num.nonunitarity))),
+    alurep.tex.cmd.short("ConstrNumPdg", as.character(constr.num - (quant.num - quant.num.nonunitarity.pdg))),
+
+    ##--- chisq, dof, chisqprob
     alurep.tex.cmd.short("Chisq", sprintf("%.1f", chisq)),
     alurep.tex.cmd.short("Dof", as.character(dof)),
-    alurep.tex.cmd.short("ChisqProb", alurep.tex.val.auto(chisq.prob, perc=TRUE))
+    alurep.tex.cmd.short("ChisqProb", alurep.tex.val.auto(chisq.prob, perc=TRUE)),
+    alurep.tex.cmd.short("ChisqProbRound", sprintf("%.0f\\%%", round(chisq.prob*100)))
     )
   cat(tex.defs, sep="\n", file=fname, append=TRUE)
   cat("file '", fname, "', initial defs\n", sep="")

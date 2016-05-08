@@ -71,6 +71,30 @@ alucomb2.gamma.num.id = function(gamma.name) {
 }
 
 ##
+## return list of quantities that are ratios of BRs
+## - the convention is that they are named GammaXXXbyYYY
+##
+alucomb2.ratio.quant = function(comb) {
+  quant.names = grep("Gamma\\d+by\\d+", comb$combine, value=TRUE)
+  ##--- sort by ascending Gamma number
+  quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
+  return(quant.names)
+}
+
+##
+## return list of quantities that are not ratios of BRs
+## - the convention is that they are names GammaXXX
+## - the tau -> s nu (Gamma110) is considered a non-ratio quantity
+##
+alucomb2.nonratio.quant = function(comb) {
+  quant.names = grep("Gamma\\d+by\\d+", comb$combine, value=TRUE, invert=TRUE)
+  quant.names = setdiff(quant.names, c("GammaAll", "Gamma998"))
+  ##--- sort by ascending Gamma number
+  quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
+  return(quant.names)
+}
+
+##
 ## return list of base quantities
 ## - the fit must have been done
 ## - it is assumed that Gamma998 is the unitarity residual and is removed
