@@ -211,17 +211,19 @@ aluelab.results = function(args) {
   ## B.tau.VA.names = setdiff(B.tau.VA.names, c("Gamma5", "Gamma3", "Gamma998"))
   ## quant$quant.qexpr.add("B_tau_VA", parse(text=paste(B.tau.VA.names, collapse="+")))
 
-  ##--- compute expression of all tau BRs that are not leptonic and not strange, i.e. not-strange-hadronic
-  GammaAll.str.expr = gsub("-GammaAll\\s*\\s*[+]\\s*\\((.*)\\)", "\\1", combination$constr.all.str.expr[["GammaAll.c"]])
-  GammaAll.term.names = str_trim(str_extract_all(GammaAll.str.expr, "([^+]+)")[[1]])
-  Gamma110.names.not.in.GammaAll = Gamma110.names[!(Gamma110.names %in% GammaAll.term.names)]
-  ##--- GammaAll includes Gamma103 instead of its terms, which include Gamma822 and Gamma833 in Gamma110
-  B.tau.VA.names = c(
-    setdiff(GammaAll.term.names, c("Gamma3", "Gamma5", Gamma110.names)),
-    paste("-", Gamma110.names.not.in.GammaAll, sep=""))
-  B.tau.VA.str.expr = gsub("[+](\\s*)-", "-\\1", paste(B.tau.VA.names, collapse=" + "))
-  quant$quant.qexpr.add("B_tau_VA", parse(text=B.tau.VA.str.expr))
+  ##  cannot assume any more that GammaAll is sum of quantities all with coefficient 1
+  ##  ##--- compute expression of all tau BRs that are not leptonic and not strange, i.e. not-strange-hadronic
+  ##  GammaAll.str.expr = gsub("-GammaAll\\s*\\s*[+]\\s*\\((.*)\\)", "\\1", combination$constr.all.str.expr[["GammaAll.c"]])
+  ##  GammaAll.term.names = str_trim(str_extract_all(GammaAll.str.expr, "([^+]+)")[[1]])
+  ##  Gamma110.names.not.in.GammaAll = Gamma110.names[!(Gamma110.names %in% GammaAll.term.names)]
+  ##  ##--- GammaAll includes Gamma103 instead of its terms, which include Gamma822 and Gamma833 in Gamma110
+  ##  B.tau.VA.names = c(
+  ##    setdiff(GammaAll.term.names, c("Gamma3", "Gamma5", Gamma110.names)),
+  ##    paste("-", Gamma110.names.not.in.GammaAll, sep=""))
+  ##  B.tau.VA.str.expr = gsub("[+](\\s*)-", "-\\1", paste(B.tau.VA.names, collapse=" + "))
+  ##  quant$quant.qexpr.add("B_tau_VA", parse(text=B.tau.VA.str.expr))
   
+  quant$quant.expr.add("B_tau_VA", 1-Gamma5-Gamma3-Gamma110-Gamma998)
   quant$quant.expr.add("B_tau_VA_unitarity", 1-Gamma5-Gamma3-Gamma110)
   quant$quant.expr.add("B_tau_s_unitarity", 1-Gamma5-Gamma3-B_tau_VA)
 
