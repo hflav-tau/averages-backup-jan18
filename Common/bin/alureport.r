@@ -263,7 +263,7 @@ alurep.precision.order = function(vals, perc=FALSE, signif=4, signif.min=2) {
 }
 
 ##
-## return numeric value formatted val +- stat in a string
+## return numeric value formatted val in a string
 ## according to the specified precision and power-of-ten order
 ##
 alurep.tex.val.prec.ord = function(val, precision, order, width=0, perc=FALSE) {
