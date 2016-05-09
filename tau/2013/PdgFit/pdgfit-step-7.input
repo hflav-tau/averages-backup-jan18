@@ -190,7 +190,69 @@ QUANTITY Gamma110 seed 0.028
 QUANTITY Gamma96 scale 5.435276
 
 # --- updated unitarity sum
-NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma78 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma168 + Gamma169 + Gamma152 + Gamma103 + Gamma805)"
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma810 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma168 + Gamma169 + Gamma152 + Gamma103 + Gamma805)"
+
+# --- updated unitarity sum in basis modes
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20*(1+BR_a1_pigamma) + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47*(1 + ((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))) + Gamma48 + Gamma62*(1+BR_a1_pigamma) + Gamma70 + Gamma77 + Gamma811 + Gamma812 + Gamma93 + Gamma94 + Gamma832 + Gamma833 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50*(1 + ((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))) + Gamma51 + Gamma167*(BR_phi_KmKp+BR_phi_KSKL) + Gamma152 + Gamma920 + Gamma821 + Gamma822 + Gamma831 + Gamma136 + Gamma945)"
+
+#
+# Gamma78 = G(h- h- h+ 3pi0 nu(tau)) / G(total) =
+#   Gamma810  +  # G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
+#   Gamma50   *(2*BR_KS_pimpip*BR_KS_2piz) +  # G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+#   Gamma132  *(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz)    # G(pi- Kbar0 eta nu(tau)) / G(total)
+# 
+# Gamma103 = G(3h- 2h+ nu(tau) (ex. K0)) / G(total) =
+#   Gamma820  +  # G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
+#   Gamma822  +  # G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
+#   Gamma831  *BR_om_pimpip    # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
+# 
+# Gamma104 = G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total) =
+#   Gamma830  +  # G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#   Gamma833     # G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+# 
+# Gamma168 = G(K- phi(K+ K-) nu(tau)) / G(total) =
+#   Gamma167  *BR_phi_KmKp    # G(K- phi nu(tau)) / G(total)
+# 
+# Gamma169 = G(K- phi(K(S)0 K(L)0) nu(tau)) / G(total) =
+#   Gamma167  *BR_phi_KSKL    # G(K- phi nu(tau)) / G(total)
+# 
+# Gamma804 = G(pi- K(L)0 K(L)0 nu(tau)) / G(total) =
+#   Gamma47   *((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))    # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+# 
+# Gamma805 = G(a1-(pi- gamma) nu(tau)) / G(total) =
+#   Gamma20   *BR_a1_pigamma +  # G(pi- 2pi0 nu(tau) (ex. K0)) / G(total)
+#   Gamma62   *BR_a1_pigamma    # G(pi- pi+ pi- nu(tau) (ex. K0, omega)) / G(total)
+# 
+# Gamma806 = G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total) =
+#   Gamma50   *((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))    # G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+# 
+# Gamma820 = G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total) =
+#   Gamma920  +  # G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
+#   Gamma821     # G(3pi- 2pi+ nu(tau) (ex. K0, omega, f1)) / G(total)
+#
+# Gamma810 = G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total) =
+#   Gamma910  +  # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
+#   Gamma911  +  # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total)
+#   Gamma811  *BR_om_pimpippiz +  # G(pi- 2pi0 omega nu(tau)) / G(total)
+#   Gamma812     # G(2pi- pi+ 3pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
+# 
+# Gamma830 = G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total) =
+#   Gamma930  +  # G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
+#   Gamma831  *BR_om_pimpippiz +  # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
+#   Gamma832     # G(3pi- 2pi+ pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
+#
+# Gamma910 = G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total) =
+#   Gamma136  *BR_eta_3piz    # G(pi- pi+ pi- eta nu(tau) (ex. K0)) / G(total)
+# 
+# Gamma911 = G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total) =
+#   Gamma945  *BR_eta_pimpippiz    # G(pi- 2pi0 eta nu(tau)) / G(total)
+# 
+# Gamma930 = G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total) =
+#   Gamma136  *BR_eta_pimpippiz    # G(pi- pi+ pi- eta nu(tau) (ex. K0)) / G(total)
+# 
+# Gamma944 = G(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total) =
+#   Gamma136  *BR_eta_2gam    # G(pi- pi+ pi- eta nu(tau) (ex. K0)) / G(total)
+#
 
 # --- unitarity constraint NOT applied (sum of base nodes with dummy node)
 NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
