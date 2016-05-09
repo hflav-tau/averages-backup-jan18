@@ -461,10 +461,37 @@ get.tex.table = function(quant.names, perc=FALSE) {
 ##
 ## return body of latex tabular environment for the requested quantities
 ## include
+## - quantity names
+## - constraint coefficients
+## must define two macros to expand the two fields
+## \newcommand{\htQuantLabel}[1]{\htuse{#1.td}}
+## \newcommand{\htQuantValue}[2]{#1}
+##
+get.tex.table.constr = function(comb.constr, precision, order, constr.prec, constr.order) {
+  ##--- order by gamma number
+  comb.constr = comb.constr[order(alucomb2.gamma.num.id(names(comb.constr)))]
+  rc = mapply(
+    function(quant.name, coeff.val) {
+      rc = paste(
+        "\\htConstrLine{", quant.name, "}{",
+        alurep.tex.val.err.prec.ord.noee(quant.val[quant.name], quant.err[quant.name], precision, order), "}{",
+        alurep.tex.val.prec.ord(coeff.val, constr.prec, constr.order, ), "}{",
+        sprintf("%d", order), "}{",
+        sprintf("%d", constr.order), "}",
+        sep="")
+    }, names(comb.constr), comb.constr)
+  return(paste(rc, collapse=" \n"))
+}
+
+##
+## return body of latex tabular environment for the requested quantities
+## include
 ## - quantity description and HFAG average
 ## must define two macros to expand the two fields
 ## \newcommand{\htQuantLabel}[1]{\htuse{#1.td}}
 ## \newcommand{\htQuantValue}[2]{#1}
+## +++ unused quant argument
+## +++ uses quant.val from outside
 ##
 get.tex.table.simple = function(quant.names, precision, order) {
   quant.order = order(alucomb2.gamma.num.id(quant.names))
@@ -785,7 +812,7 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("BaseQuantNum", as.character(length(alucomb2.base.quant(combination)))),
 
     ##--- quantities in the unitarity constraint sum
-    alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alucomb2.unitarity.quant(combination)))),
+    alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alucomb2.unitarity.constr(combination)))),
 
     ##
     ## constraints used to relate measurements to base quantities
@@ -858,8 +885,8 @@ mkreport = function(fname) {
   ##
   ## write text macro containing all modes in unitarity constraint
   ##
-  gammaAll.names = alucomb2.unitarity.quant(combination)
-  tex.tau.unitarity.quants = alurep.tex.cmd("UnitarityQuants", get.tex.table.simple(gammaAll.names, 4, -2))
+  constr.comb = alucomb2.unitarity.constr(combination)
+  tex.tau.unitarity.quants = alurep.tex.cmd("UnitarityQuants", get.tex.table.constr(constr.comb, 4, -2, 4, 0))
   cat(tex.tau.unitarity.quants, sep="\n", file=fname, append=TRUE)
   cat("file '", fname, "', unitarity quantities\n", sep="")
 

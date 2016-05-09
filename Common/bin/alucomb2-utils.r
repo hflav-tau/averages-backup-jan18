@@ -114,22 +114,23 @@ alucomb2.base.quant = function(comb) {
 }
 
 ##
-## return the quantity names of the unitarity constraint
+## return the unitarity combination coefficients
+## vector names are the quantities names
 ## April 2016:
 ## - 1 = GammaAll + Gamma998
 ## - 0 = -GammaAll + (...)
-##   (plain sum of quantities, all linear)
 ## - unitarity imposed with NLCONSTRAINT forceUnitarity 0 "Gamma998"
 ##
 
-alucomb2.unitarity.quant = function(comb) {
+alucomb2.unitarity.constr = function(comb) {
   quant.names = names(comb$constr.all.comb$GammaAll.c)
-  if (is.null(comb$constr.all.expr$forceUnitarity)) {
-    quant.names = c(quant.names, "Gamma998")
-  }
   quant.names = setdiff(quant.names, "GammaAll")
   quant.names = quant.names[order(alucomb2.gamma.num.id(quant.names))]
-  return(quant.names)
+  constr.comb = comb$constr.all.comb$GammaAll.c[quant.names]
+  if (is.null(comb$constr.all.expr$forceUnitarity)) {
+    constr.comb = c(constr.comb, Gamma998=1)
+  }
+  return(constr.comb)
 }
 
 ##
