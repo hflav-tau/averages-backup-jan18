@@ -745,7 +745,7 @@ QUANTITY Gamma63 node S035R30 descr "G(h- h- h+ >=1 neutrals nu(tau)) / G(total)
 # Gamma800 = G(pi- omega nu(tau)) / G(total)
 # Gamma803 = G(K- pi- pi+ pi0 nu(tau) (ex. K0, omega, eta)) / G(total)
 #
-NLCONSTRAINT Gamma63.c 0 "-Gamma63 + (Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma70 + Gamma77 + Gamma78 + Gamma94 + Gamma126*BR_eta_charged + Gamma128*BR_eta_charged + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_pimpippiz + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_charged) + Gamma151*BR_om_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma800*BR_om_pimpippiz + Gamma803)"
+NLCONSTRAINT Gamma63.c 0 "-Gamma63 + (Gamma40*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma42*(BRA_Kz_KS_KET*BR_KS_pimpip) + Gamma47*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma50*(2*BR_KS_pimpip*BR_KS_2piz) + Gamma70 + Gamma77 + Gamma78 + Gamma94 + Gamma126*BR_eta_charged + Gamma128*BR_eta_charged + Gamma130*BR_eta_charged + Gamma132*(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_neutral + BRA_Kzbar_KS_KET*BR_KS_2piz*BR_eta_charged) + Gamma151*BR_om_pimpippiz + Gamma152*(BR_om_pimpippiz+BR_om_pimpip) + Gamma800*BR_om_pimpippiz + Gamma803)"
 
 #
 # Gamma64 = G(h- h- h+ >=1 pi0 nu(tau) (ex. K0)) / G(total)
