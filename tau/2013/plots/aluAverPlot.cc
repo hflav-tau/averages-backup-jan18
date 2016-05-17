@@ -449,7 +449,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
     if (measinfo[i] == "p") {
       color = kBlue;
     } else if (measinfo[i] == "h") {
-      color = kGreen;
+      color = TColor::GetColorDark(kGreen);
     } else if (measinfo[i] == "t") {
       color = kRed;
     }
