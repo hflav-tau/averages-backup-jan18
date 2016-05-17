@@ -350,13 +350,16 @@ aluelab.results = function(args) {
                       * (delta_tau_gamma*delta_tau_W) / (delta_mu_gamma*delta_mu_W))
 
   ##
-  ## universality improved Be = B(tau -> e nu nubar (gamma))
-  ## see arXiv:hep-ph/0507078v2 p.7, doi:10.1103/RevModPhys.78.1043 p.1047
+  ## Be_lept = B(tau -> e nu nubar (gamma)) improved using also Bmu
+  ## - useful to have Be for universality plot vs. tau_tau
+  ## - minimum chisq fit using, Be, Be from Bmu
   ##
-  ## minimum chisq fit for Be_univ using, Be, Be from Bmu, Be from tau lifetime
+  quant$quant.fit.add("Be_lept", c(Gamma5=1, Be_from_Bmu=1))
+
   ##
-  ## Bmu/Be = f(m_mu^2/m_tau^2) / f(m_e^2/m_tau^2)
-  ## Be= tau_tau / tau_mu (m_tau/m_mu)^5 f(m^2_e/m^2_tau)/f(m^2_e/m^2_mu) (delta^tau_gamma delta^tau_W)/(delta^mu_gamma delta^mu_W)
+  ## Be_univ, universality improved Be = B(tau -> e nu nubar (gamma))
+  ## - see arXiv:hep-ph/0507078v2 p.7, doi:10.1103/RevModPhys.78.1043 p.1047
+  ## - minimum chisq fit for Be_univ using, Be, Be from Bmu, Be from tau lifetime
   ##
   quant$quant.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
@@ -529,7 +532,8 @@ aluelab.results = function(args) {
     ## Gamma110.names,
     "Gamma5", "Be_unitarity", "Be_fit",
     "Gamma3", "Bmu_unitarity", "Bmu_fit",
-    "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife", "Be_univ",
+    "Bmu_by_Be_th", "Be_from_Bmu", "Be_from_taulife",
+    "Be_lept", "Be_univ",
     "Bmu_from_taulife", "B_tau_had_fit",
     "B_tau_VA", "B_tau_VA_unitarity", "B_tau_VA_fit",
     "Gamma110", "B_tau_s_unitarity", "B_tau_s_fit",
@@ -760,6 +764,7 @@ aluelab.results = function(args) {
     tau_tau="%.1f",
     Vud="%.5f",
     deltaR_su3break="%.3f",
+    Be_lept="%.3f",
     Be_univ="%.3f",
     B_tau_had_fit="%.2f",
     B_tau_VA_fit="%.2f",
@@ -782,6 +787,7 @@ aluelab.results = function(args) {
   ##--- non-default multiplicative factor for selected quantities
   specialFactor = c(
     tau_tau=1e15,
+    Be_lept=100,
     Be_univ=100,
     B_tau_had_fit=100,
     B_tau_VA_fit=100,
