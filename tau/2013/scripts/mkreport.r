@@ -762,12 +762,23 @@ mkreport = function(fname) {
   ## prepare inputs for TeX defs
   ##
 
+  quant.names.nonratio = alucomb2.nonratio.quant(combination)
+  quant.names.ratio = alucomb2.ratio.quant(combination)
+
   ##--- all fitted quantities but GammaAll and Gamma998, and which are not ratios of BRs
-  quant.num.nonratio = length(alucomb2.nonratio.quant(combination))
+  quant.num.nonratio = length(quant.names.nonratio)
   ##--- all fitted quantities but GammaAll and Gamma998, and which are ratios of BRs
-  quant.num.ratio = length(alucomb2.ratio.quant(combination))
+  quant.num.ratio = length(quant.names.ratio)
   ##--- all fitted quantities but GammaAll and Gamma998
   quant.num.nonunitarity = quant.num.nonratio + quant.num.ratio
+
+  ##--- get number of measurements for each quantity
+  quant.meas.num = apply(delta, 2, sum)
+
+  ##--- number of quantities with at least a meaurement
+  quant.num.nonratio.with.meas = sum(quant.meas.num[quant.names.nonratio] > 0)
+  quant.num.ratio.with.meas  = sum(quant.meas.num[quant.names.ratio] > 0)
+  quant.num.nonunitarity.with.meas = quant.num.nonratio.with.meas + quant.num.ratio.with.meas
 
   ##
   ## PDG fit special determinations
@@ -779,15 +790,44 @@ mkreport = function(fname) {
   quant.names.merged.in.pdg = c(
     "Gamma168", # K phi(K+K-) 
     "Gamma169", # K phi(KSKL)
-    "Gamma910", # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total) note 1
+    "Gamma910", # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
     "Gamma911", # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total)
-    "Gamma930", # G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total) note 3
-    "Gamma944", # G(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total) note 2
+    "Gamma930", # G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
+    "Gamma944", # G(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total)
     NULL
     )
-  quant.num.nonratio.pdg = length(setdiff(alucomb2.nonratio.quant(combination), quant.names.merged.in.pdg))
-  quant.num.ratio.pdg = length(setdiff(alucomb2.ratio.quant(combination), quant.names.merged.in.pdg))
+
+  quant.names.nonratio.pdg = setdiff(alucomb2.nonratio.quant(combination), quant.names.merged.in.pdg)
+  quant.names.ratio.pdg = setdiff(alucomb2.ratio.quant(combination), quant.names.merged.in.pdg)
+
+  quant.num.nonratio.pdg = length(quant.names.nonratio.pdg)
+  quant.num.ratio.pdg = length(quant.names.ratio.pdg)
   quant.num.nonunitarity.pdg = quant.num.nonratio.pdg + quant.num.ratio.pdg
+
+  ##
+  ## numbers of PDG quantities in the fit with at least one measurement
+  ## simulate clustering of modes from HFAG to PDG
+  ##
+
+  quant.names.nonratio.pdg = alucomb2.nonratio.quant(combination)
+  quant.names.nonratio.pdg = quant.names.nonratio.pdg[quant.meas.num[quant.names.nonratio.pdg] > 0]
+  quant.names.nonratio.pdg = gsub("Gamma910", "3pi eta", quant.names.nonratio.pdg)
+  quant.names.nonratio.pdg = gsub("Gamma930", "3pi eta", quant.names.nonratio.pdg)
+  quant.names.nonratio.pdg = gsub("Gamma944", "3pi eta", quant.names.nonratio.pdg)
+  quant.names.nonratio.pdg = gsub("Gamma911", "pi2pi0 eta", quant.names.nonratio.pdg)
+  quant.names.nonratio.pdg = unique(quant.names.nonratio.pdg)
+  
+  quant.names.ratio.pdg = alucomb2.ratio.quant(combination)
+  quant.names.ratio.pdg = quant.names.ratio.pdg[quant.meas.num[quant.names.ratio.pdg] > 0]
+  quant.names.ratio.pdg = gsub("Gamma910", "3pi eta", quant.names.ratio.pdg)
+  quant.names.ratio.pdg = gsub("Gamma930", "3pi eta", quant.names.ratio.pdg)
+  quant.names.ratio.pdg = gsub("Gamma944", "3pi eta", quant.names.ratio.pdg)
+  quant.names.ratio.pdg = gsub("Gamma911", "pi2pi0 eta", quant.names.ratio.pdg)
+  quant.names.ratio.pdg = unique(quant.names.ratio.pdg)
+
+  quant.num.nonratio.with.meas.pdg = length(quant.names.nonratio.pdg)
+  quant.num.ratio.with.meas.pdg  = length(quant.names.ratio.pdg)
+  quant.num.nonunitarity.with.meas.pdg = quant.num.nonratio.with.meas.pdg + quant.num.ratio.with.meas.pdg
 
   ##
   ## write tex defs of some quantities
@@ -803,9 +843,17 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("QuantNumNonRatio", as.character(quant.num.nonratio)),
     alurep.tex.cmd.short("QuantNumRatio", as.character(quant.num.ratio)),
 
+    alurep.tex.cmd.short("QuantNumWithMeas", as.character(quant.num.nonunitarity.with.meas)),
+    alurep.tex.cmd.short("QuantNumNonRatioWithMeas", as.character(quant.num.nonratio.with.meas)),
+    alurep.tex.cmd.short("QuantNumRatioWithMeas", as.character(quant.num.ratio.with.meas)),
+
     alurep.tex.cmd.short("QuantNumPdg", as.character(quant.num.nonunitarity.pdg)),
     alurep.tex.cmd.short("QuantNumNonRatioPdg", as.character(quant.num.nonratio.pdg)),
     alurep.tex.cmd.short("QuantNumRatioPdg", as.character(quant.num.ratio.pdg)),
+
+    alurep.tex.cmd.short("QuantNumWithMeasPdg", as.character(quant.num.nonunitarity.with.meas.pdg)),
+    alurep.tex.cmd.short("QuantNumNonRatioWithMeasPdg", as.character(quant.num.nonratio.with.meas.pdg)),
+    alurep.tex.cmd.short("QuantNumRatioWithMeasPdg", as.character(quant.num.ratio.with.meas.pdg)),
 
     ##--- base quantities
     alurep.tex.cmd.short("IndepQuantNum", as.character(quant.num - constr.num)),
