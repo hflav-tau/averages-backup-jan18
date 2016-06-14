@@ -223,9 +223,13 @@ aluelab.results = function(args) {
   ##  B.tau.VA.str.expr = gsub("[+](\\s*)-", "-\\1", paste(B.tau.VA.names, collapse=" + "))
   ##  quant$quant.qexpr.add("B_tau_VA", parse(text=B.tau.VA.str.expr))
   
-  quant$quant.expr.add("B_tau_VA", 1-Gamma5-Gamma3-Gamma110-Gamma998)
-  quant$quant.expr.add("B_tau_VA_unitarity", 1-Gamma5-Gamma3-Gamma110)
-  quant$quant.expr.add("B_tau_s_unitarity", 1-Gamma5-Gamma3-B_tau_VA)
+  quant$quant.expr.add("B_tau_VA", GammaAll-Gamma5-Gamma3-Gamma110)
+
+  ##
+  ## using unitarity, any BR has an additional estimate as BR_uni = 1 - (BR_all - BR)) 
+  ##
+  quant$quant.expr.add("B_tau_VA_unitarity", 1 - (GammaAll - B_tau_VA))
+  quant$quant.expr.add("B_tau_s_unitarity",  1 - (GammaAll - Gamma110))
 
   ##
   ## add measurements to compute universality improved Be
