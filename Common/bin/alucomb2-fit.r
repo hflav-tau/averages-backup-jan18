@@ -1048,6 +1048,10 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
         ##--- build full vector c(measurements vector, constraint values)
         full.v = c(meas.val, constr.v)
       } else {
+        ##
+        ## without constraints, fall back to well known formula
+        ## (A^t Wm A) f = (A^t Wm) m  ->  f = (A^t Wm A)^-1 (A^t Wm) m
+        ##
         full.m = quant.invcov
         full.v.m = t(delta) %*% meas.invcov
         full.v = meas.val
