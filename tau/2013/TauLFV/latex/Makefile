@@ -6,6 +6,6 @@ all:
 	pdflatex hfag-standalone.tex
 
 clean:
-	rm *.pdf
-	rm *~  *.aux  *.bbl  *.blg *.dvi *.log *.spl .*~
+	/bin/rm -f *.pdf
+	/bin/rm -f *~  *.aux  *.bbl  *.blg *.dvi *.log *.spl .*~
 
