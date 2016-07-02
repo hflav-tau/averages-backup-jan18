@@ -42,7 +42,7 @@
 enum DECAY {
   EGAMMA = 0,
   MUGAMMA = 1,
-  
+
   /*
     EPI0 = 2,
     MUPI0 = 3,
@@ -100,7 +100,7 @@ enum DECAY {
     PMUMUOS = 48,
     PMUMUSS = 49,
   */
-  NDECAY = 24  
+  NDECAY = 24
 };
 
 void fillBelle(double * array)
