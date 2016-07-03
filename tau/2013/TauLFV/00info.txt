@@ -11,7 +11,7 @@ tau LFV upper limits for 2014 HFAG report
 - published limits recomputed with CLs
 - combination of upper limits
 
-> root -l -b -q TauLFV_UL_plot_comb_norecomput.cc+
+> root -l -b -q TauLFV_UL_plot_comb_norecomp.cc++
 - published limits
 - combination of upper limits
 

@@ -404,14 +404,10 @@ void TauLFV_UL_plot_comb(Int_t when=2014001)
   
   TLine l0(EGAMMA-0.5, ul_min, EGAMMA-0.5, ul_max); l0.SetLineColor(kGray); l0.Draw();
   
-
-  
   TLine l1(MUGAMMA+0.5,ul_min,MUGAMMA+0.5,ul_max); l1.SetLineColor(kGray); l1.Draw();
   TLatex t1(((MUGAMMA-EGAMMA)*1.0/2.0)+EGAMMA*1.0,y_latex,"l#gamma"); t1.SetTextAlign(21); t1.SetTextFont(42); t1.Draw();
   
-
-
-  
+ 
   TLine l4(MUOMEGA+0.5,ul_min,MUOMEGA+0.5,ul_max); l4.SetLineColor(kGray); l4.Draw();
   TLatex t4(((MUOMEGA-EKS0 )*1.0/2.0)+EKS0*1.0,y_latex,"lh"); t4.SetTextAlign(21); t4.SetTextFont(42); t4.Draw();
   
