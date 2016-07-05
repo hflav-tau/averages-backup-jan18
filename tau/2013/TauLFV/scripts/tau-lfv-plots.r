@@ -113,10 +113,12 @@ rc = ggplot(data.df, aes(gamma, limit)) +
   geom_point(aes(shape=factor(exp), color=factor(exp))) +
   ## labs(title="") +
   labs(y="90% CL upper limits") +
-  scale_y_continuous(labels=fmt.num.scientific, trans = log10_trans()) +
-  ## scale_y_continuous(limit=c(0, 4)) +
-  ## scale_x_continuous(breaks=pretty_breaks(7), limit=c(-3, 3)) +
   scale_x_discrete(labels = TeX) +
+  scale_y_continuous(
+    ## limit=c(0, 4),
+    labels=fmt.num.scientific,
+    trans = log10_trans()
+  ) +
   annotation_custom(hfag.label()) +
   theme_bw() +
   theme(
