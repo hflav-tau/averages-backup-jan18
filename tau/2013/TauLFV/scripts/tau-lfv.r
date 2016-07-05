@@ -4,6 +4,9 @@
 ##
 ##	tau-lfv.r
 ##
+## - read tau LFV data file from .yaml file
+## - output TeX file with definitions useful to report tau LFV data
+##
 ## /////////////////////////////////////////////////////////////////////////////
 
 require(yaml, quietly=TRUE)
