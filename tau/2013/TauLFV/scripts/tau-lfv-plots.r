@@ -16,6 +16,7 @@ require(stringr, quiet=TRUE)
 require(ggplot2, quiet=TRUE)
 require(scales, quiet=TRUE)
 require(grid, quiet=TRUE)
+require(latex2exp, quiet=TRUE)
 ## require(gridExtra, quiet=TRUE)
 ## require(gtable, quiet=TRUE)
 
@@ -99,8 +100,11 @@ num.results = 150
 num.exp = 5
 labels.exp = c("CLEO", "BaBar", "Belle", "LHCb", "ATLAS")
 
+gamma = paste0("G", ceiling(runif(num.results, 0, num.gamma)))
+gamma[1] = "$\\mu\\gamma$"
+
 data.df = data.frame(
-  gamma = paste0("G", ceiling(runif(num.results, 0, num.gamma))),
+  gamma = gamma,
   limit = 10^rnorm(num.results, -8, 1),
   exp = labels.exp[as.integer(ceiling(runif(num.results, 0, num.exp)))]
 )
@@ -112,6 +116,7 @@ rc = ggplot(data.df, aes(gamma, limit)) +
   scale_y_continuous(labels=fmt.num.scientific, trans = log10_trans()) +
   ## scale_y_continuous(limit=c(0, 4)) +
   ## scale_x_continuous(breaks=pretty_breaks(7), limit=c(-3, 3)) +
+  scale_x_discrete(labels = TeX) +
   annotation_custom(hfag.label()) +
   theme_bw() +
   theme(
