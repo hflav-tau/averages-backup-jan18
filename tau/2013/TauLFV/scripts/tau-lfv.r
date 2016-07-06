@@ -29,15 +29,6 @@ df.to.list = function(df, keyfield=NA, keyname="key") {
   rc
 }
 
-##--- convert list to data.frame
-list.to.df = function(lst, keyname=NA, stringsAsFactor=FALSE) {
-  rc = do.call(rbind, lapply(in.list, function(x) as.data.frame(x, stringsAsFactors=stringsAsFactors)))
-  if (!is.na(keyname)) {
-    rc[[keyname]] = as.character(names(lst))
-  }
-  rc
-}
-
 ##--- return latex command def with specified multi-line body
 alurep.tex.cmd.nv = function(cmd, body) {
   paste("\\htdef{", cmd, "}{%\n", body, "}%", sep="")

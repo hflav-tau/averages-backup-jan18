@@ -35,19 +35,6 @@ save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.siz
   cat(file=stderr(), "file", file.pdf, "produced\n")
 }
 
-##--- format ggplot2 axis labels in scientific format
-fmt.num.scientific = function(val) {
-  ## turn in to character string in scientific notation
-  val <- format(val, scientific = TRUE)
-  ## quote the part before the exponent to keep all the digits
-  val <- gsub("^(.*)e", "'\\1'e", val)
-  ## turn the 'e+' into plotmath format
-  val <- gsub("e", "%*%10^", val)
-  val <- gsub("'1'%[*]%", "", val)
-  ## return this as an expression
-  parse(text=val)
-}
-
 ##
 ## HFAG label
 ##
@@ -85,48 +72,50 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
   grobTree(hl.title.bkg, hl.title, hl.subtitle, hl.box)
 }
 
+##--- convert list to data.frame
+list.to.df = function(lst, keyname=NA, stringsAsFactors=FALSE) {
+  rc = do.call(rbind, lapply(lst, function(x) as.data.frame(x, stringsAsFactors=stringsAsFactors)))
+  if (!is.na(keyname)) {
+    rc[[keyname]] = as.character(names(lst))
+  }
+  rc
+}
+
 ##
 ## main code
 ##
 
 opts <- docopt(doc)
 
-tau.lfv.data.combs = read.csv("tau-lfv-data-combs.csv", stringsAsFactors=FALSE)
-
 my.width = 6.5
 my.height = 4
 try(dev.off(), silent=TRUE)
 dev.new(width=my.width, height=my.height)
 
-num.gamma = 50
-num.results = 150
-num.exp = 5
-labels.exp = c("CLEO", "BaBar", "Belle", "LHCb", "ATLAS")
+tau.lfv.data.combs = read.csv("tau-lfv-data-combs.csv", stringsAsFactors=FALSE)
+tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
 
-gamma = paste0("G", ceiling(runif(num.results, 0, num.gamma)))
-gamma[1] = "$\\mu\\gamma$"
-
-data.df = data.frame(
-  gamma = gamma,
-  limit = 10^rnorm(num.results, -8, 1),
-  exp = labels.exp[as.integer(ceiling(runif(num.results, 0, num.exp)))]
-)
-
+##--- data.frame to plot LVF combinations limits
 data.df = data.frame(
   gamma = factor(tau.lfv.data.combs$descr, unique(tau.lfv.data.combs$descr)),
   limit = tau.lfv.data.combs$limit,
   exp = "HFAG"
 )
 
-rc = ggplot(data.df, aes(gamma, limit)) +
+##--- data.frame to plot LVF limits
+data.df = list.to.df(tau.lfv.data$limits)
+data.df$descr = factor(data.df$descr, unique(data.df$descr))
+
+rc = ggplot(data.df, aes(descr, limit)) +
   geom_point(aes(shape=factor(exp), color=factor(exp))) +
   ## labs(title="") +
   labs(y="90% CL upper limits") +
-  scale_x_discrete(labels = TeX) +
+  scale_x_discrete(labels = TeX, expand=c(0,1)) +
   scale_y_continuous(
-    limit=c(0.5e-9, 2e-7),
-    labels=fmt.num.scientific,
-    trans = log10_trans()
+    ## limit=c(0.5e-8, 1e-6),
+    trans = log10_trans(),
+    breaks = trans_breaks('log10', function(x) 10^x, 2),
+    labels = trans_format('log10', math_format(10^.x))
   ) +
   annotation_custom(hfag.label()) +
   theme_bw() +
@@ -134,12 +123,22 @@ rc = ggplot(data.df, aes(gamma, limit)) +
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
     axis.title.x = element_blank(),
-    axis.text.x = element_text(angle = 60, hjust=1, vjust=1, size=7),
+    axis.text.x = element_text(
+      angle = 60, hjust=1, vjust=1, size=6,
+      margin=unit(c(0.25, 0,    0, 0), "cm")
+    ),
+    axis.text.y = element_text(
+      margin=unit(c(0   , 0.35, 0, 0.1), "cm")
+    ),
+    axis.ticks.length = unit(-0.2, "cm"),
+    axis.ticks = element_line(size = 0.3),
     legend.title = element_blank(),
     legend.key = element_blank(),
     legend.position = "bottom",
     legend.margin=unit(0, "null"),
-    plot.margin=unit(c(0.04,0.02,0.01,0.02), "null")
+    plot.margin=unit(c(0.04,0.02,0.01,0.02), "null"),
+    panel.grid.major = element_line(colour = "gray80", size=0.3),
+    panel.grid.minor = element_line(colour = "gray90", size=0.3)
   )
 
 print(rc)
