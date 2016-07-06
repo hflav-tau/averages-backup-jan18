@@ -13,6 +13,7 @@
 
 require(docopt, quiet=TRUE)
 require(stringr, quiet=TRUE)
+require(yaml, quietly=TRUE)
 require(ggplot2, quiet=TRUE)
 require(scales, quiet=TRUE)
 require(grid, quiet=TRUE)
@@ -90,6 +91,8 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
 
 opts <- docopt(doc)
 
+tau.lfv.data.combs = read.csv("tau-lfv-data-combs.csv", stringsAsFactors=FALSE)
+
 my.width = 6.5
 my.height = 4
 try(dev.off(), silent=TRUE)
@@ -109,13 +112,19 @@ data.df = data.frame(
   exp = labels.exp[as.integer(ceiling(runif(num.results, 0, num.exp)))]
 )
 
+data.df = data.frame(
+  gamma = factor(tau.lfv.data.combs$descr, unique(tau.lfv.data.combs$descr)),
+  limit = tau.lfv.data.combs$limit,
+  exp = "HFAG"
+)
+
 rc = ggplot(data.df, aes(gamma, limit)) +
   geom_point(aes(shape=factor(exp), color=factor(exp))) +
   ## labs(title="") +
   labs(y="90% CL upper limits") +
   scale_x_discrete(labels = TeX) +
   scale_y_continuous(
-    ## limit=c(0, 4),
+    limit=c(0.5e-9, 2e-7),
     labels=fmt.num.scientific,
     trans = log10_trans()
   ) +

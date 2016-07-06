@@ -69,20 +69,22 @@ alurep.tex.cmd.short = Vectorize(alurep.tex.cmd.short.nv)
 ##
 
 fname = "tau-lfv-data"
-ifname = paste(fname, "yaml", sep=".")
+ifname = paste0(fname, ".yaml")
+ifname2 = paste0(fname, "-comb.yaml")
 ofname = paste(fname, "tex", sep=".")
 
 lfv.data = yaml.load_file(ifname)
+lfv.data.info = yaml.load_file(ifname2)
 
 out.txt = character(0)
 
 rc = mapply(function(gamma.num, label) {
   label = paste0("g", gamma.num)
   alurep.tex.cmd.short(paste0(label, ".texlabel"), label)
-}, names(lfv.data$gamma.labels), lfv.data$gamma.labels)
+}, names(lfv.data.info$br.descr), lfv.data.info$br.descr)
 out.txt = c(out.txt, rc)
 
-rc = lapply(lfv.data$lfv.info, function(x) {
+rc = lapply(lfv.data.info$comb.info, function(x) {
   rc = character(0)
   gamma.num = x$gamma
   exp = tolower(as.vector(str_match(x$result, "([^_]*)_"))[2])

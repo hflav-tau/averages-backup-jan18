@@ -1,4 +1,4 @@
-gamma.labels:
+br.descr:
   '156': e^- \gamma
   '157': \mu^- \gamma
   '160': e^- K^0_S
@@ -23,7 +23,7 @@ gamma.labels:
   '212': \pi^- \bar{\Lambda}
   '213': K^- \Lambda
   '214': K^- \bar{\Lambda}
-lfv.info:
+comb.info:
 - gamma: 156
   result: BaBar_tau2egam
   lumi: 524.0
