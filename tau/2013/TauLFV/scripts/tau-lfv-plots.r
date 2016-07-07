@@ -81,6 +81,19 @@ list.to.df = function(lst, keyname=NA, stringsAsFactors=FALSE) {
   rc
 }
 
+log10_minor_break = function (...) {
+  function(x) {
+    minx         = floor(min(log10(x), na.rm=T))-1;
+    maxx         = ceiling(max(log10(x), na.rm=T))+1;
+    n_major      = maxx-minx+1;
+    major_breaks = seq(minx, maxx, by=1)
+    minor_breaks = 
+      rep(log10(seq(1, 9, by=1)), times = n_major)+
+      rep(major_breaks, each = 9)
+    return(10^(minor_breaks))
+  }
+}
+
 ##
 ## main code
 ##
@@ -114,14 +127,16 @@ rc = ggplot(data.df, aes(descr, limit)) +
   scale_y_continuous(
     ## limit=c(0.5e-8, 1e-6),
     trans = log10_trans(),
-    breaks = trans_breaks('log10', function(x) 10^x, 2),
+    breaks = trans_breaks('log10', function(x) 10^x, n=2),
+    ## minor_breaks = trans_breaks("log10", function(x) 10^x, n=20),
+    ## minor_breaks = print(c(sapply(breaks, function(x) seq(0, x, x/10)))),
+    minor_breaks = as.vector(2:10 %o% 10^((-9):(-5))),
     labels = trans_format('log10', math_format(10^.x))
   ) +
+  annotation_logticks(sides = "l") +
   annotation_custom(hfag.label()) +
   theme_bw() +
   theme(
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
     axis.title.x = element_blank(),
     axis.text.x = element_text(
       angle = 60, hjust=1, vjust=1, size=6,
@@ -139,6 +154,8 @@ rc = ggplot(data.df, aes(descr, limit)) +
     plot.margin=unit(c(0.04,0.02,0.01,0.02), "null"),
     panel.grid.major = element_line(colour = "gray80", size=0.3),
     panel.grid.minor = element_line(colour = "gray90", size=0.3)
+    ## panel.grid.major.x = element_blank(),
+    ## panel.grid.minor.x = element_blank()
   )
 
 print(rc)
