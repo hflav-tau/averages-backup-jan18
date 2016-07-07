@@ -39,22 +39,6 @@ save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.siz
 ## HFAG label
 ##
 hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=unit(0.9,"npc"), y = unit(0.95,"npc")) {
-  hl.box = rectGrob(
-    x = hl.title$x,
-    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
-    gp=gpar(fill="white")
-  )
-
-  hl.title.bkg = rectGrob(
-    x = hl.title$x,
-    y = hl.title$y,
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title),
-    gp=gpar(fill="black")
-  )
-  
   hl.title = textGrob(
     title,
     x = x,
@@ -69,6 +53,22 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
     gp = gpar(fontface="bold.italic", col="black", cex=fsratio)
   )
 
+  hl.title.bkg = rectGrob(
+    x = hl.title$x,
+    y = hl.title$y,
+    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
+    height = unit(0.4, "char") + unit(1, "grobheight", hl.title),
+    gp=gpar(fill="black")
+  )
+  
+  hl.box = rectGrob(
+    x = hl.title$x,
+    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
+    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
+    height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
+    gp=gpar(fill="white")
+  )
+
   grobTree(hl.box, hl.title.bkg, hl.title, hl.subtitle)
 }
 
@@ -81,16 +81,17 @@ list.to.df = function(lst, keyname=NA, stringsAsFactors=FALSE) {
   rc
 }
 
-log10_minor_break = function (...) {
+##
+## get linear minor breaks for log scale major breacks
+##
+log10.minor.breaks = function (...) {
   function(x) {
     minx         = floor(min(log10(x), na.rm=T))-1;
     maxx         = ceiling(max(log10(x), na.rm=T))+1;
-    n_major      = maxx-minx+1;
-    major_breaks = seq(minx, maxx, by=1)
-    minor_breaks = 
-      rep(log10(seq(1, 9, by=1)), times = n_major)+
-      rep(major_breaks, each = 9)
-    return(10^(minor_breaks))
+    major_breaks = 10^seq(minx, maxx, by=1)
+    minor_sub_breaks = 2:10    
+    minor_breaks =  as.vector(minor_sub_breaks %o% major_breaks)
+    return(minor_breaks)
   }
 }
 
@@ -128,9 +129,7 @@ rc = ggplot(data.df, aes(descr, limit)) +
     ## limit=c(0.5e-8, 1e-6),
     trans = log10_trans(),
     breaks = trans_breaks('log10', function(x) 10^x, n=2),
-    ## minor_breaks = trans_breaks("log10", function(x) 10^x, n=20),
-    ## minor_breaks = print(c(sapply(breaks, function(x) seq(0, x, x/10)))),
-    minor_breaks = as.vector(2:10 %o% 10^((-9):(-5))),
+    minor_breaks = log10.minor.breaks(),
     labels = trans_format('log10', math_format(10^.x))
   ) +
   annotation_logticks(sides = "l") +
