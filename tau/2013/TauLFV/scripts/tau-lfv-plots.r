@@ -107,6 +107,7 @@ try(dev.off(), silent=TRUE)
 dev.new(width=my.width, height=my.height)
 
 tau.lfv.data.combs = read.csv("tau-lfv-data-combs.csv", stringsAsFactors=FALSE)
+tau.lfv.data.cleo = read.csv("tau-lfv-data-limits-cleo.csv", stringsAsFactors=FALSE)
 tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
 
 ##--- data.frame to plot LVF combinations limits
@@ -118,6 +119,7 @@ data.df = data.frame(
 
 ##--- data.frame to plot LVF limits
 data.df = list.to.df(tau.lfv.data$limits)
+data.df = rbind(data.df, tau.lfv.data.cleo)
 data.df$descr = factor(data.df$descr, unique(data.df$descr))
 
 rc = ggplot(data.df, aes(descr, limit)) +
