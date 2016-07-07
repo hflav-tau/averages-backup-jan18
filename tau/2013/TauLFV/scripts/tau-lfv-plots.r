@@ -39,11 +39,12 @@ save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.siz
 ## HFAG label
 ##
 hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=unit(0.9,"npc"), y = unit(0.95,"npc")) {
-  hl.title = textGrob(
-    title,
-    x = x,
-    y = y,
-    gp = gpar(fontface="bold.italic", col="white")
+  hl.box = rectGrob(
+    x = hl.title$x,
+    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
+    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
+    height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
+    gp=gpar(fill="white")
   )
 
   hl.title.bkg = rectGrob(
@@ -54,6 +55,13 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
     gp=gpar(fill="black")
   )
   
+  hl.title = textGrob(
+    title,
+    x = x,
+    y = y,
+    gp = gpar(fontface="bold.italic", col="white")
+  )
+
   hl.subtitle = textGrob(
     subtitle,
     x = hl.title$x,
@@ -61,15 +69,7 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
     gp = gpar(fontface="bold.italic", col="black", cex=fsratio)
   )
 
-  hl.box = rectGrob(
-    x = hl.title$x,
-    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
-    gp=gpar(fill="NA")
-  )
-
-  grobTree(hl.title.bkg, hl.title, hl.subtitle, hl.box)
+  grobTree(hl.box, hl.title.bkg, hl.title, hl.subtitle)
 }
 
 ##--- convert list to data.frame
