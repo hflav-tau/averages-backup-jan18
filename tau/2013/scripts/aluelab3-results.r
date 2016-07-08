@@ -606,15 +606,30 @@ aluelab.results = function(args) {
   ##
   ## QCD lattice
   ##
+  ## ---upd16
+  ## Lattice averages FLAG 2016 Aoki et al.
+  ## http://arxiv.org/abs/1607.00299
+  ## https://inspirehep.net/record/1473344, Aoki:2016frl
+  ## Nf = 2 + 1 + 1 : fK± /fπ± = 1.193(3) Refs. [66, 67, 69], (64) QCD with broken isospin
+  ## Nf = 2 + 1 + 1 : fK± = 155.6 (0.4) MeV Refs. [66, 67, 69],
+  ## Nf = 2 + 1 :     f+(0) = 0.9677(27) Refs. [37, 39], (59)
+  ##
+  quant$quant.add.single("f_K_by_f_pi", 1.193, 0.003) ## changed16
+  quant$quant.add.single("f_K", 155.6, 0.4) ## changed16
+  quant$quant.add.single("fp0_Kpi", 0.9677, 0.0027) ## changed16
+
+  ##
+  ## QCD lattice
+  ##
   ## ---upd14
   ## Lattice averages FLAG 2013 Aoki et al.
   ## http://arxiv.org/abs/1310.8555
   ## http://inspirehep.net/record/1262813, Aoki:2013ldr
   ## use values for Nf = 2+1 (compatible with Nf = 2+1+1
   ##
-  quant$quant.add.single("f_K_by_f_pi", 1.192, 0.005) ## unchanged12
-  quant$quant.add.single("f_K", 156.3, 0.9) ## changed14
-  quant$quant.add.single("fp0_Kpi", 0.9661, 0.0032) ## new since 2014
+  ## quant$quant.add.single("f_K_by_f_pi", 1.192, 0.005) ## unchanged12
+  ## quant$quant.add.single("f_K", 156.3, 0.9) ## changed14
+  ## quant$quant.add.single("fp0_Kpi", 0.9661, 0.0032) ## new since 2014
 
   ##
   ## Lattice averages from http://arxiv.org/abs/0910.2928 and
