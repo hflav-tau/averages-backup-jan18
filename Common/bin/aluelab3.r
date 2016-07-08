@@ -466,9 +466,9 @@ rc = StatComb$methods(
       no.add.name.flags = names(.val) != add.name
       .self$.val = .val[no.add.name.flags]
       .self$.cov = .cov[no.add.name.flags, no.add.name.flags, drop=FALSE]
-      .self$.gamma = .gamma[no.add.name.flags]
-      .self$.descr = .descr[no.add.name.flags]
-      .self$.texdescr = .texdescr[no.add.name.flags]
+      .self$.gamma = .gamma[setdiff(names(.gamma), add.name)]
+      .self$.descr = .descr[setdiff(names(.descr), add.name)]
+      .self$.texdescr = .texdescr[setdiff(names(.texdescr), add.name)]
     }
     add.grad.full = .val * 0
     add.grad.full[names(add.grad)] = add.grad
