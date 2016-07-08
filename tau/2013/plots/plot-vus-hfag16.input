@@ -1,0 +1,20 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-vus-hfag16.input\")"
+#
+# i       - xmin, xmax, precision, title
+# m       - measurement with symmetric stat & syst errors
+# ma      - measurement with asymmetric stat & syst errors
+# mt, mat - like m, ma but for "this work"
+# p       - PDG average, sets band
+# h       - other averages
+#  
+i   0      0       6.4  |V_{us}|
+h   0.223100 0.000806 -1 -1  K_{l3}, Maltman, Mainz 2016 (MILC 14)
+h   0.225000 0.000985 -1 -1  K_{l2}, Maltman, Mainz 2016 (FLAG 15)
+p   0.225470 0.000955 -1 -1      CKM unitarity, PDG 2015
+m   0.2228 0.0023 0.0005     #tau #rightarrow s incl., Maltman, Mainz 2016
+# m   0.2216 0.0027 0.0000     #tau #rightarrow K#pi#nu, Passemar, CKM 2014
+mt  0.218113 0.002120 0.0000 #tau #rightarrow s incl., HFAG 2016
+mt  0.223099 0.001783 0.0000 #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFAG 2016
+mt  0.222307 0.001645 0.0000     #tau #rightarrow K#nu, HFAG 2016
+mt  0.221026 0.001373 0.0000     #tau average, HFAG 2016
