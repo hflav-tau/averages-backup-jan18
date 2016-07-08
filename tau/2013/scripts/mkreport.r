@@ -379,9 +379,9 @@ get.tex.table = function(quant.names, perc=FALSE) {
 
     ##--- TeX def for the quantity
     rc = paste(
-      "\\htdef{", quant.name, ".qt}{",
+      "\\htdef{", quant.name, ".qt}{\\ensuremath{",
       alurep.tex.val.err.prec.ord(quant.val[quant.name], quant.err[quant.name], precision, order, perc=FALSE),
-      "}%", sep=""
+      "}}%", sep=""
       )
     
     ##--- TeX defs for the quantity measurements
