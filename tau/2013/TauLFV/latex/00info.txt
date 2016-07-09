@@ -1,6 +1,6 @@
 please copy or get a soft link here for the two PDF plots:
 - TauLFV_limits.pdf
-- TauLFV_combs.pdf (use the "norecomput" version)
+- TauLFV_combs.pdf (use the "norecomp" version)
 
 please don't commit these PDF plots into git
 rather, commit the code that produces them

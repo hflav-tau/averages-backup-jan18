@@ -1,8 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 	tau/2013/TauLFV
+	tau LFV upper limits for HFAG reports
 
-tau LFV upper limits for 2014 HFAG report
+//////////////////////////////////////////////////////////////////////////////
+
+	produce plots for HFAG reports
 
 > root -l -b -q TauLFV_UL_plot.cc+
 - published limits
@@ -15,10 +18,12 @@ tau LFV upper limits for 2014 HFAG report
 - published limits
 - combination of upper limits
 
-> additional information on 2014 report tau LFV
-  either in arXiv or in the CVS repository
-  cvs -d \
-  :ext:iris.slac.stanford.edu:/afs/slac.stanford.edu/www/xorg/hfag/cvs \
-  co Papers/Summer14
-
 //////////////////////////////////////////////////////////////////////////////
+
+The latex directory contains the latex source to compile a standalone
+section on tau LFV limits for the HFAG report.
+
+The scripts directory contains data and scripts to produce TeX macros
+useful for the tau LFV latex compilation and for the plots.
+
+
