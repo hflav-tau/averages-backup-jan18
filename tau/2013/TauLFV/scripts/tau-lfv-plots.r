@@ -96,6 +96,51 @@ log10.minor.breaks = function (...) {
 }
 
 ##
+## do tau LFV plot
+##
+tau.lfv.plot = function(data, name="plot") {
+  rc = ggplot(data, aes(descr, limit)) +
+    geom_point(aes(shape=factor(exp), color=factor(exp))) +
+    ## labs(title="") +
+    labs(y="90% CL upper limits") +
+    scale_x_discrete(labels = TeX, expand=c(0,1)) +
+    scale_y_continuous(
+      ## limit=c(0.5e-8, 1e-6),
+      trans = log10_trans(),
+      breaks = trans_breaks('log10', function(x) 10^x, n=2),
+      minor_breaks = log10.minor.breaks(),
+      labels = trans_format('log10', math_format(10^.x))
+    ) +
+    annotation_logticks(sides = "l") +
+    annotation_custom(hfag.label()) +
+    theme_bw() +
+    theme(
+      axis.title.x = element_blank(),
+      axis.text.x = element_text(
+        angle = 60, hjust=1, vjust=1, size=6,
+        margin=unit(c(0.25, 0,    0, 0), "cm")
+      ),
+      axis.text.y = element_text(
+        margin=unit(c(0   , 0.35, 0, 0.1), "cm")
+      ),
+      axis.ticks.length = unit(-0.2, "cm"),
+      axis.ticks = element_line(size = 0.3),
+      legend.title = element_blank(),
+      legend.key = element_blank(),
+      legend.position = "bottom",
+      legend.margin=unit(0, "null"),
+      plot.margin=unit(c(0.04,0.02,0.01,0.02), "null"),
+      panel.grid.major = element_line(colour = "gray80", size=0.3),
+      panel.grid.minor = element_line(colour = "gray90", size=0.3)
+      ## panel.grid.major.x = element_blank(),
+      ## panel.grid.minor.x = element_blank()
+    )
+  
+  print(rc)
+  save.plot(name, width=my.width, height=my.height)
+}
+
+##
 ## main code
 ##
 
@@ -106,58 +151,32 @@ my.height = 4
 try(dev.off(), silent=TRUE)
 dev.new(width=my.width, height=my.height)
 
-tau.lfv.data.combs = read.csv("tau-lfv-data-combs.csv", stringsAsFactors=FALSE)
-tau.lfv.data.cleo = read.csv("tau-lfv-data-limits-cleo.csv", stringsAsFactors=FALSE)
 tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
 
-##--- data.frame to plot LVF combinations limits
-data.df = data.frame(
-  gamma = factor(tau.lfv.data.combs$descr, unique(tau.lfv.data.combs$descr)),
-  limit = tau.lfv.data.combs$limit,
-  exp = "HFAG"
-)
+##
+## limits plot
+##
+limits.df = list.to.df(tau.lfv.data$limits)
+limits.df$descr = paste0("$", limits.df$descr, "$")
+limits.df$descr = factor(limits.df$descr, unique(limits.df$descr))
+limits.df$ref = NULL
 
-##--- data.frame to plot LVF limits
-data.df = list.to.df(tau.lfv.data$limits)
-data.df = rbind(data.df, tau.lfv.data.cleo)
-data.df$descr = factor(data.df$descr, unique(data.df$descr))
+tau.lfv.plot(limits.df, "tau-lfv-limits")
 
-rc = ggplot(data.df, aes(descr, limit)) +
-  geom_point(aes(shape=factor(exp), color=factor(exp))) +
-  ## labs(title="") +
-  labs(y="90% CL upper limits") +
-  scale_x_discrete(labels = TeX, expand=c(0,1)) +
-  scale_y_continuous(
-    ## limit=c(0.5e-8, 1e-6),
-    trans = log10_trans(),
-    breaks = trans_breaks('log10', function(x) 10^x, n=2),
-    minor_breaks = log10.minor.breaks(),
-    labels = trans_format('log10', math_format(10^.x))
-  ) +
-  annotation_logticks(sides = "l") +
-  annotation_custom(hfag.label()) +
-  theme_bw() +
-  theme(
-    axis.title.x = element_blank(),
-    axis.text.x = element_text(
-      angle = 60, hjust=1, vjust=1, size=6,
-      margin=unit(c(0.25, 0,    0, 0), "cm")
-    ),
-    axis.text.y = element_text(
-      margin=unit(c(0   , 0.35, 0, 0.1), "cm")
-    ),
-    axis.ticks.length = unit(-0.2, "cm"),
-    axis.ticks = element_line(size = 0.3),
-    legend.title = element_blank(),
-    legend.key = element_blank(),
-    legend.position = "bottom",
-    legend.margin=unit(0, "null"),
-    plot.margin=unit(c(0.04,0.02,0.01,0.02), "null"),
-    panel.grid.major = element_line(colour = "gray80", size=0.3),
-    panel.grid.minor = element_line(colour = "gray90", size=0.3)
-    ## panel.grid.major.x = element_blank(),
-    ## panel.grid.minor.x = element_blank()
-  )
+##
+## combinations plot
+##
+combs.df = list.to.df(tau.lfv.data$combs)
+combs.df$descr = paste0("$", combs.df$descr, "$")
+combs.df$descr = factor(combs.df$descr, unique(combs.df$descr))
+combs.df$exp = "HFAG combination"
 
-print(rc)
-save.plot("plot", width=my.width, height=my.height)
+data.df = rbind(
+  limits.df[
+    limits.df$gamma %in% combs.df$gamma &
+    limits.df$exp != "CLEO" &
+    limits.df$exp != "ATLAS", ],
+  combs.df)
+data.df$exp = factor(data.df$exp, c("BaBar", "Belle", "LHCb", "HFAG combination"))
+
+tau.lfv.plot(data.df, "tau-lfv-combs")

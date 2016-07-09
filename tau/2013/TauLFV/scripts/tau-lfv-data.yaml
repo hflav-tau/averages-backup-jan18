@@ -1,787 +1,1426 @@
+gamma:
+- gamma: 156
+  descr: e^- \gamma
+  type: \ell\gamma
+  type.head: yes
+- gamma: 157
+  descr: \mu^- \gamma
+  type: \ell\gamma
+  type.head: no
+- gamma: 158
+  descr: e^- \pi^0
+  type: \ell P^0
+  type.head: yes
+- gamma: 159
+  descr: \mu^- \pi^0
+  type: \ell P^0
+  type.head: no
+- gamma: 162
+  descr: e^- \eta
+  type: \ell P^0
+  type.head: no
+- gamma: 163
+  descr: \mu^- \eta
+  type: \ell P^0
+  type.head: no
+- gamma: 172
+  descr: e^- \eta'(958)
+  type: \ell P^0
+  type.head: no
+- gamma: 173
+  descr: \mu^- \eta'(958)
+  type: \ell P^0
+  type.head: no
+- gamma: 160
+  descr: e^- K^0_S
+  type: \ell P^0
+  type.head: no
+- gamma: 161
+  descr: \mu^- K^0_S
+  type: \ell P^0
+  type.head: no
+- gamma: 174
+  descr: e^- f_0(980)
+  type: \ell S^0
+  type.head: yes
+- gamma: 175
+  descr: \mu^- f_0(980)
+  type: \ell S^0
+  type.head: no
+- gamma: 164
+  descr: e^- \rho^0
+  type: \ell V^0
+  type.head: yes
+- gamma: 165
+  descr: \mu^- \rho^0
+  type: \ell V^0
+  type.head: no
+- gamma: 168
+  descr: e^- K^*(892)^0
+  type: \ell V^0
+  type.head: no
+- gamma: 169
+  descr: \mu^- K^*(892)^0
+  type: \ell V^0
+  type.head: no
+- gamma: 170
+  descr: e^- \bar{K}^*(892)^0
+  type: \ell V^0
+  type.head: no
+- gamma: 171
+  descr: \mu^- \bar{K}^*(892)^0
+  type: \ell V^0
+  type.head: no
+- gamma: 176
+  descr: e^- \phi
+  type: \ell V^0
+  type.head: no
+- gamma: 177
+  descr: \mu^- \phi
+  type: \ell V^0
+  type.head: no
+- gamma: 166
+  descr: e^- \omega
+  type: \ell V^0
+  type.head: no
+- gamma: 167
+  descr: \mu^- \omega
+  type: \ell V^0
+  type.head: no
+- gamma: 178
+  descr: e^- e^+ e^-
+  type: \ell\ell\ell
+  type.head: yes
+- gamma: 181
+  descr: \mu^- e^+ e^-
+  type: \ell\ell\ell
+  type.head: no
+- gamma: 179
+  descr: e^- \mu^+ \mu^-
+  type: \ell\ell\ell
+  type.head: no
+- gamma: 183
+  descr: \mu^- \mu^+ \mu^-
+  type: \ell\ell\ell
+  type.head: no
+- gamma: 182
+  descr: e^- \mu^+ e^-
+  type: \ell\ell\ell
+  type.head: no
+- gamma: 180
+  descr: \mu^- e^+ \mu^-
+  type: \ell\ell\ell
+  type.head: no
+- gamma: 184
+  descr: e^- \pi^+ \pi^-
+  type: \ell hh
+  type.head: yes
+- gamma: 186
+  descr: \mu^- \pi^+  \pi^-
+  type: \ell hh
+  type.head: no
+- gamma: 188
+  descr: e^- \pi^+ K^-
+  type: \ell hh
+  type.head: no
+- gamma: 194
+  descr: \mu^- \pi^+  K^-
+  type: \ell hh
+  type.head: no
+- gamma: 189
+  descr: e^- K^+ \pi^-
+  type: \ell hh
+  type.head: no
+- gamma: 195
+  descr: \mu^- K^+  \pi^-
+  type: \ell hh
+  type.head: no
+- gamma: 192
+  descr: e^- K^+ K^-
+  type: \ell hh
+  type.head: no
+- gamma: 198
+  descr: \mu^- K^+  K^-
+  type: \ell hh
+  type.head: no
+- gamma: 191
+  descr: e^- K^0_S K^0_S
+  type: \ell hh
+  type.head: no
+- gamma: 197
+  descr: \mu^- K^0_S  K^0_S
+  type: \ell hh
+  type.head: no
+- gamma: 185
+  descr: e^+ \pi^- \pi^-
+  type: \ell hh
+  type.head: no
+- gamma: 187
+  descr: \mu^+ \pi^- \pi^-
+  type: \ell hh
+  type.head: no
+- gamma: 190
+  descr: e^+ \pi^- K^-
+  type: \ell hh
+  type.head: no
+- gamma: 196
+  descr: \mu^+ \pi^- K^-
+  type: \ell hh
+  type.head: no
+- gamma: 193
+  descr: e^+ K^- K^-
+  type: \ell hh
+  type.head: no
+- gamma: 199
+  descr: \mu^+ K^- K^-
+  type: \ell hh
+  type.head: no
+- gamma: 211
+  descr: \pi^- \Lambda
+  type: \text{BNV}
+  type.head: yes
+- gamma: 212
+  descr: \pi^- \bar{\Lambda}
+  type: \text{BNV}
+  type.head: no
+- gamma: 213
+  descr: K^- \Lambda
+  type: \text{BNV}
+  type.head: no
+- gamma: 214
+  descr: K^- \bar{\Lambda}
+  type: \text{BNV}
+  type.head: no
+- gamma: 215
+  descr: p \mu^- \mu^-
+  type: \text{BNV}
+  type.head: no
+- gamma: 216
+  descr: \bar{p} \mu^+ \mu^-
+  type: \text{BNV}
+  type.head: no
 limits:
 - gamma: 156
-  descr: $e^- \gamma$
-  type: $\ell\gamma$
+  descr: e^- \gamma
   limit: 1.2e-07
   exp: Belle
   ref: Hayasaka:2007vc
-  type.head: $\ell\gamma$
 - gamma: 156
-  descr: $e^- \gamma$
-  type: $\ell\gamma$
+  descr: e^- \gamma
   limit: 3.3e-08
   exp: BaBar
   ref: Aubert:2009ag
-  type.head: ''
 - gamma: 157
-  descr: $\mu^- \gamma$
-  type: $\ell\gamma$
+  descr: \mu^- \gamma
   limit: 4.5e-08
   exp: Belle
   ref: Hayasaka:2007vc
-  type.head: ''
 - gamma: 157
-  descr: $\mu^- \gamma$
-  type: $\ell\gamma$
+  descr: \mu^- \gamma
   limit: 4.4e-08
   exp: BaBar
   ref: Aubert:2009ag
-  type.head: ''
 - gamma: 158
-  descr: $e^- \pi^0$
-  type: $\ell P^0$
+  descr: e^- \pi^0
   limit: 2.2e-08
   exp: Belle
   ref: Hayasaka:2011zz
-  type.head: $\ell P^0$
 - gamma: 158
-  descr: $e^- \pi^0$
-  type: $\ell P^0$
+  descr: e^- \pi^0
   limit: 1.3e-07
   exp: BaBar
   ref: Aubert:2006cz
-  type.head: ''
 - gamma: 159
-  descr: $\mu^- \pi^0$
-  type: $\ell P^0$
+  descr: \mu^- \pi^0
   limit: 2.7e-08
   exp: Belle
   ref: Hayasaka:2011zz
-  type.head: ''
 - gamma: 159
-  descr: $\mu^- \pi^0$
-  type: $\ell P^0$
+  descr: \mu^- \pi^0
   limit: 1.1e-07
   exp: BaBar
   ref: Aubert:2006cz
-  type.head: ''
 - gamma: 162
-  descr: $e^- \eta$
-  type: $\ell P^0$
+  descr: e^- \eta
   limit: 4.4e-08
   exp: Belle
   ref: Hayasaka:2011zz
-  type.head: ''
 - gamma: 162
-  descr: $e^- \eta$
-  type: $\ell P^0$
+  descr: e^- \eta
   limit: 1.6e-07
   exp: BaBar
   ref: Aubert:2006cz
-  type.head: ''
 - gamma: 163
-  descr: $\mu^- \eta$
-  type: $\ell P^0$
+  descr: \mu^- \eta
   limit: 2.3e-08
   exp: Belle
   ref: Hayasaka:2011zz
-  type.head: ''
 - gamma: 163
-  descr: $\mu^- \eta$
-  type: $\ell P^0$
+  descr: \mu^- \eta
   limit: 1.5e-07
   exp: BaBar
   ref: Aubert:2006cz
-  type.head: ''
 - gamma: 172
-  descr: $e^- \eta'(958)$
-  type: $\ell P^0$
+  descr: e^- \eta'(958)
   limit: 3.6e-08
   exp: Belle
   ref: Hayasaka:2011zz
-  type.head: ''
 - gamma: 172
-  descr: $e^- \eta'(958)$
-  type: $\ell P^0$
+  descr: e^- \eta'(958)
   limit: 2.4e-07
   exp: BaBar
   ref: Aubert:2006cz
-  type.head: ''
 - gamma: 173
-  descr: $\mu^- \eta'(958)$
-  type: $\ell P^0$
+  descr: \mu^- \eta'(958)
   limit: 3.8e-08
   exp: Belle
   ref: Hayasaka:2011zz
-  type.head: ''
 - gamma: 173
-  descr: $\mu^- \eta'(958)$
-  type: $\ell P^0$
+  descr: \mu^- \eta'(958)
   limit: 1.4e-07
   exp: BaBar
   ref: Aubert:2006cz
-  type.head: ''
 - gamma: 160
-  descr: $e^- K^0_S$
-  type: $\ell P^0$
+  descr: e^- K^0_S
   limit: 2.6e-08
   exp: Belle
   ref: Miyazaki:2010qb
-  type.head: ''
 - gamma: 160
-  descr: $e^- K^0_S$
-  type: $\ell P^0$
+  descr: e^- K^0_S
   limit: 3.3e-08
   exp: BaBar
   ref: Aubert:2009ys
-  type.head: ''
 - gamma: 161
-  descr: $\mu^- K^0_S$
-  type: $\ell P^0$
+  descr: \mu^- K^0_S
   limit: 2.3e-08
   exp: Belle
   ref: Miyazaki:2010qb
-  type.head: ''
 - gamma: 161
-  descr: $\mu^- K^0_S$
-  type: $\ell P^0$
+  descr: \mu^- K^0_S
   limit: 4.0e-08
   exp: BaBar
   ref: Aubert:2009ys
-  type.head: ''
 - gamma: 174
-  descr: $e^- f_0(980)$
-  type: $\ell S^0$
+  descr: e^- f_0(980)
   limit: 3.2e-08
   exp: Belle
   ref: Miyazaki:2008mw
-  type.head: $\ell S^0$
 - gamma: 175
-  descr: $\mu^- f_0(980)$
-  type: $\ell S^0$
+  descr: \mu^- f_0(980)
   limit: 3.4e-08
   exp: Belle
   ref: Miyazaki:2008mw
-  type.head: ''
 - gamma: 164
-  descr: $e^- \rho^0$
-  type: $\ell V^0$
+  descr: e^- \rho^0
   limit: 1.8e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: $\ell V^0$
 - gamma: 164
-  descr: $e^- \rho^0$
-  type: $\ell V^0$
+  descr: e^- \rho^0
   limit: 4.6e-08
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 165
-  descr: $\mu^- \rho^0$
-  type: $\ell V^0$
+  descr: \mu^- \rho^0
   limit: 1.2e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 165
-  descr: $\mu^- \rho^0$
-  type: $\ell V^0$
+  descr: \mu^- \rho^0
   limit: 2.6e-08
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 168
-  descr: $e^- K^*(892)^0$
-  type: $\ell V^0$
+  descr: e^- K^*(892)^0
   limit: 3.2e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 168
-  descr: $e^- K^*(892)^0$
-  type: $\ell V^0$
+  descr: e^- K^*(892)^0
   limit: 5.9e-08
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 169
-  descr: $\mu^- K^*(892)^0$
-  type: $\ell V^0$
+  descr: \mu^- K^*(892)^0
   limit: 7.2e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 169
-  descr: $\mu^- K^*(892)^0$
-  type: $\ell V^0$
+  descr: \mu^- K^*(892)^0
   limit: 1.7e-07
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 170
-  descr: $e^- \bar{K}^*(892)^0$
-  type: $\ell V^0$
+  descr: e^- \bar{K}^*(892)^0
   limit: 3.4e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 170
-  descr: $e^- \bar{K}^*(892)^0$
-  type: $\ell V^0$
+  descr: e^- \bar{K}^*(892)^0
   limit: 4.6e-08
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 171
-  descr: $\mu^- \bar{K}^*(892)^0$
-  type: $\ell V^0$
+  descr: \mu^- \bar{K}^*(892)^0
   limit: 7.0e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 171
-  descr: $\mu^- \bar{K}^*(892)^0$
-  type: $\ell V^0$
+  descr: \mu^- \bar{K}^*(892)^0
   limit: 7.3e-08
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 176
-  descr: $e^- \phi$
-  type: $\ell V^0$
+  descr: e^- \phi
   limit: 3.1e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 176
-  descr: $e^- \phi$
-  type: $\ell V^0$
+  descr: e^- \phi
   limit: 3.1e-08
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 177
-  descr: $\mu^- \phi$
-  type: $\ell V^0$
+  descr: \mu^- \phi
   limit: 8.4e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 177
-  descr: $\mu^- \phi$
-  type: $\ell V^0$
+  descr: \mu^- \phi
   limit: 1.9e-07
   exp: BaBar
   ref: Aubert:2009ap
-  type.head: ''
 - gamma: 166
-  descr: $e^- \omega$
-  type: $\ell V^0$
+  descr: e^- \omega
   limit: 4.8e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 166
-  descr: $e^- \omega$
-  type: $\ell V^0$
+  descr: e^- \omega
   limit: 1.1e-07
   exp: BaBar
   ref: Aubert:2007kx
-  type.head: ''
 - gamma: 167
-  descr: $\mu^- \omega$
-  type: $\ell V^0$
+  descr: \mu^- \omega
   limit: 4.7e-08
   exp: Belle
   ref: Miyazaki:2011xe
-  type.head: ''
 - gamma: 167
-  descr: $\mu^- \omega$
-  type: $\ell V^0$
+  descr: \mu^- \omega
   limit: 1.0e-07
   exp: BaBar
   ref: Aubert:2007kx
-  type.head: ''
 - gamma: 178
-  descr: $e^- e^+ e^-$
-  type: $\ell\ell\ell$
+  descr: e^- e^+ e^-
   limit: 2.7e-08
   exp: Belle
   ref: Hayasaka:2010np
-  type.head: $\ell\ell\ell$
 - gamma: 178
-  descr: $e^- e^+ e^-$
-  type: $\ell\ell\ell$
+  descr: e^- e^+ e^-
   limit: 2.9e-08
   exp: BaBar
   ref: Lees:2010ez
-  type.head: ''
 - gamma: 181
-  descr: $\mu^- e^+ e^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- e^+ e^-
   limit: 1.8e-08
   exp: Belle
   ref: Hayasaka:2010np
-  type.head: ''
 - gamma: 181
-  descr: $\mu^- e^+ e^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- e^+ e^-
   limit: 2.2e-08
   exp: BaBar
   ref: Lees:2010ez
-  type.head: ''
 - gamma: 179
-  descr: $e^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: e^- \mu^+ \mu^-
   limit: 2.7e-08
   exp: Belle
   ref: Hayasaka:2010np
-  type.head: ''
 - gamma: 179
-  descr: $e^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: e^- \mu^+ \mu^-
   limit: 3.2e-08
   exp: BaBar
   ref: Lees:2010ez
-  type.head: ''
 - gamma: 183
-  descr: $\mu^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- \mu^+ \mu^-
   limit: 2.1e-08
   exp: Belle
   ref: Hayasaka:2010np
-  type.head: ''
 - gamma: 183
-  descr: $\mu^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- \mu^+ \mu^-
   limit: 3.3e-08
   exp: BaBar
   ref: Lees:2010ez
-  type.head: ''
 - gamma: 183
-  descr: $\mu^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- \mu^+ \mu^-
   limit: 4.6e-08
   exp: LHCb
   ref: Aaij:2014azz
-  type.head: ''
+- gamma: 183
+  descr: \mu^- \mu^+ \mu^-
+  limit: 3.76e-07
+  exp: ATLAS
+  ref: Aad:2016wce
 - gamma: 182
-  descr: $e^- \mu^+ e^-$
-  type: $\ell\ell\ell$
+  descr: e^- \mu^+ e^-
   limit: 1.5e-08
   exp: Belle
   ref: Hayasaka:2010np
-  type.head: ''
 - gamma: 182
-  descr: $e^- \mu^+ e^-$
-  type: $\ell\ell\ell$
+  descr: e^- \mu^+ e^-
   limit: 1.8e-08
   exp: BaBar
   ref: Lees:2010ez
-  type.head: ''
 - gamma: 180
-  descr: $\mu^- e^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- e^+ \mu^-
   limit: 1.7e-08
   exp: Belle
   ref: Hayasaka:2010np
-  type.head: ''
 - gamma: 180
-  descr: $\mu^- e^+ \mu^-$
-  type: $\ell\ell\ell$
+  descr: \mu^- e^+ \mu^-
   limit: 2.6e-08
   exp: BaBar
   ref: Lees:2010ez
-  type.head: ''
 - gamma: 184
-  descr: $e^- \pi^+ \pi^-$
-  type: $\ell hh$
+  descr: e^- \pi^+ \pi^-
   limit: 2.3e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: $\ell hh$
 - gamma: 184
-  descr: $e^- \pi^+ \pi^-$
-  type: $\ell hh$
+  descr: e^- \pi^+ \pi^-
   limit: 1.2e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 186
-  descr: $\mu^- \pi^+  \pi^-$
-  type: $\ell hh$
+  descr: \mu^- \pi^+  \pi^-
   limit: 2.1e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 186
-  descr: $\mu^- \pi^+  \pi^-$
-  type: $\ell hh$
+  descr: \mu^- \pi^+  \pi^-
   limit: 2.9e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 188
-  descr: $e^- \pi^+ K^-$
-  type: $\ell hh$
+  descr: e^- \pi^+ K^-
   limit: 3.7e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 188
-  descr: $e^- \pi^+ K^-$
-  type: $\ell hh$
+  descr: e^- \pi^+ K^-
   limit: 3.2e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 194
-  descr: $\mu^- \pi^+  K^-$
-  type: $\ell hh$
+  descr: \mu^- \pi^+  K^-
   limit: 8.6e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 194
-  descr: $\mu^- \pi^+  K^-$
-  type: $\ell hh$
+  descr: \mu^- \pi^+  K^-
   limit: 2.6e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 189
-  descr: $e^- K^+ \pi^-$
-  type: $\ell hh$
+  descr: e^- K^+ \pi^-
   limit: 3.1e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 189
-  descr: $e^- K^+ \pi^-$
-  type: $\ell hh$
+  descr: e^- K^+ \pi^-
   limit: 1.7e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 195
-  descr: $\mu^- K^+  \pi^-$
-  type: $\ell hh$
+  descr: \mu^- K^+  \pi^-
   limit: 4.5e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 195
-  descr: $\mu^- K^+  \pi^-$
-  type: $\ell hh$
+  descr: \mu^- K^+  \pi^-
   limit: 3.2e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 192
-  descr: $e^- K^+ K^-$
-  type: $\ell hh$
+  descr: e^- K^+ K^-
   limit: 3.4e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 192
-  descr: $e^- K^+ K^-$
-  type: $\ell hh$
+  descr: e^- K^+ K^-
   limit: 1.4e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 198
-  descr: $\mu^- K^+  K^-$
-  type: $\ell hh$
+  descr: \mu^- K^+  K^-
   limit: 4.4e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 198
-  descr: $\mu^- K^+  K^-$
-  type: $\ell hh$
+  descr: \mu^- K^+  K^-
   limit: 2.5e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 191
-  descr: $e^- K^0_S K^0_S$
-  type: $\ell hh$
+  descr: e^- K^0_S K^0_S
   limit: 7.1e-08
   exp: Belle
   ref: Miyazaki:2010qb
-  type.head: ''
 - gamma: 197
-  descr: $\mu^- K^0_S  K^0_S$
-  type: $\ell hh$
+  descr: \mu^- K^0_S  K^0_S
   limit: 8.0e-08
   exp: Belle
   ref: Miyazaki:2010qb
-  type.head: ''
 - gamma: 185
-  descr: $e^+ \pi^- \pi^-$
-  type: $\ell hh$
+  descr: e^+ \pi^- \pi^-
   limit: 2.0e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 185
-  descr: $e^+ \pi^- \pi^-$
-  type: $\ell hh$
+  descr: e^+ \pi^- \pi^-
   limit: 2.7e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 187
-  descr: $\mu^+ \pi^- \pi^-$
-  type: $\ell hh$
+  descr: \mu^+ \pi^- \pi^-
   limit: 3.9e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 187
-  descr: $\mu^+ \pi^- \pi^-$
-  type: $\ell hh$
+  descr: \mu^+ \pi^- \pi^-
   limit: 7.0e-08
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 190
-  descr: $e^+ \pi^- K^-$
-  type: $\ell hh$
+  descr: e^+ \pi^- K^-
   limit: 3.2e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 190
-  descr: $e^+ \pi^- K^-$
-  type: $\ell hh$
+  descr: e^+ \pi^- K^-
   limit: 1.8e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 196
-  descr: $\mu^+ \pi^- K^-$
-  type: $\ell hh$
+  descr: \mu^+ \pi^- K^-
   limit: 4.8e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 196
-  descr: $\mu^+ \pi^- K^-$
-  type: $\ell hh$
+  descr: \mu^+ \pi^- K^-
   limit: 2.2e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 193
-  descr: $e^+ K^- K^-$
-  type: $\ell hh$
+  descr: e^+ K^- K^-
   limit: 3.3e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 193
-  descr: $e^+ K^- K^-$
-  type: $\ell hh$
+  descr: e^+ K^- K^-
   limit: 1.5e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 199
-  descr: $\mu^+ K^- K^-$
-  type: $\ell hh$
+  descr: \mu^+ K^- K^-
   limit: 4.7e-08
   exp: Belle
   ref: Miyazaki:2012mx
-  type.head: ''
 - gamma: 199
-  descr: $\mu^+ K^- K^-$
-  type: $\ell hh$
+  descr: \mu^+ K^- K^-
   limit: 4.8e-07
   exp: BaBar
   ref: Aubert:2005tp
-  type.head: ''
 - gamma: 211
-  descr: $\pi^- \Lambda$
-  type: BNV
+  descr: \pi^- \Lambda
   limit: 3.0e-08
   exp: Belle
   ref: Hayasaka:2012pj
-  type.head: BNV
 - gamma: 211
-  descr: $\pi^- \Lambda$
-  type: BNV
+  descr: \pi^- \Lambda
   limit: 5.8e-08
   exp: BaBar
   ref: Lafferty:2007zz
-  type.head: ''
 - gamma: 212
-  descr: $\pi^- \bar{\Lambda}$
-  type: BNV
+  descr: \pi^- \bar{\Lambda}
   limit: 2.8e-08
   exp: Belle
   ref: Hayasaka:2012pj
-  type.head: ''
 - gamma: 212
-  descr: $\pi^- \bar{\Lambda}$
-  type: BNV
+  descr: \pi^- \bar{\Lambda}
   limit: 5.9e-08
   exp: BaBar
   ref: Lafferty:2007zz
-  type.head: ''
 - gamma: 213
-  descr: $K^- \Lambda$
-  type: BNV
+  descr: K^- \Lambda
   limit: 4.2e-08
   exp: Belle
   ref: Hayasaka:2012pj
-  type.head: ''
 - gamma: 213
-  descr: $K^- \Lambda$
-  type: BNV
+  descr: K^- \Lambda
   limit: 1.5e-07
   exp: BaBar
   ref: Lafferty:2007zz
-  type.head: ''
 - gamma: 214
-  descr: $K^- \bar{\Lambda}$
-  type: BNV
+  descr: K^- \bar{\Lambda}
   limit: 3.1e-08
   exp: Belle
   ref: Hayasaka:2012pj
-  type.head: ''
 - gamma: 214
-  descr: $K^- \bar{\Lambda}$
-  type: BNV
+  descr: K^- \bar{\Lambda}
   limit: 7.2e-08
   exp: BaBar
   ref: Lafferty:2007zz
-  type.head: ''
 - gamma: 215
-  descr: $p \mu^- \mu^-$
-  type: BNV
+  descr: p \mu^- \mu^-
   limit: 4.4e-07
   exp: LHCb
   ref: Aaij:2013fia
-  type.head: ''
 - gamma: 216
-  descr: $\bar{p} \mu^+ \mu^-$
-  type: BNV
+  descr: \bar{p} \mu^+ \mu^-
   limit: 3.3e-07
   exp: LHCb
   ref: Aaij:2013fia
-  type.head: ''
+- gamma: 156
+  descr: e^- \gamma
+  limit: 2.7e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 157
+  descr: \mu^- \gamma
+  limit: 1.1e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 158
+  descr: e^- \pi^0
+  limit: 3.7e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 159
+  descr: \mu^- \pi^0
+  limit: 4.0e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 162
+  descr: e^- \eta
+  limit: 8.2e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 163
+  descr: \mu^- \eta
+  limit: 9.6e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 160
+  descr: e^- K^0_S
+  limit: 9.1e-07
+  exp: CLEO
+  ref: .na.character
+- gamma: 161
+  descr: \mu^- K^0_S
+  limit: 9.5e-07
+  exp: CLEO
+  ref: .na.character
+- gamma: 164
+  descr: e^- \rho^0
+  limit: 2.0e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 165
+  descr: \mu^- \rho^0
+  limit: 6.3e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 168
+  descr: e^- K^*(892)^0
+  limit: 5.1e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 169
+  descr: \mu^- K^*(892)^0
+  limit: 7.5e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 170
+  descr: e^- \bar{K}^*(892)^0
+  limit: 7.4e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 171
+  descr: \mu^- \bar{K}^*(892)^0
+  limit: 7.5e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 176
+  descr: e^- \phi
+  limit: 6.9e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 177
+  descr: \mu^- \phi
+  limit: 7.0e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 178
+  descr: e^- e^+ e^-
+  limit: 2.9e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 181
+  descr: \mu^- e^+ e^-
+  limit: 1.7e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 179
+  descr: e^- \mu^+ \mu^-
+  limit: 1.8e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 183
+  descr: \mu^- \mu^+ \mu^-
+  limit: 1.9e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 182
+  descr: e^- \mu^+ e^-
+  limit: 1.5e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 180
+  descr: \mu^- e^+ \mu^-
+  limit: 1.5e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 184
+  descr: e^- \pi^+ \pi^-
+  limit: 2.2e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 186
+  descr: \mu^- \pi^+  \pi^-
+  limit: 8.2e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 188
+  descr: e^- \pi^+ K^-
+  limit: 6.4e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 194
+  descr: \mu^- \pi^+  K^-
+  limit: 7.5e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 189
+  descr: e^- K^+ \pi^-
+  limit: 3.8e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 195
+  descr: \mu^- K^+  \pi^-
+  limit: 7.4e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 192
+  descr: e^- K^+ K^-
+  limit: 6.0e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 198
+  descr: \mu^- K^+  K^-
+  limit: 1.5e-05
+  exp: CLEO
+  ref: .na.character
+- gamma: 191
+  descr: e^- K^0_S K^0_S
+  limit: 2.2e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 197
+  descr: \mu^- K^0_S  K^0_S
+  limit: 2.2e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 185
+  descr: e^+ \pi^- \pi^-
+  limit: 1.9e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 187
+  descr: \mu^+ \pi^- \pi^-
+  limit: 3.4e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 190
+  descr: e^+ \pi^- K^-
+  limit: 2.1e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 196
+  descr: \mu^+ \pi^- K^-
+  limit: 7.0e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 193
+  descr: e^+ K^- K^-
+  limit: 3.8e-06
+  exp: CLEO
+  ref: .na.character
+- gamma: 199
+  descr: \mu^+ K^- K^-
+  limit: 6.0e-06
+  exp: CLEO
+  ref: .na.character
 combs:
 - gamma: 156
-  descr: $e^- \gamma$
-  type: $\ell\gamma$
-  type.head: $\ell\gamma$
+  descr: e^- \gamma
   limit: 5.4e-08
 - gamma: 157
-  descr: $\mu^- \gamma$
-  type: $\ell\gamma$
-  type.head: ''
+  descr: \mu^- \gamma
   limit: 5.0e-08
 - gamma: 160
-  descr: $e^- K^0_S$
-  type: $\ell P^0$
-  type.head: $\ell P^0$
+  descr: e^- K^0_S
   limit: 1.4e-08
 - gamma: 161
-  descr: $\mu^- K^0_S$
-  type: $\ell P^0$
-  type.head: ''
+  descr: \mu^- K^0_S
   limit: 1.5e-08
 - gamma: 164
-  descr: $e^- \rho^0$
-  type: $\ell V^0$
-  type.head: $\ell V^0$
+  descr: e^- \rho^0
   limit: 1.5e-08
 - gamma: 165
-  descr: $\mu^- \rho^0$
-  type: $\ell V^0$
-  type.head: ''
+  descr: \mu^- \rho^0
   limit: 1.5e-08
 - gamma: 168
-  descr: $e^- K^*(892)^0$
-  type: $\ell V^0$
-  type.head: ''
+  descr: e^- K^*(892)^0
   limit: 2.3e-08
 - gamma: 169
-  descr: $\mu^- K^*(892)^0$
-  type: $\ell V^0$
-  type.head: ''
+  descr: \mu^- K^*(892)^0
   limit: 6.0e-08
 - gamma: 170
-  descr: $e^- \bar{K}^*(892)^0$
-  type: $\ell V^0$
-  type.head: ''
+  descr: e^- \bar{K}^*(892)^0
   limit: 2.2e-08
 - gamma: 171
-  descr: $\mu^- \bar{K}^*(892)^0$
-  type: $\ell V^0$
-  type.head: ''
+  descr: \mu^- \bar{K}^*(892)^0
   limit: 4.2e-08
 - gamma: 176
-  descr: $e^- \phi$
-  type: $\ell V^0$
-  type.head: ''
+  descr: e^- \phi
   limit: 2.0e-08
 - gamma: 177
-  descr: $\mu^- \phi$
-  type: $\ell V^0$
-  type.head: ''
+  descr: \mu^- \phi
   limit: 6.8e-08
 - gamma: 166
-  descr: $e^- \omega$
-  type: $\ell V^0$
-  type.head: ''
+  descr: e^- \omega
   limit: 3.3e-08
 - gamma: 167
-  descr: $\mu^- \omega$
-  type: $\ell V^0$
-  type.head: ''
+  descr: \mu^- \omega
   limit: 4.0e-08
 - gamma: 178
-  descr: $e^- e^+ e^-$
-  type: $\ell\ell\ell$
-  type.head: $\ell\ell\ell$
+  descr: e^- e^+ e^-
   limit: 1.4e-08
 - gamma: 181
-  descr: $\mu^- e^+ e^-$
-  type: $\ell\ell\ell$
-  type.head: ''
+  descr: \mu^- e^+ e^-
   limit: 1.1e-08
 - gamma: 179
-  descr: $e^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
-  type.head: ''
+  descr: e^- \mu^+ \mu^-
   limit: 1.6e-08
 - gamma: 183
-  descr: $\mu^- \mu^+ \mu^-$
-  type: $\ell\ell\ell$
-  type.head: ''
+  descr: \mu^- \mu^+ \mu^-
   limit: 1.2e-08
 - gamma: 182
-  descr: $e^- \mu^+ e^-$
-  type: $\ell\ell\ell$
-  type.head: ''
+  descr: e^- \mu^+ e^-
   limit: 8.4e-09
 - gamma: 180
-  descr: $\mu^- e^+ \mu^-$
-  type: $\ell\ell\ell$
-  type.head: ''
+  descr: \mu^- e^+ \mu^-
   limit: 9.8e-09
 - gamma: 211
-  descr: $\pi^- \Lambda$
-  type: BNV
-  type.head: BNV
+  descr: \pi^- \Lambda
   limit: 1.9e-08
 - gamma: 212
-  descr: $\pi^- \bar{\Lambda}$
-  type: BNV
-  type.head: ''
-  limit: 1.8e-09
+  descr: \pi^- \bar{\Lambda}
+  limit: 1.8e-08
 - gamma: 213
-  descr: $K^- \Lambda$
-  type: BNV
-  type.head: ''
-  limit: 3.7e-09
+  descr: K^- \Lambda
+  limit: 3.7e-08
 - gamma: 214
-  descr: $K^- \bar{\Lambda}$
-  type: BNV
-  type.head: ''
-  limit: 2.0e-09
+  descr: K^- \bar{\Lambda}
+  limit: 2.0e-08
+combs.extra:
+- gamma: 156
+  exp: BaBar
+  ref: Aubert:2009ag
+  lumi: 524.0
+  cross.section: 0.919
+  efficiency: 0.039
+  efficiency.error: 0.003
+  bkg: 1.6
+  bkg.error: 0.4
+  observed.events: 0
+- gamma: 157
+  exp: BaBar
+  ref: Aubert:2009ag
+  lumi: 524.0
+  cross.section: 0.919
+  efficiency: 0.061
+  efficiency.error: 0.005
+  bkg: 3.6
+  bkg.error: 0.7
+  observed.events: 2
+- gamma: 156
+  exp: Belle
+  ref: Hayasaka:2007vc
+  lumi: 535.0
+  cross.section: 0.919
+  efficiency: 0.03
+  efficiency.error: 0.001
+  bkg: 5.14
+  bkg.error: 3.3
+  observed.events: 5
+- gamma: 157
+  exp: Belle
+  ref: Hayasaka:2007vc
+  lumi: 535.0
+  cross.section: 0.919
+  efficiency: 0.0507
+  efficiency.error: 0.002
+  bkg: 13.9
+  bkg.error: 5.0
+  observed.events: 10
+- gamma: 164
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.0731
+  efficiency.error: 0.002
+  bkg: 1.32
+  bkg.error: 0.17
+  observed.events: 1
+- gamma: 165
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.0452
+  efficiency.error: 0.004
+  bkg: 2.04
+  bkg.error: 0.19
+  observed.events: 0
+- gamma: 168
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.08
+  efficiency.error: 0.002
+  bkg: 1.65
+  bkg.error: 0.23
+  observed.events: 2
+- gamma: 169
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.046
+  efficiency.error: 0.004
+  bkg: 1.79
+  bkg.error: 0.21
+  observed.events: 4
+- gamma: 170
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.078
+  efficiency.error: 0.002
+  bkg: 2.76
+  bkg.error: 0.28
+  observed.events: 2
+- gamma: 171
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.041
+  efficiency.error: 0.003
+  bkg: 1.72
+  bkg.error: 0.17
+  observed.events: 1
+- gamma: 176
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.064
+  efficiency.error: 0.002
+  bkg: 0.68
+  bkg.error: 0.12
+  observed.events: 0
+- gamma: 177
+  exp: BaBar
+  ref: Aubert:2009ap
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.052
+  efficiency.error: 0.003
+  bkg: 2.76
+  bkg.error: 0.16
+  observed.events: 6
+- gamma: 166
+  exp: BaBar
+  ref: Aubert:2007kx
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.0296
+  efficiency.error: 0.0013
+  bkg: 0.35
+  bkg.error: 0.06
+  observed.events: 0
+- gamma: 167
+  exp: BaBar
+  ref: Aubert:2007kx
+  lumi: 451.0
+  cross.section: 0.919
+  efficiency: 0.0256
+  efficiency.error: 0.0016
+  bkg: 0.73
+  bkg.error: 0.03
+  observed.events: 0
+- gamma: 164
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0758
+  efficiency.error: 0.0041
+  bkg: 0.29
+  bkg.error: 0.15
+  observed.events: 0
+- gamma: 165
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0709
+  efficiency.error: 0.0037
+  bkg: 1.48
+  bkg.error: 0.35
+  observed.events: 0
+- gamma: 168
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0437
+  efficiency.error: 0.0024
+  bkg: 0.29
+  bkg.error: 0.14
+  observed.events: 0
+- gamma: 169
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0339
+  efficiency.error: 0.0019
+  bkg: 0.53
+  bkg.error: 0.2
+  observed.events: 1
+- gamma: 170
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0441
+  efficiency.error: 0.00247
+  bkg: 0.08
+  bkg.error: 0.08
+  observed.events: 0
+- gamma: 171
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.036
+  efficiency.error: 0.00198
+  bkg: 0.45
+  bkg.error: 0.17
+  observed.events: 1
+- gamma: 176
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0418
+  efficiency.error: 0.00246
+  bkg: 0.47
+  bkg.error: 0.19
+  observed.events: 0
+- gamma: 177
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0321
+  efficiency.error: 0.00186
+  bkg: 0.06
+  bkg.error: 0.06
+  observed.events: 1
+- gamma: 166
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0292
+  efficiency.error: 0.00181
+  bkg: 0.3
+  bkg.error: 0.14
+  observed.events: 0
+- gamma: 167
+  exp: Belle
+  ref: Miyazaki:2011xe
+  lumi: 854.0
+  cross.section: 0.919
+  efficiency: 0.0238
+  efficiency.error: 0.00145
+  bkg: 0.72
+  bkg.error: 0.18
+  observed.events: 0
+- gamma: 178
+  exp: BaBar
+  ref: Lees:2010ez
+  lumi: 472.0
+  cross.section: 0.919
+  efficiency: 0.086
+  efficiency.error: 0.002
+  bkg: 0.12
+  bkg.error: 0.02
+  observed.events: 0
+- gamma: 179
+  exp: BaBar
+  ref: Lees:2010ez
+  lumi: 472.0
+  cross.section: 0.919
+  efficiency: 0.064
+  efficiency.error: 0.004
+  bkg: 0.54
+  bkg.error: 0.14
+  observed.events: 0
+- gamma: 180
+  exp: BaBar
+  ref: Lees:2010ez
+  lumi: 472.0
+  cross.section: 0.919
+  efficiency: 0.102
+  efficiency.error: 0.006
+  bkg: 0.03
+  bkg.error: 0.02
+  observed.events: 0
+- gamma: 181
+  exp: BaBar
+  ref: Lees:2010ez
+  lumi: 472.0
+  cross.section: 0.919
+  efficiency: 0.088
+  efficiency.error: 0.005
+  bkg: 0.64
+  bkg.error: 0.19
+  observed.events: 0
+- gamma: 182
+  exp: BaBar
+  ref: Lees:2010ez
+  lumi: 472.0
+  cross.section: 0.919
+  efficiency: 0.127
+  efficiency.error: 0.007
+  bkg: 0.34
+  bkg.error: 0.12
+  observed.events: 0
+- gamma: 183
+  exp: BaBar
+  ref: Lees:2010ez
+  lumi: 472.0
+  cross.section: 0.919
+  efficiency: 0.066
+  efficiency.error: 0.006
+  bkg: 0.44
+  bkg.error: 0.17
+  observed.events: 0
+- gamma: 178
+  exp: Belle
+  ref: Hayasaka:2010np
+  lumi: 782.0
+  cross.section: 0.919
+  efficiency: 0.06
+  efficiency.error: 0.0059
+  bkg: 0.21
+  bkg.error: 0.15
+  observed.events: 0
+- gamma: 179
+  exp: Belle
+  ref: Hayasaka:2010np
+  lumi: 782.0
+  cross.section: 0.919
+  efficiency: 0.061
+  efficiency.error: 0.0058
+  bkg: 0.1
+  bkg.error: 0.04
+  observed.events: 0
+- gamma: 180
+  exp: Belle
+  ref: Hayasaka:2010np
+  lumi: 782.0
+  cross.section: 0.919
+  efficiency: 0.101
+  efficiency.error: 0.0077
+  bkg: 0.02
+  bkg.error: 0.02
+  observed.events: 0
+- gamma: 181
+  exp: Belle
+  ref: Hayasaka:2010np
+  lumi: 782.0
+  cross.section: 0.919
+  efficiency: 0.093
+  efficiency.error: 0.0073
+  bkg: 0.04
+  bkg.error: 0.04
+  observed.events: 0
+- gamma: 182
+  exp: Belle
+  ref: Hayasaka:2010np
+  lumi: 782.0
+  cross.section: 0.919
+  efficiency: 0.115
+  efficiency.error: 0.0089
+  bkg: 0.01
+  bkg.error: 0.01
+  observed.events: 0
+- gamma: 183
+  exp: Belle
+  ref: Hayasaka:2010np
+  lumi: 782.0
+  cross.section: 0.919
+  efficiency: 0.076
+  efficiency.error: 0.0056
+  bkg: 0.13
+  bkg.error: 0.2
+  observed.events: 0
+- gamma: 211
+  exp: BaBar
+  ref: Lafferty:2007zz
+  lumi: 237.0
+  cross.section: 0.919
+  efficiency: 0.122
+  efficiency.error: 0.085
+  bkg: 0.56
+  bkg.error: 0.56
+  observed.events: 0
+- gamma: 212
+  exp: BaBar
+  ref: Lafferty:2007zz
+  lumi: 237.0
+  cross.section: 0.919
+  efficiency: 0.1228
+  efficiency.error: 0.085
+  bkg: 0.42
+  bkg.error: 0.42
+  observed.events: 0
+- gamma: 213
+  exp: BaBar
+  ref: Lafferty:2007zz
+  lumi: 237.0
+  cross.section: 0.919
+  efficiency: 0.0947
+  efficiency.error: 0.0066
+  bkg: 0.12
+  bkg.error: 0.12
+  observed.events: 1
+- gamma: 214
+  exp: BaBar
+  ref: Lafferty:2007zz
+  lumi: 237.0
+  cross.section: 0.919
+  efficiency: 0.1063
+  efficiency.error: 0.0074
+  bkg: 0.26
+  bkg.error: 0.26
+  observed.events: 0
+- gamma: 211
+  exp: Belle
+  ref: Hayasaka:2012pj
+  lumi: 906.0
+  cross.section: 0.919
+  efficiency: 0.0439
+  efficiency.error: 0.0036
+  bkg: 0.31
+  bkg.error: 0.18
+  observed.events: 0
+- gamma: 212
+  exp: Belle
+  ref: Hayasaka:2012pj
+  lumi: 906.0
+  cross.section: 0.919
+  efficiency: 0.048
+  efficiency.error: 0.0039
+  bkg: 0.21
+  bkg.error: 0.15
+  observed.events: 0
+- gamma: 213
+  exp: Belle
+  ref: Hayasaka:2012pj
+  lumi: 906.0
+  cross.section: 0.919
+  efficiency: 0.0316
+  efficiency.error: 0.0027
+  bkg: 0.42
+  bkg.error: 0.19
+  observed.events: 0
+- gamma: 214
+  exp: Belle
+  ref: Hayasaka:2012pj
+  lumi: 906.0
+  cross.section: 0.919
+  efficiency: 0.0411
+  efficiency.error: 0.0035
+  bkg: 0.31
+  bkg.error: 0.14
+  observed.events: 0
+- gamma: 160
+  exp: BaBar
+  ref: Aubert:2009ys
+  lumi: 469.0
+  cross.section: 0.919
+  efficiency: 0.091
+  efficiency.error: 0.0173
+  bkg: 0.59
+  bkg.error: 0.25
+  observed.events: 1
+- gamma: 161
+  exp: BaBar
+  ref: Aubert:2009ys
+  lumi: 469.0
+  cross.section: 0.919
+  efficiency: 0.0614
+  efficiency.error: 0.002
+  bkg: 0.3
+  bkg.error: 0.18
+  observed.events: 1
+- gamma: 160
+  exp: Belle
+  ref: Miyazaki:2010qb
+  lumi: 671.0
+  cross.section: 0.919
+  efficiency: 0.102
+  efficiency.error: 0.0067
+  bkg: 0.18
+  bkg.error: 0.18
+  observed.events: 0
+- gamma: 161
+  exp: Belle
+  ref: Miyazaki:2010qb
+  lumi: 671.0
+  cross.section: 0.919
+  efficiency: 0.107
+  efficiency.error: 0.0073
+  bkg: 0.35
+  bkg.error: 0.21
+  observed.events: 0
