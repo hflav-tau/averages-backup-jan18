@@ -1,4 +1,4 @@
-%% -*- mode: LaTeX; TeX-master: "../Summer14.tex" -*-
+%% -*- mode: LaTeX; TeX-master: "../Summer16.tex" -*-
 \section{Combination of upper limits on \mtau LFV branching fractions}
 \label{sec:tau:lfv-comb}
 \newcommand{\cls}{\ensuremath{\text{CL}_s}\xspace}
@@ -70,35 +70,63 @@ in the Monte Carlo toy experiments by convolving the $S_i$ and $B_i$
 PDFs with with Gaussian distributions corresponding to the nuisance
 parameters. 
 
-Table~\ref{tab:tau:lfv-upper-limits-comb} reports the re-computed limits
-for the $B$ factories results as well as the corresponding HFAG
-combination. Since there is negligible gain in combining limits of very
+Table~\ref{tab:tau:lfv-upper-limits-comb} reports the HFAG combinations of the
+\mtau LFV limits, together with the published limits, excluding the
+older and weaker CLEO limits.
+Since there is negligible gain in combining limits of very
 different strength, the combinations do not include the CLEO searches and we do not
 combine results for modes where the best limit is more than an order of
 magnitude better than the other limits.
-Figure~\ref{fig:tau:lfv-limits-plot-average} reports the re-computed \mtau
-LFV searches upper limits and their combination.
+Figure~\ref{fig:tau:lfv-limits-plot-average} reports a graphical
+representation of the limits in Table~\ref{tab:tau:lfv-upper-limits-comb}.
 
-\begin{center}\smaller
-\begin{longtable}{lcl@{}rlrrrrrr}
+\newcommand{\htCombLimitLine}[3]{%
+  #1 & #2 & #3 \\
+}
+\newcommand{\htCombExtraLine}[8]{%
+  #1 & #2 & \cite{#3} & #4 & #5 & #6 & #7 & #8 \\
+}
+
+\begin{center}
+\begin{longtable}{lcr}
 \caption{Combinations of upper limits on lepton flavor violating \mtau decay
-  modes. The table includes, for each experimental result, the published information that
-  has been used to re-compute the limit with the \cls method, \ie\
-  the integrated luminosity, the cross-section for \mtau lepton pairs production,
-  the detection efficiency, the number of expected background events and the number
-  of observed events. Since the \lhcb collaboration published a limit determined
-  with the \cls method, in this case only the published limit is reported.
-  The table finally reports the combined limit that is obtained by combining the
-  re-computed limits. The modes are grouped according to the particle content of their final
-  states. Modes with lepton number violation are labeled with ``(L)'',
-  modes with baryon number violation are labeled with ``(BNV)''.
+  modes. The modes are grouped according to the particle content of their final
+  states. Modes with baryon number violation are labeled with ``BNV''.
 \label{tab:tau:lfv-upper-limits-comb}}%
 \\
 \toprule
 \multicolumn{1}{l}{\bfseries Decay mode} &
 \multicolumn{1}{c}{\bfseries Cat.} &
-\multicolumn{2}{c}{\bfseries \begin{tabular}{@{}c@{}}90\% CL\\Limit\end{tabular}} &
+\multicolumn{1}{r}{\bfseries \begin{tabular}{@{}c@{}}90\% CL\\Limit\end{tabular}} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+\midrule
+\multicolumn{1}{l}{\bfseries Decay mode} &
+\multicolumn{1}{c}{\bfseries Cat.} &
+\multicolumn{1}{r}{\bfseries \begin{tabular}{@{}c@{}}90\% CL\\Limit\end{tabular}} \\
+\midrule
+\endhead
+\htuse{CombLines}
+\bottomrule
+\end{longtable}
+\end{center}
+
+\begin{center}\smaller
+\begin{longtable}{llcrrrrrr}
+\caption{The table includes, for the \babar and Belle limits, the
+  published information that has been used to re-compute the limit
+  with the \cls method, \ie\ the integrated luminosity, the
+  cross-section for \mtau lepton pairs production, the detection
+  efficiency, the number of expected background events and the number
+  of observed events. The additional limits used in the combinations (one
+  from \lhcb) have been determined with the \cls method.
+\label{tab:tau:lfv-extra-info-comb}}%
+\\
+\toprule
+\multicolumn{1}{l}{\bfseries Decay mode} &
 \multicolumn{1}{c}{\bfseries Exp.} &
+\multicolumn{1}{c}{\bfseries Ref.} &
 \multicolumn{1}{c}{\bfseries \begin{tabular}{@{}c@{}}{\cal L}\\($\text{fb}^{-1}$)\end{tabular}} &
 \multicolumn{1}{c}{\bfseries \begin{tabular}{@{}c@{}}$\sigma_{\tau\tau}$\\(nb)\end{tabular}} &
 \multicolumn{1}{c}{\bfseries \begin{tabular}{@{}c@{}}efficiency\\(\%)\end{tabular}} &
@@ -109,9 +137,8 @@ LFV searches upper limits and their combination.
 \multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
 \midrule
 \multicolumn{1}{l}{\bfseries Decay mode} &
-\multicolumn{1}{c}{\bfseries Cat.} &
-\multicolumn{2}{c}{\bfseries \begin{tabular}{@{}c@{}}90\% CL\\Limit\end{tabular}} &
 \multicolumn{1}{c}{\bfseries Exp.} &
+\multicolumn{1}{c}{\bfseries Ref.} &
 \multicolumn{1}{c}{\bfseries \begin{tabular}{@{}c@{}}{\cal L}\\($\text{fb}^{-1}$)\end{tabular}} &
 \multicolumn{1}{c}{\bfseries \begin{tabular}{@{}c@{}}$\sigma_{\tau\tau}$\\(nb)\end{tabular}} &
 \multicolumn{1}{c}{\bfseries \begin{tabular}{@{}c@{}}efficiency\\(\%)\end{tabular}} &
@@ -119,184 +146,14 @@ LFV searches upper limits and their combination.
 \multicolumn{1}{c}{\bfseries $N_{\text{obs}}$} \\
 \midrule
 \endhead
-%
-%  l\gamma
-%  
-\begin{ensuredisplaymath}
-\Gamma_{156} =  {e^- \gamma} 
-\end{ensuredisplaymath}
- &\(\ell\gamma\) & \( <\; \) &  \(5.4 \cdot 10^{-8}\)        & HFAG \\
- &            &&& Belle & \htuse{g156.belle.row} \\
- &            &&& \babar & \htuse{g156.babar.row} \\ 
-% \midrule
-\begin{ensuredisplaymath}
-\Gamma_{157} =  {\mu^- \gamma} 
-\end{ensuredisplaymath}
- &            & \( <\; \) &  \(5.0 \cdot 10^{-8}\)        & HFAG \\
- &            &&& Belle & \htuse{g157.belle.row} \\
- &            &&& \babar & \htuse{g157.babar.row} \\ 
-\midrule
-\begin{ensuredisplaymath}
-\Gamma_{160} =  {e^- K^0_S} 
-\end{ensuredisplaymath}
- & \(\ell P^0 \)  & \( <\; \) & \(1.4 \cdot 10^{-8}\)         & HFAG  \\
- &            &&& Belle  & \htuse{g160.belle.row} \\
- &            &&& \babar   & \htuse{g160.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{161} =  {\mu^- K^0_S} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(1.5 \cdot 10^{-8}\)         & HFAG  \\
-&            &&& Belle  & \htuse{g161.belle.row} \\
- &            &&& \babar   & \htuse{g161.babar.row} \\ 
-\midrule
-\begin{ensuredisplaymath}
-\Gamma_{164} =  {e^- \rho^0} 
-\end{ensuredisplaymath}
- &  \(\ell V^0\) & \( <\; \) & \(1.5 \cdot 10^{-8}\)         & HFAG  \\
- &            &&& Belle& \htuse{g164.belle.row} \\
- &            &&& \babar   & \htuse{g164.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{165} =  {\mu^- \rho^0} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(1.5 \cdot 10^{-8}\)         & HFAG  \\
- &            &&& Belle& \htuse{g165.belle.row} \\
- &            &&& \babar & \htuse{g165.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{168} =  {e^- K^*(892)^0} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(2.3 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle & \htuse{g168.belle.row} \\
- &            &&& \babar   & \htuse{g168.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{169} =  {\mu^- K^*(892)^0} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(6.0 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle & \htuse{g169.belle.row} \\
- &            &&& \babar   & \htuse{g169.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{170} =  {e^- \bar{K}^*(892)^0} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(2.2 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle & \htuse{g170.belle.row} \\
- &            &&& \babar   & \htuse{g170.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{171} =  {\mu^- \bar{K}^*(892)^0} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(4.2 \cdot 10^{-8}\)         & HFAG  \\
- &            &&& Belle  & \htuse{g171.belle.row} \\
- &            &&& \babar & \htuse{g171.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{176} =  {e^- \phi} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(2.0 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle & \htuse{g176.belle.row} \\
- &            &&& \babar   & \htuse{g176.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{177} =  {\mu^- \phi} 
-\end{ensuredisplaymath}
- &            & \( <\; \) &\(6.8 \cdot 10^{-8}\)          & HFAG \\
- &            &&& Belle  & \htuse{g177.belle.row} \\
- &            &&& \babar   & \htuse{g177.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{166} =  {e^- \omega} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(3.3 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle  & \htuse{g166.belle.row} \\
- &            &&& \babar    & \htuse{g166.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{167} =  {\mu^- \omega} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(4.0 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle  & \htuse{g167.belle.row} \\
- &            &&& \babar   & \htuse{g167.babar.row} \\ 
-\midrule
-\begin{ensuredisplaymath}
-\Gamma_{178} =  {e^- e^+ e^-} 
-\end{ensuredisplaymath}
- &  \(\ell\ell\ell\)   & \( <\; \) & \(1.4 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle  & \htuse{g178.belle.row} \\
- &            &&& \babar    & \htuse{g178.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{181} =  {\mu^- e^+ e^-} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(1.1 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle & \htuse{g181.belle.row} \\
- &            &&& \babar    & \htuse{g181.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{179} =  {e^- \mu^+ \mu^-} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(1.6 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle  & \htuse{g179.belle.row} \\
- &            &&& \babar     & \htuse{g179.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{183} =  {\mu^- \mu^+ \mu^-} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(1.2 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle& \htuse{g183.belle.row} \\
- &            &&& \babar  & \htuse{g183.babar.row} \\ 
- &            & \( <\; \) & \(4.6 \cdot 10^{-8}\)         & \lhcb   \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{182} =  {e^- \mu^+ e^-} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(8.4 \cdot 10^{-9}\)         & HFAG \\
- &            &&& Belle  & \htuse{g182.belle.row} \\
- &            &&& \babar    & \htuse{g182.babar.row} \\ 
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{180} =  {\mu^- e^+ \mu^-} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(9.8 \cdot 10^{-9}\)         & HFAG \\
- &            &&& Belle & \htuse{g180.belle.row} \\
- &            &&& \babar     & \htuse{g180.babar.row} \\ 
-\midrule
-\begin{ensuredisplaymath}
-\Gamma_{211} =  { \pi^- \Lambda } 
-\end{ensuredisplaymath}
- & BNV & \( <\; \) & \(1.9 \cdot 10^{-8}\)                 & HFAG  \\
- &                &&& Belle  & \htuse{g211.belle.row} \\
- &               &&& \babar     & \htuse{g211.babar.row} \\  
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{212} =  { \pi^- \bar{\Lambda}} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(1.8 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle  & \htuse{g212.belle.row} \\
- &            &&& \babar     & \htuse{g212.babar.row} \\  
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{213} =  { K^- \Lambda } 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(3.7 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle  & \htuse{g213.belle.row} \\
- &            &&& \babar     & \htuse{g213.babar.row} \\  
-%\midrule
-\begin{ensuredisplaymath}
-\Gamma_{214} =  { K^- \bar{\Lambda}} 
-\end{ensuredisplaymath}
- &            & \( <\; \) & \(2.0 \cdot 10^{-8}\)         & HFAG \\
- &            &&& Belle & \htuse{g214.belle.row} \\
- &            &&& \babar     & \htuse{g214.babar.row} \\  
+\htuse{CombExtraLines}
 \bottomrule
 \end{longtable}
 \end{center}
 
 \begin{figure}[tb]
   \begin{center}
-    \includegraphics[angle=270,totalheight=0.86\textheight,clip]{TauLFV_combs.pdf}
+    \includegraphics[angle=270,totalheight=0.86\textheight,clip]{tau-lfv-combs.pdf}
     \caption{Tau lepton-flavour-violating branching fraction upper limits
       combinations summary plot. For each channel we report the HFAG
       combined limit, and the experimental published limits. In some cases,
@@ -310,5 +167,5 @@ LFV searches upper limits and their combination.
   \end{center}
 \end{figure}
 
-%% -*- mode: LaTeX; TeX-master: "../Summer14.tex" -*-
+%% -*- mode: LaTeX; TeX-master: "../Summer16.tex" -*-
 %% ///////////////////////////////////////////////////////////////////////////

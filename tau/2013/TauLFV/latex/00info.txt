@@ -1,6 +1,11 @@
-please copy or get a soft link here for the two PDF plots:
-- TauLFV_limits.pdf
-- TauLFV_combs.pdf (use the "norecomp" version)
+directory for preparing the tau LFV HFAG report
+
+copy or get a soft link here for the two PDF plots:
+- tau-lfv-limits.pdf
+- tau-lfv-combs.pdf
 
 please don't commit these PDF plots into git
 rather, commit the code that produces them
+
+the TeX macros in tau-lfv-data.tex are produces running ./tau-lfv.r in
+the directory ../scripts
