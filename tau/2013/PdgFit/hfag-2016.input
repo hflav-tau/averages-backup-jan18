@@ -1,0 +1,287 @@
+#
+# HFAG 2016 fit
+#
+# report first all modifications done for PDG 2016
+#
+# - start from HFAG 2014
+# - remove inconsistent meaasurement Belle Gamma33 pub RYU 14vpc
+# - uses ALEPH measurements pi/K, non h/K as HFAG 2014
+# - use unitarity constraint
+# - replace non-BaBar non-Belle measurements with PDG ones
+#   - asymmetric errors, separate stat/syst errors, total correlation
+# - add non-BaBar non-Belle measurements used by HFAG but not PDG
+#   - take them from HFAG, revised using PDG 2015
+# - drop two BaBar prelim measurements
+# - update parameters to PDG 2015
+# - drop ALEPH estimate tau -> a1 nu, a1 -> pi gamma
+#   - add BR_a1_pigamma*(Gamma20+Gamma60) to unitarity constraint
+#   - replace BR_a1_pigamma parameter with Gamma997
+#   - replace back Gamma997 with BR_a1_pigamma
+# - drop ALEPH Gamma49 (tau -> pi K0 K0 pi0 nu) to facilitate approval
+# - replace priv.comm. HFAG input cards with published values
+#
+# report now modifications from PDG 2016 to HFAG 2016
+# - remove unitarity constraint
+# - undrop ALEPH Gamma49 (tau -> pi K0 K0 pi0 nu)
+# - undrop 2 ALEPH preliminary results Gamma35 and Gamma40
+# - use again ALEPH h-K results instead of pi-K
+# - use ALEPH estimate of B(tau -> a1(pi gamma) nu) rather than constraint
+#
+# INCLUDE pdg/measurements-aleph.input
+INCLUDE ../Common-Mar2011/measurements-babar.input
+INCLUDE ../Common-Mar2011/measurements-belle.input
+INCLUDE ../Common-Mar2012/measurements-belle.input
+INCLUDE pdg/measurements-cleo.input
+INCLUDE pdg/measurements-delphi.input
+INCLUDE pdg/measurements-l3.input
+INCLUDE pdg/measurements-opal.input
+INCLUDE pdg/measurements-other.input
+# --- for 2014 average
+INCLUDE ../Common-Mar2012/measurements-aleph.input
+INCLUDE ../Common_2013/measurements-babar.input
+INCLUDE ../Common_2013/measurements-belle_13.input
+INCLUDE ../Common_2013/measurements-cleo.input
+INCLUDE ../Common_2013/measurements-aleph.input
+# ---  non-BaBar non-Belle measurements used by HFAG but not PDG
+# INCLUDE pdg/measurements-aleph-2.input
+INCLUDE pdg/measurements-cleo-2.input
+INCLUDE pdg/measurements-opal-2.input
+
+# --- use again ALEPH h-K measurements
+INCLUDE ../Common-Mar2011/measurements-aleph-hcorr.input
+
+#
+# replace priv. comm. HFAG cards with published values
+#
+# MODMEAS DROP Belle Gamma60 pub LEE 10
+# MODMEAS DROP Belle Gamma85 pub LEE 10
+# MODMEAS DROP Belle Gamma93 pub LEE 10
+# MODMEAS DROP Belle Gamma96 pub LEE 10
+# MODMEAS DROP BaBar Gamma60 pub AUBERT 08
+# MODMEAS DROP BaBar Gamma85 pub AUBERT 08
+# MODMEAS DROP BaBar Gamma93 pub AUBERT 08
+# MODMEAS DROP BaBar Gamma96 pub AUBERT 08
+# MODMEAS DROP BaBar Gamma3by5 pub AUBERT 10F
+# MODMEAS DROP BaBar Gamma9by5 pub AUBERT 10F
+# MODMEAS DROP BaBar Gamma10by5 pub AUBERT 10F
+#
+INCLUDE pdg/measurements-override.input
+
+BEGIN COMBINATION
+
+COMBINE
+  Gamma1 Gamma2
+  Gamma3 Gamma3by5 Gamma5 Gamma7 Gamma8 Gamma9 Gamma10
+  Gamma9by5 Gamma10by5
+  Gamma13 Gamma14 Gamma16 Gamma17 Gamma19 Gamma19by13
+  Gamma20 Gamma23 Gamma25 Gamma26 Gamma26by13 Gamma27 Gamma28 Gamma29
+  Gamma30 Gamma31 Gamma33 Gamma34 Gamma35 Gamma37 Gamma38 Gamma39
+  Gamma40 Gamma42 Gamma43 Gamma44
+  Gamma46 Gamma47 Gamma48 Gamma804
+  Gamma49 Gamma50 Gamma51 Gamma806
+  Gamma53 Gamma54 Gamma55 Gamma57 Gamma57by55 Gamma58 Gamma60 Gamma62
+  Gamma66 Gamma69 Gamma70 Gamma74 Gamma76 Gamma76by54 Gamma77 Gamma78
+  Gamma80 Gamma80by60 Gamma81 Gamma81by69 Gamma82 Gamma85 Gamma88 Gamma89
+  Gamma92 Gamma93 Gamma93by60 Gamma94 Gamma94by69 Gamma96
+  Gamma102 Gamma103 Gamma104 Gamma110
+  Gamma126 Gamma128 Gamma130 Gamma132 Gamma136
+  Gamma150 Gamma150by66 Gamma151 Gamma152 Gamma152by76
+  Gamma167 Gamma168 Gamma169
+  Gamma800 Gamma802 Gamma803
+  Gamma810 Gamma910 Gamma911 Gamma811 Gamma812
+  Gamma820 Gamma920 Gamma821 Gamma822
+  Gamma830 Gamma930 Gamma831 Gamma832 Gamma833
+  Gamma944 Gamma945
+  Gamma805
+  Gamma8by5 Gamma10by9 Gamma11 Gamma12 Gamma18 Gamma24 Gamma32 Gamma56
+  Gamma59 Gamma63 Gamma64 Gamma65 Gamma67 Gamma68 Gamma75 Gamma79
+  Gamma83 Gamma84 Gamma85by60 Gamma87 Gamma106 Gamma149 Gamma152by54
+  Gamma998 GammaAll
+
+# --- include standard HFAG-PDG 2016 measurement drop list
+INCLUDE hfag-pdg-2016-drop.input
+
+# --- undrop measurements dropped for PDG 2016
+MODMEAS KEEP ALEPH Gamma49 pub BARATE 99R
+MODMEAS KEEP BaBar Gamma35 prelim ICHEP08
+MODMEAS KEEP BaBar Gamma40 prelim DPF09
+
+# --- undropdrop B(tau -> pi gamma nu) ALEPH estimate, not measurement
+MODMEAS KEEP ALEPH Gamma805 pub SCHAEL 05C
+
+INCLUDE ../Common-Mar2012/parameters.input
+# --- update parameters to PDG 2013
+INCLUDE ../Common_2013/parameters_13.input
+# --- update parameters to PDG 2015
+INCLUDE ../Common-2015/parameters-2016-03.input
+
+INCLUDE ../Common-Mar2011/quantities.input
+INCLUDE ../Common-Mar2012/quantities.input
+# --- added quantities and revised constraints for 2014 average
+INCLUDE ../Common_2013/quantities.input
+# --- added B(a1 -> pi gamma)
+INCLUDE ../Common-2015/quantities.input
+
+INCLUDE ../Common-Mar2011/quantities-texdescr.input
+INCLUDE ../Common-Mar2012/quantities-texdescr.input
+INCLUDE ../Common_2013/quantities-texdescr.input
+
+#
+# seed to set a feed value for quantities without measurements
+# which are fitted only through the constraints
+#
+QUANTITY Gamma9 seed 0.108
+QUANTITY Gamma14 seed 0.25
+QUANTITY Gamma20 seed 0.092
+QUANTITY Gamma27 seed 0.010
+QUANTITY Gamma46 seed 1.5e-3
+QUANTITY Gamma49 seed 3.1e-4
+QUANTITY Gamma58 seed 0.094
+QUANTITY Gamma62 seed 0.089
+QUANTITY Gamma70 seed 0.027
+QUANTITY Gamma77 seed 0.00097
+QUANTITY Gamma80 seed 0.0044
+QUANTITY Gamma81 seed 0.00086
+QUANTITY Gamma802 seed 0.0029
+QUANTITY Gamma803 seed 0.00041
+QUANTITY Gamma800 seed 0.019
+QUANTITY Gamma804 seed 0.00018
+QUANTITY Gamma136 seed 2.3e-4
+
+# --- needed after inclusion of pi KS KS pi0 nu results
+QUANTITY Gamma51 seed 3.20e-5
+QUANTITY Gamma806 seed 1.60e-5
+
+# --- added for 2014 average
+QUANTITY Gamma810 seed 2.07e-4
+QUANTITY Gamma820 seed 8.33e-04
+QUANTITY Gamma830 seed 1.65e-4
+
+# --- added after replacing ALEPH estimate with external parameter
+QUANTITY Gamma805 seed 4e-4
+
+# --- added to get Gamma945 in set of base variables
+QUANTITY Gamma945 seed 2e-4
+
+# --- added after removing Gamma801
+QUANTITY Gamma167 seed 4e-5
+QUANTITY Gamma168 seed 2e-5
+QUANTITY Gamma169 seed 1.5e-5
+
+# --- added for PDG listing in 2016 HFAG-PDG fit
+QUANTITY Gamma1 seed 0.85
+QUANTITY Gamma2 seed 0.85
+QUANTITY Gamma89 seed 0.076
+
+# --- added after adding PDG 2015 quantities missing in HFAG fit
+QUANTITY Gamma8by5 seed 0.647
+QUANTITY Gamma10by9 seed 0.0647
+QUANTITY Gamma11 seed 26e-2
+QUANTITY Gamma12 seed 26e-2
+QUANTITY Gamma18 seed 0.0952
+QUANTITY Gamma24 seed 1e-2
+QUANTITY Gamma32 seed 1e-2
+QUANTITY Gamma56 seed 10e-2
+QUANTITY Gamma59 seed 10e-2
+QUANTITY Gamma63 seed 5e-2
+QUANTITY Gamma64 seed 0.95e-2
+QUANTITY Gamma65 seed 0.75e-2
+QUANTITY Gamma67 seed 15e-2
+QUANTITY Gamma68 seed 5e-2
+QUANTITY Gamma75 seed 0.20e-2
+QUANTITY Gamma79 seed 0.1e-2
+QUANTITY Gamma83 seed 0.37e-2
+QUANTITY Gamma84 seed 0.34e-2
+QUANTITY Gamma85by60 seed 0.0326
+QUANTITY Gamma87 seed 0.13e-2
+QUANTITY Gamma106 seed 0.78e-2
+QUANTITY Gamma149 seed 2.4e-2
+QUANTITY Gamma152by54 seed 0.0271
+
+# --- sum of all non-overlapping decay modes
+QUANTITY GammaAll seed 1
+
+# --- dummy node to remove unitarity constraint
+QUANTITY Gamma998 seed 0
+
+# --- Gamma110, only present in constraint
+QUANTITY Gamma110 seed 0.028
+
+# --- rescale errors according to babar-belle discrepancy
+QUANTITY Gamma96 scale 5.435276
+
+# --- updated unitarity sum
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47 + Gamma48 + Gamma804 + Gamma62 + Gamma70 + Gamma77 + Gamma810 + Gamma93 + Gamma94 + Gamma104 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50 + Gamma51 + Gamma806 + Gamma168 + Gamma169 + Gamma152 + Gamma103 + Gamma805)"
+
+# --- updated unitarity sum in basis modes
+NLCONSTRAINT GammaAll.c 0 "-GammaAll + (Gamma3 + Gamma5 + Gamma9 + Gamma10 + Gamma14 + Gamma16 + Gamma20 + Gamma23 + Gamma27 + Gamma28 + Gamma30 + Gamma35 + Gamma37 + Gamma40 + Gamma42 + Gamma47*(1 + ((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))) + Gamma48 + Gamma62 + Gamma70 + Gamma77 + Gamma811 + Gamma812 + Gamma93 + Gamma94 + Gamma832 + Gamma833 + Gamma126 + Gamma128 + Gamma802 + Gamma803 + Gamma800 + Gamma151 + Gamma130 + Gamma132 + Gamma44 + Gamma53 + Gamma50*(1 + ((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))) + Gamma51 + Gamma167*(BR_phi_KmKp+BR_phi_KSKL) + Gamma152 + Gamma920 + Gamma821 + Gamma822 + Gamma831 + Gamma136 + Gamma945 + Gamma805)"
+
+#
+# Gamma78 = G(h- h- h+ 3pi0 nu(tau)) / G(total) =
+#   Gamma810  +  # G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total)
+#   Gamma50   *(2*BR_KS_pimpip*BR_KS_2piz) +  # G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+#   Gamma132  *(BRA_Kzbar_KS_KET*BR_KS_pimpip*BR_eta_3piz)    # G(pi- Kbar0 eta nu(tau)) / G(total)
+#
+# Gamma103 = G(3h- 2h+ nu(tau) (ex. K0)) / G(total) =
+#   Gamma820  +  # G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total)
+#   Gamma822  +  # G(K- 2pi- 2pi+ nu(tau) (ex. K0)) / G(total)
+#   Gamma831  *BR_om_pimpip    # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
+#
+# Gamma104 = G(3h- 2h+ pi0 nu(tau) (ex. K0)) / G(total) =
+#   Gamma830  +  # G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#   Gamma833     # G(K- 2pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total)
+#
+# Gamma820 = G(3pi- 2pi+ nu(tau) (ex. K0, omega)) / G(total) =
+#   Gamma920  +  # G(pi- f1(2pi- 2pi+) nu(tau)) / G(total)
+#   Gamma821     # G(3pi- 2pi+ nu(tau) (ex. K0, omega, f1)) / G(total)
+#
+# Gamma810 = G(2pi- pi+ 3pi0 nu(tau) (ex. K0)) / G(total) =
+#   Gamma910  +  # G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total)
+#   Gamma911  +  # G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total)
+#   Gamma811  *BR_om_pimpippiz +  # G(pi- 2pi0 omega nu(tau)) / G(total)
+#   Gamma812     # G(2pi- pi+ 3pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
+#
+# Gamma830 = G(3pi- 2pi+ pi0 nu(tau) (ex. K0)) / G(total) =
+#   Gamma930  +  # G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total)
+#   Gamma831  *BR_om_pimpippiz +  # G(2pi- pi+ omega nu(tau) (ex. K0)) / G(total)
+#   Gamma832     # G(3pi- 2pi+ pi0 nu(tau) (ex. K0, eta, omega, f1)) / G(total)
+#
+# Gamma910 = G(2pi- pi+ eta(3pi0) nu(tau) (ex. K0)) / G(total) =
+#   Gamma136  *BR_eta_3piz    # G(pi- pi+ pi- eta nu(tau) (ex. K0)) / G(total)
+#
+# Gamma930 = G(2pi- pi+ eta(pi+ pi- pi0) nu(tau) (ex. K0)) / G(total) =
+#   Gamma136  *BR_eta_pimpippiz    # G(pi- pi+ pi- eta nu(tau) (ex. K0)) / G(total)
+#
+# Gamma944 = G(2pi- pi+ eta(gamma gamma) nu(tau) (ex. K0)) / G(total) =
+#   Gamma136  *BR_eta_2gam    # G(pi- pi+ pi- eta nu(tau) (ex. K0)) / G(total)
+#
+# Gamma911 = G(pi- 2pi0 eta(pi+ pi- pi0) nu(tau)) / G(total) =
+#   Gamma945  *BR_eta_pimpippiz    # G(pi- 2pi0 eta nu(tau)) / G(total)
+#
+# Gamma168 = G(K- phi(K+ K-) nu(tau)) / G(total) =
+#   Gamma167  *BR_phi_KmKp    # G(K- phi nu(tau)) / G(total)
+#
+# Gamma169 = G(K- phi(K(S)0 K(L)0) nu(tau)) / G(total) =
+#   Gamma167  *BR_phi_KSKL    # G(K- phi nu(tau)) / G(total)
+#
+# Gamma804 = G(pi- K(L)0 K(L)0 nu(tau)) / G(total) =
+#   Gamma47   *((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))    # G(pi- K(S)0 K(S)0 nu(tau)) / G(total)
+#
+# Gamma806 = G(pi- K(L)0 K(L)0 pi0 nu(tau)) / G(total) =
+#   Gamma50   *((BRA_Kz_KL_KET*BRA_Kzbar_KL_KET) / (BRA_Kz_KS_KET*BRA_Kzbar_KS_KET))    # G(pi- K(S)0 K(S)0 pi0 nu(tau)) / G(total)
+#
+# Gamma805 = G(a1-(pi- gamma) nu(tau)) / G(total) =
+#   Gamma20   *BR_a1_pigamma +  # G(pi- 2pi0 nu(tau) (ex. K0)) / G(total)
+#   Gamma62   *BR_a1_pigamma    # G(pi- pi+ pi- nu(tau) (ex. K0, omega)) / G(total)
+#
+
+# --- unitarity constraint NOT applied (sum of base nodes with dummy node)
+NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
+
+# --- impose unitarity like in PDG
+# NLCONSTRAINT forceUnitarity 0 "Gamma998"
+
+# --- remove constraint B(tau -> a1(pi gamma)nu) = Ba1igamma*B(tau->3pi)
+NLCONSTRAINT Gamma805.c 0
+
+END
