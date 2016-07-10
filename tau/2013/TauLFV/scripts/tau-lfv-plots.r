@@ -26,7 +26,7 @@ require(latex2exp, quiet=TRUE)
 ##
 
 ##--- save plot
-save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.size()[2], dpi=80) {
+save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.size()[2], dpi=200) {
   file.png = paste(name, "png", sep=".")
   ggsave(filename=file.png, plot=plot, width=width, height=height, dpi=dpi)
   cat(file=stderr(), "file", file.png, "produced\n")
