@@ -14,6 +14,7 @@
 ##
 
 require(stringr, quietly=TRUE)
+require(Matrix, quietly=TRUE)
 source("../../../Common/bin/aluelab3.r")
 source("../../../Common/bin/alureport.r")
 
@@ -867,6 +868,21 @@ aluelab.results = function(args) {
     "gtaubygmu_pi", "gtaubygmu_K"
     )
   univ.corr = quant$corr(quant.list, quant.list)
+
+  ##
+  ## Correlation matrix has one eigenvalue = 0 because mu/e is 100%
+  ## correlated with tau/mu and tau/e. To avoid getting a non positive
+  ## semi-definite matrix we regularize if the minimum eigenvalues is
+  ## negative
+  min.eigenvalue.univ.corr = min(eigen(univ.corr)$values)
+  if (min.eigenvalue.univ.corr < 0) {
+    cat(file=stderr(), "minimum eigenvalue of couplings ratios correlation =",
+        min.eigenvalue.univ.corr)
+    cat("\n")
+    cat(file=stderr(), "correlation will be regularized to be positive semi-definite\n")
+    univ.corr = nearPD(univ.corr, corr=TRUE, posd.tol=0)$mat
+  }
+  
   univ.corr = 100*univ.corr
   ## print(univ.corr)
 
