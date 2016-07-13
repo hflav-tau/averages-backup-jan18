@@ -30,6 +30,8 @@ PARAMETERS
   # BRA_Kz_KL_KET      0.5          +-0
   # BRA_Kzbar_KS_KET   0.5          +-0
   # BRA_Kzbar_KL_KET   0.5          +-0
-  BR_f1_2pizpippim   0.220        +0.014 -0.012
-  BR_f1_2pip2pim     0.110        +0.007 -0.006
+  BR_f1_2pizpippim     0.220        +0.014 -0.012
+  BR_f1_2pip2pim       0.110        +0.007 -0.006
   BR_a1_pigamma        2.1e-3       +-0.8e-3
+  EmNuNumb	       17.83e-2     +-0.04e-2
+  MumNuNumb	       17.41e-2     +-0.04e-2
