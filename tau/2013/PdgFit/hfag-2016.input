@@ -103,8 +103,9 @@ INCLUDE hfag-pdg-2016-drop.input
 
 # --- undrop measurements dropped for PDG 2016
 MODMEAS KEEP ALEPH Gamma49 pub BARATE 99R
-MODMEAS KEEP BaBar Gamma35 prelim ICHEP08
-MODMEAS KEEP BaBar Gamma40 prelim DPF09
+# --- later decided to drop prelim. measurements
+# MODMEAS KEEP BaBar Gamma35 prelim ICHEP08
+# MODMEAS KEEP BaBar Gamma40 prelim DPF09
 
 # --- undropdrop B(tau -> pi gamma nu) ALEPH estimate, not measurement
 MODMEAS KEEP ALEPH Gamma805 pub SCHAEL 05C
