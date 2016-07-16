@@ -18,6 +18,7 @@ require(ggplot2, quiet=TRUE)
 require(scales, quiet=TRUE)
 require(grid, quiet=TRUE)
 require(latex2exp, quiet=TRUE)
+## require(tikzDevice, quiet=TRUE)
 ## require(gridExtra, quiet=TRUE)
 ## require(gtable, quiet=TRUE)
 
@@ -27,12 +28,17 @@ require(latex2exp, quiet=TRUE)
 
 ##--- save plot
 save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.size()[2], dpi=200) {
-  file.png = paste(name, "png", sep=".")
-  ggsave(filename=file.png, plot=plot, width=width, height=height, dpi=dpi)
-  cat(file=stderr(), "file", file.png, "produced\n")
-  file.pdf = paste(name, "pdf", sep=".")
-  ggsave(filename=file.pdf, plot=plot, width=width, height=height)
-  cat(file=stderr(), "file", file.pdf, "produced\n")
+  fname.png = paste(name, "png", sep=".")
+  ggsave(filename=fname.png, plot=plot, width=width, height=height, dpi=dpi)
+  cat(file=stderr(), "file", fname.png, "produced\n")
+  fname.pdf = paste(name, "pdf", sep=".")
+  ggsave(filename=fname.pdf, plot=plot, width=width, height=height)
+  cat(file=stderr(), "file", fname.pdf, "produced\n")
+  fname.tex = paste(name, "tex", sep=".")
+  ## tikz(file = fname.tex)
+  ## print(plot)
+  ## dev.off()
+  cat(file=stderr(), "file", fname.tex, "produced\n")
 }
 
 ##
