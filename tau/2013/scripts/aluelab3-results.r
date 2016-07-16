@@ -554,58 +554,47 @@ aluelab.results = function(args) {
 
   ## ////////////////////////////////////////
   ##
-  ## lepton universality tests
+  ## radiative corrections parameters
   ##
 
   ##
-  ## gtau/gmu using tau -> hnu / h -> mu nu ---upd14
-  ## PDG 2013
+  ## ratio of radiative corrections for G(K -> mu nu) / G(pi -> mu nu)
   ##
-  quant$quant.add.single("pitoENu", 1.230e-4, 0.004e-4)
-  quant$quant.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
-  quant$quant.add.single("KtoENu", 1.581e-5, 0.008e-5) ## changed14
-  quant$quant.add.single("KtoMuNu", 63.55e-2, 0.11e-2)
+  ## Marciano:2004uf
+  ## W. J. Marciano, "Precise determination of |V(us)| from lattice calculations of pseudoscalar decay constants",
+  ## Phys. Rev. Lett. 93:231803, 2004, doi:10.1103/PhysRevLett.93.231803, arXiv:hep-ph/0402299.
+  ##
+  ## actually relying on calculations for rad corr of G(h -> mu nu) by
+  ## M. Finkemeier, Phys. Lett. B387, 391 (1996)
+  ##
+  ## ---upd16
+  ##
+  quant$quant.add.single("Rrad_kmunu_by_pimunu", 0.9930, 0.0035)
 
-  ##--- from Marciano:1993sh,Decker:1994ea,Decker:1994dd ---upd14
-  quant$quant.add.single("delta_pi", 0.16e-2, 0.14e-2)
-  quant$quant.add.single("delta_K", 0.90e-2, 0.22e-2)
+  ##
+  ## ratios of radiative corrections R_tau/pi = Gamma(tau -> h nu) / Gamma(h -> mu nu)
+  ## for h = pi, K
+  ## R_tau/h = 1 + deltaR_tau/h
+  ##
+  ## Decker:1994dd
+  ## R. Decker, M. Finkemeier
+  ## Radiative corrections to the decay tau --> pi (K) tau-neutrino.
+  ## Phys.Lett. B334 (1994) 199-202
+  ## http://inspirehep.net/record/383287?ln=en
+  ##
+  ## ---upd16
+  ##
+  quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, sqrt( (0.09e-2^2 + 0.14e-2^2)/2 ))
+  quant$quant.add.single("dRrad_tauK_by_Kmu", 0.90e-2, sqrt( (0.17e-2^2 + 0.26e-2^2)/2 ))
 
-  ##--- gtau/gmu using tau -> pi nu / pi -> mu nu
-  quant$quant.expr.add("gtaubygmu_pi",
-                      sqrt(Gamma9/pitoMuNu *(2*m_pi*m_mu^2*tau_pi) /((1+delta_pi)*m_tau^3*tau_tau)*
-                           ((1-m_mu^2/m_pi^2)/(1-m_pi^2/m_tau^2))^2))
-
-  ##--- gtau/gmu using tau -> K nu / K -> mu nu
-  quant$quant.expr.add("gtaubygmu_K",
-                      sqrt(Gamma10/KtoMuNu *(2*m_K*m_mu^2*tau_K) /((1+delta_K)*m_tau^3*tau_tau)*
-                           ((1-m_mu^2/m_K^2)/(1-m_K^2/m_tau^2))^2))
-
-  ##--- gtau/gmu using tau lifetime
-  quant$quant.expr.add("gtaubygmu_tau", sqrt(Gamma5/Be_from_taulife))
-
-  ##--- gtau/gmu average
-  quant$quant.fit.add("gtaubygmu_fit", c(gtaubygmu_tau=1, gtaubygmu_pi=1, gtaubygmu_K=1))
-
-  ##--- gtau/ge using tau lifetime
-  quant$quant.expr.add("gtaubyge_tau", sqrt(Gamma3/Bmu_from_taulife))
-
-  ##--- gmu / ge from tau -> mu / tau -> e
-  quant$quant.expr.add("gmubyge_tau", sqrt(Gamma3/Gamma5 * phspf_mebymtau/phspf_mmubymtau))
-
-  ##--- add quantities to print
-  display.names = c(
-    display.names,
-    "gtaubygmu_tau", "gtaubygmu_pi", "gtaubygmu_K", "gtaubygmu_fit",
-    "gtaubyge_tau", "gmubyge_tau"
-    )
+  ##--- compute Rrad_tauK_by_taupi = dRrad_tauK_by_Kmu/dRrad_taupi_by_pimu * Rrad_kmunu_by_pimunu
+  quant$quant.expr.add("Rrad_tauK_by_taupi", (1+dRrad_tauK_by_Kmu)/(1+dRrad_taupi_by_pimu) * Rrad_kmunu_by_pimunu)
 
   ## ////////////////////////////////////////
   ##
-  ## Vus from tau -> Knu
+  ## QCD lattice
   ##
 
-  ##
-  ## QCD lattice
   ##
   ## ---upd16
   ## Lattice averages FLAG 2016 Aoki et al.
@@ -619,8 +608,6 @@ aluelab.results = function(args) {
   quant$quant.add.single("f_K", 155.6, 0.4) ## changed16
   quant$quant.add.single("fp0_Kpi", 0.9677, 0.0027) ## changed16
 
-  ##
-  ## QCD lattice
   ##
   ## ---upd14
   ## Lattice averages FLAG 2013 Aoki et al.
@@ -646,36 +633,69 @@ aluelab.results = function(args) {
   ##+++ check effect of lattice correlations
   ## quant$corr.add.single("f_K_by_f_pi", "f_K", 100/100)
 
+  ## ////////////////////////////////////////
   ##
-  ## Marciano:2004uf
-  ## W. J. Marciano, "Precise determination of |V(us)| from lattice calculations of pseudoscalar decay constants",
-  ## Phys. Rev. Lett. 93:231803, 2004, doi:10.1103/PhysRevLett.93.231803, arXiv:hep-ph/0402299.
-  ## ---upd14
+  ## lepton universality tests
   ##
-  quant$quant.add.single("rrad_LD_kmu_pimu", 0.9930, 0.0035)
 
   ##
-  ## Decker:1994ea
-  ## R. Decker and M. Finkemeier, "Short and long distance effects in the decay tau -> pi nu_tau (gamma)",
-  ## Nucl. Phys. B438:17-53, 1995, doi:10.1016/0550-3213(95)00597-L, arXiv:hep-ph/9403385.
-  ## delta_LD(tau -> h nu / h -> mu nu)
-  ## ---upd14
+  ## gtau/gmu using tau -> hnu / h -> mu nu ---upd16
+  ## PDG 2015
   ##
-  quant$quant.add.single("delta_LD_taupi_pimu", 0.16/100, 0.14/100)
-  quant$quant.add.single("delta_LD_tauK_Kmu", 0.90/100, 0.22/100)
+  quant$quant.add.single("pitoENu", 1.230e-4, 0.004e-4)
+  quant$quant.add.single("pitoMuNu", 99.98770e-2, 0.00004e-2)
+  quant$quant.add.single("KtoENu", 1.582e-5, 0.007e-5) ## changed16
+  quant$quant.add.single("KtoMuNu", 63.56e-2, 0.11e-2) ## changed16
 
-  ##--- compute delta_LD_tauK_taupi = delta_LD_tauK_Kmu/delta_LD_taupi_pimu * delta_LD_kmu_pimu
-  quant$quant.expr.add("rrad_LD_tauK_taupi", (1+delta_LD_tauK_Kmu)/(1+delta_LD_taupi_pimu) * rrad_LD_kmu_pimu)
+  ##--- gtau/gmu using tau -> pi nu / pi -> mu nu
+  quant$quant.expr.add("gtaubygmu_pi",
+                      sqrt(Gamma9/pitoMuNu *(2*m_pi*m_mu^2*tau_pi) /((1+dRrad_taupi_by_pimu)*m_tau^3*tau_tau)*
+                           ((1-m_mu^2/m_pi^2)/(1-m_pi^2/m_tau^2))^2))
 
-  ##--- compute intermediate B_tau_K / B_tau_pi
-  quant$quant.expr.add("Gamma10by9", Gamma10/Gamma9);
+  ##--- gtau/gmu using tau -> K nu / K -> mu nu
+  rc = quant$quant.expr.add(
+    "gtaubygmu_K",
+    sqrt(Gamma10/KtoMuNu *(2*m_K*m_mu^2*tau_K) / ((1+dRrad_tauK_by_Kmu)*m_tau^3*tau_tau) * ((1-m_mu^2/m_K^2)/(1-m_K^2/m_tau^2))^2)
+  )
+
+  ##--- gtau/gmu using tau lifetime
+  quant$quant.expr.add("gtaubygmu_tau", sqrt(Gamma5/Be_from_taulife))
+
+  ##--- gtau/gmu average
+  quant$quant.fit.add("gtaubygmu_fit", c(gtaubygmu_tau=1, gtaubygmu_pi=1, gtaubygmu_K=1))
+
+  ##--- gtau/ge using tau lifetime
+  quant$quant.expr.add("gtaubyge_tau", sqrt(Gamma3/Bmu_from_taulife))
+
+  ##--- gmu / ge from tau -> mu / tau -> e
+  quant$quant.expr.add("gmubyge_tau", sqrt(Gamma3/Gamma5 * phspf_mebymtau/phspf_mmubymtau))
+
+  ##--- add quantities to print
+  display.names = c(
+    display.names,
+    "gtaubygmu_tau", "gtaubygmu_pi", "gtaubygmu_K", "gtaubygmu_fit",
+    "gtaubyge_tau", "gmubyge_tau"
+    )
+
+  ## ////////////////////////////////////////
+  ##
+  ## Vus from tau -> Knu
+  ##
+
+  if (is.na(quant$val("Gamma10by9"))) {
+    ##--- compute intermediate B_tau_K / B_tau_pi
+    quant$quant.expr.add("Gamma10by9", Gamma10/Gamma9)
+    quant$texdescr.add(c("Gamma10by9"="\\frac{\\BRF{\\tau^-}{K^- \\nu_\\tau}}{\\BRF{\\tau^-}{\\pi^- \\nu_\\tau}}"))
+  }
 
   ##
-  ## Vus^2 = Vud^2 * B(tau -> Knu)/B(tau -> pinu) * f_pi^2/f_K^2 * (1-m_pi^2/m_tau*2)/(1-m_K^2/m_tau*2) /(1+delta_LD)
+  ## Vus^2 = Vud^2 * B(tau->Knu)/B(tau->pinu) * f_pi^2/f_K^2 * (1-m_pi^2/m_tau*2)^2/(1-m_K^2/m_tau*2)^2 / (1+dRrad_tauK_by_taupi)
   ##
-  quant$quant.expr.add("Vus_tauKpi", Vud*sqrt(Gamma10/Gamma9) /f_K_by_f_pi
-                      * (1-m_pi^2/m_tau^2)/(1-m_K^2/m_tau^2) / sqrt(rrad_LD_tauK_taupi))
-
+  rc = quant$quant.expr.add(
+    "Vus_tauKpi",
+    Vud * sqrt(Gamma10/Gamma9) / f_K_by_f_pi * (1-m_pi^2/m_tau^2)/(1-m_K^2/m_tau^2) / sqrt(Rrad_tauK_by_taupi)
+  )
+  
   ##--- Vus_tauKpi vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tauKpi_mism", Vus_tauKpi - Vus_uni)
   Vus_tauKpi_mism_sigma = quant$val("Vus_tauKpi_mism") / quant$err("Vus_tauKpi_mism")
@@ -683,10 +703,10 @@ aluelab.results = function(args) {
   quant$param.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma))
 
   ##--- theory error contribution
-  rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu")
+  rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "Rrad_kmunu_by_pimunu")
   quant$param.add.single("Vus_tauKpi_err_th_perc", rc)
 
-  lapply(c("f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu"), function(val) {
+  lapply(c("f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "Rrad_kmunu_by_pimunu"), function(val) {
     quant$param.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
                           quant$err.contrib.perc("Vus_tauKpi", val))
   })
@@ -701,7 +721,7 @@ aluelab.results = function(args) {
   ## Rev. Mex. Fis. 50:200–202, 2004, arXiv:hep-ph/0211345.
   ## ---upd14
   ##
-  quant$quant.add.single("rrad_tau_Knu", 1.0201, 0.0003)
+  quant$quant.add.single("Rrad_tau_Knu", 1.0201, 0.0003)
 
   ##
   ## Mohr:2008fa, codata 2006, http://inspirehep.net/record/791091
@@ -723,7 +743,7 @@ aluelab.results = function(args) {
   ## Vus from tau -> K nu
   ##
   rc = quant$quant.expr.add("Vus_tauKnu",
-    sqrt(Gamma10 * 16*pi * hcut / (m_tau^3*tau_tau*rrad_tau_Knu)) / (G_F_by_hcut3_c3 * f_K * (1 - m_K^2/m_tau^2)))
+    sqrt(Gamma10 * 16*pi * hcut / (m_tau^3*tau_tau*Rrad_tau_Knu)) / (G_F_by_hcut3_c3 * f_K * (1 - m_K^2/m_tau^2)))
 
   ##--- Vus_tauKnu vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
@@ -732,7 +752,7 @@ aluelab.results = function(args) {
   quant$param.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma))
 
   ##--- theory error contribution
-  quant$param.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "rrad_tau_Knu"))
+  quant$param.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "Rrad_tau_Knu"))
 
   ## ////////////////////////////////////////
   ##
@@ -753,13 +773,13 @@ aluelab.results = function(args) {
   ##--- add quantities to print
   display.names = c(
     display.names,
-    "rrad_LD_tauK_taupi",
+    "Rrad_tauK_by_taupi",
     "Gamma10by9",
     "Vus_tauKpi",
     "Vus_tauKpi_mism_sigma",
     "Vus_tauKpi_err_th_perc",
-    paste("Vus_tauKpi_err_th_perc", c("f_K_by_f_pi", "delta_LD_taupi_pimu", "delta_LD_tauK_Kmu", "rrad_LD_kmu_pimu"), sep="_"),
-    "rrad_tau_Knu",
+    paste("Vus_tauKpi_err_th_perc", c("f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "Rrad_kmunu_by_pimunu"), sep="_"),
+    "Rrad_tau_Knu",
     "Vus_tauKnu",
     "Vus_tauKnu_mism_sigma",
     "Vus_tauKnu_err_th_perc",
@@ -798,9 +818,9 @@ aluelab.results = function(args) {
     Vus_tau_mism_sigma="%.1f",
     Vus_tau_mism_sigma_abs="%.1f",
     f_K="%.1f",
-    delta_LD_taupi_pimu="%.2f",
-    delta_LD_tauK_Kmu="%.2f",
-    delta_LD_tauK_taupi="%.2f",
+    dRrad_taupi_by_pimu="%.2f",
+    dRrad_tauK_by_Kmu="%.2f",
+    Rrad_tauK_by_taupi="%.2f",
     Vus_err_th_perc="%.2f"
     )
 
@@ -812,9 +832,8 @@ aluelab.results = function(args) {
     B_tau_had_fit=100,
     B_tau_VA_fit=100,
     B_tau_s_fit=100,
-    delta_LD_taupi_pimu=100,
-    delta_LD_tauK_Kmu=100,
-    delta_LD_tauK_taupi=100
+    dRrad_taupi_by_pimu=100,
+    dRrad_tauK_by_Kmu=100
     )
 
   ##--- provide LaTeX commands printing quantity +- error
