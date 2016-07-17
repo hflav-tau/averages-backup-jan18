@@ -236,26 +236,28 @@ aluelab.results = function(args) {
   ## add measurements to compute universality improved Be
   ##
 
-  ##--- from PDG 2013 ---upd14
+  ##--- from PDG 2015 ---upd16
   quant$quant.add.single("m_e",0.510998928, 0.000000011) ## changed14
   quant$quant.add.single("m_mu", 105.6583715, 0.0000035) ## changed14
 
-  ## quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
-  ##--- use HFAG 2014 average for tau lifetime (= PDG14)
+  ##--- from PDG 2015 ---upd16
   quant$quant.add.single("tau_tau", 290.29e-15, 0.52e-15) ## changed14
+  ## quant$quant.add.single("tau_tau", 290.6e-15, 1.0e-15)
 
+  ##--- m_tau PDG 2015 ---upd16
+  quant$quant.add.single("m_tau", 1776.86, 0.12)
+  ##--- m_tau PDG 2013
+  ## quant$quant.add.single("m_tau", 1776.82, 0.16)
   ##--- m_tau HFAG 2009
   ## quant$quant.add.single("m_tau", 1776.7673082, 0.1507259)
-  ##--- m_tau PDG 2013 ---upd14
-  quant$quant.add.single("m_tau", 1776.82, 0.16)
 
-  ##---upd14
+  ##--- from PDG 2015 ---upd16
   quant$quant.add.single("m_pi", 139.57018, 0.00035)
   quant$quant.add.single("tau_pi", 2.6033e-8, 0.0005e-8)
   quant$quant.add.single("m_K", 493.677, 0.016)
-  quant$quant.add.single("tau_K", 1.2380e-8, 0.0021e-8)
+  quant$quant.add.single("tau_K", 1.2380e-8, 0.0020e-8)
 
-  ##--- from PDG 2013, 2011 ---upd14
+  ##--- from PDG 2015, 2013, 2011 ---upd16
   quant$quant.add.single("m_W", 80.385e3, 0.015*1e3) ## changed14
   quant$quant.add.single("tau_mu", 2.1969811e-6, 0.000022e-6) ## changed14
 
@@ -724,18 +726,28 @@ aluelab.results = function(args) {
   quant$quant.add.single("Rrad_tau_Knu", 1.0201, 0.0003)
 
   ##
+  ## PDG 2015, citing CODATA 2014 Mohr:2015ccw ---upd16
+  ## http://pdg.lbl.gov/2015/reviews/rpp2015-rev-phys-constants.pdf
+  ##
   ## Mohr:2008fa, codata 2006, http://inspirehep.net/record/791091
   ## CODATA Recommended Values of the Fundamental Physical Constants: 2006.
   ##
   ## CODATA 2010 https://inspirehep.net/record/1095471/
   ## Mohr:2008fa CODATA Recommended Values of the Fundamental Physical Constants: 2010
   ##
-  ## --- Plack h/ in MeV s
-  ## h/ = 6.58211928(15)e-16 eV s
-  quant$quant.add.single("hcut", 6.58211928e-22, 0.00000015e-22)
-  ## 2011:quant$quant.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
+  ## Plack constant h/2pi in MeV s
+  ##
+  quant$quant.add.single(
+    "hcut",
+    6.582119514e-22,
+    0.000000040e-22
+  )
+  ## 2014: quant$quant.add.single("hcut", 6.58211928e-22, 0.00000015e-22)
+  ## 2011: quant$quant.add.single("hcut", 6.58211899e-22, 0.00000016e-22)
 
-  ## --- G_F / (hcut c)^3 from PGD11 [1.1663787(6)] in GeV^-2, converted to MeV^-2 ---PDG13
+  ##
+  ## from PDG 2015, PDG 2013 ---upd16
+  ## http://pdg.lbl.gov/2015/reviews/rpp2015-rev-phys-constants.pdf
   quant$quant.add.single("G_F_by_hcut3_c3", 1.1663787e-5*1e-6, 0.0000006e-5*1e-6)
   ## 2011: quant$quant.add.single("G_F_by_hcut3_c3", 1.16637e-5*1e-6, 1.16637e-5*1e-6 *9e3/1e9)
 
