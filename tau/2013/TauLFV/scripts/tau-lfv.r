@@ -100,8 +100,9 @@ rc = lapply(tau.lfv.data$combs.extra, function(br) {
     "  {\\ensuremath{\\Gamma_{", br$gamma, "} = ", gamma.info$descr, "}}%\n",
     "  {", br$exp, "}%\n",
     "  {", br$ref, "}%\n",
-    "  {", br$lumi, "}%\n",
-    "  {", br$cross.section, "}%\n",
+    ## "  {", br$lumi, "}%\n",
+    ## "  {", br$cross.section, "}%\n",
+    "  {", br$num.tau, "}%\n",    
     "  {", sprintf("\\ensuremath{%.2f \\pm %.2f}", br$efficiency*100, br$efficiency.error*100), "}%\n",
     "  {", sprintf("\\ensuremath{%.2f \\pm %.2f}", br$bkg, br$bkg.error), "}%\n",
     "  {", br$observed.events, "}"
