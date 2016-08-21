@@ -22,8 +22,6 @@
 #
 # report now modifications from PDG 2016 to HFAG 2016
 # - remove unitarity constraint
-# - undrop ALEPH Gamma49 (tau -> pi K0 K0 pi0 nu)
-# - undrop 2 ALEPH preliminary results Gamma35 and Gamma40
 # - use again ALEPH h-K results instead of pi-K
 # - use ALEPH estimate of B(tau -> a1(pi gamma) nu) rather than constraint
 #
