@@ -106,7 +106,7 @@ INCLUDE hfag-pdg-2016-drop.input
 # MODMEAS KEEP BaBar Gamma35 prelim ICHEP08
 # MODMEAS KEEP BaBar Gamma40 prelim DPF09
 
-# --- undropdrop B(tau -> pi gamma nu) ALEPH estimate, not measurement
+# --- undrop B(tau -> pi gamma nu) ALEPH estimate, not measurement
 MODMEAS KEEP ALEPH Gamma805 pub SCHAEL 05C
 
 INCLUDE ../Common-Mar2012/parameters.input
@@ -281,7 +281,7 @@ NLCONSTRAINT Unitarity 1 "GammaAll + Gamma998"
 # --- impose unitarity like in PDG
 # NLCONSTRAINT forceUnitarity 0 "Gamma998"
 
-# --- remove constraint B(tau -> a1(pi gamma)nu) = Ba1igamma*B(tau->3pi)
+# --- remove constraint B(tau -> a1(pi gamma)nu) = B(a1->pi gamma)*B(tau->3pi)
 NLCONSTRAINT Gamma805.c 0
 
 END
