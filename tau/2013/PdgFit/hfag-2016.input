@@ -102,7 +102,8 @@ COMBINE
 INCLUDE hfag-pdg-2016-drop.input
 
 # --- undrop measurements dropped for PDG 2016
-MODMEAS KEEP ALEPH Gamma49 pub BARATE 99R
+# --- drop again 19 Aug 2016 to reduce difference with PDG 2016
+# MODMEAS KEEP ALEPH Gamma49 pub BARATE 99R
 # --- later decided to drop prelim. measurements
 # MODMEAS KEEP BaBar Gamma35 prelim ICHEP08
 # MODMEAS KEEP BaBar Gamma40 prelim DPF09
