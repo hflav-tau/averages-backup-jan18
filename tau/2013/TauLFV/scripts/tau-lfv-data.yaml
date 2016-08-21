@@ -945,8 +945,10 @@ combs:
   limit: 2.0e-08
 combs.extra:
 - gamma: 156
+  descr: e^- \gamma
   exp: BaBar
   ref: Aubert:2009ag
+  num.tau: 963.2
   lumi: 524.0
   cross.section: 0.919
   efficiency: 0.039
@@ -955,8 +957,10 @@ combs.extra:
   bkg.error: 0.4
   observed.events: 0
 - gamma: 157
+  descr: \mu^- \gamma
   exp: BaBar
   ref: Aubert:2009ag
+  num.tau: 963.2
   lumi: 524.0
   cross.section: 0.919
   efficiency: 0.061
@@ -965,8 +969,10 @@ combs.extra:
   bkg.error: 0.7
   observed.events: 2
 - gamma: 156
+  descr: e^- \gamma
   exp: Belle
   ref: Hayasaka:2007vc
+  num.tau: 983.4
   lumi: 535.0
   cross.section: 0.919
   efficiency: 0.03
@@ -975,8 +981,10 @@ combs.extra:
   bkg.error: 3.3
   observed.events: 5
 - gamma: 157
+  descr: \mu^- \gamma
   exp: Belle
   ref: Hayasaka:2007vc
+  num.tau: 983.4
   lumi: 535.0
   cross.section: 0.919
   efficiency: 0.0507
@@ -985,8 +993,10 @@ combs.extra:
   bkg.error: 5.0
   observed.events: 10
 - gamma: 164
+  descr: e^- \rho^0
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.0731
@@ -995,8 +1005,10 @@ combs.extra:
   bkg.error: 0.17
   observed.events: 1
 - gamma: 165
+  descr: \mu^- \rho^0
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.0452
@@ -1005,8 +1017,10 @@ combs.extra:
   bkg.error: 0.19
   observed.events: 0
 - gamma: 168
+  descr: e^- K^*(892)^0
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.08
@@ -1015,8 +1029,10 @@ combs.extra:
   bkg.error: 0.23
   observed.events: 2
 - gamma: 169
+  descr: \mu^- K^*(892)^0
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.046
@@ -1025,8 +1041,10 @@ combs.extra:
   bkg.error: 0.21
   observed.events: 4
 - gamma: 170
+  descr: e^- \bar{K}^*(892)^0
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.078
@@ -1035,8 +1053,10 @@ combs.extra:
   bkg.error: 0.28
   observed.events: 2
 - gamma: 171
+  descr: \mu^- \bar{K}^*(892)^0
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.041
@@ -1045,8 +1065,10 @@ combs.extra:
   bkg.error: 0.17
   observed.events: 1
 - gamma: 176
+  descr: e^- \phi
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.064
@@ -1055,8 +1077,10 @@ combs.extra:
   bkg.error: 0.12
   observed.events: 0
 - gamma: 177
+  descr: \mu^- \phi
   exp: BaBar
   ref: Aubert:2009ap
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.052
@@ -1065,8 +1089,10 @@ combs.extra:
   bkg.error: 0.16
   observed.events: 6
 - gamma: 166
+  descr: e^- \omega
   exp: BaBar
   ref: Aubert:2007kx
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.0296
@@ -1075,8 +1101,10 @@ combs.extra:
   bkg.error: 0.06
   observed.events: 0
 - gamma: 167
+  descr: \mu^- \omega
   exp: BaBar
   ref: Aubert:2007kx
+  num.tau: 828.8
   lumi: 451.0
   cross.section: 0.919
   efficiency: 0.0256
@@ -1085,8 +1113,10 @@ combs.extra:
   bkg.error: 0.03
   observed.events: 0
 - gamma: 164
+  descr: e^- \rho^0
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0758
@@ -1095,8 +1125,10 @@ combs.extra:
   bkg.error: 0.15
   observed.events: 0
 - gamma: 165
+  descr: \mu^- \rho^0
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0709
@@ -1105,8 +1137,10 @@ combs.extra:
   bkg.error: 0.35
   observed.events: 0
 - gamma: 168
+  descr: e^- K^*(892)^0
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0437
@@ -1115,8 +1149,10 @@ combs.extra:
   bkg.error: 0.14
   observed.events: 0
 - gamma: 169
+  descr: \mu^- K^*(892)^0
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0339
@@ -1125,8 +1161,10 @@ combs.extra:
   bkg.error: 0.2
   observed.events: 1
 - gamma: 170
+  descr: e^- \bar{K}^*(892)^0
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0441
@@ -1135,8 +1173,10 @@ combs.extra:
   bkg.error: 0.08
   observed.events: 0
 - gamma: 171
+  descr: \mu^- \bar{K}^*(892)^0
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.036
@@ -1145,8 +1185,10 @@ combs.extra:
   bkg.error: 0.17
   observed.events: 1
 - gamma: 176
+  descr: e^- \phi
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0418
@@ -1155,8 +1197,10 @@ combs.extra:
   bkg.error: 0.19
   observed.events: 0
 - gamma: 177
+  descr: \mu^- \phi
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0321
@@ -1165,8 +1209,10 @@ combs.extra:
   bkg.error: 0.06
   observed.events: 1
 - gamma: 166
+  descr: e^- \omega
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0292
@@ -1175,8 +1221,10 @@ combs.extra:
   bkg.error: 0.14
   observed.events: 0
 - gamma: 167
+  descr: \mu^- \omega
   exp: Belle
   ref: Miyazaki:2011xe
+  num.tau: 1554.2
   lumi: 854.0
   cross.section: 0.919
   efficiency: 0.0238
@@ -1185,8 +1233,10 @@ combs.extra:
   bkg.error: 0.18
   observed.events: 0
 - gamma: 178
+  descr: e^- e^+ e^-
   exp: BaBar
   ref: Lees:2010ez
+  num.tau: 867.6
   lumi: 472.0
   cross.section: 0.919
   efficiency: 0.086
@@ -1195,8 +1245,10 @@ combs.extra:
   bkg.error: 0.02
   observed.events: 0
 - gamma: 179
+  descr: e^- \mu^+ \mu^-
   exp: BaBar
   ref: Lees:2010ez
+  num.tau: 867.6
   lumi: 472.0
   cross.section: 0.919
   efficiency: 0.064
@@ -1205,8 +1257,10 @@ combs.extra:
   bkg.error: 0.14
   observed.events: 0
 - gamma: 180
+  descr: \mu^- e^+ \mu^-
   exp: BaBar
   ref: Lees:2010ez
+  num.tau: 867.6
   lumi: 472.0
   cross.section: 0.919
   efficiency: 0.102
@@ -1215,8 +1269,10 @@ combs.extra:
   bkg.error: 0.02
   observed.events: 0
 - gamma: 181
+  descr: \mu^- e^+ e^-
   exp: BaBar
   ref: Lees:2010ez
+  num.tau: 867.6
   lumi: 472.0
   cross.section: 0.919
   efficiency: 0.088
@@ -1225,8 +1281,10 @@ combs.extra:
   bkg.error: 0.19
   observed.events: 0
 - gamma: 182
+  descr: e^- \mu^+ e^-
   exp: BaBar
   ref: Lees:2010ez
+  num.tau: 867.6
   lumi: 472.0
   cross.section: 0.919
   efficiency: 0.127
@@ -1235,8 +1293,10 @@ combs.extra:
   bkg.error: 0.12
   observed.events: 0
 - gamma: 183
+  descr: \mu^- \mu^+ \mu^-
   exp: BaBar
   ref: Lees:2010ez
+  num.tau: 867.6
   lumi: 472.0
   cross.section: 0.919
   efficiency: 0.066
@@ -1245,8 +1305,10 @@ combs.extra:
   bkg.error: 0.17
   observed.events: 0
 - gamma: 178
+  descr: e^- e^+ e^-
   exp: Belle
   ref: Hayasaka:2010np
+  num.tau: 1437.4
   lumi: 782.0
   cross.section: 0.919
   efficiency: 0.06
@@ -1255,8 +1317,10 @@ combs.extra:
   bkg.error: 0.15
   observed.events: 0
 - gamma: 179
+  descr: e^- \mu^+ \mu^-
   exp: Belle
   ref: Hayasaka:2010np
+  num.tau: 1437.4
   lumi: 782.0
   cross.section: 0.919
   efficiency: 0.061
@@ -1265,8 +1329,10 @@ combs.extra:
   bkg.error: 0.04
   observed.events: 0
 - gamma: 180
+  descr: \mu^- e^+ \mu^-
   exp: Belle
   ref: Hayasaka:2010np
+  num.tau: 1437.4
   lumi: 782.0
   cross.section: 0.919
   efficiency: 0.101
@@ -1275,8 +1341,10 @@ combs.extra:
   bkg.error: 0.02
   observed.events: 0
 - gamma: 181
+  descr: \mu^- e^+ e^-
   exp: Belle
   ref: Hayasaka:2010np
+  num.tau: 1437.4
   lumi: 782.0
   cross.section: 0.919
   efficiency: 0.093
@@ -1285,8 +1353,10 @@ combs.extra:
   bkg.error: 0.04
   observed.events: 0
 - gamma: 182
+  descr: e^- \mu^+ e^-
   exp: Belle
   ref: Hayasaka:2010np
+  num.tau: 1437.4
   lumi: 782.0
   cross.section: 0.919
   efficiency: 0.115
@@ -1295,8 +1365,10 @@ combs.extra:
   bkg.error: 0.01
   observed.events: 0
 - gamma: 183
+  descr: \mu^- \mu^+ \mu^-
   exp: Belle
   ref: Hayasaka:2010np
+  num.tau: 1437.4
   lumi: 782.0
   cross.section: 0.919
   efficiency: 0.076
@@ -1305,8 +1377,10 @@ combs.extra:
   bkg.error: 0.2
   observed.events: 0
 - gamma: 211
+  descr: \pi^- \Lambda
   exp: BaBar
   ref: Lafferty:2007zz
+  num.tau: 435.6
   lumi: 237.0
   cross.section: 0.919
   efficiency: 0.122
@@ -1315,8 +1389,10 @@ combs.extra:
   bkg.error: 0.56
   observed.events: 0
 - gamma: 212
+  descr: \pi^- \bar{\Lambda}
   exp: BaBar
   ref: Lafferty:2007zz
+  num.tau: 435.6
   lumi: 237.0
   cross.section: 0.919
   efficiency: 0.1228
@@ -1325,8 +1401,10 @@ combs.extra:
   bkg.error: 0.42
   observed.events: 0
 - gamma: 213
+  descr: K^- \Lambda
   exp: BaBar
   ref: Lafferty:2007zz
+  num.tau: 435.6
   lumi: 237.0
   cross.section: 0.919
   efficiency: 0.0947
@@ -1335,8 +1413,10 @@ combs.extra:
   bkg.error: 0.12
   observed.events: 1
 - gamma: 214
+  descr: K^- \bar{\Lambda}
   exp: BaBar
   ref: Lafferty:2007zz
+  num.tau: 435.6
   lumi: 237.0
   cross.section: 0.919
   efficiency: 0.1063
@@ -1345,8 +1425,10 @@ combs.extra:
   bkg.error: 0.26
   observed.events: 0
 - gamma: 211
+  descr: \pi^- \Lambda
   exp: Belle
   ref: Hayasaka:2012pj
+  num.tau: 1665.2
   lumi: 906.0
   cross.section: 0.919
   efficiency: 0.0439
@@ -1355,8 +1437,10 @@ combs.extra:
   bkg.error: 0.18
   observed.events: 0
 - gamma: 212
+  descr: \pi^- \bar{\Lambda}
   exp: Belle
   ref: Hayasaka:2012pj
+  num.tau: 1665.2
   lumi: 906.0
   cross.section: 0.919
   efficiency: 0.048
@@ -1365,8 +1449,10 @@ combs.extra:
   bkg.error: 0.15
   observed.events: 0
 - gamma: 213
+  descr: K^- \Lambda
   exp: Belle
   ref: Hayasaka:2012pj
+  num.tau: 1665.2
   lumi: 906.0
   cross.section: 0.919
   efficiency: 0.0316
@@ -1375,8 +1461,10 @@ combs.extra:
   bkg.error: 0.19
   observed.events: 0
 - gamma: 214
+  descr: K^- \bar{\Lambda}
   exp: Belle
   ref: Hayasaka:2012pj
+  num.tau: 1665.2
   lumi: 906.0
   cross.section: 0.919
   efficiency: 0.0411
@@ -1385,8 +1473,10 @@ combs.extra:
   bkg.error: 0.14
   observed.events: 0
 - gamma: 160
+  descr: e^- K^0_S
   exp: BaBar
   ref: Aubert:2009ys
+  num.tau: 862.0
   lumi: 469.0
   cross.section: 0.919
   efficiency: 0.091
@@ -1395,8 +1485,10 @@ combs.extra:
   bkg.error: 0.25
   observed.events: 1
 - gamma: 161
+  descr: \mu^- K^0_S
   exp: BaBar
   ref: Aubert:2009ys
+  num.tau: 862.0
   lumi: 469.0
   cross.section: 0.919
   efficiency: 0.0614
@@ -1405,8 +1497,10 @@ combs.extra:
   bkg.error: 0.18
   observed.events: 1
 - gamma: 160
+  descr: e^- K^0_S
   exp: Belle
   ref: Miyazaki:2010qb
+  num.tau: 1273.6
   lumi: 671.0
   cross.section: 0.919
   efficiency: 0.102
@@ -1415,8 +1509,10 @@ combs.extra:
   bkg.error: 0.18
   observed.events: 0
 - gamma: 161
+  descr: \mu^- K^0_S
   exp: Belle
   ref: Miyazaki:2010qb
+  num.tau: 1273.6
   lumi: 671.0
   cross.section: 0.919
   efficiency: 0.107
