@@ -4,7 +4,9 @@
 ##
 ##	tau-lfv.plots.r
 ##
-## - test code for plotting Tau LFV upper limits
+## - read Tau LFV data in yaml
+## - produce Tau LFV limits plot
+## - produce Tau LFV combinations plot
 ##
 ## /////////////////////////////////////////////////////////////////////////////
 
@@ -28,17 +30,20 @@ require(latex2exp, quiet=TRUE)
 
 ##--- save plot
 save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.size()[2], dpi=200) {
+  ##
   fname.png = paste(name, "png", sep=".")
   ggsave(filename=fname.png, plot=plot, width=width, height=height, dpi=dpi)
   cat(file=stderr(), "file", fname.png, "produced\n")
+  ##
   fname.pdf = paste(name, "pdf", sep=".")
   ggsave(filename=fname.pdf, plot=plot, width=width, height=height)
   cat(file=stderr(), "file", fname.pdf, "produced\n")
-  fname.tex = paste(name, "tex", sep=".")
-  ## tikz(file = fname.tex)
-  ## print(plot)
-  ## dev.off()
-  cat(file=stderr(), "file", fname.tex, "produced\n")
+  ##
+  ##  fname.tex = paste(name, "tex", sep=".")
+  ##  tikz(file = fname.tex, sanitize=TRUE)
+  ##  print(plot)
+  ##  dev.off()
+  ##  cat(file=stderr(), "file", fname.tex, "produced\n")
 }
 
 ##
@@ -157,6 +162,7 @@ my.height = 4
 try(dev.off(), silent=TRUE)
 dev.new(width=my.width, height=my.height)
 
+##--- read Tau LFV data
 tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
 
 ##
@@ -177,6 +183,13 @@ combs.df$descr = paste0("$", combs.df$descr, "$")
 combs.df$descr = factor(combs.df$descr, unique(combs.df$descr))
 combs.df$exp = "HFAG combination"
 
+##
+## get limits data from
+## - all exp limits for which a combination exists
+## - the combined limit from combs.df
+## - remove data not used for combinations from CLEO and ATLAS
+## - refactor exp info for plotting with the remaining labels for plotting
+##
 data.df = rbind(
   limits.df[
     limits.df$gamma %in% combs.df$gamma &
