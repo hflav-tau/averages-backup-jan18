@@ -1,0 +1,14 @@
+#
+# HFAG 2016 fit
+#
+# like hfag-2016.input but with unitarity constraint
+#
+
+INCLUDE hfag-2016.input
+
+BEGIN COMBINATION
+
+# --- impose unitarity like in PDG
+NLCONSTRAINT forceUnitarity 0 "Gamma998"
+
+END
