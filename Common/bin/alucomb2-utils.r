@@ -659,7 +659,14 @@ alucomb.read = function(file = "") {
   ## init global storage for cards
   ##
   measurements = list()
+
   combination = list()
+  combination$params = list()
+  combination$quantities = list()
+  combination$constr.lin.val = list()
+  combination$constr.lin.comb = list()
+  combination$constr.nl.str.val = list()
+  combination$constr.nl.str.expr = list()
 
   s.inblock = FALSE
   s.inclause = FALSE
@@ -1216,13 +1223,14 @@ alucomb.read = function(file = "") {
 
       block.meas = list()
 
-      block = list()
-      block$params = list()
-      block$quantities = list()
-      block$constr.lin.val = list()
-      block$constr.lin.comb = list()
-      block$constr.nl.str.val = list()
-      block$constr.nl.str.expr = list()
+      block = combination
+##      block = list()
+##      block$params = list()
+##      block$quantities = list()
+##      block$constr.lin.val = list()
+##      block$constr.lin.comb = list()
+##      block$constr.nl.str.val = list()
+##      block$constr.nl.str.expr = list()
     }
 
     if (s.inblock && (t.endblock || t.endfile)) {
