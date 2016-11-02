@@ -1,0 +1,14 @@
+#
+# HFAG 2016 fit
+#
+# like hfag-2016.input but with unitarity constraint
+#
+
+INCLUDE hfag-2016.input
+
+BEGIN COMBINATION
+
+# --- remove error scaling
+QUANTITY Gamma96 scale 1
+
+END
