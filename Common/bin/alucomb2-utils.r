@@ -799,7 +799,7 @@ alucomb.read = function(file = "") {
         ##+++ combos
         clause$labels = clause$labels[clause$labels != "*"]
         ##--- collect quantities to combine
-        block$combine = c(block$combine, clause$labels)
+        combination$combine = c(combination$combine, clause$labels)
 
       } else if (clause.keyw == "PARAMETERS") {
         ##
@@ -824,9 +824,15 @@ alucomb.read = function(file = "") {
             attr(param, "input") = sapply(param.list, function(el) attr(el, "input"))
             return(param)
           }, param.values, param.deltas, SIMPLIFY=FALSE)
+
+        if (block.type == "COMBINATION") {
+          current.params = combination$params
+        } else {
+          current.params = block.meas$params
+        }
         
         ##--- get which parameters where already input
-        matched = clause$labels %in% names(block$params)
+        matched = clause$labels %in% names(current.params)
 
         ##--- warn about overridden parameters
         rc = mapply(
@@ -834,11 +840,17 @@ alucomb.read = function(file = "") {
             cat("\nwarning, override PARAMETER\n")
             cat("old: ", alucomb2.format.param(label, old), "\n", sep="")
             cat("new: ", alucomb2.format.param(label, new), "\n", sep="")
-          }, clause$labels[matched], block$params[clause$labels[matched]], params[matched])
+          }, clause$labels[matched], current.params[clause$labels[matched]], params[matched])
 
-        ##--- override matched parameters and add the unmatched ones
-        block$params[clause$labels] = params
+        ##--- override matched parameters and add the unmatched ones+++
+        current.params[clause$labels] = params
         
+        if (block.type == "COMBINATION") {
+          combination$params = current.params
+        } else {
+          block.meas$params = current.params
+        }
+
       } else if (clause.keyw == "QUANTITY" || (block.type == "COMBINATION" && clause.keyw == "MEASUREMENT")) {
         ##
         ## QUANTITY or (+++combos) MEASUREMENT in COMBINE block
@@ -847,8 +859,8 @@ alucomb.read = function(file = "") {
         ##--- get first label, quantity name
         ##+++ combos, remove leading "m_"
         meas.name = sub("^m_", "", clause.fields[1], ignore.case=TRUE)
-        if (is.null(block$quantities[[meas.name]])) {
-          block$quantities[[meas.name]] = list()
+        if (is.null(combination$quantities[[meas.name]])) {
+          combination$quantities[[meas.name]] = list()
         }
         clause.fields = clause.fields[-1]
 
@@ -897,16 +909,16 @@ alucomb.read = function(file = "") {
         }
 
         if (length(clause$values) > 0) {
-          labels.exist = names(block$quantities[[meas.name]])
+          labels.exist = names(combination$quantities[[meas.name]])
           labels.override = clause$labels[clause$labels %in% labels.exist]
           if (length(labels.override) > 0) {
             cat("\nwarning, override QUANTITY", meas.name, "\n")
             rc = print(rbind(
-              unlist(block$quantities[[meas.name]][labels.override]),
+              unlist(combination$quantities[[meas.name]][labels.override]),
               unlist(clause$values[clause$labels %in% labels.override])
               ))
           }
-          block$quantities[[meas.name]][clause$labels] = unlist(clause$values)
+          combination$quantities[[meas.name]][clause$labels] = unlist(clause$values)
         }
 
       } else if (clause.keyw == "MEASUREMENT") {
@@ -1095,15 +1107,15 @@ alucomb.read = function(file = "") {
           names(constr.comb) = clause$labels[-1]
         }
 
-        block$constr.lin.val[[constr.name]] = as.vector(constr.val)
-        block$constr.lin.comb[[constr.name]] = constr.comb
+        combination$constr.lin.val[[constr.name]] = as.vector(constr.val)
+        combination$constr.lin.comb[[constr.name]] = constr.comb
 
       } else if (clause.keyw == "NLCONSTRAINT" && toupper(clause.fields[1]) == "CLEAR") {
         ##
         ## clear all non-linear constraints
         ##
-        block$constr.nl.str.val = list()
-        block$constr.nl.str.expr = list()
+        combination$constr.nl.str.val = list()
+        combination$constr.nl.str.expr = list()
         cat("\nwarning: cleared all NLCONSTRAINT equations\n")
       } else if (clause.keyw == "NLCONSTRAINT") {
         ##
@@ -1124,10 +1136,10 @@ alucomb.read = function(file = "") {
           stop("error, malformed NLCONSTRAINT\n", constr.name, " ", constr.val, " \"", constr.expr, "\"")
         }
         ##--- warn about overridden NLCONSTRAINT
-        if (!is.null(block$constr.nl.str.val[[constr.name]])) {
+        if (!is.null(combination$constr.nl.str.val[[constr.name]])) {
           cat("\nwarning, override NLCONSTRAINT\n")
           old.str = paste("old: ", constr.name, " ",
-            block$constr.nl.str.val[[constr.name]], " = ", block$constr.nl.str.expr[[constr.name]], "\n", sep="")
+            combination$constr.nl.str.val[[constr.name]], " = ", combination$constr.nl.str.expr[[constr.name]], "\n", sep="")
           new.str = paste("new: ", constr.name, " ", constr.val, " = ", constr.expr, "\n", sep="")
           if (nchar(old.str) > 78 || nchar(new.str) > 78) {
             old.str = paste("\n", old.str, sep="")
@@ -1136,8 +1148,8 @@ alucomb.read = function(file = "") {
           cat(old.str)
           cat(new.str)
         }
-        block$constr.nl.str.val[[constr.name]] = constr.val
-        block$constr.nl.str.expr[[constr.name]] = constr.expr
+        combination$constr.nl.str.val[[constr.name]] = constr.val
+        combination$constr.nl.str.expr[[constr.name]] = constr.expr
 
       } else if (clause.keyw == "MODMEAS") {
         ##
@@ -1150,14 +1162,14 @@ alucomb.read = function(file = "") {
           meas.name[3] = alu.norm.pubstate(meas.name[3])
           meas.name = paste(meas.name, collapse=".")
           if (keyw == "DROP") {
-            if (!meas.name %in% block$meas.drop.cards) {
-              block$meas.drop.cards = c(block$meas.drop.cards, meas.name)
+            if (!meas.name %in% combination$meas.drop.cards) {
+              combination$meas.drop.cards = c(combination$meas.drop.cards, meas.name)
             }
           } else {
-            block$meas.drop.cards = setdiff(block$meas.drop.cards, meas.name)
+            combination$meas.drop.cards = setdiff(combination$meas.drop.cards, meas.name)
           }
         } else if (keyw == "CLEAR") {
-          block$meas.drop.cards = names(measurements)
+          combination$meas.drop.cards = names(measurements)
         } else {
           stop("error, invalid MODMEAS keyword in line...\n  ", clause.line)
         }
@@ -1208,7 +1220,6 @@ alucomb.read = function(file = "") {
       ##
       ## initialization both for MEASUREMENT and COMBINATION
       ## when combos compatibility is abandoned, one can init just the relevant list
-      ## block$params is used for parameters both of MEASUREMENT and COMBINATION
       ##
 
       ##--- special treatment in case this is a MEASUREMENT block
@@ -1222,15 +1233,7 @@ alucomb.read = function(file = "") {
       rm(meas.fields)
 
       block.meas = list()
-
-      block = combination
-##      block = list()
-##      block$params = list()
-##      block$quantities = list()
-##      block$constr.lin.val = list()
-##      block$constr.lin.comb = list()
-##      block$constr.nl.str.val = list()
-##      block$constr.nl.str.expr = list()
+      block.meas$params = list()
     }
 
     if (s.inblock && (t.endblock || t.endfile)) {
@@ -1249,7 +1252,6 @@ alucomb.read = function(file = "") {
 
         block.meas$quant = block.fields[2]
         block.meas$tags = strsplit(meas.tag, "[.]", perl=TRUE)[[1]]
-        block.meas$params = block$params
 
         if (!is.null(measurements[[meas.tag]])) {
           old.meas = measurements[[meas.tag]]
@@ -1303,30 +1305,29 @@ alucomb.read = function(file = "") {
         ##
         ## COMBINE BLOCK
         ##
-        block$tags = unlist(block.fields)
-        if (is.null(block$combine) || length(block$combine) == 0) {
+        combination$tags = unlist(block.fields)
+        if (is.null(combination$combine) || length(combination$combine) == 0) {
           ##--- average all quantities mentioned in block if no explicit selection
-          block$combine = names(block$quantities)
+          combination$combine = names(combination$quantities)
         }
 
         ##--- add "USE = 1" quantities, drop "USE = 0" quantities
-        quant.use = unlist(lapply(block$quantities, function(el) { unname(el["use"]) }))
+        quant.use = unlist(lapply(combination$quantities, function(el) { unname(el["use"]) }))
         quant.drop = names(quant.use[quant.use == 0])
         quant.use = names(quant.use[quant.use != 0])
-        block$combine = setdiff(block$combine, quant.drop)
-        block$combine = c(block$combine, setdiff(quant.use, block$combine))
+        combination$combine = setdiff(combination$combine, quant.drop)
+        combination$combine = c(combination$combine, setdiff(quant.use, combination$combine))
 
         ##--- insure the descr field has at least an empty string
-        quant.descr = names(unlist(lapply(block$quantities, function(el) { unname(el["descr"]) })))
-        quant.descr.wo = setdiff(names(block$quantities), quant.descr)
-        block$quantities = lapply(block$quantities,
+        quant.descr = names(unlist(lapply(combination$quantities, function(el) { unname(el["descr"]) })))
+        quant.descr.wo = setdiff(names(combination$quantities), quant.descr)
+        combination$quantities = lapply(combination$quantities,
           function(quant) {
             if (is.null(quant$descr)) quant$descr = ""
             quant
           })
-
-        combination = block
-
+        
+        ##--- old: combination = block
       } else {
         stop("unknown block type in line...\n  ", paste(c("BEGIN", block.type, block.fields[-1]), collapse=" "))
       }
