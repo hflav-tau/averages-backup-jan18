@@ -450,7 +450,7 @@ get.tex.table = function(quant.names, perc=FALSE) {
   
   with.meas = TRUE
   if (with.meas) {
-    qm.table = paste(qm.table, collapse=" \\\\\n\\hline\n")
+    qm.table = paste(qm.table, collapse=" \\\\\n\\midrule\n")
   } else {
     qm.table = paste(qm.table, collapse=" \\\\\n")
   }
@@ -645,7 +645,9 @@ get.tex.base.nodes.corr = function() {
     "\\ifhevea\\end{table}\\fi")
 
   ##--- correlation of base nodes in percent
-  quant.corr.base = quant.corr[quant.names, quant.names] * 100
+  quant.corr.base = round(quant.corr[quant.names, quant.names] * 100)
+  ##--- fix negative zero output by sprintf
+  quant.corr.base = ifelse(quant.corr.base == 0, abs(quant.corr.base), quant.corr.base)
 
   ##--- write data in tables with at most spec. rows and columns
   coeff.per.row = 14
