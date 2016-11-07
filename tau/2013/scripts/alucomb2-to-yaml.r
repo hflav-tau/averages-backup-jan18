@@ -66,16 +66,32 @@ data.list$combination$constr.all.expr = NULL
 data.list$combination$constr.all.expr.input = NULL
 
 meas.val = data.list$meas.val
+meas.err = data.list$meas.err
+meas.corr = data.list$meas.corr
+
+quant.val = data.list$quant.val
+quant.err = data.list$quant.err
+quant.corr = data.list$quant.corr
+
 meas.names = names(meas.val)
-meas.cov = data.list$meas.cov
 meas.quant = sapply(data.list$measurements[meas.names], function(meas) meas$quant)
+
+quant.names = names(quant.val)
+quant.node = sapply(data.list$combination$quantities, function(quant) {ifelse(is.null(quant$node), "", quant$node)})
+quant.node = quant.node[quant.names]
 
 cat(file=ofname,
     as.yaml(list(
       meas.names = meas.names,
-      meas.val = meas.val,
       meas.quant = meas.quant,
-      meas.cov = meas.cov
+      meas.val = meas.val,
+      meas.err = meas.err,
+      meas.corr = meas.corr,
+      quant.names = quant.names,
+      quant.node = quant.node,
+      quant.val = quant.val,
+      quant.err = quant.err,
+      quant.corr = quant.corr
     ),
     column.major = FALSE))
 
