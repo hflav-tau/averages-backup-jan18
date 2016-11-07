@@ -605,7 +605,7 @@ get.tex.meas.by.ref = function() {
 }
 
 ##
-## return latex code with the base node correlation coefficients
+## return latex code with the basis node correlation coefficients
 ##
 get.tex.base.nodes.corr = function() {
   tex.all.tau.br.corr = NULL
@@ -614,16 +614,16 @@ get.tex.base.nodes.corr = function() {
   ##--- tex code preceding the correlation table content
   corr.pre = c(
     "%%",
-    "%% base nodes correlation, @@num@@",
+    "%% basis nodes correlation, @@num@@",
     "%%",
     "\\ifhevea\\begin{table}\\fi%% otherwise cannot have normalsize caption",
     "\\begin{center}",
     "\\ifhevea",
-    "\\caption{Base nodes correlation coefficients in percent, section @@num@@.\\label{tab:tau:br-fit-corr@@num@@}}%",
+    "\\caption{Basis nodes correlation coefficients in percent, section @@num@@.\\label{tab:tau:br-fit-corr@@num@@}}%",
     "\\else",
     "\\begin{minipage}{\\linewidth}",
     "\\begin{center}",
-    "\\captionof{table}{Base nodes correlation coefficients in percent, section @@num@@.}\\label{tab:tau:br-fit-corr@@num@@}%",
+    "\\captionof{table}{Basis nodes correlation coefficients in percent, section @@num@@.}\\label{tab:tau:br-fit-corr@@num@@}%",
     "\\fi",
     "\\begin{envsmall}",
     "\\begin{center}",
@@ -644,7 +644,7 @@ get.tex.base.nodes.corr = function() {
     "\\end{center}",
     "\\ifhevea\\end{table}\\fi")
 
-  ##--- correlation of base nodes in percent
+  ##--- correlation of basis nodes in percent
   quant.corr.base = round(quant.corr[quant.names, quant.names] * 100)
   ##--- fix negative zero output by sprintf
   quant.corr.base = ifelse(quant.corr.base == 0, abs(quant.corr.base), quant.corr.base)
@@ -857,7 +857,7 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("QuantNumNonRatioWithMeasPdg", as.character(quant.num.nonratio.with.meas.pdg)),
     alurep.tex.cmd.short("QuantNumRatioWithMeasPdg", as.character(quant.num.ratio.with.meas.pdg)),
 
-    ##--- base quantities
+    ##--- basis quantities
     alurep.tex.cmd.short("IndepQuantNum", as.character(quant.num - constr.num)),
     alurep.tex.cmd.short("BaseQuantNum", as.character(length(alucomb2.base.quant(combination)))),
 
@@ -865,7 +865,7 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("UnitarityQuantNum", as.character(length(alucomb2.unitarity.constr(combination)))),
 
     ##
-    ## constraints used to relate measurements to base quantities
+    ## constraints used to relate measurements to basis quantities
     ## traditionally, the constraints used for unitarity and unitarity residual are not counted
     ## this number is consistent with "QuantNum", "Dof" and "MeasNum", both "QuantNum" and "ConstrNum" are two less
     ##
@@ -941,15 +941,15 @@ mkreport = function(fname) {
   cat("file '", fname, "', unitarity quantities\n", sep="")
 
   ##
-  ## write text macro containing all base modes
+  ## write text macro containing all basis modes
   ##
   gammaAll.names = alucomb2.base.quant(combination)
   tex.tau.base.quants = alurep.tex.cmd("BaseQuants", get.tex.table.simple(gammaAll.names, 4, -2))
   cat(tex.tau.base.quants, sep="\n", file=fname, append=TRUE)
-  cat("file '", fname, "', base quantities\n", sep="")
+  cat("file '", fname, "', basis quantities\n", sep="")
 
   ##
-  ## write text macro containing correlation of base nodes
+  ## write text macro containing correlation of basis nodes
   ##
   tex.all.tau.br.corr = alurep.tex.cmd("BrCorr", get.tex.base.nodes.corr())
   cat(tex.all.tau.br.corr, sep="\n", file=fname, append=TRUE)
