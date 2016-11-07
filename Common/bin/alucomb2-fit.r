@@ -39,8 +39,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   return.symbols = c(
     "measurements", "combination", "delta",
     "chisq", "dof", "chisq.prob", "meas.num", "quant.num", "constr.num",
-    "meas.val",   "meas.err",   "meas.cov",  "meas.cov.stat", "meas.cov.syst", "meas.corr",
-    "quant.val",  "quant.err",  "quant.cov", "quant.corr",
+    "meas.val",   "meas.err",   "meas.corr",
+    "meas.cov.stat", "meas.cov.syst",
+    "quant.val",  "quant.err", "quant.corr",
     "constr.m", "constr.v",
     "solve.cov.m", "full.m", "full.v.m"
     )
@@ -625,10 +626,12 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ##
   ## build correlation matrix
   ##
-  meas.corr = diag.m(rep(0, meas.num))
+  meas.corr = diag.m(rep(1, meas.num))
   rownames(meas.corr) = meas.names
   colnames(meas.corr) = meas.names
   meas.corr.stat = meas.corr
+  ##--- meas.corr.stat be zero unless there is an explicit term in input cards
+  diag(meas.corr.stat) = 0
   
   ##
   ## set off-diagonal correlation matrix coefficients from cards
@@ -638,9 +641,11 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
 
   ##--- set off-diagonal statistical correlation matrix coefficients from cards
   for (mi.name in meas.names) {
+    ##--- statistical correlation
     for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.stat), meas.names)) {
       meas.corr.stat[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.stat[[mj.name]]
     }
+    ##--- total correlation
     for (mj.name in intersect(names(measurements[[mi.name]]$corr.terms.tot), meas.names)) {
       meas.corr[meas.names %in% mi.name, meas.names %in% mj.name] = measurements[[mi.name]]$corr.terms.tot[[mj.name]]
     }
@@ -686,23 +691,24 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
       for (mj in mi:meas.num) {
         if (meas.corr[mi,mj] != 0 && meas.corr.stat[mi,mj] != 0) {
           errors = c(errors, paste(meas.names[mi], " - ", meas.names[mj],
-            " : ", meas.corr[mi, mj], " , ",  meas.corr[mj, mi], sep=""))
+            " : ", meas.corr[mi, mj], " , ",  meas.corr.stat[mj, mi], sep=""))
         }
       }
     }
     cat("\nerror: both total and statistical correlation specified for measurements:  \n",
         paste(errors, collapse="\n  "), "\n", sep="")
   }
-  if (flag) stop("quitting")
+  if (flag) stop("quitting because of above errors")
   rm(flag)
   
-  ##--- covariance from STAT_CORR_WITH cards
+  ##--- covariance from STAT_CORR_WITH cards (diagonal terms remain set to zero)
   meas.cov.stat = meas.corr.stat * (meas.stat %o% meas.stat)
 
   ##--- get names of systematic contributions
   syst.terms = unique(unlist(lapply(measurements[meas.names], function(m) names(m$syst.terms)), use.names=FALSE))
   names(syst.terms) = syst.terms
 
+  ##--- compute systematic covariance from common dependencies (diagonal terms are set to zero)
   if (length(syst.terms) > 0) {
     ##--- get measurement variation for 1-sigma variation external parameter that determines the syst. contribution
     dm.by.dp = alucomb2.meas.by.syst.term(measurements[meas.names], syst.terms)
@@ -716,12 +722,11 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   ##--- compute total uncertainties
   meas.err = sqrt(meas.stat*meas.stat + meas.syst*meas.syst)
 
-  ## meas.corr.sav = meas.corr
-  ## meas.cov.sav = meas.corr.sav * (meas.err %o% meas.err)
-
-  ##--- if total correlation specified, use it, else combine statistical and systematic correlations
   meas.corr.tot = (meas.cov.stat + meas.cov.syst) / (meas.err %o% meas.err)
-  diag(meas.corr) = 1
+  ##
+  ## if total correlation specified, use it, else combine statistical and systematic correlations
+  ## (diagonal terms set to one come always from meas.corr = total correlation)
+  ##
   meas.corr = ifelse(meas.corr != 0, meas.corr, meas.corr.tot)
 
   ##
