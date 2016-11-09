@@ -105,7 +105,8 @@ alurep.get.texdescr.nv = function(quant, descr, texdescr) {
     descr = gsub("G(\\(((?:[^()]++|(?1))+)*+\\))", "\\\\BRF{tau^-}{\\2}", descr, perl=TRUE)
 
     ##--- transform text description into TeX
-    descr = gsub("([<=>]+)\\s*(\\d+\\s*)(neutrals|K0|K\\(L\\)0|K\\(S\\)0|pi0)\\s*nu\\((mu|tau|e)\\)", "\\1 \\2 \\3\\\\, nu(\\4)", descr)
+    descr = gsub("([<=>]+)\\s*(\\d+\\s*)(neutrals|K0|K\\(L\\)0|K\\(S\\)0|pi0)\\s*nu\\((mu|tau|e)\\)",
+                 "\\1 \\2 \\3\\\\, nu(\\4)", descr)
     descr = gsub("([<=>]+)\\s*(\\d+)", "\\1 \\2\\\\,", descr)
     descr = gsub(">=", "\\\\ge{}", descr)
     descr = gsub("nubar\\((mu|tau|e)\\)", "\\\\bar{nu}_\\1", descr)
