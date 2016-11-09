@@ -1,0 +1,17 @@
+#
+# PDG 2016 fit without unitarity constraint and error scaling
+#
+# like pdgfit-step-7.input but without unitarity constraint
+#
+
+INCLUDE pdgfit-step-7.input
+
+BEGIN COMBINATION
+
+# --- drop unitarity constraint
+NLCONSTRAINT forceUnitarity 0 ""
+
+# --- remove error scaling
+QUANTITY Gamma96 scale 1
+
+END

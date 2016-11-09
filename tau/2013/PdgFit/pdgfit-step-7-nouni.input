@@ -1,0 +1,14 @@
+#
+# PDG 2016 fit without unitarity constraint
+#
+# like pdgfit-step-7.input but without unitarity constraint
+#
+
+INCLUDE pdgfit-step-7.input
+
+BEGIN COMBINATION
+
+# --- drop unitarity constraint
+NLCONSTRAINT forceUnitarity 0 ""
+
+END
