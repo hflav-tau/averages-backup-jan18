@@ -120,6 +120,8 @@ aluelab.results = function(args) {
   ##--- get alucomb results and data
   load(file.name)
 
+  quant.cov = quant.corr * (quant.err %o% quant.err)
+
   if (flag.s.factors) {
     quant.err = quant.sf.err
     quant.cov = quant.sf.cov
