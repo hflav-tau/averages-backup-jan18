@@ -41,38 +41,39 @@ save.plot = function(name, width=my.graph.width, height=my.graph.height, horiz.p
 ##
 ## HFAG label
 ##
-hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=unit(0.81,"npc"), y = unit(0.16,"npc")) {
+hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", scale=0.9, fsratio=0.78, x=unit(0.82,"npc"), y = unit(0.15,"npc")) {
+  ##--- draw title
   hl.title = textGrob(
     title,
     x = x,
     y = y,
-    gp = gpar(fontface="bold.italic", col="white")
-  )
-
+    gp = gpar(fontface="bold.italic", col="white", cex=scale)
+  )  
+  ##--- draw subtitle 
   hl.subtitle = textGrob(
     subtitle,
     x = hl.title$x,
-    y = hl.title$y - unit(1.05,"lines"),
-    gp = gpar(fontface="bold.italic", col="black", cex=fsratio)
+    y = hl.title$y - unit(1.4/(fsratio*scale), "grobheight", hl.title),
+    gp = gpar(fontface="bold.italic", col="black", cex=fsratio*scale)
   )
-
+  ##--- draw black title background
   hl.title.bkg = rectGrob(
     x = hl.title$x,
     y = hl.title$y,
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title),
-    gp=gpar(fill="black")
+    width = unit(1/scale, "grobwidth", hl.title) + 0.6*unit(1/scale, "grobheight", hl.title),
+    height = unit(1/scale, "grobheight", hl.title) + 0.6*unit(1/scale, "grobheight", hl.title),
+    vjust = 0.5,
+    gp=gpar(fill="black", col="black", lwd=1, cex=scale)
   )
-  
+  ##--- draw subtitle background  
   hl.box = rectGrob(
-    x = hl.title$x,
-    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
-    gp=gpar(fill="white")
+    x = hl.subtitle$x,
+    y = hl.subtitle$y,
+    width = unit(1/(fsratio*scale), "grobwidth", hl.title.bkg),
+    height = unit(1, "grobheight", hl.subtitle) + 0.8*unit(1/(fsratio), "grobheight", hl.title),
+    gp=gpar(fill="white", col="black", lwd=1, cex=fsratio*scale)
   )
-
-  grobTree(hl.box, hl.title.bkg, hl.title, hl.subtitle)
+  grobTree(hl.title.bkg, hl.title, hl.box, hl.subtitle)
 }
 
 ##
