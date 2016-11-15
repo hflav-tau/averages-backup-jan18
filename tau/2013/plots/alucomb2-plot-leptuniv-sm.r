@@ -153,7 +153,7 @@ rc = rc +
         y=c(band.xmin.ymax, band.xmin.ymin, band.xmax.ymin, band.xmax.ymax)),
     aes(x=x, y=y), fill="Yellow") +
   ## labs(title="Lepton Universality Test") +
-  labs(x=TeX("$\\tau_{\\tau}$(fs)"), y=TeX("$B^{\\prime}_{\\tau e}")) +
+  labs(x=TeX("$\\tau_{\\tau}$(fs)"), y=TeX("$\\textit{B}_{\\tau e}^{\\prime}$")) +
   annotation_custom(hfag.label())
   
 print(rc)
