@@ -969,6 +969,10 @@ aluelab.results = function(args) {
   fname = paste0(fname, ".tex")
   cat(unlist(rc), sep="\n", file=fname)
   cat("produced file '", fname, "'\n", sep="")
+
+  fname = gsub("[.]tex$", ".rdata", basename(fname))
+  rc = save(file=fname, list = c("quant"))
+  cat("produced file '", fname, "'\n", sep="")
 }
 
 args = commandArgs(TRUE)
