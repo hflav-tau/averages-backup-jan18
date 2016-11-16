@@ -75,4 +75,3 @@ void aluPlotLabel(const TString& header,
   
   return;
 }
-

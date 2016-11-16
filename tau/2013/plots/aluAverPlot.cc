@@ -54,7 +54,7 @@ void PlotStyleSetup(Float_t scale = 1, Int_t canvas_width = 560)
   gStyle->SetCanvasDefW(canvas_width);
   //--- height will be recalculated later
   gStyle->SetCanvasDefH(Int_t(0.75*gStyle->GetCanvasDefW()));
-  
+
   //--- normal plots
   // gStyle->SetPadLeftMargin(0.20);
   // gStyle->SetPadRightMargin(0.06);
@@ -132,14 +132,14 @@ void aluAverPlot(const std::string& filename = "plot.input",
 		 Int_t canvas_width = 560);
 
 void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t canvas_width)
-{  
+{
   //--- num of points in plot
   Int_t nPoints(0);
   const Int_t nPointsMax(20);
 
   //--- fixed vertical offset
   const Float_t fnPoints_offset(0.6);
-  
+
   TString title, expname[nPointsMax], tempstring;
   TString fitLabelHeader("");
   TString fitLabel("");
@@ -150,7 +150,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   Float_t fXmax;
   Float_t fYmin(0);
   Float_t fYmax;
-  
+
   Float_t meas[nPointsMax];
   Float_t stath[nPointsMax], statl[nPointsMax], stat[nPointsMax];
   Float_t systh[nPointsMax], systl[nPointsMax], syst[nPointsMax];
@@ -159,12 +159,12 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   Float_t sfact[nPointsMax];
 
   TString measinfo[nPointsMax];
-  
+
   //--- open input file
   ifstream ifs(filename.c_str()) ; if (!ifs.good()) {cout << "Cannot open input file '" << filename << "'" << endl ; exit(1) ;}
   char buffer[200] ;
   Int_t ref_meas(-1);
-  
+
   while(ifs.good()) {
     if (ifs.eof()) break;
     char first_ch; ifs.get(first_ch) ;
@@ -253,7 +253,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
     }
   }
   cout << "read " << nPoints << " data lines from file '" << filename << "'" << endl ;
-  
+
   Int_t nexp(0);
   Float_t num(0), den(0), aver(0), err(0), wt;
   Float_t meas_xmin(meas[0]);
@@ -370,7 +370,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
     //--- float default number of points
     const Float_t fnPoints_def(nPoints_def);
     const Float_t fnPoints(nPoints);
-    
+
     const Float_t padTopMarginAbs(0.3 * vert_slot);
     const Float_t padBottomMarginAbs( (title == "" ? 0.5625 : 1.5 ) * vert_slot );
 
@@ -406,15 +406,15 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
     //--- draw band for average measurement
     TBox* average_band = new TBox;
     average_band->SetFillStyle(1000);
-    
+
     average_band->SetFillColor(kYellow-9);
     average_band->DrawBox(meas[ref_meas]-errorl[ref_meas], fYmin,
 			 meas[ref_meas]+errorh[ref_meas], fYmax);
-    
+
     //--- redraw axis above the average band
     canvas->RedrawAxis();
   }
-  
+
   Float_t y[nPoints], ey[nPoints], eyl[nPoints], eyh[nPoints];
   Int_t fColor[nPoints], fSymbol[nPoints];
 
@@ -516,7 +516,8 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
 
   const Float_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
   if (fitLabel != "" || fitLabelHeader != "") {
-    aluPlotLabel(fitLabelHeader, fitLabel, xtextNDC, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
+    // aluPlotLabel(fitLabelHeader, fitLabel, xtextNDC, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
+    aluPlotLabel(fitLabelHeader, fitLabel, -0.03, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
   }
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');
