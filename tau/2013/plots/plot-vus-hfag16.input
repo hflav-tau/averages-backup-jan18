@@ -1,13 +1,19 @@
 #
 # root -b -q "aluAverPlot.cc+(\"plot-vus-hfag16.input\")"
 #
-# i       - xmin, xmax, precision, title
-# m       - measurement with symmetric stat & syst errors
-# ma      - measurement with asymmetric stat & syst errors
+# lh      - header (set plot label header)
+# l       - label (set plot label)
+# r       - (set band according to previous result)
+# i       - xmin xmax precision title
+# m       - val stat syst label (measurement with symmetric stat & syst errors)
+# ma      - val +stat -stat +syst -syst label (measurement with asymmetric stat & syst errors)
 # mt, mat - like m, ma but for "this work"
-# p       - PDG average, sets band
-# h       - other averages
+# p       - val uncertainty s-factor CL label (PDG average, sets band)
+# h       - val uncertainty s-factor CL label (other average)
+#
 #  
+lh  HFAG-Tau
+l   Summer 2016
 i   0      0       6.4  |V_{us}|
 h   0.223100 0.000806 -1 -1  K_{l3}, Maltman, Mainz 2016 (MILC 14)
 h   0.225000 0.000985 -1 -1  K_{l2}, Maltman, Mainz 2016 (FLAG 15)
