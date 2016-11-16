@@ -330,7 +330,7 @@ aluelab.results = function(args) {
   rc = quant$quant.expr.add("Bmu_by_Be_th", phspf_mmubymtau/phspf_mebymtau)
 
   ##--- Be from Bmu
-  quant$quant.expr.add("Be_from_Bmu", phspf_mebymtau/phspf_mmubymtau *Bmu_fit)
+  quant$quant.expr.add("Be_from_Bmu", phspf_mebymtau/phspf_mmubymtau * Bmu_fit)
 
   ##
   ## rad. corrections from to get Be from tau lifetime
