@@ -96,9 +96,18 @@ rc = quant$quant.expr.add(
 ## plot
 ##
 
+##--- plot height 6cm
 my.graph.height = 6/2.54
+##--- plot width = 3/2 plot height
 my.graph.width= my.graph.height*1.5
+##--- set desired horizontal pixels for a plot
 my.graph.horiz.pixels = 560
+
+##
+## rescale plot size for PC screen
+## not used presently
+## unfortunately the plot on X11 screen does not describe well the plot on PDF and PNG
+##
 my.graph.x11.scale=1
 
 try(dev.off(), silent=TRUE)
@@ -108,11 +117,17 @@ slope = quant$val("Be_by_tau_tau")/1e15
 slope.min = (quant$val("Be_by_tau_tau") - quant$err("Be_by_tau_tau"))/1e15
 slope.max = (quant$val("Be_by_tau_tau") + quant$err("Be_by_tau_tau"))/1e15
 
+##--- plot limits
 xlim.min = 289
 xlim.max = 292
 ylim.min = 0.177
 ylim.max = 0.179
 
+##
+## compute band of SM prediction
+## - take xmin on the left of plot left limit and xmax on the right of plot right limit
+## - for xmin and xmax compute the min and max of the SM prediction for the leptonic BR from the lifetime
+##
 band.xmin = xlim.min - 0.2*(xlim.max-xlim.min)
 band.xmax = xlim.max + 0.2*(xlim.max-xlim.min)
 band.xmin.ymin = band.xmin*slope.min
@@ -132,11 +147,15 @@ rc = ggplot(data = plot.df, aes(x = tau, y = Bl)) +
   theme_bw() +
   coord_cartesian(xlim = c(xlim.min, xlim.max), ylim = c(ylim.min, ylim.max))
 
+##
+## compute proper size in the two axis units in order to get the
+## errorbar wiskers of the same size on x and y
+##
 rc2 = ggplot_build(rc)
-
 wisker.size = 0.03 * my.graph.width
 wisker.size.x = wisker.size * (rc2$layout$panel_ranges[[1]]$x.range[2] - rc2$layout$panel_ranges[[1]]$x.range[1]) / my.graph.width
 wisker.size.y = wisker.size * (rc2$layout$panel_ranges[[1]]$y.range[2] - rc2$layout$panel_ranges[[1]]$y.range[1]) / my.graph.height
+rm(rc2)
 
 rc = rc +
   geom_errorbar(aes(ymin=Bl.min,  ymax=Bl.max),  color="Red",
