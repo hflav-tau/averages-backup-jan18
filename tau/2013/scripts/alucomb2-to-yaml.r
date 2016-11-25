@@ -66,12 +66,10 @@ data.list$combination$constr.all.expr = NULL
 data.list$combination$constr.all.expr.input = NULL
 
 meas.val = data.list$meas.val
-meas.err = data.list$meas.err
-meas.corr = data.list$meas.corr
+meas.cov = data.list$meas.cov
 
 quant.val = data.list$quant.val
-quant.err = data.list$quant.err
-quant.corr = data.list$quant.corr
+quant.cov = data.list$quant.cov
 
 meas.names = names(meas.val)
 meas.quant = sapply(data.list$measurements[meas.names], function(meas) meas$quant)
@@ -85,13 +83,11 @@ cat(file=ofname,
       meas.names = meas.names,
       meas.quant = meas.quant,
       meas.val = meas.val,
-      meas.err = meas.err,
-      meas.corr = meas.corr,
+      meas.cov = meas.cov,
       quant.names = quant.names,
       quant.node = quant.node,
       quant.val = quant.val,
-      quant.err = quant.err,
-      quant.corr = quant.corr
+      quant.cov = quant.cov
     ),
     column.major = FALSE))
 

@@ -39,9 +39,9 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
   return.symbols = c(
     "measurements", "combination", "delta",
     "chisq", "dof", "chisq.prob", "meas.num", "quant.num", "constr.num",
-    "meas.val",   "meas.err",   "meas.corr",
+    "meas.val", "meas.cov",
     "meas.cov.stat", "meas.cov.syst",
-    "quant.val",  "quant.err", "quant.corr",
+    "quant.val", "quant.cov",
     "constr.m", "constr.v",
     "solve.cov.m", "full.m", "full.v.m"
     )

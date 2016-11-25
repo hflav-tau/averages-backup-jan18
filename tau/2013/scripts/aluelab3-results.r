@@ -120,12 +120,14 @@ aluelab.results = function(args) {
   ##--- get alucomb results and data
   load(file.name)
 
-  quant.cov = quant.corr * (quant.err %o% quant.err)
-
   if (flag.s.factors) {
-    quant.err = quant.sf.err
     quant.cov = quant.sf.cov
   }
+
+  quant.err = sqrt(diag(quant.cov))
+  quant.err.nonzero = (quant.err != 0)
+  quant.corr = quant.cov
+  quant.corr[quant.err.nonzero, quant.err.nonzero] = cov2cor(quant.cov[quant.err.nonzero, quant.err.nonzero])
 
   quant = StatComb$new(quant.val, quant.cov)
 
