@@ -453,6 +453,13 @@ get.tex.constraint.equations = function() {
 mkreport = function(fname) {
   load(fname, .GlobalEnv)
 
+  ##--- compute from saved data
+  assign("quant.err", sqrt(diag(quant.cov)), envir = .GlobalEnv)
+  quant.err.nonzero = (quant.err != 0)
+  quant.corr = quant.cov
+  quant.corr[quant.err.nonzero, quant.err.nonzero] = cov2cor(quant.cov[quant.err.nonzero, quant.err.nonzero])
+  assign("quant.corr", quant.corr, envir = .GlobalEnv)
+
   ##--- special rounding to cope with rounding errors
   eval(parse(text="quant.val[\"GammaAll\"]=round(quant.val[\"GammaAll\"], digits=12)"), .GlobalEnv)
   eval(parse(text="quant.err[\"GammaAll\"]=round(quant.err[\"GammaAll\"], digits=12)"), .GlobalEnv)
