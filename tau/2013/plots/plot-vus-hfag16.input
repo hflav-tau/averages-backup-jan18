@@ -1,0 +1,26 @@
+#
+# root -b -q "aluAverPlot.cc+(\"plot-vus-hfag16.input\")"
+#
+# lh      - header (set plot label header)
+# l       - label (set plot label)
+# r       - (set band according to previous result)
+# i       - xmin xmax precision title
+# m       - val stat syst label (measurement with symmetric stat & syst errors)
+# ma      - val +stat -stat +syst -syst label (measurement with asymmetric stat & syst errors)
+# mt, mat - like m, ma but for "this work"
+# p       - val uncertainty s-factor CL label (PDG average, sets band)
+# h       - val uncertainty s-factor CL label (other average)
+#
+#  
+lh  HFAG-Tau
+l   Summer 2016
+i   0      0       6.4  |V_{us}|
+h   0.223100 0.000806 -1 -1      K_{l3}, Maltman, Mainz 2016 (MILC 14)
+h   0.225000 0.000985 -1 -1      K_{l2}, Maltman, Mainz 2016 (FLAG 15)
+p   0.225816 0.000906 -1 -1      CKM unitarity, PDG 2015
+m   0.2228   0.0023 0.0005       #tau #rightarrow s incl., Maltman, Mainz 2016
+# m   0.2216   0.0027   0.0000     #tau #rightarrow K#pi#nu, Passemar, CKM 2014
+mt  0.218609 0.002135 0.0000     #tau #rightarrow s incl., HFAG 2016
+mt  0.223100 0.001781 0.0000     #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFAG 2016
+mt  0.222299 0.001645 0.0000     #tau #rightarrow K#nu, HFAG 2016
+mt  0.221207 0.001375 0.0000     #tau average, HFAG 2016

@@ -375,6 +375,11 @@ aluelab.results = function(args) {
   quant$quant.fit.add("Be_univ", c(Gamma5=1, Be_from_Bmu=1, Be_from_taulife=1))
 
   ##
+  ## Vud ---upd16
+  ## Phys. Rev. C91 (2) (2015) 025501
+  ## Superallowed 0+→0+0+→0+ nuclear β decays: 2014 critical survey, with precise results for VudVud and CKM unitarity
+  ## J.C. Hardy, I.S. Towner (Texas A-M, Cyclotron Inst.)
+  ##
   ## Vud ---upd14
   ## PDG13: no change vs PDG11
   ##
@@ -387,12 +392,15 @@ aluelab.results = function(args) {
   ##
   ## Vud = 0.9774 (5)tau-n (16)gA (2)RC
   ## including neutron lifetime
+
   ##
   ## PDG11: quant$quant.add.single("Vud", 0.97425, 0.00022)
   ## PDG13 with neutron lifetime: quant$quant.add.single("Vud", 0.9774, 0.0001*sqrt(5^2 + 16^2 + 2^2))
   ## PDG15 unchanged
-  quant$quant.add.single("Vud", 0.97425, 0.00001*sqrt(8^2 + 10^2 + 18^2))
-
+  ## quant$quant.add.single("Vud", 0.97425, 0.00001*sqrt(8^2 + 10^2 + 18^2))
+  ## TH2015
+  quant$quant.add.single("Vud", 0.97417, 0.00021)
+  
   ##--- Moulson CKM2014 procs
   quant$quant.add.single("Vud_moulson_ckm14", 0.97417, 0.00001*21)
   ##--- Moulson CKM2014 procs, using FLAG Nf = 2+1+1
@@ -415,7 +423,7 @@ aluelab.results = function(args) {
   ## quant$quant.add.single("m_s", 93.5, 2.5) ## changed14
   ##--- s quark mass, PDG2015 ---upd16
   quant$quant.add.single("m_s", 95, 5) ## changed16
-   
+
   if (flag.kmaltman) {
     ## 
     ## K.Maltman, private comm. 2014
