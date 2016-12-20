@@ -52,6 +52,7 @@ get.tex.meas.defs = function() {
 
   rc = mapply(function(meas.name, meas) {
     exp = meas$tags[1]
+    exp = sub("BaBar", "\\\\babar", exp)
     ref = get.reference(meas$tags)
     type = meas$tags[3]
     quant = meas$quant
