@@ -29,8 +29,8 @@ load.in.list <- function(.file.name) { load(.file.name); as.list(environment()) 
 
 ##--- save plot
 save.plot = function(name, width=my.graph.width, height=my.graph.height, horiz.pixels=my.graph.horiz.pixels) {
-  file.png = paste(name, "png", sep=".")
   dpi = my.graph.horiz.pixels/my.graph.width
+  file.png = paste(name, "png", sep=".")
   ggsave(filename=file.png, width=width, height=height, dpi=dpi)
   cat(file=stderr(), "file", file.png, "produced\n")
   file.pdf = paste(name, "pdf", sep=".")
