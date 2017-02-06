@@ -20,6 +20,7 @@ require(ggplot2, quiet=TRUE)
 require(scales, quiet=TRUE)
 require(grid, quiet=TRUE)
 require(latex2exp, quiet=TRUE)
+require(RColorBrewer, quiet=TRUE)
 ## require(tikzDevice, quiet=TRUE)
 ## require(gridExtra, quiet=TRUE)
 ## require(gtable, quiet=TRUE)
@@ -49,7 +50,7 @@ save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.siz
 ##
 ## HFAG label
 ##
-hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=unit(0.9,"npc"), y = unit(0.95,"npc")) {
+hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=unit(0.92,"npc"), y = unit(0.95,"npc")) {
   hl.title = textGrob(
     title,
     x = x,
@@ -129,26 +130,28 @@ tau.lfv.plot = function(data, name="plot") {
       axis.title.x = element_blank(),
       axis.text.x = element_text(
         angle = 60, hjust=1, vjust=1, size=6,
-        margin=unit(c(0.25, 0,    0, 0), "cm")
+        margin = margin(0.30, 0.00, -0.40, 0.00, "cm")
       ),
       axis.text.y = element_text(
-        margin=unit(c(0   , 0.35, 0, 0.1), "cm")
+        margin = margin(0.00, 0.00, 0.00, 0.00, "cm")
       ),
       axis.ticks.length = unit(-0.2, "cm"),
       axis.ticks = element_line(size = 0.3),
+      plot.margin = margin(0.02, 0.01, 0.00, 0.01, "null"),
       legend.title = element_blank(),
       legend.key = element_blank(),
       legend.position = "bottom",
-      legend.margin=unit(0, "null"),
-      plot.margin=unit(c(0.04,0.02,0.01,0.02), "null"),
+      legend.spacing = unit(0, "null"),
+      legend.margin = margin(0, 0, 0, 0, "null"),
       panel.grid.major = element_line(colour = "gray80", size=0.3),
       panel.grid.minor = element_line(colour = "gray90", size=0.3)
       ## panel.grid.major.x = element_blank(),
       ## panel.grid.minor.x = element_blank()
-    )
+    ) +
+    scale_color_brewer(palette="Set1")
   
   print(rc)
-  save.plot(name, width=my.width, height=my.height)
+  save.plot(name, width=my.graph.width, height=my.graph.height)
 }
 
 ##
@@ -157,10 +160,33 @@ tau.lfv.plot = function(data, name="plot") {
 
 opts <- docopt(doc)
 
-my.width = 6.5
-my.height = 4
+## 
+## my.graph.width = 6.5
+## my.graph.height = 4
+## try(dev.off(), silent=TRUE)
+## dev.new(width=my.graph.width, height=my.graph.height)
+
+##--- plot width = 14cm
+my.graph.width = 18/2.54
+##--- plot height
+my.graph.height = my.graph.width * 800 / 1300
+##--- desired horizontal pixels for a plot
+my.graph.horiz.pixels = 1300
+
+##
+## rescale plot size for PC screen
+## not used presently
+## unfortunately the plot on X11 screen does not describe well the plot on PDF and PNG
+## one issue: plot adapts to size of X11 window
+##
+my.graph.x11.scale=1
+
+#
+## open graphic device
+##
 try(dev.off(), silent=TRUE)
-dev.new(width=my.width, height=my.height)
+##--- window must be sized for largest ever plot in this code
+dev.new(width=my.graph.width*my.graph.x11.scale, height=my.graph.height*my.graph.x11.scale, xpos=400, ypos=540)
 
 ##--- read Tau LFV data
 tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
