@@ -132,8 +132,11 @@ tau.lfv.plot = function(data, name="plot") {
         angle = 60, hjust=1, vjust=1, size=6,
         margin = margin(0.30, 0.00, -0.40, 0.00, "cm")
       ),
-      axis.text.y = element_text(
+      axis.title.y = element_text(
         margin = margin(0.00, 0.00, 0.00, 0.00, "cm")
+      ),
+      axis.text.y = element_text(
+        margin = margin(0.00, 0.30, 0.00, 0.00, "cm")
       ),
       axis.ticks.length = unit(-0.2, "cm"),
       axis.ticks = element_line(size = 0.3),
