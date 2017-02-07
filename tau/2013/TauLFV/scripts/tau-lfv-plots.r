@@ -29,22 +29,40 @@ require(RColorBrewer, quiet=TRUE)
 ## functions
 ##
 
-##--- save plot
-save.plot = function(name, plot=last_plot(), width=dev.size()[1], height=dev.size()[2], dpi=200) {
-  ##
-  fname.png = paste(name, "png", sep=".")
-  ggsave(filename=fname.png, plot=plot, width=width, height=height, dpi=dpi)
-  cat(file=stderr(), "file", fname.png, "produced\n")
-  ##
-  fname.pdf = paste(name, "pdf", sep=".")
-  ggsave(filename=fname.pdf, plot=plot, width=width, height=height)
-  cat(file=stderr(), "file", fname.pdf, "produced\n")
-  ##
-  ##  fname.tex = paste(name, "tex", sep=".")
-  ##  tikz(file = fname.tex, sanitize=TRUE)
-  ##  print(plot)
-  ##  dev.off()
-  ##  cat(file=stderr(), "file", fname.tex, "produced\n")
+##
+## save last plot
+##
+save.plot = function(name, plot = last_plot(), width=my.graph.width, height=my.graph.height, horiz.pixels=my.graph.horiz.pixels) {
+  dpi = my.graph.horiz.pixels/my.graph.width
+  ## png
+  file.png = paste(name, "png", sep=".")
+  rc = ggsave(filename=file.png, plot=plot, width=width, height=height, dpi=dpi)
+  if (FALSE) {
+    file.png.conv = paste(name, "-conv.", "png", sep="")
+    system2("convert", c("-trim", "-border", "8x8", "-bordercolor", "white", file.png, file.png.conv), stdout=TRUE, stderr=TRUE)
+    system2("mv", c("-f", file.png.conv, file.png), stdout=TRUE, stderr=TRUE)
+    }
+  cat(file=stderr(), "file", file.png, "produced\n")
+  ## pdf
+  if (FALSE) {
+    file.pdf = paste(name, "pdf", sep=".")
+    rc = ggsave(filename=file.pdf, plot=plot, width=width, height=height, dpi=dpi)
+    cat(file=stderr(), "file", file.pdf, "produced\n")
+  }
+  ## svg
+  if (FALSE) {
+    file.svg = paste(name, "svg", sep=".")
+    rc = ggsave(filename=file.svg, plot=plot, width=width, height=height, dpi=dpi)
+    cat(file=stderr(), "file", file.svg, "produced\n")
+  }
+  ## tikz
+  if (FALSE) {
+    file.tex = paste(name, "tex", sep=".")
+    tikz(file.tex, standAlone = FALSE, width=width, height=height, sanitize=TRUE)
+    grid.draw(plot)
+    dev.off()
+    cat(file=stderr(), "file", file.tex, "produced\n")
+  }
 }
 
 ##
