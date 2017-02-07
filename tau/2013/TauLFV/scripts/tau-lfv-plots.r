@@ -113,8 +113,8 @@ log10.minor.breaks = function (...) {
 tau.lfv.plot = function(data, name="plot") {
   rc = ggplot(data, aes(descr, limit)) +
     geom_point(aes(shape=factor(exp), color=factor(exp))) +
-    ## labs(title="") +
-    labs(y="90% CL upper limits") +
+    labs(title=TeX("90% CL upper limits on $\\tau$ LFV decays")) +
+    labs(y="") +
     scale_x_discrete(labels = TeX, expand=c(0,1)) +
     scale_y_continuous(
       ## limit=c(0.5e-8, 1e-6),
@@ -127,13 +127,18 @@ tau.lfv.plot = function(data, name="plot") {
     annotation_custom(hfag.label()) +
     theme_bw() +
     theme(
+      plot.title = element_text(
+        hjust = 0.5,
+        margin = margin(0.00, 0.00, 0.00, 0.00, "cm")
+      ),
       axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+##      axis.title.y = element_text(
+##        margin = margin(0.00, 0.00, 0.00, 0.00, "cm")
+##      ),
       axis.text.x = element_text(
         angle = 60, hjust=1, vjust=1, size=6,
         margin = margin(0.30, 0.00, -0.40, 0.00, "cm")
-      ),
-      axis.title.y = element_text(
-        margin = margin(0.00, 0.00, 0.00, 0.00, "cm")
       ),
       axis.text.y = element_text(
         margin = margin(0.00, 0.30, 0.00, 0.00, "cm")
