@@ -79,14 +79,14 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
   hl.subtitle = textGrob(
     subtitle,
     x = hl.title$x,
-    y = hl.title$y - unit(1.05,"lines"),
+    y = hl.title$y - unit(1.10,"lines"),
     gp = gpar(fontface="bold.italic", col="black", cex=fsratio)
   )
 
   hl.title.bkg = rectGrob(
     x = hl.title$x,
     y = hl.title$y,
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
+    width = unit(0.6, "char") + unit(1, "grobwidth", hl.title),
     height = unit(0.4, "char") + unit(1, "grobheight", hl.title),
     gp=gpar(fill="black")
   )
@@ -94,7 +94,7 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=
   hl.box = rectGrob(
     x = hl.title$x,
     y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
-    width = unit(0.4, "char") + unit(1, "grobwidth", hl.title),
+    width = unit(0.6, "char") + unit(1, "grobwidth", hl.title),
     height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
     gp=gpar(fill="white")
   )
