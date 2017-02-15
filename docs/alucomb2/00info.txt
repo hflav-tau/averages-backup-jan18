@@ -1,0 +1,11 @@
+////////
+
+	examples using alucomb2.r fitter
+
+////////
+
+	example1a.input
+
+- average two measurements with one common systematic term
+
+shell> ../../Common/bin/alucomb2.r example1a.input

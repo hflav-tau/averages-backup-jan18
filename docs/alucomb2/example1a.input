@@ -1,0 +1,57 @@
+BEGIN MEASUREMENT EXPERIMENT_1 observable1 pub AUTHOR_1 REF_1
+
+#	value	stat	syst
+VALUE	1.2	+-0.1	+-0.2
+
+
+SYSTEMATICS
+# shift		name of parameter that causes the shift
+  0.1		parameter1
+
+PARAMETERS #	val		pos_uncertainty	neg_uncertainty
+  parameter1	1.0		+1.0		-1.0
+#
+# also equivalent to the following
+#
+#		val		uncertainty
+# parameter1	1.0		+-1.0
+#
+
+END
+
+BEGIN MEASUREMENT EXPERIMENT_2 observable1 pub AUTHOR_2 REF_2
+
+#	value	stat	syst
+VALUE	0.8	+-0.1	+-0.5
+
+
+SYSTEMATICS
+# shift		name of parameter that causes the shift
+  0.25		parameter1
+
+PARAMETERS #	val		pos_uncertainty	neg_uncertainty
+  parameter1	1.0		+1.0		-1.0
+#
+# also equivalent to the following
+#
+#		val		uncertainty
+# parameter1	1.0		+-1.0
+#
+
+END
+
+BEGIN COMBINATION
+
+COMBINE
+  observable1
+
+PARAMETERS #	val		pos_uncertainty	neg_uncertainty
+  parameter1	1.0		+1.0		-1.0
+#
+# also equivalent to the following
+#
+#		val		uncertainty
+# parameter1	1.0		+-1.0
+#
+
+END
