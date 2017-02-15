@@ -16,7 +16,7 @@
 ##   optimized by repeating the fit until convergence is reached
 ##
 
-source("../../../Common/bin/alucomb2-utils.r")
+source(file.path(getScriptPath(), "alucomb2-utils.r"))
 require(Matrix, quietly=TRUE)
 
 ## ////////////////////////////////////////////////////////////////////////////
@@ -714,14 +714,14 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     dm.by.dp = alucomb2.meas.by.syst.term(measurements[meas.names], syst.terms)
     
     ##--- compute covariance elements coming from common systematic contributions
-    meas.cov.syst = dm.by.dp %*% t(dm.by.dp)
+    ## meas.cov.syst = t(dm.by.dp) %*% dm.by.dp
+    meas.cov.syst = crossprod(dm.by.dp, dm.by.dp)
   } else {
     meas.cov.syst = rep(0, length(meas.names)) %o% rep(0, length(meas.names))
   }
   
   ##--- compute total uncertainties
   meas.err = sqrt(meas.stat*meas.stat + meas.syst*meas.syst)
-
   meas.corr.tot = (meas.cov.stat + meas.cov.syst) / (meas.err %o% meas.err)
   ##
   ## if total correlation specified, use it, else combine statistical and systematic correlations
@@ -1126,13 +1126,13 @@ alucomb.fit = function(combination, measurements, basename = "average", method =
     cat("## (", meas.num, "measurements,", quant.num, "fitted quantities,", constr.num, "constraints )\n")
     cat("##\n\n")
     cat("##\n")
-    cat("## fitted quantities and uncertainties, in percent\n")
+    cat("## fitted quantities and uncertainties\n")
     cat("##\n")
 
     ## rc = alu.rbind.print(rbind(value=quant.val, error=quant.err))
     rc = mapply(
       function(gamma, val, err, descr) {
-        cat(format(gamma, width=14), " ", sprintf("%#13.8f  +-%#10.8f  ", val*100, err*100), descr, "\n", sep="")
+        cat(format(gamma, width=14), " ", sprintf("%#13.10f  +-%#10.10f  ", val, err), descr, "\n", sep="")
       },
       quant.names, quant.val, quant.err,
       lapply(combination$quantities[quant.names], function(quant) quant$descr))

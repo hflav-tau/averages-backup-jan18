@@ -527,7 +527,7 @@ alucomb2.meas.by.syst.term = function(measurements, syst.terms) {
     names(st) = names(syst.terms)
     return(st)
   })
-  return(t(rc))
+  return(rbind(rc))
 }
 
 ##////////////////////////////////

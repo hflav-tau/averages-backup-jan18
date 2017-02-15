@@ -6,7 +6,20 @@
 ## uses alucomb2-fit.code to average measurements
 ##
 
-source("../../../Common/bin/alucomb2-fit.r")
+getScriptPath <- function() {
+  cmd.args <- commandArgs()
+  m <- regexpr("(?<=^--file=).+", cmd.args, perl=TRUE)
+  script.dir <- dirname(regmatches(cmd.args, m))
+  if (length(script.dir) == 0) {
+    script.dir = try({dirname(sys.frame(1)$ofile)}, silent=TRUE)
+    if (inherits(script.dir, "try-error")) {
+      stop("cannot determine script dir")
+    }
+  }
+  return(script.dir[1])
+}
+
+source(file.path(getScriptPath(), "alucomb2-fit.r"))
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## code
