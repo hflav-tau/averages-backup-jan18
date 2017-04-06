@@ -316,7 +316,7 @@ get.tex.meas.by.ref = function() {
 }
 
 ##
-## return latex code with the basis node correlation coefficients
+## return latex code with the basis quantities correlation coefficients
 ##
 get.tex.base.nodes.corr = function() {
   tex.all.tau.br.corr = NULL
@@ -325,16 +325,16 @@ get.tex.base.nodes.corr = function() {
   ##--- tex code preceding the correlation table content
   corr.pre = c(
     "%%",
-    "%% basis nodes correlation, @@num@@",
+    "%% basis quantities correlation, @@num@@",
     "%%",
     "\\ifhevea\\begin{table}\\fi%% otherwise cannot have normalsize caption",
     "\\begin{center}",
     "\\ifhevea",
-    "\\caption{Basis nodes correlation coefficients in percent, section @@num@@.\\label{tab:tau:br-fit-corr@@num@@}}%",
+    "\\caption{Basis quantities correlation coefficients in percent, section @@num@@.\\label{tab:tau:br-fit-corr@@num@@}}%",
     "\\else",
     "\\begin{minipage}{\\linewidth}",
     "\\begin{center}",
-    "\\captionof{table}{Basis nodes correlation coefficients in percent, section @@num@@.}\\label{tab:tau:br-fit-corr@@num@@}%",
+    "\\captionof{table}{Basis quantities correlation coefficients in percent, section @@num@@.}\\label{tab:tau:br-fit-corr@@num@@}%",
     "\\fi",
     "\\begin{envsmall}",
     "\\begin{center}",
@@ -355,7 +355,7 @@ get.tex.base.nodes.corr = function() {
     "\\end{center}",
     "\\ifhevea\\end{table}\\fi")
 
-  ##--- correlation of basis nodes in percent
+  ##--- correlation of basis quantities in percent
   quant.corr.base = round(quant.corr[quant.names, quant.names] * 100)
   ##--- fix negative zero output by sprintf
   quant.corr.base = ifelse(quant.corr.base == 0, abs(quant.corr.base), quant.corr.base)
@@ -667,7 +667,7 @@ mkreport = function(fname) {
   cat("file '", fname, "', basis quantities\n", sep="")
 
   ##
-  ## write text macro containing correlation of basis nodes
+  ## write text macro containing correlation of basis quantities
   ##
   tex.all.tau.br.corr = alurep.tex.cmd("BrCorr", get.tex.base.nodes.corr())
   cat(tex.all.tau.br.corr, sep="\n", file=fname, append=TRUE)
