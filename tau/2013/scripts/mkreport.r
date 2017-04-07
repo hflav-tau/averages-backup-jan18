@@ -591,7 +591,7 @@ mkreport = function(fname) {
     alurep.tex.cmd.short("ConstrNumPdg", as.character(constr.num - (quant.num - quant.num.nonunitarity.pdg))),
 
     ##--- chisq, dof, chisqprob
-    alurep.tex.cmd.short("Chisq", sprintf("%.1f", chisq)),
+    alurep.tex.cmd.short("Chisq", sprintf("%.0f", chisq)),
     alurep.tex.cmd.short("Dof", as.character(dof)),
     alurep.tex.cmd.short("ChisqProb", alurep.tex.val.auto(chisq.prob, perc=TRUE)),
     alurep.tex.cmd.short("ChisqProbRound", sprintf("%.0f\\%%", round(chisq.prob*100)))
