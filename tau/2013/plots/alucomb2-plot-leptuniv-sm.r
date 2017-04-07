@@ -41,7 +41,7 @@ save.plot = function(name, width=my.graph.width, height=my.graph.height, horiz.p
 ##
 ## HFAG label
 ##
-hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", scale=1.2, fsratio=0.78, x=unit(0.85,"npc"), y = unit(0.13,"npc")) {
+hfag.label = function(title="HFLAV-Tau", subtitle="Summer 2016", scale=1.2, fsratio=0.8, x=unit(0.83,"npc"), y = unit(0.14,"npc")) {
   ##
   ## draw title at desired position, font size scaled
   ##
@@ -66,7 +66,7 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", scale=1.2, fsrat
   hl.title.bkg = rectGrob(
     x = hl.title$x,
     y = hl.title$y,
-    width = unit(1/scale, "grobwidth", hl.title) + unit(0.02, "npc"),
+    width = unit(1/scale, "grobwidth", hl.title) + unit(0.03, "npc"),
     height = unit(1, "grobheight", hl.title) + unit(0.03, "npc"),
     gp=gpar(fill="black", col="black", lwd=1, cex=scale)
   )
@@ -74,10 +74,10 @@ hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", scale=1.2, fsrat
   hl.box = rectGrob(
     x = hl.subtitle$x,
     y = hl.subtitle$y,
-    width = unit(1/(fsratio*scale), "grobwidth", hl.title.bkg) - unit(0.003, "npc"),
+    width = unit(1/(fsratio*scale), "grobwidth", hl.title.bkg) - unit(0.016, "npc"),
     ## height = unit(1, "grobheight", hl.subtitle) + 0.4*unit(1/(fsratio), "grobheight", hl.title),
     height = unit(1, "grobheight", hl.subtitle) + unit(0.04*fsratio, "npc"),
-    gp=gpar(fill="white", col="black", lwd=1, cex=fsratio*scale)
+    gp=gpar(fill="white", col="black", lwd=1.5, cex=fsratio*scale)
   )
   grobTree(hl.title.bkg, hl.title, hl.box, hl.subtitle)
 }
