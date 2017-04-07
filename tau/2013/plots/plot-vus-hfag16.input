@@ -12,7 +12,7 @@
 # h       - val uncertainty s-factor CL label (other average)
 #
 #  
-lh  HFAG-Tau
+lh  HFLAV-Tau
 l   Summer 2016
 i   0      0       6.4  |V_{us}|
 h   0.223700 0.0009848858 -1 -1      K_{l3}, PDG 2016
@@ -20,10 +20,10 @@ h   0.225400 0.0007463913 -1 -1      K_{l2}, PDG 2016
 p   0.225816 0.000906 -1 -1      CKM unitarity, PDG 2016
 m   0.2228   0.0023 0.0005       #tau #rightarrow s incl., Maltman, Mainz 2016
 # m   0.2216   0.0027   0.0000     #tau #rightarrow K#pi#nu, Passemar, CKM 2014
-mt  0.218609 0.002135 0.0000     #tau #rightarrow s incl., HFAG 2016
-mt  0.223100 0.001781 0.0000     #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFAG 2016
-mt  0.222299 0.001645 0.0000     #tau #rightarrow K#nu, HFAG 2016
-mt  0.221207 0.001375 0.0000     #tau average, HFAG 2016
+mt  0.218609 0.002135 0.0000     #tau #rightarrow s incl., HFLAV 2016
+mt  0.223100 0.001781 0.0000     #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFLAV 2016
+mt  0.222299 0.001645 0.0000     #tau #rightarrow K#nu, HFLAV 2016
+mt  0.221207 0.001375 0.0000     #tau average, HFLAV 2016
 
 #
 # PDG 2016 Vud Vus review

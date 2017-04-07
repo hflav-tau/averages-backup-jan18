@@ -17,7 +17,7 @@ void aluPlotLabel(const TString& header,
   
   Double_t ysiz_pixel(25);
   Double_t ysiz(Double_t(ysiz_pixel)/Double_t(pad_height));
-  Double_t xsiz(4.8*ysiz*Double_t(pad_height)/Double_t(pad_width));
+  Double_t xsiz(5.4*ysiz*Double_t(pad_height)/Double_t(pad_width));
   
   Double_t x1, x2, y1, y2;
   xsiz = scale*xsiz;
@@ -67,7 +67,7 @@ void aluPlotLabel(const TString& header,
   tbox2->SetShadowColor(kWhite);
   tbox2->SetTextColor(kBlack);
   tbox2->SetTextFont(76);
-  tbox2->SetTextSize(18*scale);
+  tbox2->SetTextSize(20*scale);
   tbox2->SetTextAlign(22); //center-adjusted and vertically centered
   tbox2->AddText(label);
   tbox2->Draw();
