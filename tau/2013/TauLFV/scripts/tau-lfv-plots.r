@@ -44,7 +44,7 @@ save.plot = function(name, plot = last_plot(), width=my.graph.width, height=my.g
     }
   cat(file=stderr(), "file", file.png, "produced\n")
   ## pdf
-  if (FALSE) {
+  if (TRUE) {
     file.pdf = paste(name, "pdf", sep=".")
     rc = ggsave(filename=file.pdf, plot=plot, width=width, height=height, dpi=dpi)
     cat(file=stderr(), "file", file.pdf, "produced\n")
@@ -68,7 +68,7 @@ save.plot = function(name, plot = last_plot(), width=my.graph.width, height=my.g
 ##
 ## HFAG label
 ##
-hfag.label = function(title="HFAG-Tau", subtitle="Summer 2016", fsratio=0.78, x=unit(0.92,"npc"), y = unit(0.95,"npc")) {
+hfag.label = function(title="HFLAV-Tau", subtitle="Summer 2016", fsratio=0.8, x=unit(0.91,"npc"), y = unit(0.95,"npc")) {
   hl.title = textGrob(
     title,
     x = x,
