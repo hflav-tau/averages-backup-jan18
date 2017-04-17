@@ -66,7 +66,7 @@ save.plot = function(name, plot = last_plot(), width=my.graph.width, height=my.g
 }
 
 ##
-## HFAG label
+## HFLAV label
 ##
 hfag.label = function(title="HFLAV-Tau", subtitle="Summer 2016", fsratio=0.8, x=unit(0.91,"npc"), y = unit(0.95,"npc")) {
   hl.title = textGrob(
@@ -233,7 +233,7 @@ tau.lfv.plot(limits.df, "tau-lfv-limits")
 combs.df = list.to.df(tau.lfv.data$combs)
 combs.df$descr = paste0("$", combs.df$descr, "$")
 combs.df$descr = factor(combs.df$descr, unique(combs.df$descr))
-combs.df$exp = "HFAG combination"
+combs.df$exp = "HFLAV combination"
 
 ##
 ## get limits data from
@@ -248,6 +248,6 @@ data.df = rbind(
     limits.df$exp != "CLEO" &
     limits.df$exp != "ATLAS", ],
   combs.df)
-data.df$exp = factor(data.df$exp, c("BaBar", "Belle", "LHCb", "HFAG combination"))
+data.df$exp = factor(data.df$exp, c("BaBar", "Belle", "LHCb", "HFLAV combination"))
 
 tau.lfv.plot(data.df, "tau-lfv-combs")
