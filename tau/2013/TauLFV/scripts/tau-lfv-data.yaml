@@ -632,6 +632,16 @@ limits:
   ref: Aubert:2005tp
 - gamma: 211
   descr: \pi^- \Lambda
+  limit: 0.72e-07
+  exp: Belle
+  ref: Miyazaki:2005ng
+- gamma: 212
+  descr: \pi^- \bar{\Lambda}
+  limit: 1.4e-07
+  exp: Belle
+  ref: Miyazaki:2005ng
+- gamma: 211
+  descr: \pi^- \Lambda
   limit: 3.0e-08
   exp: Belle
   ref: Hayasaka:2012pj
@@ -870,79 +880,157 @@ limits:
   limit: 6.0e-06
   exp: CLEO
   ref: .na.character
+- gamma: 158
+  descr: e^- \pi^0
+  limit: 8.0e-08
+  exp: Belle
+  ref: Miyazaki:2007jp
+- gamma: 159
+  descr: \mu^- \pi^0
+  limit: 1.2e-07
+  exp: Belle
+  ref: Miyazaki:2007jp
+- gamma: 162
+  descr: e^- \eta
+  limit: 9.2e-08
+  exp: Belle
+  ref: Miyazaki:2007jp
+- gamma: 163
+  descr: \mu^- \eta
+  limit: 6.5e-08
+  exp: Belle
+  ref: Miyazaki:2007jp
+- gamma: 172
+  descr: e^- \eta'(958)
+  limit: 1.6e-07
+  exp: Belle
+  ref: Miyazaki:2007jp
+- gamma: 173
+  descr: \mu^- \eta'(958)
+  limit: 1.3e-07
+  exp: Belle
+  ref: Miyazaki:2007jp
 combs:
 - gamma: 156
   descr: e^- \gamma
   limit: 5.4e-08
+  refs: Hayasaka:2007vc,Aubert:2009ag
 - gamma: 157
   descr: \mu^- \gamma
   limit: 5.0e-08
+  refs: Hayasaka:2007vc,Aubert:2009ag
 - gamma: 160
   descr: e^- K^0_S
   limit: 1.4e-08
+  refs: Miyazaki:2010qb,Aubert:2009ys
 - gamma: 161
   descr: \mu^- K^0_S
   limit: 1.5e-08
+  refs: Miyazaki:2010qb,Aubert:2009ys
 - gamma: 164
   descr: e^- \rho^0
   limit: 1.5e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 165
   descr: \mu^- \rho^0
   limit: 1.5e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 168
   descr: e^- K^*(892)^0
   limit: 2.3e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 169
   descr: \mu^- K^*(892)^0
   limit: 6.0e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 170
   descr: e^- \bar{K}^*(892)^0
   limit: 2.2e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 171
   descr: \mu^- \bar{K}^*(892)^0
   limit: 4.2e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 176
   descr: e^- \phi
   limit: 2.0e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 177
   descr: \mu^- \phi
   limit: 6.8e-08
+  refs: Miyazaki:2011xe,Aubert:2009ap
 - gamma: 166
   descr: e^- \omega
   limit: 3.3e-08
+  refs: Miyazaki:2011xe,Aubert:2007kx
 - gamma: 167
   descr: \mu^- \omega
   limit: 4.0e-08
+  refs: Miyazaki:2011xe,Aubert:2007kx
 - gamma: 178
   descr: e^- e^+ e^-
   limit: 1.4e-08
+  refs: Hayasaka:2010np,Lees:2010ez
 - gamma: 181
   descr: \mu^- e^+ e^-
   limit: 1.1e-08
+  refs: Hayasaka:2010np,Lees:2010ez
 - gamma: 179
   descr: e^- \mu^+ \mu^-
   limit: 1.6e-08
+  refs: Hayasaka:2010np,Lees:2010ez
 - gamma: 183
   descr: \mu^- \mu^+ \mu^-
   limit: 1.2e-08
+  refs: Hayasaka:2010np,Lees:2010ez,Aaij:2014azz
 - gamma: 182
   descr: e^- \mu^+ e^-
   limit: 8.4e-09
+  refs: Hayasaka:2010np,Lees:2010ez
 - gamma: 180
   descr: \mu^- e^+ \mu^-
   limit: 9.8e-09
+  refs: Hayasaka:2010np,Lees:2010ez
 - gamma: 211
   descr: \pi^- \Lambda
   limit: 1.9e-08
+  refs: Hayasaka:2012pj,Lafferty:2007zz
 - gamma: 212
   descr: \pi^- \bar{\Lambda}
   limit: 1.8e-08
+  refs: Hayasaka:2012pj,Lafferty:2007zz
 - gamma: 213
   descr: K^- \Lambda
   limit: 3.7e-08
+  refs: Hayasaka:2012pj,Lafferty:2007zz
 - gamma: 214
   descr: K^- \bar{\Lambda}
   limit: 2.0e-08
+  refs: Hayasaka:2012pj,Lafferty:2007zz
+- gamma: 158
+  descr: e^- \pi^0
+  limit: 4.9e-08
+  refs: Miyazaki:2007jp,Aubert:2006cz
+- gamma: 159
+  descr: \mu^- \pi^0
+  limit: 3.6e-08
+  refs: Miyazaki:2007jp,Aubert:2006cz
+- gamma: 162
+  descr: e^- \eta
+  limit: 5.5e-08
+  refs: Miyazaki:2007jp,Aubert:2006cz
+- gamma: 163
+  descr: \mu^- \eta
+  limit: 3.8e-08
+  refs: Miyazaki:2007jp,Aubert:2006cz
+- gamma: 172
+  descr: e^- \eta'(958)
+  limit: 9.9e-08
+  refs: Miyazaki:2007jp,Aubert:2006cz
+- gamma: 173
+  descr: \mu^- \eta'(958)
+  limit: 6.3e-08
+  refs: Miyazaki:2007jp,Aubert:2006cz
 combs.extra:
 - gamma: 156
   descr: e^- \gamma
@@ -1519,4 +1607,148 @@ combs.extra:
   efficiency.error: 0.0073
   bkg: 0.35
   bkg.error: 0.21
+  observed.events: 0
+- gamma: 158
+  descr: e^- \pi^0
+  exp: Belle
+  ref: Miyazaki:2007jp
+  num.tau: 401.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0393
+  efficiency.error: 0.0018
+  bkg: 0.2
+  bkg.error: 0.2
+  observed.events: 0
+- gamma: 159
+  descr: \mu^- \pi^0
+  exp: Belle
+  ref: Miyazaki:2007jp
+  num.tau: 401.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0453
+  efficiency.error: 0.002
+  bkg: 0.58
+  bkg.error: 0.34
+  observed.events: 1
+- gamma: 158
+  descr: e^- \pi^0
+  exp: BaBar
+  ref: Aubert:2006cz
+  num.tau: 339.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0283
+  efficiency.error: 0.0025
+  bkg: 0.17
+  bkg.error: 0.04
+  observed.events: 0
+- gamma: 159
+  descr: \mu^- \pi^0
+  exp: BaBar
+  ref: Aubert:2006cz
+  num.tau: 339.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0475
+  efficiency.error: 0.0037
+  bkg: 1.33
+  bkg.error: 0.15
+  observed.events: 1
+- gamma: 162
+  descr: e^- \eta
+  exp: BaBar
+  ref: Aubert:2006cz
+  num.tau: 339.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0212
+  efficiency.error: 0.002
+  bkg: 0.22
+  bkg.error: 0.05
+  observed.events: 0
+- gamma: 163
+  descr: \mu^- \eta
+  exp: BaBar
+  ref: Aubert:2006cz
+  num.tau: 339.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0359
+  efficiency.error: 0.0041
+  bkg: 0.75
+  bkg.error: 0.08
+  observed.events: 1
+- gamma: 172
+  descr: e^- \eta'(958)
+  exp: BaBar
+  ref: Aubert:2006cz
+  num.tau: 339.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0153
+  efficiency.error: 0.0016
+  bkg: 0.12
+  bkg.error: 0.03
+  observed.events: 0
+- gamma: 173
+  descr: \mu^- \eta'(958)
+  exp: BaBar
+  ref: Aubert:2006cz
+  num.tau: 339.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0218
+  efficiency.error: 0.0026
+  bkg: 0.49
+  bkg.error: 0.26
+  observed.events: 0
+- gamma: 162
+  descr: e^- \eta
+  exp: Belle
+  ref: Miyazaki:2007jp
+  num.tau: 401.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0287
+  efficiency.error: 0.002
+  bkg: 0.78
+  bkg.error: 0.78
+  observed.events: 0
+- gamma: 163
+  descr: \mu^- \eta
+  exp: Belle
+  ref: Miyazaki:2007jp
+  num.tau: 401.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0408
+  efficiency.error: 0.0028
+  bkg: 0.64
+  bkg.error: 0.037
+  observed.events: 0
+- gamma: 172
+  descr: e^- \eta'(958)
+  exp: Belle
+  ref: Miyazaki:2007jp
+  num.tau: 401.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0159
+  efficiency.error: 0.0013
+  bkg: 0.01
+  bkg.error: 0.41
+  observed.events: 0
+- gamma: 173
+  descr: \mu^- \eta'(958)
+  exp: Belle
+  ref: Miyazaki:2007jp
+  num.tau: 401.0
+  lumi: .na.real
+  cross.section: 0.919
+  efficiency: 0.0247
+  efficiency.error: 0.002
+  bkg: 0.23
+  bkg.error: 0.46
   observed.events: 0

@@ -181,6 +181,16 @@ tau.lfv.plot = function(data, name="plot") {
 }
 
 ##
+## order list containing gamma by type and then gamma
+##
+tau.lfv.br.order = function(list, info) {
+  exps = sapply(list, function(el) el$exp)
+  gammas = sapply(list, function(el) el$gamma)
+  type.nums = sapply(info[as.character(gammas)], function(el) el$type.num)
+  list[order(type.nums, gammas, exps)]
+}
+
+##
 ## main code
 ##
 
@@ -218,12 +228,65 @@ dev.new(width=my.graph.width*my.graph.x11.scale, height=my.graph.height*my.graph
 tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
 
 ##
+## get all types (categories) of tau LFV modes
+## each category gets for sorting purposes the smallest
+## BR gamma number that belongs to the category
+##
+gammas = sapply(tau.lfv.data$gamma, function(el) el$gamma)
+types = sapply(tau.lfv.data$gamma, function(el) el$type)
+types.uniq = unique(types)
+types.uniq.num = unname(sapply(types.uniq, function(type) min(gammas[types == type])))
+tau.lfv.data$gamma = lapply(tau.lfv.data$gamma, function(el) {
+  el$type.num = types.uniq.num[types.uniq == el$type]
+  el
+})
+
+##--- get gamma info in data.frame
+gamma.df = list.to.df(tau.lfv.data$gamma)
+names(tau.lfv.data$gamma) = gamma.df$gamma
+
+##
+## remove elements according to references
+##
+## remove preliminary references
+## - Hayasaka:2011zz Belle 2011 ell pi0, ell eta, ell eta'
+## - Hayasaka:2012pj Belle 2012 pi/K lambda(bar)
+## - Lafferty:2007zz BaBar 2007 pi/K lambda(bar)
+##
+## remove limits from CLEO
+##
+
+refs.prelim = c(
+  "Hayasaka:2011zz",
+  "Hayasaka:2012pj",
+  "Lafferty:2007zz"
+)
+
+##--- order limits by gamma
+tau.lfv.data$limits = tau.lfv.br.order(tau.lfv.data$limits, tau.lfv.data$gamma)
+
+##--- get list of prelim limits, select them and remove them
+rc = sapply(tau.lfv.data$limits, function(br) {
+  ifelse(br$ref %in% refs.prelim, FALSE, TRUE)
+})
+tau.lfv.data$limits = tau.lfv.data$limits[rc]
+
+##--- order combs by gamma
+tau.lfv.data$combs = tau.lfv.br.order(tau.lfv.data$combs, tau.lfv.data$gamma)
+
+##--- remove combs using prelim limits
+rc = sapply(tau.lfv.data$combs, function(br) {
+  refs = as.vector(strsplit(br$refs, ",", fixed=TRUE)[[1]])
+  ifelse(any(refs %in% refs.prelim), FALSE, TRUE)
+})
+tau.lfv.data$combs = tau.lfv.data$combs[rc]
+
+##
 ## limits plot
 ##
 limits.df = list.to.df(tau.lfv.data$limits)
 limits.df$descr = paste0("$", limits.df$descr, "$")
 limits.df$descr = factor(limits.df$descr, unique(limits.df$descr))
-limits.df$ref = NULL
 
 tau.lfv.plot(limits.df, "tau-lfv-limits")
 
@@ -236,18 +299,24 @@ combs.df$descr = factor(combs.df$descr, unique(combs.df$descr))
 combs.df$exp = "HFLAV combination"
 
 ##
-## get limits data from
-## - all exp limits for which a combination exists
-## - the combined limit from combs.df
-## - remove data not used for combinations from CLEO and ATLAS
-## - refactor exp info for plotting with the remaining labels for plotting
+## get list of limits used in combinations
 ##
-data.df = rbind(
-  limits.df[
-    limits.df$gamma %in% combs.df$gamma &
-    limits.df$exp != "CLEO" &
-    limits.df$exp != "ATLAS", ],
-  combs.df)
+gamma.ref.list = unlist(lapply(tau.lfv.data$combs, function(comb) {
+  refs = unlist(strsplit(comb$refs, ",", fixed=TRUE))
+  paste(as.character(comb$gamma), refs)
+}))
+limits.df$gamma.ref = paste(as.character(limits.df$gamma), limits.df$ref)
+
+## select just limits in combinations
+limits.df = limits.df[limits.df$gamma.ref %in% gamma.ref.list, ]
+
+##--- merge combinations with limits used in combinations
+limits.df$ref = NULL
+limits.df$gamma.ref = NULL
+combs.df$refs = NULL
+data.df = rbind(limits.df, combs.df)
+
+##--- reorder experiments
 data.df$exp = factor(data.df$exp, c("BaBar", "Belle", "LHCb", "HFLAV combination"))
 
 tau.lfv.plot(data.df, "tau-lfv-combs")

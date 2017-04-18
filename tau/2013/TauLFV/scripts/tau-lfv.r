@@ -50,6 +50,16 @@ alurep.tex.cmd.short.nv = function(cmd, body) {
 }
 alurep.tex.cmd.short = Vectorize(alurep.tex.cmd.short.nv)
 
+##
+## order list containing gamma by type and then gamma
+##
+tau.lfv.br.order = function(list, info) {
+  exps = sapply(list, function(el) el$exp)
+  gammas = sapply(list, function(el) el$gamma)
+  type.nums = sapply(info[as.character(gammas)], function(el) el$type.num)
+  list[order(type.nums, gammas, exps)]
+}
+
 ## /////////////////////////////////////////////////////////////////////////////
 ##
 ##	code
@@ -59,8 +69,80 @@ alurep.tex.cmd.short = Vectorize(alurep.tex.cmd.short.nv)
 tau.lfv.data = yaml.load_file("tau-lfv-data.yaml")
 ofname = "tau-lfv-data.tex"
 
+##
+## get all types (categories) of tau LFV modes
+## each category gets for sorting purposes the smallest
+## BR gamma number that belongs to the category
+##
+gammas = sapply(tau.lfv.data$gamma, function(el) el$gamma)
+types = sapply(tau.lfv.data$gamma, function(el) el$type)
+types.uniq = unique(types)
+types.uniq.num = unname(sapply(types.uniq, function(type) min(gammas[types == type])))
+tau.lfv.data$gamma = lapply(tau.lfv.data$gamma, function(el) {
+  el$type.num = types.uniq.num[types.uniq == el$type]
+  el
+})
+
+##--- get gamma info in data.frame
 gamma.df = list.to.df(tau.lfv.data$gamma)
 names(tau.lfv.data$gamma) = gamma.df$gamma
+
+##
+## remove elements according to references
+##
+## remove preliminary references
+## - Hayasaka:2011zz Belle 2011 ell pi0, ell eta, ell eta'
+## - Hayasaka:2012pj Belle 2012 pi/K lambda(bar)
+## - Lafferty:2007zz BaBar 2007 pi/K lambda(bar)
+##
+## remove limits from CLEO
+##
+
+refs.prelim = c(
+  "Hayasaka:2011zz",
+  "Hayasaka:2012pj",
+  "Lafferty:2007zz"
+)
+
+##--- order limits by gamma
+tau.lfv.data$limits = tau.lfv.br.order(tau.lfv.data$limits, tau.lfv.data$gamma)
+
+##--- get list of prelim limits, select them and remove them
+rc = sapply(tau.lfv.data$limits, function(br) {
+  ifelse(br$ref %in% refs.prelim, FALSE, TRUE)
+})
+tau.lfv.data$limits.prelim = tau.lfv.data$limits[!rc]
+tau.lfv.data$limits = tau.lfv.data$limits[rc]
+
+##--- get list of CLEO limits and remove
+rc = sapply(tau.lfv.data$limits, function(br) {
+  ifelse(br$exp == "CLEO", FALSE, rc)
+})
+tau.lfv.data$limits = tau.lfv.data$limits[rc]
+
+
+##--- order combs by gamma
+tau.lfv.data$combs = tau.lfv.br.order(tau.lfv.data$combs, tau.lfv.data$gamma)
+
+##--- remove combs using prelim limits
+rc = sapply(tau.lfv.data$combs, function(br) {
+  refs = as.vector(strsplit(br$refs, ",", fixed=TRUE)[[1]])
+  ifelse(any(refs %in% refs.prelim), FALSE, TRUE)
+})
+tau.lfv.data$combs = tau.lfv.data$combs[rc]
+
+##--- order extra info for combinations by gamma
+tau.lfv.data$combs.extra = tau.lfv.br.order(tau.lfv.data$combs.extra, tau.lfv.data$gamma)
+
+##--- remove extra info for combinations of preliminary limits
+rc = sapply(tau.lfv.data$combs.extra, function(br) {
+  ifelse(br$ref %in% refs.prelim, FALSE, TRUE)
+})
+tau.lfv.data$combs.extra = tau.lfv.data$combs.extra[rc]
+
+##
+## prepare LaTeX source
+##
 
 out.txt = character(0)
 
@@ -70,28 +152,9 @@ rc = mapply(function(gamma, descr) {
 }, gamma.df$gamma, gamma.df$descr)
 out.txt = c(out.txt, rc)
 
-if (FALSE) {
-rc = lapply(tau.lfv.data$combs.extra, function(x) {
-  rc = character(0)
-  label = paste0("g", x$gamma, ".", x$ref)
-  rc = c(rc, alurep.tex.cmd.short(paste(label, ".lumi", sep=""), x$lumi))
-  rc = c(rc, alurep.tex.cmd.short(paste(label, ".xsec", sep=""), x$cross.section))
-  rc = c(rc, alurep.tex.cmd.short(paste(label, ".eff", sep=""),
-    sprintf("$%.2f \\pm %.2f$", x$efficiency*100, x$efficiency.error*100)))
-  rc = c(rc, alurep.tex.cmd.short(paste(label, ".bkg", sep=""),
-    sprintf("$%.2f \\pm %.2f$", x$bkg, x$bkg.error)))
-  rc = c(rc, alurep.tex.cmd.short(paste(label, ".evs", sep=""), x$observed.events))
-
-  row = paste("\\htuse{", label, ".", c("lumi", "xsec", "eff", "bkg", "evs"), "}", sep="")
-  rc = c(rc, alurep.tex.cmd.short(paste(label, ".row", sep=""), paste(row, collapse=" & ")))
-  rc = paste(rc, collapse="\n")
-  rc
-})
-out.txt = c(out.txt, rc)
-}
-
-tau.lfv.data$combs.extra = tau.lfv.data$combs.extra[
-  order(sapply(tau.lfv.data$combs.extra, function(el) el$gamma))]
+##
+## extra info for combinations
+##
 
 rc = lapply(tau.lfv.data$combs.extra, function(br) {
   gamma.info = tau.lfv.data$gamma[[as.character(br$gamma)]]
@@ -102,7 +165,7 @@ rc = lapply(tau.lfv.data$combs.extra, function(br) {
     "  {", br$ref, "}%\n",
     ## "  {", br$lumi, "}%\n",
     ## "  {", br$cross.section, "}%\n",
-    "  {", br$num.tau, "}%\n",    
+    "  {", sprintf("%.0f", br$num.tau), "}%\n",    
     "  {", sprintf("\\ensuremath{%.2f \\pm %.2f}", br$efficiency*100, br$efficiency.error*100), "}%\n",
     "  {", sprintf("\\ensuremath{%.2f \\pm %.2f}", br$bkg, br$bkg.error), "}%\n",
     "  {", br$observed.events, "}"
@@ -115,11 +178,91 @@ rc = alurep.tex.cmd(
 )
 out.txt = c(out.txt, rc)
 
-tau.lfv.data$combs = tau.lfv.data$combs[
-  order(sapply(tau.lfv.data$combs, function(el) el$gamma))]
+##
+## limits
+##
 
 descr.last = ""
 type.last = ""
+sep.first = TRUE
+rc = lapply(tau.lfv.data$limits, function(br) {
+  gamma.info = tau.lfv.data$gamma[[as.character(br$gamma)]]
+  rc = character(0)
+  descr = ifelse(gamma.info$descr != descr.last, gamma.info$descr, "")
+  descr.last <<- gamma.info$descr
+  type = ifelse(gamma.info$type != type.last, gamma.info$type, "")
+  type.last <<- gamma.info$type
+
+  if (!sep.first && type != "") {
+    rc = c(rc, "\\midrule")
+  } else {
+    sep.first <<- FALSE
+  }
+  
+  rc = c(
+    rc,
+    paste0(
+      "\\htLimitLine%\n",
+      "  {\\ensuremath{\\Gamma_{", br$gamma, "} = ", gamma.info$descr, "}}%\n",
+      "  {\\ensuremath{", type, "}}%\n",
+      "  {\\ensuremath{", sub("^(.*)e([+-]*)0*(\\d*)$", "\\1 \\\\cdot 10^{\\2\\3}", sprintf("%.1e", br$limit)), "}}%\n",
+      "  {", br$exp, "}%\n",
+      "  {", br$ref, "}"
+    ))
+})
+
+rc = alurep.tex.cmd(
+  "LimitLines",
+  paste0(unlist(rc), collapse="%\n")
+)
+out.txt = c(out.txt, rc)
+
+##
+## preliminary limits
+##
+
+descr.last = ""
+type.last = ""
+sep.first = TRUE
+rc = lapply(tau.lfv.data$limits.prelim, function(br) {
+  gamma.info = tau.lfv.data$gamma[[as.character(br$gamma)]]
+  rc = character(0)
+  descr = ifelse(gamma.info$descr != descr.last, gamma.info$descr, "")
+  descr.last <<- gamma.info$descr
+  type = ifelse(gamma.info$type != type.last, gamma.info$type, "")
+  type.last <<- gamma.info$type
+
+  if (!sep.first && type != "") {
+    rc = c(rc, "\\midrule")
+  } else {
+    sep.first <<- FALSE
+  }
+  
+  rc = c(
+    rc,
+    paste0(
+      "\\htLimitLine%\n",
+      "  {\\ensuremath{\\Gamma_{", br$gamma, "} = ", gamma.info$descr, "}}%\n",
+      "  {\\ensuremath{", type, "}}%\n",
+      "  {\\ensuremath{", sub("^(.*)e([+-]*)0*(\\d*)$", "\\1 \\\\cdot 10^{\\2\\3}", sprintf("%.1e", br$limit)), "}}%\n",
+      "  {", br$exp, "}%\n",
+      "  {", br$ref, "}"
+    ))
+})
+
+rc = alurep.tex.cmd(
+  "PrelimLimitLines",
+  paste0(unlist(rc), collapse="%\n")
+)
+out.txt = c(out.txt, rc)
+
+##
+## combinations
+##
+
+descr.last = ""
+type.last = ""
+sep.first = TRUE
 rc = lapply(tau.lfv.data$combs, function(br) {
   gamma.info = tau.lfv.data$gamma[[as.character(br$gamma)]]
   rc = character(0)
@@ -128,8 +271,10 @@ rc = lapply(tau.lfv.data$combs, function(br) {
   type = ifelse(gamma.info$type != type.last, gamma.info$type, "")
   type.last <<- gamma.info$type
 
-  if (type != "") {
-    rc = c(rc, "\\hline")
+  if (!sep.first && type != "") {
+    rc = c(rc, "\\midrule")
+  } else {
+    sep.first <<- FALSE
   }
   
   rc = c(
@@ -138,7 +283,8 @@ rc = lapply(tau.lfv.data$combs, function(br) {
       "\\htCombLimitLine%\n",
       "  {\\ensuremath{\\Gamma_{", br$gamma, "} = ", gamma.info$descr, "}}%\n",
       "  {\\ensuremath{", type, "}}%\n",
-      "  {\\ensuremath{", sub("^(.*)e([+-]*)0*(\\d*)$", "\\1 \\\\cdot 10^{\\2\\3}", sprintf("%.1e", br$limit)), "}}"
+      "  {\\ensuremath{", sub("^(.*)e([+-]*)0*(\\d*)$", "\\1 \\\\cdot 10^{\\2\\3}", sprintf("%.1e", br$limit)), "}}%\n",
+      "  {\\cite{", br$refs, "}}"
     ))
 })
 
