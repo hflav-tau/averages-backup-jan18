@@ -15,6 +15,7 @@
 
 require(stringr, quietly=TRUE)
 require(Matrix, quietly=TRUE)
+
 source("../../../Common/bin/aluelab3.r")
 source("../../../Common/bin/alureport.r")
 
@@ -598,8 +599,12 @@ aluelab.results = function(args) {
   ##
   ## ---upd16
   ##
-  quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, sqrt( (0.09e-2^2 + 0.14e-2^2)/2 ))
-  quant$quant.add.single("dRrad_tauK_by_Kmu", 0.90e-2, sqrt( (0.17e-2^2 + 0.26e-2^2)/2 ))
+  ## quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, sqrt( (0.09e-2^2 + 0.14e-2^2)/2 ))
+  ## quant$quant.add.single("dRrad_tauK_by_Kmu", 0.90e-2, sqrt( (0.17e-2^2 + 0.26e-2^2)/2 ))
+  ## --- Summer16
+  ## use conservative values used also in A.Pich, Precision Tau Physics
+  quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, 0.14e-2)
+  quant$quant.add.single("dRrad_tauK_by_Kmu", 0.90e-2, 0.22e-2)
 
   ##--- compute Rrad_tauK_by_taupi = dRrad_tauK_by_Kmu/dRrad_taupi_by_pimu * Rrad_kmunu_by_pimunu
   quant$quant.expr.add("Rrad_tauK_by_taupi", (1+dRrad_tauK_by_Kmu)/(1+dRrad_taupi_by_pimu) * Rrad_kmunu_by_pimunu)

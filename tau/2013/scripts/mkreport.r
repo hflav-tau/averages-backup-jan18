@@ -6,10 +6,26 @@
 
 require("optparse", quietly=TRUE)
 require("stringr", quietly=TRUE)
-source("../../../Common/bin/alucomb2-utils.r")
-source("../../../Common/bin/alucomb2-fit.r")
-source("../../../Common/bin/alureport.r")
-source("../../../Common/bin/aluelab3.r")
+
+getScriptPath <- function() {
+  cmd.args <- commandArgs()
+  m <- regexpr("(?<=^--file=).+", cmd.args, perl=TRUE)
+  script.dir <- dirname(regmatches(cmd.args, m))
+  if (length(script.dir) == 0) {
+    script.dir = try({dirname(sys.frame(1)$ofile)}, silent=TRUE)
+    if (inherits(script.dir, "try-error")) {
+      stop("cannot determine script dir")
+    }
+  }
+  return(script.dir[1])
+}
+
+bindir = file.path(getScriptPath(), "../../..")
+
+source(file.path(bindir, "Common/bin/alucomb2-utils.r"))
+source(file.path(bindir, "Common/bin/alucomb2-fit.r"))
+source(file.path(bindir, "Common/bin/alureport.r"))
+source(file.path(bindir, "Common/bin/aluelab3.r"))
 
 ## ////////////////////////////////////////////////////////////////////////////
 ## functions

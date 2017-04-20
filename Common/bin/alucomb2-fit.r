@@ -16,7 +16,6 @@
 ##   optimized by repeating the fit until convergence is reached
 ##
 
-source(file.path(getScriptPath(), "alucomb2-utils.r"))
 require(Matrix, quietly=TRUE)
 
 ## ////////////////////////////////////////////////////////////////////////////

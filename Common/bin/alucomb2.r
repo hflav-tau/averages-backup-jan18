@@ -3,7 +3,7 @@
 ##
 ## alucomb2.r
 ##
-## uses alucomb2-fit.code to average measurements
+## uses alucomb2-fit.r code to average measurements
 ##
 
 getScriptPath <- function() {
@@ -19,6 +19,7 @@ getScriptPath <- function() {
   return(script.dir[1])
 }
 
+source(file.path(getScriptPath(), "alucomb2-utils.r"))
 source(file.path(getScriptPath(), "alucomb2-fit.r"))
 
 ## ////////////////////////////////////////////////////////////////////////////
