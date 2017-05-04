@@ -583,8 +583,14 @@ aluelab.results = function(args) {
   ## M. Finkemeier, Phys. Lett. B387, 391 (1996)
   ##
   ## ---upd16
-  ##
+  ## this is now superseeded by dRrad_kmunu_by_pimunu calculated by A. Pich
   quant$quant.add.single("Rrad_kmunu_by_pimunu", 0.9930, 0.0035)
+
+  ##
+  ## from A. Pich, “Precision Tau Physics,” Prog. Part. Nucl. Phys. 75 (2014) 41–85, arXiv:1310.7922 [hep-ph].
+  ## includes previous calculation by Marciano and Cirigliano delta_SU2 correction
+  ##
+  quant$quant.add.single("dRrad_kmunu_by_pimunu", -0.0113, 0.0023)
 
   ##
   ## ratios of radiative corrections R_tau/pi = Gamma(tau -> h nu) / Gamma(h -> mu nu)
@@ -606,8 +612,9 @@ aluelab.results = function(args) {
   quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, 0.14e-2)
   quant$quant.add.single("dRrad_tauK_by_Kmu", 0.90e-2, 0.22e-2)
 
-  ##--- compute Rrad_tauK_by_taupi = dRrad_tauK_by_Kmu/dRrad_taupi_by_pimu * Rrad_kmunu_by_pimunu
-  quant$quant.expr.add("Rrad_tauK_by_taupi", (1+dRrad_tauK_by_Kmu)/(1+dRrad_taupi_by_pimu) * Rrad_kmunu_by_pimunu)
+  ##--- compute Rrad_tauK_by_taupi = (1+dRrad_tauK_by_Kmu)/(1+dRrad_taupi_by_pimu) * (1+dRrad_kmunu_by_pimunu
+  ## quant$quant.expr.add("Rrad_tauK_by_taupi", (1+dRrad_tauK_by_Kmu)/(1+dRrad_taupi_by_pimu) * Rrad_kmunu_by_pimunu)
+  quant$quant.expr.add("Rrad_tauK_by_taupi", (1+dRrad_tauK_by_Kmu)/(1+dRrad_taupi_by_pimu) * (1+dRrad_kmunu_by_pimunu))
 
   ## ////////////////////////////////////////
   ##
@@ -722,12 +729,12 @@ aluelab.results = function(args) {
   quant$param.add.single("Vus_tauKpi_mism_sigma_abs", abs(Vus_tauKpi_mism_sigma))
 
   ##--- theory error contribution
-  rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "Rrad_kmunu_by_pimunu")
+  rc = quant$err.contrib.perc("Vus_tauKpi", "f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "dRrad_kmunu_by_pimunu")
   quant$param.add.single("Vus_tauKpi_err_th_perc", rc)
 
-  lapply(c("f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "Rrad_kmunu_by_pimunu"), function(val) {
+  lapply(c("f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "dRrad_kmunu_by_pimunu"), function(val) {
     quant$param.add.single(paste("Vus_tauKpi_err_th_perc", val, sep="_"),
-                          quant$err.contrib.perc("Vus_tauKpi", val))
+                           quant$err.contrib.perc("Vus_tauKpi", val))
   })
 
   ## ////////////////////////////////////////
@@ -740,7 +747,12 @@ aluelab.results = function(args) {
   ## Rev. Mex. Fis. 50:200–202, 2004, arXiv:hep-ph/0211345.
   ## ---upd14
   ##
-  quant$quant.add.single("Rrad_tau_Knu", 1.0201, 0.0003)
+  quant$quant.add.single("Rrad_SEW_tau_Knu", 1.0201, 0.0003)
+
+  ##
+  ## R.Decker, M. Finkemeier, Nucl.Phys.Proc.Suppl. 40 (1995) 453-461
+  ##
+  quant$quant.add.single("dRrad_k_munu", 1.3e-2, 0.2e-2)  
 
   ##
   ## PDG 2015, citing CODATA 2014 Mohr:2015ccw ---upd16
@@ -772,7 +784,8 @@ aluelab.results = function(args) {
   ## Vus from tau -> K nu
   ##
   rc = quant$quant.expr.add("Vus_tauKnu",
-    sqrt(Gamma10 * 16*pi * hcut / (m_tau^3*tau_tau*Rrad_tau_Knu)) / (G_F_by_hcut3_c3 * f_K * (1 - m_K^2/m_tau^2)))
+    sqrt(Gamma10 * 16*pi * hcut / (m_tau^3*tau_tau*(1+dRrad_tauK_by_Kmu)*(1+dRrad_k_munu))) /
+    (G_F_by_hcut3_c3 * f_K * (1 - m_K^2/m_tau^2)))
 
   ##--- Vus_tauKnu vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tauKnu_mism", Vus_tauKnu - Vus_uni)
@@ -781,13 +794,20 @@ aluelab.results = function(args) {
   quant$param.add.single("Vus_tauKnu_mism_sigma_abs", abs(Vus_tauKnu_mism_sigma))
 
   ##--- theory error contribution
-  quant$param.add.single("Vus_tauKnu_err_th_perc", quant$err.contrib.perc("Vus_tauKnu", "f_K", "Rrad_tau_Knu"))
+  quant$param.add.single(
+          "Vus_tauKnu_err_th_perc",
+          quant$err.contrib.perc("Vus_tauKnu", "f_K",
+                                 ## "Rrad_SEW_tau_Knu",
+                                 "dRrad_tauK_by_Kmu",
+                                 "dRrad_k_munu"))
 
   ## ////////////////////////////////////////
   ##
   ## Vus from tau fit
   ##
-  quant$quant.fit.add("Vus_tau", c(Vus=1, Vus_tauKpi=1, Vus_tauKnu=1))
+  ## quant$quant.fit.add("Vus_tau", c(Vus=1, Vus_tauKpi=1, Vus_tauKnu=1))
+  ##--- remove tau -> Knu for 2016 HFAG publication
+  quant$quant.fit.add("Vus_tau", c(Vus=1, Vus_tauKpi=1))
 
   ##--- Vus_tau vs Vus-from-CKM-unitarity
   quant$quant.expr.add("Vus_tau_mism", Vus_tau - Vus_uni)
@@ -807,8 +827,8 @@ aluelab.results = function(args) {
     "Vus_tauKpi",
     "Vus_tauKpi_mism_sigma",
     "Vus_tauKpi_err_th_perc",
-    paste("Vus_tauKpi_err_th_perc", c("f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "Rrad_kmunu_by_pimunu"), sep="_"),
-    "Rrad_tau_Knu",
+    paste("Vus_tauKpi_err_th_perc", c("f_K_by_f_pi", "dRrad_taupi_by_pimu", "dRrad_tauK_by_Kmu", "dRrad_kmunu_by_pimunu"), sep="_"),
+    "Rrad_SEW_tau_Knu",
     "Vus_tauKnu",
     "Vus_tauKnu_mism_sigma",
     "Vus_tauKnu_err_th_perc",
@@ -847,8 +867,10 @@ aluelab.results = function(args) {
     Vus_tau_mism_sigma="%.1f",
     Vus_tau_mism_sigma_abs="%.1f",
     f_K="%.1f",
+    dRrad_kmunu_by_pimunu="%.2f",
     dRrad_taupi_by_pimu="%.2f",
     dRrad_tauK_by_Kmu="%.2f",
+    dRrad_k_munu="%.2f",
     Rrad_tauK_by_taupi="%.2f",
     Vus_err_th_perc="%.2f"
     )
@@ -861,8 +883,10 @@ aluelab.results = function(args) {
     B_tau_had_fit=100,
     B_tau_VA_fit=100,
     B_tau_s_fit=100,
+    dRrad_kmunu_by_pimunu=100,
     dRrad_taupi_by_pimu=100,
-    dRrad_tauK_by_Kmu=100
+    dRrad_tauK_by_Kmu=100,
+    dRrad_k_munu=100
     )
 
   ##--- provide LaTeX commands printing quantity +- error
