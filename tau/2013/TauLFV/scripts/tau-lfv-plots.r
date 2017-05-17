@@ -68,7 +68,7 @@ save.plot = function(name, plot = last_plot(), width=my.graph.width, height=my.g
 ##
 ## HFLAV label
 ##
-hfag.label = function(title="HFLAV", subtitle="Summer 2016", fsratio=0.8, x=unit(0.91,"npc"), y = unit(0.95,"npc")) {
+hfag.label = function(title="HFLAV", subtitle="Spring 2017", fsratio=0.8, x=unit(0.92,"npc"), y = unit(0.95,"npc")) {
   hl.title = textGrob(
     title,
     x = x,
@@ -79,7 +79,7 @@ hfag.label = function(title="HFLAV", subtitle="Summer 2016", fsratio=0.8, x=unit
   hl.subtitle = textGrob(
     subtitle,
     x = hl.title$x,
-    y = hl.title$y - unit(1.10,"lines"),
+    y = hl.title$y - unit(1.3,"lines"),
     gp = gpar(fontface="bold.italic", col="black", cex=fsratio)
   )
 
@@ -87,15 +87,15 @@ hfag.label = function(title="HFLAV", subtitle="Summer 2016", fsratio=0.8, x=unit
     x = hl.title$x,
     y = hl.title$y,
     width = unit(0.6, "char") + unit(1, "grobwidth", hl.subtitle),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title),
+    height = unit(0.6, "char") + unit(1, "grobheight", hl.title),
     gp=gpar(fill="black")
   )
   
   hl.box = rectGrob(
     x = hl.title$x,
-    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle),
+    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle) - unit(0.1, "char"),
     width = unit(0.6, "char") + unit(1, "grobwidth", hl.subtitle),
-    height = unit(0.4, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(0.9/2, "lines"),
+    height = unit(0.5, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(1.4/2, "lines"),
     gp=gpar(fill="white")
   )
 

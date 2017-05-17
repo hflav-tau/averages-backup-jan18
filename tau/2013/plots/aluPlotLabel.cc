@@ -15,7 +15,7 @@ void aluPlotLabel(const TString& header,
   UInt_t pad_width(thePad->XtoPixel(thePad->GetX2()));
   UInt_t pad_height(thePad->YtoPixel(thePad->GetY1()));
   
-  Double_t ysiz_pixel(25);
+  Double_t ysiz_pixel(30);
   Double_t ysiz(Double_t(ysiz_pixel)/Double_t(pad_height));
   Double_t xsiz(5.4*ysiz*Double_t(pad_height)/Double_t(pad_width));
   
