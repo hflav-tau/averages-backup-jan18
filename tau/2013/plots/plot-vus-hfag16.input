@@ -18,7 +18,7 @@ i   0      0       6.4  |V_{us}|
 h   0.223700 0.0009848858 -1 -1      K_{l3}, PDG 2016
 h   0.225400 0.0007463913 -1 -1      K_{l2}, PDG 2016
 p   0.225816 0.000895 -1 -1      CKM unitarity, PDG 2016
-m   0.2229   0.0022 0.0004       #tau #rightarrow s incl., Maltman 2017
+# m   0.2229   0.0022 0.0004       #tau #rightarrow s incl., Maltman 2017
 # m   0.2216   0.0027   0.0000     #tau #rightarrow K#pi#nu, Passemar, CKM 2014
 mt  0.218610 0.002135 0.0000     #tau #rightarrow s incl., HFLAV 2016
 mt  0.223585 0.001763 0.0000     #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFLAV 2016
