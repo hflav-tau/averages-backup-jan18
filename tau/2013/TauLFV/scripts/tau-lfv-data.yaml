@@ -24,11 +24,11 @@ gamma:
   type: \ell P^0
   type.head: no
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   type: \ell P^0
   type.head: no
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   type: \ell P^0
   type.head: no
 - gamma: 160
@@ -261,22 +261,22 @@ limits:
   exp: BaBar
   ref: Aubert:2006cz
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   limit: 3.6e-08
   exp: Belle
   ref: Hayasaka:2011zz
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   limit: 2.4e-07
   exp: BaBar
   ref: Aubert:2006cz
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   limit: 3.8e-08
   exp: Belle
   ref: Hayasaka:2011zz
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   limit: 1.4e-07
   exp: BaBar
   ref: Aubert:2006cz
@@ -901,12 +901,12 @@ limits:
   exp: Belle
   ref: Miyazaki:2007jp
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   limit: 1.6e-07
   exp: Belle
   ref: Miyazaki:2007jp
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   limit: 1.3e-07
   exp: Belle
   ref: Miyazaki:2007jp
@@ -1024,11 +1024,11 @@ combs:
   limit: 3.8e-08
   refs: Miyazaki:2007jp,Aubert:2006cz
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   limit: 9.9e-08
   refs: Miyazaki:2007jp,Aubert:2006cz
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   limit: 6.3e-08
   refs: Miyazaki:2007jp,Aubert:2006cz
 combs.extra:
@@ -1681,7 +1681,7 @@ combs.extra:
   bkg.error: 0.08
   observed.events: 1
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   exp: BaBar
   ref: Aubert:2006cz
   num.tau: 339.0
@@ -1693,7 +1693,7 @@ combs.extra:
   bkg.error: 0.03
   observed.events: 0
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   exp: BaBar
   ref: Aubert:2006cz
   num.tau: 339.0
@@ -1729,7 +1729,7 @@ combs.extra:
   bkg.error: 0.037
   observed.events: 0
 - gamma: 172
-  descr: e^- \eta'(958)
+  descr: e^- \eta^\prime(958)
   exp: Belle
   ref: Miyazaki:2007jp
   num.tau: 401.0
@@ -1741,7 +1741,7 @@ combs.extra:
   bkg.error: 0.41
   observed.events: 0
 - gamma: 173
-  descr: \mu^- \eta'(958)
+  descr: \mu^- \eta^\prime(958)
   exp: Belle
   ref: Miyazaki:2007jp
   num.tau: 401.0
