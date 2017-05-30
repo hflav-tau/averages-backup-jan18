@@ -18,17 +18,23 @@ i   0      0       6.4  |V_{us}|
 h   0.223700 0.0009848858 -1 -1      K_{l3}, PDG 2016
 h   0.225400 0.0007463913 -1 -1      K_{l2}, PDG 2016
 p   0.225816 0.000895 -1 -1      CKM unitarity, PDG 2016
-# m   0.2229   0.0022 0.0004       #tau #rightarrow s incl., Maltman 2017
-# m   0.2216   0.0027   0.0000     #tau #rightarrow K#pi#nu, Passemar, CKM 2014
-mt  0.218610 0.002135 0.0000     #tau #rightarrow s incl., HFLAV 2016
-mt  0.223585 0.001763 0.0000     #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFLAV 2016
-mt  0.221645 0.001451 0.0000     #tau average, HFLAV 2016
+mt  0.218610 0.002135 0.0000     #tau #rightarrow s incl., HFLAV Spring 2017
+mt  0.223585 0.001763 0.0000     #tau #rightarrow K#nu / #tau #rightarrow #pi#nu, HFLAV Spring 2017
+mt  0.221645 0.001451 0.0000     #tau average, HFLAV Spring 2017
 
 #
 # PDG 2016 Vud Vus review
+#
 # Vud = 0.97417(5)exp.(9)nucl.dep.(18)RC (superallowed)
 # Vus(unitarity) =  0.2258(9)
-# fK+ /fπ+ = 1.1928(26)
+# fK+ /fπ+ = 1.1928(26) (average of Nf = 2+1+1 and Nf = 2+1)
 # Vus = 0.2237(4)exp+RC(9)lattice (Kℓ3 Decays) 0.2237(9.848858)
 # Vus = 0.22540(53)exp(19)RC(49)lattice (Kµ2 Decays) 0.22540(74.63913)
+# Vus = 0.2248 ± 0.0006 hyperons, includes th. error due to 2nd-order SU(3) br
+#
+# additional Vus lines
+#
+# m   0.2229   0.0022 0.0004       #tau #rightarrow s incl., Maltman 2017
+# m   0.2216   0.0027   0.0000     #tau #rightarrow K#pi#nu, Passemar, CKM 2014
+# h   0.2248   0.001451 -1 -1      Hyperons, PDG 2016
 #
