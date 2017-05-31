@@ -39,9 +39,46 @@ save.plot = function(name, width=my.graph.width, height=my.graph.height, horiz.p
 }
 
 ##
+## HFLAV label
+##
+hfag.label = function(title="HFLAV", subtitle="Spring 2017", fsratio=0.8, x=unit(0.92,"npc"), y = unit(0.95,"npc")) {
+  hl.title = textGrob(
+    title,
+    x = x,
+    y = y,
+    gp = gpar(fontface="bold.italic", col="white")
+  )
+
+  hl.subtitle = textGrob(
+    subtitle,
+    x = hl.title$x,
+    y = hl.title$y - unit(1.3,"lines"),
+    gp = gpar(fontface="bold.italic", col="black", cex=fsratio)
+  )
+
+  hl.title.bkg = rectGrob(
+    x = hl.title$x,
+    y = hl.title$y,
+    width = unit(0.6, "char") + unit(1, "grobwidth", hl.subtitle),
+    height = unit(0.6, "char") + unit(1, "grobheight", hl.title),
+    gp=gpar(fill="black")
+  )
+  
+  hl.box = rectGrob(
+    x = hl.title$x,
+    y = hl.title$y - unit(fsratio, "grobheight", hl.subtitle) - unit(0.1, "char"),
+    width = unit(0.6, "char") + unit(1, "grobwidth", hl.subtitle),
+    height = unit(0.5, "char") + unit(1, "grobheight", hl.title) + unit(fsratio, "grobheight", hl.subtitle) + unit(1.4/2, "lines"),
+    gp=gpar(fill="white")
+  )
+
+  grobTree(hl.box, hl.title.bkg, hl.title, hl.subtitle)
+}
+
+##
 ## HFAG label
 ##
-hfag.label = function(title="HFLAV-Tau", subtitle="Summer 2016", scale=1.2, fsratio=0.8, x=unit(0.83,"npc"), y = unit(0.14,"npc")) {
+hfag.label.old = function(title="HFLAV-Tau", subtitle="Summer 2016", scale=1.2, fsratio=0.8, x=unit(0.83,"npc"), y = unit(0.14,"npc")) {
   ##
   ## draw title at desired position, font size scaled
   ##
@@ -179,7 +216,10 @@ rc = rc +
     aes(x=x, y=y), fill="Yellow") +
   ## labs(title="Lepton Universality Test") +
   labs(x=TeX("$\\tau_{\\tau}$(fs)"), y=TeX("$\\textit{B}_{\\tau e}^{\\prime}$")) +
-  annotation_custom(hfag.label())
+  annotation_custom(hfag.label(
+    subtitle="Spring 2017",
+    x=unit(0.87,"npc"), y = unit(0.14,"npc")
+  ))
 
 print(rc)
 
