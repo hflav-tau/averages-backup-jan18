@@ -38,6 +38,13 @@ df.to.list = function(df, keyfield=NA, keyname="key") {
   rc
 }
 
+##--- replace some experiments with TeX macros
+alurep.tex.exp = function(exp.name) {
+  exp.name = sub("BaBar", "\\babar", exp.name, fixed=TRUE)
+  exp.name = sub("Belle", "\\belle", exp.name, fixed=TRUE)
+  exp.name
+}
+
 ##--- return latex command def with specified multi-line body
 alurep.tex.cmd.nv = function(cmd, body) {
   paste("\\htdef{", cmd, "}{%\n", body, "}%", sep="")
@@ -161,7 +168,7 @@ rc = lapply(tau.lfv.data$combs.extra, function(br) {
   rc = paste0(
     "\\htCombExtraLine%\n",
     "  {\\ensuremath{\\Gamma_{", br$gamma, "} = ", gamma.info$descr, "}}%\n",
-    "  {", br$exp, "}%\n",
+    "  {", alurep.tex.exp(br$exp), "}%\n",
     "  {", br$ref, "}%\n",
     ## "  {", br$lumi, "}%\n",
     ## "  {", br$cross.section, "}%\n",
@@ -206,7 +213,7 @@ rc = lapply(tau.lfv.data$limits, function(br) {
       "  {\\ensuremath{\\Gamma_{", br$gamma, "} = ", gamma.info$descr, "}}%\n",
       "  {\\ensuremath{", type, "}}%\n",
       "  {\\ensuremath{", sub("^(.*)e([+-]*)0*(\\d*)$", "\\1 \\\\cdot 10^{\\2\\3}", sprintf("%.1e", br$limit)), "}}%\n",
-      "  {", br$exp, "}%\n",
+      "  {", alurep.tex.exp(br$exp), "}%\n",
       "  {", br$ref, "}"
     ))
 })
