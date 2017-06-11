@@ -1258,7 +1258,7 @@ alucomb.read = function(file = "") {
           cat("warning, BEGIN update measurement", meas.tag, "\n")
           el.check = intersect(names(old.meas), names(block.meas))
           for (el in el.check) {
-            if (any(unlist(old.meas[[el]]) != unlist(block.meas[[el]]))) {
+            if (length(old.meas[[el]]) != length(block.meas[[el]]) || any(unlist(old.meas[[el]]) != unlist(block.meas[[el]]))) {
               old.val = unlist(old.meas[[el]])
               new.val = unlist(block.meas[[el]])
               if (is.null(names(old.val))) {
@@ -1268,7 +1268,9 @@ alucomb.read = function(file = "") {
                 cat(el, "\n")
                 val.names = unique(c(names(old.val), names(new.val)))
                 old.val = old.val[val.names]
+                names(old.val) = val.names
                 new.val = new.val[val.names]
+                names(new.val) = val.names
               }
               alu.rbind.print(rbind(old=old.val, new=new.val))
             } else if (!identical(old.meas[[el]], block.meas[[el]])) {
