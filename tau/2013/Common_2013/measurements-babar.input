@@ -69,7 +69,7 @@ VALUE 8.27e-5 +- 0.88e-5 +- 0.81e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.7%             BaBarTrackingR24
@@ -95,7 +95,7 @@ VALUE 4.57e-5 +-0.77e-5 +-0.50e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.7%             BaBarTrackingR24
@@ -120,7 +120,7 @@ VALUE 7.3e-5 +-1.2e-5 +-1.2e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.7%             BaBarTrackingR24
@@ -147,7 +147,7 @@ VALUE 0.1e-4 +-0.08e-4 +-0.30e-4
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.0%             BaBarTrackingR24
@@ -172,7 +172,7 @@ END
 #
 # SYSTEMATICS
 #   -0.3%		   sigmataupmy4s
-#   -0.9539392%      BaBarLumiR24
+#   -0.9539392%      BaBarLumi
 #   3.8%		   BaBarTrackingR24
 #
 # SYSTPAPER
@@ -196,7 +196,7 @@ VALUE 5.20e-5 +-0.31e-5 +-0.37e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   3.8%             BaBarTrackingR24
@@ -220,7 +220,7 @@ VALUE 7.68e-4 +-0.04e-4 +-0.40e-4
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   3.8%             BaBarTrackingR24
@@ -256,7 +256,7 @@ END
 #
 # SYSTEMATICS
 #   -0.3%		   sigmataupmy4s
-#   -0.9539392%      BaBarLumiR24
+#   -0.9539392%      BaBarLumi
 #   3.8%		   BaBarTrackingR24
 #   3.0%		   BaBarPizeroEffR24
 #
@@ -282,7 +282,7 @@ VALUE 5.39e-5 +- 0.27e-5 +- 0.41e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   3.8%             BaBarTrackingR24
@@ -308,7 +308,7 @@ VALUE 8.4e-5 +-0.4e-5 +-0.6e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   3.8%             BaBarTrackingR24
@@ -336,7 +336,7 @@ VALUE 0.36e-4 +-0.03e-4 +-0.09e-4
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   3.8%             BaBarTrackingR24
@@ -374,7 +374,7 @@ VALUE 4.91e-5 +-0.31e-5 +-0.28e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.7%             BaBarTrackingR24
@@ -400,7 +400,7 @@ VALUE 2.86e-5 +-0.25e-5 +-0.18e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   3.8%             BaBarTrackingR24
@@ -427,7 +427,7 @@ VALUE 4.33e-5 +-1.27e-5 +-0.65e-5
 
 SYSTEMATICS
   -0.3%            sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.7%             BaBarTrackingR24
@@ -455,7 +455,7 @@ VALUE 8.26e-5 +- 0.35e-5 +- 0.51e-5
 
 SYSTEMATICS
   -0.3%		   sigmataupmy4s
-  -0.9539392%      BaBarLumiR24
+  -0.9539392%      BaBarLumi
 
 SYSTPAPER
   2.7%             BaBarTrackingR24
