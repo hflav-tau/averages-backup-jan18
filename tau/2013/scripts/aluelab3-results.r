@@ -79,7 +79,7 @@ aluelab.results = function(args) {
     cat("  -vadirect determine B_VA directly rather than from 1-Be-Bmu-Bstrange\n")
     cat("  -kmaltman use delta_R from Kim Maltman, private communication, 2014\n")
     cat("  -lepuniv use R_had = (1 - (1+(f_mu/f_e))Be_univ)/Be_univ\n")
-    args = args[args != "-s"]
+    ## args = args[args != "-h"]
     stop()
   }
   if(any(args == "-s")) {
