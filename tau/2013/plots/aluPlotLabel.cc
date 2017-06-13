@@ -17,10 +17,8 @@ void aluPlotLabel(const TString& header,
   
   Double_t ysiz_pixel(30);
   Double_t ysiz(Double_t(ysiz_pixel)/Double_t(pad_height));
-  Double_t xsiz(max(Double_t(header.Length())*1.2, Double_t(label.Length()))/Double_t(2.5)*
+  Double_t xsiz(max(Double_t(header.Length())*1.2, Double_t(label.Length()))/Double_t(2.8)*
 		ysiz*Double_t(pad_height)/Double_t(pad_width));
-
-  
   
   Double_t x1, x2, y1, y2;
   xsiz = scale*xsiz;
