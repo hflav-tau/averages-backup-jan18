@@ -1,10 +1,13 @@
-void aluPlotLabel(const TString& header="",
-		  const TString& label="",
+//
+// plot label with title and subtitle
+//
+void aluPlotLabel(const TString& title="",
+		  const TString& subtitle="",
 		  Double_t xpos=0, Double_t ypos=0,
 		  Double_t scale=1);
 
-void aluPlotLabel(const TString& header,
-		  const TString& label,
+void aluPlotLabel(const TString& title,
+		  const TString& subtitle,
 		  Double_t xpos, Double_t ypos,
 		  Double_t scale)
 {
@@ -12,35 +15,42 @@ void aluPlotLabel(const TString& header,
   
   if ((thePad = TVirtualPad::Pad()) == 0) return;
   
+  const Float_t font_size_px(20*scale);
+  const Float_t label_height_px(1.25 * font_size_px);
+  const Float_t fsratio(1.2);
+
+  Float_t x1, x2, y1, y2;
+
+  //--- get pad dimensions
   UInt_t pad_width(thePad->XtoPixel(thePad->GetX2()));
   UInt_t pad_height(thePad->YtoPixel(thePad->GetY1()));
   
-  Double_t ysiz_pixel(30);
-  Double_t ysiz(Double_t(ysiz_pixel)/Double_t(pad_height));
-  Double_t xsiz(max(Double_t(header.Length())*1.2, Double_t(label.Length()))/Double_t(2.8)*
-		ysiz*Double_t(pad_height)/Double_t(pad_width));
-  
-  Double_t x1, x2, y1, y2;
-  xsiz = scale*xsiz;
-  ysiz = scale*ysiz;
-  
+  //--- title label height in NDC coordinates
+  Float_t label_height(Double_t(label_height_px)/Double_t(pad_height));
+
+  Float_t label_width(max(Double_t(title.Length())*1.2, Double_t(subtitle.Length()))
+		      /Double_t(2.5)
+		      *label_height
+		      *Double_t(pad_height)/Double_t(pad_width)
+		      );
+
   if (xpos >= 0) {
     x1 = xpos;
-    x2 = xpos + xsiz;
+    x2 = xpos + label_width;
   } else {
-    x1 = 1 + xpos - xsiz;
+    x1 = 1 + xpos - label_width;
     x2 = 1 + xpos;
   }
   
   if (ypos >= 0) {
-    y1 = ypos+0.9*ysiz;
-    y2 = ypos+0.9*ysiz + ysiz;
+    y1 = ypos+0.9*label_height;
+    y2 = ypos+0.9*label_height + label_height;
   } else {
-    y1 = 1 + ypos - ysiz;
+    y1 = 1 + ypos - label_height;
     y2 = 1 + ypos;
   }
   
-  if (header != "") {
+  if (title != "") {
   TPaveText *tbox1 = new TPaveText(x1, y1, x2, y2, "BRNDC");
   // tbox1->SetLineColor(1);
   // tbox1->SetLineStyle(1);
@@ -51,14 +61,14 @@ void aluPlotLabel(const TString& header,
   tbox1->SetShadowColor(kWhite);
   tbox1->SetTextColor(kWhite);
   tbox1->SetTextFont(76);
-  tbox1->SetTextSize(24*scale);
+  tbox1->SetTextSize(20*scale);
   tbox1->SetTextAlign(22); //center-adjusted and vertically centered
-  tbox1->AddText(header);
+  tbox1->AddText(title);
   tbox1->Draw();
   }
 
-  if (label != "") {
-  TPaveText *tbox2 = new TPaveText(x1, y1-0.9*ysiz, x2, y2-ysiz, "BRNDC");
+  if (subtitle != "") {
+  TPaveText *tbox2 = new TPaveText(x1, y1-0.9*label_height, x2, y2-label_height, "BRNDC");
   // tbox2->SetLineColor(1);
   // tbox2->SetLineStyle(1);
   // tbox2->SetLineWidth(2);
@@ -68,9 +78,9 @@ void aluPlotLabel(const TString& header,
   tbox2->SetShadowColor(kWhite);
   tbox2->SetTextColor(kBlack);
   tbox2->SetTextFont(76);
-  tbox2->SetTextSize(20*scale);
+  tbox2->SetTextSize(18*scale);
   tbox2->SetTextAlign(22); //center-adjusted and vertically centered
-  tbox2->AddText(label);
+  tbox2->AddText(subtitle);
   tbox2->Draw();
   }
   

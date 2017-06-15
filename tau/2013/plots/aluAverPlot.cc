@@ -62,7 +62,7 @@ void PlotStyleSetup(Float_t scale = 1, Int_t canvas_width = 560)
   // gStyle->SetPadBottomMargin(0.15);
 
   //--- average plots
-  gStyle->SetPadLeftMargin(0.05);
+  gStyle->SetPadLeftMargin(0.02);
   gStyle->SetPadRightMargin(0.50);
 
   gStyle->SetLineWidth(3);
@@ -517,7 +517,7 @@ void aluAverPlot(const std::string& filename, const Int_t nPoints_def, Int_t can
   const Float_t xtextNDC( (xtext-TVirtualPad::Pad()->GetX1()) / (TVirtualPad::Pad()->GetX2() - TVirtualPad::Pad()->GetX1()) );
   if (fitLabel != "" || fitLabelHeader != "") {
     // aluPlotLabel(fitLabelHeader, fitLabel, xtextNDC, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
-    aluPlotLabel(fitLabelHeader, fitLabel, -0.03, 0.03*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
+    aluPlotLabel(fitLabelHeader, fitLabel, -0.02, 0.02*plotScaleFact, 0.9 * Float_t(canvas_width) / Float_t(560));
   }
   std::string basefname(filename);
   size_t extPos = basefname.rfind('.');
