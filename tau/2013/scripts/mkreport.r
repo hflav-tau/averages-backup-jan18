@@ -4,8 +4,8 @@
 ## mkreport.r
 ##
 
-require("optparse", quietly=TRUE)
-require("stringr", quietly=TRUE)
+library("optparse", quietly=TRUE)
+library("stringr", quietly=TRUE)
 
 getScriptPath <- function() {
   cmd.args <- commandArgs()
@@ -570,8 +570,10 @@ mkreport = function(fname) {
   ##
   tex.defs = c(
     ##--- unitarity check
+    ## alurep.tex.cmd.short("UnitarityResid",
+    ##                      alurep.tex.val.err.auto(quant.val["Gamma998"], quant.err["Gamma998"], perc=TRUE)),
     alurep.tex.cmd.short("UnitarityResid",
-                         alurep.tex.val.err.auto(quant.val["Gamma998"], quant.err["Gamma998"], perc=TRUE)),
+                         alurep.tex.val.err.prec.ord(quant.val["Gamma998"], quant.err["Gamma998"], prec=2, ord=-2, perc=TRUE)),
     ##--- measurements
     alurep.tex.cmd.short("MeasNum", as.character(meas.num)),
 
