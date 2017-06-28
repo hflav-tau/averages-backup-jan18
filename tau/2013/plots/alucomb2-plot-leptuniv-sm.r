@@ -215,7 +215,7 @@ rc = rc +
         y=c(band.xmin.ymax, band.xmin.ymin, band.xmax.ymin, band.xmax.ymax)),
     aes(x=x, y=y), fill="Yellow") +
   ## labs(title="Lepton Universality Test") +
-  labs(x=TeX("$\\tau_{\\tau}$(fs)"), y=TeX("$\\textit{B}_{\\tau e}^{\\prime}$")) +
+  labs(x=TeX("$\\tau_{\\tau}$(fs)"), y=TeX("$\\textit{B}^{\\prime}(\\tau \\rightarrow e \\bar{\\nu} \\nu)$")) +
   annotation_custom(hfag.label(
     subtitle="Spring 2017",
     x=unit(0.87,"npc"), y = unit(0.14,"npc")
