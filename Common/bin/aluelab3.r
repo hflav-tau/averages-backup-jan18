@@ -580,6 +580,18 @@ rc = StatComb$methods(
     }
   })
 
+##
+## compute systematic contribution of the form
+## d(<string expression>)/dvar * sigma(var)
+##
+rc = StatComb$methods(
+  err.contrib.str.expr = function(str.expr, vars) {
+    expr = parse(text=as.character(str.expr))    
+    comb = drop(attr(eval(deriv(expr, vars), c(as.list(.val), as.list(.param))), "gradient"))
+    comb * err(vars)
+  })
+
+
 rc = StatComb$methods(
   err.contrib.rel = function(quant.name, ...) {
     err.contrib(quant.name, ...) / .val[quant.name]
