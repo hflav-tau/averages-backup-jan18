@@ -520,6 +520,10 @@ aluelab.results = function(args) {
     quant$quant.expr.add("R_tau_VA", R_tau - R_tau_s)
   }
 
+  ##--- R_tau using only leptonic BRs
+  quant$quant.expr.add("R_tau_leptuniv", 1/Be_univ -1 -phspf_mmubymtau/phspf_mebymtau)
+  quant$quant.expr.add("R_tau_leptonly", (1-Gamma3-Gamma5)/Be_univ)
+
   ## ////////////////////////////////////////
   ##
   ## Vus from tau -> s inclusive
