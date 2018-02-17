@@ -238,7 +238,6 @@ get.tex.table.simple = function(quant.names, precision, order) {
 ## return measurements by collaboration
 ##
 get.tex.meas.by.collab = function() {
-  toTex = TrStr.num2tex$new()
   collab.meas = sapply(measurements[combination$measurements], function(meas) meas$tags[1])
   collabs = sort(unique(collab.meas))
   collab.nmeas = sapply(collabs, function(collab) sum(collab.meas == collab))
