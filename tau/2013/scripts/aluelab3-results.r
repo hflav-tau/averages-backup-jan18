@@ -608,9 +608,10 @@ aluelab.results = function(args) {
   ## http://inspirehep.net/record/383287?ln=en
   ##
   ## ---upd16
-  ##
+  ## use average of asymmetric error from Decker 1994 paper
   ## quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, sqrt( (0.09e-2^2 + 0.14e-2^2)/2 ))
   ## quant$quant.add.single("dRrad_tauK_by_Kmu", 0.90e-2, sqrt( (0.17e-2^2 + 0.26e-2^2)/2 ))
+  ##
   ## --- Summer16
   ## use conservative values used also in A.Pich, Precision Tau Physics
   quant$quant.add.single("dRrad_taupi_by_pimu", 0.16e-2, 0.14e-2)
