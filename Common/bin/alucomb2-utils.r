@@ -1485,3 +1485,15 @@ alu.matr.inv.sqrt.symm.semipos.norm = function(X, X.norm, tol = sqrt(.Machine$do
 
   return(XX.inv.sqrt)
 }
+
+##
+## cov2cor for matrices with any diagonal element equal to zero
+##
+
+cov2cor.nonzero = function(cov) {
+  nonzero = (diag(cov) != 0)
+  dims = dim(cov)
+  corr = cov * 0
+  corr[nonzero, nonzero] = cov2cor(cov[nonzero, nonzero])
+  corr
+}
