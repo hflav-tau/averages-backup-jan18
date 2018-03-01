@@ -238,7 +238,7 @@ alucomb2.handle.asymm.excurs = function(value, delta) {
     delta.pn = delta.p
     attr(delta.p, "input") = ""
     attr(delta.n, "input") = ""
-    attr(delta.pn, "input") = attr(delta, "input")
+    attr(delta.pn, "input") = paste0("+-", attr(delta, "input"))
   } else {
     ##--- there is a separate negative value
     delta.n = as.vector(attr(delta, "negval"))
@@ -294,7 +294,7 @@ alucomb2.format.param = function(label, value, width=26) {
   if (input[2] == "") {
     rc.out = paste(rc.out, format(paste(" ", input[3], sep=""), width=12),  " ", input[4], sep="")
   } else {
-    rc.out = paste(rc.out, " +-", input[2], sep="")
+    rc.out = paste(rc.out, " ", input[2], sep="")
   }
 }
 
@@ -359,8 +359,8 @@ alucomb2.print.meas = function(meas, quantities) {
 
   flag.stat.mismatch = FALSE
   if (attr(meas$stat, "input") != "") {
-    cat(" +-", attr(meas$stat, "input"), sep="")
-    if (attr(meas$stat, "input") != meas$stat) flag.stat.mismatch = TRUE
+    cat(" ", attr(meas$stat, "input"), sep="")
+    if (sub("+-", "", attr(meas$stat, "input"), fixed=TRUE) != meas$stat) flag.stat.mismatch = TRUE
   } else {
     cat(" ", attr(meas$stat.p, "input"), " ", attr(meas$stat.n, "input"), sep="")
     if (attr(meas$stat.p, "input") != meas$stat.p ||
@@ -369,8 +369,8 @@ alucomb2.print.meas = function(meas, quantities) {
 
   flag.syst.mismatch = FALSE
   if (attr(meas$syst, "input") != "") {
-    cat(" +-", attr(meas$syst, "input"), sep="")
-    if (attr(meas$syst, "input") != meas$syst) flag.syst.mismatch = TRUE
+    cat(" ", attr(meas$syst, "input"), sep="")
+    if (sub("+-", "", attr(meas$syst, "input"), fixed=TRUE) != meas$syst) flag.syst.mismatch = TRUE
   } else {
     cat(" ", attr(meas$syst.p, "input"), " ", attr(meas$syst.n, "input"), sep="")
     if (attr(meas$syst.p, "input") != meas$syst.p ||

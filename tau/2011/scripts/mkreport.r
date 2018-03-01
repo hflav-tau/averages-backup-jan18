@@ -820,12 +820,12 @@ mkreport.tex.cmd.short = function(cmd, body) {
 ##
 mkreport.get.meas.val = function(meas) {
   if (attr(meas$stat, "input") != "") {
-    stat.txt = paste("\\pm", attr(meas$stat, "input"))
+    stat.txt = paste("\\pm", sub("+-", "", attr(meas$stat, "input"), fixed=TRUE))
   } else {
     stat.txt = paste("{}^{", attr(meas$stat.p, "input"), "}_{", attr(meas$stat.n, "input"), "}", sep="")
   }
   if (attr(meas$syst, "input") != "") {
-    syst.txt = paste("\\pm", attr(meas$syst, "input"))
+    syst.txt = paste("\\pm", sub("+-", "", attr(meas$syst, "input"), fixed=TRUE))
   } else {
     syst.txt = paste("{}^{", attr(meas$syst.p, "input"), "}_{", attr(meas$syst.n, "input"), "}", sep="")
   }

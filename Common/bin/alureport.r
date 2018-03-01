@@ -172,7 +172,7 @@ alurep.tex.meas.val.card.fields = function(meas) {
   ee.data = c(ee.data, val.txt)
 
   if (attr(meas$stat, "input") != "") {
-    stat.txt = paste("\\pm", attr(meas$stat, "input"))
+    stat.txt = paste("\\pm", sub("+-", "", attr(meas$stat, "input"), fixed=TRUE))
     ee.data = c(ee.data, attr(meas$stat, "input"))
   } else {
     stat.txt = paste("{}^{", attr(meas$stat.p, "input"), "}_{", attr(meas$stat.n, "input"), "}", sep="")
@@ -181,7 +181,7 @@ alurep.tex.meas.val.card.fields = function(meas) {
   quant.tex = c(quant.tex, stat.txt)
 
   if (attr(meas$syst, "input") != "") {
-    syst.txt = attr(meas$syst, "input")
+    syst.txt = sub("+-", "", attr(meas$syst, "input"), fixed=TRUE)
     if (syst.txt != "0") {
       quant.tex = c(quant.tex, paste("\\pm", syst.txt))
       ee.data = c(ee.data, syst.txt)
