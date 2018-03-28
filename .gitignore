@@ -1,9 +1,9 @@
 *~
-tau/*/Urania/build
-tau/*/Urania/install
-tau/*/Urania/Phys/*/math/*/results*
 *.log
 *.dat
 *.job
 *.pyc
 *.exe
+tau/*/Urania/build
+tau/*/Urania/install
+tau/*/Urania/Phys/*/math/*/results*
