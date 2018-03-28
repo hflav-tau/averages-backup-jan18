@@ -1,6 +1,7 @@
 *~
-Urania/build
-Urania/install
+tau/*/Urania/build
+tau/*/Urania/install
+tau/*/Urania/Phys/*/math/*/results*
 *.log
 *.dat
 *.job
