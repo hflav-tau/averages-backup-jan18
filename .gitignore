@@ -1,0 +1,8 @@
+*~
+Urania/build
+Urania/install
+*.log
+*.dat
+*.job
+*.pyc
+*.exe
