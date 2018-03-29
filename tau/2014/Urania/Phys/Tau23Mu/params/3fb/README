@@ -1,0 +1,31 @@
+operator files not properly normalised!
+
+calib versions:
+
+no mentionned = pre January version
+newcalib = post January version w/ isMuon bias
+v3 = isMuon bias fixed; w/ potential trigger bias; unconfirmed whether crosscheck passed
+v4 = with phenomenologic bias correction
+
+
+
+systematics: (alpha 2011)
+default (4.05e-9)
+default file contains "plus" and "minus" which correspond to PIDCalib error predictions
+1: prompt ds 1sigma down  (3.90)
+2: prompt d+ 1sigma down  (4.39)
+3: B/b 1sigma down        (4.23)
+4: secondary ds 1sigma down(3.97)
+5: prompt ds 1sigma up    (4.15)
+6: prompt d+ 1sigma up    (4.01)
+7: B/b 1sigma up          (3.80)
+8: secondary ds 1sigma up (4.08)
+14: tau mass model, central value 3sigma down  (coming from normalisation of the file)
+15: tau mass model, inner width 3sigma down  (coming from normalisation of the file)
+16: tau mass model, outer width 3sigma down  (coming from normalisation of the file)
+17: tau mass model, central value 3sigma up  (coming from normalisation of the file)
+18: tau mass model, inner width 3sigma up  (coming from normalisation of the file)
+19: tau mass model, outer width value 3sigma up  (coming from normalisation of the file)
+
+20: PID correction UP (none)
+21: PID correction DOWN (none)
